@@ -4,7 +4,7 @@ import request from "@/lib/request";
 import { useState } from "react";
 
 export default function DemoNoAuth() {
-  const [response, setResponse] = useState(null);
+  const [response, setResponse] = useState<unknown>(null);
 
   const callApiTest = async (url: string) => {
     try {

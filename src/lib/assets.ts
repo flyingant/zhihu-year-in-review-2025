@@ -190,6 +190,40 @@ export const assets = {
       },
     ],
   },
+  
+  // New image assets
+  newImages: {
+    wuzida2025: {
+      url: '/assets/2025qinzida@2x.png',
+      width: 978,
+      height: 302,
+      alt: '2025亲自答',
+    },
+    liukanshanBianLiDian: {
+      url: '/assets/liukanshanzhenshibianlidian@2x.png',
+      width: 629,
+      height: 282,
+      alt: '刘看山真实便利店',
+    },
+    zaiZhiHuLianJieZhenShi: {
+      url: '/assets/zaizhihulianjiegengduodezhenshi@2x.png',
+      width: 598,
+      height: 240,
+      alt: '在知乎链接更多的真实',
+    },
+    qiangXianYuGao: {
+      url: '/assets/qiangxianyugao@2x.png',
+      width: 788,
+      height: 257,
+      alt: '抢先预告',
+    },
+    zheXieZhenDeKeYi: {
+      url: '/assets/zhexiezhendekeyi@2x.png',
+      width: 924,
+      height: 274,
+      alt: '这些真的可以',
+    },
+  },
 } as const;
 
 /**

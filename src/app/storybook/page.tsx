@@ -1,6 +1,11 @@
 import KVSection from "../../components/compound/KVSection";
 import FolderSection from "../../components/compound/FolderSection";
 import ZhihuLogo from "../../components/ui/ZhihuLogo";
+import WuZiDa2025 from "../../components/ui/WuZiDa2025";
+import LiuKanShanBianLiDian from "../../components/ui/LiuKanShanBianLiDian";
+import ZaiZhiHuLianJieZhenShi from "../../components/ui/ZaiZhiHuLianJieZhenShi";
+import QiangXianYuGao from "../../components/ui/QiangXianYuGao";
+import ZheXieZhenDeKeYi from "../../components/ui/ZheXieZhenDeKeYi";
 
 export default function StorybookPage() {
   return (
@@ -10,36 +15,102 @@ export default function StorybookPage() {
           Component Storybook
         </h1>
 
-        {/* Logo Component */}
-        <div className="mb-6 mx-2 shrink-0 relative z-0">
-          <div className="bg-white rounded-lg shadow-md p-2 relative z-0">
-            <h2 className="text-lg font-semibold mb-2 px-2">Zhihu Logo</h2>
-            <div className="border border-gray-200 rounded overflow-hidden relative z-0 p-4 flex justify-center">
-              <ZhihuLogo />
+        {/* Waterfall Layout Container */}
+        <div className="flex flex-row flex-wrap items-start relative z-0">
+          {/* Logo Component */}
+          <div className="mb-6 mx-2 shrink-0 relative z-0">
+            <div className="bg-white rounded-lg shadow-md p-2 relative z-0">
+              <h2 className="text-lg font-semibold mb-2 px-2">Zhihu Logo</h2>
+              <div className="border border-gray-200 rounded overflow-hidden relative z-0 p-4 flex justify-center">
+                <ZhihuLogo />
+              </div>
             </div>
           </div>
-        </div>
 
-        {/* Waterfall Layout Container */}
-        <div className="flex flex-row items-start relative z-0">
           {/* KV Section Component */}
-          <div className="mb-6 mx-2 shrink-0 relative z-0" style={{ width: '375px' }}>
+          <div
+            className="mb-6 mx-2 shrink-0 relative z-0"
+            style={{ width: "375px" }}
+          >
             <div className="bg-white rounded-lg shadow-md p-2 relative z-0">
               <h2 className="text-lg font-semibold mb-2 px-2">KV Section</h2>
-              <div className="border border-gray-200 rounded overflow-hidden relative z-0" style={{ width: '375px' }}>
+              <div
+                className="border border-gray-200 rounded overflow-hidden relative z-0"
+                style={{ width: "375px" }}
+              >
                 <KVSection />
               </div>
             </div>
           </div>
 
           {/* Folder Section Component */}
-          <div className="mb-6 mx-2 shrink-0 relative z-0" style={{ width: '375px' }}>
+          <div
+            className="mb-6 mx-2 shrink-0 relative z-0"
+            style={{ width: "375px" }}
+          >
             <div className="bg-white rounded-lg shadow-md p-2 relative z-0">
               <h2 className="text-lg font-semibold mb-2 px-2">
                 Folder Section
               </h2>
-              <div className="border border-gray-200 rounded overflow-hidden relative z-0" style={{ width: '375px' }}>
+              <div
+                className="border border-gray-200 rounded overflow-hidden relative z-0"
+                style={{ width: "375px" }}
+              >
                 <FolderSection />
+              </div>
+            </div>
+          </div>
+
+          {/* New Image Components */}
+          <div className="mb-6 mx-2 shrink-0 relative z-0">
+            <div className="bg-white rounded-lg shadow-md p-2 relative z-0">
+              <h2 className="text-lg font-semibold mb-2 px-2">WuZiDa2025</h2>
+              <div className="border border-gray-200 rounded overflow-hidden relative z-0 p-4 flex justify-center">
+                <WuZiDa2025 />
+              </div>
+            </div>
+          </div>
+
+          <div className="mb-6 mx-2 shrink-0 relative z-0">
+            <div className="bg-white rounded-lg shadow-md p-2 relative z-0">
+              <h2 className="text-lg font-semibold mb-2 px-2">
+                LiuKanShanBianLiDian
+              </h2>
+              <div className="border border-gray-200 rounded overflow-hidden relative z-0 p-4 flex justify-center">
+                <LiuKanShanBianLiDian />
+              </div>
+            </div>
+          </div>
+
+          <div className="mb-6 mx-2 shrink-0 relative z-0">
+            <div className="bg-white rounded-lg shadow-md p-2 relative z-0">
+              <h2 className="text-lg font-semibold mb-2 px-2">
+                ZaiZhiHuLianJieZhenShi
+              </h2>
+              <div className="border border-gray-200 rounded overflow-hidden relative z-0 p-4 flex justify-center">
+                <ZaiZhiHuLianJieZhenShi />
+              </div>
+            </div>
+          </div>
+
+          <div className="mb-6 mx-2 shrink-0 relative z-0">
+            <div className="bg-white rounded-lg shadow-md p-2 relative z-0">
+              <h2 className="text-lg font-semibold mb-2 px-2">
+                QiangXianYuGao
+              </h2>
+              <div className="border border-gray-200 rounded overflow-hidden relative z-0 p-4 flex justify-center">
+                <QiangXianYuGao />
+              </div>
+            </div>
+          </div>
+
+          <div className="mb-6 mx-2 shrink-0 relative z-0">
+            <div className="bg-white rounded-lg shadow-md p-2 relative z-0">
+              <h2 className="text-lg font-semibold mb-2 px-2">
+                ZheXieZhenDeKeYi
+              </h2>
+              <div className="border border-gray-200 rounded overflow-hidden relative z-0 p-4 flex justify-center">
+                <ZheXieZhenDeKeYi />
               </div>
             </div>
           </div>

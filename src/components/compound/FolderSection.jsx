@@ -2,45 +2,49 @@
 
 import React, { useState } from 'react';
 import Image from 'next/image';
+import { assets, asset } from '@/lib/assets';
 
 const clipPathleft = 'polygon(43% 0, 50% 19%, 100% 20%, 100% 100%, 68% 100%, 32% 100%, 0 100%, 0% 43%, 0 0)';
 const clipPathright = 'polygon(50% 20%, 57% 0, 100% 0, 100% 100%, 68% 100%, 32% 100%, 0 100%, 0% 43%, 0 20%)';
 
 const FolderSection = () => {
+  const footerImg = asset(assets.folders.footer);
+  const footerSrc = typeof footerImg === 'string' ? footerImg : footerImg.url;
+
   const folders = [
     { 
       id: 0, 
-      img: '/assets/folder_1.png', 
+      img: asset(assets.folders.all[0]), 
       name: '嘉宾1',
       clipPath: clipPathleft
     },
     { 
       id: 1, 
-      img: '/assets/folder_2.png', 
+      img: asset(assets.folders.all[1]), 
       name: '嘉宾2',
       clipPath: clipPathright
     },
     { 
       id: 2, 
-      img: '/assets/folder_3.png', 
+      img: asset(assets.folders.all[2]), 
       name: '嘉宾3',
       clipPath: clipPathleft
     },
     { 
       id: 3, 
-      img: '/assets/folder_4.png', 
+      img: asset(assets.folders.all[3]), 
       name: '嘉宾4',
       clipPath: clipPathright
     },
     { 
       id: 4, 
-      img: '/assets/folder_5.png', 
+      img: asset(assets.folders.all[4]), 
       name: '嘉宾5',
       clipPath: clipPathleft
     },
     { 
       id: 5, 
-      img: '/assets/folder_6.png', 
+      img: asset(assets.folders.all[5]), 
       name: '嘉宾6',
       clipPath: clipPathright
     },
@@ -59,6 +63,7 @@ const FolderSection = () => {
           const zIndex = index;
           const topOffset = index * 15; 
           const isActive = activeIndex === index;
+          const imgSrc = typeof folder.img === 'string' ? folder.img : folder.img.url;
 
           return (
             <div
@@ -77,7 +82,7 @@ const FolderSection = () => {
               }}
             >
               <Image 
-                src={folder.img} 
+                src={imgSrc} 
                 alt={folder.name} 
                 width={375}
                 height={500}
@@ -90,7 +95,7 @@ const FolderSection = () => {
         })}
       </div>
 
-      <div className="relative top-[-50px] z-50 flex flex-col items-center justify-center pb-10">
+      <div className="relative z-50 flex flex-col items-center justify-center pb-10">
          <div className="w-[343px] mb-2
          after:content-[''] 
          after:absolute 
@@ -100,7 +105,7 @@ const FolderSection = () => {
          after:h-1/2
          after:bg-white
          after:-z-10  ">
-            <Image src="/assets/folder_footer.png" alt="点击名字查看真实瞬间" width={343} height={135} className="w-full" />
+            <Image src={footerSrc} alt="点击名字查看真实瞬间" width={343} height={135} className="w-full" />
          </div>
       </div>
 

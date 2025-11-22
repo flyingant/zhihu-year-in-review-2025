@@ -8,62 +8,61 @@ const clipPathleft = 'polygon(43% 0, 50% 19%, 100% 20%, 100% 100%, 68% 100%, 32%
 const clipPathright = 'polygon(50% 20%, 57% 0, 100% 0, 100% 100%, 68% 100%, 32% 100%, 0 100%, 0% 43%, 0 20%)';
 
 const FolderSection = () => {
-  const footerImg = asset(assets.folders.footer);
-  const footerSrc = typeof footerImg === 'string' ? footerImg : footerImg.url;
+  const footerImg = asset(assets.folders.footer) as { url: string; width: number; height: number; alt: string };
 
   const folders = [
-    { 
-      id: 0, 
-      img: asset(assets.folders.all[0]), 
+    {
+      id: 0,
+      asset: asset(assets.folders.all[0]),
       name: '嘉宾1',
       clipPath: clipPathleft
     },
-    { 
-      id: 1, 
-      img: asset(assets.folders.all[1]), 
+    {
+      id: 1,
+      asset: asset(assets.folders.all[1]),
       name: '嘉宾2',
       clipPath: clipPathright
     },
-    { 
-      id: 2, 
-      img: asset(assets.folders.all[2]), 
+    {
+      id: 2,
+      asset: asset(assets.folders.all[2]),
       name: '嘉宾3',
       clipPath: clipPathleft
     },
-    { 
-      id: 3, 
-      img: asset(assets.folders.all[3]), 
+    {
+      id: 3,
+      asset: asset(assets.folders.all[3]),
       name: '嘉宾4',
       clipPath: clipPathright
     },
-    { 
-      id: 4, 
-      img: asset(assets.folders.all[4]), 
+    {
+      id: 4,
+      asset: asset(assets.folders.all[4]),
       name: '嘉宾5',
       clipPath: clipPathleft
     },
-    { 
-      id: 5, 
-      img: asset(assets.folders.all[5]), 
+    {
+      id: 5,
+      asset: asset(assets.folders.all[5]),
       name: '嘉宾6',
       clipPath: clipPathright
     },
   ];
 
-  const [activeIndex, setActiveIndex] = useState(null);
+  const [activeIndex, setActiveIndex] = useState<number | null>(null);
 
-  const handleFolderClick = (index) => {
+  const handleFolderClick = (index: number) => {
     setActiveIndex(activeIndex === index ? null : index);
   };
 
   return (
-    <div className="relative w-full pb-20 z-100">
-      <div className="relative w-full max-w-[343px] mx-auto h-[165px]">    
+    <div className="relative w-full z-100">
+      <div className="relative w-full max-w-[343px] mx-auto h-[165px]">
         {folders.map((folder, index) => {
           const zIndex = index;
-          const topOffset = index * 15; 
+          const topOffset = index * 15;
           const isActive = activeIndex === index;
-          const imgSrc = typeof folder.img === 'string' ? folder.img : folder.img.url;
+          const { url, width, height, alt } = folder.asset as { url: string; width: number; height: number; alt: string };
 
           return (
             <div
@@ -81,12 +80,12 @@ const FolderSection = () => {
                 WebkitClipPath: folder.clipPath,
               }}
             >
-              <Image 
-                src={imgSrc} 
-                alt={folder.name} 
-                width={375}
-                height={500}
-                className="w-full h-auto drop-shadow-xl" 
+              <Image
+                src={url}
+                alt={alt}
+                width={width}
+                height={height}
+                className="w-full h-auto drop-shadow-xl"
                 draggable="false"
                 priority={index === 0}
               />
@@ -95,8 +94,8 @@ const FolderSection = () => {
         })}
       </div>
 
-      <div className="relative z-50 flex flex-col items-center justify-center pb-10">
-         <div className="w-[343px] mb-2
+      <div className="relative top-[-55px] z-50 flex flex-col items-center justify-center">
+        <div className="w-[343px] mb-2
          after:content-[''] 
          after:absolute 
          after:bottom-0 
@@ -105,8 +104,8 @@ const FolderSection = () => {
          after:h-1/2
          after:bg-white
          after:-z-10  ">
-            <Image src={footerSrc} alt="点击名字查看真实瞬间" width={343} height={135} className="w-full" />
-         </div>
+          <Image src={footerImg.url} alt={footerImg.alt} width={footerImg.width} height={footerImg.height} className="w-full" />
+        </div>
       </div>
 
     </div>

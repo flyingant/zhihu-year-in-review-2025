@@ -26,7 +26,36 @@ body {
 }
 
 
-@keyframes my-marquee {
-  0% { transform: translateX(0); }
-  100% { transform: translateX(-100%); }
+@theme {
+
+  --color-theme-blue: rgb(5 109 232);
+  --color-theme-blue-light: rgba(5, 109, 232, 0.08);
+  --color-card-glass: rgba(255, 255, 255, 0.7);
+
+  --animate-marquee: marquee 12s linear infinite;
+  --animate-contentShow: contentShow 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+
+
+  @keyframes marquee {
+    0% {
+      transform: translateX(0);
+    }
+
+    100% {
+      transform: translateX(-100%);
+    }
+  }
+
+  @keyframes contentShow {
+    0% {
+      opacity: 0;
+      transform: scale(0.9);
+    }
+
+    100% {
+      opacity: 1;
+      transform: scale(1);
+    }
+  }
+
 }

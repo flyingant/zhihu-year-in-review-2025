@@ -10,6 +10,7 @@ import LiuKanShanBianLiDian from "../components/ui/LiuKanShanBianLiDian";
 import ZaiZhiHuLianJieZhenShi from "../components/ui/ZaiZhiHuLianJieZhenShi";
 import QiangXianYuGao from "../components/ui/QiangXianYuGao";
 import ZheXieZhenDeKeYi from "../components/ui/ZheXieZhenDeKeYi";
+import TaskSection from '../components/compound/TaskSection';
 
 export default function Home() {
   return (
@@ -60,7 +61,11 @@ export default function Home() {
             <ZheXieZhenDeKeYi />
           </div>
         </SectionLayout>
+
+        <SectionLayout topOffset={0} id="task-section">
+          <TaskSection />
+        </SectionLayout>
       </main>
     </div>
   );
-}
+}         

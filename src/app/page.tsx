@@ -1,12 +1,15 @@
-import KVSection from '../components/compound/KVSection';
-import FolderSection from '../components/compound/FolderSection';
-import SectionLayout from '../components/layout/SectionLayout';
-import ZhihuLogo from '../components/ui/ZhihuLogo';
-import WuZiDa2025 from '../components/ui/WuZiDa2025';
-import LiuKanShanBianLiDian from '../components/ui/LiuKanShanBianLiDian';
-import ZaiZhiHuLianJieZhenShi from '../components/ui/ZaiZhiHuLianJieZhenShi';
-import QiangXianYuGao from '../components/ui/QiangXianYuGao';
-import ZheXieZhenDeKeYi from '../components/ui/ZheXieZhenDeKeYi';
+"use client";
+import Image from "next/image";
+import Head from "next/head";
+import KVSection from "../components/compound/KVSection";
+import FolderSection from "../components/compound/FolderSection";
+import SectionLayout from "../components/layout/SectionLayout";
+import ZhihuLogo from "../components/ui/ZhihuLogo";
+import WuZiDa2025 from "../components/ui/WuZiDa2025";
+import LiuKanShanBianLiDian from "../components/ui/LiuKanShanBianLiDian";
+import ZaiZhiHuLianJieZhenShi from "../components/ui/ZaiZhiHuLianJieZhenShi";
+import QiangXianYuGao from "../components/ui/QiangXianYuGao";
+import ZheXieZhenDeKeYi from "../components/ui/ZheXieZhenDeKeYi";
 
 export default function Home() {
   return (

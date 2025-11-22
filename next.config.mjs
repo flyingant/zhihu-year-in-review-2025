@@ -1,10 +1,10 @@
 // next.config.mjs
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  output: "export",                  // ← Enables next export (pure static)
-  trailingSlash: true,               // Recommended for static hosting
+  output: "export", // ← Enables next export (pure static)
+  trailingSlash: true, // Recommended for static hosting
   images: {
-    unoptimized: true,               // Required for static export (no next/image loader)
+    unoptimized: true, // Required for static export (no next/image loader)
   },
   eslint: {
     ignoreDuringBuilds: true,
@@ -15,6 +15,19 @@ const nextConfig = {
   // Optional: if you deploy under a subpath
   // basePath: "/my-design-system",
   // assetPrefix: "/my-design-system/",
+
+  rewrites() {
+    return [
+      {
+        source: "/auth/me",
+        destination: "https://www.zhihu.com/api/v4/me",
+      },
+      {
+        source: "/api/:path*",
+        destination: "https://api.zhihu.com/api/:path*",
+      },
+    ];
+  },
 };
 
 export default nextConfig;

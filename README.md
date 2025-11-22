@@ -4,6 +4,22 @@
 
 ## 开发
 
+先复制 `.env.example` 为 `.env.development`, `.env.production`
+
+```
+# .env.development
+NEXT_PUBLIC_BASE_API_URL=/api
+NEXT_PUBLIC_BASE_LOGIN_API_URL=/auth
+# copy from zhihu.com
+NEXT_PUBLIC_ZHIHU_COOKIE=
+```
+
+```
+# .env.production
+NEXT_PUBLIC_BASE_API_URL=https://api.zhihu.com/api
+NEXT_PUBLIC_BASE_LOGIN_API_URL=https://www.zhihu.com/api/v4
+```
+
 运行开发服务器:
 
 ```bash

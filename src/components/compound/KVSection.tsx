@@ -3,7 +3,6 @@ import React from 'react';
 import Image from 'next/image';
 import { assets, asset, AssetMetadata } from '@/lib/assets';
 
-// todo 把6张背景图合并成一张
 
 type DanmakuItem = {
   id: number;
@@ -13,17 +12,14 @@ type DanmakuItem = {
 };
 
 const KVSection = () => {
-  const subtitleAsset = asset(assets.kv.subtitle) as AssetMetadata;
-  const tagAsset = asset(assets.kv.tag) as AssetMetadata;
-  const liukanshanAsset = asset(assets.kv.liukanshan) as AssetMetadata;
-  const introAsset = asset(assets.kv.intro) as AssetMetadata;
+  const danmakusBg = asset(assets.kv.bg) as AssetMetadata;
 
   const danmakus: DanmakuItem[] = [
     { id: 1, asset: asset(assets.kv.danmakus[0]) as AssetMetadata, marginLeft: 42, marginBottom: 8 },
-    { id: 2, asset: asset(assets.kv.danmakus[1]) as AssetMetadata, marginLeft: 0, marginBottom: -15 },
+    { id: 2, asset: asset(assets.kv.danmakus[1]) as AssetMetadata, marginLeft: 5, marginBottom: -20 },
     { id: 3, asset: asset(assets.kv.danmakus[2]) as AssetMetadata, marginLeft: 140, marginBottom: 5 },
-    { id: 4, asset: asset(assets.kv.danmakus[3]) as AssetMetadata, marginLeft: 7, marginBottom: -5 },
-    { id: 5, asset: asset(assets.kv.danmakus[4]) as AssetMetadata, marginLeft: 260, marginBottom: -10 },
+    { id: 4, asset: asset(assets.kv.danmakus[3]) as AssetMetadata, marginLeft: 117, marginBottom: -5 },
+    { id: 5, asset: asset(assets.kv.danmakus[4]) as AssetMetadata, marginLeft: 220, marginBottom: -15 },
     { id: 6, asset: asset(assets.kv.danmakus[5]) as AssetMetadata, marginLeft: 0, marginBottom: 0 },
   ];
 
@@ -44,7 +40,6 @@ const KVSection = () => {
             width={item.asset.width}
             height={item.asset.height}
             className="h-[22px] w-auto object-contain drop-shadow-md"
-            style={{ width: `${item.asset.width}px`, height: `${item.asset.height}px` }}
             draggable="false"
           />
         </div>
@@ -54,60 +49,22 @@ const KVSection = () => {
 
   return (
     <div className="relative w-full h-screen max-h-[460px] overflow-hidden flex flex-col items-center">
-      <div className="absolute inset-0 z-0 flex items-center justify-center">
-        <Image
-          src={asset(assets.kv.background) as string}
-          alt="Background 2025"
-          fill
-          className="object-contain"
-          priority
-        />
-      </div>
 
-      <div className="absolute inset-0 z-10 overflow-hidden pointer-events-none flex flex-col justify-start pt-6">
+      <div className="absolute inset-0 z-10 overflow-hidden pointer-events-none flex flex-col justify-start pt-5">
         <div className="animate-marquee whitespace-nowrap flex">
           {renderDanmakuList(danmakus, 'original-')}
           {renderDanmakuList(danmakus, 'duplicate-')}
         </div>
       </div>
 
-      <div className="relative z-20 mt-32 flex flex-col items-center w-full px-4">
-        <div className="w-full relative h-auto" style={{ maxWidth: `${subtitleAsset.width}px` }}>
+      <div className="relative z-20 mt-33 flex flex-col items-center w-full px-4">
+        <div className="w-full relative h-auto">
           <Image
-            src={subtitleAsset.url}
-            alt={subtitleAsset.alt}
-            width={subtitleAsset.width}
-            height={subtitleAsset.height}
+            src={danmakusBg.url}
+            alt={danmakusBg.alt}
+            width={danmakusBg.width}
+            height={danmakusBg.height}
             className="w-full h-auto drop-shadow-lg"
-          />
-        </div>
-
-        <div className="w-full flex justify-between relative bottom-[-45px]" style={{ maxWidth: `${tagAsset.width}px` }}>
-          <Image
-            src={tagAsset.url}
-            alt={tagAsset.alt}
-            width={tagAsset.width}
-            height={tagAsset.height}
-            className="h-4 w-auto"
-          />
-        </div>
-
-        <div className="w-full relative h-auto" style={{ maxWidth: `${liukanshanAsset.width}px` }}>
-          <Image
-            src={liukanshanAsset.url}
-            alt={liukanshanAsset.alt}
-            width={liukanshanAsset.width}
-            height={liukanshanAsset.height}
-            className="w-full h-auto"
-          />
-        </div>
-        <div className="w-full relative h-auto" style={{ maxWidth: `${introAsset.width}px` }}>
-          <Image
-            src={introAsset.url}
-            alt={introAsset.alt}
-            width={introAsset.width}
-            height={introAsset.height}
-            className="w-full h-auto"
           />
         </div>
       </div>

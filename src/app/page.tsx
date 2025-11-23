@@ -16,15 +16,29 @@ import QiangXianYuGaoSection from "../components/compound/QiangXianYuGaoSection"
 import WuZiDa2025Section from "../components/compound/WuZiDa2025Section";
 import ZaiZhiHuLianJieZhenShiSection from "../components/compound/ZaiZhiHuLianJieZhenShiSection";
 import ZheXieZhenDeKeYiSection from "../components/compound/ZheXieZhenDeKeYiSection";
+import { assets, asset } from '@/lib/assets';
+
 
 export default function Home() {
+  const bgAsset = asset(assets.home.bg) as { url: string; alt: string, height: number, width: number };
   return (
     <div className="min-h-screen bg-white">
       <AuthWrapper>
         <main className="w-full max-w-[500px] mx-auto relative">
+
           {/* Logo */}
-          <div className="pt-5 pb-2 flex justify-center">
+          <div className="pt-5 flex justify-center">
             <ZhihuLogo />
+          </div>
+          <div className="absolute inset-0 z-0 top-[38px]">
+            <Image
+              src={bgAsset.url}
+              alt={bgAsset.alt}
+              width={bgAsset.width}
+              height={bgAsset.height}
+              className="object-contain"
+              priority
+            />
           </div>
 
           {/* KV 部分 */}

@@ -17,14 +17,14 @@ const CDN_BASE_URL = process.env.NEXT_PUBLIC_CDN_BASE_URL || '';
  */
 export function getAssetUrl(path: string): string {
   if (!path) return path;
-  
+
   // If CDN is configured and path starts with '/', prepend CDN base URL
   if (CDN_BASE_URL && path.startsWith('/')) {
     // Remove leading slash from path to avoid double slashes
     const cleanPath = path.startsWith('/') ? path.slice(1) : path;
     return `${CDN_BASE_URL}/${cleanPath}`;
   }
-  
+
   return path;
 }
 
@@ -33,6 +33,14 @@ export function getAssetUrl(path: string): string {
  * All asset paths are defined here for centralized management
  */
 export const assets = {
+  home: {
+    bg: {
+      url: '/assets/home_bg@3x.png',
+      width: 1125,
+      height: 6938,
+      alt: 'Home Background',
+    }
+  },
   // KV Section assets
   kv: {
     logo: {
@@ -42,70 +50,52 @@ export const assets = {
       alt: 'Zhihu Logo',
     },
     background: '/assets/bg_2025.png',
-    subtitle: {
-      url: '/assets/subtitle_text.png',
-      width: 245,
-      height: 107,
+    bg: {
+      url: '/assets/danmakus_bg@3x.png',
+      width: 1041,
+      height: 870,
       alt: '到底什么是真的？',
-    },
-    tag: {
-      url: '/assets/kv_tag.png',
-      width: 350,
-      height: 16,
-      alt: 'Artificial or authentic',
-    },
-    liukanshan: {
-      url: '/assets/kv_liukanshan.png',
-      width: 68,
-      height: 75,
-      alt: '刘看山和文字',
-    },
-    intro: {
-      url: '/assets/kv_intro.png',
-      width: 167,
-      height: 88,
-      alt: '文字',
     },
     danmakus: [
       {
-        url: '/assets/danmaku_1.png',
-        width: 277,
-        height: 22,
+        url: '/assets/danmaku_1@3x.png',
+        width: 830,
+        height: 64,
         alt: '弹幕',
       },
       {
-        url: '/assets/danmaku_2.png',
-        width: 114,
-        height: 22,
+        url: '/assets/danmaku_2@3x.png',
+        width: 365,
+        height: 64,
         alt: '弹幕',
       },
       {
-        url: '/assets/danmaku_3.png',
-        width: 215,
-        height: 22,
+        url: '/assets/danmaku_3@3x.png',
+        width: 730,
+        height: 64,
         alt: '弹幕',
       },
       {
-        url: '/assets/danmaku_4.png',
-        width: 250,
-        height: 22,
+        url: '/assets/danmaku_4@3x.png',
+        width: 744,
+        height: 64,
         alt: '弹幕',
       },
       {
-        url: '/assets/danmaku_5.png',
-        width: 102,
-        height: 22,
+        url: '/assets/danmaku_5@3x.png',
+        width: 304,
+        height: 64,
         alt: '弹幕',
       },
       {
-        url: '/assets/danmaku_6.png',
-        width: 100,
-        height: 22,
+        url: '/assets/danmaku_6@3x.png',
+        width: 609,
+        height: 64,
         alt: '弹幕',
       },
     ],
   },
-  
+
   // Folder Section assets
   folders: {
     folder1: {
@@ -190,7 +180,41 @@ export const assets = {
       },
     ],
   },
-  
+
+  // Game Section assets
+  games: {
+    title: {
+      url: '/assets/game_title@3x.png',
+      width: 582,
+      height: 291,
+      alt: 'Game Console title',
+    },
+    consoleBg: {
+      url: '/assets/game_console_bg@3x.png',
+      width: 1029,
+      height: 662,
+      alt: 'Game Console Background',
+    },
+    liukanshan: {
+      url: '/assets/game_liukanshan@3x.png',
+      width: 222,
+      height: 312,
+      alt: 'Game LiuKanShan',
+    },
+    fail: {
+      url: '/assets/game_fail@3x.png',
+      width: 657,
+      height: 894,
+      alt: 'Game Fail',
+    },
+    bottomBanner: {
+      url: '/assets/game_bottom_banner@3x.png',
+      width: 1000,
+      height: 150,
+      alt: 'Game Bottom Banner',
+    },
+  },
+
   // New image assets
   newImages: {
     wuzida2025: {

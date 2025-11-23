@@ -7,10 +7,10 @@ const WuZiDa2025 = ({ className = '' }) => {
   // Display at 25% of original size for responsive design
   const displayWidth = imageAsset.width * 0.25;
   const displayHeight = imageAsset.height * 0.25;
-  
+
   return (
-    <div className={`relative z-50 ${className}`}>
-      <Image 
+    <div className={`relative z-50 ${className} ml-[-8px]`}>
+      <Image
         src={imageAsset.url}
         alt={imageAsset.alt}
         width={imageAsset.width}

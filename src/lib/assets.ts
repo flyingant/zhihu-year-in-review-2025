@@ -228,6 +228,12 @@ export const assets = {
       height: 302,
       alt: '2025亲自答',
     },
+    wuzida2025Banner: {
+      url: '/assets/2025qinzida_banner@3x.png',
+      width: 1030,
+      height: 408,
+      alt: '2025亲自答',
+    },
     liukanshanBianLiDian: {
       url: '/assets/liukanshanzhenshibianlidian@2x.png',
       width: 629,
@@ -246,12 +252,25 @@ export const assets = {
       height: 257,
       alt: '抢先预告',
     },
+    qiangXianYuGaoBanner: {
+      url: '/assets/qiangxianyugao_banner@3x.png',
+      width: 1030,
+      height: 408,
+      alt: '抢先预告',
+    },
     zheXieZhenDeKeYi: {
       url: '/assets/zhexiezhendekeyi@2x.png',
       width: 924,
       height: 274,
       alt: '这些真的可以',
     },
+    zheXieZhenDeKeYiBanner: {
+      url: '/assets/zhexiezhendekeyi_banner@3x.png',
+      width: 1030,
+      height: 408,
+      alt: '这些真的可以',
+    },
+
   },
 } as const;
 

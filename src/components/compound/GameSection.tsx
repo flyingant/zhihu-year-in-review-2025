@@ -100,7 +100,7 @@ const GameSection = () => {
   };
 
   return (
-    <div className="relative max-w-[343px] mx-auto flex flex-col items-center pt-7 pb-8 overflow-hidden">
+    <div className="relative max-w-[343px] mx-auto flex flex-col items-center pt-7 pb-10 overflow-hidden">
       <div className="relative w-full max-w-[343px] flex justify-center pb-4">
         <Image
           src={titleAsset.url}

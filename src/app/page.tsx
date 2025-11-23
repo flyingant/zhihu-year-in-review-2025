@@ -57,20 +57,20 @@ export default function Home() {
           </SectionLayout>
 
           {/* New Image C omponents */}
-          <SectionLayout topOffset={0} id="wuzida2025-section">
-            <WuZiDa2025Section />
-          </SectionLayout>
-
-          <SectionLayout topOffset={0} id="zaizhihu-lianjie-zhenshi-section">
-            <ZaiZhiHuLianJieZhenShiSection />
-          </SectionLayout>
-
           <SectionLayout topOffset={0} id="qiangxian-yugao-section">
             <QiangXianYuGaoSection />
           </SectionLayout>
 
           <SectionLayout topOffset={0} id="zhexie-zhende-keyi-section">
             <ZheXieZhenDeKeYiSection />
+          </SectionLayout>
+
+          <SectionLayout topOffset={0} id="wuzida2025-section">
+            <WuZiDa2025Section />
+          </SectionLayout>
+
+          <SectionLayout topOffset={0} id="zaizhihu-lianjie-zhenshi-section">
+            <ZaiZhiHuLianJieZhenShiSection />
           </SectionLayout>
 
           <SectionLayout topOffset={0} id="liukanshan-bianlidian-section">

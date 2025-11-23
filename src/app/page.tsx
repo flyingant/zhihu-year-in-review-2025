@@ -12,6 +12,10 @@ import ZaiZhiHuLianJieZhenShi from "../components/ui/ZaiZhiHuLianJieZhenShi";
 import QiangXianYuGao from "../components/ui/QiangXianYuGao";
 import ZheXieZhenDeKeYi from "../components/ui/ZheXieZhenDeKeYi";
 import TaskSection from "../components/compound/TaskSection";
+import QiangXianYuGaoSection from "../components/compound/QiangXianYuGaoSection";
+import WuZiDa2025Section from "../components/compound/WuZiDa2025Section";
+import ZaiZhiHuLianJieZhenShiSection from "../components/compound/ZaiZhiHuLianJieZhenShiSection";
+import ZheXieZhenDeKeYiSection from "../components/compound/ZheXieZhenDeKeYiSection";
 
 export default function Home() {
   return (
@@ -35,32 +39,24 @@ export default function Home() {
 
           {/* New Image Components */}
           <SectionLayout topOffset={0} id="wuzida2025-section">
-            <div className="flex justify-center py-8">
-              <WuZiDa2025 />
-            </div>
+            <WuZiDa2025Section />
+          </SectionLayout>
+
+          <SectionLayout topOffset={0} id="zaizhihu-lianjie-zhenshi-section">
+            <ZaiZhiHuLianJieZhenShiSection />
+          </SectionLayout>
+
+          <SectionLayout topOffset={0} id="qiangxian-yugao-section">
+            <QiangXianYuGaoSection />
+          </SectionLayout>
+
+          <SectionLayout topOffset={0} id="zhexie-zhende-keyi-section">
+            <ZheXieZhenDeKeYiSection />
           </SectionLayout>
 
           <SectionLayout topOffset={0} id="liukanshan-bianlidian-section">
             <div className="flex justify-center py-8">
               <LiuKanShanBianLiDian />
-            </div>
-          </SectionLayout>
-
-          <SectionLayout topOffset={0} id="zaizhihu-lianjie-zhenshi-section">
-            <div className="flex justify-center py-8">
-              <ZaiZhiHuLianJieZhenShi />
-            </div>
-          </SectionLayout>
-
-          <SectionLayout topOffset={0} id="qiangxian-yugao-section">
-            <div className="flex justify-center py-8">
-              <QiangXianYuGao />
-            </div>
-          </SectionLayout>
-
-          <SectionLayout topOffset={0} id="zhexie-zhende-keyi-section">
-            <div className="flex justify-center py-8">
-              <ZheXieZhenDeKeYi />
             </div>
           </SectionLayout>
 

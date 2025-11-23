@@ -1,9 +1,25 @@
 "use client";
 
-import React from 'react';
+import React, { useState } from 'react';
 import ZaiZhiHuLianJieZhenShi from '@/components/ui/ZaiZhiHuLianJieZhenShi';
+import { Swiper, SwiperSlide } from 'swiper/react';
+import { Pagination, Autoplay } from 'swiper/modules';
+import Image from 'next/image';
+import 'swiper/css';
+import 'swiper/css/pagination';
+import { assets, asset } from '@/lib/assets';
 
 const ZaiZhiHuLianJieZhenShiSection = () => {
+  const [paginationEl, setPaginationEl] = useState<HTMLElement | null>(null);
+
+  const slides = assets.zaiZhiHuLianJieZhenShiUrls.map((item, index) => {
+    const processedAsset = asset(item) as { url: string; width: number; height: number; alt: string };
+
+    return {
+      id: index,
+      ...processedAsset
+    };
+  });
   return (
     <div className="relative w-full flex flex-col items-center">
       {/* Title */}
@@ -11,35 +27,64 @@ const ZaiZhiHuLianJieZhenShiSection = () => {
         <ZaiZhiHuLianJieZhenShi />
       </div>
 
-      {/* Content - Placeholder SVG */}
-      <div className="w-[375px] h-[300px] flex items-center justify-center">
-        <svg
-          width="375"
-          height="300"
-          viewBox="0 0 375 300"
-          xmlns="http://www.w3.org/2000/svg"
-          className="w-full h-full"
+      <div className="w-full pb-7
+        /* 默认圆点样式*/
+        [&_.swiper-pagination-bullet]:!bg-[#acacac] 
+        [&_.swiper-pagination-bullet]:!w-[6px] 
+        [&_.swiper-pagination-bullet]:!h-[6px]
+        [&_.swiper-pagination-bullet]:!mx-[2px]
+
+        /* 激活圆点样式 (选中) */
+        [&_.swiper-pagination-bullet-active]:!w-[8px]
+        [&_.swiper-pagination-bullet-active]:!h-[8px]
+      ">
+        <Swiper
+          modules={[Pagination, Autoplay]}
+          spaceBetween={2}
+          slidesPerView={'auto'}
+          centeredSlides={true}
+          loop={true}
+          autoplay={{
+            delay: 5000,
+            disableOnInteraction: false,
+          }}
+          pagination={{
+            clickable: true,
+            el: paginationEl,
+          }}
+          className="w-full"
         >
-          <rect
-            width="375"
-            height="300"
-            fill="#f3f4f6"
-            stroke="#d1d5db"
-            strokeWidth="2"
-            strokeDasharray="4 4"
-          />
-          <text
-            x="50%"
-            y="50%"
-            textAnchor="middle"
-            dominantBaseline="middle"
-            fill="#9ca3af"
-            fontSize="16"
-            fontFamily="system-ui, sans-serif"
-          >
-            Placeholder Content
-          </text>
-        </svg>
+          {slides.map((item) => (
+            <SwiperSlide
+              key={item.id}
+              className="!w-[75%]"
+            >
+              {({ isActive }) => (
+                <div
+                  className={`
+                    relative w-full h-full rounded-lg overflow-hidden transition-all duration-300 ease-out
+                    ${isActive ? 'scale-100' : 'scale-90 opacity-80'}
+                  `}
+                >
+                  {/* todo 只是为了展示 有真实图片后需要删除*/}
+                  <div className="absolute inset-0 flex items-center justify-center text-white text-xl font-bold">
+                    {item.alt}
+                  </div>
+                  <Image
+                    src={item.url}
+                    alt={item.alt}
+                    width={item.width}
+                    height={item.height}
+                    className="object-cover"
+                    draggable={false}
+                  />
+                </div>
+              )}
+            </SwiperSlide>
+          ))}
+        </Swiper>
+        <div className="custom-pagination-container flex justify-center items-center mt-4 w-full"
+          ref={(node) => setPaginationEl(node)}></div>
       </div>
     </div>
   );

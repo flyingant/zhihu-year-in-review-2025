@@ -74,7 +74,7 @@ export default function Home() {
           </SectionLayout>
 
           <SectionLayout topOffset={0} id="liukanshan-bianlidian-section">
-            <div className="flex justify-center py-8">
+            <div className="flex justify-center">
               <LiuKanShanBianLiDian />
             </div>
           </SectionLayout>

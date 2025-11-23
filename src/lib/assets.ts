@@ -219,6 +219,38 @@ export const assets = {
       alt: 'Game Bottom Banner',
     },
   },
+  zaiZhiHuLianJieZhenShiUrls: [
+    {
+      url: '/assets/zaiZhiHuLianJieZhenShi_image1@3x.png',
+      width: 1180,
+      height: 788,
+      alt: '链接1',
+    },
+    {
+      url: '/assets/zaiZhiHuLianJieZhenShi_image2@3x.png',
+      width: 1180,
+      height: 788,
+      alt: '链接2',
+    },
+    {
+      url: '/assets/zaiZhiHuLianJieZhenShi_image3@3x.png',
+      width: 1180,
+      height: 788,
+      alt: '链接3',
+    },
+    {
+      url: '/assets/zaiZhiHuLianJieZhenShi_image4@3x.png',
+      width: 1180,
+      height: 788,
+      alt: '链接4',
+    },
+    {
+      url: '/assets/zaiZhiHuLianJieZhenShi_image5@3x.png',
+      width: 1180,
+      height: 788,
+      alt: '链接5',
+    },
+  ],
 
   // New image assets
   newImages: {

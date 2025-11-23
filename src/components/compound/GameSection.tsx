@@ -59,14 +59,11 @@ const GameSection = () => {
   }, [status]);
 
   const handleEnter = async () => {
-    console.log(111111)
     if (!inputValue.trim()) return;
 
     setStatus('loading');
-    console.log(22222)
     setTimeout(() => {
       const isSuccess = Math.random() > 0.5;
-      console.log(33333)
       setStatus(isSuccess ? 'success' : 'error');
     }, 3000);
   };

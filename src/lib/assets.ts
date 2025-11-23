@@ -206,6 +206,12 @@ export const assets = {
       height: 894,
       alt: 'Game Fail',
     },
+    success: {
+      url: '/assets/game_success@3x.png',
+      width: 981,
+      height: 1506,
+      alt: 'Game Success',
+    },
     bottomBanner: {
       url: '/assets/game_bottom_banner@3x.png',
       width: 1000,

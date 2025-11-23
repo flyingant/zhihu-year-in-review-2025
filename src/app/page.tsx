@@ -5,6 +5,7 @@ import AuthWrapper from "../components/layout/AuthWrapper";
 import KVSection from "../components/compound/KVSection";
 import FolderSection from "../components/compound/FolderSection";
 import SectionLayout from "../components/layout/SectionLayout";
+import GameSection from "../components/compound/GameSection";
 import ZhihuLogo from "../components/ui/ZhihuLogo";
 import WuZiDa2025 from "../components/ui/WuZiDa2025";
 import LiuKanShanBianLiDian from "../components/ui/LiuKanShanBianLiDian";
@@ -51,7 +52,11 @@ export default function Home() {
             <FolderSection />
           </SectionLayout>
 
-          {/* New Image Components */}
+          <SectionLayout topOffset={0} id="game-section">
+            <GameSection />
+          </SectionLayout>
+
+          {/* New Image C omponents */}
           <SectionLayout topOffset={0} id="wuzida2025-section">
             <WuZiDa2025Section />
           </SectionLayout>

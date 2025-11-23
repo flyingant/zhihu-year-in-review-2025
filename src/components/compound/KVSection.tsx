@@ -1,26 +1,33 @@
 // components/KVSection.jsx
 import React from 'react';
 import Image from 'next/image';
-import { assets, asset } from '@/lib/assets';
+import { assets, asset, AssetMetadata } from '@/lib/assets';
 
 // todo 把6张背景图合并成一张
 
-const KVSection = () => {
-  const subtitleAsset = asset(assets.kv.subtitle);
-  const tagAsset = asset(assets.kv.tag);
-  const liukanshanAsset = asset(assets.kv.liukanshan);
-  const introAsset = asset(assets.kv.intro);
+type DanmakuItem = {
+  id: number;
+  asset: AssetMetadata;
+  marginLeft: number;
+  marginBottom: number;
+};
 
-  const danmakus = [
-    { id: 1, asset: asset(assets.kv.danmakus[0]), marginLeft: 42, marginBottom: 8 },
-    { id: 2, asset: asset(assets.kv.danmakus[1]), marginLeft: 0, marginBottom: -15 },
-    { id: 3, asset: asset(assets.kv.danmakus[2]), marginLeft: 140, marginBottom: 5 },
-    { id: 4, asset: asset(assets.kv.danmakus[3]), marginLeft: 7, marginBottom: -5 },
-    { id: 5, asset: asset(assets.kv.danmakus[4]), marginLeft: 260, marginBottom: -10 },
-    { id: 6, asset: asset(assets.kv.danmakus[5]), marginLeft: 0, marginBottom: 0 },
+const KVSection = () => {
+  const subtitleAsset = asset(assets.kv.subtitle) as AssetMetadata;
+  const tagAsset = asset(assets.kv.tag) as AssetMetadata;
+  const liukanshanAsset = asset(assets.kv.liukanshan) as AssetMetadata;
+  const introAsset = asset(assets.kv.intro) as AssetMetadata;
+
+  const danmakus: DanmakuItem[] = [
+    { id: 1, asset: asset(assets.kv.danmakus[0]) as AssetMetadata, marginLeft: 42, marginBottom: 8 },
+    { id: 2, asset: asset(assets.kv.danmakus[1]) as AssetMetadata, marginLeft: 0, marginBottom: -15 },
+    { id: 3, asset: asset(assets.kv.danmakus[2]) as AssetMetadata, marginLeft: 140, marginBottom: 5 },
+    { id: 4, asset: asset(assets.kv.danmakus[3]) as AssetMetadata, marginLeft: 7, marginBottom: -5 },
+    { id: 5, asset: asset(assets.kv.danmakus[4]) as AssetMetadata, marginLeft: 260, marginBottom: -10 },
+    { id: 6, asset: asset(assets.kv.danmakus[5]) as AssetMetadata, marginLeft: 0, marginBottom: 0 },
   ];
 
-  const renderDanmakuList = (list, keyPrefix = '') => (
+  const renderDanmakuList = (list: DanmakuItem[], keyPrefix = '') => (
     <div className="flex flex-col min-w-[100vw] md:min-w-[600px]">
       {list.map((item) => (
         <div
@@ -49,7 +56,7 @@ const KVSection = () => {
     <div className="relative w-full h-screen max-h-[460px] overflow-hidden flex flex-col items-center">
       <div className="absolute inset-0 z-0 flex items-center justify-center">
         <Image
-          src={asset(assets.kv.background)}
+          src={asset(assets.kv.background) as string}
           alt="Background 2025"
           fill
           className="object-contain"

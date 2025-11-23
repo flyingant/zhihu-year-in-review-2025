@@ -4,6 +4,16 @@ import React, { useState } from 'react';
 import Image from 'next/image';
 import { mockTaskResponse } from '@/mocks/taskData';
 
+type TaskState = {
+  code: string;
+  desc?: string;
+  point_received?: boolean;
+  point_can_receive?: boolean;
+  app_url?: string;
+  pc_url?: string;
+  followList?: unknown;
+};
+
 const TaskSection = () => {
   const { data } = mockTaskResponse;
   const { current_point } = data.activity_data?.running;
@@ -13,7 +23,7 @@ const TaskSection = () => {
 
   const [isRulesOpen, setIsRulesOpen] = useState(false);
 
-  const renderButton = (state, type = 'task') => {
+  const renderButton = (state: TaskState, type = 'task') => {
     const isTaskDone = type === 'task' && state.point_received;
     const isSoldOut = state.code === '2';
 

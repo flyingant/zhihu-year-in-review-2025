@@ -32,7 +32,7 @@ body {
   --color-theme-blue-light: rgba(5, 109, 232, 0.08);
   --color-card-glass: rgba(255, 255, 255, 0.7);
 
-  --animate-marquee: marquee 12s linear infinite;
+  --animate-marquee: marquee linear infinite;
   --animate-contentShow: contentShow 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 
 
@@ -42,7 +42,7 @@ body {
     }
 
     100% {
-      transform: translateX(-100%);
+      transform: translateX(-50%);
     }
   }
 

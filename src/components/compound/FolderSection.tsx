@@ -55,12 +55,18 @@ const FolderSection = () => {
     setActiveIndex(activeIndex === index ? null : index);
   };
 
+  const handleContentClick = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    // todo 之后会替换成其他链接
+    window.location.href = 'https://www.zhihu.com';
+  };
+
   return (
     <div className="relative w-full z-100">
       <div className="relative w-full max-w-[343px] mx-auto h-[165px]">
         {folders.map((folder, index) => {
           const zIndex = index;
-          const topOffset = index * 15;
+          const topOffset = index * 16;
           const isActive = activeIndex === index;
           const { url, width, height, alt } = folder.asset as { url: string; width: number; height: number; alt: string };
 
@@ -89,12 +95,23 @@ const FolderSection = () => {
                 draggable="false"
                 priority={index === 0}
               />
+              <div
+                onClick={handleContentClick}
+                className="absolute z-10 cursor-pointer"
+                style={{
+                  top: '52%',
+                  left: index % 2 === 0 ? '8%' : '42%',
+                  width: '50%',
+                  height: '35%',
+                  // background: 'rgba(255, 0, 0, 0.3)', // 调试用
+                }}
+              />
             </div>
           );
         })}
       </div>
 
-      <div className="relative top-[-55px] z-50 flex flex-col items-center justify-center">
+      <div className="relative -mt-[14vw] z-50 flex flex-col items-center justify-center">
         <div className="w-[343px] mb-2
          after:content-[''] 
          after:absolute 

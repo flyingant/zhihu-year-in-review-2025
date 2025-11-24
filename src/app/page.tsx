@@ -11,6 +11,8 @@ import WuZiDa2025 from "../components/ui/WuZiDa2025";
 import ZaiZhiHuLianJieZhenShi from "../components/ui/ZaiZhiHuLianJieZhenShi";
 import QiangXianYuGao from "../components/ui/QiangXianYuGao";
 import ZheXieZhenDeKeYi from "../components/ui/ZheXieZhenDeKeYi";
+import ZhihuSearch from "../components/ui/zhihuSearch";
+import HomeBottomBg from "../components/ui/homeBottomBg";
 import TaskSection from "../components/compound/TaskSection";
 import QiangXianYuGaoSection from "../components/compound/QiangXianYuGaoSection";
 import WuZiDa2025Section from "../components/compound/WuZiDa2025Section";
@@ -72,9 +74,16 @@ export default function Home() {
             <ZaiZhiHuLianJieZhenShiSection />
           </SectionLayout>
 
-
           <SectionLayout topOffset={0} id="task-section">
             <TaskSection />
+          </SectionLayout>
+
+          <SectionLayout topOffset={0} id="zhihu-search-section">
+            <ZhihuSearch />
+          </SectionLayout>
+
+          <SectionLayout topOffset={-12} id="home-bottom-bg-section">
+            <HomeBottomBg />
           </SectionLayout>
         </main>
       </AuthWrapper>

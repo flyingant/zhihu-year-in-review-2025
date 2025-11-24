@@ -76,7 +76,7 @@ const TaskSection = () => {
   };
 
   return (
-    <div className="relative w-full pb-20 flex flex-col pt-1">
+    <div className="relative w-full pb-10 flex flex-col pt-1">
       <div className='flex justify-center pb-9'>
         <LiuKanShanBianLiDian />
       </div>
@@ -177,7 +177,7 @@ const TaskSection = () => {
         </div>
 
         {/* 3. 任务列表 */}
-        <div className="bg-[#e1f4ff] rounded-[12px] pt-3 px-4 pb-4">
+        <div className="bg-[#e1f4ff] rounded-[12px] pt-3 px-4 pb-5">
           <div className="text-base font-bold text-black">今日任务</div>
           <div className="text-sm text-gray mb-3">活动未开始</div>
           <div className="flex flex-col gap-3">

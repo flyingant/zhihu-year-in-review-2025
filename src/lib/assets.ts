@@ -39,6 +39,12 @@ export const assets = {
       width: 1125,
       height: 6938,
       alt: 'Home Background',
+    },
+    bgBottom: {
+      url: '/assets/home_bottom_bg@3x.png',
+      width: 1125,
+      height: 209,
+      alt: 'Home Background',
     }
   },
   // KV Section assets
@@ -184,8 +190,8 @@ export const assets = {
   games: {
     title: {
       url: '/assets/game_title@3x.png',
-      width: 582,
-      height: 291,
+      width: 545,
+      height: 194,
       alt: 'Game Console title',
     },
     consoleBg: {
@@ -356,6 +362,14 @@ export const assets = {
       },
     ],
   },
+  zhihuSearch: {
+    bg: {
+      url: '/assets/zhihu_search@3x.png',
+      width: 551,
+      height: 106,
+      alt: '知乎搜索',
+    },
+  }
 } as const;
 
 /**

@@ -10,6 +10,7 @@
 # .env.development
 NEXT_PUBLIC_BASE_API_URL=/api
 NEXT_PUBLIC_BASE_LOGIN_API_URL=/auth
+NEXT_PUBLIC_CDN_BASE_URL=/2025
 # copy from zhihu.com
 NEXT_PUBLIC_ZHIHU_COOKIE=
 ```

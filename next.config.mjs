@@ -1,6 +1,7 @@
 // next.config.mjs
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  basePath: "/2025",
   output: "export", // ← Enables next export (pure static)
   trailingSlash: true, // Recommended for static hosting
   images: {

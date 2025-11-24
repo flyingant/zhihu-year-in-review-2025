@@ -8,7 +8,6 @@ import SectionLayout from "../components/layout/SectionLayout";
 import GameSection from "../components/compound/GameSection";
 import ZhihuLogo from "../components/ui/ZhihuLogo";
 import WuZiDa2025 from "../components/ui/WuZiDa2025";
-import LiuKanShanBianLiDian from "../components/ui/LiuKanShanBianLiDian";
 import ZaiZhiHuLianJieZhenShi from "../components/ui/ZaiZhiHuLianJieZhenShi";
 import QiangXianYuGao from "../components/ui/QiangXianYuGao";
 import ZheXieZhenDeKeYi from "../components/ui/ZheXieZhenDeKeYi";
@@ -73,11 +72,6 @@ export default function Home() {
             <ZaiZhiHuLianJieZhenShiSection />
           </SectionLayout>
 
-          <SectionLayout topOffset={0} id="liukanshan-bianlidian-section">
-            <div className="flex justify-center">
-              <LiuKanShanBianLiDian />
-            </div>
-          </SectionLayout>
 
           <SectionLayout topOffset={0} id="task-section">
             <TaskSection />

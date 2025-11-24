@@ -5,12 +5,12 @@ import { assets, asset } from '@/lib/assets';
 const LiuKanShanBianLiDian = ({ className = '' }) => {
   const imageAsset = asset(assets.newImages.liukanshanBianLiDian);
   // Display at 25% of original size for responsive design
-  const displayWidth = imageAsset.width * 0.25;
-  const displayHeight = imageAsset.height * 0.25;
-  
+  const displayWidth = imageAsset.width * 0.33;
+  const displayHeight = imageAsset.height * 0.33;
+
   return (
     <div className={`relative z-50 ${className}`}>
-      <Image 
+      <Image
         src={imageAsset.url}
         alt={imageAsset.alt}
         width={imageAsset.width}

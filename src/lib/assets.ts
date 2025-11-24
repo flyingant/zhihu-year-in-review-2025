@@ -267,9 +267,9 @@ export const assets = {
       alt: '2025亲自答',
     },
     liukanshanBianLiDian: {
-      url: '/assets/liukanshanzhenshibianlidian@2x.png',
-      width: 629,
-      height: 282,
+      url: '/assets/liukanshanzhenshibianlidian@3x.png',
+      width: 471,
+      height: 264,
       alt: '刘看山真实便利店',
     },
     zaiZhiHuLianJieZhenShi: {
@@ -302,7 +302,59 @@ export const assets = {
       height: 408,
       alt: '这些真的可以',
     },
+  },
 
+  tasks: {
+    bg: {
+      url: '/assets/task_prize_bg@3x.png',
+      width: 1059,
+      height: 1528,
+      alt: '奖品背景',
+    },
+    prizes: [
+      {
+        url: '/assets/task_liukanshan_juecebi@3x.png',
+        width: 307,
+        height: 346,
+        alt: '决策币',
+      },
+      {
+        url: '/assets/task_zhihu_yueka@3x.png',
+        width: 307,
+        height: 346,
+        alt: '知乎月卡',
+      },
+      {
+        url: '/assets/task_liukanshan_baji@3x.png',
+        width: 307,
+        height: 346,
+        alt: '吧唧',
+      },
+      {
+        url: '/assets/task_liukanshan_bingxiangtie@3x.png',
+        width: 307,
+        height: 346,
+        alt: '冰箱贴',
+      },
+      {
+        url: '/assets/task_liukanshan_guajian@3x.png',
+        width: 307,
+        height: 346,
+        alt: '挂件',
+      },
+      {
+        url: '/assets/task_liukanshan_jiaopian@3x.png',
+        width: 307,
+        height: 346,
+        alt: '胶片',
+      },
+      {
+        url: '/assets/task_liukanshan_wanou@3x.png',
+        width: 307,
+        height: 346,
+        alt: '玩偶',
+      },
+    ],
   },
 } as const;
 

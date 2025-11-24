@@ -1,0 +1,7 @@
+1:"$Sreact.fragment"
+2:I[42178,["/2025/_next/static/chunks/8e5cbd5277a6eb4f.js","/2025/_next/static/chunks/351283919579e33c.js"],"ViewportBoundary"]
+4:I[42178,["/2025/_next/static/chunks/8e5cbd5277a6eb4f.js","/2025/_next/static/chunks/351283919579e33c.js"],"MetadataBoundary"]
+5:"$Sreact.suspense"
+0:{"buildId":"dVZ6UzcTqIlV0ZEQAjlDI","rsc":["$","$1","h",{"children":[null,["$","$L2",null,{"children":"$@3"}],["$","div",null,{"hidden":true,"children":["$","$L4",null,{"children":["$","$5",null,{"name":"Next.Metadata","children":"$@6"}]}]}],null]}],"loading":null,"isPartial":false}
+3:[["$","meta","0",{"charSet":"utf-8"}],["$","meta","1",{"name":"viewport","content":"width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no"}]]
+6:[["$","title","0",{"children":"知乎 2025 年度盘点"}],["$","meta","1",{"name":"description","content":"知乎 2025 年度盘点"}]]

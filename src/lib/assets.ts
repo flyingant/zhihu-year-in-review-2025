@@ -308,6 +308,49 @@ export const assets = {
       height: 408,
       alt: '这些真的可以',
     },
+
+    sidebarCampaignRules: {
+      url: '/assets/sidebar_campaign_rules.png',
+      width: 44,
+      height: 182,
+      alt: '活动规则',
+    },
+    sidebarLiuKanshan: {
+      url: '/assets/sidebar_liukanshan.png',
+      width: 94,
+      height: 177,
+      alt: '刘看山',
+    },
+    sidebarLiuKanshanDialog: {
+      url: '/assets/sidebar_liukanshan_dialog.png',
+      width: 750,
+      height: 1334,
+      alt: '刘看山对话框',
+    },
+    sidebarLiuKanshanCancel: {
+      url: '/assets/sidebar_liukanshan_cancel.png',
+      width: 300,
+      height: 80,
+      alt: '取消',
+    },
+    sidebarLiuKanshanPublish: {
+      url: '/assets/sidebar_liukanshan_publish.png',
+      width: 300,
+      height: 80,
+      alt: '发布',
+    },
+    sidebarLiuKanshanDialogSoldOut: {
+      url: '/assets/sidebar_liukanshan_dialog_sold_out.png',
+      width: 750,
+      height: 1334,
+      alt: '刘看山对话框-已售罄',
+    },
+    sidebarLiuKanshanTmr: {
+      url: '/assets/sidebar_liukanshan_tmr.png',
+      width: 300,
+      height: 80,
+      alt: '知道了',
+    },
   },
 
   tasks: {

@@ -2,6 +2,7 @@
 import React from 'react';
 import Image from 'next/image';
 import { assets, asset, AssetMetadata } from '@/lib/assets';
+import SidebarCampaignRules from '@/components/ui/SidebarCampaignRules';
 
 
 type DanmakuItem = {
@@ -79,6 +80,9 @@ const KVSection = () => {
           />
         </div>
       </div>
+
+      {/* Sidebar Campaign Rules */}
+      <SidebarCampaignRules />
     </div >
   );
 };

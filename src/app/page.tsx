@@ -18,6 +18,7 @@ import QiangXianYuGaoSection from "../components/compound/QiangXianYuGaoSection"
 import WuZiDa2025Section from "../components/compound/WuZiDa2025Section";
 import ZaiZhiHuLianJieZhenShiSection from "../components/compound/ZaiZhiHuLianJieZhenShiSection";
 import ZheXieZhenDeKeYiSection from "../components/compound/ZheXieZhenDeKeYiSection";
+import SidebarLiuKanshan from "../components/ui/SidebarLiuKanshan";
 import { assets, asset } from '@/lib/assets';
 
 
@@ -42,6 +43,8 @@ export default function Home() {
               priority
             />
           </div>
+          {/* 刘看山对话框 */}
+          <SidebarLiuKanshan />
 
           {/* KV 部分 */}
           <SectionLayout topOffset={0} id="kv-section">

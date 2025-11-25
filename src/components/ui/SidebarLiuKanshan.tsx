@@ -3,11 +3,18 @@
 import React, { useState, useEffect } from 'react';
 import Image from 'next/image';
 import { assets, asset } from '@/lib/assets';
+import request from '@/lib/request';
+import { useToast } from '@/context/toast-context';
+
+interface TaskStatusResponse {
+  task_status: number; // 0: 今日已领完, 1: 未领取还有剩余, 2: 已领取未填地址, 3: 已领取并已填地址
+}
 
 const SidebarLiuKanshan = () => {
   const [isDialogOpen, setIsDialogOpen] = useState(false);
-  // TODO: Replace with actual sold out check logic
-  const [isSoldOut] = useState(false); // Example: use true/false for testing
+  const [isSoldOut, setIsSoldOut] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
+  const { showToast } = useToast();
   
   const imageAsset = asset(assets.newImages.sidebarLiuKanshan) as { url: string; alt: string; width: number; height: number };
   const dialogAsset = asset(assets.newImages.sidebarLiuKanshanDialog) as { url: string; alt: string; width: number; height: number };
@@ -74,8 +81,42 @@ const SidebarLiuKanshan = () => {
     return () => window.removeEventListener('keydown', handleEscape);
   }, [isDialogOpen]);
 
-  const handleSidebarClick = () => {
-    setIsDialogOpen(true);
+  const handleSidebarClick = async () => {
+    setIsLoading(true);
+    try {
+      const response = await request<TaskStatusResponse>({
+        url: '/campaigns/v2/2025/lks_gift_task_status',
+        method: 'get',
+      });
+
+      const taskStatus = response.task_status;
+
+      // Handle different task_status values
+      if (taskStatus === 0) {
+        // 今日已领完 - Show sold out dialog
+        setIsSoldOut(true);
+        setIsDialogOpen(true);
+      } else if (taskStatus === 1) {
+        // 未领取还有剩余 - Show current dialog
+        setIsSoldOut(false);
+        setIsDialogOpen(true);
+      } else if (taskStatus === 2 || taskStatus === 3) {
+        // 已领取未填地址 or 已领取并已填地址 - Show toast message
+        // TODO: Replace with actual toast message text when provided
+        const toastMessage = taskStatus === 2 
+          ? '你已领取，请查收私信填写收货地址~' 
+          : '你已领取~';
+        showToast(toastMessage);
+      }
+    } catch (error) {
+      console.error('Error fetching task status:', error);
+      // On error, show the default dialog
+      setIsSoldOut(false);
+      setIsDialogOpen(false);
+      showToast('出错了，请稍后重试');
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   const handleCancelClick = () => {
@@ -104,6 +145,7 @@ const SidebarLiuKanshan = () => {
       <div 
         className="fixed right-0 top-[50%] -translate-y-1/2 z-[9999] pointer-events-auto cursor-pointer"
         onClick={handleSidebarClick}
+        style={{ opacity: isLoading ? 0.6 : 1, pointerEvents: isLoading ? 'none' : 'auto' }}
       >
         <Image
           src={imageAsset.url}

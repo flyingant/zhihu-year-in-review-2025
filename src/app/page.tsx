@@ -19,6 +19,7 @@ import WuZiDa2025Section from "../components/compound/WuZiDa2025Section";
 import ZaiZhiHuLianJieZhenShiSection from "../components/compound/ZaiZhiHuLianJieZhenShiSection";
 import ZheXieZhenDeKeYiSection from "../components/compound/ZheXieZhenDeKeYiSection";
 import SidebarLiuKanshan from "../components/ui/SidebarLiuKanshan";
+import VideoPlayer from "../components/ui/VideoPlayer";
 import { assets, asset } from '@/lib/assets';
 
 
@@ -71,6 +72,30 @@ export default function Home() {
 
           <SectionLayout topOffset={0} id="wuzida2025-section">
             <WuZiDa2025Section />
+          </SectionLayout>
+
+          <SectionLayout topOffset={0} id="video-section-tunnel">
+            <div className="w-full px-4">
+              <VideoPlayer 
+                src="/images/video 8-Tunnel.mp4"
+                controls={false}
+                muted={true}
+                loop={true}
+                className="mt-4"
+              />
+            </div>
+          </SectionLayout>
+
+          <SectionLayout topOffset={0} id="video-section-mp4">
+            <div className="w-full px-4">
+              <VideoPlayer 
+                src="/images/video 8-MP4.mp4"
+                controls={false}
+                muted={true}
+                loop={true}
+                className="mt-4"
+              />
+            </div>
           </SectionLayout>
 
           <SectionLayout topOffset={0} id="zaizhihu-lianjie-zhenshi-section">

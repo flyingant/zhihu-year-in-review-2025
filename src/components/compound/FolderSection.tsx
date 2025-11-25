@@ -111,7 +111,7 @@ const FolderSection = () => {
         })}
       </div>
 
-      <div className="relative -mt-[14vw] z-50 flex flex-col items-center justify-center">
+      <div className="relative mt-[-54px] z-50 flex flex-col items-center justify-center">
         <div className="w-[343px] mb-2
          after:content-[''] 
          after:absolute 

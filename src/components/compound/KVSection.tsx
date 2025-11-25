@@ -69,7 +69,7 @@ const KVSection = () => {
         ))}
       </div>
 
-      <div className="relative z-20 mt-33 flex flex-col items-center w-full px-4">
+      <div className="relative z-20 mt-[132px] flex flex-col items-center w-full px-4">
         <div className="w-full relative h-auto">
           <Image
             src={danmakusBg.url}

@@ -1,54 +1,95 @@
 "use client";
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Image from 'next/image';
 import LiuKanShanBianLiDian from "../ui/LiuKanShanBianLiDian";
-import { mockTaskResponse } from '@/mocks/taskData';
 import { assets, asset } from '@/lib/assets';
-
-
-// 奖品绝对定位配置，从左到右，从上到下
-const PRIZE_POSITIONS = [
-  { left: '5%', top: '14.7%', width: '29%', height: '23%' },
-  { left: '36%', top: '10.5%', width: '29%', height: '23%' },
-  { left: '66.5%', top: '14.5%', width: '29%', height: '23%' },
-  { left: '3%', top: '39.3%', width: '29%', height: '23%' },
-  { left: '36%', top: '37.5%', width: '29%', height: '23%' },
-  { left: '69.6%', top: '42.8%', width: '29%', height: '23%' },
-  { left: '12%', top: '62.5%', width: '29%', height: '23%' },
-];
-
-const RECORD_BTN_POSITION = {
-  top: '2%',
-  right: '5%',
-  width: '25%',
-  height: '5%'
-};
-
-type TaskState = {
-  code: string;
-  desc?: string;
-  point_received?: boolean;
-  point_can_receive?: boolean;
-  app_url?: string;
-  pc_url?: string;
-};
+import { getCampaignInfo, CampaignResponse, TaskItem, RewardItem } from '@/api/campaign';
+import { ACTIVITY_ID, SHOW_TASK_IDS, PRIZE_MAP, RECORD_BTN_POSITION } from '@/constants/campaign';
 
 const TaskSection = () => {
-  const { data } = mockTaskResponse;
-  const { current_point } = data.activity_data?.running;
-  const { rewards_list } = data.body?.rewards;
-  const allTasks = data.body?.task.flatMap(group => group.task_list) || [];
-  const ruleContent = data.head?.info;
+  const [campaignData, setCampaignData] = useState<CampaignResponse | null>(null);
+  const [loading, setLoading] = useState(true);
+  const [isRulesOpen, setIsRulesOpen] = useState(false);
+
+  const [isRedeemModalOpen, setIsRedeemModalOpen] = useState(false);
+  const [selectedReward, setSelectedReward] = useState<RewardItem | null>(null);
 
   const bgAsset = asset(assets.tasks.bg) as { url: string; width: number; height: number; alt: string };
   const prizeAssets = assets.tasks.prizes.map(p => asset(p) as { url: string; width: number; height: number; alt: string });
 
-  const [isRulesOpen, setIsRulesOpen] = useState(false);
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const data = await getCampaignInfo(ACTIVITY_ID);
+        setCampaignData(data);
+      } catch (error) {
+        console.error("Failed to fetch campaign data:", error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchData();
+  }, []);
+
+  const activity_data = campaignData?.activity_data;
+  const body = campaignData?.body;
+  const head = campaignData?.head;
+  const currentPoint = activity_data?.running?.current_point || 0;
+  const rewardsList = body?.rewards?.rewards_list || [];
+  const ruleContent = head?.info || '';
+
+  // 获取所有任务列表并过滤显示的任务
+  const allRawTasks = body?.task?.flatMap(group => group.task_list) || [];
+  const displayTasks = SHOW_TASK_IDS
+    .map(id => allRawTasks.find(t => t.id === id))
+    .filter((t): t is TaskItem => t !== undefined);
+
+  const handleTaskAction = (task: TaskItem) => {
+    const { state } = task;
+    if (state.point_received) return;
+
+    if (state.point_can_receive) {
+      console.log(`触发领取积分接口: 任务ID ${task.id}`);
+    }
+
+    let targetUrl = state.app_url;
+
+    if (targetUrl) {
+      try {
+        targetUrl = decodeURIComponent(targetUrl).trim();
+      } catch (e) {
+        targetUrl = targetUrl.trim();
+      }
+    }
+
+    const isValidUrl = targetUrl &&
+      targetUrl.trim() !== '' &&
+      targetUrl !== '%20' &&
+      targetUrl !== 'undefined';
+    console.log('isValidUrl', isValidUrl, targetUrl)
+    if (isValidUrl && targetUrl) {
+      console.log(`跳转到: ${targetUrl}`);
+      window.location.href = targetUrl;
+    } else {
+      console.log('该任务暂时没有配置跳转链接');
+    }
+  };
 
   // todo 兑换
-  const handleRedeem = (rewardId: number) => {
-    console.log(`触发兑换: ${rewardId}`);
+  const handleRedeemClick = (reward: RewardItem) => {
+    setSelectedReward(reward);
+    setIsRedeemModalOpen(true);
+    console.log(`触发兑换: ${reward.right_id} ${reward.right_name}`);
+  };
+
+  // todo 确认兑换
+  const confirmRedeem = () => {
+    if (!selectedReward) return;
+    console.log(`确认兑换奖品 ID: ${selectedReward.right_id}`);
+
+    setIsRedeemModalOpen(false);
   };
 
   // todo 跳转到兑换记录
@@ -57,11 +98,11 @@ const TaskSection = () => {
   };
 
   // todo 仅仅是为了展示，具体button逻辑不一定是下面的
-  const renderTaskButton = (state: TaskState) => {
-    const isTaskDone = state.point_received;
-    let { desc } = state;
-    desc = desc?.trim();
-    if (isTaskDone) {
+  const renderTaskButton = (task: TaskItem) => {
+    const isReceived = task.state.point_received;
+    const btnText = task.state.desc;
+
+    if (isReceived) {
       return (
         <div className="min-w-[70px] h-[28px] leading-[28px] text-center rounded-[14px] text-xs font-medium bg-[#bcd7ff] text-gray-400">
           已完成
@@ -69,8 +110,9 @@ const TaskSection = () => {
       );
     }
     return (
-      <div className={`min-w-[70px] h-[28px] leading-[28px] text-center rounded-[14px] text-xs font-medium ${desc ? 'bg-[#2079fe]' : 'bg-[#bcd7ff]'} text-white shadow-md active:scale-95 transition-transform cursor-pointer`}>
-        {desc || '未开始'}
+      <div className={`min-w-[70px] h-[28px] leading-[28px] text-center rounded-[14px] text-xs font-medium ${btnText ? 'bg-blue' : 'bg-[#bcd7ff]'} text-white shadow-md active:scale-95 transition-transform cursor-pointer`}
+        onClick={() => handleTaskAction(task)}>
+        {btnText || '未开始'}
       </div>
     );
   };
@@ -135,27 +177,28 @@ const TaskSection = () => {
               }}
             ></div>
             {/* 奖品列表区域 */}
-            {rewards_list.map((item, index) => {
-              const positionStyle = PRIZE_POSITIONS[index];
+            {PRIZE_MAP.map((config, index) => {
+              const item = rewardsList.find(r => r.right_id === config.targetId);
               const prizeImg = prizeAssets[index]; // 获取对应的奖品图片资源
 
-              if (!positionStyle || !prizeImg) return null;
+              if (!config.style || !prizeImg) return null;
+              if (!item) return null;
 
               const isSoldOut = item.state.code === '2';
 
               return (
                 <div
                   key={item.right_id || index}
-                  onClick={() => handleRedeem(item.right_id)}
+                  onClick={() => !isSoldOut && handleRedeemClick(item)}
                   className={`absolute z-20 transition-transform ${isSoldOut
                     ? 'cursor-default'
                     : 'cursor-pointer active:scale-95'
                     }`}
                   style={{
-                    top: positionStyle.top,
-                    left: positionStyle.left,
-                    width: positionStyle.width,
-                    height: positionStyle.height,
+                    top: config.style.top,
+                    left: config.style.left,
+                    width: config.style.width,
+                    height: config.style.height,
                   }}
                 >
                   <Image
@@ -181,7 +224,7 @@ const TaskSection = () => {
           <div className="text-base font-bold text-black">今日任务</div>
           <div className="text-sm text-gray mb-3">活动未开始</div>
           <div className="flex flex-col gap-3">
-            {allTasks.map((task) => (
+            {displayTasks.map((task) => (
               <div key={task.id} className="bg-white rounded-[10px] p-3 flex items-center justify-between shadow-sm">
                 <div className="flex flex-col flex-1 pr-2">
                   <div className="flex items-center mb-1">
@@ -193,8 +236,8 @@ const TaskSection = () => {
                   <div className="text-xs text-gray">{task.desc}</div>
                 </div>
                 <div className="flex flex-col items-center gap-1 min-w-[70px]">
-                  <span className="text-xs font-bold text-[#2079fe]">+{task.finish_point} 积分</span>
-                  {renderTaskButton(task.state)}
+                  <span className="text-xs font-bold text-blue">+{task.finish_point} 积分</span>
+                  {renderTaskButton(task)}
                 </div>
               </div>
             ))}
@@ -219,6 +262,40 @@ const TaskSection = () => {
           </div>
         </div>
       )}
+
+      {isRedeemModalOpen && selectedReward && (
+        <div className="fixed inset-0 z-[100] flex items-center justify-center bg-black/60 px-8 animate-overlayShow">
+          <div className="bg-white w-[300px] rounded-[16px] overflow-hidden flex flex-col items-center pt-6 pb-6 px-5 animate-contentShow relative">
+            <div className="text-[16px] font-bold text-black text-center leading-tight mb-4">
+              使用
+              <span className="font-black mx-1">{selectedReward.right_point}</span>
+              {selectedReward.right_point_name}
+              <br />
+              兑换 「 <span className="text-blue">{selectedReward.right_name}</span> 」
+            </div>
+            <div
+              className="text-[13px] text-gray w-full leading-relaxed mb-6 max-h-[200px] overflow-y-auto"
+              dangerouslySetInnerHTML={{ __html: selectedReward.right_desc || '' }}
+            />
+            <div className="flex justify-between w-full gap-4">
+              <button
+                onClick={() => setIsRedeemModalOpen(false)}
+                className="flex-1 h-[40px] rounded-full bg-[#F2F2F2] text-gray text-[15px] font-medium active:scale-95 transition-transform"
+              >
+                取消
+              </button>
+              <button
+                onClick={confirmRedeem}
+                className="flex-1 h-[40px] rounded-full bg-blue text-white text-[15px] font-medium active:scale-95 transition-transform shadow-md"
+              >
+                确定
+              </button>
+            </div>
+
+          </div>
+        </div>
+      )}
+
     </div>
   );
 };

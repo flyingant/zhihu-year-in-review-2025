@@ -33,6 +33,7 @@ body {
   --color-card-glass: rgba(255, 255, 255, 0.7);
   --color-black: #444;
   --color-gray: #999;
+  --color-blue: #2079fe;
 
   --animate-marquee: marquee linear infinite;
   --animate-contentShow: contentShow 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards;

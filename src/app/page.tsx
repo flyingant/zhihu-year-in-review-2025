@@ -1,6 +1,8 @@
 "use client";
 import Image from "next/image";
 import Head from "next/head";
+import { Suspense } from "react";
+import { useSearchParams } from "next/navigation";
 import AuthWrapper from "../components/layout/AuthWrapper";
 import KVSection from "../components/compound/KVSection";
 import FolderSection from "../components/compound/FolderSection";
@@ -15,11 +17,25 @@ import WuZiDa2025Section from "../components/compound/WuZiDa2025Section";
 import ZaiZhiHuLianJieZhenShiSection from "../components/compound/ZaiZhiHuLianJieZhenShiSection";
 import ZheXieZhenDeKeYiSection from "../components/compound/ZheXieZhenDeKeYiSection";
 import SidebarLiuKanshan from "../components/ui/SidebarLiuKanshan";
+import AddressForm from "../components/ui/AddressForm";
 import { assets, asset } from '@/lib/assets';
 
-
-export default function Home() {
+function HomeContent() {
+  const searchParams = useSearchParams();
+  const requireAddress = searchParams.get("requireAddress");
   const bgAsset = asset(assets.home.bg) as { url: string; alt: string, height: number, width: number };
+  
+  // Show address form if requireAddress parameter is present
+  if (requireAddress) {
+    return (
+      <div className="min-h-screen bg-white">
+        <AuthWrapper>
+          <AddressForm />
+        </AuthWrapper>
+      </div>
+    );
+  }
+
   return (
     <div className="min-h-screen bg-white">
       <AuthWrapper>
@@ -86,5 +102,20 @@ export default function Home() {
         </main>
       </AuthWrapper>
     </div>
+  );
+}
+
+export default function Home() {
+  return (
+    <Suspense fallback={
+      <div className="min-h-screen bg-white flex items-center justify-center">
+        <div className="text-center">
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-500 mx-auto mb-4"></div>
+          <p className="text-gray-600">加载中...</p>
+        </div>
+      </div>
+    }>
+      <HomeContent />
+    </Suspense>
   );
 }

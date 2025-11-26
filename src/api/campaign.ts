@@ -91,3 +91,60 @@ export const publishMomentPin = (momentContent: string, posterUrl: string) => {
     },
   });
 };
+
+// 地址相关接口
+export interface RegionData {
+  abcode: string;
+  name: string;
+  city: Array<{
+    name: string;
+    code: string;
+    area: Array<{
+      name: string;
+      code: string;
+    }>;
+  }>;
+}
+
+// 获取地址区域数据
+export const getAddressRegions = () => {
+  return request<RegionData[]>({
+    url: '/campaigns/user/address',
+    method: 'GET',
+  });
+};
+
+// 获取已填写的地址信息
+export interface AddressInfo {
+  receiver: string;
+  mobile: string;
+  province_name: string;
+  city_name: string;
+  district_name: string;
+  address_detail: string;
+}
+
+export const getAddressInfo = () => {
+  return request<AddressInfo>({
+    url: '/campaigns/v2/2025/lks_gift_address_info',
+    method: 'GET',
+  });
+};
+
+// 提交地址信息
+export interface AddressInput {
+  receiver: string;
+  mobile: string;
+  province_name: string;
+  city_name: string;
+  district_name: string;
+  address_detail: string;
+}
+
+export const submitAddress = (addressData: AddressInput) => {
+  return request<null>({
+    url: '/campaigns/v2/2025/lks_gift_address_input',
+    method: 'POST',
+    data: addressData,
+  });
+};

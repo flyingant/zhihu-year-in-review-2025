@@ -4,10 +4,12 @@ import React, { useState, useEffect } from 'react';
 import Image from 'next/image';
 import LiuKanShanBianLiDian from "../ui/LiuKanShanBianLiDian";
 import { assets, asset } from '@/lib/assets';
+import { useRouter } from 'next/navigation';
 import { getCampaignInfo, CampaignResponse, TaskItem, RewardItem } from '@/api/campaign';
 import { ACTIVITY_ID, SHOW_TASK_IDS, PRIZE_MAP, RECORD_BTN_POSITION } from '@/constants/campaign';
 
 const TaskSection = () => {
+  const router = useRouter();
   const [campaignData, setCampaignData] = useState<CampaignResponse | null>(null);
   const [loading, setLoading] = useState(true);
   const [isRulesOpen, setIsRulesOpen] = useState(false);
@@ -39,12 +41,15 @@ const TaskSection = () => {
   const currentPoint = activity_data?.running?.current_point || 0;
   const rewardsList = body?.rewards?.rewards_list || [];
   const ruleContent = head?.info || '';
+  const rawGroups = body?.task || [];
 
-  // 获取所有任务列表并过滤显示的任务
-  const allRawTasks = body?.task?.flatMap(group => group.task_list) || [];
-  const displayTasks = SHOW_TASK_IDS
-    .map(id => allRawTasks.find(t => t.id === id))
-    .filter((t): t is TaskItem => t !== undefined);
+  const displayGroups = rawGroups.map(group => {
+    const filteredTasks = group.task_list.filter(task => SHOW_TASK_IDS.includes(task.id));
+    return {
+      ...group,
+      task_list: filteredTasks
+    };
+  }).filter(group => group.task_list.length > 0);
 
   const handleTaskAction = (task: TaskItem) => {
     const { state } = task;
@@ -90,6 +95,7 @@ const TaskSection = () => {
     console.log(`确认兑换奖品 ID: ${selectedReward.right_id}`);
 
     setIsRedeemModalOpen(false);
+    router.push(`/?requireAddress=true&rewardId=${selectedReward.right_id}&from=redeem`);
   };
 
   // todo 跳转到兑换记录
@@ -220,29 +226,37 @@ const TaskSection = () => {
         </div>
 
         {/* 3. 任务列表 */}
-        <div className="bg-[#e1f4ff] rounded-[12px] pt-3 px-4 pb-5">
-          <div className="text-base font-bold text-black">今日任务</div>
-          <div className="text-sm text-gray mb-3">活动未开始</div>
-          <div className="flex flex-col gap-3">
-            {displayTasks.map((task) => (
-              <div key={task.id} className="bg-white rounded-[10px] p-3 flex items-center justify-between shadow-sm">
-                <div className="flex flex-col flex-1 pr-2">
-                  <div className="flex items-center mb-1">
-                    <span className="text-sm font-bold text-black">
-                      {task.name}
-                      <span className="ml-2">({task.finished}/{task.total})</span>
-                    </span>
-                  </div>
-                  <div className="text-xs text-gray">{task.desc}</div>
-                </div>
-                <div className="flex flex-col items-center gap-1 min-w-[70px]">
-                  <span className="text-xs font-bold text-blue">+{task.finish_point} 积分</span>
-                  {renderTaskButton(task)}
-                </div>
+        {
+          displayGroups.map((group, index) => (
+            <div key={index} className="bg-[#e1f4ff] rounded-[12px] pt-3 px-4 pb-5 mb-4">
+              <div className="mb-3">
+                <div className="text-base font-bold text-black">{group.title}</div>
+                <div className="text-xs text-gray">{group.desc}</div>
               </div>
-            ))}
-          </div>
-        </div>
+              
+              <div className="flex flex-col gap-3">
+                {group.task_list.map((task) => (
+                  <div key={task.id} className="bg-white rounded-[10px] p-3 flex items-center justify-between shadow-sm">
+                    <div className="flex flex-col flex-1 pr-2">
+                      <div className="flex items-center mb-1">
+                        <span className="text-sm font-bold text-black">
+                          {task.name}
+                          <span className="ml-2 font-normal">({task.finished}/{task.total})</span>
+                        </span>
+                      </div>
+                      <div className="text-xs text-gray">{task.desc}</div>
+                    </div>
+                    <div className="flex flex-col items-center gap-1 min-w-[70px]">
+                      <span className="text-xs font-bold text-blue">+{task.finish_point} 积分</span>
+                      {renderTaskButton(task)}
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          ))
+        }
+
 
       </div>
 

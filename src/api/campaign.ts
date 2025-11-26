@@ -33,6 +33,7 @@ export interface TaskState {
 
 
 export interface TaskItem {
+  title: string;
   id: number;
   name: string;
   desc: string;
@@ -52,6 +53,8 @@ export interface CampaignResponse {
       rewards_list: RewardItem[];
     };
     task: Array<{
+      title?: string;
+      desc?: string;
       task_list: TaskItem[];
     }>;
   };

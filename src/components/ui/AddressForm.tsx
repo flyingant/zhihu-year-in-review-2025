@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import { useToast } from "@/context/toast-context";
 import { getAddressInfo, submitAddress } from "@/api/campaign";
 import RegionPicker from "./RegionPicker";
@@ -16,8 +16,11 @@ interface AddressFormData {
   phoneNumber: string;
 }
 
+const phoneRegex = /^1[3-9]\d{9}$/;
+
 export default function AddressForm() {
   const router = useRouter();
+  const searchParams = useSearchParams();
   const { showToast } = useToast();
   const [formData, setFormData] = useState<AddressFormData>({
     region: "",
@@ -32,6 +35,16 @@ export default function AddressForm() {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
 
+  const rewardId = searchParams.get("rewardId");
+  const fromRedeem = searchParams.get("from") === "redeem";
+
+  const isFormFilled =
+    !!formData.region &&
+    !!formData.detailedAddress?.trim() &&
+    !!formData.recipientName?.trim() &&
+    !!formData.phoneNumber?.trim() &&
+    phoneRegex.test(formData.phoneNumber?.trim());
+
   // Fetch existing address on mount
   useEffect(() => {
     const fetchExistingAddress = async () => {
@@ -41,7 +54,7 @@ export default function AddressForm() {
         if (addressInfo) {
           const regionString = `${addressInfo.province_name} ${addressInfo.city_name} ${addressInfo.district_name}`;
           setFormData({
-            region: regionString,
+            region: regionString.trim(),
             provinceName: addressInfo.province_name,
             cityName: addressInfo.city_name,
             districtName: addressInfo.district_name,
@@ -111,7 +124,6 @@ export default function AddressForm() {
       return false;
     }
     // Validate phone number format (11 digits, starting with 1)
-    const phoneRegex = /^1[3-9]\d{9}$/;
     if (!phoneRegex.test(formData.phoneNumber.trim())) {
       showToast("请输入正确的手机号", "error");
       return false;
@@ -123,19 +135,25 @@ export default function AddressForm() {
     if (!validateForm()) {
       return;
     }
-
+    const addressData = {
+      receiver: formData.recipientName.trim(),
+      mobile: formData.phoneNumber.trim(),
+      province_name: formData.provinceName,
+      city_name: formData.cityName,
+      district_name: formData.districtName,
+      address_detail: formData.detailedAddress.trim(),
+    };
     setIsSubmitting(true);
     try {
-      await submitAddress({
-        receiver: formData.recipientName.trim(),
-        mobile: formData.phoneNumber.trim(),
-        province_name: formData.provinceName,
-        city_name: formData.cityName,
-        district_name: formData.districtName,
-        address_detail: formData.detailedAddress.trim(),
-      });
-      
-      showToast("地址提交成功", "success");
+      if (fromRedeem && rewardId) {
+        // TODO: 调用兑换奖品时的地址提交接口
+        console.log('调用兑换接口，奖品ID:', rewardId, '地址数据:', addressData);
+        showToast("兑换成功", "success");
+      } else {
+        await submitAddress(addressData);
+
+        showToast("地址提交成功", "success");
+      }
       // Redirect back after successful submission
       setTimeout(() => {
         router.push("/");
@@ -192,7 +210,7 @@ export default function AddressForm() {
       {/* Form */}
       <div className="px-4 pt-6 pb-24">
         {/* Region Field */}
-        <div className="mb-6">
+        <div className="mb-4 text-sm">
           <button
             type="button"
             onClick={() => setShowRegionPicker(true)}
@@ -211,7 +229,7 @@ export default function AddressForm() {
         </div>
 
         {/* Detailed Address Field */}
-        <div className="mb-6">
+        <div className="mb-4 text-sm">
           <input
             type="text"
             value={formData.detailedAddress}
@@ -224,7 +242,7 @@ export default function AddressForm() {
         </div>
 
         {/* Recipient Name Field */}
-        <div className="mb-6">
+        <div className="mb-4 text-sm">
           <input
             type="text"
             value={formData.recipientName}
@@ -235,7 +253,7 @@ export default function AddressForm() {
         </div>
 
         {/* Phone Number Field */}
-        <div className="mb-6">
+        <div className="mb-4 text-sm">
           <input
             type="tel"
             value={formData.phoneNumber}
@@ -247,17 +265,17 @@ export default function AddressForm() {
         </div>
 
         {/* Notice Text */}
-        <p className="text-xs text-gray-500 mb-8">
+        <p className="text-xs text-gray mb-8">
           收货地址不支持更换,请确保地址准确
         </p>
       </div>
 
       {/* Submit Button */}
-      <div className="fixed bottom-0 left-0 right-0 rounded-full bg-white border-t border-gray-200 p-4 pb-safe">
+      <div className="fixed bottom-0 left-0 right-0 bg-white p-4 pb-safe text-sm">
         <button
           onClick={handleSubmit}
-          disabled={isSubmitting}
-          className="w-full bg-[#056DE8] text-white py-3 rounded-lg font-medium disabled:opacity-50 disabled:cursor-not-allowed"
+          disabled={isSubmitting || !isFormFilled}
+          className="w-full bg-blue text-white py-3 rounded-[30px] font-medium disabled:opacity-50 disabled:cursor-not-allowed"
         >
           {isSubmitting ? "提交中..." : "确认地址"}
         </button>

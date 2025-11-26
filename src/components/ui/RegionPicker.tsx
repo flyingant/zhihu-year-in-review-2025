@@ -176,7 +176,7 @@ export default function RegionPicker({
                 key={province.code || province.name || `province-${index}`}
                 onClick={() => setSelectedProvince(province)}
                 className={`w-full text-left px-4 py-3 text-sm ${
-                  selectedProvince?.code === province.code
+                  selectedProvince?.name === province.name
                     ? "bg-blue-50 text-[#056DE8] font-medium"
                     : "text-gray-900"
                 }`}

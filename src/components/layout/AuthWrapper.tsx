@@ -1,9 +1,8 @@
 "use client";
 
-import { ReactNode, useState } from "react";
+import { ReactNode } from "react";
 import { useAuth } from "@/context/auth-context";
 import { useUserData } from "@/context/user-data-context";
-import LoginModal from "../ui/LoginModal";
 
 interface AuthWrapperProps {
   children: ReactNode;
@@ -18,9 +17,8 @@ export default function AuthWrapper({
   showWelcomeMessage = true,
   showLoadingIndicator = true,
 }: AuthWrapperProps) {
-  const { isAuthLoading, isAuthenticated, profile } = useAuth();
+  const { isAuthLoading, isAuthenticated, profile, login } = useAuth();
   const { isLoadingData, error, fetchUserData } = useUserData();
-  const [showLoginModal, setShowLoginModal] = useState(false);
 
   // Show loading state while checking auth
   if (isAuthLoading && showLoadingIndicator) {
@@ -56,15 +54,14 @@ export default function AuthWrapper({
         </div>
       )}
 
-      {/* Login Prompt (if not authenticated) */}
+      {/* Login Button (if not authenticated) */}
       {showLoginPrompt && !isAuthenticated && (
-        <div className="mx-4 mt-4 p-4 bg-blue-50 border border-blue-200 rounded text-center">
-          <p className="text-gray-700 mb-3">登录后查看您的年度盘点</p>
+        <div className="mx-4 mt-4 text-center">
           <button
-            onClick={() => setShowLoginModal(true)}
+            onClick={login}
             className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-6 rounded cursor-pointer"
           >
-            立即登录
+            登录
           </button>
         </div>
       )}
@@ -77,11 +74,6 @@ export default function AuthWrapper({
       )}
 
       {children}
-
-      {/* Login Modal */}
-      {showLoginModal && (
-        <LoginModal onClose={() => setShowLoginModal(false)} />
-      )}
     </>
   );
 }

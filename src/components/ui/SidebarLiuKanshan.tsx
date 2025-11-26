@@ -5,6 +5,7 @@ import Image from 'next/image';
 import { assets, asset, componentExpiration } from '@/lib/assets';
 import request from '@/lib/request';
 import { useToast } from '@/context/toast-context';
+import { useZhihuApp } from '@/hooks/useZhihuApp';
 
 interface TaskStatusResponse {
   task_status: number; // 0: 今日已领完, 1: 未领取还有剩余, 2: 已领取未填地址, 3: 已领取并已填地址
@@ -17,16 +18,25 @@ const SidebarLiuKanshan = () => {
   const [isKVSectionVisible, setIsKVSectionVisible] = useState(true);
   const [isExpired, setIsExpired] = useState(false);
   const { showToast } = useToast();
+  const isZhihu = useZhihuApp();
   
   const imageAsset = asset(assets.newImages.sidebarLiuKanshan) as { url: string; alt: string; width: number; height: number };
   const dialogAsset = asset(assets.newImages.sidebarLiuKanshanDialog) as { url: string; alt: string; width: number; height: number };
   const dialogSoldOutAsset = asset(assets.newImages.sidebarLiuKanshanDialogSoldOut) as { url: string; alt: string; width: number; height: number };
   const cancelAsset = asset(assets.newImages.sidebarLiuKanshanCancel) as { url: string; alt: string; width: number; height: number };
   const publishAsset = asset(assets.newImages.sidebarLiuKanshanPublish) as { url: string; alt: string; width: number; height: number };
+  const publishPcAsset = asset(assets.newImages.sidebarLiuKanshanPublishPc) as { url: string; alt: string; width: number; height: number };
+  const qrcodeAsset = asset(assets.newImages.sidebarLiuKanshanQrcode) as { url: string; alt: string; width: number; height: number };
+  const qrcodeTipsAsset = asset(assets.newImages.sidebarLiuKanshanQrcodeTips) as { url: string; alt: string; width: number; height: number };
   const tmrAsset = asset(assets.newImages.sidebarLiuKanshanTmr) as { url: string; alt: string; width: number; height: number };
   
   const displayWidth = imageAsset.width / 2;
   const displayHeight = imageAsset.height / 2;
+  
+  // Calculate maximum button width to ensure consistent UI
+  const cancelButtonWidth = cancelAsset.width / 6;
+  const publishButtonWidth = isZhihu ? publishAsset.width : publishPcAsset.width / 6;
+  const maxButtonWidth = Math.max(cancelButtonWidth, publishButtonWidth);
   
   // Select dialog image based on sold out status
   const currentDialogAsset = isSoldOut ? dialogSoldOutAsset : dialogAsset;
@@ -256,7 +266,7 @@ const SidebarLiuKanshan = () => {
                   <div
                     onClick={handleCancelClick}
                     className="relative cursor-pointer active:opacity-80 transition-opacity"
-                    style={{ width: `${cancelAsset.width}px`, height: `${cancelAsset.height}px` }}
+                    style={{ width: `${maxButtonWidth}px`, height: `${cancelAsset.height / 6}px` }}
                   >
                     <Image
                       src={cancelAsset.url}
@@ -268,19 +278,63 @@ const SidebarLiuKanshan = () => {
                   </div>
 
                   {/* Publish Button */}
-                  <div
-                    onClick={handlePublishClick}
-                    className="relative cursor-pointer active:opacity-80 transition-opacity"
-                    style={{ width: `${publishAsset.width}px`, height: `${publishAsset.height}px` }}
-                  >
-                    <Image
-                      src={publishAsset.url}
-                      alt={publishAsset.alt}
-                      width={publishAsset.width}
-                      height={publishAsset.height}
-                      className="object-contain w-full h-full"
-                    />
-                  </div>
+                  {isZhihu ? (
+                    // Zhihu App: Use original publish button
+                    <div
+                      onClick={handlePublishClick}
+                      className="relative cursor-pointer active:opacity-80 transition-opacity"
+                      style={{ width: `${maxButtonWidth}px`, height: `${publishAsset.height / 2}px` }}
+                    >
+                      <Image
+                        src={publishAsset.url}
+                        alt={publishAsset.alt}
+                        width={publishAsset.width}
+                        height={publishAsset.height}
+                        className="object-contain w-full h-full"
+                      />
+                    </div>
+                  ) : (
+                    // Normal Browser: Use PC publish button with QR code positioned absolutely
+                    <div
+                      className="relative cursor-pointer active:opacity-80 transition-opacity"
+                      style={{ width: `${maxButtonWidth}px`, height: `${publishPcAsset.height / 6}px` }}
+                    >
+                      <Image
+                        src={publishPcAsset.url}
+                        alt={publishPcAsset.alt}
+                        width={publishPcAsset.width}
+                        height={publishPcAsset.height}
+                        className="object-contain w-full h-full"
+                      />
+                      {/* QR Code and Tips */}
+                      <div className="absolute top-[65px] right-[26px] flex flex-col items-center gap-2">
+                        <div
+                          className="relative shrink-0"
+                          style={{ width: `${qrcodeAsset.width / 6}px`, height: `${qrcodeAsset.height / 6}px` }}
+                        >
+                          <Image
+                            src={qrcodeAsset.url}
+                            alt={qrcodeAsset.alt}
+                            width={qrcodeAsset.width}
+                            height={qrcodeAsset.height}
+                            className="object-contain w-full h-full"
+                          />
+                        </div>
+                        <div
+                          className="relative shrink-0"
+                          style={{ width: `${qrcodeTipsAsset.width / 6}px`, height: `${qrcodeTipsAsset.height / 6}px` }}
+                        >
+                          <Image
+                            src={qrcodeTipsAsset.url}
+                            alt={qrcodeTipsAsset.alt}
+                            width={qrcodeTipsAsset.width}
+                            height={qrcodeTipsAsset.height}
+                            className="object-contain w-full h-full"
+                          />
+                        </div>
+                      </div>
+                    </div>
+                  )}
                 </>
               )}
             </div>

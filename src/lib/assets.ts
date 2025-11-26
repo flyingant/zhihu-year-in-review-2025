@@ -10,6 +10,11 @@
 // CDN base URL from environment variable (empty string = local assets)
 const CDN_BASE_URL = process.env.NEXT_PUBLIC_CDN_BASE_URL || '';
 
+// Component expiration dates (in milliseconds since epoch)
+export const componentExpiration = {
+  sidebarLiuKanshan: new Date('2025-12-25T00:00:00').getTime(), // 2025.12.25 00:00
+};
+
 /**
  * Get the full URL for an asset path
  * @param path - Relative asset path (e.g., '/assets/image.png')

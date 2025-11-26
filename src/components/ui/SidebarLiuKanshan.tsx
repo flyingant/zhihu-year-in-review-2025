@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect } from 'react';
 import Image from 'next/image';
-import { assets, asset } from '@/lib/assets';
+import { assets, asset, componentExpiration } from '@/lib/assets';
 import request from '@/lib/request';
 import { useToast } from '@/context/toast-context';
 
@@ -15,6 +15,7 @@ const SidebarLiuKanshan = () => {
   const [isSoldOut, setIsSoldOut] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [isKVSectionVisible, setIsKVSectionVisible] = useState(true);
+  const [isExpired, setIsExpired] = useState(false);
   const { showToast } = useToast();
   
   const imageAsset = asset(assets.newImages.sidebarLiuKanshan) as { url: string; alt: string; width: number; height: number };
@@ -81,6 +82,25 @@ const SidebarLiuKanshan = () => {
     window.addEventListener('keydown', handleEscape);
     return () => window.removeEventListener('keydown', handleEscape);
   }, [isDialogOpen]);
+
+  // Check expiration date
+  useEffect(() => {
+    const checkExpiration = () => {
+      const expirationTime = componentExpiration.sidebarLiuKanshan;
+      const currentTime = Date.now();
+      setIsExpired(currentTime >= expirationTime);
+    };
+
+    // Check immediately
+    checkExpiration();
+
+    // Check every minute to handle expiration in real-time
+    const interval = setInterval(checkExpiration, 60000);
+
+    return () => {
+      clearInterval(interval);
+    };
+  }, []);
 
   // Monitor KV section visibility
   useEffect(() => {
@@ -169,6 +189,11 @@ const SidebarLiuKanshan = () => {
       setIsDialogOpen(false);
     }
   };
+
+  // Don't render if expired
+  if (isExpired) {
+    return null;
+  }
 
   return (
     <>

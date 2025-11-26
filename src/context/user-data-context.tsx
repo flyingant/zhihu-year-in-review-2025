@@ -39,15 +39,8 @@ export function UserDataProvider({ children }: { children: ReactNode }) {
         method: "get",
       });
 
-      // Fetch points task info
-      const pointsTaskData = await request({
-        url: "/campaigns/user/1974495708519367443",
-        method: "get",
-      });
-
       setUserData({
         address: addressData,
-        pointsTask: pointsTaskData,
       });
     } catch (err: unknown) {
       console.error("Error fetching user data:", err);

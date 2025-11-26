@@ -14,6 +14,7 @@ const SidebarLiuKanshan = () => {
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const [isSoldOut, setIsSoldOut] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+  const [isKVSectionVisible, setIsKVSectionVisible] = useState(true);
   const { showToast } = useToast();
   
   const imageAsset = asset(assets.newImages.sidebarLiuKanshan) as { url: string; alt: string; width: number; height: number };
@@ -81,6 +82,35 @@ const SidebarLiuKanshan = () => {
     return () => window.removeEventListener('keydown', handleEscape);
   }, [isDialogOpen]);
 
+  // Monitor KV section visibility
+  useEffect(() => {
+    const kvSection = document.getElementById('kv-section');
+    if (!kvSection) {
+      // If KV section doesn't exist, show sidebar by default
+      setIsKVSectionVisible(false);
+      return;
+    }
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          // If KV section is not intersecting (not visible), show sidebar
+          setIsKVSectionVisible(entry.isIntersecting);
+        });
+      },
+      {
+        threshold: 0, // Trigger when any part of the element is visible
+        rootMargin: '0px',
+      }
+    );
+
+    observer.observe(kvSection);
+
+    return () => {
+      observer.disconnect();
+    };
+  }, []);
+
   const handleSidebarClick = async () => {
     setIsLoading(true);
     try {
@@ -142,20 +172,22 @@ const SidebarLiuKanshan = () => {
 
   return (
     <>
-      <div 
-        className="fixed right-0 top-[50%] -translate-y-1/2 z-[9999] pointer-events-auto cursor-pointer"
-        onClick={handleSidebarClick}
-        style={{ opacity: isLoading ? 0.6 : 1, pointerEvents: isLoading ? 'none' : 'auto' }}
-      >
-        <Image
-          src={imageAsset.url}
-          alt={imageAsset.alt}
-          width={imageAsset.width}
-          height={imageAsset.height}
-          style={{ width: `${displayWidth}px`, height: `${displayHeight}px` }}
-          className="object-contain"
-        />
-      </div>
+      {!isKVSectionVisible && (
+        <div 
+          className="fixed right-0 top-[50%] -translate-y-1/2 z-[9999] pointer-events-auto cursor-pointer"
+          onClick={handleSidebarClick}
+          style={{ opacity: isLoading ? 0.6 : 1, pointerEvents: isLoading ? 'none' : 'auto' }}
+        >
+          <Image
+            src={imageAsset.url}
+            alt={imageAsset.alt}
+            width={imageAsset.width}
+            height={imageAsset.height}
+            style={{ width: `${displayWidth}px`, height: `${displayHeight}px` }}
+            className="object-contain"
+          />
+        </div>
+      )}
 
       {/* Fullscreen Dialog */}
       {isDialogOpen && (

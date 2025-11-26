@@ -224,6 +224,18 @@ export const assets = {
       height: 150,
       alt: 'Game Bottom Banner',
     },
+    saveImage: {
+      url: '/assets/game_save_image@3x.png',
+      width: 909,
+      height: 279,
+      alt: '保存图片',
+    },
+    syncIdeas: {
+      url: '/assets/game_sync_ideas@3x.png',
+      width: 909,
+      height: 279,
+      alt: '一键同步想法',
+    },
   },
   zaiZhiHuLianJieZhenShiUrls: [
     {
@@ -307,6 +319,12 @@ export const assets = {
       width: 1030,
       height: 408,
       alt: '这些真的可以',
+    },
+    zhenShiShunJian: {
+      url: '/assets/ zhen_shi_shun_jian@3x.png',
+      width: 1995,
+      height: 300,
+      alt: '真实瞬间',
     },
 
     sidebarCampaignRules: {

@@ -3,6 +3,8 @@
 import React, { useState, useEffect, useRef } from 'react';
 import Image from 'next/image';
 import { assets, asset } from '@/lib/assets';
+import { generateMomentPoster, publishMomentPin } from '@/api/campaign';
+import { useToast } from '@/context/toast-context';
 
 const useTypingEffect = (text: string, speed = 300, isActive: boolean) => {
   const [displayedText, setDisplayedText] = useState('');
@@ -27,19 +29,22 @@ const useTypingEffect = (text: string, speed = 300, isActive: boolean) => {
   return displayedText;
 };
 
-const GameSection = () => {
+const MiniComputerSection = () => {
   const consoleBgAsset = asset(assets.games.consoleBg) as { url: string; alt: string };
   const titleAsset = asset(assets.games.title) as { url: string; alt: string; width: number; height: number };
   const liukanshanAsset = asset(assets.games.liukanshan) as { url: string; alt: string };
   const failAsset = asset(assets.games.fail) as { url: string; alt: string };
-  const successAsset = asset(assets.games.success) as { url: string; alt: string };
   const bottomBannerAsset = asset(assets.games.bottomBanner) as { url: string; alt: string };
+  const saveImageAsset = asset(assets.games.saveImage) as { url: string; alt: string; width: number; height: number };
+  const syncIdeasAsset = asset(assets.games.syncIdeas) as { url: string; alt: string; width: number; height: number };
 
   const [status, setStatus] = useState('idle');
   const [inputValue, setInputValue] = useState('');
   const [isFocused, setIsFocused] = useState(false);
+  const [posterUrl, setPosterUrl] = useState<string>('');
 
-  const mirrorRef = useRef<HTMLDivElement>(null);;
+  const mirrorRef = useRef<HTMLDivElement>(null);
+  const { showToast } = useToast();
 
   const loadingText = useTypingEffect("海报生成中...", 200, status === 'loading');
   const HASHTAG = " #2025到底什么是真的";
@@ -62,31 +67,69 @@ const GameSection = () => {
     if (!inputValue.trim()) return;
 
     setStatus('loading');
-    setTimeout(() => {
-      const isSuccess = Math.random() > 0.5;
-      setStatus(isSuccess ? 'success' : 'error');
-    }, 3000);
+    try {
+      const response = await generateMomentPoster(inputValue.trim());
+      setPosterUrl(response.poster_url);
+      setStatus('success');
+    } catch (error) {
+      console.error('Failed to generate poster:', error);
+      const errorMessage = error && typeof error === 'object' && 'msg' in error 
+        ? String(error.msg) 
+        : '海报生成失败，请稍后重试';
+      showToast(errorMessage, 'error');
+      setStatus('error');
+    }
   };
 
-  const handleRetry = () => {
+  const handleRetry = async () => {
     setStatus('loading');
-    setTimeout(() => setStatus('success'), 3000);
+    try {
+      const response = await generateMomentPoster(inputValue.trim());
+      setPosterUrl(response.poster_url);
+      setStatus('success');
+    } catch (error) {
+      console.error('Failed to generate poster:', error);
+      const errorMessage = error && typeof error === 'object' && 'msg' in error 
+        ? String(error.msg) 
+        : '海报生成失败，请稍后重试';
+      showToast(errorMessage, 'error');
+      setStatus('error');
+    }
   };
 
-  // todo: 保存图片
+  const handleCloseSuccess = () => {
+    setStatus('idle');
+    setPosterUrl('');
+    setInputValue('');
+  };
+
+  // TODO: 保存图片功能待实现
   const handleSaveImage = () => {
-    console.log('Saving image...');
-    setStatus('idle');
+    if (!posterUrl) {
+      showToast('没有可保存的图片', 'error');
+      return;
+    }
+    console.log('Poster URL:', posterUrl);
+    showToast('保存功能开发中', 'info');
+    // TODO: 实现图片保存功能
   };
-  // todo: 同步想法
-  const handleSyncIdea = () => {
-    console.log('Syncing idea...');
-    setStatus('idle');
-  };
-  // todo: 写下真实瞬间跳转
-  const handleMoreMoments = () => {
-    console.log('More moments...');
-    setStatus('idle');
+  // 同步想法
+  const handleSyncIdea = async () => {
+    if (!inputValue.trim() || !posterUrl) {
+      showToast('缺少必要信息，无法发布', 'error');
+      return;
+    }
+
+    try {
+      await publishMomentPin(inputValue.trim(), posterUrl);
+      showToast('发布成功', 'success');
+    } catch (error) {
+      console.error('Failed to publish moment:', error);
+      const errorMessage = error && typeof error === 'object' && 'msg' in error 
+        ? String(error.msg) 
+        : '发布失败，请稍后重试';
+      showToast(errorMessage, 'error');
+    }
   };
 
 
@@ -166,7 +209,7 @@ const GameSection = () => {
         </div>
         {/* loading动画 */}
         {status === 'loading' && (
-          <div className="fixed z-[9999] inset-0 h-[100vh] bg-black/60 backdrop-blur-[2px] flex flex-col items-center justify-center">
+          <div className="fixed z-[9999] inset-0 h-screen bg-black/60 backdrop-blur-[2px] flex flex-col items-center justify-center">
             <div className="relative w-[74px] h-[104px] animate-bounce">
               <Image
                 src={liukanshanAsset.url}
@@ -182,17 +225,22 @@ const GameSection = () => {
         )}
       </div>
       {/* 写下更多真实瞬间按钮 */}
-      <div className="relative w-full max-w-[333px] h-[50px] mt-5" onClick={handleMoreMoments}>
+      <a 
+        href="https://www.zhihu.com/question/1974440788541793545" 
+        target="_blank" 
+        rel="noopener noreferrer"
+        className="relative w-full max-w-[333px] h-[50px] mt-5 block"
+      >
         <Image
           src={bottomBannerAsset.url}
           alt={bottomBannerAsset.alt}
           fill
           className="object-contain"
         />
-      </div>
+      </a>
       {/* 失败弹框 */}
       {status === 'error' && (
-        <div className="fixed z-[9999] inset-0 h-[100vh] z-50 flex items-center justify-center bg-black/70 animate-overlayShow">
+        <div className="fixed z-[9999] inset-0 h-screen flex items-center justify-center bg-black/70 animate-overlayShow">
           <div className="relative w-[219px] h-[298px] animate-contentShow">
             <Image
               src={failAsset.url}
@@ -205,45 +253,73 @@ const GameSection = () => {
               className="absolute bottom-[24%] left-[6%] w-[88%] h-[13%] bg-transparent cursor-pointer active:opacity-50"
             ></div>
             <div
-              onClick={() => setStatus('idle')}
+              onClick={() => {
+                setStatus('idle');
+                setPosterUrl('');
+              }}
               className="absolute bottom-[6%] left-[6%] w-[88%] h-[13%] bg-transparent cursor-pointer active:opacity-50"
             ></div>
           </div>
         </div>
       )}
       {/* 成功弹框 */}
-      {status === 'success' && (
-        <div className="fixed z-[9999] inset-0 h-[100vh] z-50 flex flex-col items-center justify-center bg-black/80 animate-overlayShow">
-          <div className="relative w-[300px] h-[500px] animate-contentShow">
-            <Image
-              src={successAsset.url}
-              alt={successAsset.alt}
-              fill
-              className="object-contain"
-            />
-            <div
-              className="absolute z-10 text-gray-800 text-sm leading-relaxed flex items-center justify-start break-all whitespace-pre-wrap overflow-hidden"
-              style={{
-                top: '40%',
-                left: '12%',
-                width: '76%',
-                height: '25%',
-                // background: 'rgba(255, 0, 0, 0.3)',
-              }}
+      {status === 'success' && posterUrl && (
+        <div className="fixed z-[9999] inset-0 h-screen flex flex-col items-center justify-center bg-black/80 animate-overlayShow">
+          <div className="relative flex flex-col items-center gap-4 animate-contentShow max-w-[300px]">
+            {/* Close button */}
+            <button
+              onClick={handleCloseSuccess}
+              className="absolute -top-10 right-0 w-8 h-8 flex items-center justify-center text-white hover:opacity-70 transition-opacity z-30"
+              aria-label="Close"
             >
-              {inputValue || "这是用户输入的文字内容..."}
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                className="h-6 w-6"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+                strokeWidth={2}
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  d="M6 18L18 6M6 6l12 12"
+                />
+              </svg>
+            </button>
+            <img
+              src={posterUrl}
+              alt="Generated poster"
+              className="w-full h-auto object-contain"
+            />
+            <div className="flex gap-4 w-full px-2">
+              <div
+                onClick={handleSaveImage}
+                className="flex-1 cursor-pointer active:opacity-50"
+              >
+                <Image
+                  src={saveImageAsset.url}
+                  alt={saveImageAsset.alt}
+                  width={saveImageAsset.width}
+                  height={saveImageAsset.height}
+                  className="w-full h-auto object-contain"
+                  unoptimized
+                />
+              </div>
+              <div
+                onClick={handleSyncIdea}
+                className="flex-1 cursor-pointer active:opacity-50"
+              >
+                <Image
+                  src={syncIdeasAsset.url}
+                  alt={syncIdeasAsset.alt}
+                  width={syncIdeasAsset.width}
+                  height={syncIdeasAsset.height}
+                  className="w-full h-auto object-contain"
+                  unoptimized
+                />
+              </div>
             </div>
-            <div
-              onClick={handleSaveImage}
-              className="absolute bottom-[5%] left-[4%] w-[40%] h-[8%] bg-transparent cursor-pointer active:opacity-50"
-            // style={{ background: 'rgba(0, 255, 0, 0.3)' }}
-            ></div>
-            <div
-              onClick={handleSyncIdea}
-              className="absolute bottom-[5%] right-[4%] w-[40%] h-[8%] bg-transparent cursor-pointer active:opacity-50"
-            // style={{ background: 'rgba(0, 0, 255, 0.3)' }}
-            ></div>
-
           </div>
         </div>
       )}
@@ -251,4 +327,5 @@ const GameSection = () => {
   );
 };
 
-export default GameSection; 
+export default MiniComputerSection;
+

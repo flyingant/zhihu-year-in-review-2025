@@ -5,12 +5,8 @@ import AuthWrapper from "../components/layout/AuthWrapper";
 import KVSection from "../components/compound/KVSection";
 import FolderSection from "../components/compound/FolderSection";
 import SectionLayout from "../components/layout/SectionLayout";
-import GameSection from "../components/compound/GameSection";
+import MiniComputerSection from "../components/compound/MiniComputerSection";
 import ZhihuLogo from "../components/ui/ZhihuLogo";
-import WuZiDa2025 from "../components/ui/WuZiDa2025";
-import ZaiZhiHuLianJieZhenShi from "../components/ui/ZaiZhiHuLianJieZhenShi";
-import QiangXianYuGao from "../components/ui/QiangXianYuGao";
-import ZheXieZhenDeKeYi from "../components/ui/ZheXieZhenDeKeYi";
 import ZhihuSearch from "../components/ui/zhihuSearch";
 import HomeBottomBg from "../components/ui/homeBottomBg";
 import TaskSection from "../components/compound/TaskSection";
@@ -19,7 +15,6 @@ import WuZiDa2025Section from "../components/compound/WuZiDa2025Section";
 import ZaiZhiHuLianJieZhenShiSection from "../components/compound/ZaiZhiHuLianJieZhenShiSection";
 import ZheXieZhenDeKeYiSection from "../components/compound/ZheXieZhenDeKeYiSection";
 import SidebarLiuKanshan from "../components/ui/SidebarLiuKanshan";
-import VideoPlayer from "../components/ui/VideoPlayer";
 import { assets, asset } from '@/lib/assets';
 
 
@@ -58,10 +53,9 @@ export default function Home() {
           </SectionLayout>
 
           <SectionLayout topOffset={0} id="game-section">
-            <GameSection />
+            <MiniComputerSection />
           </SectionLayout>
 
-          {/* New Image C omponents */}
           <SectionLayout topOffset={0} id="qiangxian-yugao-section">
             <QiangXianYuGaoSection />
           </SectionLayout>
@@ -72,30 +66,6 @@ export default function Home() {
 
           <SectionLayout topOffset={0} id="wuzida2025-section">
             <WuZiDa2025Section />
-          </SectionLayout>
-
-          <SectionLayout topOffset={0} id="video-section-tunnel">
-            <div className="w-full px-4">
-              <VideoPlayer 
-                src="/images/video 8-Tunnel.mp4"
-                controls={false}
-                muted={true}
-                loop={true}
-                className="mt-4"
-              />
-            </div>
-          </SectionLayout>
-
-          <SectionLayout topOffset={0} id="video-section-mp4">
-            <div className="w-full px-4">
-              <VideoPlayer 
-                src="/images/video 8-MP4.mp4"
-                controls={false}
-                muted={true}
-                loop={true}
-                className="mt-4"
-              />
-            </div>
           </SectionLayout>
 
           <SectionLayout topOffset={0} id="zaizhihu-lianjie-zhenshi-section">

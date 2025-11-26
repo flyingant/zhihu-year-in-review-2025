@@ -64,3 +64,30 @@ export const getCampaignInfo = (activityId: string | number) => {
     method: 'GET',
   });
 };
+
+// 生成「分享瞬间」海报
+export interface MomentPosterResponse {
+  poster_url: string;
+}
+
+export const generateMomentPoster = (momentContent: string) => {
+  return request<MomentPosterResponse>({
+    url: '/campaigns/v2/2025/moment_generate_poster',
+    method: 'POST',
+    data: {
+      moment_content: momentContent,
+    },
+  });
+};
+
+// 「分享瞬间」一键发布想法
+export const publishMomentPin = (momentContent: string, posterUrl: string) => {
+  return request<null>({
+    url: '/campaigns/v2/2025/publish_moment_pin',
+    method: 'POST',
+    data: {
+      moment_content: momentContent,
+      poster_url: posterUrl,
+    },
+  });
+};

@@ -308,9 +308,9 @@ export const assets = {
       alt: '抢先预告',
     },
     qiangXianYuGaoBanner: {
-      url: '/assets/qiangxianyugao_banner@3x.png',
-      width: 1030,
-      height: 408,
+      url: '/assets/qiangxianyugao.png',
+      width: 727,
+      height: 527,
       alt: '抢先预告',
     },
     zheXieZhenDeKeYi: {

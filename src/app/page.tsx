@@ -13,7 +13,7 @@ import ZhihuSearch from "../components/ui/zhihuSearch";
 import HomeBottomBg from "../components/ui/homeBottomBg";
 import TaskSection from "../components/compound/TaskSection";
 import QiangXianYuGaoSection from "../components/compound/QiangXianYuGaoSection";
-import WuZiDa2025Section from "../components/compound/WuZiDa2025Section";
+import QinZiDa2025Section from "../components/compound/QinZiDa2025Section";
 import ZaiZhiHuLianJieZhenShiSection from "../components/compound/ZaiZhiHuLianJieZhenShiSection";
 import ZheXieZhenDeKeYiSection from "../components/compound/ZheXieZhenDeKeYiSection";
 import SidebarLiuKanshan from "../components/ui/SidebarLiuKanshan";
@@ -81,7 +81,7 @@ function HomeContent() {
           </SectionLayout>
 
           <SectionLayout topOffset={0} id="wuzida2025-section">
-            <WuZiDa2025Section />
+            <QinZiDa2025Section />
           </SectionLayout>
 
           <SectionLayout topOffset={0} id="zaizhihu-lianjie-zhenshi-section">

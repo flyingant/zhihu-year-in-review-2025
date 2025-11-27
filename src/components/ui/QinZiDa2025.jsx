@@ -2,14 +2,14 @@ import React from 'react';
 import Image from 'next/image';
 import { assets, asset } from '@/lib/assets';
 
-const QiangXianYuGao = ({ className = '' }) => {
-  const imageAsset = asset(assets.newImages.qiangXianYuGao);
+const QinZiDa2025 = ({ className = '' }) => {
+  const imageAsset = asset(assets.newImages.wuzida2025);
   // Display at 25% of original size for responsive design
   const displayWidth = imageAsset.width * 0.25;
   const displayHeight = imageAsset.height * 0.25;
 
   return (
-    <div className={`relative z-50 ${className} ml-[-64px]`}>
+    <div className={`relative z-50 ${className} ml-[-8px]`}>
       <Image
         src={imageAsset.url}
         alt={imageAsset.alt}
@@ -22,5 +22,5 @@ const QiangXianYuGao = ({ className = '' }) => {
   );
 };
 
-export default QiangXianYuGao;
+export default QinZiDa2025;
 

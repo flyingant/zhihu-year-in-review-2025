@@ -4,9 +4,20 @@ import { createContext, useContext, useState, useEffect, useCallback, ReactNode 
 import { useAuth } from "./auth-context";
 import request from "@/lib/request";
 
+export interface MasterConfigItem {
+  image_url: string;
+  jump_url: string;
+}
+
+export interface MasterConfig {
+  self_answer: MasterConfigItem[];
+  real_link: MasterConfigItem[];
+}
+
 interface UserData {
   address?: unknown;
   pointsTask?: unknown;
+  masterConfig?: MasterConfig;
 }
 
 interface UserDataContextType {
@@ -25,6 +36,23 @@ export function UserDataProvider({ children }: { children: ReactNode }) {
   const [isLoadingData, setIsLoadingData] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
+  const fetchMasterConfig = useCallback(async () => {
+    try {
+      const masterConfigData = await request<MasterConfig>({
+        url: "/campaigns/v2/2025/master_config",
+        method: "get",
+      });
+
+      setUserData((prev) => ({
+        ...prev,
+        masterConfig: masterConfigData,
+      }));
+    } catch (err: unknown) {
+      console.error("Error fetching master config:", err);
+      // Don't set error for master config as it's not critical
+    }
+  }, []);
+
   const fetchUserData = useCallback(async () => {
     if (!isAuthenticated) {
       return;
@@ -39,9 +67,10 @@ export function UserDataProvider({ children }: { children: ReactNode }) {
         method: "get",
       });
 
-      setUserData({
+      setUserData((prev) => ({
+        ...prev,
         address: addressData,
-      });
+      }));
     } catch (err: unknown) {
       console.error("Error fetching user data:", err);
       const errorMessage =
@@ -52,13 +81,20 @@ export function UserDataProvider({ children }: { children: ReactNode }) {
     }
   }, [isAuthenticated]);
 
+  // Fetch master config on mount (public data, doesn't require auth)
+  useEffect(() => {
+    fetchMasterConfig();
+  }, [fetchMasterConfig]);
+
   // Automatically fetch user data when authenticated
   useEffect(() => {
     if (isAuthenticated && !isAuthLoading) {
       fetchUserData();
     } else if (!isAuthenticated) {
-      // Clear data when user logs out
-      setUserData(null);
+      // Clear user-specific data when user logs out, but keep master config
+      setUserData((prev) => ({
+        masterConfig: prev?.masterConfig,
+      }));
       setError(null);
     }
   }, [isAuthenticated, isAuthLoading, fetchUserData]);

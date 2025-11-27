@@ -3,6 +3,8 @@
 import { ReactNode } from "react";
 import { useAuth } from "@/context/auth-context";
 import { useUserData } from "@/context/user-data-context";
+import { useZhihuApp } from "@/hooks/useZhihuApp";
+import { useZhihuHybrid } from "@/hooks/useZhihuHybrid";
 
 interface AuthWrapperProps {
   children: ReactNode;
@@ -19,14 +21,16 @@ export default function AuthWrapper({
 }: AuthWrapperProps) {
   const { isAuthLoading, isAuthenticated, profile, login } = useAuth();
   const { isLoadingData, error, fetchUserData } = useUserData();
+  const isZhihu = useZhihuApp();
+  const { isAvailable: isHybridAvailable, capabilities } = useZhihuHybrid();
 
   // Show loading state while checking auth
   if (isAuthLoading && showLoadingIndicator) {
     return (
-      <div className="min-h-screen bg-white flex items-center justify-center">
+      <div className="min-h-screen bg-black flex items-center justify-center">
         <div className="text-center">
-          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-500 mx-auto mb-4"></div>
-          <p className="text-gray-600">加载中...</p>
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-white mx-auto mb-4"></div>
+          <p className="text-white font-mono text-sm">加载中...</p>
         </div>
       </div>
     );
@@ -34,44 +38,68 @@ export default function AuthWrapper({
 
   return (
     <>
-      {/* Auth Status Indicator */}
-      {showWelcomeMessage && isAuthenticated && profile && (
-        <div className="px-4 py-2 text-sm text-gray-600 text-center">
-          欢迎回来，{profile.name || profile.username || "用户"}
-        </div>
-      )}
+      {/* Debug Info Panel */}
+      <div className="bg-black text-white font-mono text-xs p-3 border-b border-gray-700">
+        <div className="flex flex-col gap-1">
+          {/* Auth Status Indicator */}
+          {showWelcomeMessage && isAuthenticated && profile && (
+            <div className="text-green-400">
+              ✓ 已登录: {profile.name || profile.username || "用户"}
+            </div>
+          )}
 
-      {/* Error Message */}
-      {error && (
-        <div className="mx-4 mt-4 p-3 bg-red-50 border border-red-200 rounded text-red-700 text-sm">
-          {error}
-          <button
-            onClick={fetchUserData}
-            className="ml-2 text-red-600 underline hover:text-red-800"
-          >
-            重试
-          </button>
-        </div>
-      )}
+          {/* Auth Loading State */}
+          {isAuthLoading && (
+            <div className="text-yellow-400">⏳ 检查认证状态...</div>
+          )}
 
-      {/* Login Button (if not authenticated) */}
-      {showLoginPrompt && !isAuthenticated && (
-        <div className="mx-4 mt-4 text-center">
-          <button
-            onClick={login}
-            className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-6 rounded cursor-pointer"
-          >
-            登录
-          </button>
-        </div>
-      )}
+          {/* Not Authenticated */}
+          {!isAuthenticated && !isAuthLoading && (
+            <div className="text-red-400">✗ 未登录</div>
+          )}
 
-      {/* Loading Data Indicator */}
-      {isAuthenticated && isLoadingData && (
-        <div className="mx-4 mt-4 p-3 bg-gray-50 rounded text-center text-sm text-gray-600">
-          正在加载您的数据...
+          {/* Error Message */}
+          {error && (
+            <div className="text-red-400">
+              ✗ 错误: {error}
+              <button
+                onClick={fetchUserData}
+                className="ml-2 text-white underline hover:text-gray-300"
+              >
+                [重试]
+              </button>
+            </div>
+          )}
+
+          {/* Login Button (if not authenticated) */}
+          {showLoginPrompt && !isAuthenticated && (
+            <div className="mt-2">
+              <button
+                onClick={login}
+                className="bg-gray-800 hover:bg-gray-700 text-white font-mono py-1 px-3 rounded border border-gray-600 cursor-pointer text-xs"
+              >
+                [登录]
+              </button>
+            </div>
+          )}
+
+          {/* Loading Data Indicator */}
+          {isAuthenticated && isLoadingData && (
+            <div className="text-yellow-400">⏳ 正在加载您的数据...</div>
+          )}
+
+          {/* Debug Info */}
+          <div className="mt-2 pt-2 border-t border-gray-700 text-gray-400">
+            <div>
+              Auth: {isAuthenticated ? "✓" : "✗"} | 
+              Loading: {isAuthLoading || isLoadingData ? "⏳" : "✓"} | 
+              Environment: {isZhihu ? "📱 App内" : "🌐 浏览器"} | 
+              Hybrid: {isHybridAvailable ? "✓" : "✗"}
+              {isHybridAvailable && capabilities.length > 0 && ` [${capabilities.join(", ")}]`}
+            </div>
+          </div>
         </div>
-      )}
+      </div>
 
       {children}
     </>

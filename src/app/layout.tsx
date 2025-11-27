@@ -1,4 +1,5 @@
 import type { Metadata, Viewport } from "next";
+import Script from "next/script";
 import { AuthProvider } from "@/context/auth-context";
 import { UserDataProvider } from "@/context/user-data-context";
 import { ToastProvider } from "@/context/toast-context";
@@ -29,6 +30,11 @@ export default function RootLayout({
             <ToastProvider>{children}</ToastProvider>
           </UserDataProvider>
         </AuthProvider>
+        {/* Load zhihuHybrid SDK - typically injected by Zhihu App WebView, but load script as fallback */}
+        <Script
+          src="https://unpkg.zhimg.com/zhihu-hybrid@2.80.2"
+          strategy="afterInteractive"
+        />
       </body>
     </html>
   );

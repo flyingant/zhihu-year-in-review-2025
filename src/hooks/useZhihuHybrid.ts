@@ -1,88 +1,38 @@
 "use client";
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 
 /**
- * Interface for Zhihu Hybrid SDK
- * Based on tech specs: provides capabilities like login, image saving, QR code recognition, etc.
+ * Type for Zhihu Hybrid SDK function
+ * Based on tech specs: zhihuHybrid is a function that takes action and params
+ * Example: window.zhihuHybrid('base/downloadImage', { url: '...' })
  */
-interface ZhihuHybridSDK {
-  // User login capabilities
-  login?: () => void;
-  
-  // Image and QR code capabilities
-  saveImage?: (url: string) => void;
-  recognizeQRCode?: (imageUrl: string) => void;
-  
-  // Navigation capabilities
-  openPage?: (url: string) => void;
-  
-  // Data statistics (ZA platform)
-  trackEvent?: (event: string, data?: any) => void;
-  
-  // Other capabilities as per tech specs
-  [key: string]: any;
+type ZhihuHybridFunction = (action: string, params?: Record<string, unknown>) => void;
+
+declare global {
+  interface Window {
+    zhihuHybrid?: ZhihuHybridFunction;
+  }
 }
 
 /**
- * React hook to detect if Zhihu Hybrid SDK is available
- * @returns {object} { isAvailable: boolean, sdk: ZhihuHybridSDK | null, capabilities: string[] }
+ * React hook to detect if Zhihu Hybrid SDK is available and provide image download functionality
+ * @returns {object} { isAvailable: boolean, downloadImage: (url: string) => void }
  */
 export function useZhihuHybrid() {
   const [isAvailable, setIsAvailable] = useState(false);
-  const [sdk, setSdk] = useState<ZhihuHybridSDK | null>(null);
-  const [capabilities, setCapabilities] = useState<string[]>([]);
 
   useEffect(() => {
     if (typeof window === 'undefined') {
       return;
     }
 
-    // Check for Zhihu Hybrid SDK in common global object names
-    // Typical patterns: window.ZhihuHybrid, window.zhihu, window.ZhihuBridge, etc.
+    // Check if zhihuHybrid SDK is available
+    // The SDK is loaded from https://unpkg.zhimg.com/zhihu-hybrid@2.80.2
     const checkSDK = () => {
-      const possibleSDKNames = [
-        'ZhihuHybrid',
-        'zhihu',
-        'ZhihuBridge',
-        'zhihuBridge',
-        'ZhihuSDK',
-        'zhihuSDK',
-      ];
-
-      let foundSDK: ZhihuHybridSDK | null = null;
-      
-      for (const name of possibleSDKNames) {
-        const sdkObj = (window as any)[name];
-        if (sdkObj && typeof sdkObj === 'object') {
-          foundSDK = sdkObj as ZhihuHybridSDK;
-          break;
-        }
-      }
-
-      if (foundSDK) {
-        setIsAvailable(true);
-        setSdk(foundSDK);
-        
-        // Detect available capabilities
-        const detectedCapabilities: string[] = [];
-        if (foundSDK.login) detectedCapabilities.push('login');
-        if (foundSDK.saveImage) detectedCapabilities.push('saveImage');
-        if (foundSDK.recognizeQRCode) detectedCapabilities.push('recognizeQRCode');
-        if (foundSDK.openPage) detectedCapabilities.push('openPage');
-        if (foundSDK.trackEvent) detectedCapabilities.push('trackEvent');
-        
-        // Check for ZA platform (data statistics)
-        if ((window as any).za || (window as any).Za) {
-          detectedCapabilities.push('zaAnalytics');
-        }
-        
-        setCapabilities(detectedCapabilities);
-      } else {
-        setIsAvailable(false);
-        setSdk(null);
-        setCapabilities([]);
-      }
+      const zhihuHybrid = window.zhihuHybrid;
+      const available = typeof zhihuHybrid === 'function';
+      setIsAvailable(available);
     };
 
     // Check immediately
@@ -91,9 +41,49 @@ export function useZhihuHybrid() {
     // Also check after a short delay in case SDK loads asynchronously
     const timeoutId = setTimeout(checkSDK, 100);
 
-    return () => clearTimeout(timeoutId);
+    // Listen for SDK load events if needed
+    const checkInterval = setInterval(checkSDK, 500);
+    
+    // Stop checking after 5 seconds to avoid infinite checking
+    const maxCheckTimeout = setTimeout(() => {
+      clearInterval(checkInterval);
+    }, 5000);
+
+    return () => {
+      clearTimeout(timeoutId);
+      clearInterval(checkInterval);
+      clearTimeout(maxCheckTimeout);
+    };
   }, []);
 
-  return { isAvailable, sdk, capabilities };
+  /**
+   * Download image using zhihuHybrid SDK
+   * Based on tech specs: uses 'base/downloadImage' action
+   * @param url - The image URL to download
+   */
+  const downloadImage = useCallback((url: string) => {
+    if (!isAvailable || !window.zhihuHybrid) {
+      console.warn('zhihuHybrid SDK is not available');
+      return;
+    }
+
+    if (!url) {
+      console.warn('Image URL is required');
+      return;
+    }
+
+    try {
+      // Call zhihuHybrid SDK to download image
+      // Action: 'base/downloadImage'
+      // Params: { url: string }
+      window.zhihuHybrid('base/downloadImage', {
+        url: url,
+      });
+    } catch (error) {
+      console.error('Failed to download image via zhihuHybrid:', error);
+    }
+  }, [isAvailable]);
+
+  return { isAvailable, downloadImage };
 }
 

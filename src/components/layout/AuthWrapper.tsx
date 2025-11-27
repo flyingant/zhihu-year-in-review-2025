@@ -22,7 +22,7 @@ export default function AuthWrapper({
   const { isAuthLoading, isAuthenticated, profile, login } = useAuth();
   const { isLoadingData, error, fetchUserData } = useUserData();
   const isZhihu = useZhihuApp();
-  const { isAvailable: isHybridAvailable, capabilities } = useZhihuHybrid();
+  const { isAvailable: isHybridAvailable } = useZhihuHybrid();
 
   // Show loading state while checking auth
   if (isAuthLoading && showLoadingIndicator) {
@@ -95,7 +95,6 @@ export default function AuthWrapper({
               Loading: {isAuthLoading || isLoadingData ? "⏳" : "✓"} | 
               Environment: {isZhihu ? "📱 App内" : "🌐 浏览器"} | 
               Hybrid: {isHybridAvailable ? "✓" : "✗"}
-              {isHybridAvailable && capabilities.length > 0 && ` [${capabilities.join(", ")}]`}
             </div>
           </div>
         </div>

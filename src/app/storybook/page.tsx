@@ -4,7 +4,7 @@ import ZhihuLogo from "../../components/ui/ZhihuLogo";
 import QinZiDa2025 from "../../components/ui/QinZiDa2025";
 import LiuKanShanBianLiDian from "../../components/ui/LiuKanShanBianLiDian";
 import ZaiZhiHuLianJieZhenShi from "../../components/ui/ZaiZhiHuLianJieZhenShi";
-import QiangXianYuGao from "../../components/ui/QiangXianYuGao";
+// import QiangXianYuGao from "../../components/ui/QiangXianYuGao"; // Component not found
 import ZheXieZhenDeKeYi from "../../components/ui/ZheXieZhenDeKeYi";
 import QiangXianYuGaoSection from "../../components/compound/QiangXianYuGaoSection";
 import QinZiDa2025Section from "../../components/compound/QinZiDa2025Section";
@@ -97,6 +97,7 @@ export default function StorybookPage() {
             </div>
           </div>
 
+          {/* QiangXianYuGao component not found - commented out
           <div className="mb-6 mx-2 shrink-0 relative z-0">
             <div className="bg-white rounded-lg shadow-md p-2 relative z-0">
               <h2 className="text-lg font-semibold mb-2 px-2">
@@ -107,6 +108,7 @@ export default function StorybookPage() {
               </div>
             </div>
           </div>
+          */}
 
           <div className="mb-6 mx-2 shrink-0 relative z-0">
             <div className="bg-white rounded-lg shadow-md p-2 relative z-0">

@@ -5,6 +5,18 @@ import Image from 'next/image';
 import { assets, asset } from '@/lib/assets';
 import { generateMomentPoster, publishMomentPin } from '@/api/campaign';
 import { useToast } from '@/context/toast-context';
+import { isZhihuApp } from '@/lib/zhihu-detection';
+
+// Type declaration for Zhihu Hybrid SDK
+interface ZhihuHybrid {
+  (action: string, params?: Record<string, unknown>): void;
+}
+
+declare global {
+  interface Window {
+    zhihuHybrid?: ZhihuHybrid;
+  }
+}
 
 const useTypingEffect = (text: string, speed = 300, isActive: boolean) => {
   const [displayedText, setDisplayedText] = useState('');
@@ -110,15 +122,81 @@ const MiniComputerSection = () => {
     setInputValue('');
   };
 
-  // TODO: 保存图片功能待实现
-  const handleSaveImage = () => {
+  /**
+   * 保存图片到本地
+   * 如果在知乎 App 内，使用 window.zhihuHybrid('base/downloadImage')
+   * 否则使用标准的 JavaScript 下载方法
+   */
+  const handleSaveImage = async () => {
     if (!posterUrl) {
       showToast('没有可保存的图片', 'error');
       return;
     }
-    console.log('Poster URL:', posterUrl);
-    showToast('保存功能开发中', 'info');
-    // TODO: 实现图片保存功能
+
+    // 检测是否在知乎 App 内
+    if (isZhihuApp()) {
+      try {
+        // 在知乎 App 内，使用 Hybrid SDK 下载图片
+        if (typeof window !== 'undefined' && window.zhihuHybrid) {
+          window.zhihuHybrid('base/downloadImage', {
+            url: posterUrl,
+          });
+          showToast('图片保存中', 'success');
+        } else {
+          // 如果 zhihuHybrid 不可用，降级到标准下载方法
+          await downloadImageStandard(posterUrl);
+        }
+      } catch (error) {
+        console.error('Failed to save image via zhihuHybrid:', error);
+        showToast('保存失败，请稍后重试', 'error');
+      }
+    } else {
+      // 不在知乎 App 内，使用标准下载方法
+      await downloadImageStandard(posterUrl);
+    }
+  };
+
+  /**
+   * 标准的图片下载方法（用于非知乎 App 环境）
+   */
+  const downloadImageStandard = async (imageUrl: string) => {
+    try {
+      showToast('正在保存图片...', 'info');
+      
+      // 使用 fetch 获取图片，支持 CORS
+      const response = await fetch(imageUrl, {
+        mode: 'cors',
+        credentials: 'include',
+      });
+      
+      if (!response.ok) {
+        throw new Error('Failed to fetch image');
+      }
+
+      const blob = await response.blob();
+      const blobUrl = window.URL.createObjectURL(blob);
+      
+      // 创建下载链接
+      const link = document.createElement('a');
+      link.href = blobUrl;
+      link.download = `poster-${Date.now()}.png`; // 设置下载文件名
+      link.style.display = 'none';
+      
+      // 添加到 DOM，触发下载，然后移除
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+      
+      // 清理 blob URL
+      setTimeout(() => {
+        window.URL.revokeObjectURL(blobUrl);
+      }, 100);
+      
+      showToast('图片保存成功', 'success');
+    } catch (error) {
+      console.error('Failed to download image:', error);
+      showToast('保存失败，请稍后重试', 'error');
+    }
   };
   // 同步想法
   const handleSyncIdea = async () => {

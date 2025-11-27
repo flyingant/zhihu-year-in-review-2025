@@ -232,11 +232,11 @@ const MiniComputerSection = () => {
         )}
       </div>
       {/* 写下更多真实瞬间按钮 */}
-      <a 
-        href="https://www.zhihu.com/question/1974440788541793545" 
-        target="_blank" 
-        rel="noopener noreferrer"
-        className="relative w-full max-w-[333px] h-[50px] mt-5 block"
+      <div 
+        onClick={() => {
+          window.location.href = 'https://www.zhihu.com/question/1974440788541793545';
+        }}
+        className="relative w-full max-w-[333px] h-[50px] mt-5 block cursor-pointer"
       >
         <Image
           src={bottomBannerAsset.url}
@@ -244,7 +244,7 @@ const MiniComputerSection = () => {
           fill
           className="object-contain"
         />
-      </a>
+      </div>
       {/* 失败弹框 */}
       {status === 'error' && (
         <div className="fixed z-[9999] inset-0 h-screen flex items-center justify-center bg-black/70 animate-overlayShow">

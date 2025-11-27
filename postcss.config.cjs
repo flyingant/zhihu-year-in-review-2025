@@ -4,7 +4,7 @@ module.exports = {
     'postcss-mobile-forever': {
       viewportWidth: 375,
       maxDisplayWidth: 600,
-      disableMobile: false,
+      disableMobile: true, // Disable px to vw/vh conversion
       include: [/\/src\//, /\/app\//, /\/components\//], 
     },
   },

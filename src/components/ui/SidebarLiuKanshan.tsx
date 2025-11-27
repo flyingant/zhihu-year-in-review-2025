@@ -296,6 +296,7 @@ const SidebarLiuKanshan = () => {
                   ) : (
                     // Normal Browser: Use PC publish button with QR code positioned absolutely
                     <div
+                      onClick={handlePublishClick}
                       className="relative cursor-pointer active:opacity-80 transition-opacity"
                       style={{ width: `${maxButtonWidth}px`, height: `${publishPcAsset.height / 6}px` }}
                     >
@@ -307,7 +308,7 @@ const SidebarLiuKanshan = () => {
                         className="object-contain w-full h-full"
                       />
                       {/* QR Code and Tips */}
-                      <div className="absolute top-[65px] right-[26px] flex flex-col items-center gap-2">
+                      <div className="absolute flex flex-col items-center gap-2" style={{top: '66px', right: '26px'}}>
                         <div
                           className="relative shrink-0"
                           style={{ width: `${qrcodeAsset.width / 6}px`, height: `${qrcodeAsset.height / 6}px` }}

@@ -24,6 +24,12 @@ const ZheXieZhenDeKeYiSection = () => {
       {/* Content - Column layout image list */}
       <div className="w-full max-w-[339px] flex flex-col items-center gap-4">
         {imagesToDisplay.map((item, index) => {
+          const handleClick = () => {
+            if (item.jump_url) {
+              window.location.href = item.jump_url;
+            }
+          };
+
           const content = (
             <div key={index} className="relative w-full flex justify-center">
               <Image
@@ -38,15 +44,13 @@ const ZheXieZhenDeKeYiSection = () => {
           );
 
           return item.jump_url ? (
-            <a
+            <div
               key={index}
-              href={item.jump_url}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="block w-full"
+              onClick={handleClick}
+              className="block w-full cursor-pointer"
             >
               {content}
-            </a>
+            </div>
           ) : (
             content
           );

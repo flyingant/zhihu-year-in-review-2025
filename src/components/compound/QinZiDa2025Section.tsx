@@ -99,6 +99,12 @@ const QinZiDa2025Section = () => {
         >
           <div className="flex flex-row">
           {imagesToDisplay.map((item, index) => {
+            const handleClick = () => {
+              if (item.jump_url) {
+                window.location.href = item.jump_url;
+              }
+            };
+
             const content = (
               <div className="shrink-0 w-[148px] flex items-center justify-center">
                 <div className="relative w-full flex justify-center">
@@ -115,15 +121,13 @@ const QinZiDa2025Section = () => {
             );
 
             return item.jump_url ? (
-              <a
+              <div
                 key={index}
-                href={item.jump_url}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="shrink-0"
+                onClick={handleClick}
+                className="shrink-0 cursor-pointer"
               >
                 {content}
-              </a>
+              </div>
             ) : (
               <div key={index}>{content}</div>
             );

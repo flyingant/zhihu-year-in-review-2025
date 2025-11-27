@@ -98,9 +98,16 @@ const TaskSection = () => {
     router.push(`/?requireAddress=true&rewardId=${selectedReward.right_id}&from=redeem`);
   };
 
-  // todo 跳转到兑换记录
+  // 跳转到兑换记录
   const handleGoToRecords = () => {
-    console.log('跳转兑换记录');
+    const url = `https://www.zhihu.com/parker/campaign/point-redeem/${ACTIVITY_ID}?zh_nav_left=back&zh_forcehybrid=1`;
+    window.location.href = url;
+  };
+
+  // 跳转到积分明细
+  const handleGoToPointDetails = () => {
+    const url = `https://www.zhihu.com/parker/campaign/point-redeem/${ACTIVITY_ID}?zh_nav_left=back&zh_forcehybrid=1&type=taskPoints`;
+    window.location.href = url;
   };
 
   // todo 仅仅是为了展示，具体button逻辑不一定是下面的
@@ -144,7 +151,12 @@ const TaskSection = () => {
               </span>
             </div>
 
-            <div className="text-xs text-gray">积分明细</div>
+            <div 
+              className="text-xs text-gray cursor-pointer hover:opacity-80 active:opacity-60 transition-opacity"
+              onClick={handleGoToPointDetails}
+            >
+              积分明细
+            </div>
           </div>
 
           <div className="bg-white rounded-[8px] flex flex-col items-center justify-center min-h-[45px]">
@@ -275,6 +287,7 @@ const TaskSection = () => {
                     <div className="flex flex-col flex-1 pr-2">
                       <div className="flex items-center mb-1">
                         <span className="text-sm font-bold text-black">
+                          <span className="text-xs text-red-500">【ID:{task.id}】</span>
                           {task.name}
                           <span className="ml-2 font-normal">({task.finished}/{task.total})</span>
                         </span>

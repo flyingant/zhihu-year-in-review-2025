@@ -69,8 +69,15 @@ const MiniComputerSection = () => {
     setStatus('loading');
     try {
       const response = await generateMomentPoster(inputValue.trim());
-      setPosterUrl(response.poster_url);
-      setStatus('success');
+      const img = new window.Image();
+      img.src = response.poster_url;
+      img.onload = () => {
+        setPosterUrl(response.poster_url);
+        setStatus('success');
+      };
+      img.onerror = () => {
+        setStatus('error');
+      };
     } catch (error) {
       console.error('Failed to generate poster:', error);
       const errorMessage = error && typeof error === 'object' && 'msg' in error 
@@ -241,7 +248,7 @@ const MiniComputerSection = () => {
       {/* 失败弹框 */}
       {status === 'error' && (
         <div className="fixed z-[9999] inset-0 h-screen flex items-center justify-center bg-black/70 animate-overlayShow">
-          <div className="relative w-[219px] h-[298px] animate-contentShow">
+          <div className="relative w-[219px] h-[298px] animate-contentShow mt-[-60px]">
             <Image
               src={failAsset.url}
               alt={failAsset.alt}

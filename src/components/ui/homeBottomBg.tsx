@@ -6,7 +6,7 @@ const HomeBottomBg = ({ className = '' }) => {
   const bgBottomAsset = asset(assets.home.bgBottom) as { url: string; alt: string, height: number, width: number };
 
   return (
-    <div className={`relative z-50 ${className}`}>
+    <div className={`relative z-49 ${className}`}>
       <Image
         src={bgBottomAsset.url}
         alt={bgBottomAsset.alt}

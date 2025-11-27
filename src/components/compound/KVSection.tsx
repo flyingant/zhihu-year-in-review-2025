@@ -37,33 +37,35 @@ const KVSection = () => {
               marginBottom: `${item.marginBottom}px`,
             }}
           >
-            <div
-              className="flex w-max animate-marquee"
-              style={{ animationDuration: `${item.duration}s` }}
-            >
-              {[0, 1].map((i) => (
-                <div
-                  key={i}
-                  className="flex min-w-[100vw] items-start"
-                >
+            <div className="w-full animate-slide-in">
+              <div
+                className="flex w-max animate-marquee"
+                style={{ animationDuration: `${item.duration}s` }}
+              >
+                {[0, 1].map((i) => (
                   <div
-                    className="inline-flex flex-shrink-0"
-                    style={{
-                      paddingLeft: `${item.marginLeft}px`,
-                      paddingRight: '20px'
-                    }}
+                    key={i}
+                    className="flex min-w-[100vw] items-start"
                   >
-                    <Image
-                      src={item.asset.url}
-                      alt={item.asset.alt}
-                      width={item.asset.width}
-                      height={item.asset.height}
-                      className="h-[22px] w-auto object-contain drop-shadow-md"
-                      draggable="false"
-                    />
+                    <div
+                      className="inline-flex flex-shrink-0"
+                      style={{
+                        paddingLeft: `${item.marginLeft}px`,
+                        paddingRight: '20px'
+                      }}
+                    >
+                      <Image
+                        src={item.asset.url}
+                        alt={item.asset.alt}
+                        width={item.asset.width}
+                        height={item.asset.height}
+                        className="h-[22px] w-auto object-contain"
+                        draggable="false"
+                      />
+                    </div>
                   </div>
-                </div>
-              ))}
+                ))}
+              </div>
             </div>
           </div>
         ))}
@@ -76,7 +78,7 @@ const KVSection = () => {
             alt={danmakusBg.alt}
             width={danmakusBg.width}
             height={danmakusBg.height}
-            className="w-full h-auto drop-shadow-lg"
+            className="w-full h-auto"
           />
         </div>
       </div>

@@ -36,8 +36,13 @@ body {
   --color-blue: #2079fe;
 
   --animate-marquee: marquee linear infinite;
+  --animate-slide-in: slide-in 8s ease-out forwards;
   --animate-contentShow: contentShow 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 
+   @keyframes slide-in {
+    0% { transform: translateX(100vw); }
+    100% { transform: translateX(0); } 
+  }
 
   @keyframes marquee {
     0% {

@@ -401,6 +401,12 @@ export const assets = {
       height: 1528,
       alt: '奖品背景',
     },
+    prizeBg: {
+      url: '/assets/task_single_prize_bg@3x.png',
+      width: 206,
+      height: 215,
+      alt: '单个奖品背景',
+    },
     prizes: [
       {
         url: '/assets/task_liukanshan_juecebi@3x.png',

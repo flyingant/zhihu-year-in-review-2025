@@ -6,7 +6,7 @@ import LiuKanShanBianLiDian from "../ui/LiuKanShanBianLiDian";
 import { assets, asset } from '@/lib/assets';
 import { useRouter } from 'next/navigation';
 import { getCampaignInfo, CampaignResponse, TaskItem, RewardItem } from '@/api/campaign';
-import { ACTIVITY_ID, SHOW_TASK_IDS, PRIZE_MAP, RECORD_BTN_POSITION } from '@/constants/campaign';
+import { ACTIVITY_ID, SHOW_TASK_IDS, PRIZE_POSITIONS, RECORD_BTN_POSITION } from '@/constants/campaign';
 
 const TaskSection = () => {
   const router = useRouter();
@@ -18,7 +18,7 @@ const TaskSection = () => {
   const [selectedReward, setSelectedReward] = useState<RewardItem | null>(null);
 
   const bgAsset = asset(assets.tasks.bg) as { url: string; width: number; height: number; alt: string };
-  const prizeAssets = assets.tasks.prizes.map(p => asset(p) as { url: string; width: number; height: number; alt: string });
+  const singlePrizeBgAsset = asset(assets.tasks.prizeBg) as { url: string; width: number; height: number; alt: string };
 
   useEffect(() => {
     const fetchData = async () => {
@@ -183,12 +183,9 @@ const TaskSection = () => {
               }}
             ></div>
             {/* 奖品列表区域 */}
-            {PRIZE_MAP.map((config, index) => {
-              const item = rewardsList.find(r => r.right_id === config.targetId);
-              const prizeImg = prizeAssets[index]; // 获取对应的奖品图片资源
-
-              if (!config.style || !prizeImg) return null;
-              if (!item) return null;
+            {rewardsList.map((item, index) => {
+              const positionStyle = PRIZE_POSITIONS[index];
+              if (!positionStyle) return null;
 
               const isSoldOut = item.state.code === '2';
 
@@ -198,21 +195,59 @@ const TaskSection = () => {
                   onClick={() => !isSoldOut && handleRedeemClick(item)}
                   className={`absolute z-20 transition-transform ${isSoldOut
                     ? 'cursor-default'
-                    : 'cursor-pointer active:scale-95'
+                    : 'cursor-pointer'
                     }`}
                   style={{
-                    top: config.style.top,
-                    left: config.style.left,
-                    width: config.style.width,
-                    height: config.style.height,
+                    top: positionStyle.top,
+                    left: positionStyle.left,
+                    width: positionStyle.width,
+                    height: positionStyle.height,
                   }}
                 >
-                  <Image
-                    src={prizeImg.url}
-                    alt={prizeImg.alt}
-                    fill
-                    className="object-contain"
-                  />
+                  <div className="absolute inset-0 z-0">
+                    <Image
+                      src={singlePrizeBgAsset.url}
+                      alt="bg"
+                      fill
+                      className="object-contain"
+                    />
+                  </div>
+                  <div
+                    className="absolute top-[0] left-1/2 -translate-x-1/2 w-[90%] px-3 py-2 flex items-center justify-center z-30  shadow-sm"
+                    style={{
+                      background: '#DCF897',
+                      clipPath: 'polygon(86% 14%, 97% 7%, 100% 82%, 94% 89%, 62% 82%, 25% 90%, 6% 88%, 7% 58%, 6% 17%, 58% 5%)',
+                      filter: 'drop-shadow(0px 3px 0px #0072ff)',
+                    }}
+                  >
+                    <span className="text-[#121212] text-[10px] font-bold leading-tight text-center px-1 break-all">
+                      {item.right_name}
+                    </span>
+                  </div>
+                  <div className="relative w-full h-full scale-90">
+                    <Image
+                      src={item.url}
+                      alt={item.right_name}
+                      fill
+                      className="object-contain"
+                    />
+                  </div>
+                  <div className="absolute bottom-[8px] left-[4px] z-30 flex items-end">
+                    <span className="text-[#121212] font-bold text-base leading-none mr-[1px]">×</span>
+                    <span className="text-[#121212] font-bold text-[16px] leading-none">
+                      {item.right_total_stock}
+                    </span>
+                  </div>
+
+                  <div
+                    className="absolute -bottom-[3%] -right-[5%] bg-white z-30 px-1 py-[2px] flex items-center shadow-sm"
+                  >
+                    <span className="text-[#2079fe] font-bold text-xs pixel-font">
+                      {item.right_point} {item.right_point_name}
+                    </span>
+                  </div>
+
+
                   {/* 这是测试接口有的字段 */}
                   {isSoldOut && (
                     <div className="absolute inset-0 bg-black/40 rounded-lg flex items-center justify-center z-30">
@@ -233,7 +268,7 @@ const TaskSection = () => {
                 <div className="text-base font-bold text-black">{group.title}</div>
                 <div className="text-xs text-gray">{group.desc}</div>
               </div>
-              
+
               <div className="flex flex-col gap-3">
                 {group.task_list.map((task) => (
                   <div key={task.id} className="bg-white rounded-[10px] p-3 flex items-center justify-between shadow-sm">

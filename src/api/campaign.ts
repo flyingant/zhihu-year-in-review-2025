@@ -15,6 +15,7 @@ export interface RewardItem {
   right_point: number;
   right_point_name: string;
   right_desc: string;
+  right_total_stock: number;
   url: string;
   state: {
     code: string; // '1' 可兑换, '2' 已兑完

@@ -3,7 +3,8 @@
 import { useState, useEffect } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useToast } from "@/context/toast-context";
-import { getAddressInfo, submitAddress } from "@/api/campaign";
+import { getAddressInfo, submitAddress, completeRedeemReward } from "@/api/campaign";
+import { ACTIVITY_ID } from "@/constants/campaign";
 import RegionPicker from "./RegionPicker";
 
 interface AddressFormData {
@@ -36,6 +37,8 @@ export default function AddressForm() {
   const [isLoading, setIsLoading] = useState(true);
 
   const rewardId = searchParams.get("rewardId");
+  const rewardPoolId = searchParams.get("rewardPoolId");
+  const requestId = searchParams.get("requestId");
   const fromRedeem = searchParams.get("from") === "redeem";
 
   const isFormFilled =
@@ -45,8 +48,14 @@ export default function AddressForm() {
     !!formData.phoneNumber?.trim() &&
     phoneRegex.test(formData.phoneNumber?.trim());
 
-  // Fetch existing address on mount
+  // Fetch existing address on mount (only for non-redeem scenarios)
   useEffect(() => {
+    // Skip fetching address in redeem scenario
+    if (fromRedeem) {
+      setIsLoading(false);
+      return;
+    }
+
     const fetchExistingAddress = async () => {
       try {
         setIsLoading(true);
@@ -72,7 +81,7 @@ export default function AddressForm() {
     };
 
     fetchExistingAddress();
-  }, []);
+  }, [fromRedeem]);
 
   // Prevent body scroll when region picker is open
   useEffect(() => {
@@ -135,23 +144,47 @@ export default function AddressForm() {
     if (!validateForm()) {
       return;
     }
-    const addressData = {
-      receiver: formData.recipientName.trim(),
-      mobile: formData.phoneNumber.trim(),
-      province_name: formData.provinceName,
-      city_name: formData.cityName,
-      district_name: formData.districtName,
-      address_detail: formData.detailedAddress.trim(),
-    };
     setIsSubmitting(true);
     try {
-      if (fromRedeem && rewardId) {
-        // TODO: 调用兑换奖品时的地址提交接口
-        console.log('调用兑换接口，奖品ID:', rewardId, '地址数据:', addressData);
+      // 兑换场景：调用完成兑换接口
+      if (fromRedeem) {
+        // 验证兑换场景所需的参数
+        if (!rewardId || !rewardPoolId || !requestId) {
+          showToast("兑换信息不完整，请重新操作", "error");
+          setIsSubmitting(false);
+          return;
+        }
+        
+        await completeRedeemReward(ACTIVITY_ID, {
+          request_id: parseInt(requestId, 10),
+          reward_pool_id: parseInt(rewardPoolId, 10),
+          reward_right_id: parseInt(rewardId, 10),
+          reward_right_type: 'SUPER_LIKE',
+          receive_info: {
+            user_info: {
+              name: formData.recipientName.trim(),
+              mobile: formData.phoneNumber.trim(),
+            },
+            address: {
+              province: formData.provinceName,
+              city: formData.cityName,
+              district: formData.districtName,
+              detail: formData.detailedAddress.trim(),
+            },
+          },
+        });
         showToast("兑换成功", "success");
       } else {
+        // 普通地址提交场景：调用地址提交接口
+        const addressData = {
+          receiver: formData.recipientName.trim(),
+          mobile: formData.phoneNumber.trim(),
+          province_name: formData.provinceName,
+          city_name: formData.cityName,
+          district_name: formData.districtName,
+          address_detail: formData.detailedAddress.trim(),
+        };
         await submitAddress(addressData);
-
         showToast("地址提交成功", "success");
       }
       // Redirect back after successful submission
@@ -159,8 +192,11 @@ export default function AddressForm() {
         router.push("/");
       }, 1500);
     } catch (error) {
-      console.error("Failed to submit address:", error);
-      showToast("提交失败，请重试", "error");
+      console.error("Failed to submit:", error);
+      const errorMessage = (error as { msg?: string; message?: string })?.msg || 
+                          (error as { msg?: string; message?: string })?.message || 
+                          "提交失败，请重试";
+      showToast(errorMessage, "error");
     } finally {
       setIsSubmitting(false);
     }

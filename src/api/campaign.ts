@@ -51,6 +51,7 @@ export interface CampaignResponse {
   };
   body: {
     rewards: {
+      reward_pool_id: number;
       rewards_list: RewardItem[];
     };
     task: Array<{
@@ -150,5 +151,80 @@ export const submitAddress = (addressData: AddressInput) => {
     url: '/campaigns/v2/2025/lks_gift_address_input',
     method: 'POST',
     data: addressData,
+  });
+};
+
+// 积分兑换相关接口
+export interface PreOccupyRewardParams {
+  request_id: number;
+  reward_pool_id: number;
+  reward_right_id: number;
+  reward_right_type: string;
+}
+
+// 预占奖品（点击兑换时调用）
+export const preOccupyReward = (
+  activityId: string | number,
+  params: PreOccupyRewardParams
+) => {
+  return request<null>({
+    url: `/campaigns/user/points/${activityId}/reward_v2/${params.reward_pool_id}/right/${params.reward_right_id}`,
+    method: 'POST',
+    data: {
+      request_id: params.request_id,
+      reward_pool_id: params.reward_pool_id,
+      reward_right_id: params.reward_right_id,
+      reward_right_type: params.reward_right_type,
+    },
+  });
+};
+
+// 取消预占
+export const cancelOccupyReward = (
+  activityId: string | number,
+  params: PreOccupyRewardParams
+) => {
+  return request<{ message: string }>({
+    url: `/campaigns/user/points/${activityId}/cancel_occupy`,
+    method: 'POST',
+    data: {
+      request_id: params.request_id,
+      reward_pool_id: params.reward_pool_id,
+      reward_right_id: params.reward_right_id,
+      reward_right_type: params.reward_right_type,
+    },
+  });
+};
+
+// 完成兑换（提交地址时调用）
+export interface CompleteRedeemParams extends PreOccupyRewardParams {
+  receive_info: {
+    user_info: {
+      name: string;
+      mobile: string;
+    };
+    address: {
+      province: string;
+      city: string;
+      district: string;
+      detail: string;
+    };
+  };
+}
+
+export const completeRedeemReward = (
+  activityId: string | number,
+  params: CompleteRedeemParams
+) => {
+  return request<null>({
+    url: `/campaigns/user/points/${activityId}/reward_v2/${params.reward_pool_id}/right/${params.reward_right_id}`,
+    method: 'POST',
+    data: {
+      request_id: params.request_id,
+      reward_pool_id: params.reward_pool_id,
+      reward_right_id: params.reward_right_id,
+      reward_right_type: params.reward_right_type,
+      receive_info: params.receive_info,
+    },
   });
 };

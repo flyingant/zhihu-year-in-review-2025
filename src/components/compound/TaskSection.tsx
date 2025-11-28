@@ -5,23 +5,20 @@ import Image from 'next/image';
 import LiuKanShanBianLiDian from "../ui/LiuKanShanBianLiDian";
 import { useAssets } from '@/context/assets-context';
 import { useRouter } from 'next/navigation';
-import { getCampaignInfo, CampaignResponse, TaskItem, RewardItem } from '@/api/campaign';
+import { getCampaignInfo, CampaignResponse, TaskItem, RewardItem, preOccupyReward, cancelOccupyReward } from '@/api/campaign';
 import { ACTIVITY_ID, SHOW_TASK_IDS, PRIZE_POSITIONS, RECORD_BTN_POSITION } from '@/constants/campaign';
+import { useToast } from '@/context/toast-context';
 
 const TaskSection = () => {
   const router = useRouter();
+  const { showToast } = useToast();
   const [campaignData, setCampaignData] = useState<CampaignResponse | null>(null);
-  const [loading, setLoading] = useState(true);
   const [isRulesOpen, setIsRulesOpen] = useState(false);
 
   const [isRedeemModalOpen, setIsRedeemModalOpen] = useState(false);
   const [selectedReward, setSelectedReward] = useState<RewardItem | null>(null);
+  const [requestId, setRequestId] = useState<number | null>(null);
   const { assets } = useAssets();
-
-  if (!assets) return null;
-
-  const bgAsset = assets.tasks.bg;
-  const singlePrizeBgAsset = assets.tasks.prizeBg;
 
   useEffect(() => {
     const fetchData = async () => {
@@ -30,19 +27,21 @@ const TaskSection = () => {
         setCampaignData(data);
       } catch (error) {
         console.error("Failed to fetch campaign data:", error);
-      } finally {
-        setLoading(false);
       }
     };
 
     fetchData();
   }, []);
 
-  const activity_data = campaignData?.activity_data;
+  if (!assets) return null;
+
+  const bgAsset = assets.tasks.bg;
+  const singlePrizeBgAsset = assets.tasks.prizeBg;
+
   const body = campaignData?.body;
   const head = campaignData?.head;
-  const currentPoint = activity_data?.running?.current_point || 0;
   const rewardsList = body?.rewards?.rewards_list || [];
+  const rewardPoolId = body?.rewards?.reward_pool_id;
   const ruleContent = head?.info || '';
   const rawGroups = body?.task || [];
 
@@ -67,7 +66,7 @@ const TaskSection = () => {
     if (targetUrl) {
       try {
         targetUrl = decodeURIComponent(targetUrl).trim();
-      } catch (e) {
+      } catch {
         targetUrl = targetUrl.trim();
       }
     }
@@ -85,20 +84,76 @@ const TaskSection = () => {
     }
   };
 
-  // todo 兑换
-  const handleRedeemClick = (reward: RewardItem) => {
-    setSelectedReward(reward);
-    setIsRedeemModalOpen(true);
-    console.log(`触发兑换: ${reward.right_id} ${reward.right_name}`);
+  // 兑换 - 先调用预占接口
+  const handleRedeemClick = async (reward: RewardItem) => {
+    if (!rewardPoolId) {
+      showToast('活动信息加载中，请稍后再试', 'error');
+      return;
+    }
+
+    // 生成请求ID（毫秒级时间戳）
+    const newRequestId = Date.now();
+
+    try {
+      // 调用预占接口
+      await preOccupyReward(ACTIVITY_ID, {
+        request_id: newRequestId,
+        reward_pool_id: rewardPoolId,
+        reward_right_id: reward.right_id,
+        reward_right_type: 'SUPER_LIKE', // 根据API文档示例，可能需要从接口返回
+      });
+
+      // 预占成功，保存信息并显示弹窗
+      setRequestId(newRequestId);
+      setSelectedReward(reward);
+      setIsRedeemModalOpen(true);
+      console.log(`预占成功: ${reward.right_id} ${reward.right_name}`);
+    } catch (error) {
+      // 预占失败，显示错误信息
+      const errorMessage = (error as { msg?: string; message?: string })?.msg || 
+                          (error as { msg?: string; message?: string })?.message || 
+                          '兑换失败，请稍后重试';
+      showToast(errorMessage, 'error');
+      console.error('预占失败:', error);
+    }
   };
 
-  // todo 确认兑换
+  // 取消兑换 - 调用取消预占接口
+  const handleCancelRedeem = async () => {
+    if (!selectedReward || !requestId || !rewardPoolId) {
+      setIsRedeemModalOpen(false);
+      setSelectedReward(null);
+      setRequestId(null);
+      return;
+    }
+
+    try {
+      await cancelOccupyReward(ACTIVITY_ID, {
+        request_id: requestId,
+        reward_pool_id: rewardPoolId,
+        reward_right_id: selectedReward.right_id,
+        reward_right_type: 'SUPER_LIKE',
+      });
+      console.log('取消预占成功');
+    } catch (error) {
+      console.error('取消预占失败:', error);
+      // 即使取消失败，也关闭弹窗
+    } finally {
+      setIsRedeemModalOpen(false);
+      setSelectedReward(null);
+      setRequestId(null);
+    }
+  };
+
+  // 确认兑换 - 跳转到地址表单
   const confirmRedeem = () => {
-    if (!selectedReward) return;
-    console.log(`确认兑换奖品 ID: ${selectedReward.right_id}`);
+    if (!selectedReward || !requestId || !rewardPoolId) return;
 
     setIsRedeemModalOpen(false);
-    router.push(`/?requireAddress=true&rewardId=${selectedReward.right_id}&from=redeem`);
+    // 传递必要的参数到地址表单
+    router.push(
+      `/?requireAddress=true&rewardId=${selectedReward.right_id}&rewardPoolId=${rewardPoolId}&requestId=${requestId}&from=redeem`
+    );
   };
 
   // 跳转到兑换记录
@@ -344,7 +399,7 @@ const TaskSection = () => {
             />
             <div className="flex justify-between w-full gap-4">
               <button
-                onClick={() => setIsRedeemModalOpen(false)}
+                onClick={handleCancelRedeem}
                 className="flex-1 h-[40px] rounded-full bg-[#F2F2F2] text-gray text-[15px] font-medium active:scale-95 transition-transform"
               >
                 取消

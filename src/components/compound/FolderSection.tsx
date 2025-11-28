@@ -62,7 +62,7 @@ const FolderSection = () => {
 
   return (
     <div className="relative w-full z-100">
-      <div className="relative w-full max-w-[343px] mx-auto h-[165px]">
+      <div className="relative w-full h-[165px] m-auto px-[16px]" style={{ maxWidth: '420px', maxHeight: '210px' }}>
         {folders.map((folder, index) => {
           const zIndex = index;
           const topOffset = index * 16;
@@ -74,7 +74,7 @@ const FolderSection = () => {
               key={folder.id}
               onClick={() => handleFolderClick(index)}
               className={`
-                absolute left-0 right-0 mx-auto
+                absolute left-[16px] right-[16px] mx-auto
                 transition-transform duration-500 ease-out cursor-pointer
               `}
               style={{
@@ -110,17 +110,17 @@ const FolderSection = () => {
         })}
       </div>
 
-      <div className="relative mt-[-54px] z-50 flex flex-col items-center justify-center">
-        <div className="w-[343px] mb-2
+      <div className="relative -mt-[50px] z-50 flex flex-col items-center justify-center">
+        <div style={{ maxWidth: '420px' }} className="mb-2 px-[16px]
          after:content-[''] 
          after:absolute 
          after:bottom-0 
-         after:left-0 
+         after:left-[16px] 
          after:w-full 
-         after:h-1/2
+         after:h-1/3
          after:bg-white
          after:-z-10  ">
-          <Image src={footerImg.url} alt={footerImg.alt} width={footerImg.width} height={footerImg.height} className="w-full" />
+          <Image src={footerImg.url} alt={footerImg.alt} width={footerImg.width} height={footerImg.height} className="w-full" priority />
         </div>
       </div>
 

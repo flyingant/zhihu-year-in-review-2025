@@ -24,7 +24,7 @@ function HomeContent() {
   const searchParams = useSearchParams();
   const requireAddress = searchParams.get("requireAddress");
   const { assets, isLoading: isLoadingAssets } = useAssets();
-  
+
   if (isLoadingAssets || !assets) {
     return (
       <div className="min-h-screen bg-white flex items-center justify-center">
@@ -35,9 +35,9 @@ function HomeContent() {
       </div>
     );
   }
-  
+
   const bgAsset = assets.home.bg;
-  
+
   // Show address form if requireAddress parameter is present
   if (requireAddress) {
     return (
@@ -52,7 +52,7 @@ function HomeContent() {
   return (
     <div className="min-h-screen bg-white">
       <AuthWrapper>
-        <main className="w-full max-w-[500px] mx-auto relative">
+        <main className="w-full mx-auto relative" style={{ maxWidth: '480px' }} >
 
           {/* Logo */}
           <div className="pt-5 flex justify-center">

@@ -22,7 +22,7 @@ const ZaiZhiHuLianJieZhenShiSection = () => {
     };
   });
   return (
-    <div className="relative w-full flex flex-col items-center">
+    <div className="relative w-full flex flex-col">
       {/* Title */}
       <div className="mb-4">
         <ZaiZhiHuLianJieZhenShi />

@@ -9,15 +9,15 @@ const QinZiDa2025Section = () => {
   const { userData } = useUserData();
   const scrollContainerRef = useRef<HTMLDivElement>(null);
   const selfAnswerItems = userData?.masterConfig?.self_answer || [];
-  
+
   // Use example image if array is empty
-  const imagesToDisplay = selfAnswerItems.length > 0 
-    ? selfAnswerItems 
+  const imagesToDisplay = selfAnswerItems.length > 0
+    ? selfAnswerItems
     : [{ image_url: '/assets/self_answer_example_1.png', jump_url: '' },
-      { image_url: '/assets/self_answer_example_1.png', jump_url: '' },
-      { image_url: '/assets/self_answer_example_1.png', jump_url: '' },
-      { image_url: '/assets/self_answer_example_1.png', jump_url: '' },
-      { image_url: '/assets/self_answer_example_1.png', jump_url: '' }
+    { image_url: '/assets/self_answer_example_1.png', jump_url: '' },
+    { image_url: '/assets/self_answer_example_1.png', jump_url: '' },
+    { image_url: '/assets/self_answer_example_1.png', jump_url: '' },
+    { image_url: '/assets/self_answer_example_1.png', jump_url: '' }
     ];
 
   // Enable horizontal scrolling with mouse wheel and drag
@@ -79,7 +79,7 @@ const QinZiDa2025Section = () => {
   }, []);
 
   return (
-    <div className="relative w-full flex flex-col items-center pb-12">
+    <div className="relative w-full flex flex-col pb-12">
       {/* Title */}
       <div className="mb-4">
         <QinZiDa2025 />
@@ -87,10 +87,10 @@ const QinZiDa2025Section = () => {
 
       {/* Horizontal scrollable image list */}
       <div className="w-full flex justify-center">
-        <div 
+        <div
           ref={scrollContainerRef}
           className="overflow-x-auto overflow-y-hidden hide-scrollbar cursor-grab active:cursor-grabbing"
-          style={{ 
+          style={{
             WebkitOverflowScrolling: 'touch',
             width: '100%',
             minWidth: '375px',
@@ -98,41 +98,41 @@ const QinZiDa2025Section = () => {
           }}
         >
           <div className="flex flex-row">
-          {imagesToDisplay.map((item, index) => {
-            const handleClick = () => {
-              if (item.jump_url) {
-                window.location.href = item.jump_url;
-              }
-            };
+            {imagesToDisplay.map((item, index) => {
+              const handleClick = () => {
+                if (item.jump_url) {
+                  window.location.href = item.jump_url;
+                }
+              };
 
-            const content = (
-              <div className="shrink-0 w-[148px] flex items-center justify-center">
-                <div className="relative w-full flex justify-center">
-                  <Image
-                    src={item.image_url}
-                    alt={`亲自答 ${index + 1}`}
-                    width={339}
-                    height={126}
-                    className="w-full h-auto object-contain"
-                    style={{ maxWidth: '148px' }}
-                  />
+              const content = (
+                <div className="shrink-0 w-[148px] flex items-center justify-center">
+                  <div className="relative w-full flex justify-center">
+                    <Image
+                      src={item.image_url}
+                      alt={`亲自答 ${index + 1}`}
+                      width={339}
+                      height={126}
+                      className="w-full h-auto object-contain"
+                      style={{ maxWidth: '148px' }}
+                    />
+                  </div>
                 </div>
-              </div>
-            );
+              );
 
-            return item.jump_url ? (
-              <div
-                key={index}
-                onClick={handleClick}
-                className="shrink-0 cursor-pointer"
-              >
-                {content}
-              </div>
-            ) : (
-              <div key={index}>{content}</div>
-            );
-          })}
-        </div>
+              return item.jump_url ? (
+                <div
+                  key={index}
+                  onClick={handleClick}
+                  className="shrink-0 cursor-pointer"
+                >
+                  {content}
+                </div>
+              ) : (
+                <div key={index}>{content}</div>
+              );
+            })}
+          </div>
         </div>
       </div>
     </div>

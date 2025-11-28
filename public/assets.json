@@ -150,8 +150,8 @@
   "games": {
     "title": {
       "url": "/assets/game_title@3x.png",
-      "width": 545,
-      "height": 194,
+      "width": 716,
+      "height": 268,
       "alt": "Game Console title"
     },
     "consoleBg": {
@@ -231,15 +231,9 @@
   ],
   "newImages": {
     "wuzida2025": {
-      "url": "/assets/2025qinzida@2x.png",
-      "width": 978,
-      "height": 302,
-      "alt": "2025亲自答"
-    },
-    "wuzida2025Banner": {
-      "url": "/assets/2025qinzida_banner@3x.png",
-      "width": 1030,
-      "height": 408,
+      "url": "/assets/2025qinzida@3x.png",
+      "width": 647,
+      "height": 249,
       "alt": "2025亲自答"
     },
     "liukanshanBianLiDian": {
@@ -249,33 +243,21 @@
       "alt": "刘看山真实便利店"
     },
     "zaiZhiHuLianJieZhenShi": {
-      "url": "/assets/zaizhihulianjiegengduodezhenshi@2x.png",
-      "width": 598,
-      "height": 240,
+      "url": "/assets/zaizhihulianjiegengduodezhenshi@3x.png",
+      "width": 525,
+      "height": 146,
       "alt": "在知乎链接更多的真实"
     },
-    "qiangXianYuGao": {
-      "url": "/assets/qiangxianyugao@2x.png",
-      "width": 788,
-      "height": 257,
-      "alt": "抢先预告"
-    },
     "qiangXianYuGaoBanner": {
-      "url": "/assets/qiangxianyugao.png",
-      "width": 727,
-      "height": 527,
+      "url": "/assets/qiangxianyugao@3x.png",
+      "width": 739,
+      "height": 644,
       "alt": "抢先预告"
     },
     "zheXieZhenDeKeYi": {
-      "url": "/assets/zhexiezhendekeyi@2x.png",
-      "width": 924,
-      "height": 274,
-      "alt": "这些真的可以"
-    },
-    "zheXieZhenDeKeYiBanner": {
-      "url": "/assets/zhexiezhendekeyi_banner@3x.png",
-      "width": 1030,
-      "height": 408,
+      "url": "/assets/zhexiezhendekeyi@3x.png",
+      "width": 689,
+      "height": 143,
       "alt": "这些真的可以"
     },
     "zhenShiShunJian": {
@@ -412,4 +394,3 @@
     }
   }
 }
-

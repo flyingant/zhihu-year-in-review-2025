@@ -9,9 +9,9 @@ const clipPathright = 'polygon(50% 20%, 57% 0, 100% 0, 100% 100%, 68% 100%, 32% 
 
 const FolderSection = () => {
   const { assets } = useAssets();
-  
+
   if (!assets) return null;
-  
+
   const footerImg = assets.folders.footer;
 
   const folders = [
@@ -59,11 +59,6 @@ const FolderSection = () => {
     setActiveIndex(activeIndex === index ? null : index);
   };
 
-  const handleContentClick = (e: React.MouseEvent) => {
-    e.stopPropagation();
-    // todo 之后会替换成其他链接
-    window.location.href = 'https://www.zhihu.com';
-  };
 
   return (
     <div className="relative w-full z-100">
@@ -99,15 +94,15 @@ const FolderSection = () => {
                 draggable="false"
                 priority={index === 0}
               />
-              <div
-                onClick={handleContentClick}
+              <a
+                href="https://www.zhihu.com/question/1974440788541793545"
+                onClick={(e) => e.stopPropagation()}
                 className="absolute z-10 cursor-pointer"
                 style={{
                   top: '52%',
                   left: index % 2 === 0 ? '8%' : '42%',
                   width: '50%',
                   height: '35%',
-                  // background: 'rgba(255, 0, 0, 0.3)', // 调试用
                 }}
               />
             </div>

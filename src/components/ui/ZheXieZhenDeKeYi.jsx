@@ -5,22 +5,18 @@ import { useAssets } from '@/context/assets-context';
 
 const ZheXieZhenDeKeYi = ({ className = '' }) => {
   const { assets } = useAssets();
-  
+
   if (!assets) return null;
-  
+
   const imageAsset = assets.newImages.zheXieZhenDeKeYi;
-  // Display at 25% of original size for responsive design
-  const displayWidth = imageAsset.width * 0.25;
-  const displayHeight = imageAsset.height * 0.25;
 
   return (
-    <div className={`relative z-50 ${className} ml-[76px]`}>
+    <div className={`relative z-50 ${className} mr-[30px]`}>
       <Image
         src={imageAsset.url}
         alt={imageAsset.alt}
         width={imageAsset.width}
         height={imageAsset.height}
-        style={{ width: `${displayWidth}px`, height: `${displayHeight}px` }}
         className="object-contain"
       />
     </div>

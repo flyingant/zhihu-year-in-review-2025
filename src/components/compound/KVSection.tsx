@@ -16,9 +16,9 @@ type DanmakuItem = {
 
 const KVSection = () => {
   const { assets } = useAssets();
-  
+
   if (!assets) return null;
-  
+
   const danmakusBg = assets.kv.bg;
 
   const danmakus: DanmakuItem[] = [
@@ -84,6 +84,7 @@ const KVSection = () => {
             width={danmakusBg.width}
             height={danmakusBg.height}
             className="w-full h-auto"
+            priority
           />
         </div>
       </div>

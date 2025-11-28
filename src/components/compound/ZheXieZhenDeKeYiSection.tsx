@@ -8,21 +8,21 @@ import { useUserData } from '@/context/user-data-context';
 const ZheXieZhenDeKeYiSection = () => {
   const { userData } = useUserData();
   const realLinkItems = userData?.masterConfig?.real_link || [];
-  
+
   // Use example image if array is empty
-  const imagesToDisplay = realLinkItems.length > 0 
-    ? realLinkItems 
-    : [{ image_url: '/assets/real_link_example_1.png', jump_url: '' },{ image_url: '/assets/real_link_example_1.png', jump_url: '' },{ image_url: '/assets/real_link_example_1.png', jump_url: '' }];
+  const imagesToDisplay = realLinkItems.length > 0
+    ? realLinkItems
+    : [{ image_url: '/assets/real_link_example_1.png', jump_url: '' }, { image_url: '/assets/real_link_example_1.png', jump_url: '' }, { image_url: '/assets/real_link_example_1.png', jump_url: '' }];
 
   return (
-    <div className="relative w-full flex flex-col items-center pb-7">
+    <div className="relative w-full flex flex-col">
       {/* Title */}
       <div className="mb-4">
         <ZheXieZhenDeKeYi />
       </div>
 
       {/* Content - Column layout image list */}
-      <div className="w-full max-w-[339px] flex flex-col items-center gap-4">
+      <div className="w-full flex flex-col items-center gap-4">
         {imagesToDisplay.map((item, index) => {
           const handleClick = () => {
             if (item.jump_url) {

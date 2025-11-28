@@ -17,43 +17,29 @@ declare global {
     zhihuHybrid?: ZhihuHybrid;
   }
 }
-
-const useTypingEffect = (text: string, speed = 300, isActive: boolean) => {
-  const [displayedText, setDisplayedText] = useState('');
+const useLoadingDots = (baseText: string, speed = 300, isActive: boolean) => {
+  const [dots, setDots] = useState('');
 
   useEffect(() => {
-    if (!isActive) {
-      return;
-    }
+    if (!isActive) return;
 
-    let index = 0;
+    let count = 0;
     const interval = setInterval(() => {
-      index = (index + 1) % (text.length + 1);
-      setDisplayedText(text.slice(0, index));
+      count = (count + 1) % 4; // 0, 1, 2, 3 循环
+      setDots('.'.repeat(count));
     }, speed);
 
     return () => {
       clearInterval(interval);
-      setDisplayedText('');
+      setDots('');
     };
-  }, [text, speed, isActive]);
+  }, [speed, isActive]);
 
-  return displayedText;
+  return `${baseText}${dots}`;
 };
 
 const MiniComputerSection = () => {
   const { assets } = useAssets();
-  
-  if (!assets) return null;
-  
-  const consoleBgAsset = assets.games.consoleBg;
-  const titleAsset = assets.games.title;
-  const liukanshanAsset = assets.games.liukanshan;
-  const failAsset = assets.games.fail;
-  const bottomBannerAsset = assets.games.bottomBanner;
-  const saveImageAsset = assets.games.saveImage;
-  const syncIdeasAsset = assets.games.syncIdeas;
-
   const [status, setStatus] = useState('idle');
   const [inputValue, setInputValue] = useState('');
   const [isFocused, setIsFocused] = useState(false);
@@ -62,7 +48,7 @@ const MiniComputerSection = () => {
   const mirrorRef = useRef<HTMLDivElement>(null);
   const { showToast } = useToast();
 
-  const loadingText = useTypingEffect("海报生成中...", 200, status === 'loading');
+  const loadingText = useLoadingDots("海报生成中", 400, status === 'loading');
   const HASHTAG = " #2025到底什么是真的";
 
   useEffect(() => {
@@ -79,12 +65,22 @@ const MiniComputerSection = () => {
     };
   }, [status]);
 
+  if (!assets) return null;
+
+  const consoleBgAsset = assets.games.consoleBg;
+  const titleAsset = assets.games.title;
+  const liukanshanAsset = assets.games.liukanshan;
+  const failAsset = assets.games.fail;
+  const bottomBannerAsset = assets.games.bottomBanner;
+  const saveImageAsset = assets.games.saveImage;
+  const syncIdeasAsset = assets.games.syncIdeas;
+
   const handleEnter = async () => {
     if (!inputValue.trim()) return;
 
     setStatus('loading');
     try {
-      const response = await generateMomentPoster(inputValue.trim());
+      const response = await generateMomentPoster(inputValue);
       const img = new window.Image();
       img.src = response.poster_url;
       img.onload = () => {
@@ -96,8 +92,8 @@ const MiniComputerSection = () => {
       };
     } catch (error) {
       console.error('Failed to generate poster:', error);
-      const errorMessage = error && typeof error === 'object' && 'msg' in error 
-        ? String(error.msg) 
+      const errorMessage = error && typeof error === 'object' && 'msg' in error
+        ? String(error.msg)
         : '海报生成失败，请稍后重试';
       showToast(errorMessage, 'error');
       setStatus('error');
@@ -107,13 +103,13 @@ const MiniComputerSection = () => {
   const handleRetry = async () => {
     setStatus('loading');
     try {
-      const response = await generateMomentPoster(inputValue.trim());
+      const response = await generateMomentPoster(inputValue);
       setPosterUrl(response.poster_url);
       setStatus('success');
     } catch (error) {
       console.error('Failed to generate poster:', error);
-      const errorMessage = error && typeof error === 'object' && 'msg' in error 
-        ? String(error.msg) 
+      const errorMessage = error && typeof error === 'object' && 'msg' in error
+        ? String(error.msg)
         : '海报生成失败，请稍后重试';
       showToast(errorMessage, 'error');
       setStatus('error');
@@ -166,36 +162,36 @@ const MiniComputerSection = () => {
   const downloadImageStandard = async (imageUrl: string) => {
     try {
       showToast('正在保存图片...', 'info');
-      
+
       // 使用 fetch 获取图片，支持 CORS
       const response = await fetch(imageUrl, {
         mode: 'cors',
         credentials: 'include',
       });
-      
+
       if (!response.ok) {
         throw new Error('Failed to fetch image');
       }
 
       const blob = await response.blob();
       const blobUrl = window.URL.createObjectURL(blob);
-      
+
       // 创建下载链接
       const link = document.createElement('a');
       link.href = blobUrl;
       link.download = `poster-${Date.now()}.png`; // 设置下载文件名
       link.style.display = 'none';
-      
+
       // 添加到 DOM，触发下载，然后移除
       document.body.appendChild(link);
       link.click();
       document.body.removeChild(link);
-      
+
       // 清理 blob URL
       setTimeout(() => {
         window.URL.revokeObjectURL(blobUrl);
       }, 100);
-      
+
       showToast('图片保存成功', 'success');
     } catch (error) {
       console.error('Failed to download image:', error);
@@ -214,8 +210,8 @@ const MiniComputerSection = () => {
       showToast('发布成功', 'success');
     } catch (error) {
       console.error('Failed to publish moment:', error);
-      const errorMessage = error && typeof error === 'object' && 'msg' in error 
-        ? String(error.msg) 
+      const errorMessage = error && typeof error === 'object' && 'msg' in error
+        ? String(error.msg)
         : '发布失败，请稍后重试';
       showToast(errorMessage, 'error');
     }
@@ -229,18 +225,18 @@ const MiniComputerSection = () => {
   };
 
   return (
-    <div className="relative max-w-[343px] mx-auto flex flex-col items-center pt-7 pb-10 overflow-hidden">
-      <div className="relative w-full max-w-[343px] flex justify-center pb-4 pl-16">
+    <div className="relative flex flex-col pt-7 -mb-[20px] overflow-hidden">
+      <div className="relative w-full flex justify-center pr-[16px] -mb-[24px]">
         <Image
           src={titleAsset.url}
           alt={titleAsset.alt}
           width={titleAsset.width}
           height={titleAsset.height}
-          className="w-[272px] h-auto object-contain"
+          className="h-auto object-contain"
         />
       </div>
 
-      <div className="relative w-full max-w-[343px] h-[220px]">
+      <div className="relative w-full max-w-[343px] mx-auto h-[220px]">
         <Image
           src={consoleBgAsset.url}
           alt={consoleBgAsset.alt}
@@ -299,7 +295,7 @@ const MiniComputerSection = () => {
         {/* loading动画 */}
         {status === 'loading' && (
           <div className="fixed z-[9999] inset-0 h-screen bg-black/60 backdrop-blur-[2px] flex flex-col items-center justify-center">
-            <div className="relative w-[74px] h-[104px] animate-bounce">
+            <div className="relative w-[74px] h-[104px]">
               <Image
                 src={liukanshanAsset.url}
                 alt="Loading"
@@ -314,11 +310,11 @@ const MiniComputerSection = () => {
         )}
       </div>
       {/* 写下更多真实瞬间按钮 */}
-      <div 
+      <div
         onClick={() => {
           window.location.href = 'https://www.zhihu.com/question/1974440788541793545';
         }}
-        className="relative w-full max-w-[333px] h-[50px] mt-5 block cursor-pointer"
+        className="relative w-full max-w-[333px] mx-auto h-[50px] mt-5 block cursor-pointer z-1"
       >
         <Image
           src={bottomBannerAsset.url}

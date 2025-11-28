@@ -114,7 +114,6 @@ const QinZiDa2025Section = () => {
                       width={339}
                       height={126}
                       className="w-full h-auto object-contain"
-                      style={{ maxWidth: '148px' }}
                     />
                   </div>
                 </div>

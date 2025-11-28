@@ -6,7 +6,7 @@ import LiuKanShanBianLiDian from "../ui/LiuKanShanBianLiDian";
 import { useAssets } from '@/context/assets-context';
 import { useRouter } from 'next/navigation';
 import { getCampaignInfo, CampaignResponse, TaskItem, RewardItem, preOccupyReward, cancelOccupyReward } from '@/api/campaign';
-import { ACTIVITY_ID, SHOW_TASK_IDS, PRIZE_POSITIONS, RECORD_BTN_POSITION } from '@/constants/campaign';
+import { ACTIVITY_ID, SHOW_TASK_IDS, PRIZE_MAP, RECORD_BTN_POSITION } from '@/constants/campaign';
 import { useToast } from '@/context/toast-context';
 import { useZhihuApp } from '@/hooks/useZhihuApp';
 
@@ -38,7 +38,8 @@ const TaskSection = () => {
   if (!assets) return null;
 
   const bgAsset = assets.tasks.bg;
-  const singlePrizeBgAsset = assets.tasks.prizeBg;
+  const prizeAssets = assets.tasks.prizes;
+  const iconXAsset = assets.tasks.prizex;
 
   const activity_data = campaignData?.activity_data;
   const body = campaignData?.body;
@@ -123,7 +124,7 @@ const TaskSection = () => {
 
     // 使用app_url（知乎App内）或pc_url（浏览器）
     let targetUrl: string | null = null;
-    
+
     if (isZhihuApp) {
       targetUrl = getCleanUrl(state.app_url);
     } else {
@@ -189,9 +190,9 @@ const TaskSection = () => {
       console.log(`预占成功: ${reward.right_id} ${reward.right_name}`);
     } catch (error) {
       // 预占失败，显示错误信息
-      const errorMessage = (error as { msg?: string; message?: string })?.msg || 
-                          (error as { msg?: string; message?: string })?.message || 
-                          '兑换失败，请稍后重试';
+      const errorMessage = (error as { msg?: string; message?: string })?.msg ||
+        (error as { msg?: string; message?: string })?.message ||
+        '兑换失败，请稍后重试';
       showToast(errorMessage, 'error');
       console.error('预占失败:', error);
     }
@@ -263,7 +264,7 @@ const TaskSection = () => {
     const buttonClass = `${btnText ? 'bg-blue' : 'bg-[#bcd7ff]'} text-white shadow-md active:scale-95 transition-transform cursor-pointer`;
 
     return (
-      <div 
+      <div
         className={`min-w-[70px] h-[28px] leading-[28px] text-center rounded-[14px] text-xs font-medium ${buttonClass}`}
         onClick={() => handleTaskAction(task)}
       >
@@ -293,7 +294,7 @@ const TaskSection = () => {
               </span>
             </div>
 
-            <div 
+            <div
               className="text-xs text-gray cursor-pointer hover:opacity-80 active:opacity-60 transition-opacity"
               onClick={handleGoToPointDetails}
             >
@@ -336,9 +337,16 @@ const TaskSection = () => {
               }}
             ></div>
             {/* 奖品列表区域 */}
-            {rewardsList.map((item, index) => {
-              const positionStyle = PRIZE_POSITIONS[index];
-              if (!positionStyle) return null;
+            {PRIZE_MAP.map((config, index) => {
+              let item = rewardsList.find(r => r.right_id === config.targetId);
+              const prizeImg = prizeAssets[index]; // 获取对应的奖品图片资源
+
+              if (!config.style || !prizeImg) return null;
+              if (!item) {
+                item = rewardsList[index];
+              };
+
+              if (!config || !item || !prizeImg) return null;
 
               const isSoldOut = item.state.code === '2';
 
@@ -351,55 +359,31 @@ const TaskSection = () => {
                     : 'cursor-pointer'
                     }`}
                   style={{
-                    top: positionStyle.top,
-                    left: positionStyle.left,
-                    width: positionStyle.width,
-                    height: positionStyle.height,
+                    top: config.style.top,
+                    left: config.style.left,
+                    width: config.style.width,
+                    height: config.style.height,
                   }}
                 >
-                  <div className="absolute inset-0 z-0">
-                    <Image
-                      src={singlePrizeBgAsset.url}
-                      alt="bg"
-                      fill
-                      className="object-contain"
-                    />
-                  </div>
-                  <div
-                    className="absolute top-[0] left-1/2 -translate-x-1/2 w-[90%] px-3 py-2 flex items-center justify-center z-30  shadow-sm"
-                    style={{
-                      background: '#DCF897',
-                      clipPath: 'polygon(86% 14%, 97% 7%, 100% 82%, 94% 89%, 62% 82%, 25% 90%, 6% 88%, 7% 58%, 6% 17%, 58% 5%)',
-                      filter: 'drop-shadow(0px 3px 0px #0072ff)',
-                    }}
-                  >
-                    <span className="text-[#121212] text-[10px] font-bold leading-tight text-center px-1 break-all">
-                      {item.right_name}
-                    </span>
-                  </div>
-                  <div className="relative w-full h-full scale-90">
-                    <Image
-                      src={item.url}
-                      alt={item.right_name}
-                      fill
-                      className="object-contain"
-                    />
-                  </div>
-                  <div className="absolute bottom-[8px] left-[4px] z-30 flex items-end">
-                    <span className="text-[#121212] font-bold text-base leading-none mr-[1px]">×</span>
-                    <span className="text-[#121212] font-bold text-[16px] leading-none">
+                  <Image
+                    src={prizeImg.url}
+                    alt={prizeImg.alt}
+                    fill
+                    className="object-contain"
+                  />
+                  <div className="absolute bottom-[12px] left-[7px] z-30 flex items-center">
+                    <div className="relative w-[9px] h-[9px] mr-[2px]">
+                      <Image
+                        src={iconXAsset.url}
+                        alt={iconXAsset.alt}
+                        fill
+                        className="object-contain"
+                      />
+                    </div>
+                    <span className="text-[#121212] font-bold text-base leading-none">
                       {item.right_total_stock}
                     </span>
                   </div>
-
-                  <div
-                    className="absolute -bottom-[3%] -right-[5%] bg-white z-30 px-1 py-[2px] flex items-center shadow-sm"
-                  >
-                    <span className="text-[#2079fe] font-bold text-xs pixel-font">
-                      {item.right_point} {item.right_point_name}
-                    </span>
-                  </div>
-
 
                   {/* 这是测试接口有的字段 */}
                   {isSoldOut && (

@@ -340,6 +340,12 @@
       "height": 215,
       "alt": "单个奖品背景"
     },
+    "prizex": {
+      "url": "/assets/task_prize_x@3x.png",
+      "width": 19,
+      "height": 19,
+      "alt": "奖品x符号"
+    },
     "prizes": [
       {
         "url": "/assets/task_liukanshan_juecebi@3x.png",
@@ -348,7 +354,7 @@
         "alt": "决策币"
       },
       {
-        "url": "/assets/task_zhihu_yueka@3x.png",
+        "url": "/assets/task_liukanshan_yueka@3x.png",
         "width": 307,
         "height": 346,
         "alt": "知乎月卡"

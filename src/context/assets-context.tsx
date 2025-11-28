@@ -71,6 +71,7 @@ export interface AssetsData {
     bg: AssetMetadata;
     prizeBg: AssetMetadata;
     prizes: AssetMetadata[];
+    prizex: AssetMetadata;
   };
   zhihuSearch: {
     bg: AssetMetadata;
@@ -100,43 +101,43 @@ export function AssetsProvider({ children }: { children: ReactNode }) {
   const fetchAssets = useCallback(async () => {
     setIsLoading(true);
     setError(null);
-    
+
     try {
       // Get basePath - could be from NEXT_PUBLIC_CDN_BASE_URL or NEXT_PUBLIC_BASE_PATH
       const BASE_PATH = process.env.NEXT_PUBLIC_BASE_PATH || process.env.NEXT_PUBLIC_CDN_BASE_URL || '';
       const CDN_BASE_URL = process.env.NEXT_PUBLIC_CDN_BASE_URL || '';
-      
+
       // Construct the assets.json path with basePath
       const assetsJsonPath = BASE_PATH ? `${BASE_PATH}/assets.json` : '/assets.json';
       const response = await fetch(assetsJsonPath);
-      
+
       if (!response.ok) {
         throw new Error(`Failed to fetch assets: ${response.statusText}`);
       }
-      
+
       const assetsData = await response.json();
-      
+
       // Transform asset URLs to include basePath and/or CDN
       const transformAssetUrl = (url: string): string => {
         if (!url) return url;
-        
+
         // If URL is already absolute (starts with http:// or https://), return as is
         if (url.startsWith('http://') || url.startsWith('https://')) {
           return url;
         }
-        
+
         // If URL starts with '/', we need to prepend basePath
         if (url.startsWith('/')) {
           // If CDN_BASE_URL is set and it's different from BASE_PATH, use CDN
           // Otherwise, use BASE_PATH for the basePath
           const baseUrl = CDN_BASE_URL && CDN_BASE_URL !== BASE_PATH ? CDN_BASE_URL : BASE_PATH;
-          
+
           if (baseUrl) {
             const cleanPath = url.slice(1); // Remove leading slash
             return `${baseUrl}/${cleanPath}`;
           }
         }
-        
+
         return url;
       };
 

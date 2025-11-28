@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect, useRef } from 'react';
 import Image from 'next/image';
-import { assets, asset } from '@/lib/assets';
+import { useAssets } from '@/context/assets-context';
 import { generateMomentPoster, publishMomentPin } from '@/api/campaign';
 import { useToast } from '@/context/toast-context';
 import { isZhihuApp } from '@/lib/zhihu-detection';
@@ -42,13 +42,17 @@ const useTypingEffect = (text: string, speed = 300, isActive: boolean) => {
 };
 
 const MiniComputerSection = () => {
-  const consoleBgAsset = asset(assets.games.consoleBg) as { url: string; alt: string };
-  const titleAsset = asset(assets.games.title) as { url: string; alt: string; width: number; height: number };
-  const liukanshanAsset = asset(assets.games.liukanshan) as { url: string; alt: string };
-  const failAsset = asset(assets.games.fail) as { url: string; alt: string };
-  const bottomBannerAsset = asset(assets.games.bottomBanner) as { url: string; alt: string };
-  const saveImageAsset = asset(assets.games.saveImage) as { url: string; alt: string; width: number; height: number };
-  const syncIdeasAsset = asset(assets.games.syncIdeas) as { url: string; alt: string; width: number; height: number };
+  const { assets } = useAssets();
+  
+  if (!assets) return null;
+  
+  const consoleBgAsset = assets.games.consoleBg;
+  const titleAsset = assets.games.title;
+  const liukanshanAsset = assets.games.liukanshan;
+  const failAsset = assets.games.fail;
+  const bottomBannerAsset = assets.games.bottomBanner;
+  const saveImageAsset = assets.games.saveImage;
+  const syncIdeasAsset = assets.games.syncIdeas;
 
   const [status, setStatus] = useState('idle');
   const [inputValue, setInputValue] = useState('');

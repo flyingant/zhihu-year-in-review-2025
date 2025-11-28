@@ -1,7 +1,8 @@
+"use client";
 // components/KVSection.jsx
 import React from 'react';
 import Image from 'next/image';
-import { assets, asset, AssetMetadata } from '@/lib/assets';
+import { useAssets, AssetMetadata } from '@/context/assets-context';
 import SidebarCampaignRules from '@/components/ui/SidebarCampaignRules';
 
 
@@ -14,15 +15,19 @@ type DanmakuItem = {
 };
 
 const KVSection = () => {
-  const danmakusBg = asset(assets.kv.bg) as AssetMetadata;
+  const { assets } = useAssets();
+  
+  if (!assets) return null;
+  
+  const danmakusBg = assets.kv.bg;
 
   const danmakus: DanmakuItem[] = [
-    { id: 1, asset: asset(assets.kv.danmakus[0]) as AssetMetadata, marginLeft: 42, marginBottom: 0, duration: 9 },
-    { id: 2, asset: asset(assets.kv.danmakus[1]) as AssetMetadata, marginLeft: 5, marginBottom: -10, duration: 12 },
-    { id: 3, asset: asset(assets.kv.danmakus[2]) as AssetMetadata, marginLeft: 140, marginBottom: 5, duration: 6 },
-    { id: 4, asset: asset(assets.kv.danmakus[3]) as AssetMetadata, marginLeft: 117, marginBottom: -5, duration: 14 },
-    { id: 5, asset: asset(assets.kv.danmakus[4]) as AssetMetadata, marginLeft: 120, marginBottom: -15, duration: 10 },
-    { id: 6, asset: asset(assets.kv.danmakus[5]) as AssetMetadata, marginLeft: 0, marginBottom: 0, duration: 4 },
+    { id: 1, asset: assets.kv.danmakus[0], marginLeft: 42, marginBottom: 0, duration: 9 },
+    { id: 2, asset: assets.kv.danmakus[1], marginLeft: 5, marginBottom: -10, duration: 12 },
+    { id: 3, asset: assets.kv.danmakus[2], marginLeft: 140, marginBottom: 5, duration: 6 },
+    { id: 4, asset: assets.kv.danmakus[3], marginLeft: 117, marginBottom: -5, duration: 14 },
+    { id: 5, asset: assets.kv.danmakus[4], marginLeft: 120, marginBottom: -15, duration: 10 },
+    { id: 6, asset: assets.kv.danmakus[5], marginLeft: 0, marginBottom: 0, duration: 4 },
   ];
 
   return (

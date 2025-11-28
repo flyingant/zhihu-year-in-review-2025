@@ -1,9 +1,14 @@
+"use client";
 import React from 'react';
 import Image from 'next/image';
-import { assets, asset } from '@/lib/assets';
+import { useAssets } from '@/context/assets-context';
 
 const HomeBottomBg = ({ className = '' }) => {
-  const bgBottomAsset = asset(assets.home.bgBottom) as { url: string; alt: string, height: number, width: number };
+  const { assets } = useAssets();
+  
+  if (!assets) return null;
+  
+  const bgBottomAsset = assets.home.bgBottom;
 
   return (
     <div className={`relative z-49 ${className}`}>

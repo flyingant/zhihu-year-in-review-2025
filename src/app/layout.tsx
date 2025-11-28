@@ -3,6 +3,7 @@ import Script from "next/script";
 import { AuthProvider } from "@/context/auth-context";
 import { UserDataProvider } from "@/context/user-data-context";
 import { ToastProvider } from "@/context/toast-context";
+import { AssetsProvider } from "@/context/assets-context";
 import "./globals.css";
 
 export const metadata: Metadata = {
@@ -27,7 +28,9 @@ export default function RootLayout({
       <body className="antialiased">
         <AuthProvider>
           <UserDataProvider>
-            <ToastProvider>{children}</ToastProvider>
+            <AssetsProvider>
+              <ToastProvider>{children}</ToastProvider>
+            </AssetsProvider>
           </UserDataProvider>
         </AuthProvider>
         {/* Load zhihuHybrid SDK - typically injected by Zhihu App WebView, but load script as fallback */}

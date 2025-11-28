@@ -2,48 +2,52 @@
 
 import React, { useState } from 'react';
 import Image from 'next/image';
-import { assets, asset } from '@/lib/assets';
+import { useAssets } from '@/context/assets-context';
 
 const clipPathleft = 'polygon(43% 0, 50% 19%, 100% 20%, 100% 100%, 68% 100%, 32% 100%, 0 100%, 0% 43%, 0 0)';
 const clipPathright = 'polygon(50% 20%, 57% 0, 100% 0, 100% 100%, 68% 100%, 32% 100%, 0 100%, 0% 43%, 0 20%)';
 
 const FolderSection = () => {
-  const footerImg = asset(assets.folders.footer) as { url: string; width: number; height: number; alt: string };
+  const { assets } = useAssets();
+  
+  if (!assets) return null;
+  
+  const footerImg = assets.folders.footer;
 
   const folders = [
     {
       id: 0,
-      asset: asset(assets.folders.all[0]),
+      asset: assets.folders.all[0],
       name: '嘉宾1',
       clipPath: clipPathleft
     },
     {
       id: 1,
-      asset: asset(assets.folders.all[1]),
+      asset: assets.folders.all[1],
       name: '嘉宾2',
       clipPath: clipPathright
     },
     {
       id: 2,
-      asset: asset(assets.folders.all[2]),
+      asset: assets.folders.all[2],
       name: '嘉宾3',
       clipPath: clipPathleft
     },
     {
       id: 3,
-      asset: asset(assets.folders.all[3]),
+      asset: assets.folders.all[3],
       name: '嘉宾4',
       clipPath: clipPathright
     },
     {
       id: 4,
-      asset: asset(assets.folders.all[4]),
+      asset: assets.folders.all[4],
       name: '嘉宾5',
       clipPath: clipPathleft
     },
     {
       id: 5,
-      asset: asset(assets.folders.all[5]),
+      asset: assets.folders.all[5],
       name: '嘉宾6',
       clipPath: clipPathright
     },

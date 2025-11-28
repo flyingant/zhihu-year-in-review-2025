@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect } from 'react';
 import Image from 'next/image';
-import { assets, asset, componentExpiration } from '@/lib/assets';
+import { useAssets, componentExpiration } from '@/context/assets-context';
 import request from '@/lib/request';
 import { useToast } from '@/context/toast-context';
 import { useZhihuApp } from '@/hooks/useZhihuApp';
@@ -19,16 +19,19 @@ const SidebarLiuKanshan = () => {
   const [isExpired, setIsExpired] = useState(false);
   const { showToast } = useToast();
   const isZhihu = useZhihuApp();
+  const { assets } = useAssets();
   
-  const imageAsset = asset(assets.newImages.sidebarLiuKanshan) as { url: string; alt: string; width: number; height: number };
-  const dialogAsset = asset(assets.newImages.sidebarLiuKanshanDialog) as { url: string; alt: string; width: number; height: number };
-  const dialogSoldOutAsset = asset(assets.newImages.sidebarLiuKanshanDialogSoldOut) as { url: string; alt: string; width: number; height: number };
-  const cancelAsset = asset(assets.newImages.sidebarLiuKanshanCancel) as { url: string; alt: string; width: number; height: number };
-  const publishAsset = asset(assets.newImages.sidebarLiuKanshanPublish) as { url: string; alt: string; width: number; height: number };
-  const publishPcAsset = asset(assets.newImages.sidebarLiuKanshanPublishPc) as { url: string; alt: string; width: number; height: number };
-  const qrcodeAsset = asset(assets.newImages.sidebarLiuKanshanQrcode) as { url: string; alt: string; width: number; height: number };
-  const qrcodeTipsAsset = asset(assets.newImages.sidebarLiuKanshanQrcodeTips) as { url: string; alt: string; width: number; height: number };
-  const tmrAsset = asset(assets.newImages.sidebarLiuKanshanTmr) as { url: string; alt: string; width: number; height: number };
+  if (!assets) return null;
+  
+  const imageAsset = assets.newImages.sidebarLiuKanshan;
+  const dialogAsset = assets.newImages.sidebarLiuKanshanDialog;
+  const dialogSoldOutAsset = assets.newImages.sidebarLiuKanshanDialogSoldOut;
+  const cancelAsset = assets.newImages.sidebarLiuKanshanCancel;
+  const publishAsset = assets.newImages.sidebarLiuKanshanPublish;
+  const publishPcAsset = assets.newImages.sidebarLiuKanshanPublishPc;
+  const qrcodeAsset = assets.newImages.sidebarLiuKanshanQrcode;
+  const qrcodeTipsAsset = assets.newImages.sidebarLiuKanshanQrcodeTips;
+  const tmrAsset = assets.newImages.sidebarLiuKanshanTmr;
   
   const displayWidth = imageAsset.width / 2;
   const displayHeight = imageAsset.height / 2;

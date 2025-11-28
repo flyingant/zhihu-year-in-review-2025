@@ -1,9 +1,14 @@
+"use client";
 import React from 'react';
 import Image from 'next/image';
-import { assets, asset } from '@/lib/assets';
+import { useAssets } from '@/context/assets-context';
 
 const ZaiZhiHuLianJieZhenShi = ({ className = '' }) => {
-  const imageAsset = asset(assets.newImages.zaiZhiHuLianJieZhenShi);
+  const { assets } = useAssets();
+  
+  if (!assets) return null;
+  
+  const imageAsset = assets.newImages.zaiZhiHuLianJieZhenShi;
   // Display at 25% of original size for responsive design
   const displayWidth = imageAsset.width * 0.25;
   const displayHeight = imageAsset.height * 0.25;

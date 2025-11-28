@@ -1,0 +1,415 @@
+{
+  "home": {
+    "bg": {
+      "url": "/assets/home_bg@3x.png",
+      "width": 1125,
+      "height": 6938,
+      "alt": "Home Background"
+    },
+    "bgBottom": {
+      "url": "/assets/home_bottom_bg@3x.png",
+      "width": 1125,
+      "height": 209,
+      "alt": "Home Background"
+    }
+  },
+  "kv": {
+    "logo": {
+      "url": "/assets/zhihu_logo.png",
+      "width": 187,
+      "height": 36,
+      "alt": "Zhihu Logo"
+    },
+    "bg": {
+      "url": "/assets/kv_danmakus_bg@3x.png",
+      "width": 1041,
+      "height": 870,
+      "alt": "到底什么是真的？"
+    },
+    "danmakus": [
+      {
+        "url": "/assets/kv_danmaku_1@3x.png",
+        "width": 830,
+        "height": 64,
+        "alt": "弹幕"
+      },
+      {
+        "url": "/assets/kv_danmaku_2@3x.png",
+        "width": 365,
+        "height": 64,
+        "alt": "弹幕"
+      },
+      {
+        "url": "/assets/kv_danmaku_3@3x.png",
+        "width": 730,
+        "height": 64,
+        "alt": "弹幕"
+      },
+      {
+        "url": "/assets/kv_danmaku_4@3x.png",
+        "width": 744,
+        "height": 64,
+        "alt": "弹幕"
+      },
+      {
+        "url": "/assets/kv_danmaku_5@3x.png",
+        "width": 304,
+        "height": 64,
+        "alt": "弹幕"
+      },
+      {
+        "url": "/assets/kv_danmaku_6@3x.png",
+        "width": 609,
+        "height": 64,
+        "alt": "弹幕"
+      }
+    ]
+  },
+  "folders": {
+    "folder1": {
+      "url": "/assets/folder_word_1@3x.png",
+      "width": 1030,
+      "height": 500,
+      "alt": "嘉宾1"
+    },
+    "folder2": {
+      "url": "/assets/folder_word_2@3x.png",
+      "width": 1030,
+      "height": 500,
+      "alt": "嘉宾2"
+    },
+    "folder3": {
+      "url": "/assets/folder_word_3@3x.png",
+      "width": 1030,
+      "height": 500,
+      "alt": "嘉宾3"
+    },
+    "folder4": {
+      "url": "/assets/folder_word_4@3x.png",
+      "width": 1030,
+      "height": 500,
+      "alt": "嘉宾4"
+    },
+    "folder5": {
+      "url": "/assets/folder_word_5@3x.png",
+      "width": 1030,
+      "height": 500,
+      "alt": "嘉宾5"
+    },
+    "folder6": {
+      "url": "/assets/folder_word_6@3x.png",
+      "width": 1030,
+      "height": 500,
+      "alt": "嘉宾6"
+    },
+    "footer": {
+      "url": "/assets/folder_footer@3x.png",
+      "width": 1017,
+      "height": 428,
+      "alt": "点击名字查看真实瞬间"
+    },
+    "all": [
+      {
+        "url": "/assets/folder_word_1@3x.png",
+        "width": 1030,
+        "height": 500,
+        "alt": "嘉宾1"
+      },
+      {
+        "url": "/assets/folder_word_2@3x.png",
+        "width": 1030,
+        "height": 500,
+        "alt": "嘉宾2"
+      },
+      {
+        "url": "/assets/folder_word_3@3x.png",
+        "width": 1030,
+        "height": 500,
+        "alt": "嘉宾3"
+      },
+      {
+        "url": "/assets/folder_word_4@3x.png",
+        "width": 1030,
+        "height": 500,
+        "alt": "嘉宾4"
+      },
+      {
+        "url": "/assets/folder_word_5@3x.png",
+        "width": 1030,
+        "height": 500,
+        "alt": "嘉宾5"
+      },
+      {
+        "url": "/assets/folder_word_6@3x.png",
+        "width": 1030,
+        "height": 500,
+        "alt": "嘉宾6"
+      }
+    ]
+  },
+  "games": {
+    "title": {
+      "url": "/assets/game_title@3x.png",
+      "width": 545,
+      "height": 194,
+      "alt": "Game Console title"
+    },
+    "consoleBg": {
+      "url": "/assets/game_console_bg@3x.png",
+      "width": 1029,
+      "height": 662,
+      "alt": "Game Console Background"
+    },
+    "liukanshan": {
+      "url": "/assets/game_liukanshan@3x.png",
+      "width": 222,
+      "height": 312,
+      "alt": "Game LiuKanShan"
+    },
+    "fail": {
+      "url": "/assets/game_fail@3x.png",
+      "width": 657,
+      "height": 894,
+      "alt": "Game Fail"
+    },
+    "success": {
+      "url": "/assets/game_success@3x.png",
+      "width": 981,
+      "height": 1506,
+      "alt": "Game Success"
+    },
+    "bottomBanner": {
+      "url": "/assets/game_bottom_banner@3x.png",
+      "width": 1000,
+      "height": 150,
+      "alt": "Game Bottom Banner"
+    },
+    "saveImage": {
+      "url": "/assets/game_save_image@3x.png",
+      "width": 909,
+      "height": 279,
+      "alt": "保存图片"
+    },
+    "syncIdeas": {
+      "url": "/assets/game_sync_ideas@3x.png",
+      "width": 909,
+      "height": 279,
+      "alt": "一键同步想法"
+    }
+  },
+  "zaiZhiHuLianJieZhenShiUrls": [
+    {
+      "url": "/assets/zaiZhiHuLianJieZhenShi_image1@3x.png",
+      "width": 1180,
+      "height": 788,
+      "alt": "链接1"
+    },
+    {
+      "url": "/assets/zaiZhiHuLianJieZhenShi_image2@3x.png",
+      "width": 1180,
+      "height": 788,
+      "alt": "链接2"
+    },
+    {
+      "url": "/assets/zaiZhiHuLianJieZhenShi_image3@3x.png",
+      "width": 1180,
+      "height": 788,
+      "alt": "链接3"
+    },
+    {
+      "url": "/assets/zaiZhiHuLianJieZhenShi_image4@3x.png",
+      "width": 1180,
+      "height": 788,
+      "alt": "链接4"
+    },
+    {
+      "url": "/assets/zaiZhiHuLianJieZhenShi_image5@3x.png",
+      "width": 1180,
+      "height": 788,
+      "alt": "链接5"
+    }
+  ],
+  "newImages": {
+    "wuzida2025": {
+      "url": "/assets/2025qinzida@2x.png",
+      "width": 978,
+      "height": 302,
+      "alt": "2025亲自答"
+    },
+    "wuzida2025Banner": {
+      "url": "/assets/2025qinzida_banner@3x.png",
+      "width": 1030,
+      "height": 408,
+      "alt": "2025亲自答"
+    },
+    "liukanshanBianLiDian": {
+      "url": "/assets/liukanshanzhenshibianlidian@3x.png",
+      "width": 471,
+      "height": 264,
+      "alt": "刘看山真实便利店"
+    },
+    "zaiZhiHuLianJieZhenShi": {
+      "url": "/assets/zaizhihulianjiegengduodezhenshi@2x.png",
+      "width": 598,
+      "height": 240,
+      "alt": "在知乎链接更多的真实"
+    },
+    "qiangXianYuGao": {
+      "url": "/assets/qiangxianyugao@2x.png",
+      "width": 788,
+      "height": 257,
+      "alt": "抢先预告"
+    },
+    "qiangXianYuGaoBanner": {
+      "url": "/assets/qiangxianyugao.png",
+      "width": 727,
+      "height": 527,
+      "alt": "抢先预告"
+    },
+    "zheXieZhenDeKeYi": {
+      "url": "/assets/zhexiezhendekeyi@2x.png",
+      "width": 924,
+      "height": 274,
+      "alt": "这些真的可以"
+    },
+    "zheXieZhenDeKeYiBanner": {
+      "url": "/assets/zhexiezhendekeyi_banner@3x.png",
+      "width": 1030,
+      "height": 408,
+      "alt": "这些真的可以"
+    },
+    "zhenShiShunJian": {
+      "url": "/assets/ zhen_shi_shun_jian@3x.png",
+      "width": 1995,
+      "height": 300,
+      "alt": "真实瞬间"
+    },
+    "sidebarCampaignRules": {
+      "url": "/assets/sidebar_campaign_rules.png",
+      "width": 44,
+      "height": 182,
+      "alt": "活动规则"
+    },
+    "sidebarLiuKanshan": {
+      "url": "/assets/sidebar_liukanshan.png",
+      "width": 94,
+      "height": 177,
+      "alt": "刘看山"
+    },
+    "sidebarLiuKanshanDialog": {
+      "url": "/assets/sidebar_liukanshan_dialog.png",
+      "width": 750,
+      "height": 1334,
+      "alt": "刘看山对话框"
+    },
+    "sidebarLiuKanshanCancel": {
+      "url": "/assets/sidebar_liukanshan_cancel@3x.png",
+      "width": 909,
+      "height": 279,
+      "alt": "取消"
+    },
+    "sidebarLiuKanshanPublish": {
+      "url": "/assets/sidebar_liukanshan_publish.png",
+      "width": 303,
+      "height": 93,
+      "alt": "发布"
+    },
+    "sidebarLiuKanshanPublishPc": {
+      "url": "/assets/sidebar_liukanshan_publish_pc@3x.png",
+      "width": 909,
+      "height": 944,
+      "alt": "发布-PC"
+    },
+    "sidebarLiuKanshanQrcode": {
+      "url": "/assets/sidebar_liukanshan_qrcode@3x.png",
+      "width": 522,
+      "height": 522,
+      "alt": "二维码"
+    },
+    "sidebarLiuKanshanQrcodeTips": {
+      "url": "/assets/sidebar_liukanshan_qrcode_tips@3x.png",
+      "width": 597,
+      "height": 168,
+      "alt": "请打开知乎 App 扫码 继续完成发布"
+    },
+    "sidebarLiuKanshanDialogSoldOut": {
+      "url": "/assets/sidebar_liukanshan_dialog_sold_out.png",
+      "width": 750,
+      "height": 1334,
+      "alt": "刘看山对话框-已售罄"
+    },
+    "sidebarLiuKanshanTmr": {
+      "url": "/assets/sidebar_liukanshan_tmr.png",
+      "width": 300,
+      "height": 80,
+      "alt": "知道了"
+    }
+  },
+  "tasks": {
+    "bg": {
+      "url": "/assets/task_prize_bg@3x.png",
+      "width": 1059,
+      "height": 1528,
+      "alt": "奖品背景"
+    },
+    "prizeBg": {
+      "url": "/assets/task_single_prize_bg@3x.png",
+      "width": 206,
+      "height": 215,
+      "alt": "单个奖品背景"
+    },
+    "prizes": [
+      {
+        "url": "/assets/task_liukanshan_juecebi@3x.png",
+        "width": 307,
+        "height": 346,
+        "alt": "决策币"
+      },
+      {
+        "url": "/assets/task_zhihu_yueka@3x.png",
+        "width": 307,
+        "height": 346,
+        "alt": "知乎月卡"
+      },
+      {
+        "url": "/assets/task_liukanshan_baji@3x.png",
+        "width": 307,
+        "height": 346,
+        "alt": "吧唧"
+      },
+      {
+        "url": "/assets/task_liukanshan_bingxiangtie@3x.png",
+        "width": 307,
+        "height": 346,
+        "alt": "冰箱贴"
+      },
+      {
+        "url": "/assets/task_liukanshan_guajian@3x.png",
+        "width": 307,
+        "height": 346,
+        "alt": "挂件"
+      },
+      {
+        "url": "/assets/task_liukanshan_jiaopian@3x.png",
+        "width": 307,
+        "height": 346,
+        "alt": "胶片"
+      },
+      {
+        "url": "/assets/task_liukanshan_wanou@3x.png",
+        "width": 307,
+        "height": 346,
+        "alt": "玩偶"
+      }
+    ]
+  },
+  "zhihuSearch": {
+    "bg": {
+      "url": "/assets/zhihu_search@3x.png",
+      "width": 551,
+      "height": 106,
+      "alt": "知乎搜索"
+    }
+  }
+}
+

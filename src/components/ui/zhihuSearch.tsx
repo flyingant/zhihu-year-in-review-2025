@@ -1,9 +1,14 @@
+"use client";
 import React from 'react';
 import Image from 'next/image';
-import { assets, asset } from '@/lib/assets';
+import { useAssets } from '@/context/assets-context';
 
 const ZhihuSearch = ({ className = '' }) => {
-  const searchAsset = asset(assets.zhihuSearch.bg) as { url: string; alt: string, height: number, width: number };
+  const { assets } = useAssets();
+  
+  if (!assets) return null;
+  
+  const searchAsset = assets.zhihuSearch.bg;
   const ratio = 3;
   return (
     <div className={`relative z-50 ${className} flex justify-center`}>

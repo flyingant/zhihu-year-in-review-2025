@@ -1,6 +1,6 @@
 "use client";
 
-import { ReactNode } from "react";
+import { ReactNode, useEffect } from "react";
 import { useAuth } from "@/context/auth-context";
 import { useUserData } from "@/context/user-data-context";
 import { useZhihuApp } from "@/hooks/useZhihuApp";
@@ -8,14 +8,12 @@ import { useZhihuHybrid } from "@/hooks/useZhihuHybrid";
 
 interface AuthWrapperProps {
   children: ReactNode;
-  showLoginPrompt?: boolean;
   showWelcomeMessage?: boolean;
   showLoadingIndicator?: boolean;
 }
 
 export default function AuthWrapper({
   children,
-  showLoginPrompt = true,
   showWelcomeMessage = true,
   showLoadingIndicator = true,
 }: AuthWrapperProps) {
@@ -23,6 +21,13 @@ export default function AuthWrapper({
   const { isLoadingData, error, fetchUserData } = useUserData();
   const isZhihu = useZhihuApp();
   const { isAvailable: isHybridAvailable } = useZhihuHybrid();
+
+  // Redirect to login page if not authenticated
+  useEffect(() => {
+    if (!isAuthLoading && !isAuthenticated) {
+      login();
+    }
+  }, [isAuthLoading, isAuthenticated, login]);
 
   // Show loading state while checking auth
   if (isAuthLoading && showLoadingIndicator) {
@@ -53,11 +58,6 @@ export default function AuthWrapper({
             <div className="text-yellow-400">⏳ 检查认证状态...</div>
           )}
 
-          {/* Not Authenticated */}
-          {!isAuthenticated && !isAuthLoading && (
-            <div className="text-red-400">✗ 未登录</div>
-          )}
-
           {/* Error Message */}
           {error && (
             <div className="text-red-400">
@@ -67,18 +67,6 @@ export default function AuthWrapper({
                 className="ml-2 text-white underline hover:text-gray-300"
               >
                 [重试]
-              </button>
-            </div>
-          )}
-
-          {/* Login Button (if not authenticated) */}
-          {showLoginPrompt && !isAuthenticated && (
-            <div className="mt-2">
-              <button
-                onClick={login}
-                className="bg-gray-800 hover:bg-gray-700 text-white font-mono py-1 px-3 rounded border border-gray-600 cursor-pointer text-xs"
-              >
-                [登录]
               </button>
             </div>
           )}

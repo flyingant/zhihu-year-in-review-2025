@@ -7,17 +7,18 @@ import { Pagination, Autoplay } from 'swiper/modules';
 import Image from 'next/image';
 import 'swiper/css';
 import 'swiper/css/pagination';
-import { assets, asset } from '@/lib/assets';
+import { useAssets } from '@/context/assets-context';
 
 const ZaiZhiHuLianJieZhenShiSection = () => {
+  const { assets } = useAssets();
   const [paginationEl, setPaginationEl] = useState<HTMLElement | null>(null);
 
-  const slides = assets.zaiZhiHuLianJieZhenShiUrls.map((item, index) => {
-    const processedAsset = asset(item) as { url: string; width: number; height: number; alt: string };
+  if (!assets) return null;
 
+  const slides = assets.zaiZhiHuLianJieZhenShiUrls.map((item, index) => {
     return {
       id: index,
-      ...processedAsset
+      ...item
     };
   });
   return (

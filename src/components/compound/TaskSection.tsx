@@ -3,7 +3,7 @@
 import React, { useState, useEffect } from 'react';
 import Image from 'next/image';
 import LiuKanShanBianLiDian from "../ui/LiuKanShanBianLiDian";
-import { assets, asset } from '@/lib/assets';
+import { useAssets } from '@/context/assets-context';
 import { useRouter } from 'next/navigation';
 import { getCampaignInfo, CampaignResponse, TaskItem, RewardItem } from '@/api/campaign';
 import { ACTIVITY_ID, SHOW_TASK_IDS, PRIZE_POSITIONS, RECORD_BTN_POSITION } from '@/constants/campaign';
@@ -16,9 +16,12 @@ const TaskSection = () => {
 
   const [isRedeemModalOpen, setIsRedeemModalOpen] = useState(false);
   const [selectedReward, setSelectedReward] = useState<RewardItem | null>(null);
+  const { assets } = useAssets();
 
-  const bgAsset = asset(assets.tasks.bg) as { url: string; width: number; height: number; alt: string };
-  const singlePrizeBgAsset = asset(assets.tasks.prizeBg) as { url: string; width: number; height: number; alt: string };
+  if (!assets) return null;
+
+  const bgAsset = assets.tasks.bg;
+  const singlePrizeBgAsset = assets.tasks.prizeBg;
 
   useEffect(() => {
     const fetchData = async () => {

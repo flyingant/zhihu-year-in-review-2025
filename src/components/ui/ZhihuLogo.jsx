@@ -1,9 +1,14 @@
+"use client";
 import React from 'react';
 import Image from 'next/image';
-import { assets, asset } from '@/lib/assets';
+import { useAssets } from '@/context/assets-context';
 
 const ZhihuLogo = ({ className = '' }) => {
-  const logoAsset = asset(assets.kv.logo);
+  const { assets } = useAssets();
+  
+  if (!assets) return null;
+  
+  const logoAsset = assets.kv.logo;
   // Display at 50% of original size for responsive design
   const displayWidth = logoAsset.width * 0.5;
   const displayHeight = logoAsset.height * 0.5;

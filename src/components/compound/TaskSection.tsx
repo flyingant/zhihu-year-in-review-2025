@@ -8,10 +8,12 @@ import { useRouter } from 'next/navigation';
 import { getCampaignInfo, CampaignResponse, TaskItem, RewardItem, preOccupyReward, cancelOccupyReward } from '@/api/campaign';
 import { ACTIVITY_ID, SHOW_TASK_IDS, PRIZE_POSITIONS, RECORD_BTN_POSITION } from '@/constants/campaign';
 import { useToast } from '@/context/toast-context';
+import { useZhihuApp } from '@/hooks/useZhihuApp';
 
 const TaskSection = () => {
   const router = useRouter();
   const { showToast } = useToast();
+  const isZhihuApp = useZhihuApp();
   const [campaignData, setCampaignData] = useState<CampaignResponse | null>(null);
   const [isRulesOpen, setIsRulesOpen] = useState(false);
 
@@ -38,8 +40,10 @@ const TaskSection = () => {
   const bgAsset = assets.tasks.bg;
   const singlePrizeBgAsset = assets.tasks.prizeBg;
 
+  const activity_data = campaignData?.activity_data;
   const body = campaignData?.body;
   const head = campaignData?.head;
+  const currentPoint = activity_data?.running?.current_point;
   const rewardsList = body?.rewards?.rewards_list || [];
   const rewardPoolId = body?.rewards?.reward_pool_id;
   const ruleContent = head?.info || '';
@@ -53,6 +57,62 @@ const TaskSection = () => {
     };
   }).filter(group => group.task_list.length > 0);
 
+  // 获取并清理URL
+  const getCleanUrl = (url: string | undefined): string | null => {
+    if (!url) return null;
+    try {
+      let cleaned = decodeURIComponent(url).trim();
+      // 移除首尾的%20和空格
+      cleaned = cleaned.replace(/^%20+|%20+$/g, '').trim();
+      if (cleaned && cleaned !== 'undefined' && cleaned !== ' ') {
+        return cleaned;
+      }
+    } catch {
+      const trimmed = url.trim().replace(/^%20+|%20+$/g, '').trim();
+      if (trimmed && trimmed !== 'undefined' && trimmed !== ' ') {
+        return trimmed;
+      }
+    }
+    return null;
+  };
+
+  // 任务特定的处理函数
+  const handleTask390310 = (task: TaskItem) => {
+    // TODO: 实现任务 390310 的特定逻辑
+    console.log('处理任务 390310:', task);
+    showToast('任务 390310 处理逻辑待实现', 'info');
+  };
+
+  const handleTask390311 = (task: TaskItem) => {
+    // TODO: 实现任务 390311 的特定逻辑
+    console.log('处理任务 390311:', task);
+    showToast('任务 390311 处理逻辑待实现', 'info');
+  };
+
+  const handleTask390312 = (task: TaskItem) => {
+    // TODO: 实现任务 390312 的特定逻辑
+    console.log('处理任务 390312:', task);
+    showToast('任务 390312 处理逻辑待实现', 'info');
+  };
+
+  const handleTask300501 = (task: TaskItem) => {
+    // TODO: 实现任务 300501 的特定逻辑
+    console.log('处理任务 300501:', task);
+    showToast('任务 300501 处理逻辑待实现', 'info');
+  };
+
+  const handleTask390313 = (task: TaskItem) => {
+    // TODO: 实现任务 390313 的特定逻辑
+    console.log('处理任务 390313:', task);
+    showToast('任务 390313 处理逻辑待实现', 'info');
+  };
+
+  const handleTask390314 = (task: TaskItem) => {
+    // TODO: 实现任务 390314 的特定逻辑
+    console.log('处理任务 390314:', task);
+    showToast('任务 390314 处理逻辑待实现', 'info');
+  };
+
   const handleTaskAction = (task: TaskItem) => {
     const { state } = task;
     if (state.point_received) return;
@@ -61,26 +121,45 @@ const TaskSection = () => {
       console.log(`触发领取积分接口: 任务ID ${task.id}`);
     }
 
-    let targetUrl = state.app_url;
-
-    if (targetUrl) {
-      try {
-        targetUrl = decodeURIComponent(targetUrl).trim();
-      } catch {
-        targetUrl = targetUrl.trim();
-      }
+    // 使用app_url（知乎App内）或pc_url（浏览器）
+    let targetUrl: string | null = null;
+    
+    if (isZhihuApp) {
+      targetUrl = getCleanUrl(state.app_url);
+    } else {
+      targetUrl = getCleanUrl(state.pc_url);
     }
 
-    const isValidUrl = targetUrl &&
-      targetUrl.trim() !== '' &&
-      targetUrl !== '%20' &&
-      targetUrl !== 'undefined';
-    console.log('isValidUrl', isValidUrl, targetUrl)
-    if (isValidUrl && targetUrl) {
+    // 如果有有效URL，直接跳转
+    if (targetUrl) {
       console.log(`跳转到: ${targetUrl}`);
       window.location.href = targetUrl;
-    } else {
-      console.log('该任务暂时没有配置跳转链接');
+      return;
+    }
+
+    // 如果没有有效URL，根据任务ID使用特定的处理函数
+    switch (task.id) {
+      case 390310:
+        handleTask390310(task);
+        break;
+      case 390311:
+        handleTask390311(task);
+        break;
+      case 390312:
+        handleTask390312(task);
+        break;
+      case 300501:
+        handleTask300501(task);
+        break;
+      case 390313:
+        handleTask390313(task);
+        break;
+      case 390314:
+        handleTask390314(task);
+        break;
+      default:
+        console.log(`未处理的任务ID: ${task.id}`);
+        showToast(`任务 ${task.id} 的处理逻辑待实现`, 'info');
     }
   };
 
@@ -168,7 +247,6 @@ const TaskSection = () => {
     window.location.href = url;
   };
 
-  // todo 仅仅是为了展示，具体button逻辑不一定是下面的
   const renderTaskButton = (task: TaskItem) => {
     const isReceived = task.state.point_received;
     const btnText = task.state.desc;
@@ -180,9 +258,15 @@ const TaskSection = () => {
         </div>
       );
     }
+
+    // 按钮样式：统一使用蓝色，无论是否有URL都可点击
+    const buttonClass = `${btnText ? 'bg-blue' : 'bg-[#bcd7ff]'} text-white shadow-md active:scale-95 transition-transform cursor-pointer`;
+
     return (
-      <div className={`min-w-[70px] h-[28px] leading-[28px] text-center rounded-[14px] text-xs font-medium ${btnText ? 'bg-blue' : 'bg-[#bcd7ff]'} text-white shadow-md active:scale-95 transition-transform cursor-pointer`}
-        onClick={() => handleTaskAction(task)}>
+      <div 
+        className={`min-w-[70px] h-[28px] leading-[28px] text-center rounded-[14px] text-xs font-medium ${buttonClass}`}
+        onClick={() => handleTaskAction(task)}
+      >
         {btnText || '未开始'}
       </div>
     );
@@ -218,15 +302,14 @@ const TaskSection = () => {
           </div>
 
           <div className="bg-white rounded-[8px] flex flex-col items-center justify-center min-h-[45px]">
-            {/* {current_point !== undefined ? (
+            {currentPoint !== undefined ? (
               <>
-                <div className="text-3xl font-black text-blue-500">{current_point}</div>
+                <div className="text-3xl font-black text-blue-500">{currentPoint}</div>
                 <div className="text-xs text-gray-400 mt-1">当前可用积分</div>
               </>
             ) : (
               <span className="text-gray-400 text-sm">活动未开始</span>
-            )} */}
-            <span className="text-gray-400 text-sm">活动未开始</span>
+            )}
           </div>
         </div>
 

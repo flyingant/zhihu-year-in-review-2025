@@ -228,3 +228,38 @@ export const completeRedeemReward = (
     },
   });
 };
+
+// 任务完成相关接口
+export interface TaskCompleteParams {
+  task_id: number;
+}
+
+/**
+ * 任务完成接口
+ * 用于记录用户完成特定任务的交互行为
+ * 
+ * @param taskId - 任务ID
+ * @returns Promise<null>
+ * 
+ * @example
+ * // 打开「分会场」页面并浏览
+ * await completeTask(390311);
+ * 
+ * // 点击打开「年度圆桌」页面
+ * await completeTask(390312);
+ * 
+ * // 点击「刘看山送礼」
+ * await completeTask(300499);
+ * 
+ * // 点击「刘看山送礼」弹框后的「去发布」按钮
+ * await completeTask(300500);
+ */
+export const completeTask = (taskId: number) => {
+  return request<null>({
+    url: '/campaigns/v2/2025/task_complete',
+    method: 'POST',
+    data: {
+      task_id: taskId,
+    },
+  });
+};

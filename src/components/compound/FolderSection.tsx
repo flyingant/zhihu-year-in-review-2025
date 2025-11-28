@@ -115,7 +115,7 @@ const FolderSection = () => {
          after:content-[''] 
          after:absolute 
          after:bottom-0 
-         after:left-[16px] 
+         after:left-0
          after:w-full 
          after:h-1/3
          after:bg-white

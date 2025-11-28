@@ -4,13 +4,13 @@
 
 ## 开发
 
-先复制 `.env.example` 为 `.env.development`, `.env.production`
+创建环境变量文件 `.env.development` 和 `.env.production`:
 
 ```
 # .env.development
 NEXT_PUBLIC_BASE_API_URL=/api
 NEXT_PUBLIC_BASE_LOGIN_API_URL=/auth
-NEXT_PUBLIC_CDN_BASE_URL=/2025
+NEXT_PUBLIC_CDN_BASE_URL=
 # copy from zhihu.com
 NEXT_PUBLIC_ZHIHU_COOKIE=
 ```
@@ -19,7 +19,14 @@ NEXT_PUBLIC_ZHIHU_COOKIE=
 # .env.production
 NEXT_PUBLIC_BASE_API_URL=https://api.zhihu.com/api
 NEXT_PUBLIC_BASE_LOGIN_API_URL=https://www.zhihu.com/api/v4
+NEXT_PUBLIC_CDN_BASE_URL=/2025
+# copy from zhihu.com
+NEXT_PUBLIC_ZHIHU_COOKIE=
 ```
+
+**注意**: 
+- 开发环境: `basePath` 为空，`NEXT_PUBLIC_CDN_BASE_URL` 为空
+- 生产环境: `basePath` 自动设置为 `/2025`，`NEXT_PUBLIC_CDN_BASE_URL` 需要设置为 `/2025`
 
 运行开发服务器:
 

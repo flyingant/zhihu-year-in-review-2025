@@ -275,7 +275,7 @@ const TaskSection = () => {
 
   return (
     <div className="relative w-full pb-10 flex flex-col pt-1">
-      <div className='flex justify-center pb-9'>
+      <div className='flex justify-center pb-9 px-[54px]'>
         <LiuKanShanBianLiDian />
       </div>
       <div className="mx-[16px]">

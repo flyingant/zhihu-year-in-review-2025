@@ -318,8 +318,8 @@ const TaskSection = () => {
           <div className="bg-white rounded-[8px] flex flex-col items-center justify-center min-h-[45px]">
             {currentPoint !== undefined ? (
               <>
-                <div className="text-3xl font-black text-blue-500">{currentPoint}</div>
-                <div className="text-xs text-gray-400 mt-1">将于 {formatEndTime} 过期</div>
+                <div className="text-xl font-black text-blue-500">{currentPoint}</div>
+                <div className="text-xs text-gray-400">将于 {formatEndTime} 过期</div>
               </>
             ) : (
               <span className="text-gray-400 text-sm">活动未开始</span>

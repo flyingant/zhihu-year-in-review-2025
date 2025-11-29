@@ -19,32 +19,10 @@ const SidebarLiuKanshan = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [isKVSectionVisible, setIsKVSectionVisible] = useState(true);
   const [isExpired, setIsExpired] = useState(false);
+  const [isCheckingStatus, setIsCheckingStatus] = useState(false);
   const { showToast } = useToast();
   const isZhihu = useZhihuApp();
   const { assets } = useAssets();
-  
-  if (!assets) return null;
-  
-  const imageAsset = assets.newImages.sidebarLiuKanshan;
-  const dialogAsset = assets.newImages.sidebarLiuKanshanDialog;
-  const dialogSoldOutAsset = assets.newImages.sidebarLiuKanshanDialogSoldOut;
-  const cancelAsset = assets.newImages.sidebarLiuKanshanCancel;
-  const publishAsset = assets.newImages.sidebarLiuKanshanPublish;
-  const publishPcAsset = assets.newImages.sidebarLiuKanshanPublishPc;
-  const qrcodeAsset = assets.newImages.sidebarLiuKanshanQrcode;
-  const qrcodeTipsAsset = assets.newImages.sidebarLiuKanshanQrcodeTips;
-  const tmrAsset = assets.newImages.sidebarLiuKanshanTmr;
-  
-  const displayWidth = imageAsset.width / 2;
-  const displayHeight = imageAsset.height / 2;
-  
-  // Calculate maximum button width to ensure consistent UI
-  const cancelButtonWidth = cancelAsset.width / 6;
-  const publishButtonWidth = isZhihu ? publishAsset.width : publishPcAsset.width / 6;
-  const maxButtonWidth = Math.max(cancelButtonWidth, publishButtonWidth);
-  
-  // Select dialog image based on sold out status
-  const currentDialogAsset = isSoldOut ? dialogSoldOutAsset : dialogAsset;
 
   // Inject component-specific styles
   useEffect(() => {
@@ -146,8 +124,11 @@ const SidebarLiuKanshan = () => {
     };
   }, []);
 
-  const handleSidebarClick = async () => {
-    setIsLoading(true);
+  // Check task status and update dialog state accordingly
+  const checkTaskStatusAndUpdate = async (showLoading = true, trackClick = false) => {
+    if (showLoading) {
+      setIsLoading(true);
+    }
     try {
       const response = await request<TaskStatusResponse>({
         url: '/campaigns/v2/2025/lks_gift_task_status',
@@ -162,60 +143,103 @@ const SidebarLiuKanshan = () => {
         setIsSoldOut(true);
         setIsDialogOpen(true);
         // Track task completion when dialog opens (fire-and-forget, non-blocking)
-        completeTask(TASK_IDS.CLICK_LKS_GIFT).catch((error) => {
-          console.error('Error completing task:', error);
-          // Silently fail - this is just tracking, don't block user flow
-        });
+        if (trackClick) {
+          completeTask(TASK_IDS.CLICK_LKS_GIFT).catch((error) => {
+            console.error('Error completing task:', error);
+            // Silently fail - this is just tracking, don't block user flow
+          });
+        }
       } else if (taskStatus === 1) {
         // 未领取还有剩余 - Show current dialog
         setIsSoldOut(false);
         setIsDialogOpen(true);
         // Track task completion when dialog opens (fire-and-forget, non-blocking)
-        completeTask(TASK_IDS.CLICK_LKS_GIFT).catch((error) => {
-          console.error('Error completing task:', error);
-          // Silently fail - this is just tracking, don't block user flow
-        });
+        if (trackClick) {
+          completeTask(TASK_IDS.CLICK_LKS_GIFT).catch((error) => {
+            console.error('Error completing task:', error);
+            // Silently fail - this is just tracking, don't block user flow
+          });
+        }
       } else if (taskStatus === 2 || taskStatus === 3) {
-        // 已领取未填地址 or 已领取并已填地址 - Show toast message
-        // TODO: Replace with actual toast message text when provided
+        // 已领取未填地址 or 已领取并已填地址 - Show toast message and close dialog
         const toastMessage = taskStatus === 2 
           ? '你已领取，请查收私信填写收货地址~' 
           : '你已领取~';
         showToast(toastMessage);
+        setIsDialogOpen(false);
       }
+      return taskStatus;
     } catch (error) {
       console.error('Error fetching task status:', error);
       // On error, show the default dialog
       setIsSoldOut(false);
-      setIsDialogOpen(false);
-      showToast('出错了，请稍后重试');
+      if (showLoading) {
+        setIsDialogOpen(false);
+        showToast('出错了，请稍后重试');
+      }
+      return null;
     } finally {
-      setIsLoading(false);
+      if (showLoading) {
+        setIsLoading(false);
+      }
     }
+  };
+
+  const handleSidebarClick = async () => {
+    await checkTaskStatusAndUpdate(true, true);
   };
 
   const handleCancelClick = () => {
     setIsDialogOpen(false);
   };
 
+  const handlePublishHover = async () => {
+    // Check task status on hover to update dialog if status changed
+    if (isCheckingStatus) return;
+    setIsCheckingStatus(true);
+    try {
+      await checkTaskStatusAndUpdate(false, false);
+    } finally {
+      setIsCheckingStatus(false);
+    }
+  };
+
   const handlePublishClick = async () => {
-    // Track task completion when publish button is clicked
-    // Wait for API call to complete before redirecting (with timeout to avoid blocking)
-    const redirectUrl = 'https://oia.zhihu.com/community/short_pin_editor?tab=pin&content=%7B%22html%22%3A%22%3Cp%3E2026%E6%9C%80%E6%83%B3%E5%81%9A%E7%9A%84%E4%B8%80%E4%BB%B6%E4%BA%8B%20%3Ca%20class%3D%5C%22hash_tag%5C%22%20data-topic-id%3D%5C%22unknown%5C%22%3E%232025%E5%88%B0%E5%BA%95%E4%BB%80%E4%B9%88%E6%98%AF%E7%9C%9F%E7%9A%84%23%3C%2Fa%3E%20%3Ca%20class%3D%5C%22hash_tag%5C%22%20data-topic-id%3D%5C%22unknown%5C%22%3E%23%E5%88%98%E7%9C%8B%E5%B1%B1%E9%80%81%E7%A4%BC%E7%89%A9%E6%98%AF%E7%9C%9F%E7%9A%84%23%3C%2Fa%3E%20%20%3Ca%20href%3D%5C%22https%3A%2F%2Fwww.zhihu.com%2Fcampagin%2Fmain_hall_2025new%5C%22%20data-insert-way%3D%5C%22force%5C%22%20data-draft-node%3D%5C%22inline%5C%22%20data-draft-type%3D%5C%22text-link%5C%22%3E%E4%B8%BB%E4%BC%9A%E5%9C%BA%E9%93%BE%E6%8E%A5%3C%2Fa%3E%20%3C%2Fp%3E%22%2C%22meta%22%3A%7B%22topic%22%3A%7B%22all%22%3A0%2C%22data%22%3A%7B%7D%7D%2C%22adActivityLink%22%3A%7B%22all%22%3A0%2C%22data%22%3A%7B%7D%7D%7D%7D&jump_url=https://www.zhihu.com/campagin/zhihu2025';
+    // Check task status first before proceeding
+    if (isCheckingStatus) return;
+    setIsCheckingStatus(true);
     
     try {
-      // Wait for API call with a timeout (max 500ms) to ensure it completes before redirect
-      await Promise.race([
-        completeTask(TASK_IDS.CLICK_LKS_GIFT_PUBLISH),
-        new Promise((_, reject) => setTimeout(() => reject(new Error('Timeout')), 500))
-      ]);
+      const taskStatus = await checkTaskStatusAndUpdate(false, false);
+      
+      // If status changed to sold out (0) or already claimed (2/3), don't redirect
+      if (taskStatus === 0 || taskStatus === 2 || taskStatus === 3) {
+        setIsCheckingStatus(false);
+        return;
+      }
+      
+      // Track task completion when publish button is clicked
+      // Wait for API call to complete before redirecting (with timeout to avoid blocking)
+      const redirectUrl = 'https://oia.zhihu.com/community/short_pin_editor?tab=pin&content=%7B%22html%22%3A%22%3Cp%3E2026%E6%9C%80%E6%83%B3%E5%81%9A%E7%9A%84%E4%B8%80%E4%BB%B6%E4%BA%8B%20%3Ca%20class%3D%5C%22hash_tag%5C%22%20data-topic-id%3D%5C%22unknown%5C%22%3E%232025%E5%88%B0%E5%BA%95%E4%BB%80%E4%B9%88%E6%98%AF%E7%9C%9F%E7%9A%84%23%3C%2Fa%3E%20%3Ca%20class%3D%5C%22hash_tag%5C%22%20data-topic-id%3D%5C%22unknown%5C%22%3E%23%E5%88%98%E7%9C%8B%E5%B1%B1%E9%80%81%E7%A4%BC%E7%89%A9%E6%98%AF%E7%9C%9F%E7%9A%84%23%3C%2Fa%3E%20%20%3Ca%20href%3D%5C%22https%3A%2F%2Fwww.zhihu.com%2Fcampagin%2Fmain_hall_2025new%5C%22%20data-insert-way%3D%5C%22force%5C%22%20data-draft-node%3D%5C%22inline%5C%22%20data-draft-type%3D%5C%22text-link%5C%22%3E%E4%B8%BB%E4%BC%9A%E5%9C%BA%E9%93%BE%E6%8E%A5%3C%2Fa%3E%20%3C%2Fp%3E%22%2C%22meta%22%3A%7B%22topic%22%3A%7B%22all%22%3A0%2C%22data%22%3A%7B%7D%7D%2C%22adActivityLink%22%3A%7B%22all%22%3A0%2C%22data%22%3A%7B%7D%7D%7D%7D&jump_url=https://www.zhihu.com/campagin/zhihu2025';
+      
+      try {
+        // Wait for API call with a timeout (max 500ms) to ensure it completes before redirect
+        await Promise.race([
+          completeTask(TASK_IDS.CLICK_LKS_GIFT_PUBLISH),
+          new Promise((_, reject) => setTimeout(() => reject(new Error('Timeout')), 500))
+        ]);
+      } catch (error) {
+        // Silently fail - this is just tracking, proceed with redirect anyway
+        console.error('Error completing task:', error);
+      }
+      
+      // Redirect after API call completes (or timeout)
+      window.location.href = redirectUrl;
     } catch (error) {
-      // Silently fail - this is just tracking, proceed with redirect anyway
-      console.error('Error completing task:', error);
+      console.error('Error in handlePublishClick:', error);
+    } finally {
+      setIsCheckingStatus(false);
     }
-    
-    // Redirect after API call completes (or timeout)
-    window.location.href = redirectUrl;
   };
 
   const handleTmrClick = () => {
@@ -230,10 +254,32 @@ const SidebarLiuKanshan = () => {
     }
   };
 
-  // Don't render if expired
-  if (isExpired) {
+  // Don't render if expired or assets not loaded
+  if (isExpired || !assets) {
     return null;
   }
+
+  // Asset calculations (after hooks and early return checks)
+  const imageAsset = assets.newImages.sidebarLiuKanshan;
+  const dialogAsset = assets.newImages.sidebarLiuKanshanDialog;
+  const dialogSoldOutAsset = assets.newImages.sidebarLiuKanshanDialogSoldOut;
+  const cancelAsset = assets.newImages.sidebarLiuKanshanCancel;
+  const publishAsset = assets.newImages.sidebarLiuKanshanPublish;
+  const publishPcAsset = assets.newImages.sidebarLiuKanshanPublishPc;
+  const qrcodeAsset = assets.newImages.sidebarLiuKanshanQrcode;
+  const qrcodeTipsAsset = assets.newImages.sidebarLiuKanshanQrcodeTips;
+  const tmrAsset = assets.newImages.sidebarLiuKanshanTmr;
+  
+  const displayWidth = imageAsset.width / 2;
+  const displayHeight = imageAsset.height / 2;
+  
+  // Calculate maximum button width to ensure consistent UI
+  const cancelButtonWidth = cancelAsset.width / 6;
+  const publishButtonWidth = isZhihu ? publishAsset.width : publishPcAsset.width / 6;
+  const maxButtonWidth = Math.max(cancelButtonWidth, publishButtonWidth);
+  
+  // Select dialog image based on sold out status
+  const currentDialogAsset = isSoldOut ? dialogSoldOutAsset : dialogAsset;
 
   return (
     <>
@@ -248,7 +294,7 @@ const SidebarLiuKanshan = () => {
             alt={imageAsset.alt}
             width={imageAsset.width}
             height={imageAsset.height}
-            style={{ width: `${displayWidth}px`, height: `${displayHeight}px` }}
+            style={{ width: `${displayWidth}px`, height: `${displayHeight}px`, pointerEvents: 'none' }}
             className="object-contain"
           />
         </div>
@@ -287,6 +333,7 @@ const SidebarLiuKanshan = () => {
                     width={tmrAsset.width}
                     height={tmrAsset.height}
                     className="object-contain w-full h-full"
+                    style={{ pointerEvents: 'none' }}
                   />
                 </div>
               ) : (
@@ -304,6 +351,7 @@ const SidebarLiuKanshan = () => {
                       width={cancelAsset.width}
                       height={cancelAsset.height}
                       className="object-contain w-full h-full"
+                      style={{ pointerEvents: 'none' }}
                     />
                   </div>
 
@@ -312,6 +360,7 @@ const SidebarLiuKanshan = () => {
                     // Zhihu App: Use original publish button
                     <div
                       onClick={handlePublishClick}
+                      onMouseEnter={handlePublishHover}
                       className="relative cursor-pointer active:opacity-80 transition-opacity"
                       style={{ width: `${maxButtonWidth}px`, height: `${publishAsset.height / 2}px` }}
                     >
@@ -321,12 +370,14 @@ const SidebarLiuKanshan = () => {
                         width={publishAsset.width}
                         height={publishAsset.height}
                         className="object-contain w-full h-full"
+                        style={{ pointerEvents: 'none' }}
                       />
                     </div>
                   ) : (
                     // Normal Browser: Use PC publish button with QR code positioned absolutely
                     <div
                       onClick={handlePublishClick}
+                      onMouseEnter={handlePublishHover}
                       className="relative cursor-pointer active:opacity-80 transition-opacity"
                       style={{ width: `${maxButtonWidth}px`, height: `${publishPcAsset.height / 6}px` }}
                     >
@@ -336,6 +387,7 @@ const SidebarLiuKanshan = () => {
                         width={publishPcAsset.width}
                         height={publishPcAsset.height}
                         className="object-contain w-full h-full"
+                        style={{ pointerEvents: 'none' }}
                       />
                       {/* QR Code and Tips */}
                       <div className="absolute flex flex-col items-center gap-2" style={{top: '66px', right: '26px'}}>

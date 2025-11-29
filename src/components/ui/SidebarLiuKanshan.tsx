@@ -95,32 +95,39 @@ const SidebarLiuKanshan = () => {
     };
   }, []);
 
-  // Monitor KV section visibility
+  // Monitor FolderSection position - show sidebar when it reaches middle of screen
   useEffect(() => {
-    const kvSection = document.getElementById('kv-section');
-    if (!kvSection) {
-      // If KV section doesn't exist, show sidebar by default
+    const folderSection = document.getElementById('folder-section');
+    if (!folderSection) {
+      // If folder section doesn't exist, show sidebar by default
       setIsKVSectionVisible(false);
       return;
     }
 
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          // If KV section is not intersecting (not visible), show sidebar
-          setIsKVSectionVisible(entry.isIntersecting);
-        });
-      },
-      {
-        threshold: 0, // Trigger when any part of the element is visible
-        rootMargin: '0px',
-      }
-    );
+    const checkFolderSectionPosition = () => {
+      const rect = folderSection.getBoundingClientRect();
+      const viewportHeight = window.innerHeight;
+      const viewportCenter = viewportHeight / 2;
+      
+      // Calculate folder section center position
+      const sectionCenter = rect.top + rect.height / 2;
+      
+      // Check if folder section center has reached or passed viewport center
+      const hasReachedMiddle = sectionCenter <= viewportCenter;
+      
+      setIsKVSectionVisible(!hasReachedMiddle);
+    };
 
-    observer.observe(kvSection);
+    // Check on initial load
+    checkFolderSectionPosition();
+
+    // Check on scroll
+    window.addEventListener('scroll', checkFolderSectionPosition, { passive: true });
+    window.addEventListener('resize', checkFolderSectionPosition, { passive: true });
 
     return () => {
-      observer.disconnect();
+      window.removeEventListener('scroll', checkFolderSectionPosition);
+      window.removeEventListener('resize', checkFolderSectionPosition);
     };
   }, []);
 

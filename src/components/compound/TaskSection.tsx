@@ -10,6 +10,17 @@ import { ACTIVITY_ID, SHOW_TASK_IDS, PRIZE_MAP, RECORD_BTN_POSITION } from '@/co
 import { useToast } from '@/context/toast-context';
 import { useZhihuApp } from '@/hooks/useZhihuApp';
 
+const formatDate = (timestamp: number | undefined) => {
+  if (!timestamp) return '--/--/--';
+  const date = new Date(timestamp * 1000);
+
+  const year = date.getFullYear();
+  const month = (date.getMonth() + 1).toString().padStart(2, '0');
+  const day = date.getDate().toString().padStart(2, '0');
+
+  return `${year}/${month}/${day}`;
+};
+
 const TaskSection = () => {
   const router = useRouter();
   const { showToast } = useToast();
@@ -49,6 +60,8 @@ const TaskSection = () => {
   const rewardPoolId = body?.rewards?.reward_pool_id;
   const ruleContent = head?.info || '';
   const rawGroups = body?.task || [];
+  const endTime = activity_data?.end_time;
+  const formatEndTime = formatDate(Number(endTime || 0) + 1);
 
   const displayGroups = rawGroups.map(group => {
     const filteredTasks = group.task_list.filter(task => SHOW_TASK_IDS.includes(task.id));
@@ -306,7 +319,7 @@ const TaskSection = () => {
             {currentPoint !== undefined ? (
               <>
                 <div className="text-3xl font-black text-blue-500">{currentPoint}</div>
-                <div className="text-xs text-gray-400 mt-1">当前可用积分</div>
+                <div className="text-xs text-gray-400 mt-1">将于 {formatEndTime} 过期</div>
               </>
             ) : (
               <span className="text-gray-400 text-sm">活动未开始</span>

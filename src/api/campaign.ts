@@ -6,6 +6,7 @@ export interface ActivityData {
     current_point: number;
     point_valid_period_desc: string;
   };
+  end_time: string;
   state: string; // 'running' | 'ended' | 'not_started'
 }
 

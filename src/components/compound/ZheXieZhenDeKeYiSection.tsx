@@ -22,7 +22,7 @@ const ZheXieZhenDeKeYiSection = () => {
       </div>
 
       {/* Content - Column layout image list */}
-      <div className="w-full flex flex-col items-center gap-4">
+      <div className="w-full flex flex-col items-center gap-4 px-4">
         {imagesToDisplay.map((item, index) => {
           const handleClick = () => {
             if (item.jump_url) {
@@ -38,7 +38,6 @@ const ZheXieZhenDeKeYiSection = () => {
                 width={339}
                 height={126}
                 className="w-full h-auto object-contain"
-                style={{ maxWidth: '339px' }}
               />
             </div>
           );

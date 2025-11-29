@@ -52,7 +52,7 @@ function HomeContent() {
   return (
     <div className="min-h-screen bg-white">
       <AuthWrapper>
-        <main className="w-full mx-auto relative" style={{ maxWidth: '480px' }} >
+        <main className="w-full mx-auto relative" style={{ maxWidth: '640px' }} >
 
           {/* Logo */}
           <div className="pt-5 flex justify-center">

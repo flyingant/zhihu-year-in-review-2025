@@ -66,7 +66,7 @@ const FolderSection = () => {
     const clickY = e.clientY - rect.top;
     const elementHeight = rect.height;
     const clickPercentage = (clickY / elementHeight) * 100;
-    
+
     // Only navigate if click is in the bottom 70% of the image (below 30% from top)
     if (clickPercentage >= 30 && url) {
       window.open(url, '_blank');
@@ -79,7 +79,7 @@ const FolderSection = () => {
 
   return (
     <div className="relative w-full z-100">
-      <div className="relative w-full h-[165px] m-auto px-[16px]" style={{ maxWidth: '420px', maxHeight: '210px' }}>
+      <div className="relative w-full h-[165px] m-auto px-[16px]">
         {folders.map((folder, index) => {
           const zIndex = index;
           const topOffset = index * 16;
@@ -93,11 +93,11 @@ const FolderSection = () => {
               className={`
                 absolute left-[16px] right-[16px] mx-auto
                 transition-transform duration-500 ease-out cursor-pointer
+                ${isActive ? '-translate-y-[105px]' : 'translate-y-0'}
               `}
               style={{
                 zIndex: zIndex,
                 top: `${topOffset}px`,
-                transform: isActive ? 'translateY(-112px)' : 'translateY(0)',
                 clipPath: folder.clipPath,
                 WebkitClipPath: folder.clipPath,
               }}
@@ -116,8 +116,8 @@ const FolderSection = () => {
         })}
       </div>
 
-      <div className="relative -mt-[50px] z-50 flex flex-col items-center justify-center">
-        <div style={{ maxWidth: '420px' }} className="mb-2 px-[16px]
+      <div className="relative -mt-[54px] z-50 flex flex-col items-center justify-center">
+        <div className="mb-2 px-[16px]
          after:content-[''] 
          after:absolute 
          after:bottom-0 

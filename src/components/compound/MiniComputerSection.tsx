@@ -236,7 +236,7 @@ const MiniComputerSection = () => {
         />
       </div>
 
-      <div className="relative w-full mx-auto h-[220px]" style={{ maxWidth: '420px' }}>
+      <div className="relative w-full mx-auto h-[220px]">
         <Image
           src={consoleBgAsset.url}
           alt={consoleBgAsset.alt}
@@ -315,7 +315,6 @@ const MiniComputerSection = () => {
           window.location.href = 'https://www.zhihu.com/question/1974440788541793545';
         }}
         className="relative w-full  mx-auto h-[50px] mt-5 block cursor-pointer z-1"
-        style={{ maxWidth: '420px' }}
       >
         <Image
           src={bottomBannerAsset.url}

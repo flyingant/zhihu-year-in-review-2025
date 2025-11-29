@@ -31,7 +31,7 @@ const KVSection = () => {
   ];
 
   return (
-    <div className="relative w-full max-h-[430px] overflow-hidden flex flex-col items-center">
+    <div className="relative w-full overflow-hidden flex flex-col items-center">
 
       <div className="absolute inset-0 z-10 overflow-hidden pointer-events-none flex flex-col justify-start pt-5">
         {danmakus.map((item) => {

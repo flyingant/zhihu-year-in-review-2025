@@ -93,11 +93,9 @@ const QinZiDa2025Section = () => {
           style={{
             WebkitOverflowScrolling: 'touch',
             width: '100%',
-            minWidth: '375px',
-            maxWidth: '440px'
           }}
         >
-          <div className="flex flex-row">
+          <div className="flex flex-row pl-4">
             {imagesToDisplay.map((item, index) => {
               const handleClick = () => {
                 if (item.jump_url) {

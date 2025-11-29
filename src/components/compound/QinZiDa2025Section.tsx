@@ -13,11 +13,14 @@ const QinZiDa2025Section = () => {
   // Use example image if array is empty
   const imagesToDisplay = selfAnswerItems.length > 0
     ? selfAnswerItems
-    : [{ image_url: '/assets/self_answer_example_1.png', jump_url: '' },
-    { image_url: '/assets/self_answer_example_1.png', jump_url: '' },
-    { image_url: '/assets/self_answer_example_1.png', jump_url: '' },
-    { image_url: '/assets/self_answer_example_1.png', jump_url: '' },
-    { image_url: '/assets/self_answer_example_1.png', jump_url: '' }
+    : [{ image_url: '/assets/self_answer_example_1@3x.png', jump_url: '' },
+    { image_url: '/assets/self_answer_example_2@3x.png', jump_url: '' },
+    { image_url: '/assets/self_answer_example_3@3x.png', jump_url: '' },
+    { image_url: '/assets/self_answer_example_4@3x.png', jump_url: '' },
+    { image_url: '/assets/self_answer_example_5@3x.png', jump_url: '' },
+    { image_url: '/assets/self_answer_example_6@3x.png', jump_url: '' },
+    { image_url: '/assets/self_answer_example_7@3x.png', jump_url: '' },
+    { image_url: '/assets/self_answer_example_8@3x.png', jump_url: '' }
     ];
 
   // Enable horizontal scrolling with mouse wheel and drag
@@ -104,7 +107,7 @@ const QinZiDa2025Section = () => {
               };
 
               const content = (
-                <div className="shrink-0 w-[148px] flex items-center justify-center">
+                <div className="shrink-0 w-[148px] flex items-center justify-center pr-2">
                   <div className="relative w-full flex justify-center">
                     <Image
                       src={item.image_url}

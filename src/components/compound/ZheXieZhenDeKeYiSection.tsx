@@ -12,7 +12,7 @@ const ZheXieZhenDeKeYiSection = () => {
   // Use example image if array is empty
   const imagesToDisplay = realLinkItems.length > 0
     ? realLinkItems
-    : [{ image_url: '/assets/real_link_example_1.png', jump_url: '' }, { image_url: '/assets/real_link_example_1.png', jump_url: '' }, { image_url: '/assets/real_link_example_1.png', jump_url: '' }];
+    : [{ image_url: '/assets/real_link_example_1@3x.png', jump_url: '' }, { image_url: '/assets/real_link_example_2@3x.png', jump_url: '' }, { image_url: '/assets/real_link_example_3@3x.png', jump_url: '' }];
 
   return (
     <div className="relative w-full flex flex-col">

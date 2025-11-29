@@ -9,6 +9,7 @@ const clipPathright = 'polygon(50% 20%, 57% 0, 100% 0, 100% 100%, 68% 100%, 32% 
 
 const FolderSection = () => {
   const { assets } = useAssets();
+  const [activeIndex, setActiveIndex] = useState<number | null>(null);
 
   if (!assets) return null;
 
@@ -19,44 +20,60 @@ const FolderSection = () => {
       id: 0,
       asset: assets.folders.all[0],
       name: '嘉宾1',
-      clipPath: clipPathleft
+      clipPath: clipPathleft,
+      url: 'https://www.zhihu.com/question/1974440788541793545'
     },
     {
       id: 1,
       asset: assets.folders.all[1],
       name: '嘉宾2',
-      clipPath: clipPathright
+      clipPath: clipPathright,
+      url: 'https://www.zhihu.com/question/1974440788541793545'
     },
     {
       id: 2,
       asset: assets.folders.all[2],
       name: '嘉宾3',
-      clipPath: clipPathleft
+      clipPath: clipPathleft,
+      url: 'https://www.zhihu.com/question/1974440788541793545'
     },
     {
       id: 3,
       asset: assets.folders.all[3],
       name: '嘉宾4',
-      clipPath: clipPathright
+      clipPath: clipPathright,
+      url: 'https://www.zhihu.com/question/1974440788541793545'
     },
     {
       id: 4,
       asset: assets.folders.all[4],
       name: '嘉宾5',
-      clipPath: clipPathleft
+      clipPath: clipPathleft,
+      url: 'https://www.zhihu.com/question/1974440788541793545'
     },
     {
       id: 5,
       asset: assets.folders.all[5],
       name: '嘉宾6',
-      clipPath: clipPathright
+      clipPath: clipPathright,
+      url: 'https://www.zhihu.com/question/1974440788541793545'
     },
   ];
 
-  const [activeIndex, setActiveIndex] = useState<number | null>(null);
-
-  const handleFolderClick = (index: number) => {
-    setActiveIndex(activeIndex === index ? null : index);
+  const handleFolderClick = (e: React.MouseEvent<HTMLDivElement>, index: number, url: string) => {
+    const target = e.currentTarget;
+    const rect = target.getBoundingClientRect();
+    const clickY = e.clientY - rect.top;
+    const elementHeight = rect.height;
+    const clickPercentage = (clickY / elementHeight) * 100;
+    
+    // Only navigate if click is in the bottom 70% of the image (below 30% from top)
+    if (clickPercentage >= 30 && url) {
+      window.open(url, '_blank');
+    } else {
+      // Toggle active state for clicks in the top 30%
+      setActiveIndex(activeIndex === index ? null : index);
+    }
   };
 
 
@@ -72,7 +89,7 @@ const FolderSection = () => {
           return (
             <div
               key={folder.id}
-              onClick={() => handleFolderClick(index)}
+              onClick={(e) => handleFolderClick(e, index, folder.url)}
               className={`
                 absolute left-[16px] right-[16px] mx-auto
                 transition-transform duration-500 ease-out cursor-pointer
@@ -93,17 +110,6 @@ const FolderSection = () => {
                 className="w-full h-auto drop-shadow-xl"
                 draggable="false"
                 priority={index === 0}
-              />
-              <a
-                href="https://www.zhihu.com/question/1974440788541793545"
-                onClick={(e) => e.stopPropagation()}
-                className="absolute z-10 cursor-pointer"
-                style={{
-                  top: '52%',
-                  left: index % 2 === 0 ? '8%' : '42%',
-                  width: '50%',
-                  height: '35%',
-                }}
               />
             </div>
           );

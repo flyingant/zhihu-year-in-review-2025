@@ -313,7 +313,7 @@ const SidebarLiuKanshan = () => {
           className="fixed inset-0 z-[10000] flex flex-col items-center justify-center bg-black/80 overlay-show"
           onClick={handleOverlayClick}
         >
-          <div className="relative w-full max-w-[750px] flex flex-col items-center px-4 animate-contentShow">
+          <div className="relative w-full flex flex-col items-center px-4 animate-contentShow" style={{ maxWidth: '480px' }}>
             {/* Dialog Content Image */}
             <div className="relative w-full mb-6">
               <Image
@@ -326,7 +326,7 @@ const SidebarLiuKanshan = () => {
             </div>
 
             {/* Button Container */}
-            <div className="flex gap-4 justify-center w-full max-w-[640px]">
+            <div className="flex gap-4 justify-center w-full max-w-[480px]">
               {isSoldOut ? (
                 /* Sold Out: Show only TMR button */
                 <div

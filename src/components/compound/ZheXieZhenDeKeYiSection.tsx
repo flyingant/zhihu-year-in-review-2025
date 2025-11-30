@@ -10,7 +10,7 @@ import { useInView } from 'react-intersection-observer';
 const ZheXieZhenDeKeYiSection = () => {
   const { userData } = useUserData();
   const realLinkItems = userData?.masterConfig?.real_link || [];
-  const { trackShow } = useZA();
+  const { trackShow, trackEvent } = useZA();
   const { ref: moduleRef, inView: moduleInView } = useInView({ triggerOnce: true });
 
   useEffect(() => {
@@ -36,6 +36,12 @@ const ZheXieZhenDeKeYiSection = () => {
       <div className="w-full flex flex-col items-center gap-4 px-4">
         {imagesToDisplay.map((item, index) => {
           const handleClick = () => {
+            // todo 有链接后需要把埋点放到if里面，现在这样放是为了测试
+            //埋点14
+            trackEvent('OpenUrl', {
+              moduleId: 'vote_selection_2025',
+              type: 'Button'
+            });
             if (item.jump_url) {
               window.location.href = item.jump_url;
             }
@@ -53,7 +59,7 @@ const ZheXieZhenDeKeYiSection = () => {
             </div>
           );
 
-          return item.jump_url ? (
+          return (
             <div
               key={index}
               onClick={handleClick}
@@ -61,9 +67,7 @@ const ZheXieZhenDeKeYiSection = () => {
             >
               {content}
             </div>
-          ) : (
-            content
-          );
+          )
         })}
       </div>
     </div>

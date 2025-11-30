@@ -1,8 +1,9 @@
 "use client";
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import ZaiZhiHuLianJieZhenShi from '@/components/ui/ZaiZhiHuLianJieZhenShi';
 import { Swiper, SwiperSlide } from 'swiper/react';
+import type { Swiper as SwiperType } from 'swiper';
 import { Pagination, Autoplay } from 'swiper/modules';
 import Image from 'next/image';
 import 'swiper/css';
@@ -12,9 +13,10 @@ import { useZA } from '@/hooks/useZA';
 import { useInView } from 'react-intersection-observer';
 
 const ZaiZhiHuLianJieZhenShiSection = () => {
+  const lastExposedIndex = useRef<number | null>(null);
   const { assets } = useAssets();
   const [paginationEl, setPaginationEl] = useState<HTMLElement | null>(null);
-  const { trackShow } = useZA();
+  const { trackShow, trackEvent } = useZA();
   const { ref: moduleRef, inView: moduleInView } = useInView({ triggerOnce: true });
 
   useEffect(() => {
@@ -29,9 +31,36 @@ const ZaiZhiHuLianJieZhenShiSection = () => {
   const slides = assets.zaiZhiHuLianJieZhenShiUrls.map((item, index) => {
     return {
       id: index,
-      ...item
+      ...item,
     };
   });
+
+  const handleSlideClick = (item: any, index: number) => {
+    //模块18
+    trackEvent('OpenUrl', {
+      moduleId: 'carousel_subvenue_image_2025',
+      type: 'Block',
+      moduleIndex: index
+    });
+  };
+
+  const handleSlideExposure = (swiper: SwiperType) => {
+    const currentIndex = swiper.realIndex;
+
+    // 防止重复上报（如果在同一个 index 上微动）
+    if (lastExposedIndex.current === currentIndex) return;
+    lastExposedIndex.current = currentIndex;
+    //埋点19
+    trackShow({
+      moduleId: 'carousel_subvenue_image_2025',
+      type: 'Block',
+    }, {
+      link: {
+        url: 'https://www.zhihu.com/question/1974440788541793545'
+      }
+    });
+  };
+
   return (
     <div ref={moduleRef} className="relative w-full flex flex-col">
       {/* Title */}
@@ -64,15 +93,18 @@ const ZaiZhiHuLianJieZhenShiSection = () => {
             clickable: true,
             el: paginationEl,
           }}
+          onSlideChange={(swiper) => handleSlideExposure(swiper)}
+          onInit={(swiper) => handleSlideExposure(swiper)}
           className="w-full"
         >
-          {slides.map((item) => (
+          {slides.map((item, index) => (
             <SwiperSlide
               key={item.id}
               className="!w-[75%]"
             >
               {({ isActive }) => (
                 <div
+                  onClick={() => handleSlideClick(item, index)}
                   className={`
                     relative w-full h-full rounded-lg overflow-hidden transition-all duration-300 ease-out
                     ${isActive ? 'scale-100' : 'scale-90 opacity-80'}

@@ -11,7 +11,7 @@ const QinZiDa2025Section = () => {
   const { userData } = useUserData();
   const scrollContainerRef = useRef<HTMLDivElement>(null);
   const [isPC, setIsPC] = useState(false);
-  const { trackShow } = useZA();
+  const { trackShow, trackEvent } = useZA();
   const { ref: moduleRef, inView: moduleInView } = useInView({ triggerOnce: true });
 
   useEffect(() => {
@@ -90,6 +90,13 @@ const QinZiDa2025Section = () => {
           <div className="flex flex-row pl-4">
             {imagesToDisplay.map((item, index) => {
               const handleClick = () => {
+                //埋点16
+                trackEvent('OpenUrl', {
+                  moduleId: 'personal_answer_2025',
+                  type: 'Button',
+                  moduleIndex: index
+                });
+
                 if (item.jump_url) {
                   window.location.href = item.jump_url;
                 }
@@ -109,7 +116,7 @@ const QinZiDa2025Section = () => {
                 </div>
               );
 
-              return item.jump_url ? (
+              return (
                 <div
                   key={index}
                   onClick={handleClick}
@@ -117,9 +124,7 @@ const QinZiDa2025Section = () => {
                 >
                   {content}
                 </div>
-              ) : (
-                <div key={index}>{content}</div>
-              );
+              )
             })}
           </div>
         </div>

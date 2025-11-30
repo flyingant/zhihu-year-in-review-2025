@@ -8,6 +8,7 @@ import { useToast } from '@/context/toast-context';
 import { useZhihuApp } from '@/hooks/useZhihuApp';
 import { completeTask } from '@/api/campaign';
 import { TASK_IDS } from '@/constants/campaign';
+import { useZA } from '@/hooks/useZA';
 
 interface TaskStatusResponse {
   task_status: number; // 0: 今日已领完, 1: 未领取还有剩余, 2: 已领取未填地址, 3: 已领取并已填地址
@@ -23,6 +24,7 @@ const SidebarLiuKanshan = () => {
   const { showToast } = useToast();
   const isZhihu = useZhihuApp();
   const { assets } = useAssets();
+  const { trackEvent } = useZA();
 
   // Inject component-specific styles
   useEffect(() => {
@@ -108,13 +110,13 @@ const SidebarLiuKanshan = () => {
       const rect = folderSection.getBoundingClientRect();
       const viewportHeight = window.innerHeight;
       const viewportCenter = viewportHeight / 2;
-      
+
       // Calculate folder section center position
       const sectionCenter = rect.top + rect.height / 2;
-      
+
       // Check if folder section center has reached or passed viewport center
       const hasReachedMiddle = sectionCenter <= viewportCenter;
-      
+
       setIsKVSectionVisible(!hasReachedMiddle);
     };
 
@@ -169,8 +171,8 @@ const SidebarLiuKanshan = () => {
         }
       } else if (taskStatus === 2 || taskStatus === 3) {
         // 已领取未填地址 or 已领取并已填地址 - Show toast message and close dialog
-        const toastMessage = taskStatus === 2 
-          ? '你已领取，请查收私信填写收货地址~' 
+        const toastMessage = taskStatus === 2
+          ? '你已领取，请查收私信填写收货地址~'
           : '你已领取~';
         showToast(toastMessage);
         setIsDialogOpen(false);
@@ -198,6 +200,11 @@ const SidebarLiuKanshan = () => {
       console.error('Error completing task:', error);
       // Silently fail - this is just tracking, don't block user flow
     });
+
+    trackEvent('', {
+      moduleId: 'liukanshan_gift_2025',
+      type: 'Button'
+    })
     await checkTaskStatusAndUpdate(true, true);
   };
 
@@ -220,20 +227,24 @@ const SidebarLiuKanshan = () => {
     // Check task status first before proceeding
     if (isCheckingStatus) return;
     setIsCheckingStatus(true);
-    
+    //埋点27
+    trackEvent('', {
+      moduleId: 'liukanshan_gift_publish_2025',
+      type: 'Button'
+    });
     try {
       const taskStatus = await checkTaskStatusAndUpdate(false, false);
-      
+
       // If status changed to sold out (0) or already claimed (2/3), don't redirect
       if (taskStatus === 0 || taskStatus === 2 || taskStatus === 3) {
         setIsCheckingStatus(false);
         return;
       }
-      
+
       // Track task completion when publish button is clicked
       // Wait for API call to complete before redirecting (with timeout to avoid blocking)
       const redirectUrl = 'https://oia.zhihu.com/community/short_pin_editor?tab=pin&content=%7B%22html%22%3A%22%3Cp%3E2026%E6%9C%80%E6%83%B3%E5%81%9A%E7%9A%84%E4%B8%80%E4%BB%B6%E4%BA%8B%20%3Ca%20class%3D%5C%22hash_tag%5C%22%20data-topic-id%3D%5C%22unknown%5C%22%3E%232025%E5%88%B0%E5%BA%95%E4%BB%80%E4%B9%88%E6%98%AF%E7%9C%9F%E7%9A%84%23%3C%2Fa%3E%20%3Ca%20class%3D%5C%22hash_tag%5C%22%20data-topic-id%3D%5C%22unknown%5C%22%3E%23%E5%88%98%E7%9C%8B%E5%B1%B1%E9%80%81%E7%A4%BC%E7%89%A9%E6%98%AF%E7%9C%9F%E7%9A%84%23%3C%2Fa%3E%20%20%3Ca%20href%3D%5C%22https%3A%2F%2Fwww.zhihu.com%2Fcampagin%2Fmain_hall_2025new%5C%22%20data-insert-way%3D%5C%22force%5C%22%20data-draft-node%3D%5C%22inline%5C%22%20data-draft-type%3D%5C%22text-link%5C%22%3E%E4%B8%BB%E4%BC%9A%E5%9C%BA%E9%93%BE%E6%8E%A5%3C%2Fa%3E%20%3C%2Fp%3E%22%2C%22meta%22%3A%7B%22topic%22%3A%7B%22all%22%3A0%2C%22data%22%3A%7B%7D%7D%2C%22adActivityLink%22%3A%7B%22all%22%3A0%2C%22data%22%3A%7B%7D%7D%7D%7D&jump_url=https://www.zhihu.com/campagin/zhihu2025';
-      
+
       try {
         // Wait for API call with a timeout (max 500ms) to ensure it completes before redirect
         await Promise.race([
@@ -244,7 +255,7 @@ const SidebarLiuKanshan = () => {
         // Silently fail - this is just tracking, proceed with redirect anyway
         console.error('Error completing task:', error);
       }
-      
+
       // Redirect after API call completes (or timeout)
       window.location.href = redirectUrl;
     } catch (error) {
@@ -281,22 +292,22 @@ const SidebarLiuKanshan = () => {
   const qrcodeAsset = assets.newImages.sidebarLiuKanshanQrcode;
   const qrcodeTipsAsset = assets.newImages.sidebarLiuKanshanQrcodeTips;
   const tmrAsset = assets.newImages.sidebarLiuKanshanTmr;
-  
+
   const displayWidth = imageAsset.width / 2;
   const displayHeight = imageAsset.height / 2;
-  
+
   // Calculate maximum button width to ensure consistent UI
   const cancelButtonWidth = cancelAsset.width / 6;
   const publishButtonWidth = isZhihu ? publishAsset.width : publishPcAsset.width / 6;
   const maxButtonWidth = Math.max(cancelButtonWidth, publishButtonWidth);
-  
+
   // Select dialog image based on sold out status
   const currentDialogAsset = isSoldOut ? dialogSoldOutAsset : dialogAsset;
 
   return (
     <>
       {!isKVSectionVisible && (
-        <div 
+        <div
           className="fixed right-0 top-[50%] -translate-y-1/2 z-[9999] pointer-events-auto cursor-pointer"
           onClick={handleSidebarClick}
           style={{ opacity: isLoading ? 0.6 : 1, pointerEvents: isLoading ? 'none' : 'auto' }}
@@ -314,7 +325,7 @@ const SidebarLiuKanshan = () => {
 
       {/* Fullscreen Dialog */}
       {isDialogOpen && (
-        <div 
+        <div
           className="fixed inset-0 z-[10000] flex flex-col items-center justify-center bg-black/80 overlay-show"
           onClick={handleOverlayClick}
         >
@@ -402,7 +413,7 @@ const SidebarLiuKanshan = () => {
                         style={{ pointerEvents: 'none' }}
                       />
                       {/* QR Code and Tips */}
-                      <div className="absolute flex flex-col items-center gap-2" style={{top: '66px', right: '26px'}}>
+                      <div className="absolute flex flex-col items-center gap-2" style={{ top: '66px', right: '26px' }}>
                         <div
                           className="relative shrink-0"
                           style={{ width: `${qrcodeAsset.width / 6}px`, height: `${qrcodeAsset.height / 6}px` }}

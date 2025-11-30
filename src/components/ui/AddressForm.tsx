@@ -5,6 +5,7 @@ import { useRouter, useSearchParams } from "next/navigation";
 import { useToast } from "@/context/toast-context";
 import { getAddressInfo, submitAddress, completeRedeemReward } from "@/api/campaign";
 import { ACTIVITY_ID } from "@/constants/campaign";
+import { useZA } from '@/hooks/useZA';
 import RegionPicker from "./RegionPicker";
 
 interface AddressFormData {
@@ -23,6 +24,8 @@ export default function AddressForm() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const { showToast } = useToast();
+  const { trackPageShow, trackPageDisappear, trackEvent } = useZA();
+
   const [formData, setFormData] = useState<AddressFormData>({
     region: "",
     provinceName: "",
@@ -41,6 +44,13 @@ export default function AddressForm() {
   const rewardPoolId = searchParams.get("rewardPoolId");
   const requestId = searchParams.get("requestId");
   const fromRedeem = searchParams.get("from") === "redeem";
+
+  useEffect(() => {
+    if (!fromRedeem) trackPageShow();
+    return () => {
+      if (!fromRedeem) trackPageDisappear();
+    };
+  }, [fromRedeem]);
 
   const isFormFilled =
     !!formData.region &&
@@ -212,7 +222,7 @@ export default function AddressForm() {
           setIsSubmitting(false);
           return;
         }
-        
+
         await completeRedeemReward(ACTIVITY_ID, {
           request_id: parseInt(requestId, 10),
           reward_pool_id: parseInt(rewardPoolId, 10),
@@ -233,6 +243,12 @@ export default function AddressForm() {
         });
         showToast("兑换成功", "success");
       } else {
+        //埋点28
+        //只有liukanshan收货地址点击确认才有
+        trackEvent('', {
+          moduleId: 'kanshan_address_button_2025',
+          type: 'Button'
+        });
         // 普通地址提交场景：调用地址提交接口
         const addressData = {
           receiver: formData.recipientName.trim(),
@@ -251,9 +267,9 @@ export default function AddressForm() {
       }, 1500);
     } catch (error) {
       console.error("Failed to submit:", error);
-      const errorMessage = (error as { msg?: string; message?: string })?.msg || 
-                          (error as { msg?: string; message?: string })?.message || 
-                          "提交失败，请重试";
+      const errorMessage = (error as { msg?: string; message?: string })?.msg ||
+        (error as { msg?: string; message?: string })?.message ||
+        "提交失败，请重试";
       showToast(errorMessage, "error");
     } finally {
       setIsSubmitting(false);
@@ -308,11 +324,10 @@ export default function AddressForm() {
           <button
             type="button"
             onClick={() => setShowRegionPicker(true)}
-            className={`w-full text-left pb-3 border-b focus:outline-none ${
-              errors.region
-                ? "border-red-500"
-                : "border-gray-200 focus:border-blue-500"
-            }`}
+            className={`w-full text-left pb-3 border-b focus:outline-none ${errors.region
+              ? "border-red-500"
+              : "border-gray-200 focus:border-blue-500"
+              }`}
           >
             <span
               className={
@@ -339,11 +354,10 @@ export default function AddressForm() {
             }
             onBlur={() => handleBlur("detailedAddress")}
             placeholder="*详细地址与门牌号"
-            className={`w-full pb-3 border-b focus:outline-none text-gray-900 placeholder:text-gray-400 ${
-              errors.detailedAddress
-                ? "border-red-500"
-                : "border-gray-200 focus:border-blue-500"
-            }`}
+            className={`w-full pb-3 border-b focus:outline-none text-gray-900 placeholder:text-gray-400 ${errors.detailedAddress
+              ? "border-red-500"
+              : "border-gray-200 focus:border-blue-500"
+              }`}
           />
           {errors.detailedAddress && (
             <p className="text-red-500 text-xs mt-1">{errors.detailedAddress}</p>
@@ -358,11 +372,10 @@ export default function AddressForm() {
             onChange={(e) => handleInputChange("recipientName", e.target.value)}
             onBlur={() => handleBlur("recipientName")}
             placeholder="*收货人姓名"
-            className={`w-full pb-3 border-b focus:outline-none text-gray-900 placeholder:text-gray-400 ${
-              errors.recipientName
-                ? "border-red-500"
-                : "border-gray-200 focus:border-blue-500"
-            }`}
+            className={`w-full pb-3 border-b focus:outline-none text-gray-900 placeholder:text-gray-400 ${errors.recipientName
+              ? "border-red-500"
+              : "border-gray-200 focus:border-blue-500"
+              }`}
           />
           {errors.recipientName && (
             <p className="text-red-500 text-xs mt-1">{errors.recipientName}</p>
@@ -378,11 +391,10 @@ export default function AddressForm() {
             onBlur={() => handleBlur("phoneNumber")}
             placeholder="*手机号"
             maxLength={11}
-            className={`w-full pb-3 border-b focus:outline-none text-gray-900 placeholder:text-gray-400 ${
-              errors.phoneNumber
-                ? "border-red-500"
-                : "border-gray-200 focus:border-blue-500"
-            }`}
+            className={`w-full pb-3 border-b focus:outline-none text-gray-900 placeholder:text-gray-400 ${errors.phoneNumber
+              ? "border-red-500"
+              : "border-gray-200 focus:border-blue-500"
+              }`}
           />
           {errors.phoneNumber && (
             <p className="text-red-500 text-xs mt-1">{errors.phoneNumber}</p>

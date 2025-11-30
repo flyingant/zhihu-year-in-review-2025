@@ -52,8 +52,8 @@ const ZheXieZhenDeKeYiSection = () => {
               <Image
                 src={item.image_url}
                 alt={`真实链接 ${index + 1}`}
-                width={339}
-                height={126}
+                width={514}
+                height={163}
                 className="w-full h-auto object-contain"
               />
             </div>

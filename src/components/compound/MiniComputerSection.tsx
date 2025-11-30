@@ -174,36 +174,103 @@ const MiniComputerSection = () => {
 
   /**
    * 标准的图片下载方法（用于非知乎 App 环境）
+   * 使用 canvas 方法绕过 CORS 限制
    */
   const downloadImageStandard = async (imageUrl: string) => {
     try {
-      showToast('正在保存图片...', 'info');
+      // 方法1: 尝试使用 canvas（需要服务器支持 CORS）
+      const tryCanvasMethod = (): Promise<Blob> => {
+        return new Promise<Blob>((resolve, reject) => {
+          const img = document.createElement('img');
+          img.crossOrigin = 'anonymous';
+          
+          img.onload = () => {
+            try {
+              const canvas = document.createElement('canvas');
+              canvas.width = img.naturalWidth || img.width;
+              canvas.height = img.naturalHeight || img.height;
+              
+              const ctx = canvas.getContext('2d');
+              if (!ctx) {
+                reject(new Error('Failed to get canvas context'));
+                return;
+              }
+              
+              ctx.drawImage(img, 0, 0);
+              
+              canvas.toBlob((blob) => {
+                if (blob) {
+                  resolve(blob);
+                } else {
+                  reject(new Error('Failed to convert canvas to blob'));
+                }
+              }, 'image/png');
+            } catch (error) {
+              reject(error);
+            }
+          };
+          
+          img.onerror = () => reject(new Error('Failed to load image with CORS'));
+          img.src = imageUrl;
+        });
+      };
 
-      // 使用 fetch 获取图片，支持 CORS
-      const response = await fetch(imageUrl, {
-        mode: 'cors',
-        credentials: 'include',
-      });
+      // 方法2: 直接使用 fetch（如果 canvas 方法失败）
+      const tryFetchMethod = async (): Promise<Blob> => {
+        const response = await fetch(imageUrl, {
+          mode: 'cors',
+          credentials: 'omit',
+        });
+        
+        if (!response.ok) {
+          throw new Error('Failed to fetch image');
+        }
+        
+        return await response.blob();
+      };
 
-      if (!response.ok) {
-        throw new Error('Failed to fetch image');
+      // 方法3: 使用代理或直接链接下载（最后的降级方案）
+      const tryDirectDownload = () => {
+        const link = document.createElement('a');
+        link.href = imageUrl;
+        link.download = `poster-${Date.now()}.png`;
+        link.target = '_blank';
+        link.style.display = 'none';
+        
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+      };
+
+      let blob: Blob;
+      
+      try {
+        // 首先尝试 canvas 方法
+        blob = await tryCanvasMethod();
+      } catch (canvasError) {
+        console.warn('Canvas method failed, trying fetch:', canvasError);
+        try {
+          // 如果 canvas 失败，尝试 fetch
+          blob = await tryFetchMethod();
+        } catch (fetchError) {
+          console.warn('Fetch method failed, using direct download:', fetchError);
+          // 如果都失败，使用直接下载（可能在某些浏览器中不工作）
+          tryDirectDownload();
+          return;
+        }
       }
 
-      const blob = await response.blob();
+      // 如果成功获取到 blob，创建下载链接
       const blobUrl = window.URL.createObjectURL(blob);
-
-      // 创建下载链接
       const link = document.createElement('a');
       link.href = blobUrl;
-      link.download = `poster-${Date.now()}.png`; // 设置下载文件名
+      link.download = `poster-${Date.now()}.png`;
       link.style.display = 'none';
 
-      // 添加到 DOM，触发下载，然后移除
       document.body.appendChild(link);
       link.click();
       document.body.removeChild(link);
 
-      // 清理 blob URL
       setTimeout(() => {
         window.URL.revokeObjectURL(blobUrl);
       }, 100);

@@ -193,6 +193,11 @@ const SidebarLiuKanshan = () => {
   };
 
   const handleSidebarClick = async () => {
+    // Call completeTask with taskId 300499 when user clicks the component
+    completeTask(300499).catch((error) => {
+      console.error('Error completing task:', error);
+      // Silently fail - this is just tracking, don't block user flow
+    });
     await checkTaskStatusAndUpdate(true, true);
   };
 

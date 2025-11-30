@@ -8,13 +8,19 @@ import { useInView } from 'react-intersection-observer';
 
 const clipPathleft = 'polygon(43% 0, 50% 19%, 100% 20%, 100% 100%, 68% 100%, 32% 100%, 0 100%, 0% 43%, 0 0)';
 const clipPathright = 'polygon(50% 20%, 57% 0, 100% 0, 100% 100%, 68% 100%, 32% 100%, 0 100%, 0% 43%, 0 20%)';
-
+const TOP_POSITIONS = [
+  'top-[0px]',
+  'top-[16px]',
+  'top-[32px]',
+  'top-[48px]',
+  'top-[64px]',
+  'top-[80px]',
+];
 const FolderSection = () => {
   const { assets } = useAssets();
   const [activeIndex, setActiveIndex] = useState<number | null>(null);
   const { trackShow, trackEvent } = useZA();
   const { ref: moduleRef, inView: moduleInView } = useInView({ triggerOnce: true });
-  const { ref: imgRef, inView: imgInView } = useInView({ triggerOnce: true });
 
   useEffect(() => {
     if (moduleInView) {
@@ -32,42 +38,42 @@ const FolderSection = () => {
     {
       id: 0,
       asset: assets.folders.all[0],
-      name: '嘉宾1',
+      name: '鸡排哥',
       clipPath: clipPathleft,
       url: 'https://www.zhihu.com/question/1974440788541793545'
     },
     {
       id: 1,
       asset: assets.folders.all[1],
-      name: '嘉宾2',
+      name: '张春',
       clipPath: clipPathright,
       url: 'https://www.zhihu.com/question/1974440788541793545'
     },
     {
       id: 2,
       asset: assets.folders.all[2],
-      name: '嘉宾3',
+      name: '马家辉',
       clipPath: clipPathleft,
       url: 'https://www.zhihu.com/question/1974440788541793545'
     },
     {
       id: 3,
       asset: assets.folders.all[3],
-      name: '嘉宾4',
+      name: '翟佳宁',
       clipPath: clipPathright,
       url: 'https://www.zhihu.com/question/1974440788541793545'
     },
     {
       id: 4,
       asset: assets.folders.all[4],
-      name: '嘉宾5',
+      name: '严飞',
       clipPath: clipPathleft,
       url: 'https://www.zhihu.com/question/1974440788541793545'
     },
     {
       id: 5,
       asset: assets.folders.all[5],
-      name: '嘉宾6',
+      name: '陶芳波',
       clipPath: clipPathright,
       url: 'https://www.zhihu.com/question/1974440788541793545'
     },
@@ -129,19 +135,18 @@ const FolderSection = () => {
           const topOffset = index * 16;
           const isActive = activeIndex === index;
           const { url, width, height, alt } = folder.asset as { url: string; width: number; height: number; alt: string };
-
+          const topClass = TOP_POSITIONS[index] || 'top-[0px]';
           return (
             <div
               key={folder.id}
               onClick={(e) => handleFolderClick(e, index, folder)}
               className={`
-                absolute left-[16px] right-[16px] mx-auto
+                absolute left-[16px] right-[16px] mx-auto ${topClass}
                 transition-transform duration-500 ease-out cursor-pointer
                 ${isActive ? '-translate-y-[105px]' : 'translate-y-0'}
               `}
               style={{
                 zIndex: zIndex,
-                top: `${topOffset}px`,
                 clipPath: folder.clipPath,
                 WebkitClipPath: folder.clipPath,
               }}
@@ -160,7 +165,7 @@ const FolderSection = () => {
         })}
       </div>
 
-      <div className="relative -mt-[54px] z-50 flex flex-col items-center justify-center">
+      <div className="relative -mt-[50px] z-50 flex flex-col items-center justify-center">
         <div className="mb-2 px-[16px]
          after:content-[''] 
          after:absolute 

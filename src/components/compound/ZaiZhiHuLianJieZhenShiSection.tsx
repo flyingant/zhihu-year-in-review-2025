@@ -14,17 +14,21 @@ import { useInView } from 'react-intersection-observer';
 
 const ZaiZhiHuLianJieZhenShiSection = () => {
   const lastExposedIndex = useRef<number | null>(null);
+  const hasTrackedModule = useRef(false);
+  const isVisibleRef = useRef(false);
   const { assets } = useAssets();
   const [paginationEl, setPaginationEl] = useState<HTMLElement | null>(null);
   const { trackShow, trackEvent } = useZA();
-  const { ref: moduleRef, inView: moduleInView } = useInView({ triggerOnce: true });
+  const { ref: moduleRef, inView } = useInView({ threshold: 0.2 });
 
   useEffect(() => {
-    if (moduleInView) {
-      // 埋点17
+    isVisibleRef.current = inView;
+
+    if (inView && !hasTrackedModule.current) {
       trackShow({ moduleId: 'carousel_subvenue_2025', type: 'Block' });
+      hasTrackedModule.current = true;
     }
-  }, [moduleInView]);
+  }, [inView, trackShow]);
 
   if (!assets) return null;
 
@@ -45,6 +49,7 @@ const ZaiZhiHuLianJieZhenShiSection = () => {
   };
 
   const handleSlideExposure = (swiper: SwiperType) => {
+    if (!isVisibleRef.current) return;
     const currentIndex = swiper.realIndex;
 
     // 防止重复上报（如果在同一个 index 上微动）

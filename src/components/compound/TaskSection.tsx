@@ -34,7 +34,7 @@ const TaskSection = () => {
   const [selectedReward, setSelectedReward] = useState<RewardItem | null>(null);
   const [requestId, setRequestId] = useState<number | null>(null);
   const { assets } = useAssets();
-  const { trackShow } = useZA();
+  const { trackShow, trackEvent } = useZA();
   const { ref: moduleRef, inView: moduleInView } = useInView({ triggerOnce: true });
 
   useEffect(() => {
@@ -141,6 +141,15 @@ const TaskSection = () => {
   const handleTaskAction = (task: TaskItem) => {
     const { state } = task;
     if (state.point_received) return;
+    //埋点24
+    trackEvent('', {
+      moduleId: 'task_module_2025',
+      type: 'Button'
+    }, {
+      config_map: {
+        task_id: String(task.id)
+      }
+    });
 
     if (state.point_can_receive) {
       console.log(`触发领取积分接口: 任务ID ${task.id}`);
@@ -194,6 +203,15 @@ const TaskSection = () => {
       showToast('活动信息加载中，请稍后再试', 'error');
       return;
     }
+    //埋点23
+    trackEvent('', {
+      moduleId: 'rewards_product_2025',
+      type: 'Button'
+    }, {
+      config_map: {
+        sku_id: String(reward.right_id)
+      }
+    });
 
     // 生成请求ID（毫秒级时间戳）
     const newRequestId = Date.now();
@@ -262,12 +280,22 @@ const TaskSection = () => {
 
   // 跳转到兑换记录
   const handleGoToRecords = () => {
+    //埋点22
+    trackEvent('', {
+      moduleId: 'rewards_redemption_history_2025',
+      type: 'Button'
+    });
     const url = `https://www.zhihu.com/parker/campaign/point-redeem/${ACTIVITY_ID}?zh_nav_left=back&zh_forcehybrid=1`;
     window.location.href = url;
   };
 
   // 跳转到积分明细
   const handleGoToPointDetails = () => {
+    //埋点21
+    trackEvent('', {
+      moduleId: 'points_details_button_2025',
+      type: 'Button'
+    });
     const url = `https://www.zhihu.com/parker/campaign/point-redeem/${ACTIVITY_ID}?zh_nav_left=back&zh_forcehybrid=1&type=taskPoints`;
     window.location.href = url;
   };

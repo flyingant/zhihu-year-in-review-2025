@@ -35,6 +35,7 @@ export default function AddressForm() {
   const [showRegionPicker, setShowRegionPicker] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
+  const [errors, setErrors] = useState<Partial<Record<keyof AddressFormData, string>>>({});
 
   const rewardId = searchParams.get("rewardId");
   const rewardPoolId = searchParams.get("rewardPoolId");
@@ -108,36 +109,93 @@ export default function AddressForm() {
       cityName: parts[1] || "",
       districtName: parts[2] || "",
     }));
+    // Clear region error when region is selected
+    setErrors((prev) => ({ ...prev, region: undefined }));
     setShowRegionPicker(false);
   };
 
   const handleInputChange = (field: keyof AddressFormData, value: string) => {
     setFormData((prev) => ({ ...prev, [field]: value }));
+    // Clear error when user starts typing
+    if (errors[field]) {
+      setErrors((prev) => ({ ...prev, [field]: undefined }));
+    }
+  };
+
+  const validateField = (field: keyof AddressFormData, value: string): string | undefined => {
+    switch (field) {
+      case "region":
+        if (!value) {
+          return "请选择所在地区";
+        }
+        break;
+      case "detailedAddress":
+        if (!value.trim()) {
+          return "请输入详细地址与门牌号";
+        }
+        break;
+      case "recipientName":
+        if (!value.trim()) {
+          return "请输入收货人姓名";
+        }
+        break;
+      case "phoneNumber":
+        if (!value.trim()) {
+          return "请输入手机号";
+        }
+        if (!phoneRegex.test(value.trim())) {
+          return "请输入正确的手机号";
+        }
+        break;
+    }
+    return undefined;
+  };
+
+  const handleBlur = (field: keyof AddressFormData) => {
+    const value = formData[field];
+    const error = validateField(field, value);
+    setErrors((prev) => ({ ...prev, [field]: error }));
   };
 
   const validateForm = (): boolean => {
-    if (!formData.region) {
-      showToast("请选择所在地区", "error");
-      return false;
+    const newErrors: Partial<Record<keyof AddressFormData, string>> = {};
+    let isValid = true;
+
+    const regionError = validateField("region", formData.region);
+    if (regionError) {
+      newErrors.region = regionError;
+      isValid = false;
     }
-    if (!formData.detailedAddress.trim()) {
-      showToast("请输入详细地址与门牌号", "error");
-      return false;
+
+    const detailedAddressError = validateField("detailedAddress", formData.detailedAddress);
+    if (detailedAddressError) {
+      newErrors.detailedAddress = detailedAddressError;
+      isValid = false;
     }
-    if (!formData.recipientName.trim()) {
-      showToast("请输入收货人姓名", "error");
-      return false;
+
+    const recipientNameError = validateField("recipientName", formData.recipientName);
+    if (recipientNameError) {
+      newErrors.recipientName = recipientNameError;
+      isValid = false;
     }
-    if (!formData.phoneNumber.trim()) {
-      showToast("请输入手机号", "error");
-      return false;
+
+    const phoneNumberError = validateField("phoneNumber", formData.phoneNumber);
+    if (phoneNumberError) {
+      newErrors.phoneNumber = phoneNumberError;
+      isValid = false;
     }
-    // Validate phone number format (11 digits, starting with 1)
-    if (!phoneRegex.test(formData.phoneNumber.trim())) {
-      showToast("请输入正确的手机号", "error");
-      return false;
+
+    setErrors(newErrors);
+
+    if (!isValid) {
+      // Show toast for the first error
+      const firstError = Object.values(newErrors)[0];
+      if (firstError) {
+        showToast(firstError, "error");
+      }
     }
-    return true;
+
+    return isValid;
   };
 
   const handleSubmit = async () => {
@@ -250,7 +308,11 @@ export default function AddressForm() {
           <button
             type="button"
             onClick={() => setShowRegionPicker(true)}
-            className="w-full text-left pb-3 border-b border-gray-200 focus:outline-none focus:border-blue-500"
+            className={`w-full text-left pb-3 border-b focus:outline-none ${
+              errors.region
+                ? "border-red-500"
+                : "border-gray-200 focus:border-blue-500"
+            }`}
           >
             <span
               className={
@@ -262,6 +324,9 @@ export default function AddressForm() {
               {formData.region || "*所在地区"}
             </span>
           </button>
+          {errors.region && (
+            <p className="text-red-500 text-xs mt-1">{errors.region}</p>
+          )}
         </div>
 
         {/* Detailed Address Field */}
@@ -272,9 +337,17 @@ export default function AddressForm() {
             onChange={(e) =>
               handleInputChange("detailedAddress", e.target.value)
             }
+            onBlur={() => handleBlur("detailedAddress")}
             placeholder="*详细地址与门牌号"
-            className="w-full pb-3 border-b border-gray-200 focus:outline-none focus:border-blue-500 text-gray-900 placeholder:text-gray-400"
+            className={`w-full pb-3 border-b focus:outline-none text-gray-900 placeholder:text-gray-400 ${
+              errors.detailedAddress
+                ? "border-red-500"
+                : "border-gray-200 focus:border-blue-500"
+            }`}
           />
+          {errors.detailedAddress && (
+            <p className="text-red-500 text-xs mt-1">{errors.detailedAddress}</p>
+          )}
         </div>
 
         {/* Recipient Name Field */}
@@ -283,9 +356,17 @@ export default function AddressForm() {
             type="text"
             value={formData.recipientName}
             onChange={(e) => handleInputChange("recipientName", e.target.value)}
+            onBlur={() => handleBlur("recipientName")}
             placeholder="*收货人姓名"
-            className="w-full pb-3 border-b border-gray-200 focus:outline-none focus:border-blue-500 text-gray-900 placeholder:text-gray-400"
+            className={`w-full pb-3 border-b focus:outline-none text-gray-900 placeholder:text-gray-400 ${
+              errors.recipientName
+                ? "border-red-500"
+                : "border-gray-200 focus:border-blue-500"
+            }`}
           />
+          {errors.recipientName && (
+            <p className="text-red-500 text-xs mt-1">{errors.recipientName}</p>
+          )}
         </div>
 
         {/* Phone Number Field */}
@@ -294,10 +375,18 @@ export default function AddressForm() {
             type="tel"
             value={formData.phoneNumber}
             onChange={(e) => handleInputChange("phoneNumber", e.target.value)}
+            onBlur={() => handleBlur("phoneNumber")}
             placeholder="*手机号"
             maxLength={11}
-            className="w-full pb-3 border-b border-gray-200 focus:outline-none focus:border-blue-500 text-gray-900 placeholder:text-gray-400"
+            className={`w-full pb-3 border-b focus:outline-none text-gray-900 placeholder:text-gray-400 ${
+              errors.phoneNumber
+                ? "border-red-500"
+                : "border-gray-200 focus:border-blue-500"
+            }`}
           />
+          {errors.phoneNumber && (
+            <p className="text-red-500 text-xs mt-1">{errors.phoneNumber}</p>
+          )}
         </div>
 
         {/* Notice Text */}
@@ -322,7 +411,13 @@ export default function AddressForm() {
         <RegionPicker
           selectedRegion={formData.region}
           onSelect={handleRegionSelect}
-          onClose={() => setShowRegionPicker(false)}
+          onClose={() => {
+            setShowRegionPicker(false);
+            // Validate region when picker closes if no region is selected
+            if (!formData.region) {
+              setErrors((prev) => ({ ...prev, region: "请选择所在地区" }));
+            }
+          }}
         />
       )}
     </div>

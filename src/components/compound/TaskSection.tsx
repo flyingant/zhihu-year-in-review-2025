@@ -425,7 +425,7 @@ const TaskSection = () => {
                     <div className="flex flex-col flex-1 pr-2">
                       <div className="flex items-center mb-1">
                         <span className="text-sm font-bold text-black">
-                          <span className="text-xs text-red-500">【ID:{task.id}】</span>
+                          {/* <span className="text-xs text-red-500">【ID:{task.id}】</span> */}
                           {task.name}
                           <span className="ml-2 font-normal">({task.finished}/{task.total})</span>
                         </span>

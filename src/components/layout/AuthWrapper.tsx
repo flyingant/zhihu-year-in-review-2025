@@ -41,52 +41,56 @@ export default function AuthWrapper({
     );
   }
 
+  const isDevelopment = process.env.NODE_ENV === 'development';
+
   return (
     <>
-      {/* Debug Info Panel */}
-      <div className="bg-black text-white font-mono text-xs p-3 border-b border-gray-700">
-        <div className="flex flex-col gap-1">
-          {/* Auth Status Indicator */}
-          {showWelcomeMessage && isAuthenticated && profile && (
-            <div className="text-green-400">
-              ✓ 已登录: {profile.name || profile.username || "用户"}
-            </div>
-          )}
+      {/* Debug Info Panel - Only shown in development */}
+      {isDevelopment && (
+        <div className="bg-black text-white font-mono text-xs p-3 border-b border-gray-700">
+          <div className="flex flex-col gap-1">
+            {/* Auth Status Indicator */}
+            {showWelcomeMessage && isAuthenticated && profile && (
+              <div className="text-green-400">
+                ✓ 已登录: {profile.name || profile.username || "用户"}
+              </div>
+            )}
 
-          {/* Auth Loading State */}
-          {isAuthLoading && (
-            <div className="text-yellow-400">⏳ 检查认证状态...</div>
-          )}
+            {/* Auth Loading State */}
+            {isAuthLoading && (
+              <div className="text-yellow-400">⏳ 检查认证状态...</div>
+            )}
 
-          {/* Error Message */}
-          {error && (
-            <div className="text-red-400">
-              ✗ 错误: {error}
-              <button
-                onClick={fetchUserData}
-                className="ml-2 text-white underline hover:text-gray-300"
-              >
-                [重试]
-              </button>
-            </div>
-          )}
+            {/* Error Message */}
+            {error && (
+              <div className="text-red-400">
+                ✗ 错误: {error}
+                <button
+                  onClick={fetchUserData}
+                  className="ml-2 text-white underline hover:text-gray-300"
+                >
+                  [重试]
+                </button>
+              </div>
+            )}
 
-          {/* Loading Data Indicator */}
-          {isAuthenticated && isLoadingData && (
-            <div className="text-yellow-400">⏳ 正在加载您的数据...</div>
-          )}
+            {/* Loading Data Indicator */}
+            {isAuthenticated && isLoadingData && (
+              <div className="text-yellow-400">⏳ 正在加载您的数据...</div>
+            )}
 
-          {/* Debug Info */}
-          <div className="mt-2 pt-2 border-t border-gray-700 text-gray-400">
-            <div>
-              Auth: {isAuthenticated ? "✓" : "✗"} | 
-              Loading: {isAuthLoading || isLoadingData ? "⏳" : "✓"} | 
-              Environment: {isZhihu ? "📱 App内" : "🌐 浏览器"} | 
-              Hybrid: {isHybridAvailable ? "✓" : "✗"}
+            {/* Debug Info */}
+            <div className="mt-2 pt-2 border-t border-gray-700 text-gray-400">
+              <div>
+                Auth: {isAuthenticated ? "✓" : "✗"} | 
+                Loading: {isAuthLoading || isLoadingData ? "⏳" : "✓"} | 
+                Environment: {isZhihu ? "📱 App内" : "🌐 浏览器"} | 
+                Hybrid: {isHybridAvailable ? "✓" : "✗"}
+              </div>
             </div>
           </div>
         </div>
-      </div>
+      )}
 
       {children}
     </>

@@ -16,6 +16,15 @@ const TOP_POSITIONS = [
   'top-[64px]',
   'top-[80px]',
 ];
+
+type FolderItem = {
+  id: number;
+  asset: { url: string; width: number; height: number; alt: string };
+  name: string;
+  clipPath: string;
+  url: string;
+};
+
 const FolderSection = () => {
   const { assets } = useAssets();
   const [activeIndex, setActiveIndex] = useState<number | null>(null);
@@ -79,7 +88,7 @@ const FolderSection = () => {
     },
   ];
 
-  const handleFolderClick = (e: React.MouseEvent<HTMLDivElement>, index: number, item) => {
+  const handleFolderClick = (e: React.MouseEvent<HTMLDivElement>, index: number, item: FolderItem) => {
     const target = e.currentTarget;
     const rect = target.getBoundingClientRect();
     const clickY = e.clientY - rect.top;

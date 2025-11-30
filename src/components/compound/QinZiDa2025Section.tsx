@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useRef, useEffect } from 'react';
+import React, { useRef, useEffect, useState } from 'react';
 import QinZiDa2025 from '@/components/ui/QinZiDa2025';
 import Image from 'next/image';
 import { useUserData } from '@/context/user-data-context';
@@ -8,6 +8,7 @@ import { useUserData } from '@/context/user-data-context';
 const QinZiDa2025Section = () => {
   const { userData } = useUserData();
   const scrollContainerRef = useRef<HTMLDivElement>(null);
+  const [isPC, setIsPC] = useState(false);
   const selfAnswerItems = userData?.masterConfig?.self_answer || [];
 
   // Use example image if array is empty
@@ -23,61 +24,37 @@ const QinZiDa2025Section = () => {
     { image_url: '/assets/self_answer_example_8@3x.png', jump_url: '' }
     ];
 
-  // Enable horizontal scrolling with mouse wheel and drag
+  // Check if viewport is PC (>= 768px)
+  useEffect(() => {
+    const checkViewport = () => {
+      setIsPC(window.innerWidth >= 768);
+    };
+
+    checkViewport();
+    window.addEventListener('resize', checkViewport);
+
+    return () => {
+      window.removeEventListener('resize', checkViewport);
+    };
+  }, []);
+
+  // Enable horizontal scrolling with mouse wheel only
   useEffect(() => {
     const container = scrollContainerRef.current;
     if (!container) return;
 
-    let isDown = false;
-    let startX: number;
-    let scrollLeft: number;
-
     // Mouse wheel horizontal scrolling
     const handleWheel = (e: WheelEvent) => {
-      if (e.shiftKey || Math.abs(e.deltaX) > Math.abs(e.deltaY)) {
-        e.preventDefault();
-        container.scrollLeft += e.deltaY + e.deltaX;
-      }
-    };
-
-    // Mouse drag scrolling
-    const handleMouseDown = (e: MouseEvent) => {
-      isDown = true;
-      container.style.cursor = 'grabbing';
-      startX = e.pageX - container.offsetLeft;
-      scrollLeft = container.scrollLeft;
-    };
-
-    const handleMouseLeave = () => {
-      isDown = false;
-      container.style.cursor = 'grab';
-    };
-
-    const handleMouseUp = () => {
-      isDown = false;
-      container.style.cursor = 'grab';
-    };
-
-    const handleMouseMove = (e: MouseEvent) => {
-      if (!isDown) return;
       e.preventDefault();
-      const x = e.pageX - container.offsetLeft;
-      const walk = (x - startX) * 2; // Scroll speed multiplier
-      container.scrollLeft = scrollLeft - walk;
+      // Convert vertical wheel movement to horizontal scrolling
+      // Use deltaX if available (horizontal scroll), otherwise use deltaY (vertical scroll)
+      container.scrollLeft += e.deltaX || e.deltaY;
     };
 
     container.addEventListener('wheel', handleWheel, { passive: false });
-    container.addEventListener('mousedown', handleMouseDown);
-    container.addEventListener('mouseleave', handleMouseLeave);
-    container.addEventListener('mouseup', handleMouseUp);
-    container.addEventListener('mousemove', handleMouseMove);
 
     return () => {
       container.removeEventListener('wheel', handleWheel);
-      container.removeEventListener('mousedown', handleMouseDown);
-      container.removeEventListener('mouseleave', handleMouseLeave);
-      container.removeEventListener('mouseup', handleMouseUp);
-      container.removeEventListener('mousemove', handleMouseMove);
     };
   }, []);
 
@@ -92,7 +69,7 @@ const QinZiDa2025Section = () => {
       <div className="w-full flex justify-center">
         <div
           ref={scrollContainerRef}
-          className="overflow-x-auto overflow-y-hidden hide-scrollbar cursor-grab active:cursor-grabbing"
+          className={`overflow-x-auto overflow-y-hidden ${!isPC ? 'hide-scrollbar' : ''}`}
           style={{
             WebkitOverflowScrolling: 'touch',
             width: '100%',

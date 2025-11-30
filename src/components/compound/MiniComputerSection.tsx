@@ -6,6 +6,8 @@ import { useAssets } from '@/context/assets-context';
 import { generateMomentPoster, publishMomentPin } from '@/api/campaign';
 import { useToast } from '@/context/toast-context';
 import { isZhihuApp } from '@/lib/zhihu-detection';
+import { useZA } from '@/hooks/useZA';
+import { useInView } from 'react-intersection-observer';
 
 // Type declaration for Zhihu Hybrid SDK
 interface ZhihuHybrid {
@@ -44,12 +46,21 @@ const MiniComputerSection = () => {
   const [inputValue, setInputValue] = useState('');
   const [isFocused, setIsFocused] = useState(false);
   const [posterUrl, setPosterUrl] = useState<string>('');
+  const { trackEvent, trackShow } = useZA();
+  const { ref: moduleRef, inView: moduleInView } = useInView({ triggerOnce: true });
 
   const mirrorRef = useRef<HTMLDivElement>(null);
   const { showToast } = useToast();
 
   const loadingText = useLoadingDots("海报生成中", 400, status === 'loading');
   const HASHTAG = " #2025到底什么是真的";
+
+  useEffect(() => {
+    if (moduleInView) {
+      // 埋点8
+      trackShow({ moduleId: 'share_moment_2025', type: 'Block' });
+    }
+  }, [moduleInView]);
 
   useEffect(() => {
     if (status !== 'idle') {
@@ -77,6 +88,11 @@ const MiniComputerSection = () => {
 
   const handleEnter = async () => {
     if (!inputValue.trim()) return;
+    // 埋点5
+    trackEvent('', {
+      moduleId: 'share_moment_enter_2025',
+      type: 'Button'
+    });
 
     setStatus('loading');
     try {
@@ -225,7 +241,7 @@ const MiniComputerSection = () => {
   };
 
   return (
-    <div className="relative flex flex-col pt-7 -mb-[20px] overflow-hidden">
+    <div ref={moduleRef} className="relative flex flex-col pt-7 -mb-[20px] overflow-hidden">
       <div className="relative w-full flex justify-center pr-[16px] -mb-[24px]">
         <Image
           src={titleAsset.url}

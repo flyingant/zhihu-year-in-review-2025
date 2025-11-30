@@ -4,11 +4,23 @@ import React, { useRef, useEffect, useState } from 'react';
 import QinZiDa2025 from '@/components/ui/QinZiDa2025';
 import Image from 'next/image';
 import { useUserData } from '@/context/user-data-context';
+import { useZA } from '@/hooks/useZA';
+import { useInView } from 'react-intersection-observer';
 
 const QinZiDa2025Section = () => {
   const { userData } = useUserData();
   const scrollContainerRef = useRef<HTMLDivElement>(null);
   const [isPC, setIsPC] = useState(false);
+  const { trackShow } = useZA();
+  const { ref: moduleRef, inView: moduleInView } = useInView({ triggerOnce: true });
+
+  useEffect(() => {
+    if (moduleInView) {
+      // 埋点15
+      trackShow({ moduleId: 'personal_answer_block_2025', type: 'Button' });
+    }
+  }, [moduleInView]);
+
   const selfAnswerItems = userData?.masterConfig?.self_answer || [];
 
   // Use example image if array is empty
@@ -59,7 +71,7 @@ const QinZiDa2025Section = () => {
   }, []);
 
   return (
-    <div className="relative w-full flex flex-col pb-12">
+    <div ref={moduleRef} className="relative w-full flex flex-col pb-12">
       {/* Title */}
       <div className="mb-4">
         <QinZiDa2025 />

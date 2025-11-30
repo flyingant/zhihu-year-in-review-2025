@@ -1,8 +1,10 @@
 "use client";
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Image from 'next/image';
 import { useAssets } from '@/context/assets-context';
+import { useZA } from '@/hooks/useZA';
+import { useInView } from 'react-intersection-observer';
 
 const clipPathleft = 'polygon(43% 0, 50% 19%, 100% 20%, 100% 100%, 68% 100%, 32% 100%, 0 100%, 0% 43%, 0 0)';
 const clipPathright = 'polygon(50% 20%, 57% 0, 100% 0, 100% 100%, 68% 100%, 32% 100%, 0 100%, 0% 43%, 0 20%)';
@@ -10,6 +12,17 @@ const clipPathright = 'polygon(50% 20%, 57% 0, 100% 0, 100% 100%, 68% 100%, 32% 
 const FolderSection = () => {
   const { assets } = useAssets();
   const [activeIndex, setActiveIndex] = useState<number | null>(null);
+  const { trackShow, trackEvent } = useZA();
+  const { ref: moduleRef, inView: moduleInView } = useInView({ triggerOnce: true });
+  const { ref: imgRef, inView: imgInView } = useInView({ triggerOnce: true });
+
+  useEffect(() => {
+    if (moduleInView) {
+      // 埋点4
+      trackShow({ moduleId: 'quote_module_2025', type: 'Block' });
+    }
+  }, [moduleInView]);
+
 
   if (!assets) return null;
 
@@ -78,7 +91,7 @@ const FolderSection = () => {
 
 
   return (
-    <div className="relative w-full z-100">
+    <div ref={moduleRef} className="relative w-full z-100">
       <div className="relative w-full h-[165px] m-auto px-[16px]">
         {folders.map((folder, index) => {
           const zIndex = index;

@@ -1,9 +1,12 @@
 "use client";
 // components/KVSection.jsx
+import { useEffect } from 'react';
 import React from 'react';
 import Image from 'next/image';
 import { useAssets, AssetMetadata } from '@/context/assets-context';
 import SidebarCampaignRules from '@/components/ui/SidebarCampaignRules';
+import { useZA } from '@/hooks/useZA';
+import { useInView } from 'react-intersection-observer';
 
 
 type DanmakuItem = {
@@ -16,6 +19,18 @@ type DanmakuItem = {
 
 const KVSection = () => {
   const { assets } = useAssets();
+  const { ref: moduleRef, inView } = useInView({ triggerOnce: true });
+  const { trackShow } = useZA();
+
+  useEffect(() => {
+    if (inView) {
+      // 埋点1
+      trackShow({
+        moduleId: 'main_key_2025_block',
+        type: 'Block'
+      });
+    }
+  }, [inView]);
 
   if (!assets) return null;
 
@@ -31,7 +46,7 @@ const KVSection = () => {
   ];
 
   return (
-    <div className="relative w-full overflow-hidden flex flex-col items-center">
+    <div ref={moduleRef} className="relative w-full overflow-hidden flex flex-col items-center">
 
       <div className="absolute inset-0 z-10 overflow-hidden pointer-events-none flex flex-col justify-start pt-5">
         {danmakus.map((item) => {

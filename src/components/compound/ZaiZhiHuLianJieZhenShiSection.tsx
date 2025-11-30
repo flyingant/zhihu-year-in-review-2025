@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import ZaiZhiHuLianJieZhenShi from '@/components/ui/ZaiZhiHuLianJieZhenShi';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Pagination, Autoplay } from 'swiper/modules';
@@ -8,10 +8,21 @@ import Image from 'next/image';
 import 'swiper/css';
 import 'swiper/css/pagination';
 import { useAssets } from '@/context/assets-context';
+import { useZA } from '@/hooks/useZA';
+import { useInView } from 'react-intersection-observer';
 
 const ZaiZhiHuLianJieZhenShiSection = () => {
   const { assets } = useAssets();
   const [paginationEl, setPaginationEl] = useState<HTMLElement | null>(null);
+  const { trackShow } = useZA();
+  const { ref: moduleRef, inView: moduleInView } = useInView({ triggerOnce: true });
+
+  useEffect(() => {
+    if (moduleInView) {
+      // 埋点17
+      trackShow({ moduleId: 'carousel_subvenue_2025', type: 'Block' });
+    }
+  }, [moduleInView]);
 
   if (!assets) return null;
 
@@ -22,7 +33,7 @@ const ZaiZhiHuLianJieZhenShiSection = () => {
     };
   });
   return (
-    <div className="relative w-full flex flex-col">
+    <div ref={moduleRef} className="relative w-full flex flex-col">
       {/* Title */}
       <div className="mb-4">
         <ZaiZhiHuLianJieZhenShi />

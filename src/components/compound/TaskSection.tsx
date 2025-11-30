@@ -9,6 +9,8 @@ import { getCampaignInfo, CampaignResponse, TaskItem, RewardItem, preOccupyRewar
 import { ACTIVITY_ID, SHOW_TASK_IDS, PRIZE_MAP, RECORD_BTN_POSITION } from '@/constants/campaign';
 import { useToast } from '@/context/toast-context';
 import { useZhihuApp } from '@/hooks/useZhihuApp';
+import { useZA } from '@/hooks/useZA';
+import { useInView } from 'react-intersection-observer';
 
 const formatDate = (timestamp: number | undefined) => {
   if (!timestamp) return '--/--/--';
@@ -32,6 +34,15 @@ const TaskSection = () => {
   const [selectedReward, setSelectedReward] = useState<RewardItem | null>(null);
   const [requestId, setRequestId] = useState<number | null>(null);
   const { assets } = useAssets();
+  const { trackShow } = useZA();
+  const { ref: moduleRef, inView: moduleInView } = useInView({ triggerOnce: true });
+
+  useEffect(() => {
+    if (moduleInView) {
+      // 埋点20
+      trackShow({ moduleId: 'liukanshan_points_store_2025', type: 'Block' });
+    }
+  }, [moduleInView]);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -287,7 +298,7 @@ const TaskSection = () => {
   };
 
   return (
-    <div className="relative w-full pb-10 flex flex-col pt-1">
+    <div ref={moduleRef} className="relative w-full pb-10 flex flex-col pt-1">
       <div className='flex justify-center pb-9 px-[54px]'>
         <LiuKanShanBianLiDian />
       </div>

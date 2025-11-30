@@ -21,8 +21,11 @@ import AddressForm from "../components/ui/AddressForm";
 import { useAssets } from '@/context/assets-context';
 import YearlyVideoSection from "@/components/compound/YearlyVideoSection";
 import YearlyReportSection from "@/components/compound/YearlyReportSection";
+import { useEffect } from 'react';
+import { useZA } from '@/hooks/useZA';
 
 function HomeContent() {
+  const { trackPageShow, trackPageDisappear, isReady } = useZA();
   const searchParams = useSearchParams();
   const requireAddress = searchParams.get("requireAddress");
   const { assets, isLoading: isLoadingAssets, error: assetsError, fetchAssets } = useAssets();
@@ -32,6 +35,17 @@ function HomeContent() {
       window.location.reload();
     }
   };
+
+  useEffect(() => {
+    // 埋点2
+    if (isReady) {
+      trackPageShow();
+    }
+    return () => {
+      // 埋点3
+      trackPageDisappear();
+    };
+  }, [isReady]);
 
   // Show error state if assets failed to load
   if (assetsError && !isLoadingAssets) {
@@ -54,11 +68,11 @@ function HomeContent() {
               />
             </svg>
           </div>
-          
+
           <h1 className="text-2xl font-bold text-gray-900 mb-2">
             资源加载失败
           </h1>
-          
+
           <p className="text-gray-600 mb-4">
             {assetsError}
           </p>
@@ -70,7 +84,7 @@ function HomeContent() {
             >
               重新加载页面
             </button>
-            
+
             <button
               onClick={fetchAssets}
               className="px-6 py-3 bg-gray-200 text-gray-800 rounded-lg font-medium hover:bg-gray-300 transition-colors focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2"

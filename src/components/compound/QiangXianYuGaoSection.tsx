@@ -1,18 +1,30 @@
 "use client";
 
-import React from 'react';
+import React, { useEffect } from 'react';
 import Image from 'next/image';
 import { useAssets } from '@/context/assets-context';
+import { useZA } from '@/hooks/useZA';
+import { useInView } from 'react-intersection-observer';
 
 const QiangXianYuGaoSection = () => {
   const { assets } = useAssets();
+  const { trackShow } = useZA();
+  const { ref: moduleRef, inView: moduleInView } = useInView({ triggerOnce: true });
+
+
+  useEffect(() => {
+    if (moduleInView) {
+      // 埋点12
+      trackShow({ moduleId: 'annual_preview_2025', type: 'Block' });
+    }
+  }, [moduleInView]);
 
   if (!assets) return null;
 
   const qiangXianYuGaoBanner = assets.newImages.qiangXianYuGaoBanner;
 
   return (
-    <div className="relative w-full flex flex-col items-center pb-6">
+    <div ref={moduleRef} className="relative w-full flex flex-col items-center pb-6">
       <div className="w-full w-[370px] flex items-center justify-center ml-[3px]">
         <div className="relative w-full flex justify-center">
           <Image

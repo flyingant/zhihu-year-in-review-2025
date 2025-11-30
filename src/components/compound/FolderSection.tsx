@@ -73,19 +73,50 @@ const FolderSection = () => {
     },
   ];
 
-  const handleFolderClick = (e: React.MouseEvent<HTMLDivElement>, index: number, url: string) => {
+  const handleFolderClick = (e: React.MouseEvent<HTMLDivElement>, index: number, item) => {
     const target = e.currentTarget;
     const rect = target.getBoundingClientRect();
     const clickY = e.clientY - rect.top;
     const elementHeight = rect.height;
+    const url = item.url;
     const clickPercentage = (clickY / elementHeight) * 100;
 
     // Only navigate if click is in the bottom 70% of the image (below 30% from top)
     if (clickPercentage >= 30 && url) {
+      // 埋点7
+      trackEvent('OpenUrl', {
+        moduleId: 'quote_image_2025',
+        type: 'Image',
+      }, {
+        config_map: {
+          user_name: item.name
+        }
+      });
       window.open(url, '_blank');
     } else {
       // Toggle active state for clicks in the top 30%
+      const isExpanding = activeIndex !== index;
       setActiveIndex(activeIndex === index ? null : index);
+      // 埋点5
+      trackEvent('', {
+        moduleId: 'quote_user_name_2025',
+        type: 'Button'
+      }, {
+        config_map: {
+          user_name: item.name
+        }
+      });
+      if (isExpanding) {
+        // 埋点6
+        trackShow({
+          moduleId: 'quote_image_2025',
+          type: 'Image'
+        }, {
+          config_map: {
+            user_name: item.name
+          }
+        });
+      }
     }
   };
 
@@ -102,7 +133,7 @@ const FolderSection = () => {
           return (
             <div
               key={folder.id}
-              onClick={(e) => handleFolderClick(e, index, folder.url)}
+              onClick={(e) => handleFolderClick(e, index, folder)}
               className={`
                 absolute left-[16px] right-[16px] mx-auto
                 transition-transform duration-500 ease-out cursor-pointer

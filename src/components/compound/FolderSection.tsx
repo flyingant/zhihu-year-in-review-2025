@@ -9,6 +9,14 @@ import { useInView } from 'react-intersection-observer';
 const clipPathleft = 'polygon(43% 0, 50% 19%, 100% 20%, 100% 100%, 68% 100%, 32% 100%, 0 100%, 0% 43%, 0 0)';
 const clipPathright = 'polygon(50% 20%, 57% 0, 100% 0, 100% 100%, 68% 100%, 32% 100%, 0 100%, 0% 43%, 0 20%)';
 
+type FolderItem = {
+  id: number;
+  asset: { url: string; width: number; height: number; alt: string };
+  name: string;
+  clipPath: string;
+  url: string;
+};
+
 const FolderSection = () => {
   const { assets } = useAssets();
   const [activeIndex, setActiveIndex] = useState<number | null>(null);
@@ -73,7 +81,7 @@ const FolderSection = () => {
     },
   ];
 
-  const handleFolderClick = (e: React.MouseEvent<HTMLDivElement>, index: number, item) => {
+  const handleFolderClick = (e: React.MouseEvent<HTMLDivElement>, index: number, item: FolderItem) => {
     const target = e.currentTarget;
     const rect = target.getBoundingClientRect();
     const clickY = e.clientY - rect.top;

@@ -1,9 +1,11 @@
 import type { Metadata, Viewport } from "next";
-import Script from "next/script";
 import { AuthProvider } from "@/context/auth-context";
 import { UserDataProvider } from "@/context/user-data-context";
 import { ToastProvider } from "@/context/toast-context";
 import { AssetsProvider } from "@/context/assets-context";
+import { ErrorBoundary } from "@/components/layout/ErrorBoundary";
+import ErrorHandlingInit from "@/components/layout/ErrorHandlingInit";
+import ZhihuHybridScript from "@/components/layout/ZhihuHybridScript";
 import "./globals.css";
 
 export const metadata: Metadata = {
@@ -26,18 +28,18 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className="antialiased">
-        <AuthProvider>
-          <UserDataProvider>
-            <AssetsProvider>
-              <ToastProvider>{children}</ToastProvider>
-            </AssetsProvider>
-          </UserDataProvider>
-        </AuthProvider>
+        <ErrorHandlingInit />
+        <ErrorBoundary>
+          <AuthProvider>
+            <UserDataProvider>
+              <AssetsProvider>
+                <ToastProvider>{children}</ToastProvider>
+              </AssetsProvider>
+            </UserDataProvider>
+          </AuthProvider>
+        </ErrorBoundary>
         {/* Load zhihuHybrid SDK - typically injected by Zhihu App WebView, but load script as fallback */}
-        <Script
-          src="https://unpkg.zhimg.com/zhihu-hybrid@2.80.2"
-          strategy="afterInteractive"
-        />
+        <ZhihuHybridScript />
       </body>
     </html>
   );

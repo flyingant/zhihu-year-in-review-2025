@@ -19,6 +19,8 @@ import ZheXieZhenDeKeYiSection from "../components/compound/ZheXieZhenDeKeYiSect
 import SidebarLiuKanshan from "../components/ui/SidebarLiuKanshan";
 import AddressForm from "../components/ui/AddressForm";
 import { useAssets } from '@/context/assets-context';
+import YearlyVideoSection from "@/components/compound/YearlyVideoSection";
+import YearlyReportSection from "@/components/compound/YearlyReportSection";
 
 function HomeContent() {
   const searchParams = useSearchParams();
@@ -167,6 +169,22 @@ function HomeContent() {
 
           <SectionLayout topOffset={-12} id="home-bottom-bg-section">
             <HomeBottomBg />
+          </SectionLayout>
+
+          <SectionLayout topOffset={50} >
+            <div className="w-full h-full bg-red-500"> Phase 2 Content</div>
+          </SectionLayout>
+
+          <SectionLayout topOffset={0} id="yearly-video-section">
+            <YearlyVideoSection />
+          </SectionLayout>
+
+          <SectionLayout topOffset={0} id="yearly-report-section">
+            <YearlyReportSection />
+          </SectionLayout>
+
+          <SectionLayout topOffset={500} >
+            <div className="w-full h-full bg-red-500"> Phase 2 Content</div>
           </SectionLayout>
         </main>
       </AuthWrapper>

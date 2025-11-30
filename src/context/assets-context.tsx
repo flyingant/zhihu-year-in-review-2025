@@ -76,6 +76,12 @@ export interface AssetsData {
   zhihuSearch: {
     bg: AssetMetadata;
   };
+  yearly: {
+    videoBg: AssetMetadata;
+    reportBg: AssetMetadata;
+    liukanshanWaving: AssetMetadata;
+    videoFrame: AssetMetadata;
+  };
 }
 
 // Component expiration dates (in milliseconds since epoch)

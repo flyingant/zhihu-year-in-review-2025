@@ -398,5 +398,31 @@
       "height": 106,
       "alt": "知乎搜索"
     }
+  },
+  "yearly" :{
+    "videoBg": {
+      "url": "/assets/yearly_video_bg.png",
+      "width": 686,
+      "height": 760,
+      "alt": "年度视频背景"
+    },
+    "reportBg": {
+      "url": "/assets/yearly_report_bg.png",
+      "width": 686,
+      "height": 551,
+      "alt": "年度报告背景"
+    },
+    "liukanshanWaving": {
+      "url": "/assets/yearly_liukanshan_waving.mp4",
+      "width": 72,
+      "height": 72,
+      "alt": "刘看山挥手"
+    },
+    "videoFrame": {
+      "url": "/assets/yearly_video_frame.png",
+      "width": 672,
+      "height": 445,
+      "alt": "年度视频框架"
+    }
   }
 }

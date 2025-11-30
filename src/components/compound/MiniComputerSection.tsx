@@ -88,7 +88,7 @@ const MiniComputerSection = () => {
 
   const handleEnter = async () => {
     if (!inputValue.trim()) return;
-    // 埋点5
+    // 埋点10
     trackEvent('', {
       moduleId: 'share_moment_enter_2025',
       type: 'Button'
@@ -220,6 +220,12 @@ const MiniComputerSection = () => {
       showToast('缺少必要信息，无法发布', 'error');
       return;
     }
+    //埋点11
+    trackEvent('Pin', {
+      moduleId: 'share_moment_share_pin_2025',
+      type: 'Button',
+      content: { type: 'Pin' }
+    });
 
     try {
       await publishMomentPin(inputValue.trim(), posterUrl);
@@ -238,6 +244,16 @@ const MiniComputerSection = () => {
     if (mirrorRef.current) {
       mirrorRef.current.scrollTop = e.currentTarget.scrollTop;
     }
+  };
+
+  const handleBannerClick = () => {
+    //埋点9
+    trackEvent('OpenUrl', {
+      moduleId: 'share_moment_question_2025',
+      type: 'Button'
+    });
+
+    window.location.href = 'https://www.zhihu.com/question/1974440788541793545';
   };
 
   return (
@@ -327,9 +343,7 @@ const MiniComputerSection = () => {
       </div>
       {/* 写下更多真实瞬间按钮 */}
       <div
-        onClick={() => {
-          window.location.href = 'https://www.zhihu.com/question/1974440788541793545';
-        }}
+        onClick={handleBannerClick}
         className="relative w-full  mx-auto h-[50px] mt-5 block cursor-pointer z-1"
       >
         <Image

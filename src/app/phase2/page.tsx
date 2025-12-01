@@ -3,28 +3,28 @@ import Image from "next/image";
 import Head from "next/head";
 import { Suspense } from "react";
 import { useSearchParams } from "next/navigation";
-import AuthWrapper from "../components/layout/AuthWrapper";
-import KVSection from "../components/compound/KVSection";
-import FolderSection from "../components/compound/FolderSection";
-import SectionLayout from "../components/layout/SectionLayout";
-import MiniComputerSection from "../components/compound/MiniComputerSection";
-import ZhihuLogo from "../components/ui/ZhihuLogo";
-import ZhihuSearch from "../components/ui/zhihuSearch";
-import HomeBottomBg from "../components/ui/homeBottomBg";
-import TaskSection from "../components/compound/TaskSection";
-import QiangXianYuGaoSection from "../components/compound/QiangXianYuGaoSection";
-import QinZiDa2025Section from "../components/compound/QinZiDa2025Section";
-import ZaiZhiHuLianJieZhenShiSection from "../components/compound/ZaiZhiHuLianJieZhenShiSection";
-import ZheXieZhenDeKeYiSection from "../components/compound/ZheXieZhenDeKeYiSection";
-import SidebarLiuKanshan from "../components/ui/SidebarLiuKanshan";
-import AddressForm from "../components/ui/AddressForm";
+import AuthWrapper from "../../components/layout/AuthWrapper";
+import KVSection from "../../components/compound/KVSection";
+import FolderSection from "../../components/compound/FolderSection";
+import SectionLayout from "../../components/layout/SectionLayout";
+import MiniComputerSection from "../../components/compound/MiniComputerSection";
+import ZhihuLogo from "../../components/ui/ZhihuLogo";
+import ZhihuSearch from "../../components/ui/zhihuSearch";
+import HomeBottomBg from "../../components/ui/homeBottomBg";
+import TaskSection from "../../components/compound/TaskSection";
+import QiangXianYuGaoSection from "../../components/compound/QiangXianYuGaoSection";
+import QinZiDa2025Section from "../../components/compound/QinZiDa2025Section";
+import ZaiZhiHuLianJieZhenShiSection from "../../components/compound/ZaiZhiHuLianJieZhenShiSection";
+import ZheXieZhenDeKeYiSection from "../../components/compound/ZheXieZhenDeKeYiSection";
+import SidebarLiuKanshan from "../../components/ui/SidebarLiuKanshan";
+import AddressForm from "../../components/ui/AddressForm";
 import { useAssets } from '@/context/assets-context';
 import YearlyVideoSection from "@/components/compound/YearlyVideoSection";
 import YearlyReportSection from "@/components/compound/YearlyReportSection";
 import { useEffect } from 'react';
 import { useZA } from '@/hooks/useZA';
 
-function HomeContent() {
+function Phase2Content() {
   const { trackPageShow, trackPageDisappear, isReady } = useZA();
   const searchParams = useSearchParams();
   const requireAddress = searchParams.get("addressrequired");
@@ -148,25 +148,16 @@ function HomeContent() {
             <KVSection />
           </SectionLayout>
 
-          {/* 文件夹交互部分 */}
-          <SectionLayout topOffset={0} id="folder-section">
-            <FolderSection />
+          <SectionLayout topOffset={0} id="yearly-video-section">
+            <YearlyVideoSection />
+          </SectionLayout>
+
+          <SectionLayout topOffset={0} id="yearly-report-section">
+            <YearlyReportSection />
           </SectionLayout>
 
           <SectionLayout topOffset={0} id="game-section">
             <MiniComputerSection />
-          </SectionLayout>
-
-          <SectionLayout topOffset={0} id="qiangxian-yugao-section">
-            <QiangXianYuGaoSection />
-          </SectionLayout>
-
-          <SectionLayout topOffset={0} id="zhexie-zhende-keyi-section">
-            <ZheXieZhenDeKeYiSection />
-          </SectionLayout>
-
-          <SectionLayout topOffset={0} id="wuzida2025-section">
-            <QinZiDa2025Section />
           </SectionLayout>
 
           <SectionLayout topOffset={0} id="zaizhihu-lianjie-zhenshi-section">
@@ -184,13 +175,14 @@ function HomeContent() {
           <SectionLayout topOffset={-12} id="home-bottom-bg-section">
             <HomeBottomBg />
           </SectionLayout>
+
         </main>
       </AuthWrapper>
     </div>
   );
 }
 
-export default function Home() {
+export default function Phase2() {
   return (
     <Suspense fallback={
       <div className="min-h-screen bg-white flex items-center justify-center">
@@ -200,7 +192,8 @@ export default function Home() {
         </div>
       </div>
     }>
-      <HomeContent />
+      <Phase2Content />
     </Suspense>
   );
 }
+

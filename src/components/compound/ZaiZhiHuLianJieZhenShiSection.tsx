@@ -147,9 +147,6 @@ const ZaiZhiHuLianJieZhenShiSection = () => {
                     ${isActive ? 'scale-100' : 'scale-90 opacity-80'}
                   `}
                 >
-                  <div className="absolute inset-0 flex items-center justify-center text-white text-xl font-bold">
-                    {item.alt}
-                  </div>
                   <Image
                     src={item.url}
                     alt={item.alt}

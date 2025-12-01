@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import Image from 'next/image';
 import { useAssets, componentExpiration } from '@/context/assets-context';
 import request from '@/lib/request';
@@ -18,9 +18,10 @@ const SidebarLiuKanshan = () => {
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const [isSoldOut, setIsSoldOut] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
-  const [isKVSectionVisible, setIsKVSectionVisible] = useState(true);
   const [isExpired, setIsExpired] = useState(false);
   const [isCheckingStatus, setIsCheckingStatus] = useState(false);
+  const [isOverlapping, setIsOverlapping] = useState(false);
+  const sidebarRef = useRef<HTMLDivElement>(null);
   const { showToast } = useToast();
   const isZhihu = useZhihuApp();
   const { assets } = useAssets();
@@ -97,39 +98,51 @@ const SidebarLiuKanshan = () => {
     };
   }, []);
 
-  // Monitor FolderSection position - show sidebar when it reaches middle of screen
+  // Check if SidebarLiuKanshan overlaps with SidebarCampaignRules
   useEffect(() => {
-    const folderSection = document.getElementById('folder-section');
-    if (!folderSection) {
-      // If folder section doesn't exist, show sidebar by default
-      setIsKVSectionVisible(false);
-      return;
-    }
+    const checkOverlap = () => {
+      const sidebarElement = sidebarRef.current;
+      const campaignRulesElement = document.getElementById('sidebar-campaign-rules');
 
-    const checkFolderSectionPosition = () => {
-      const rect = folderSection.getBoundingClientRect();
-      const viewportHeight = window.innerHeight;
-      const viewportCenter = viewportHeight / 2;
+      if (!sidebarElement || !campaignRulesElement) {
+        setIsOverlapping(false);
+        return;
+      }
 
-      // Calculate folder section center position
-      const sectionCenter = rect.top + rect.height / 2;
+      const sidebarRect = sidebarElement.getBoundingClientRect();
+      const campaignRulesRect = campaignRulesElement.getBoundingClientRect();
 
-      // Check if folder section center has reached or passed viewport center
-      const hasReachedMiddle = sectionCenter <= viewportCenter;
+      // Check if the two elements overlap
+      const overlaps = !(
+        sidebarRect.right < campaignRulesRect.left ||
+        sidebarRect.left > campaignRulesRect.right ||
+        sidebarRect.bottom < campaignRulesRect.top ||
+        sidebarRect.top > campaignRulesRect.bottom
+      );
 
-      setIsKVSectionVisible(!hasReachedMiddle);
+      setIsOverlapping(overlaps);
     };
 
-    // Check on initial load
-    checkFolderSectionPosition();
+    // Check immediately
+    checkOverlap();
 
-    // Check on scroll
-    window.addEventListener('scroll', checkFolderSectionPosition, { passive: true });
-    window.addEventListener('resize', checkFolderSectionPosition, { passive: true });
+    // Check on scroll and resize
+    window.addEventListener('scroll', checkOverlap, { passive: true });
+    window.addEventListener('resize', checkOverlap, { passive: true });
+
+    // Use MutationObserver to watch for DOM changes
+    const observer = new MutationObserver(checkOverlap);
+    observer.observe(document.body, {
+      childList: true,
+      subtree: true,
+      attributes: true,
+      attributeFilter: ['class', 'style'],
+    });
 
     return () => {
-      window.removeEventListener('scroll', checkFolderSectionPosition);
-      window.removeEventListener('resize', checkFolderSectionPosition);
+      window.removeEventListener('scroll', checkOverlap);
+      window.removeEventListener('resize', checkOverlap);
+      observer.disconnect();
     };
   }, []);
 
@@ -306,22 +319,25 @@ const SidebarLiuKanshan = () => {
 
   return (
     <>
-      {!isKVSectionVisible && (
-        <div
-          className="fixed right-0 top-[50%] -translate-y-1/2 z-[9999] pointer-events-auto cursor-pointer"
-          onClick={handleSidebarClick}
-          style={{ opacity: isLoading ? 0.6 : 1, pointerEvents: isLoading ? 'none' : 'auto' }}
-        >
-          <Image
-            src={imageAsset.url}
-            alt={imageAsset.alt}
-            width={imageAsset.width}
-            height={imageAsset.height}
-            style={{ width: `${displayWidth}px`, height: `${displayHeight}px`, pointerEvents: 'none' }}
-            className="object-contain"
-          />
-        </div>
-      )}
+      <div
+        ref={sidebarRef}
+        className="fixed right-0 top-[50%] -translate-y-1/2 z-[9999] pointer-events-auto cursor-pointer"
+        onClick={handleSidebarClick}
+        style={{
+          opacity: isLoading ? 0.6 : (isOverlapping ? 0 : 1),
+          pointerEvents: isLoading || isOverlapping ? 'none' : 'auto',
+          transition: 'opacity 0.3s ease-in-out',
+        }}
+      >
+        <Image
+          src={imageAsset.url}
+          alt={imageAsset.alt}
+          width={imageAsset.width}
+          height={imageAsset.height}
+          style={{ width: `${displayWidth}px`, height: `${displayHeight}px`, pointerEvents: 'none' }}
+          className="object-contain"
+        />
+      </div>
 
       {/* Fullscreen Dialog */}
       {isDialogOpen && (

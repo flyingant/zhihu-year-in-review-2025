@@ -25,7 +25,7 @@ const SidebarCampaignRules = () => {
   };
 
   return (
-    <div className="absolute right-0 top-[44%] z-50 pointer-events-auto">
+    <div id="sidebar-campaign-rules" className="absolute right-0 top-[44%] z-50 pointer-events-auto">
       <div
         onClick={handleClick}
         className="block cursor-pointer"

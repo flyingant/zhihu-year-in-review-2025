@@ -6,7 +6,6 @@ import { useAssets, componentExpiration } from '@/context/assets-context';
 import request from '@/lib/request';
 import { useToast } from '@/context/toast-context';
 import { useZhihuApp } from '@/hooks/useZhihuApp';
-import { completeTask } from '@/api/campaign';
 import { useZA } from '@/hooks/useZA';
 
 interface TaskStatusResponse {
@@ -188,7 +187,7 @@ const SidebarLiuKanshan = () => {
   }, []);
 
   // Check task status and update dialog state accordingly
-  const checkTaskStatusAndUpdate = async (showLoading = true, trackClick = false) => {
+  const checkTaskStatusAndUpdate = async (showLoading = true) => {
     if (showLoading) {
       setIsLoading(true);
     }
@@ -205,24 +204,10 @@ const SidebarLiuKanshan = () => {
         // 今日已领完 - Show sold out dialog
         setIsSoldOut(true);
         setIsDialogOpen(true);
-        // Track task completion when dialog opens (fire-and-forget, non-blocking)
-        if (trackClick) {
-          completeTask(300499).catch((error) => {
-            console.error('Error completing task:', error);
-            // Silently fail - this is just tracking, don't block user flow
-          });
-        }
       } else if (taskStatus === 1) {
         // 未领取还有剩余 - Show current dialog
         setIsSoldOut(false);
         setIsDialogOpen(true);
-        // Track task completion when dialog opens (fire-and-forget, non-blocking)
-        if (trackClick) {
-          completeTask(300499).catch((error) => {
-            console.error('Error completing task:', error);
-            // Silently fail - this is just tracking, don't block user flow
-          });
-        }
       } else if (taskStatus === 2 || taskStatus === 3) {
         // 已领取未填地址 or 已领取并已填地址 - Show toast message and close dialog
         const toastMessage = taskStatus === 2
@@ -249,17 +234,11 @@ const SidebarLiuKanshan = () => {
   };
 
   const handleSidebarClick = async () => {
-    // Call completeTask with taskId 300499 when user clicks the component
-    completeTask(300499).catch((error) => {
-      console.error('Error completing task:', error);
-      // Silently fail - this is just tracking, don't block user flow
-    });
-
     trackEvent('', {
       moduleId: 'liukanshan_gift_2025',
       type: 'Button'
     })
-    await checkTaskStatusAndUpdate(true, true);
+    await checkTaskStatusAndUpdate(true);
   };
 
   const handleCancelClick = () => {
@@ -271,7 +250,7 @@ const SidebarLiuKanshan = () => {
     if (isCheckingStatus) return;
     setIsCheckingStatus(true);
     try {
-      await checkTaskStatusAndUpdate(false, false);
+      await checkTaskStatusAndUpdate(false);
     } finally {
       setIsCheckingStatus(false);
     }
@@ -287,7 +266,7 @@ const SidebarLiuKanshan = () => {
       type: 'Button'
     });
     try {
-      const taskStatus = await checkTaskStatusAndUpdate(false, false);
+      const taskStatus = await checkTaskStatusAndUpdate(false);
 
       // If status changed to sold out (0) or already claimed (2/3), don't redirect
       if (taskStatus === 0 || taskStatus === 2 || taskStatus === 3) {
@@ -295,22 +274,8 @@ const SidebarLiuKanshan = () => {
         return;
       }
 
-      // Track task completion when publish button is clicked
-      // Wait for API call to complete before redirecting (with timeout to avoid blocking)
+      // Redirect to publish page
       const redirectUrl = 'https://oia.zhihu.com/community/short_pin_editor?tab=pin&content=%7B%22html%22%3A%22%3Cp%3E2026%E6%9C%80%E6%83%B3%E5%81%9A%E7%9A%84%E4%B8%80%E4%BB%B6%E4%BA%8B%20%3Ca%20class%3D%5C%22hash_tag%5C%22%20data-topic-id%3D%5C%22unknown%5C%22%3E%232025%E5%88%B0%E5%BA%95%E4%BB%80%E4%B9%88%E6%98%AF%E7%9C%9F%E7%9A%84%23%3C%2Fa%3E%20%3Ca%20class%3D%5C%22hash_tag%5C%22%20data-topic-id%3D%5C%22unknown%5C%22%3E%23%E5%88%98%E7%9C%8B%E5%B1%B1%E9%80%81%E7%A4%BC%E7%89%A9%E6%98%AF%E7%9C%9F%E7%9A%84%23%3C%2Fa%3E%20%20%3Ca%20href%3D%5C%22https%3A%2F%2Fwww.zhihu.com%2Fcampagin%2Fmain_hall_2025new%5C%22%20data-insert-way%3D%5C%22force%5C%22%20data-draft-node%3D%5C%22inline%5C%22%20data-draft-type%3D%5C%22text-link%5C%22%3E%E4%B8%BB%E4%BC%9A%E5%9C%BA%E9%93%BE%E6%8E%A5%3C%2Fa%3E%20%3C%2Fp%3E%22%2C%22meta%22%3A%7B%22topic%22%3A%7B%22all%22%3A0%2C%22data%22%3A%7B%7D%7D%2C%22adActivityLink%22%3A%7B%22all%22%3A0%2C%22data%22%3A%7B%7D%7D%7D%7D&jump_url=https://www.zhihu.com/campagin/zhihu2025';
-
-      try {
-        // Wait for API call with a timeout (max 500ms) to ensure it completes before redirect
-        await Promise.race([
-          completeTask(300500),
-          new Promise((_, reject) => setTimeout(() => reject(new Error('Timeout')), 500))
-        ]);
-      } catch (error) {
-        // Silently fail - this is just tracking, proceed with redirect anyway
-        console.error('Error completing task:', error);
-      }
-
-      // Redirect after API call completes (or timeout)
       window.location.href = redirectUrl;
     } catch (error) {
       console.error('Error in handlePublishClick:', error);

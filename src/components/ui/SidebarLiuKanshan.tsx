@@ -7,7 +7,6 @@ import request from '@/lib/request';
 import { useToast } from '@/context/toast-context';
 import { useZhihuApp } from '@/hooks/useZhihuApp';
 import { completeTask } from '@/api/campaign';
-import { TASK_IDS } from '@/constants/campaign';
 import { useZA } from '@/hooks/useZA';
 
 interface TaskStatusResponse {
@@ -21,6 +20,7 @@ const SidebarLiuKanshan = () => {
   const [isExpired, setIsExpired] = useState(false);
   const [isCheckingStatus, setIsCheckingStatus] = useState(false);
   const [isOverlapping, setIsOverlapping] = useState(false);
+  const [isAnimating, setIsAnimating] = useState(false);
   const sidebarRef = useRef<HTMLDivElement>(null);
   const { showToast } = useToast();
   const isZhihu = useZhihuApp();
@@ -44,6 +44,31 @@ const SidebarLiuKanshan = () => {
         }
         .overlay-show {
           animation: overlayShow 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
+        @keyframes scaleAndBlink {
+          0% {
+            transform: translateY(-50%) scale(1);
+            opacity: 1;
+          }
+          25% {
+            transform: translateY(-50%) scale(1.15);
+            opacity: 0.8;
+          }
+          50% {
+            transform: translateY(-50%) scale(1.1);
+            opacity: 1;
+          }
+          75% {
+            transform: translateY(-50%) scale(1.05);
+            opacity: 0.9;
+          }
+          100% {
+            transform: translateY(-50%) scale(1);
+            opacity: 1;
+          }
+        }
+        .liukanshan-animate {
+          animation: scaleAndBlink 0.6s cubic-bezier(0.4, 0, 0.2, 1) forwards;
         }
       `;
       document.head.appendChild(style);
@@ -146,6 +171,22 @@ const SidebarLiuKanshan = () => {
     };
   }, []);
 
+  // Listen for animation trigger event
+  useEffect(() => {
+    const handleAnimate = () => {
+      setIsAnimating(true);
+      // Reset animation state after animation completes (0.6s)
+      setTimeout(() => {
+        setIsAnimating(false);
+      }, 600);
+    };
+
+    window.addEventListener('liukanshan-animate', handleAnimate);
+    return () => {
+      window.removeEventListener('liukanshan-animate', handleAnimate);
+    };
+  }, []);
+
   // Check task status and update dialog state accordingly
   const checkTaskStatusAndUpdate = async (showLoading = true, trackClick = false) => {
     if (showLoading) {
@@ -166,7 +207,7 @@ const SidebarLiuKanshan = () => {
         setIsDialogOpen(true);
         // Track task completion when dialog opens (fire-and-forget, non-blocking)
         if (trackClick) {
-          completeTask(TASK_IDS.CLICK_LKS_GIFT).catch((error) => {
+          completeTask(300499).catch((error) => {
             console.error('Error completing task:', error);
             // Silently fail - this is just tracking, don't block user flow
           });
@@ -177,7 +218,7 @@ const SidebarLiuKanshan = () => {
         setIsDialogOpen(true);
         // Track task completion when dialog opens (fire-and-forget, non-blocking)
         if (trackClick) {
-          completeTask(TASK_IDS.CLICK_LKS_GIFT).catch((error) => {
+          completeTask(300499).catch((error) => {
             console.error('Error completing task:', error);
             // Silently fail - this is just tracking, don't block user flow
           });
@@ -261,7 +302,7 @@ const SidebarLiuKanshan = () => {
       try {
         // Wait for API call with a timeout (max 500ms) to ensure it completes before redirect
         await Promise.race([
-          completeTask(TASK_IDS.CLICK_LKS_GIFT_PUBLISH),
+          completeTask(300500),
           new Promise((_, reject) => setTimeout(() => reject(new Error('Timeout')), 500))
         ]);
       } catch (error) {
@@ -321,7 +362,7 @@ const SidebarLiuKanshan = () => {
     <>
       <div
         ref={sidebarRef}
-        className="fixed right-0 top-[50%] -translate-y-1/2 z-[9999] pointer-events-auto cursor-pointer"
+        className={`fixed right-0 top-[50%] -translate-y-1/2 z-[9999] pointer-events-auto cursor-pointer ${isAnimating ? 'liukanshan-animate' : ''}`}
         onClick={handleSidebarClick}
         style={{
           opacity: isLoading ? 0.6 : (isOverlapping ? 0 : 1),

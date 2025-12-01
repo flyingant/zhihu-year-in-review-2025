@@ -54,16 +54,3 @@ export const RECORD_BTN_POSITION = {
   width: '25%',
   height: '5%'
 }
-
-// 任务完成接口使用的任务 ID
-// 用于 completeTask API 调用
-export const TASK_IDS = {
-  // 打开「分会场」页面并浏览
-  BROWSE_SUB_VENUE: 390311,
-  // 点击打开「年度圆桌」页面
-  OPEN_ANNUAL_ROUNDTABLE: 390312,
-  // 点击「刘看山送礼」
-  CLICK_LKS_GIFT: 300499,
-  // 点击「刘看山送礼」弹框后的「去发布」按钮
-  CLICK_LKS_GIFT_PUBLISH: 300500,
-} as const;

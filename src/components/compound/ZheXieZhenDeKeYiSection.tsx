@@ -6,6 +6,7 @@ import Image from 'next/image';
 import { useZA } from '@/hooks/useZA';
 import { useInView } from 'react-intersection-observer';
 import { useAssets } from '@/context/assets-context';
+import { completeTask } from '@/api/campaign';
 
 const ZheXieZhenDeKeYiSection = () => {
   const { assets } = useAssets();
@@ -40,13 +41,20 @@ const ZheXieZhenDeKeYiSection = () => {
       {/* Content - Column layout image list */}
       <div className="w-full flex flex-col items-center gap-4 px-4">
         {imagesToDisplay.map((item, index) => {
-          const handleClick = () => {
+          const handleClick = async () => {
             // todo 有链接后需要把埋点放到if里面，现在这样放是为了测试
             //埋点14
             trackEvent('OpenUrl', {
               moduleId: 'vote_selection_2025',
               type: 'Button'
             });
+            
+            // Call completeTask API (fire-and-forget, non-blocking)
+            completeTask(390311).catch((error) => {
+              console.error('Error completing task 390311:', error);
+              // Silently fail - this is just tracking, don't block user flow
+            });
+            
             if (item.jump_url) {
               window.location.href = item.jump_url;
             }

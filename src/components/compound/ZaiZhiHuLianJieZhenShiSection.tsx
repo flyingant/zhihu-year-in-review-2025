@@ -11,6 +11,7 @@ import 'swiper/css/pagination';
 import { useUserData } from '@/context/user-data-context';
 import { useZA } from '@/hooks/useZA';
 import { useInView } from 'react-intersection-observer';
+import { completeTask } from '@/api/campaign';
 
 const ZaiZhiHuLianJieZhenShiSection = () => {
   const lastExposedIndex = useRef<number | null>(null);
@@ -53,12 +54,18 @@ const ZaiZhiHuLianJieZhenShiSection = () => {
     };
   });
 
-  const handleSlideClick = (item: SlideItem, index: number) => {
+  const handleSlideClick = async (item: SlideItem, index: number) => {
     //模块18
     trackEvent('OpenUrl', {
       moduleId: 'carousel_subvenue_image_2025',
       type: 'Block',
       moduleIndex: index
+    });
+    
+    // Call completeTask API (fire-and-forget, non-blocking)
+    completeTask(390312).catch((error) => {
+      console.error('Error completing task 390312:', error);
+      // Silently fail - this is just tracking, don't block user flow
     });
     
     // Navigate to jump_url if available

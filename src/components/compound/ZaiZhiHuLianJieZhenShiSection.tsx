@@ -12,6 +12,7 @@ import { useUserData } from '@/context/user-data-context';
 import { useZA } from '@/hooks/useZA';
 import { useInView } from 'react-intersection-observer';
 import { completeTask } from '@/api/campaign';
+import { COMPLETE_TASK_IDS } from '@/constants/campaign';
 
 const ZaiZhiHuLianJieZhenShiSection = () => {
   const lastExposedIndex = useRef<number | null>(null);
@@ -62,11 +63,11 @@ const ZaiZhiHuLianJieZhenShiSection = () => {
       moduleIndex: index
     });
     
-    // Call completeTask API (fire-and-forget, non-blocking)
-    completeTask(390312).catch((error) => {
-      console.error('Error completing task 390312:', error);
-      // Silently fail - this is just tracking, don't block user flow
-    });
+   // Call completeTask API (fire-and-forget, non-blocking)
+   completeTask(COMPLETE_TASK_IDS.BROWSE_FENHUICHANG).catch((error) => {
+    console.error('Error completing task BROWSE_FENHUICHANG:', error);
+    // Silently fail - this is just tracking, don't block user flow
+  });
     
     // Navigate to jump_url if available
     if (item.jump_url) {

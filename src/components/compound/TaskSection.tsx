@@ -6,7 +6,7 @@ import LiuKanShanBianLiDian from "../ui/LiuKanShanBianLiDian";
 import { useAssets } from '@/context/assets-context';
 import { useRouter } from 'next/navigation';
 import { getCampaignInfo, CampaignResponse, TaskItem, RewardItem, preOccupyReward, cancelOccupyReward } from '@/api/campaign';
-import { ACTIVITY_ID, SHOW_TASK_IDS, PRIZE_MAP, RECORD_BTN_POSITION } from '@/constants/campaign';
+import { ACTIVITY_ID, SHOW_TASK_IDS, PRIZE_MAP, RECORD_BTN_POSITION, COMPLETE_TASK_IDS } from '@/constants/campaign';
 import { useToast } from '@/context/toast-context';
 import { useZhihuApp } from '@/hooks/useZhihuApp';
 import { useZA } from '@/hooks/useZA';
@@ -101,95 +101,6 @@ const TaskSection = () => {
     return null;
   };
 
-  // 任务特定的处理函数
-  const handleTask390310 = (task: TaskItem) => {
-    // 获取任务URL并跳转
-    const { state } = task;
-    let targetUrl: string | null = null;
-
-    if (isZhihuApp) {
-      targetUrl = getCleanUrl(state.app_url);
-    } else {
-      targetUrl = getCleanUrl(state.pc_url);
-    }
-
-    if (targetUrl) {
-      console.log(`任务 390310 跳转到: ${targetUrl}`);
-      window.location.href = targetUrl;
-    } else {
-      console.warn('任务 390310 没有可用的跳转链接');
-      showToast('跳转链接不可用，请稍后重试', 'error');
-    }
-  };
-
-  const handleTask390311 = (_task: TaskItem) => {
-    // 滚动到 "在知乎连接真实" 部分
-    const targetSection = document.getElementById('zaizhihu-lianjie-zhenshi-section');
-    if (targetSection) {
-      targetSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
-    } else {
-      console.warn('未找到目标区域: zaizhihu-lianjie-zhenshi-section');
-      showToast('页面加载中，请稍后再试', 'info');
-    }
-  };
-
-  const handleTask390312 = (_task: TaskItem) => {
-    // 滚动到 "这些真的可以" 部分
-    const targetSection = document.getElementById('zhexie-zhende-keyi-section');
-    if (targetSection) {
-      targetSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
-    } else {
-      console.warn('未找到目标区域: zhexie-zhende-keyi-section');
-      showToast('页面加载中，请稍后再试', 'info');
-    }
-  };
-
-  const handleTask300501 = (_task: TaskItem) => {
-    // 触发 SidebarLiuKanshan 的动画效果
-    const animateEvent = new CustomEvent('liukanshan-animate');
-    window.dispatchEvent(animateEvent);
-  };
-
-  const handleTask390313 = (task: TaskItem) => {
-    // 获取任务URL并跳转
-    const { state } = task;
-    let targetUrl: string | null = null;
-
-    if (isZhihuApp) {
-      targetUrl = getCleanUrl(state.app_url);
-    } else {
-      targetUrl = getCleanUrl(state.pc_url);
-    }
-
-    if (targetUrl) {
-      console.log(`任务 390313 跳转到: ${targetUrl}`);
-      window.location.href = targetUrl;
-    } else {
-      console.warn('任务 390313 没有可用的跳转链接');
-      showToast('跳转链接不可用，请稍后重试', 'error');
-    }
-  };
-
-  const handleTask390314 = (task: TaskItem) => {
-    // 获取任务URL并跳转
-    const { state } = task;
-    let targetUrl: string | null = null;
-
-    if (isZhihuApp) {
-      targetUrl = getCleanUrl(state.app_url);
-    } else {
-      targetUrl = getCleanUrl(state.pc_url);
-    }
-
-    if (targetUrl) {
-      console.log(`任务 390314 跳转到: ${targetUrl}`);
-      window.location.href = targetUrl;
-    } else {
-      console.warn('任务 390314 没有可用的跳转链接');
-      showToast('跳转链接不可用，请稍后重试', 'error');
-    }
-  };
-
   const handleTaskAction = (task: TaskItem) => {
     const { state } = task;
     if (state.point_received) return;
@@ -224,30 +135,45 @@ const TaskSection = () => {
     }
 
     // 如果没有有效URL，根据任务ID使用特定的处理函数
-    switch (task.id) {
-      case 390310:
-        handleTask390310(task);
-        break;
-      case 390311:
-        handleTask390311(task);
-        break;
-      case 390312:
-        handleTask390312(task);
-        break;
-      case 300501:
-        handleTask300501(task);
-        break;
-      case 390313:
-        handleTask390313(task);
-        break;
-      case 390314:
-        handleTask390314(task);
-        break;
-      default:
-        console.log(`未处理的任务ID: ${task.id}`);
-        showToast(`任务 ${task.id} 的处理逻辑待实现`, 'info');
-    }
+    handleSpecificTask(task.id, task);
   };
+
+    // 统一的任务特定处理函数
+    const handleSpecificTask = (taskId: number, task: TaskItem) => {
+      switch (taskId) {
+        case COMPLETE_TASK_IDS.BROWSE_FENHUICHANG: {
+          // 滚动到 "在知乎连接真实" 部分
+          const targetSection = document.getElementById('zaizhihu-lianjie-zhenshi-section');
+          if (targetSection) {
+            targetSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          } else {
+            console.warn('未找到目标区域: zaizhihu-lianjie-zhenshi-section');
+            showToast('页面加载中，请稍后再试', 'info');
+          }
+          break;
+        }
+        case COMPLETE_TASK_IDS.BROWSE_ZHEXIEZHENDEKEYI: {
+          // 滚动到 "这些真的可以" 部分
+          const targetSection = document.getElementById('zhexie-zhende-keyi-section');
+          if (targetSection) {
+            targetSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          } else {
+            console.warn('未找到目标区域: zhexie-zhende-keyi-section');
+            showToast('页面加载中，请稍后再试', 'info');
+          }
+          break;
+        }
+        case COMPLETE_TASK_IDS.CLICK_LKS_GIFT: {
+          // 触发 SidebarLiuKanshan 的动画效果
+          const animateEvent = new CustomEvent('liukanshan-animate');
+          window.dispatchEvent(animateEvent);
+          break;
+        }
+        default:
+          console.log(`未处理的任务ID: ${taskId}`);
+          showToast(`任务 ${taskId} 的处理逻辑待实现`, 'info');
+      }
+    };
 
   // 兑换 - 先调用预占接口
   const handleRedeemClick = async (reward: RewardItem) => {

@@ -7,6 +7,8 @@ import request from '@/lib/request';
 import { useToast } from '@/context/toast-context';
 import { useZhihuApp } from '@/hooks/useZhihuApp';
 import { useZA } from '@/hooks/useZA';
+import { completeTask } from '@/api/campaign';
+import { COMPLETE_TASK_IDS } from '@/constants/campaign';
 
 interface TaskStatusResponse {
   task_status: number; // 0: 今日已领完, 1: 未领取还有剩余, 2: 已领取未填地址, 3: 已领取并已填地址
@@ -238,6 +240,13 @@ const SidebarLiuKanshan = () => {
       moduleId: 'liukanshan_gift_2025',
       type: 'Button'
     })
+    
+    // Call completeTask API (fire-and-forget, non-blocking)
+    completeTask(COMPLETE_TASK_IDS.CLICK_LKS_GIFT).catch((error) => {
+      console.error('Error completing task CLICK_LKS_GIFT:', error);
+      // Silently fail - this is just tracking, don't block user flow
+    });
+    
     await checkTaskStatusAndUpdate(true);
   };
 
@@ -265,6 +274,13 @@ const SidebarLiuKanshan = () => {
       moduleId: 'liukanshan_gift_publish_2025',
       type: 'Button'
     });
+    
+    // Call completeTask API (fire-and-forget, non-blocking)
+    completeTask(COMPLETE_TASK_IDS.CLICK_LKS_GIFT_PUBLISH).catch((error) => {
+      console.error('Error completing task CLICK_LKS_GIFT_PUBLISH:', error);
+      // Silently fail - this is just tracking, don't block user flow
+    });
+    
     try {
       const taskStatus = await checkTaskStatusAndUpdate(false);
 

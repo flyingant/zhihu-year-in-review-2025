@@ -8,17 +8,10 @@ import { useToast } from '@/context/toast-context';
 import { isZhihuApp } from '@/lib/zhihu-detection';
 import { useZA } from '@/hooks/useZA';
 import { useInView } from 'react-intersection-observer';
+import { useZhihuHybrid } from '@/hooks/useZhihuHybrid';
 
-// Type declaration for Zhihu Hybrid SDK
-interface ZhihuHybrid {
-  (action: string, params?: Record<string, unknown>): void;
-}
-
-declare global {
-  interface Window {
-    zhihuHybrid?: ZhihuHybrid;
-  }
-}
+// Type declaration for Zhihu Hybrid SDK (new API pattern)
+// Based on tech specs: window.zhihuHybrid('base/downloadImage').dispatch(params: Params): PromiseObservable<Result>
 const useLoadingDots = (baseText: string, speed = 300, isActive: boolean) => {
   const [dots, setDots] = useState('');
 
@@ -51,6 +44,7 @@ const MiniComputerSection = () => {
 
   const mirrorRef = useRef<HTMLDivElement>(null);
   const { showToast } = useToast();
+  const { downloadImage: downloadImageViaHybrid } = useZhihuHybrid();
 
   const loadingText = useLoadingDots("海报生成中", 400, status === 'loading');
   const HASHTAG = " #2025到底什么是真的";
@@ -140,7 +134,7 @@ const MiniComputerSection = () => {
 
   /**
    * 保存图片到本地
-   * 如果在知乎 App 内，使用 window.zhihuHybrid('base/downloadImage')
+   * 如果在知乎 App 内，使用 zhihuHybrid SDK 下载图片
    * 否则使用标准的 JavaScript 下载方法
    */
   const handleSaveImage = async () => {
@@ -153,18 +147,12 @@ const MiniComputerSection = () => {
     if (isZhihuApp()) {
       try {
         // 在知乎 App 内，使用 Hybrid SDK 下载图片
-        if (typeof window !== 'undefined' && window.zhihuHybrid) {
-          window.zhihuHybrid('base/downloadImage', {
-            url: posterUrl,
-          });
-          showToast('图片保存中', 'success');
-        } else {
-          // 如果 zhihuHybrid 不可用，降级到标准下载方法
-          await downloadImageStandard(posterUrl);
-        }
+        await downloadImageViaHybrid(posterUrl);
+        showToast('图片保存中', 'success');
       } catch (error) {
         console.error('Failed to save image via zhihuHybrid:', error);
-        showToast('保存失败，请稍后重试', 'error');
+        // 如果 zhihuHybrid 失败，降级到标准下载方法
+        await downloadImageStandard(posterUrl);
       }
     } else {
       // 不在知乎 App 内，使用标准下载方法

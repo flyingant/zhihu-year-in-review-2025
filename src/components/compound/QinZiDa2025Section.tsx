@@ -3,12 +3,12 @@
 import React, { useRef, useEffect, useState } from 'react';
 import QinZiDa2025 from '@/components/ui/QinZiDa2025';
 import Image from 'next/image';
-import { useUserData } from '@/context/user-data-context';
+import { useAssets } from '@/context/assets-context';
 import { useZA } from '@/hooks/useZA';
 import { useInView } from 'react-intersection-observer';
 
 const QinZiDa2025Section = () => {
-  const { userData } = useUserData();
+  const { assets } = useAssets();
   const scrollContainerRef = useRef<HTMLDivElement>(null);
   const [isPC, setIsPC] = useState(false);
   const { trackShow, trackEvent } = useZA();
@@ -19,22 +19,7 @@ const QinZiDa2025Section = () => {
       // 埋点15
       trackShow({ moduleId: 'personal_answer_block_2025', type: 'Button' });
     }
-  }, [moduleInView]);
-
-  const selfAnswerItems = userData?.masterConfig?.self_answer || [];
-
-  // Use example image if array is empty
-  const imagesToDisplay = selfAnswerItems.length > 0
-    ? selfAnswerItems
-    : [{ image_url: '/assets/self_answer_example_1@3x.png', jump_url: '' },
-    { image_url: '/assets/self_answer_example_2@3x.png', jump_url: '' },
-    { image_url: '/assets/self_answer_example_3@3x.png', jump_url: '' },
-    { image_url: '/assets/self_answer_example_4@3x.png', jump_url: '' },
-    { image_url: '/assets/self_answer_example_5@3x.png', jump_url: '' },
-    { image_url: '/assets/self_answer_example_6@3x.png', jump_url: '' },
-    { image_url: '/assets/self_answer_example_7@3x.png', jump_url: '' },
-    { image_url: '/assets/self_answer_example_8@3x.png', jump_url: '' }
-    ];
+  }, [moduleInView, trackShow]);
 
   // Check if viewport is PC (>= 768px)
   useEffect(() => {
@@ -69,6 +54,13 @@ const QinZiDa2025Section = () => {
       container.removeEventListener('wheel', handleWheel);
     };
   }, []);
+
+  if (!assets) return null;
+
+  const imagesToDisplay = (assets.newImages.selfAnswerExamples || []).map(item => ({
+    image_url: item.url,
+    jump_url: item.jump_url || ''
+  }));
 
   return (
     <div ref={moduleRef} className="relative w-full flex flex-col pb-12">

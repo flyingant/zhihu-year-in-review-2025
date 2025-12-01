@@ -197,36 +197,27 @@
       "alt": "一键同步想法"
     }
   },
-  "zaiZhiHuLianJieZhenShiUrls": [
+  "zheXieZhenDeKeYiImages": [
     {
-      "url": "/assets/zaiZhiHuLianJieZhenShi_image1@3x.png",
-      "width": 1180,
-      "height": 788,
-      "alt": "链接1"
+      "url": "/assets/zheXieZhenDeKeYi_1@3x.png",
+      "width": 514,
+      "height": 163,
+      "alt": "这些真的可以 1",
+      "jump_url": "https://www.zhihu.com/parker/campaign/1976358189982295029?zh_hide_nav_bar=true"
     },
     {
-      "url": "/assets/zaiZhiHuLianJieZhenShi_image2@3x.png",
-      "width": 1180,
-      "height": 788,
-      "alt": "链接2"
+      "url": "/assets/zheXieZhenDeKeYi_2@3x.png",
+      "width": 514,
+      "height": 163,
+      "alt": "这些真的可以 2",
+      "jump_url": ""
     },
     {
-      "url": "/assets/zaiZhiHuLianJieZhenShi_image3@3x.png",
-      "width": 1180,
-      "height": 788,
-      "alt": "链接3"
-    },
-    {
-      "url": "/assets/zaiZhiHuLianJieZhenShi_image4@3x.png",
-      "width": 1180,
-      "height": 788,
-      "alt": "链接4"
-    },
-    {
-      "url": "/assets/zaiZhiHuLianJieZhenShi_image5@3x.png",
-      "width": 1180,
-      "height": 788,
-      "alt": "链接5"
+      "url": "/assets/zheXieZhenDeKeYi_3@3x.png",
+      "width": 514,
+      "height": 163,
+      "alt": "这些真的可以 3",
+      "jump_url": ""
     }
   ],
   "newImages": {
@@ -260,6 +251,64 @@
       "height": 143,
       "alt": "这些真的可以"
     },
+    "selfAnswerExamples": [
+      {
+        "url": "/assets/self_answer_example_1@3x.png",
+        "width": 339,
+        "height": 126,
+        "alt": "亲自答示例 1",
+        "jump_url": "https://www.zhihu.com/question/347437685/answer/1943749623916242230"
+      },
+      {
+        "url": "/assets/self_answer_example_2@3x.png",
+        "width": 339,
+        "height": 126,
+        "alt": "亲自答示例 2",
+        "jump_url": "https://www.zhihu.com/question/347437685/answer/1943749623916242230"
+      },
+      {
+        "url": "/assets/self_answer_example_3@3x.png",
+        "width": 339,
+        "height": 126,
+        "alt": "亲自答示例 3",
+        "jump_url": "https://www.zhihu.com/question/347437685/answer/1943749623916242230"
+      },
+      {
+        "url": "/assets/self_answer_example_4@3x.png",
+        "width": 339,
+        "height": 126,
+        "alt": "亲自答示例 4",
+        "jump_url": "https://www.zhihu.com/question/347437685/answer/1943749623916242230"
+      },
+      {
+        "url": "/assets/self_answer_example_5@3x.png",
+        "width": 339,
+        "height": 126,
+        "alt": "亲自答示例 5",
+        "jump_url": "https://www.zhihu.com/question/347437685/answer/1943749623916242230"
+      },
+      {
+        "url": "/assets/self_answer_example_6@3x.png",
+        "width": 339,
+        "height": 126,
+        "alt": "亲自答示例 6",
+        "jump_url": "https://www.zhihu.com/question/347437685/answer/1943749623916242230"
+      },
+      {
+        "url": "/assets/self_answer_example_7@3x.png",
+        "width": 339,
+        "height": 126,
+        "alt": "亲自答示例 7",
+        "jump_url": "https://www.zhihu.com/question/347437685/answer/1943749623916242230"
+      },
+      {
+        "url": "/assets/self_answer_example_8@3x.png",
+        "width": 339,
+        "height": 126,
+        "alt": "亲自答示例 8",
+        "jump_url": "https://www.zhihu.com/question/347437685/answer/1943749623916242230"
+      }
+    ],
     "zhenShiShunJian": {
       "url": "/assets/ zhen_shi_shun_jian@3x.png",
       "width": 1995,

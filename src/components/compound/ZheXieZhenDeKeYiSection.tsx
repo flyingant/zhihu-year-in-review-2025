@@ -3,13 +3,12 @@
 import React, { useEffect } from 'react';
 import ZheXieZhenDeKeYi from '@/components/ui/ZheXieZhenDeKeYi';
 import Image from 'next/image';
-import { useUserData } from '@/context/user-data-context';
 import { useZA } from '@/hooks/useZA';
 import { useInView } from 'react-intersection-observer';
+import { useAssets } from '@/context/assets-context';
 
 const ZheXieZhenDeKeYiSection = () => {
-  const { userData } = useUserData();
-  const realLinkItems = userData?.masterConfig?.real_link || [];
+  const { assets } = useAssets();
   const { trackShow, trackEvent } = useZA();
   const { ref: moduleRef, inView: moduleInView } = useInView({ triggerOnce: true });
 
@@ -18,12 +17,18 @@ const ZheXieZhenDeKeYiSection = () => {
       // 埋点13
       trackShow({ moduleId: 'vote_ranking_2025', type: 'Block' });
     }
-  }, [moduleInView]);
+  }, [moduleInView, trackShow]);
 
-  // Use example image if array is empty
-  const imagesToDisplay = realLinkItems.length > 0
-    ? realLinkItems
-    : [{ image_url: '/assets/real_link_example_1@3x.png', jump_url: '' }, { image_url: '/assets/real_link_example_2@3x.png', jump_url: '' }, { image_url: '/assets/real_link_example_3@3x.png', jump_url: '' }];
+  if (!assets) return null;
+
+  // Use example images from assets.json
+  const imagesToDisplay = assets.zheXieZhenDeKeYiImages.map((item) => ({
+    image_url: item.url,
+    jump_url: item.jump_url || '',
+    width: item.width,
+    height: item.height,
+    alt: item.alt
+  }));
 
   return (
     <div ref={moduleRef} className="relative w-full flex flex-col">
@@ -51,9 +56,9 @@ const ZheXieZhenDeKeYiSection = () => {
             <div key={index} className="relative w-full flex justify-center">
               <Image
                 src={item.image_url}
-                alt={`真实链接 ${index + 1}`}
-                width={514}
-                height={163}
+                alt={item.alt || `真实链接 ${index + 1}`}
+                width={item.width || 514}
+                height={item.height || 163}
                 className="w-full h-auto object-contain"
               />
             </div>

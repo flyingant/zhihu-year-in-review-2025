@@ -13,6 +13,13 @@ export type AssetMetadata = {
 };
 
 /**
+ * Asset metadata with optional jump_url
+ */
+export type AssetMetadataWithJumpUrl = AssetMetadata & {
+  jump_url?: string;
+};
+
+/**
  * Assets data structure matching the JSON schema
  */
 export interface AssetsData {
@@ -45,7 +52,7 @@ export interface AssetsData {
     saveImage: AssetMetadata;
     syncIdeas: AssetMetadata;
   };
-  zaiZhiHuLianJieZhenShiUrls: AssetMetadata[];
+  zheXieZhenDeKeYiImages: AssetMetadataWithJumpUrl[];
   newImages: {
     wuzida2025: AssetMetadata;
     wuzida2025Banner: AssetMetadata;
@@ -66,6 +73,7 @@ export interface AssetsData {
     sidebarLiuKanshanQrcodeTips: AssetMetadata;
     sidebarLiuKanshanDialogSoldOut: AssetMetadata;
     sidebarLiuKanshanTmr: AssetMetadata;
+    selfAnswerExamples: AssetMetadataWithJumpUrl[];
   };
   tasks: {
     bg: AssetMetadata;

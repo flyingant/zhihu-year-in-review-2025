@@ -8,7 +8,7 @@ import { Pagination, Autoplay } from 'swiper/modules';
 import Image from 'next/image';
 import 'swiper/css';
 import 'swiper/css/pagination';
-import { useAssets } from '@/context/assets-context';
+import { useUserData } from '@/context/user-data-context';
 import { useZA } from '@/hooks/useZA';
 import { useInView } from 'react-intersection-observer';
 
@@ -16,7 +16,7 @@ const ZaiZhiHuLianJieZhenShiSection = () => {
   const lastExposedIndex = useRef<number | null>(null);
   const hasTrackedModule = useRef(false);
   const isVisibleRef = useRef(false);
-  const { assets } = useAssets();
+  const { userData } = useUserData();
   const [paginationEl, setPaginationEl] = useState<HTMLElement | null>(null);
   const { trackShow, trackEvent } = useZA();
   const { ref: moduleRef, inView } = useInView({ threshold: 0.2 });
@@ -30,22 +30,42 @@ const ZaiZhiHuLianJieZhenShiSection = () => {
     }
   }, [inView, trackShow]);
 
-  if (!assets) return null;
-
-  const slides = assets.zaiZhiHuLianJieZhenShiUrls.map((item, index) => {
+  // Use real_link from userData
+  const realLinkItems = userData?.masterConfig?.real_link || [];
+  
+  type SlideItem = {
+    id: number;
+    url: string;
+    width: number;
+    height: number;
+    alt: string;
+    jump_url?: string;
+  };
+  
+  const slides: SlideItem[] = realLinkItems.map((item, index) => {
     return {
       id: index,
-      ...item,
+      url: item.image_url,
+      width: 339, // Default width, adjust if needed
+      height: 126, // Default height, adjust if needed
+      alt: `在知乎链接真实 ${index + 1}`,
+      jump_url: item.jump_url,
     };
   });
 
-  const handleSlideClick = (item: any, index: number) => {
+  const handleSlideClick = (item: SlideItem, index: number) => {
     //模块18
     trackEvent('OpenUrl', {
       moduleId: 'carousel_subvenue_image_2025',
       type: 'Block',
       moduleIndex: index
     });
+    
+    // Navigate to jump_url if available
+    if (item.jump_url) {
+      // Use window.open for better compatibility with React strict mode
+      window.open(item.jump_url, '_self');
+    }
   };
 
   const handleSlideExposure = (swiper: SwiperType) => {
@@ -55,13 +75,18 @@ const ZaiZhiHuLianJieZhenShiSection = () => {
     // 防止重复上报（如果在同一个 index 上微动）
     if (lastExposedIndex.current === currentIndex) return;
     lastExposedIndex.current = currentIndex;
+    
+    // Get the current slide's jump_url
+    const currentSlide = slides[currentIndex];
+    const jumpUrl = currentSlide?.jump_url;
+    
     //埋点19
     trackShow({
       moduleId: 'carousel_subvenue_image_2025',
       type: 'Block',
     }, {
       link: {
-        url: 'https://www.zhihu.com/question/1974440788541793545'
+        url: jumpUrl
       }
     });
   };
@@ -115,7 +140,6 @@ const ZaiZhiHuLianJieZhenShiSection = () => {
                     ${isActive ? 'scale-100' : 'scale-90 opacity-80'}
                   `}
                 >
-                  {/* todo 只是为了展示 有真实图片后需要删除*/}
                   <div className="absolute inset-0 flex items-center justify-center text-white text-xl font-bold">
                     {item.alt}
                   </div>

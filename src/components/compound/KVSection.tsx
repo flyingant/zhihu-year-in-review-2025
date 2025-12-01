@@ -72,8 +72,8 @@ const KVSection = () => {
                       <div
                         className="inline-flex flex-shrink-0"
                         style={{
-                          left: isOdd ? '0%' : '100%',
-                          marginLeft: isOdd ? `${item.marginLeft}px` : `calc(${item.marginLeft}px + 50px)`
+                          marginLeft: isOdd ? `${item.marginLeft}px` : `calc(${item.marginLeft}px + 50px)`,
+                          willChange: 'transform'
                         }}
                       >
                         <Image

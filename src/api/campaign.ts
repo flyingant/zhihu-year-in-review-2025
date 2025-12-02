@@ -164,12 +164,17 @@ export interface PreOccupyRewardParams {
   reward_right_type: string;
 }
 
+// 预占奖品响应
+export interface PreOccupyRewardResponse {
+  stock_occupy_id: number;
+}
+
 // 预占奖品（点击兑换时调用）
 export const preOccupyReward = (
   activityId: string | number,
   params: PreOccupyRewardParams
 ) => {
-  return request<null>({
+  return request<PreOccupyRewardResponse>({
     url: `/campaigns/user/points/${activityId}/reward_v2/${params.reward_pool_id}/right/${params.reward_right_id}`,
     method: 'POST',
     data: {
@@ -199,7 +204,9 @@ export const cancelOccupyReward = (
 };
 
 // 完成兑换（提交地址时调用）
+// 根据API文档，stock_occupy_id 是兑换时接口返回的字段，必须传递
 export interface CompleteRedeemParams extends PreOccupyRewardParams {
+  stock_occupy_id: number; // 必填：从预占接口返回的 stock_occupy_id
   receive_info: {
     user_info: {
       name: string;
@@ -218,6 +225,7 @@ export const completeRedeemReward = (
   activityId: string | number,
   params: CompleteRedeemParams
 ) => {
+  // 根据API文档，必须包含 stock_occupy_id（从预占接口返回）
   return request<null>({
     url: `/campaigns/user/points/${activityId}/reward_v2/${params.reward_pool_id}/right/${params.reward_right_id}`,
     method: 'POST',
@@ -226,6 +234,7 @@ export const completeRedeemReward = (
       reward_pool_id: params.reward_pool_id,
       reward_right_id: params.reward_right_id,
       reward_right_type: params.reward_right_type,
+      stock_occupy_id: params.stock_occupy_id, // 必填：从预占接口返回
       receive_info: params.receive_info,
     },
   });

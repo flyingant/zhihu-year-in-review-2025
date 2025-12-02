@@ -33,6 +33,7 @@ const TaskSection = () => {
   const [isRedeemModalOpen, setIsRedeemModalOpen] = useState(false);
   const [selectedReward, setSelectedReward] = useState<RewardItem | null>(null);
   const [requestId, setRequestId] = useState<number | null>(null);
+  const [stockOccupyId, setStockOccupyId] = useState<number | null>(null);
   const { trackShow, trackEvent } = useZA();
   const { ref: moduleRef, inView: moduleInView } = useInView({ triggerOnce: true });
 
@@ -197,7 +198,7 @@ const TaskSection = () => {
 
     try {
       // 调用预占接口
-      await preOccupyReward(assets.campaign.activityId, {
+      const response = await preOccupyReward(assets.campaign.activityId, {
         request_id: newRequestId,
         reward_pool_id: rewardPoolId,
         reward_right_id: reward.right_id,
@@ -206,9 +207,10 @@ const TaskSection = () => {
 
       // 预占成功，保存信息并显示弹窗
       setRequestId(newRequestId);
+      setStockOccupyId(response.stock_occupy_id);
       setSelectedReward(reward);
       setIsRedeemModalOpen(true);
-      console.log(`预占成功: ${reward.right_id} ${reward.right_name}`);
+      console.log(`预占成功: ${reward.right_id} ${reward.right_name}, stock_occupy_id: ${response.stock_occupy_id}`);
     } catch (error) {
       // 预占失败，显示错误信息
       const errorMessage = (error as { msg?: string; message?: string })?.msg ||
@@ -243,18 +245,33 @@ const TaskSection = () => {
       setIsRedeemModalOpen(false);
       setSelectedReward(null);
       setRequestId(null);
+      setStockOccupyId(null);
     }
   };
 
   // 确认兑换 - 跳转到地址表单
   const confirmRedeem = () => {
-    if (!selectedReward || !requestId || !rewardPoolId) return;
+    // stockOccupyId 是必填参数，必须存在才能继续
+    if (!selectedReward || !requestId || !rewardPoolId || !stockOccupyId) {
+      if (!stockOccupyId) {
+        showToast('兑换信息不完整，请重新操作', 'error');
+      }
+      return;
+    }
 
     setIsRedeemModalOpen(false);
-    // 传递必要的参数到地址表单
-    router.push(
-      `/?addressrequired=true&rewardId=${selectedReward.right_id}&rewardPoolId=${rewardPoolId}&requestId=${requestId}&rewardRightType=${selectedReward.right_type}&from=redeem`
-    );
+    // 传递必要的参数到地址表单，stock_occupy_id 是必填参数
+    const params = new URLSearchParams({
+      addressrequired: 'true',
+      rewardId: String(selectedReward.right_id),
+      rewardPoolId: String(rewardPoolId),
+      requestId: String(requestId),
+      rewardRightType: selectedReward.right_type,
+      stockOccupyId: String(stockOccupyId), // 必填参数
+      from: 'redeem',
+    });
+    
+    router.push(`/?${params.toString()}`);
   };
 
   // 跳转到兑换记录

@@ -45,6 +45,7 @@ export default function AddressForm() {
   const rewardPoolId = searchParams.get("rewardPoolId");
   const requestId = searchParams.get("requestId");
   const rewardRightType = searchParams.get("rewardRightType");
+  const stockOccupyId = searchParams.get("stockOccupyId");
   const fromRedeem = searchParams.get("from") === "redeem";
 
   useEffect(() => {
@@ -218,8 +219,8 @@ export default function AddressForm() {
     try {
       // 兑换场景：调用完成兑换接口
       if (fromRedeem) {
-        // 验证兑换场景所需的参数
-        if (!rewardId || !rewardPoolId || !requestId || !rewardRightType) {
+        // 验证兑换场景所需的参数（stockOccupyId 是必填参数）
+        if (!rewardId || !rewardPoolId || !requestId || !rewardRightType || !stockOccupyId) {
           showToast("兑换信息不完整，请重新操作", "error");
           setIsSubmitting(false);
           return;
@@ -231,11 +232,13 @@ export default function AddressForm() {
           return;
         }
         
+        // 根据API文档，stock_occupy_id 是兑换时接口返回的字段，必须传递
         await completeRedeemReward(assets.campaign.activityId, {
-          request_id: Date.now(),
+          request_id: parseInt(requestId, 10), // 使用预占接口的原始 request_id
           reward_pool_id: parseInt(rewardPoolId, 10),
           reward_right_id: parseInt(rewardId, 10),
           reward_right_type: rewardRightType,
+          stock_occupy_id: parseInt(stockOccupyId, 10), // 必填：从预占接口返回
           receive_info: {
             user_info: {
               name: formData.recipientName.trim(),

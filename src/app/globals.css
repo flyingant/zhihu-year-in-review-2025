@@ -39,9 +39,14 @@ body {
   --animate-slide-in: slide-in 8s ease-out forwards;
   --animate-contentShow: contentShow 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 
-   @keyframes slide-in {
-    0% { transform: translateX(100vw); }
-    100% { transform: translateX(0); } 
+  @keyframes slide-in {
+    0% {
+      transform: translateX(100vw);
+    }
+
+    100% {
+      transform: translateX(0);
+    }
   }
 
   @keyframes marquee {
@@ -82,10 +87,71 @@ body {
 
 /* Hide scrollbar utility */
 .hide-scrollbar {
-  -ms-overflow-style: none;  /* IE and Edge */
-  scrollbar-width: none;  /* Firefox */
+  -ms-overflow-style: none;
+  /* IE and Edge */
+  scrollbar-width: none;
+  /* Firefox */
 }
 
 .hide-scrollbar::-webkit-scrollbar {
-  display: none;  /* Chrome, Safari, Opera */
+  display: none;
+  /* Chrome, Safari, Opera */
+}
+
+/* globals.css */
+@keyframes glitch-anim-1 {
+  0% {
+    clip-path: inset(20% 0 80% 0);
+    transform: translate(-2px, 1px);
+  }
+
+  20% {
+    clip-path: inset(60% 0 10% 0);
+    transform: translate(2px, -1px);
+  }
+
+  40% {
+    clip-path: inset(40% 0 50% 0);
+    transform: translate(-2px, 2px);
+  }
+
+  60% {
+    clip-path: inset(80% 0 5% 0);
+    transform: translate(2px, -2px);
+  }
+
+  80% {
+    clip-path: inset(10% 0 70% 0);
+    transform: translate(-1px, 1px);
+  }
+
+  100% {
+    clip-path: inset(30% 0 20% 0);
+    transform: translate(1px, -1px);
+  }
+}
+
+.glitch-bg::before,
+.glitch-bg::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: inherit;
+  opacity: 0.5;
+}
+
+.glitch-active::before {
+  animation: glitch-anim-1 0.3s infinite linear alternate-reverse;
+  left: 2px;
+  text-shadow: -1px 0 red;
+}
+
+.glitch-active::after {
+  animation: glitch-anim-1 0.3s infinite linear alternate-reverse;
+  animation-delay: 0.1s;
+  left: -2px;
+  text-shadow: -1px 0 blue;
 }

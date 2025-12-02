@@ -26,6 +26,12 @@
       "height": 870,
       "alt": "到底什么是真的？"
     },
+    "bgPhase2": {
+      "url": "/assets/kv_danmakus_bg_phase2@3x.png",
+      "width": 692,
+      "height": 340,
+      "alt": "到底什么是真的？"
+    },
     "danmakus": [
       {
         "url": "/assets/kv_danmaku_1@3x.png",
@@ -467,18 +473,42 @@
       "alt": "知乎搜索"
     }
   },
-  "yearly" :{
+  "yearly": {
     "videoBg": {
       "url": "/assets/yearly_video_bg.png",
       "width": 686,
       "height": 760,
       "alt": "年度视频背景"
     },
+    "videoBlurImage": {
+      "url": "/assets/yearly_video_blur@3x.png",
+      "width": 208,
+      "height": 120,
+      "alt": "年度视频模糊图片"
+    },
+    "videoClearImage": {
+      "url": "/assets/yearly_video_clear@3x.png",
+      "width": 208,
+      "height": 120,
+      "alt": "年度视频清晰图片"
+    },
     "reportBg": {
       "url": "/assets/yearly_report_bg.png",
       "width": 686,
       "height": 551,
       "alt": "年度报告背景"
+    },
+    "reportBlurImage": {
+      "url": "/assets/yearly_video_clear@3x.png",
+      "width": 184,
+      "height": 104,
+      "alt": "年度报告模糊图片"
+    },
+    "reportClearImage": {
+      "url": "/assets/yearly_video_blur@3x.png",
+      "width": 184,
+      "height": 104,
+      "alt": "年度报告清晰图片"
     },
     "liukanshanWaving": {
       "url": "/assets/yearly_liukanshan_waving.mp4",
@@ -497,7 +527,7 @@
     "sidebarLiuKanshanPublish": "https://oia.zhihu.com/community/short_pin_editor?tab=pin&content=%7B%22html%22%3A%22%3Cp%3E%3Cbr%2F%3E%3C%2Fp%3E%3Cp%3E%20%20%3Ca%20class%3D%5C%22hash_tag%5C%22%20data-topic-id%3D%5C%22unknown%5C%22%3E%232025%E5%88%B0%E5%BA%95%E4%BB%80%E4%B9%88%E6%98%AF%E7%9C%9F%E7%9A%84%23%3C%2Fa%3E%20%3C%2Fp%3E%3Cp%3E%20%3Ca%20href%3D%5C%22https%3A%2F%2Fevent.zhihu.com%2Fzhihu2025%5C%22%20data-insert-way%3D%5C%22force%5C%22%20data-draft-node%3D%5C%22inline%5C%22%20data-draft-type%3D%5C%22text-link%5C%22%3E%E4%B8%BB%E4%BC%9A%E5%9C%BA%E9%93%BE%E6%8E%A5%3C%2Fa%3E%20%3C%2Fp%3E%22%2C%22meta%22%3A%7B%22topic%22%3A%7B%22all%22%3A0%2C%22data%22%3A%7B%7D%7D%2C%22adActivityLink%22%3A%7B%22all%22%3A0%2C%22data%22%3A%7B%7D%7D%7D%7D&jump_url=https://event-preview.zhihu.com/zhihu2025",
     "sidebarCampaignRules": "https://www.zhihu.com/parker/campaign/1976720513247250310",
     "miniComputerQuestion": "https://www.zhihu.com/question/1974440788541793545",
-    "yearlyVideo": "https://www.zhihu.com/parker/campaign/1974484748488421556",
+    "yearlyVideo": "https://vdn6.vzuu.com/HD/eea57b52-d290-11e8-9582-0242ac112a16.mp4?pkey=AAV4XZNv_HB8MseOF3o7WqqhYhTHrP3l9FvaRUYAlmuN5LnzCB9kvWNUkxOqoBQiKy_mYerrh9ycVCQV0D-Pqv7r&bu=1513c7c2&c=avc.0.0&expiration=1764659884&f=mp4&pu=da4bec50&v=ks6&pp=ChMxNDAxNjIzODY1NzM5NTc5MzkyGGMiC2ZlZWRfY2hvaWNlMhMxMzY5MDA1NjA4NTk5OTA0MjU3PXu830Q%3D&pf=Web&pt=zhihu",
     "taskPointRedeemBase": "https://www.zhihu.com/parker/campaign/point-redeem",
     "taskPointRedeemHistory": "?zh_nav_left=back&zh_forcehybrid=1",
     "taskPointRedeemDetails": "?type=taskPoints",
@@ -505,7 +535,14 @@
   },
   "campaign": {
     "activityId": 360132,
-    "showTaskIds": [360324, 330349, 330348, 390355, 390356, 360326],
+    "showTaskIds": [
+      360324,
+      330349,
+      330348,
+      390355,
+      390356,
+      360326
+    ],
     "completeTaskIds": {
       "BROWSE_ZHEXIEZHENDEKEYI": 330349,
       "BROWSE_FENHUICHANG": 330348,

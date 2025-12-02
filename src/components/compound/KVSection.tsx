@@ -16,8 +16,11 @@ type DanmakuItem = {
   marginBottom: number;
   duration: number;
 };
+interface KVSectionProps {
+  variant?: 'phase1' | 'phase2';
+}
 
-const KVSection = () => {
+const KVSection = ({ variant = 'phase1' }: KVSectionProps) => {
   const { assets } = useAssets();
   const { ref: moduleRef, inView } = useInView({ triggerOnce: true });
   const { trackShow } = useZA();
@@ -34,7 +37,9 @@ const KVSection = () => {
 
   if (!assets) return null;
 
-  const danmakusBg = assets.kv.bg;
+  const danmakusBg = variant === 'phase2' && assets.kv.bgPhase2
+    ? assets.kv.bgPhase2
+    : assets.kv.bg;
 
   const danmakus: DanmakuItem[] = [
     { id: 1, asset: assets.kv.danmakus[0], marginLeft: 40, marginBottom: -5, duration: 9 },
@@ -108,7 +113,7 @@ const KVSection = () => {
       </div>
 
       {/* Sidebar Campaign Rules */}
-      <SidebarCampaignRules />
+      {variant === 'phase1' && <SidebarCampaignRules />}
     </div >
   );
 };

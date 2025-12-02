@@ -1,136 +1,151 @@
 "use client";
 
-import React, { useRef, useEffect, useState } from 'react';
+import React, { useRef, useEffect, useState, useCallback } from 'react';
 import Image from 'next/image';
 import { useAssets } from '@/context/assets-context';
+import { useElementCenter } from '@/hooks/useElementCenter';
+
 
 const YearlyVideoSection = () => {
   const { assets } = useAssets();
   const videoRef = useRef<HTMLVideoElement>(null);
-  const containerRef = useRef<HTMLDivElement>(null);
-  const [isVisible, setIsVisible] = useState(false);
-  const [hasStartedPlaying, setHasStartedPlaying] = useState(false);
+
+  const { ref: setRefs, isCenter: showIcon, inView } = useElementCenter({
+    threshold: 0.5,
+  });
+
+  const [showClearImage, setShowClearImage] = useState(false);
+
+  const hasStartedPlayingRef = useRef(false);
 
   useEffect(() => {
-    const container = containerRef.current;
-    if (!container) return;
-
-    // Check if the component is in the middle of the screen
-    const checkMiddlePosition = () => {
-      const rect = container.getBoundingClientRect();
-      const viewportHeight = window.innerHeight;
-      const viewportCenter = viewportHeight / 2;
-      const elementCenter = rect.top + rect.height / 2;
-      
-      // Check if element center is near viewport center (within a threshold)
-      const threshold = 100; // pixels tolerance
-      const isInMiddle = Math.abs(elementCenter - viewportCenter) < threshold;
-      
-      if (isInMiddle) {
-        setIsVisible(true);
-      } else {
-        setIsVisible(false);
-        // Pause video when scrolling out of middle
-        if (videoRef.current) {
-          videoRef.current.pause();
-        }
-        setHasStartedPlaying(false);
-      }
-    };
-
-    // Initial check
-    checkMiddlePosition();
-
-    // Listen to scroll events
-    window.addEventListener('scroll', checkMiddlePosition, { passive: true });
-    window.addEventListener('resize', checkMiddlePosition, { passive: true });
-
-    return () => {
-      window.removeEventListener('scroll', checkMiddlePosition);
-      window.removeEventListener('resize', checkMiddlePosition);
-    };
-  }, []);
-
-  useEffect(() => {
-    // When animation completes (after 1s), start playing the video
-    if (isVisible && !hasStartedPlaying) {
+    if (inView && !hasStartedPlayingRef.current) {
+      // 延迟 1s 播放
       const timer = setTimeout(() => {
         if (videoRef.current) {
-          videoRef.current.play().catch((error) => {
-            console.error('Error playing video:', error);
+          // 大多数浏览器要求静音才能自动播放，或者需要用户交互
+          // 这里尝试播放，如果失败（被浏览器拦截）则捕获错误
+          videoRef.current.play().catch(() => {
+            // 自动播放失败是正常的，静默处理
+          });
+          hasStartedPlayingRef.current = true;
+        }
+      }, 1000);
+      return () => clearTimeout(timer);
+    } else if (!inView && videoRef.current) {
+      // 离开视口暂停
+      videoRef.current.pause();
+      hasStartedPlayingRef.current = true;
+    }
+  }, [inView]);
+
+  const handleVideoPlay = () => {
+    setShowClearImage(true);
+  };
+
+  useEffect(() => {
+    if (inView && !hasStartedPlayingRef.current) {
+      const timer = setTimeout(() => {
+        if (videoRef.current) {
+          videoRef.current.play().catch(() => {
+            // 自动播放失败静默处理
           });
           setHasStartedPlaying(true);
         }
-      }, 1000); // Wait for animation to complete (1 second)
-
+      }, 1000);
       return () => clearTimeout(timer);
+    } else if (!inView && videoRef.current) {
+      videoRef.current.pause();
+      hasStartedPlayingRef.current = true;
     }
-  }, [isVisible, hasStartedPlaying]);
+  }, [inView]);
 
   if (!assets) return null;
 
   const videoBg = assets.yearly.videoBg;
   const liukanshanWaving = assets.yearly.liukanshanWaving;
+  const blurryImage = assets.yearly.videoBlurImage;
+  const clearImage = assets.yearly.videoClearImage;
+
 
   return (
-    <div className="relative w-full flex flex-col items-center px-[16px]">
-      <div 
-        ref={containerRef}
-        className="relative w-full flex flex-col items-center "
-      >
+    <div ref={setRefs} className="relative w-full flex flex-col items-center px-[16px] py-10">
+      <div className="relative w-full flex flex-col items-center">
         <div className="relative w-full flex items-center justify-center">
-          {/* Background image */}
-          <Image
-            src={videoBg.url}
-            alt={videoBg.alt}
-            width={videoBg.width / 2}
-            height={videoBg.height / 2}
-            className="relative z-50 w-full h-auto object-contain"
-            priority
-          />
-          {/* Video element over the frame */}
           <div
-            className="absolute z-40 w-full"
+            className="absolute z-20 overflow-hidden bg-black rounded-[20px]"
             style={{
-              top: '103px',
-              left: '4px',
-              height: '250px',
-              backgroundColor: '#d7f1fe'
+              top: '27.5%',
+              left: '4.8%',
+              width: '90.5%',
+              height: '51%',
             }}
           >
             <video
+              ref={videoRef}
               src={assets.urls.yearlyVideo}
-              className="absolute z-40 object-contain"
-              style={{ 
-                top: '17px', 
-                left: '16px', 
-                width: '360px', 
-                height: '230px',
-                position: 'absolute'
-              }}
+              className="w-full h-full object-cover"
               controls
-              muted
+              muted={false}
               playsInline
               preload="auto"
+              onPlay={handleVideoPlay}
+            />
+          </div>
+          <div className="relative z-10 pointer-events-none">
+            <Image
+              src={videoBg.url}
+              alt={videoBg.alt}
+              width={videoBg.width}
+              height={videoBg.height}
+              className="w-full h-auto object-contain"
+              priority
             />
           </div>
           {/* Video element with slide-up/slide-down animation */}
           <div
-            className={`absolute top-[50px] right-0 w-[72px] h-[72px] z-10 flex items-center justify-center transition-all duration-1000 ${
-              isVisible ? 'opacity-100 translate-y-0 ease-out' : 'opacity-0 translate-y-[150%] ease-in'
-            }`}
+            className={`absolute top-[14%] -right-[2%] w-[72px] z-0 transition-transform duration-500 ease-out ${showIcon
+              ? 'translate-y-0 opacity-100'
+              : 'translate-y-[100%]'
+              }`}
           >
             <video
-              ref={videoRef}
-              className="w-full h-full object-contain rounded-lg"
+              className="w-full h-auto object-contain"
+              autoPlay
               loop
               muted
               playsInline
-              preload="auto"
             >
               <source src={liukanshanWaving.url} type="video/mp4" />
-              Your browser does not support the video tag.
             </video>
+          </div>
+          <div
+            className="absolute bottom-[3%] left-[9%] w-[20%] z-20"
+          >
+            <div className={`relative w-full transition-opacity duration-500 ${showClearImage ? 'opacity-0' : 'opacity-100'}`}>
+              <Image
+                src={blurryImage?.url}
+                alt={blurryImage.alt}
+                width={blurryImage.width}
+                height={blurryImage.height}
+                className="object-cover"
+              />
+            </div>
+            <div className={`absolute inset-0 w-full transition-opacity duration-500 ${showClearImage ? 'opacity-100' : 'opacity-0'}`}>
+              <Image
+                src={clearImage?.url}
+                alt={clearImage.alt}
+                width={clearImage.width}
+                height={clearImage.height}
+                className="object-cover"
+              />
+            </div>
+          </div>
+          {/* // 右下角按钮遮罩 */}
+          <div
+            className="absolute bottom-[4%] right-[5%] w-[32%] h-[12%] z-30 cursor-pointer"
+            onClick={() => console.log('Go to discuss')}
+          >
           </div>
         </div>
       </div>

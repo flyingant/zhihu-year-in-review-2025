@@ -43,6 +43,7 @@ export interface AssetsData {
   kv: {
     logo: AssetMetadata;
     bg: AssetMetadata;
+    bgPhase2: AssetMetadata;
     danmakus: AssetMetadata[];
   };
   folders: {
@@ -96,6 +97,10 @@ export interface AssetsData {
     reportBg: AssetMetadata;
     liukanshanWaving: AssetMetadata;
     videoFrame: AssetMetadata;
+    videoBlurImage: AssetMetadata;
+    videoClearImage: AssetMetadata;
+    reportBlurImage: AssetMetadata;
+    reportClearImage: AssetMetadata;
   };
   /**
    * 外部链接URL配置

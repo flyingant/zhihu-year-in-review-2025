@@ -3,82 +3,35 @@
 import React, { useRef, useEffect, useState } from 'react';
 import Image from 'next/image';
 import { useAssets } from '@/context/assets-context';
+import { useElementCenter } from '@/hooks/useElementCenter';
 
 const YearlyReportSection = () => {
   const { assets } = useAssets();
   const videoRef = useRef<HTMLVideoElement>(null);
-  const containerRef = useRef<HTMLDivElement>(null);
-  const [isVisible, setIsVisible] = useState(false);
-  const [hasStartedPlaying, setHasStartedPlaying] = useState(false);
 
-  useEffect(() => {
-    const container = containerRef.current;
-    if (!container) return;
-
-    // Check if the component is in the middle of the screen
-    const checkMiddlePosition = () => {
-      const rect = container.getBoundingClientRect();
-      const viewportHeight = window.innerHeight;
-      const viewportCenter = viewportHeight / 2;
-      const elementCenter = rect.top + rect.height / 2;
-      
-      // Check if element center is near viewport center (within a threshold)
-      const threshold = 100; // pixels tolerance
-      const isInMiddle = Math.abs(elementCenter - viewportCenter) < threshold;
-      
-      if (isInMiddle) {
-        setIsVisible(true);
-      } else {
-        setIsVisible(false);
-        // Pause video when scrolling out of middle
-        if (videoRef.current) {
-          videoRef.current.pause();
-        }
-        setHasStartedPlaying(false);
-      }
-    };
-
-    // Initial check
-    checkMiddlePosition();
-
-    // Listen to scroll events
-    window.addEventListener('scroll', checkMiddlePosition, { passive: true });
-    window.addEventListener('resize', checkMiddlePosition, { passive: true });
-
-    return () => {
-      window.removeEventListener('scroll', checkMiddlePosition);
-      window.removeEventListener('resize', checkMiddlePosition);
-    };
-  }, []);
-
-  useEffect(() => {
-    // When animation completes (after 1s), start playing the video
-    if (isVisible && !hasStartedPlaying) {
-      const timer = setTimeout(() => {
-        if (videoRef.current) {
-          videoRef.current.play().catch((error) => {
-            console.error('Error playing video:', error);
-          });
-          setHasStartedPlaying(true);
-        }
-      }, 1000); // Wait for animation to complete (1 second)
-
-      return () => clearTimeout(timer);
-    }
-  }, [isVisible, hasStartedPlaying]);
+  const { ref: setRefs, isCenter: showIcon, inView } = useElementCenter({
+    threshold: 0.5
+  });
+  const [showClearImage, setShowClearImage] = useState(false);
 
   if (!assets) return null;
 
+  const handleReportClick = () => {
+    setShowClearImage(true);
+  };
+
   const reportBg = assets.yearly.reportBg;
   const liukanshanWaving = assets.yearly.liukanshanWaving;
+  const blurryImage = assets.yearly.reportBlurImage;
+  const clearImage = assets.yearly.reportClearImage;
 
   return (
-    <div className="relative w-full flex flex-col items-center">
-      <div 
-        ref={containerRef}
+    <div className="relative w-full flex flex-col items-center px-[16px]">
+      <div
+        ref={setRefs}
         className="relative w-full flex flex-col items-center"
       >
-        <div className="relative w-full flex items-center justify-center">
+        <div className="relative w-full flex items-center justify-center" onClick={handleReportClick}>
           <Image
             src={reportBg.url}
             alt={reportBg.alt}
@@ -89,15 +42,15 @@ const YearlyReportSection = () => {
           />
           {/* Video element with slide-up/slide-down animation */}
           <div
-            className={`absolute top-[70px] left-[3px] w-[72px] h-[72px] z-10 flex items-center justify-center transition-all duration-1000 ${
-              isVisible ? 'opacity-100 translate-y-0 ease-out' : 'opacity-0 translate-y-[150%] ease-in'
-            }`}
+            className={`absolute top-[62px] left-[3px] w-[72px] h-[72px] z-10 flex items-center justify-center transition-transform duration-500  ${showIcon ? 'opacity-100 translate-y-0' : 'translate-y-[150%]'
+              }`}
           >
             <video
               ref={videoRef}
               className="w-full h-full object-contain rounded-lg"
               loop
               muted
+              autoPlay
               playsInline
               preload="auto"
             >
@@ -108,6 +61,31 @@ const YearlyReportSection = () => {
         </div>
         <div className="relative w-full h-full flex items-center justify-center">
           {/* Content can be added here */}
+        </div>
+        <div className="absolute bottom-[5.5%] right-[8%] z-50 w-[20%] overflow-hidden rounded-[2px]">
+          <div className={`relative w-full transition-opacity duration-500 ${showClearImage ? 'opacity-0' : 'opacity-100'}`}>
+            <Image
+              src={blurryImage?.url}
+              alt={blurryImage.alt}
+              width={blurryImage.width}
+              height={blurryImage.height}
+              className="object-cover"
+            />
+          </div>
+          <div className={`absolute inset-0 w-full transition-opacity duration-500 ${showClearImage ? 'opacity-100' : 'opacity-0'}`}>
+            <Image
+              src={clearImage?.url}
+              alt={clearImage.alt}
+              width={clearImage.width}
+              height={clearImage.height}
+              className="object-cover"
+            />
+          </div>
+        </div>
+        <div
+          className="absolute bottom-[8%] left-[8%] w-[32%] h-[16%] z-30 cursor-pointer"
+          onClick={handleReportClick}
+        >
         </div>
       </div>
     </div>

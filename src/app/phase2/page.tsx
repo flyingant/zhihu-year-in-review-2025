@@ -145,10 +145,10 @@ function Phase2Content() {
 
           {/* KV 部分 */}
           <SectionLayout topOffset={0} id="kv-section">
-            <KVSection />
+            <KVSection variant="phase2" />
           </SectionLayout>
 
-          <SectionLayout topOffset={0} id="yearly-video-section">
+          <SectionLayout topOffset={-45} id="yearly-video-section">
             <YearlyVideoSection />
           </SectionLayout>
 

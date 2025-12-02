@@ -43,23 +43,6 @@ const YearlyVideoSection = () => {
     setShowClearImage(true);
   };
 
-  useEffect(() => {
-    if (inView && !hasStartedPlayingRef.current) {
-      const timer = setTimeout(() => {
-        if (videoRef.current) {
-          videoRef.current.play().catch(() => {
-            // 自动播放失败静默处理
-          });
-          setHasStartedPlaying(true);
-        }
-      }, 1000);
-      return () => clearTimeout(timer);
-    } else if (!inView && videoRef.current) {
-      videoRef.current.pause();
-      hasStartedPlayingRef.current = true;
-    }
-  }, [inView]);
-
   if (!assets) return null;
 
   const videoBg = assets.yearly.videoBg;

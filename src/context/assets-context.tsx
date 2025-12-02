@@ -105,6 +105,44 @@ export interface AssetsData {
     questionBlurImage: AssetMetadata;
     questionClearImage: AssetMetadata;
   };
+  vote: {
+    science: {
+      select: AssetMetadata;
+      unselect: AssetMetadata;
+    };
+    fitness: {
+      select: AssetMetadata;
+      unselect: AssetMetadata;
+    };
+    movie: {
+      select: AssetMetadata;
+      unselect: AssetMetadata;
+    };
+    sports: {
+      select: AssetMetadata;
+      unselect: AssetMetadata;
+    };
+    edu: {
+      select: AssetMetadata;
+      unselect: AssetMetadata;
+    };
+    travel: {
+      select: AssetMetadata;
+      unselect: AssetMetadata;
+    };
+    home: {
+      select: AssetMetadata;
+      unselect: AssetMetadata;
+    };
+    tech: {
+      select: AssetMetadata;
+      unselect: AssetMetadata;
+    };
+    game: {
+      select: AssetMetadata;
+      unselect: AssetMetadata;
+    };
+  };
   /**
    * 外部链接URL配置
    */

@@ -10,13 +10,13 @@ import ZhihuLogo from "../../components/ui/ZhihuLogo";
 import ZhihuSearch from "../../components/ui/zhihuSearch";
 import HomeBottomBg from "../../components/ui/homeBottomBg";
 import TaskSection from "../../components/compound/TaskSection";
-import ZaiZhiHuLianJieZhenShiSection from "../../components/compound/ZaiZhiHuLianJieZhenShiSection";
 import SidebarLiuKanshan from "../../components/ui/SidebarLiuKanshan";
 import AddressForm from "../../components/ui/AddressForm";
 import { useAssets } from '@/context/assets-context';
 import YearlyVideoSection from "@/components/compound/YearlyVideoSection";
 import YearlyReportSection from "@/components/compound/YearlyReportSection";
 import YearlyQuestionSection from "@/components/compound/YearlyQuestionSection";
+import VoteTenQuestions from "@/components/compound/VoteTenQuestions";
 import { useEffect } from 'react';
 import { useZA } from '@/hooks/useZA';
 
@@ -156,8 +156,8 @@ function Phase2Content() {
             <YearlyQuestionSection />
           </SectionLayout>
 
-          <SectionLayout topOffset={0} id="zaizhihu-lianjie-zhenshi-section">
-            <ZaiZhiHuLianJieZhenShiSection />
+          <SectionLayout topOffset={0} id="vote-ten-questions-section">
+            <VoteTenQuestions />
           </SectionLayout>
 
           <SectionLayout topOffset={0} id="task-section">

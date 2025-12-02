@@ -163,7 +163,7 @@ const TaskSection = () => {
           }
           break;
         }
-        case COMPLETE_TASK_IDS.CLICK_LKS_GIFT: {
+        case COMPLETE_TASK_IDS.BROWSE_LKS_SECTION: {
           // 触发 SidebarLiuKanshan 的动画效果
           const animateEvent = new CustomEvent('liukanshan-animate');
           window.dispatchEvent(animateEvent);

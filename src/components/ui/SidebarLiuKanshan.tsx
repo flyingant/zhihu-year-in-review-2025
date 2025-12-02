@@ -48,23 +48,23 @@ const SidebarLiuKanshan = () => {
         }
         @keyframes scaleAndBlink {
           0% {
-            transform: translateY(-50%) scale(1);
+            transform: scale(1);
             opacity: 1;
           }
           25% {
-            transform: translateY(-50%) scale(1.15);
+            transform: scale(1.15);
             opacity: 0.8;
           }
           50% {
-            transform: translateY(-50%) scale(1.1);
+            transform: scale(1.1);
             opacity: 1;
           }
           75% {
-            transform: translateY(-50%) scale(1.05);
+            transform: scale(1.05);
             opacity: 0.9;
           }
           100% {
-            transform: translateY(-50%) scale(1);
+            transform: scale(1);
             opacity: 1;
           }
         }

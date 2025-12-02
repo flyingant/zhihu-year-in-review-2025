@@ -5,6 +5,7 @@ import { useAuth } from "@/context/auth-context";
 import { useUserData } from "@/context/user-data-context";
 import { useZhihuApp } from "@/hooks/useZhihuApp";
 import { useZhihuHybrid } from "@/hooks/useZhihuHybrid";
+import { useAssets } from "@/context/assets-context";
 
 interface AuthWrapperProps {
   children: ReactNode;
@@ -21,13 +22,15 @@ export default function AuthWrapper({
   const { isLoadingData, error, fetchUserData } = useUserData();
   const isZhihu = useZhihuApp();
   const { isAvailable: isHybridAvailable } = useZhihuHybrid();
+  const { assets } = useAssets();
 
   // Redirect to login page if not authenticated
   useEffect(() => {
     if (!isAuthLoading && !isAuthenticated) {
-      login();
+      const signinBase = assets?.urls?.signinBase;
+      login(signinBase);
     }
-  }, [isAuthLoading, isAuthenticated, login]);
+  }, [isAuthLoading, isAuthenticated, login, assets]);
 
   // Show loading state while checking auth
   if (isAuthLoading && showLoadingIndicator) {

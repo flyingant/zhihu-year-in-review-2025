@@ -99,7 +99,7 @@ const YearlyVideoSection = () => {
             }}
           >
             <video
-              src="https://www.zhihu.com/parker/campaign/1974484748488421556"
+              src={assets.urls.yearlyVideo}
               className="absolute z-40 object-contain"
               style={{ 
                 top: '17px', 

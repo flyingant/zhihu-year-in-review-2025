@@ -21,7 +21,10 @@ const SidebarCampaignRules = () => {
       moduleId: 'liukanshan_gift_rules_2025',
       type: 'Button'
     });
-    window.location.href = 'https://www.zhihu.com/parker/campaign/1976720513247250310';
+    const url = assets?.urls?.sidebarCampaignRules;
+    if (url) {
+      window.location.href = url;
+    }
   };
 
   return (

@@ -66,42 +66,6 @@
     ]
   },
   "folders": {
-    "folder1": {
-      "url": "/assets/folder_word_1@3x.png",
-      "width": 1030,
-      "height": 500,
-      "alt": "嘉宾1"
-    },
-    "folder2": {
-      "url": "/assets/folder_word_2@3x.png",
-      "width": 1030,
-      "height": 500,
-      "alt": "嘉宾2"
-    },
-    "folder3": {
-      "url": "/assets/folder_word_3@3x.png",
-      "width": 1030,
-      "height": 500,
-      "alt": "嘉宾3"
-    },
-    "folder4": {
-      "url": "/assets/folder_word_4@3x.png",
-      "width": 1030,
-      "height": 500,
-      "alt": "嘉宾4"
-    },
-    "folder5": {
-      "url": "/assets/folder_word_5@3x.png",
-      "width": 1030,
-      "height": 500,
-      "alt": "嘉宾5"
-    },
-    "folder6": {
-      "url": "/assets/folder_word_6@3x.png",
-      "width": 1030,
-      "height": 500,
-      "alt": "嘉宾6"
-    },
     "footer": {
       "url": "/assets/folder_footer@3x.png",
       "width": 1017,
@@ -113,37 +77,43 @@
         "url": "/assets/folder_word_1@3x.png",
         "width": 1030,
         "height": 500,
-        "alt": "嘉宾1"
+        "alt": "鸡排哥",
+        "jump_url": "https://www.zhihu.com/question/1974440788541793545"
       },
       {
         "url": "/assets/folder_word_2@3x.png",
         "width": 1030,
         "height": 500,
-        "alt": "嘉宾2"
+        "alt": "张春",
+        "jump_url": "https://www.zhihu.com/question/1974440788541793545"
       },
       {
         "url": "/assets/folder_word_3@3x.png",
         "width": 1030,
         "height": 500,
-        "alt": "嘉宾3"
+        "alt": "马家辉",
+        "jump_url": "https://www.zhihu.com/question/1974440788541793545"
       },
       {
         "url": "/assets/folder_word_4@3x.png",
         "width": 1030,
         "height": 500,
-        "alt": "嘉宾4"
+        "alt": "翟佳宁",
+        "jump_url": "https://www.zhihu.com/question/1974440788541793545"
       },
       {
         "url": "/assets/folder_word_5@3x.png",
         "width": 1030,
         "height": 500,
-        "alt": "嘉宾5"
+        "alt": "严飞",
+        "jump_url": "https://www.zhihu.com/question/1974440788541793545"
       },
       {
         "url": "/assets/folder_word_6@3x.png",
         "width": 1030,
         "height": 500,
-        "alt": "嘉宾6"
+        "alt": "陶芳波",
+        "jump_url": "https://www.zhihu.com/question/1974440788541793545"
       }
     ]
   },
@@ -522,5 +492,15 @@
       "height": 445,
       "alt": "年度视频框架"
     }
+  },
+  "urls": {
+    "sidebarLiuKanshanPublish": "https://oia.zhihu.com/community/short_pin_editor?tab=pin&content=%7B%22html%22%3A%22%3Cp%3E%3Cbr%2F%3E%3C%2Fp%3E%3Cp%3E%20%20%3Ca%20class%3D%5C%22hash_tag%5C%22%20data-topic-id%3D%5C%22unknown%5C%22%3E%232025%E5%88%B0%E5%BA%95%E4%BB%80%E4%B9%88%E6%98%AF%E7%9C%9F%E7%9A%84%23%3C%2Fa%3E%20%3C%2Fp%3E%3Cp%3E%20%3Ca%20href%3D%5C%22https%3A%2F%2Fevent.zhihu.com%2Fzhihu2025%5C%22%20data-insert-way%3D%5C%22force%5C%22%20data-draft-node%3D%5C%22inline%5C%22%20data-draft-type%3D%5C%22text-link%5C%22%3E%E4%B8%BB%E4%BC%9A%E5%9C%BA%E9%93%BE%E6%8E%A5%3C%2Fa%3E%20%3C%2Fp%3E%22%2C%22meta%22%3A%7B%22topic%22%3A%7B%22all%22%3A0%2C%22data%22%3A%7B%7D%7D%2C%22adActivityLink%22%3A%7B%22all%22%3A0%2C%22data%22%3A%7B%7D%7D%7D%7D&jump_url=https://event-preview.zhihu.com/zhihu2025",
+    "sidebarCampaignRules": "https://www.zhihu.com/parker/campaign/1976720513247250310",
+    "miniComputerQuestion": "https://www.zhihu.com/question/1974440788541793545",
+    "yearlyVideo": "https://www.zhihu.com/parker/campaign/1974484748488421556",
+    "taskPointRedeemBase": "https://www.zhihu.com/parker/campaign/point-redeem",
+    "taskPointRedeemHistory": "?zh_nav_left=back&zh_forcehybrid=1",
+    "taskPointRedeemDetails": "?type=taskPoints",
+    "signinBase": "https://www.zhihu.com/signin"
   }
 }

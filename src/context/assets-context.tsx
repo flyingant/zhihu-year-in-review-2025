@@ -46,14 +46,8 @@ export interface AssetsData {
     danmakus: AssetMetadata[];
   };
   folders: {
-    folder1: AssetMetadata;
-    folder2: AssetMetadata;
-    folder3: AssetMetadata;
-    folder4: AssetMetadata;
-    folder5: AssetMetadata;
-    folder6: AssetMetadata;
     footer: AssetMetadata;
-    all: AssetMetadata[];
+    all: AssetMetadataWithJumpUrl[];
   };
   games: {
     title: AssetMetadata;
@@ -102,6 +96,16 @@ export interface AssetsData {
     reportBg: AssetMetadata;
     liukanshanWaving: AssetMetadata;
     videoFrame: AssetMetadata;
+  };
+  urls: {
+    sidebarLiuKanshanPublish: string;
+    sidebarCampaignRules: string;
+    miniComputerQuestion: string;
+    yearlyVideo: string;
+    taskPointRedeemBase: string;
+    taskPointRedeemHistory: string;
+    taskPointRedeemDetails: string;
+    signinBase: string;
   };
 }
 

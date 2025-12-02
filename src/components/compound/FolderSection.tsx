@@ -49,42 +49,42 @@ const FolderSection = () => {
       asset: assets.folders.all[0],
       name: '鸡排哥',
       clipPath: clipPathleft,
-      url: 'https://www.zhihu.com/question/1974440788541793545'
+      url: assets.folders.all[0].jump_url || ''
     },
     {
       id: 1,
       asset: assets.folders.all[1],
       name: '张春',
       clipPath: clipPathright,
-      url: 'https://www.zhihu.com/question/1974440788541793545'
+      url: assets.folders.all[1].jump_url || ''
     },
     {
       id: 2,
       asset: assets.folders.all[2],
       name: '马家辉',
       clipPath: clipPathleft,
-      url: 'https://www.zhihu.com/question/1974440788541793545'
+      url: assets.folders.all[2].jump_url || ''
     },
     {
       id: 3,
       asset: assets.folders.all[3],
       name: '翟佳宁',
       clipPath: clipPathright,
-      url: 'https://www.zhihu.com/question/1974440788541793545'
+      url: assets.folders.all[3].jump_url || ''
     },
     {
       id: 4,
       asset: assets.folders.all[4],
       name: '严飞',
       clipPath: clipPathleft,
-      url: 'https://www.zhihu.com/question/1974440788541793545'
+      url: assets.folders.all[4].jump_url || ''
     },
     {
       id: 5,
       asset: assets.folders.all[5],
       name: '陶芳波',
       clipPath: clipPathright,
-      url: 'https://www.zhihu.com/question/1974440788541793545'
+      url: assets.folders.all[5].jump_url || ''
     },
   ];
 

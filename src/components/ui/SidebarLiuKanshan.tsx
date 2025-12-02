@@ -291,8 +291,10 @@ const SidebarLiuKanshan = () => {
       }
 
       // Redirect to publish page
-      const redirectUrl = 'https://oia.zhihu.com/community/short_pin_editor?tab=pin&content=%7B%22html%22%3A%22%3Cp%3E%3Cbr%2F%3E%3C%2Fp%3E%3Cp%3E%20%20%3Ca%20class%3D%5C%22hash_tag%5C%22%20data-topic-id%3D%5C%22unknown%5C%22%3E%232025%E5%88%B0%E5%BA%95%E4%BB%80%E4%B9%88%E6%98%AF%E7%9C%9F%E7%9A%84%23%3C%2Fa%3E%20%3C%2Fp%3E%3Cp%3E%20%3Ca%20href%3D%5C%22https%3A%2F%2Fevent.zhihu.com%2Fzhihu2025%5C%22%20data-insert-way%3D%5C%22force%5C%22%20data-draft-node%3D%5C%22inline%5C%22%20data-draft-type%3D%5C%22text-link%5C%22%3E%E4%B8%BB%E4%BC%9A%E5%9C%BA%E9%93%BE%E6%8E%A5%3C%2Fa%3E%20%3C%2Fp%3E%22%2C%22meta%22%3A%7B%22topic%22%3A%7B%22all%22%3A0%2C%22data%22%3A%7B%7D%7D%2C%22adActivityLink%22%3A%7B%22all%22%3A0%2C%22data%22%3A%7B%7D%7D%7D%7D&jump_url=https://event-preview.zhihu.com/zhihu2025';
-      window.location.href = redirectUrl;
+      const redirectUrl = assets?.urls?.sidebarLiuKanshanPublish;
+      if (redirectUrl) {
+        window.location.href = redirectUrl;
+      }
     } catch (error) {
       console.error('Error in handlePublishClick:', error);
     } finally {

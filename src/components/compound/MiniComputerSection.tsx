@@ -308,7 +308,10 @@ const MiniComputerSection = () => {
       type: 'Button'
     });
 
-    window.location.href = 'https://www.zhihu.com/question/1974440788541793545';
+    const url = assets?.urls?.miniComputerQuestion;
+    if (url) {
+      window.location.href = url;
+    }
   };
 
   return (

@@ -8,14 +8,13 @@ import {
   useEffect,
   ReactNode,
 } from "react";
-
 interface AuthContextType {
   isAuthLoading: boolean;
   isAuthenticated: boolean;
   fetchProfile: () => void;
   clear: () => void;
   profile: any;
-  login: () => void;
+  login: (signinBase?: string) => void;
 }
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
@@ -58,8 +57,9 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     setIsAuthenticated(false);
   };
 
-  const login = () => {
-    window.location.href = `https://www.zhihu.com/signin?next=${encodeURIComponent(
+  const login = (signinBase?: string) => {
+    const baseUrl = signinBase || 'https://www.zhihu.com/signin';
+    window.location.href = `${baseUrl}?next=${encodeURIComponent(
       window.location.href
     )}`;
   };

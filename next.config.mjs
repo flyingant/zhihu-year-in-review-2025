@@ -4,7 +4,7 @@ const nextConfig = {
   // Set basePath based on environment
   // Production: '/2025', Development: '' (empty)
   // Note: Next.js automatically sets NODE_ENV=production during 'next build'
-  basePath: process.env.NODE_ENV === "production" ? "/2025" : "",
+  basePath: process.env.NODE_ENV === "production" ? "/zhihu2025" : "",
   output: "export", // ← Enables next export (pure static)
   trailingSlash: true, // Recommended for static hosting
   images: {

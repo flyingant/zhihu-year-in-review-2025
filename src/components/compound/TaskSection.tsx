@@ -27,13 +27,13 @@ const TaskSection = () => {
   const router = useRouter();
   const { showToast } = useToast();
   const isZhihuApp = useZhihuApp();
+  const { assets } = useAssets();
   const [campaignData, setCampaignData] = useState<CampaignResponse | null>(null);
   const [isRulesOpen, setIsRulesOpen] = useState(false);
 
   const [isRedeemModalOpen, setIsRedeemModalOpen] = useState(false);
   const [selectedReward, setSelectedReward] = useState<RewardItem | null>(null);
   const [requestId, setRequestId] = useState<number | null>(null);
-  const { assets } = useAssets();
   const { trackShow, trackEvent } = useZA();
   const { ref: moduleRef, inView: moduleInView } = useInView({ triggerOnce: true });
 
@@ -263,8 +263,10 @@ const TaskSection = () => {
       moduleId: 'rewards_redemption_history_2025',
       type: 'Button'
     });
-    const url = `https://www.zhihu.com/parker/campaign/point-redeem/${ACTIVITY_ID}?zh_nav_left=back&zh_forcehybrid=1`;
-    window.location.href = url;
+    if (assets?.urls?.taskPointRedeemBase && assets?.urls?.taskPointRedeemHistory) {
+      const url = `${assets.urls.taskPointRedeemBase}/${ACTIVITY_ID}${assets.urls.taskPointRedeemHistory}`;
+      window.location.href = url;
+    }
   };
 
   // 跳转到积分明细
@@ -274,8 +276,10 @@ const TaskSection = () => {
       moduleId: 'points_details_button_2025',
       type: 'Button'
     });
-    const url = `https://www.zhihu.com/parker/campaign/point-redeem/${ACTIVITY_ID}?type=taskPoints`;
-    window.location.href = url;
+    if (assets?.urls?.taskPointRedeemBase && assets?.urls?.taskPointRedeemDetails) {
+      const url = `${assets.urls.taskPointRedeemBase}/${ACTIVITY_ID}${assets.urls.taskPointRedeemDetails}`;
+      window.location.href = url;
+    }
   };
 
   const renderTaskButton = (task: TaskItem) => {

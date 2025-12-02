@@ -5,22 +5,18 @@ import { Suspense } from "react";
 import { useSearchParams } from "next/navigation";
 import AuthWrapper from "../../components/layout/AuthWrapper";
 import KVSection from "../../components/compound/KVSection";
-import FolderSection from "../../components/compound/FolderSection";
 import SectionLayout from "../../components/layout/SectionLayout";
-import MiniComputerSection from "../../components/compound/MiniComputerSection";
 import ZhihuLogo from "../../components/ui/ZhihuLogo";
 import ZhihuSearch from "../../components/ui/zhihuSearch";
 import HomeBottomBg from "../../components/ui/homeBottomBg";
 import TaskSection from "../../components/compound/TaskSection";
-import QiangXianYuGaoSection from "../../components/compound/QiangXianYuGaoSection";
-import QinZiDa2025Section from "../../components/compound/QinZiDa2025Section";
 import ZaiZhiHuLianJieZhenShiSection from "../../components/compound/ZaiZhiHuLianJieZhenShiSection";
-import ZheXieZhenDeKeYiSection from "../../components/compound/ZheXieZhenDeKeYiSection";
 import SidebarLiuKanshan from "../../components/ui/SidebarLiuKanshan";
 import AddressForm from "../../components/ui/AddressForm";
 import { useAssets } from '@/context/assets-context';
 import YearlyVideoSection from "@/components/compound/YearlyVideoSection";
 import YearlyReportSection from "@/components/compound/YearlyReportSection";
+import YearlyQuestionSection from "@/components/compound/YearlyQuestionSection";
 import { useEffect } from 'react';
 import { useZA } from '@/hooks/useZA';
 
@@ -156,8 +152,8 @@ function Phase2Content() {
             <YearlyReportSection />
           </SectionLayout>
 
-          <SectionLayout topOffset={0} id="game-section">
-            <MiniComputerSection />
+          <SectionLayout topOffset={0} id="yearly-questions-section">
+            <YearlyQuestionSection />
           </SectionLayout>
 
           <SectionLayout topOffset={0} id="zaizhihu-lianjie-zhenshi-section">

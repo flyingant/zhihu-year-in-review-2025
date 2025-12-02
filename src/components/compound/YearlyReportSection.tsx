@@ -59,9 +59,6 @@ const YearlyReportSection = () => {
             </video>
           </div>
         </div>
-        <div className="relative w-full h-full flex items-center justify-center">
-          {/* Content can be added here */}
-        </div>
         <div className="absolute bottom-[5.5%] right-[8%] z-50 w-[20%] overflow-hidden rounded-[2px]">
           <div className={`relative w-full transition-opacity duration-500 ${showClearImage ? 'opacity-0' : 'opacity-100'}`}>
             <Image

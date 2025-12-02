@@ -101,6 +101,9 @@ export interface AssetsData {
     videoClearImage: AssetMetadata;
     reportBlurImage: AssetMetadata;
     reportClearImage: AssetMetadata;
+    questionBg: AssetMetadata;
+    questionBlurImage: AssetMetadata;
+    questionClearImage: AssetMetadata;
   };
   /**
    * 外部链接URL配置
@@ -122,6 +125,8 @@ export interface AssetsData {
     taskPointRedeemDetails: string;
     /** 登录页面基础URL - 跳转到知乎登录页面 */
     signinBase: string;
+    /** 年度问题链接数组 - 跳转到年度问题页面 */
+    yearlyQuestions: string[];
   };
   /**
    * 活动配置设置

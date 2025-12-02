@@ -499,13 +499,13 @@
       "alt": "年度报告背景"
     },
     "reportBlurImage": {
-      "url": "/assets/yearly_video_clear@3x.png",
+      "url": "/assets/yearly_report_blur@3x.png",
       "width": 184,
       "height": 104,
       "alt": "年度报告模糊图片"
     },
     "reportClearImage": {
-      "url": "/assets/yearly_video_blur@3x.png",
+      "url": "/assets/yearly_report_clear@3x.png",
       "width": 184,
       "height": 104,
       "alt": "年度报告清晰图片"
@@ -521,6 +521,24 @@
       "width": 672,
       "height": 445,
       "alt": "年度视频框架"
+    },
+    "questionBg": {
+      "url": "/assets/yearly_question@3x.png",
+      "width": 714,
+      "height": 1714,
+      "alt": "年度问题"
+    },
+    "questionBlurImage": {
+      "url": "/assets/yearly_question_blur@3x.png",
+      "width": 224,
+      "height": 88,
+      "alt": "年度问题模糊图片"
+    },
+    "questionClearImage": {
+      "url": "/assets/yearly_question_clear@3x.png",
+      "width": 224,
+      "height": 88,
+      "alt": "年度问题清晰图片"
     }
   },
   "urls": {
@@ -531,7 +549,19 @@
     "taskPointRedeemBase": "https://www.zhihu.com/parker/campaign/point-redeem",
     "taskPointRedeemHistory": "?zh_nav_left=back&zh_forcehybrid=1",
     "taskPointRedeemDetails": "?type=taskPoints",
-    "signinBase": "https://www.zhihu.com/signin"
+    "signinBase": "https://www.zhihu.com/signin",
+    "yearlyQuestions": [
+      "https://www.zhihu.com/question/1974440788541793545",
+      "https://www.zhihu.com/question/1974440788541793545",
+      "https://www.zhihu.com/question/1974440788541793545",
+      "https://www.zhihu.com/question/1974440788541793545",
+      "https://www.zhihu.com/question/1974440788541793545",
+      "https://www.zhihu.com/question/1974440788541793545",
+      "https://www.zhihu.com/question/1974440788541793545",
+      "https://www.zhihu.com/question/1974440788541793545",
+      "https://www.zhihu.com/question/1974440788541793545",
+      "https://www.zhihu.com/question/19744407885417935450"
+    ]
   },
   "campaign": {
     "activityId": 360132,

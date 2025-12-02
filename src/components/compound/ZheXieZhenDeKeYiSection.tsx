@@ -42,13 +42,6 @@ const ZheXieZhenDeKeYiSection = () => {
       <div className="w-full flex flex-col items-center gap-4 px-4">
         {imagesToDisplay.map((item, index) => {
           const handleClick = async () => {
-            // todo 有链接后需要把埋点放到if里面，现在这样放是为了测试
-            //埋点14
-            trackEvent('OpenUrl', {
-              moduleId: 'vote_selection_2025',
-              type: 'Button'
-            });
-            
             // Call completeTask API (fire-and-forget, non-blocking)
             if (assets?.campaign) {
               completeTask(assets.campaign.completeTaskIds.BROWSE_ZHEXIEZHENDEKEYI).catch((error) => {
@@ -56,8 +49,13 @@ const ZheXieZhenDeKeYiSection = () => {
                 // Silently fail - this is just tracking, don't block user flow
               });
             }
-            
             if (item.jump_url) {
+              //埋点14
+              trackEvent('OpenUrl', {
+                moduleId: 'vote_selection_2025',
+                type: 'Button'
+              });
+
               window.location.href = item.jump_url;
             }
           };

@@ -349,8 +349,11 @@ const TaskSection = () => {
           </div>
         </div>
 
+        {/* Anchor for reward area scrolling */}
+        <div id="point-reward-area" style={{ position: 'relative', visibility: 'hidden', height: '1px', pointerEvents: 'none' }}></div>
+
         {/* 奖品区域 */}
-        <div id="point-reward-area" className="relative w-full mb-4">
+        <div className="relative w-full mb-4">
           <div className="relative w-full h-auto">
             <Image
               src={bgAsset.url}
@@ -431,8 +434,11 @@ const TaskSection = () => {
           </div>
         </div>
 
+        {/* Anchor for task area scrolling */}
+        <div id="point-task-area" style={{ position: 'relative', visibility: 'hidden', height: '1px', pointerEvents: 'none' }}></div>
+
         {/* 3. 任务列表 */}
-        <div id="point-task-area" className="min-h-[100px]">
+        <div className="min-h-[100px]">
         {
           displayGroups.length > 0 ? displayGroups.map((group, index) => (
             <div key={index} className="bg-[#e1f4ff] rounded-[12px] pt-3 px-4 pb-5 mb-4">

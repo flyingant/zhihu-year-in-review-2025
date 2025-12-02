@@ -13,6 +13,19 @@ export type AssetMetadata = {
 };
 
 /**
+ * Prize asset metadata with positioning and target ID
+ */
+export type PrizeAssetMetadata = AssetMetadata & {
+  targetId: number;
+  style: {
+    left: string;
+    top: string;
+    width: string;
+    height: string;
+  };
+};
+
+/**
  * Asset metadata with optional jump_url
  */
 export type AssetMetadataWithJumpUrl = AssetMetadata & {
@@ -78,7 +91,7 @@ export interface AssetsData {
   tasks: {
     bg: AssetMetadata;
     prizeBg: AssetMetadata;
-    prizes: AssetMetadata[];
+    prizes: PrizeAssetMetadata[];
     prizex: AssetMetadata;
   };
   zhihuSearch: {

@@ -400,43 +400,92 @@
         "url": "/assets/task_liukanshan_juecebi@3x.png",
         "width": 307,
         "height": 346,
-        "alt": "决策币"
+        "alt": "刘看山决策币",
+        "targetId": 360044,
+        "style": {
+          "left": "5%",
+          "top": "14.7%",
+          "width": "29%",
+          "height": "23%"
+        }
       },
       {
         "url": "/assets/task_liukanshan_yueka@3x.png",
         "width": 307,
         "height": 346,
-        "alt": "知乎月卡"
+        "alt": "31 天知识会员",
+        "targetId": 240054,
+        "style": {
+          "left": "36%",
+          "top": "10.5%",
+          "width": "29%",
+          "height": "23%"
+        }
       },
       {
         "url": "/assets/task_liukanshan_baji@3x.png",
         "width": 307,
         "height": 346,
-        "alt": "吧唧"
+        "alt": "刘看山徽章",
+        "targetId": 300093,
+        "style": {
+          "left": "66.5%",
+          "top": "14.5%",
+          "width": "29%",
+          "height": "23%"
+        }
       },
       {
         "url": "/assets/task_liukanshan_bingxiangtie@3x.png",
         "width": 307,
         "height": 346,
-        "alt": "冰箱贴"
+        "alt": "刘看山冰箱贴",
+        "targetId": 360037,
+        "style": {
+          "left": "3%",
+          "top": "39.3%",
+          "width": "29%",
+          "height": "23%"
+        }
       },
       {
         "url": "/assets/task_liukanshan_guajian@3x.png",
         "width": 307,
         "height": 346,
-        "alt": "挂件"
+        "alt": "山马挂件",
+        "targetId": 330054,
+        "style": {
+          "left": "36%",
+          "top": "37.5%",
+          "width": "29%",
+          "height": "23%"
+        }
       },
       {
         "url": "/assets/task_liukanshan_jiaopian@3x.png",
         "width": 307,
         "height": 346,
-        "alt": "胶片"
+        "alt": "看山胶片机",
+        "targetId": 330055,
+        "style": {
+          "left": "69.6%",
+          "top": "42.8%",
+          "width": "29%",
+          "height": "23%"
+        }
       },
       {
         "url": "/assets/task_liukanshan_wanou@3x.png",
         "width": 307,
         "height": 346,
-        "alt": "玩偶"
+        "alt": "看山追星玩偶",
+        "targetId": 330056,
+        "style": {
+          "left": "12%",
+          "top": "62.5%",
+          "width": "29%",
+          "height": "23%"
+        }
       }
     ]
   },

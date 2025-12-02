@@ -6,7 +6,7 @@ import LiuKanShanBianLiDian from "../ui/LiuKanShanBianLiDian";
 import { useAssets } from '@/context/assets-context';
 import { useRouter } from 'next/navigation';
 import { getCampaignInfo, CampaignResponse, TaskItem, RewardItem, preOccupyReward, cancelOccupyReward } from '@/api/campaign';
-import { ACTIVITY_ID, SHOW_TASK_IDS, PRIZE_MAP, RECORD_BTN_POSITION, COMPLETE_TASK_IDS } from '@/constants/campaign';
+import { ACTIVITY_ID, SHOW_TASK_IDS, RECORD_BTN_POSITION, COMPLETE_TASK_IDS } from '@/constants/campaign';
 import { useToast } from '@/context/toast-context';
 import { useZhihuApp } from '@/hooks/useZhihuApp';
 import { useZA } from '@/hooks/useZA';
@@ -367,16 +367,15 @@ const TaskSection = () => {
               }}
             ></div>
             {/* 奖品列表区域 */}
-            {PRIZE_MAP.map((config, index) => {
-              let item = rewardsList.find(r => r.right_id === config.targetId);
-              const prizeImg = prizeAssets[index]; // 获取对应的奖品图片资源
+            {prizeAssets.map((prizeConfig, index) => {
+              let item = rewardsList.find(r => r.right_id === prizeConfig.targetId);
 
-              if (!config.style || !prizeImg) return null;
+              if (!prizeConfig.style || !prizeConfig) return null;
               if (!item) {
                 item = rewardsList[index];
-              };
+              }
 
-              if (!config || !item || !prizeImg) return null;
+              if (!item || !prizeConfig) return null;
 
               const isSoldOut = item.state.code === '2';
 
@@ -389,15 +388,15 @@ const TaskSection = () => {
                     : 'cursor-pointer'
                     }`}
                   style={{
-                    top: config.style.top,
-                    left: config.style.left,
-                    width: config.style.width,
-                    height: config.style.height,
+                    top: prizeConfig.style.top,
+                    left: prizeConfig.style.left,
+                    width: prizeConfig.style.width,
+                    height: prizeConfig.style.height,
                   }}
                 >
                   <Image
-                    src={prizeImg.url}
-                    alt={prizeImg.alt}
+                    src={prizeConfig.url}
+                    alt={prizeConfig.alt}
                     fill
                     className="object-contain"
                   />

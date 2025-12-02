@@ -232,7 +232,7 @@ export default function AddressForm() {
         }
         
         await completeRedeemReward(assets.campaign.activityId, {
-          request_id: parseInt(requestId, 10),
+          request_id: Date.now(),
           reward_pool_id: parseInt(rewardPoolId, 10),
           reward_right_id: parseInt(rewardId, 10),
           reward_right_type: rewardRightType,

@@ -44,6 +44,7 @@ export default function AddressForm() {
   const rewardId = searchParams.get("rewardId");
   const rewardPoolId = searchParams.get("rewardPoolId");
   const requestId = searchParams.get("requestId");
+  const rewardRightType = searchParams.get("rewardRightType");
   const fromRedeem = searchParams.get("from") === "redeem";
 
   useEffect(() => {
@@ -218,7 +219,7 @@ export default function AddressForm() {
       // 兑换场景：调用完成兑换接口
       if (fromRedeem) {
         // 验证兑换场景所需的参数
-        if (!rewardId || !rewardPoolId || !requestId) {
+        if (!rewardId || !rewardPoolId || !requestId || !rewardRightType) {
           showToast("兑换信息不完整，请重新操作", "error");
           setIsSubmitting(false);
           return;
@@ -234,7 +235,7 @@ export default function AddressForm() {
           request_id: parseInt(requestId, 10),
           reward_pool_id: parseInt(rewardPoolId, 10),
           reward_right_id: parseInt(rewardId, 10),
-          reward_right_type: 'SUPER_LIKE',
+          reward_right_type: rewardRightType,
           receive_info: {
             user_info: {
               name: formData.recipientName.trim(),

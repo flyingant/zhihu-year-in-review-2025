@@ -201,7 +201,7 @@ const TaskSection = () => {
         request_id: newRequestId,
         reward_pool_id: rewardPoolId,
         reward_right_id: reward.right_id,
-        reward_right_type: 'SUPER_LIKE', // 根据API文档示例，可能需要从接口返回
+        reward_right_type: reward.right_type, // 根据API文档示例，可能需要从接口返回
       });
 
       // 预占成功，保存信息并显示弹窗
@@ -233,7 +233,7 @@ const TaskSection = () => {
         request_id: requestId,
         reward_pool_id: rewardPoolId,
         reward_right_id: selectedReward.right_id,
-        reward_right_type: 'SUPER_LIKE',
+        reward_right_type: selectedReward.right_type,
       });
       console.log('取消预占成功');
     } catch (error) {
@@ -253,7 +253,7 @@ const TaskSection = () => {
     setIsRedeemModalOpen(false);
     // 传递必要的参数到地址表单
     router.push(
-      `/?requireAddress=true&rewardId=${selectedReward.right_id}&rewardPoolId=${rewardPoolId}&requestId=${requestId}&from=redeem`
+      `/?addressrequired=true&rewardId=${selectedReward.right_id}&rewardPoolId=${rewardPoolId}&requestId=${requestId}&rewardRightType=${selectedReward.right_type}&from=redeem`
     );
   };
 
@@ -485,8 +485,14 @@ const TaskSection = () => {
       )}
 
       {isRedeemModalOpen && selectedReward && (
-        <div className="fixed inset-0 z-[100] flex items-center justify-center bg-black/60 px-8 animate-overlayShow">
-          <div className="bg-white w-[300px] rounded-[16px] overflow-hidden flex flex-col items-center pt-6 pb-6 px-5 animate-contentShow relative">
+        <div 
+          className="fixed inset-0 z-[100] flex items-center justify-center bg-black/60 px-8 animate-overlayShow"
+          onClick={handleCancelRedeem}
+        >
+          <div 
+            className="bg-white w-[300px] rounded-[16px] overflow-hidden flex flex-col items-center pt-6 pb-6 px-5 animate-contentShow relative"
+            onClick={(e) => e.stopPropagation()}
+          >
             <div className="text-[16px] font-bold text-black text-center leading-tight mb-4">
               使用
               <span className="font-black mx-1">{selectedReward.right_point}</span>

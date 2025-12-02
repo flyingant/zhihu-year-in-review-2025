@@ -19,8 +19,6 @@ import ZheXieZhenDeKeYiSection from "../components/compound/ZheXieZhenDeKeYiSect
 import SidebarLiuKanshan from "../components/ui/SidebarLiuKanshan";
 import AddressForm from "../components/ui/AddressForm";
 import { useAssets } from '@/context/assets-context';
-import YearlyVideoSection from "@/components/compound/YearlyVideoSection";
-import YearlyReportSection from "@/components/compound/YearlyReportSection";
 import { useEffect } from 'react';
 import { useZA } from '@/hooks/useZA';
 

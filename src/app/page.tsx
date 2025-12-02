@@ -26,6 +26,7 @@ function HomeContent() {
   const { trackPageShow, trackPageDisappear, isReady } = useZA();
   const searchParams = useSearchParams();
   const requireAddress = searchParams.get("addressrequired");
+  const directTo = searchParams.get("directTo");
   const { assets, isLoading: isLoadingAssets, error: assetsError, fetchAssets } = useAssets();
 
   const handleReload = () => {
@@ -44,6 +45,80 @@ function HomeContent() {
       trackPageDisappear();
     };
   }, [isReady]);
+
+  // Handle directTo search parameter for scrolling
+  useEffect(() => {
+    if (!directTo || isLoadingAssets || !assets) return;
+
+    // Determine target element ID (case-insensitive)
+    const directToLower = directTo.toLowerCase();
+    const targetId = directToLower === 'pointreward' 
+      ? 'point-reward-area' 
+      : directToLower === 'pointtask' 
+      ? 'point-task-area' 
+      : null;
+
+    if (!targetId) return;
+
+    let retryCount = 0;
+    const maxRetries = 20; // Try for up to 4 seconds (20 * 200ms)
+    let timeoutId: NodeJS.Timeout | null = null;
+    let rafId: number | null = null;
+
+    const attemptScroll = () => {
+      const targetElement = document.getElementById(targetId);
+      
+      if (targetElement && targetElement.isConnected) {
+        // Element found and connected to DOM, scroll to it
+        // Use requestAnimationFrame to ensure layout is complete
+        rafId = requestAnimationFrame(() => {
+          setTimeout(() => {
+            try {
+              // Get the element's position
+              const rect = targetElement.getBoundingClientRect();
+              const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+              const targetPosition = rect.top + scrollTop;
+              
+              // Scroll with a small offset from the top for better visibility
+              window.scrollTo({
+                top: Math.max(0, targetPosition - 20),
+                behavior: 'smooth'
+              });
+            } catch (error) {
+              console.warn('Scroll failed:', error);
+              // Fallback to scrollIntoView if window.scrollTo fails
+              try {
+                targetElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
+              } catch (fallbackError) {
+                console.warn('Fallback scroll also failed:', fallbackError);
+              }
+            }
+          }, 50);
+        });
+        return true; // Success
+      }
+
+      // Element not found or not connected yet, retry if we haven't exceeded max retries
+      if (retryCount < maxRetries) {
+        retryCount++;
+        timeoutId = setTimeout(attemptScroll, 200);
+        return false; // Still trying
+      }
+
+      // Max retries reached, element not found
+      console.warn(`Could not find element with id: ${targetId} after ${maxRetries} attempts`);
+      return false;
+    };
+
+    // Start attempting to scroll after a small initial delay
+    timeoutId = setTimeout(attemptScroll, 300);
+
+    // Cleanup function
+    return () => {
+      if (timeoutId) clearTimeout(timeoutId);
+      if (rafId) cancelAnimationFrame(rafId);
+    };
+  }, [directTo, isLoadingAssets, assets]);
 
   // Show error state if assets failed to load
   if (assetsError && !isLoadingAssets) {

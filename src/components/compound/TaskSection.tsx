@@ -350,7 +350,7 @@ const TaskSection = () => {
         </div>
 
         {/* 奖品区域 */}
-        <div className="relative w-full mb-4">
+        <div id="point-reward-area" className="relative w-full mb-4">
           <div className="relative w-full h-auto">
             <Image
               src={bgAsset.url}
@@ -432,8 +432,9 @@ const TaskSection = () => {
         </div>
 
         {/* 3. 任务列表 */}
+        <div id="point-task-area" className="min-h-[100px]">
         {
-          displayGroups.map((group, index) => (
+          displayGroups.length > 0 ? displayGroups.map((group, index) => (
             <div key={index} className="bg-[#e1f4ff] rounded-[12px] pt-3 px-4 pb-5 mb-4">
               <div className="mb-3">
                 <div className="text-base font-bold text-black">{group.title}</div>
@@ -461,8 +462,13 @@ const TaskSection = () => {
                 ))}
               </div>
             </div>
-          ))
+          )) : (
+            <div className="bg-[#e1f4ff] rounded-[12px] pt-3 px-4 pb-5 mb-4">
+              <div className="text-sm text-gray-400 text-center">任务加载中...</div>
+            </div>
+          )
         }
+        </div>
 
 
       </div>

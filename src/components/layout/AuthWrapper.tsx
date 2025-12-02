@@ -1,6 +1,6 @@
 "use client";
 
-import { ReactNode, useEffect } from "react";
+import { ReactNode, useEffect, useState, useRef } from "react";
 import { useAuth } from "@/context/auth-context";
 import { useUserData } from "@/context/user-data-context";
 import { useZhihuApp } from "@/hooks/useZhihuApp";
@@ -23,14 +23,34 @@ export default function AuthWrapper({
   const isZhihu = useZhihuApp();
   const { isAvailable: isHybridAvailable } = useZhihuHybrid();
   const { assets } = useAssets();
+  const hasRedirectedRef = useRef(false);
+  const [hasRedirected, setHasRedirected] = useState(false);
+
+  // Clear redirect flag on mount (user returned from login)
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      sessionStorage.removeItem('auth_redirecting');
+    }
+  }, []);
 
   // Redirect to login page if not authenticated
   useEffect(() => {
-    if (!isAuthLoading && !isAuthenticated) {
+    // Only redirect if:
+    // 1. Auth check is complete (!isAuthLoading)
+    // 2. User is not authenticated
+    // 3. We haven't already redirected in this session
+    // 4. Assets are loaded (or we have a fallback)
+    if (!isAuthLoading && !isAuthenticated && !hasRedirected && !hasRedirectedRef.current) {
+      // Wait for assets to load if available, but don't block if it's taking too long
       const signinBase = assets?.urls?.signinBase;
+      
+      // Mark as redirected to prevent multiple redirects
+      hasRedirectedRef.current = true;
+      setHasRedirected(true);
+      
       login(signinBase);
     }
-  }, [isAuthLoading, isAuthenticated, login, assets]);
+  }, [isAuthLoading, isAuthenticated, login, assets, hasRedirected]);
 
   // Show loading state while checking auth
   if (isAuthLoading && showLoadingIndicator) {

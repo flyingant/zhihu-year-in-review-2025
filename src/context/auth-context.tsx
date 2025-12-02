@@ -6,6 +6,7 @@ import {
   useContext,
   useState,
   useEffect,
+  useCallback,
   ReactNode,
 } from "react";
 interface AuthContextType {
@@ -24,7 +25,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [profile, setProfile] = useState(null);
 
-  const fetchProfile = async () => {
+  const fetchProfile = useCallback(async () => {
     setIsAuthLoading(true);
     const defaultCookie = process.env.NEXT_PUBLIC_ZHIHU_COOKIE;
     if (defaultCookie) {
@@ -39,30 +40,51 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       });
       setProfile(profile);
       setIsAuthenticated(true);
-    } catch {
+      // Clear redirect flag on successful auth
+      if (typeof window !== 'undefined') {
+        sessionStorage.removeItem('auth_redirecting');
+      }
+    } catch (error) {
       setIsAuthenticated(false);
       setProfile(null);
+      console.error('Auth check failed:', error);
     } finally {
       setIsAuthLoading(false);
     }
-  };
+  }, []);
 
   useEffect(() => {
     // call zhihu profile to check is logged in
     fetchProfile();
-  }, []);
+  }, [fetchProfile]);
 
   const clear = () => {
     setProfile(null);
     setIsAuthenticated(false);
   };
 
-  const login = (signinBase?: string) => {
+  const login = useCallback((signinBase?: string) => {
+    // Don't redirect if already on signin page
+    if (typeof window !== 'undefined' && window.location.href.includes('/signin')) {
+      return;
+    }
+    
+    // Prevent multiple redirects
+    if (typeof window !== 'undefined') {
+      const isRedirecting = sessionStorage.getItem('auth_redirecting') === 'true';
+      if (isRedirecting) {
+        return;
+      }
+      sessionStorage.setItem('auth_redirecting', 'true');
+    }
+    
     const baseUrl = signinBase || 'https://www.zhihu.com/signin';
-    window.location.href = `${baseUrl}?next=${encodeURIComponent(
-      window.location.href
-    )}`;
-  };
+    if (typeof window !== 'undefined') {
+      window.location.href = `${baseUrl}?next=${encodeURIComponent(
+        window.location.href
+      )}`;
+    }
+  }, []);
 
   return (
     <AuthContext.Provider

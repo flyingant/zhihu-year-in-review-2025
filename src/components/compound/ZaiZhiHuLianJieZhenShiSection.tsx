@@ -12,9 +12,10 @@ import { useUserData } from '@/context/user-data-context';
 import { useZA } from '@/hooks/useZA';
 import { useInView } from 'react-intersection-observer';
 import { completeTask } from '@/api/campaign';
-import { COMPLETE_TASK_IDS } from '@/constants/campaign';
+import { useAssets } from '@/context/assets-context';
 
 const ZaiZhiHuLianJieZhenShiSection = () => {
+  const { assets } = useAssets();
   const lastExposedIndex = useRef<number | null>(null);
   const hasTrackedModule = useRef(false);
   const isVisibleRef = useRef(false);
@@ -64,10 +65,12 @@ const ZaiZhiHuLianJieZhenShiSection = () => {
     });
     
    // Call completeTask API (fire-and-forget, non-blocking)
-   completeTask(COMPLETE_TASK_IDS.BROWSE_FENHUICHANG).catch((error) => {
-    console.error('Error completing task BROWSE_FENHUICHANG:', error);
-    // Silently fail - this is just tracking, don't block user flow
-  });
+   if (assets?.campaign) {
+     completeTask(assets.campaign.completeTaskIds.BROWSE_FENHUICHANG).catch((error) => {
+      console.error('Error completing task BROWSE_FENHUICHANG:', error);
+      // Silently fail - this is just tracking, don't block user flow
+    });
+   }
     
     // Navigate to jump_url if available
     if (item.jump_url) {

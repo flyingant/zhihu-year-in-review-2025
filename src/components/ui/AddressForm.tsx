@@ -4,7 +4,7 @@ import { useState, useEffect } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useToast } from "@/context/toast-context";
 import { getAddressInfo, submitAddress, completeRedeemReward } from "@/api/campaign";
-import { ACTIVITY_ID } from "@/constants/campaign";
+import { useAssets } from "@/context/assets-context";
 import { useZA } from '@/hooks/useZA';
 import RegionPicker from "./RegionPicker";
 
@@ -25,6 +25,7 @@ export default function AddressForm() {
   const searchParams = useSearchParams();
   const { showToast } = useToast();
   const { trackPageShow, trackPageDisappear, trackEvent } = useZA();
+  const { assets } = useAssets();
 
   const [formData, setFormData] = useState<AddressFormData>({
     region: "",
@@ -223,7 +224,13 @@ export default function AddressForm() {
           return;
         }
 
-        await completeRedeemReward(ACTIVITY_ID, {
+        if (!assets?.campaign) {
+          showToast("活动信息加载中，请稍后再试", "error");
+          setIsSubmitting(false);
+          return;
+        }
+        
+        await completeRedeemReward(assets.campaign.activityId, {
           request_id: parseInt(requestId, 10),
           reward_pool_id: parseInt(rewardPoolId, 10),
           reward_right_id: parseInt(rewardId, 10),

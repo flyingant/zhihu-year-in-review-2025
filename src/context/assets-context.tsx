@@ -97,15 +97,69 @@ export interface AssetsData {
     liukanshanWaving: AssetMetadata;
     videoFrame: AssetMetadata;
   };
+  /**
+   * 外部链接URL配置
+   */
   urls: {
+    /** 侧边栏刘看山发布链接 - 跳转到发布想法页面，包含活动话题和主会场链接 */
     sidebarLiuKanshanPublish: string;
+    /** 活动规则链接 - 跳转到活动规则页面 */
     sidebarCampaignRules: string;
+    /** 小电脑问题链接 - 跳转到"到底什么是真的？"问题页面 */
     miniComputerQuestion: string;
+    /** 年度视频链接 - 跳转到年度视频活动页面 */
     yearlyVideo: string;
+    /** 积分兑换基础URL - 用于构建积分兑换相关页面的完整URL */
     taskPointRedeemBase: string;
+    /** 积分兑换历史记录URL后缀 - 与taskPointRedeemBase组合使用 */
     taskPointRedeemHistory: string;
+    /** 积分明细URL后缀 - 与taskPointRedeemBase组合使用 */
     taskPointRedeemDetails: string;
+    /** 登录页面基础URL - 跳转到知乎登录页面 */
     signinBase: string;
+  };
+  /**
+   * 活动配置设置
+   */
+  campaign: {
+    /**
+     * 2025年度活动ID
+     * 用于API调用，获取活动信息、兑换奖品等
+     * 更新日期: 2025-12-01
+     */
+    activityId: number;
+    /**
+     * 任务ID白名单 - 决定页面上显示哪些任务
+     * 数组中ID的顺序决定了页面上的显示顺序
+     * 只有此列表中的任务ID会被显示，即使API返回了更多任务
+     */
+    showTaskIds: number[];
+    /**
+     * 用于特定完成操作的任务ID
+     * 用于跟踪用户交互并完成相应任务
+     */
+    completeTaskIds: {
+      /** 浏览"这些真的可以"模块的任务ID */
+      BROWSE_ZHEXIEZHENDEKEYI: number;
+      /** 浏览"分会场"模块的任务ID */
+      BROWSE_FENHUICHANG: number;
+      /** 浏览刘看山模块的任务ID */
+      BROWSE_LKS_SECTION: number;
+      /** 点击刘看山礼品按钮的任务ID */
+      CLICK_LKS_GIFT: number;
+      /** 点击刘看山礼品发布按钮的任务ID */
+      CLICK_LKS_GIFT_PUBLISH: number;
+    };
+    /**
+     * 兑换记录按钮覆盖层的位置设置
+     * 用于在奖品背景图上定位可点击区域
+     */
+    recordBtnPosition: {
+      top: string;
+      right: string;
+      width: string;
+      height: string;
+    };
   };
 }
 

@@ -502,5 +502,22 @@
     "taskPointRedeemHistory": "?zh_nav_left=back&zh_forcehybrid=1",
     "taskPointRedeemDetails": "?type=taskPoints",
     "signinBase": "https://www.zhihu.com/signin"
+  },
+  "campaign": {
+    "activityId": 360132,
+    "showTaskIds": [360324, 330349, 330348, 390355, 390356, 360326],
+    "completeTaskIds": {
+      "BROWSE_ZHEXIEZHENDEKEYI": 330349,
+      "BROWSE_FENHUICHANG": 330348,
+      "BROWSE_LKS_SECTION": 360326,
+      "CLICK_LKS_GIFT": 360325,
+      "CLICK_LKS_GIFT_PUBLISH": 330350
+    },
+    "recordBtnPosition": {
+      "top": "2%",
+      "right": "5%",
+      "width": "25%",
+      "height": "5%"
+    }
   }
 }

@@ -7,7 +7,6 @@ import { useZA } from '@/hooks/useZA';
 import { useInView } from 'react-intersection-observer';
 import { useAssets } from '@/context/assets-context';
 import { completeTask } from '@/api/campaign';
-import { COMPLETE_TASK_IDS } from '@/constants/campaign';
 
 const ZheXieZhenDeKeYiSection = () => {
   const { assets } = useAssets();
@@ -51,10 +50,12 @@ const ZheXieZhenDeKeYiSection = () => {
             });
             
             // Call completeTask API (fire-and-forget, non-blocking)
-            completeTask(COMPLETE_TASK_IDS.BROWSE_ZHEXIEZHENDEKEYI).catch((error) => {
-              console.error('Error completing task BROWSE_ZHEXIEZHENDEKEYI:', error);
-              // Silently fail - this is just tracking, don't block user flow
-            });
+            if (assets?.campaign) {
+              completeTask(assets.campaign.completeTaskIds.BROWSE_ZHEXIEZHENDEKEYI).catch((error) => {
+                console.error('Error completing task BROWSE_ZHEXIEZHENDEKEYI:', error);
+                // Silently fail - this is just tracking, don't block user flow
+              });
+            }
             
             if (item.jump_url) {
               window.location.href = item.jump_url;

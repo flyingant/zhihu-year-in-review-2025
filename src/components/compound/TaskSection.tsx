@@ -6,7 +6,6 @@ import LiuKanShanBianLiDian from "../ui/LiuKanShanBianLiDian";
 import { useAssets } from '@/context/assets-context';
 import { useRouter } from 'next/navigation';
 import { getCampaignInfo, CampaignResponse, TaskItem, RewardItem, preOccupyReward, cancelOccupyReward } from '@/api/campaign';
-import { ACTIVITY_ID, SHOW_TASK_IDS, RECORD_BTN_POSITION, COMPLETE_TASK_IDS } from '@/constants/campaign';
 import { useToast } from '@/context/toast-context';
 import { useZhihuApp } from '@/hooks/useZhihuApp';
 import { useZA } from '@/hooks/useZA';
@@ -45,9 +44,11 @@ const TaskSection = () => {
   }, [moduleInView]);
 
   useEffect(() => {
+    if (!assets?.campaign) return;
+    
     const fetchData = async () => {
       try {
-        const data = await getCampaignInfo(ACTIVITY_ID);
+        const data = await getCampaignInfo(assets.campaign.activityId);
         setCampaignData(data);
       } catch (error) {
         console.error("Failed to fetch campaign data:", error);
@@ -55,7 +56,7 @@ const TaskSection = () => {
     };
 
     fetchData();
-  }, []);
+  }, [assets]);
 
   if (!assets) return null;
 
@@ -75,7 +76,7 @@ const TaskSection = () => {
   const formatEndTime = formatDate(Number(endTime || 0) + 1);
 
   const displayGroups = rawGroups.map(group => {
-    const filteredTasks = group.task_list.filter(task => SHOW_TASK_IDS.includes(task.id));
+    const filteredTasks = group.task_list.filter(task => assets.campaign.showTaskIds.includes(task.id));
     return {
       ...group,
       task_list: filteredTasks
@@ -141,7 +142,7 @@ const TaskSection = () => {
     // 统一的任务特定处理函数
     const handleSpecificTask = (taskId: number, task: TaskItem) => {
       switch (taskId) {
-        case COMPLETE_TASK_IDS.BROWSE_FENHUICHANG: {
+        case assets.campaign.completeTaskIds.BROWSE_FENHUICHANG: {
           // 滚动到 "在知乎连接真实" 部分
           const targetSection = document.getElementById('zaizhihu-lianjie-zhenshi-section');
           if (targetSection) {
@@ -152,7 +153,7 @@ const TaskSection = () => {
           }
           break;
         }
-        case COMPLETE_TASK_IDS.BROWSE_ZHEXIEZHENDEKEYI: {
+        case assets.campaign.completeTaskIds.BROWSE_ZHEXIEZHENDEKEYI: {
           // 滚动到 "这些真的可以" 部分
           const targetSection = document.getElementById('zhexie-zhende-keyi-section');
           if (targetSection) {
@@ -163,7 +164,7 @@ const TaskSection = () => {
           }
           break;
         }
-        case COMPLETE_TASK_IDS.BROWSE_LKS_SECTION: {
+        case assets.campaign.completeTaskIds.BROWSE_LKS_SECTION: {
           // 触发 SidebarLiuKanshan 的动画效果
           const animateEvent = new CustomEvent('liukanshan-animate');
           window.dispatchEvent(animateEvent);
@@ -196,7 +197,7 @@ const TaskSection = () => {
 
     try {
       // 调用预占接口
-      await preOccupyReward(ACTIVITY_ID, {
+      await preOccupyReward(assets.campaign.activityId, {
         request_id: newRequestId,
         reward_pool_id: rewardPoolId,
         reward_right_id: reward.right_id,
@@ -228,7 +229,7 @@ const TaskSection = () => {
     }
 
     try {
-      await cancelOccupyReward(ACTIVITY_ID, {
+      await cancelOccupyReward(assets.campaign.activityId, {
         request_id: requestId,
         reward_pool_id: rewardPoolId,
         reward_right_id: selectedReward.right_id,
@@ -264,7 +265,7 @@ const TaskSection = () => {
       type: 'Button'
     });
     if (assets?.urls?.taskPointRedeemBase && assets?.urls?.taskPointRedeemHistory) {
-      const url = `${assets.urls.taskPointRedeemBase}/${ACTIVITY_ID}${assets.urls.taskPointRedeemHistory}`;
+      const url = `${assets.urls.taskPointRedeemBase}/${assets.campaign.activityId}${assets.urls.taskPointRedeemHistory}`;
       window.location.href = url;
     }
   };
@@ -277,7 +278,7 @@ const TaskSection = () => {
       type: 'Button'
     });
     if (assets?.urls?.taskPointRedeemBase && assets?.urls?.taskPointRedeemDetails) {
-      const url = `${assets.urls.taskPointRedeemBase}/${ACTIVITY_ID}${assets.urls.taskPointRedeemDetails}`;
+      const url = `${assets.urls.taskPointRedeemBase}/${assets.campaign.activityId}${assets.urls.taskPointRedeemDetails}`;
       window.location.href = url;
     }
   };
@@ -364,10 +365,10 @@ const TaskSection = () => {
               onClick={handleGoToRecords}
               className="absolute z-30 cursor-pointer active:opacity-50"
               style={{
-                top: RECORD_BTN_POSITION.top,
-                right: RECORD_BTN_POSITION.right,
-                width: RECORD_BTN_POSITION.width,
-                height: RECORD_BTN_POSITION.height,
+                top: assets.campaign.recordBtnPosition.top,
+                right: assets.campaign.recordBtnPosition.right,
+                width: assets.campaign.recordBtnPosition.width,
+                height: assets.campaign.recordBtnPosition.height,
               }}
             ></div>
             {/* 奖品列表区域 */}

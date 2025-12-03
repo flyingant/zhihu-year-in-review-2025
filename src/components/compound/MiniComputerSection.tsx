@@ -9,6 +9,7 @@ import { isZhihuApp } from '@/lib/zhihu-detection';
 import { useZA } from '@/hooks/useZA';
 import { useInView } from 'react-intersection-observer';
 import { useZhihuHybrid } from '@/hooks/useZhihuHybrid';
+import { useZhihuApp } from '@/hooks/useZhihuApp';
 
 // Type declaration for Zhihu Hybrid SDK (new API pattern)
 // Based on tech specs: window.zhihuHybrid('base/downloadImage').dispatch(params: Params): PromiseObservable<Result>
@@ -45,6 +46,7 @@ const MiniComputerSection = () => {
   const mirrorRef = useRef<HTMLDivElement>(null);
   const { showToast } = useToast();
   const { downloadImage: downloadImageViaHybrid } = useZhihuHybrid();
+  const isInZhihuApp = useZhihuApp();
 
   const loadingText = useLoadingDots("海报生成中", 400, status === 'loading');
   const HASHTAG = " #2025到底什么是真的";
@@ -314,6 +316,15 @@ const MiniComputerSection = () => {
     }
   };
 
+  // 处理非App内用户点击输入区域 - 跳转到App内URL
+  const handleOverlayClick = (e: React.MouseEvent) => {
+    e.preventDefault();
+    e.stopPropagation();
+    if (assets?.urls?.miniComputerQuestionInAppRedirectionURL) {
+      window.location.href = assets.urls.miniComputerQuestionInAppRedirectionURL;
+    }
+  };
+
   return (
     <div ref={moduleRef} className="relative flex flex-col pt-7 -mb-[20px] overflow-hidden">
       <div className="relative w-full flex justify-center pr-[16px] -mb-[24px]">
@@ -326,7 +337,23 @@ const MiniComputerSection = () => {
         />
       </div>
 
-      <div className="relative w-full mx-auto h-[220px]">
+      <div 
+        className="relative w-full mx-auto h-[220px]"
+        style={{ pointerEvents: !isInZhihuApp ? 'none' : 'auto' }}
+      >
+        {/* 非App内用户透明遮罩层 */}
+        {!isInZhihuApp && (
+          <div
+            onClick={handleOverlayClick}
+            onMouseDown={handleOverlayClick}
+            className="absolute inset-0 z-[60] cursor-pointer"
+            style={{ 
+              backgroundColor: 'rgba(0,0,0,0.01)',
+              pointerEvents: 'auto',
+              minHeight: '100%'
+            }}
+          />
+        )}
         <Image
           src={consoleBgAsset.url}
           alt={consoleBgAsset.alt}

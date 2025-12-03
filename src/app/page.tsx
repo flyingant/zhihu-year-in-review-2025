@@ -58,6 +58,7 @@ function HomeContent() {
       'reward': 'reward-section',
       'pointtask': 'task-section',
       'task': 'task-section',
+      'miniComputer': 'game-section',
     };
     
     const targetId = sectionMap[directToLower];

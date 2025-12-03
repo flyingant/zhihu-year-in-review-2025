@@ -153,6 +153,8 @@ export interface AssetsData {
     sidebarCampaignRules: string;
     /** 小电脑问题链接 - 跳转到"到底什么是真的？"问题页面 */
     miniComputerQuestion: string;
+    /** 小电脑问题App内跳转URL - 当用户不在App内时，点击输入区域跳转到此URL */
+    miniComputerQuestionInAppRedirectionURL: string;
     /** 年度视频链接 - 跳转到年度视频活动页面 */
     yearlyVideo: string;
     /** 积分兑换基础URL - 用于构建积分兑换相关页面的完整URL */

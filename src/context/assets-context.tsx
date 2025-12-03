@@ -167,6 +167,8 @@ export interface AssetsData {
     liukanshanPointRewardInAppRedirectionURL: string;
     /** 刘看山积分任务App内跳转URL - 当用户不在App内时，点击任务区域跳转到此URL */
     liukanshanPointTaskInAppRedirectionURL: string;
+    /** App内跳转URL - 当用户不在App内且为移动端时，显示底部按钮跳转到此URL */
+    inAppRedirectionURL: string;
     /** 年度问题链接数组 - 跳转到年度问题页面 */
     yearlyQuestions: string[];
   };

@@ -736,6 +736,7 @@
     "signinBase": "https://www.zhihu.com/signin",
     "liukanshanPointRewardInAppRedirectionURL": "https://oia.zhihu.com/hybrid?zh_url=https%3A%2F%2Fevent-preview.zhihu.com%2Fzhihu2025%2F%3FdirectTo%3Dreward",
     "liukanshanPointTaskInAppRedirectionURL": "https://oia.zhihu.com/hybrid?zh_url=https%3A%2F%2Fevent-preview.zhihu.com%2Fzhihu2025%2F%3FdirectTo%3Dtask",
+    "inAppRedirectionURL": "https://oia.zhihu.com/hybrid?zh_url=https%3A%2F%2Fevent-preview.zhihu.com%2Fzhihu2025%2F",
     "yearlyQuestions": [
       "https://www.zhihu.com/question/1974440788541793545",
       "https://www.zhihu.com/question/1974440788541793545",

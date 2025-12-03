@@ -12,6 +12,7 @@ import ZhihuLogo from "../components/ui/ZhihuLogo";
 import ZhihuSearch from "../components/ui/zhihuSearch";
 import HomeBottomBg from "../components/ui/homeBottomBg";
 import TaskSection from "../components/compound/TaskSection";
+import RewardSection from "../components/compound/RewardSection";
 import QiangXianYuGaoSection from "../components/compound/QiangXianYuGaoSection";
 import QinZiDa2025Section from "../components/compound/QinZiDa2025Section";
 import ZaiZhiHuLianJieZhenShiSection from "../components/compound/ZaiZhiHuLianJieZhenShiSection";
@@ -50,14 +51,16 @@ function HomeContent() {
   useEffect(() => {
     if (!directTo || isLoadingAssets || !assets) return;
 
-    // Determine target element ID (case-insensitive)
+    // Map directTo parameter to section ID (case-insensitive)
     const directToLower = directTo.toLowerCase();
-    const targetId = directToLower === 'pointreward' 
-      ? 'point-reward-area' 
-      : directToLower === 'pointtask' 
-      ? 'point-task-area' 
-      : null;
-
+    const sectionMap: Record<string, string> = {
+      'pointreward': 'reward-section',
+      'reward': 'reward-section',
+      'pointtask': 'task-section',
+      'task': 'task-section',
+    };
+    
+    const targetId = sectionMap[directToLower];
     if (!targetId) return;
 
     let retryCount = 0;
@@ -74,21 +77,25 @@ function HomeContent() {
         rafId = requestAnimationFrame(() => {
           setTimeout(() => {
             try {
-              // Get the element's position
-              const rect = targetElement.getBoundingClientRect();
-              const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
-              const targetPosition = rect.top + scrollTop;
-              
-              // Scroll with a small offset from the top for better visibility
-              window.scrollTo({
-                top: Math.max(0, targetPosition - 20),
-                behavior: 'smooth'
+              // Use scrollIntoView for reliable scrolling
+              // block: 'start' aligns the element to the top of the viewport
+              // behavior: 'smooth' provides smooth scrolling animation
+              targetElement.scrollIntoView({ 
+                behavior: 'smooth', 
+                block: 'start',
+                inline: 'nearest'
               });
             } catch (error) {
               console.warn('Scroll failed:', error);
-              // Fallback to scrollIntoView if window.scrollTo fails
+              // Fallback: try manual scroll calculation
               try {
-                targetElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                const rect = targetElement.getBoundingClientRect();
+                const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+                const targetPosition = rect.top + scrollTop - 20; // 20px offset for better visibility
+                window.scrollTo({
+                  top: Math.max(0, targetPosition),
+                  behavior: 'smooth'
+                });
               } catch (fallbackError) {
                 console.warn('Fallback scroll also failed:', fallbackError);
               }
@@ -244,6 +251,10 @@ function HomeContent() {
 
           <SectionLayout topOffset={0} id="zaizhihu-lianjie-zhenshi-section">
             <ZaiZhiHuLianJieZhenShiSection />
+          </SectionLayout>
+
+          <SectionLayout topOffset={0} id="reward-section">
+            <RewardSection />
           </SectionLayout>
 
           <SectionLayout topOffset={0} id="task-section">

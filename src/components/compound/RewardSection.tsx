@@ -2,7 +2,6 @@
 
 import React, { useState, useEffect } from 'react';
 import Image from 'next/image';
-import { useRouter } from 'next/navigation';
 import LiuKanShanBianLiDian from "../ui/LiuKanShanBianLiDian";
 import { useAssets } from '@/context/assets-context';
 import { RewardItem, preOccupyReward, cancelOccupyReward, CampaignResponse, getCampaignInfo } from '@/api/campaign';
@@ -22,7 +21,6 @@ const formatDate = (timestamp: number | undefined) => {
 };
 
 const RewardSection = () => {
-  const router = useRouter();
   const { showToast } = useToast();
   const { assets } = useAssets();
   const { trackEvent } = useZA();
@@ -150,17 +148,9 @@ const RewardSection = () => {
 
     setIsRedeemModalOpen(false);
     // 传递必要的参数到地址表单，stock_occupy_id 是必填参数
-    const params = new URLSearchParams({
-      addressrequired: 'true',
-      rewardId: String(selectedReward.right_id),
-      rewardPoolId: String(rewardPoolId),
-      requestId: String(requestId),
-      rewardRightType: selectedReward.right_type,
-      stockOccupyId: String(stockOccupyId), // 必填参数
-      from: 'redeem',
-    });
+    const params = `addressrequired=true&rewardId=${selectedReward.right_id}&rewardPoolId=${rewardPoolId}&requestId=${requestId}&rewardRightType=${selectedReward.right_type}&stockOccupyId=${stockOccupyId}&from=redeem`;
     
-    router.push(`/addressrequired?${params.toString()}`);
+    window.location.href = `/?${params}`;
   };
 
   // 跳转到兑换记录
@@ -205,10 +195,10 @@ const RewardSection = () => {
     <div className="relative w-full pb-10 flex flex-col pt-1">
       <div 
         className="relative w-full"
-        style={{ pointerEvents: !isInZhihuApp ? 'none' : 'auto' }}
+        // style={{ pointerEvents: !isInZhihuApp ? 'none' : 'auto' }}
       >
       {/* 非App内用户透明遮罩层 */}
-      {!isInZhihuApp && (
+      {/* {!isInZhihuApp && (
         <div
           onClick={handleOverlayClick}
           onMouseDown={handleOverlayClick}
@@ -219,7 +209,7 @@ const RewardSection = () => {
             minHeight: '100%'
           }}
         />
-      )}
+      )} */}
       <div className='flex justify-center pb-9 px-[54px]'>
         <LiuKanShanBianLiDian />
       </div>

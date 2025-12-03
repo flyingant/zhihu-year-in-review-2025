@@ -9,6 +9,7 @@ export type SceneConfig = {
 import LoadingScene from '@/components/report/scenes/LoadingScene';
 import IntroScene from '@/components/report/scenes/IntroScene';
 import SelectionScene from '@/components/report/scenes/SelectionScene';
+import P2Scene from '@/components/report/scenes/P2Scene';
 
 export const SCENES: Record<string, SceneConfig> = {
   'loading': {
@@ -24,11 +25,15 @@ export const SCENES: Record<string, SceneConfig> = {
   'selection': {
     id: 'selection',
     component: SelectionScene,
-    // 分支逻辑：根据用户传回的 choice 决定去哪
     next: (choice) => {
-      if (choice === 'tech') return 'tech-summary';
-      if (choice === 'life') return 'life-summary';
-      return 'default-summary';
+      if (choice === 'tech') return 'p2';
+      if (choice === 'life') return 'p2';
+      return 'p2';
     }
+  },
+  'p2': {
+    id: 'p2',
+    component: P2Scene,
+    next: 'p3'
   },
 };

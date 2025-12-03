@@ -81,7 +81,7 @@ export interface AssetsData {
     sidebarLiuKanshanQrcodeTips: AssetMetadata;
     sidebarLiuKanshanDialogSoldOut: AssetMetadata;
     sidebarLiuKanshanTmr: AssetMetadata;
-    selfAnswerExamples: AssetMetadataWithJumpUrl[];
+    qingZiDa: AssetMetadataWithJumpUrl[];
   };
   tasks: {
     bg: AssetMetadata;

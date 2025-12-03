@@ -57,7 +57,7 @@ const QinZiDa2025Section = () => {
 
   if (!assets) return null;
 
-  const imagesToDisplay = (assets.newImages.selfAnswerExamples || []).map(item => ({
+  const imagesToDisplay = (assets.newImages.qingZiDa || []).map(item => ({
     image_url: item.url,
     jump_url: item.jump_url || ''
   }));

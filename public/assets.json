@@ -227,62 +227,62 @@
       "height": 143,
       "alt": "这些真的可以"
     },
-    "selfAnswerExamples": [
+    "qingZiDa": [
       {
-        "url": "/assets/self_answer_example_1@3x.png",
+        "url": "/assets/qinzida_liuzhendong@3x.png",
         "width": 339,
         "height": 126,
-        "alt": "亲自答示例 1",
-        "jump_url": "https://www.zhihu.com/question/347437685/answer/1943749623916242230"
+        "alt": "刘振东",
+        "jump_url": "https://www.zhihu.com/answer/1943749623916242230"
       },
       {
-        "url": "/assets/self_answer_example_2@3x.png",
+        "url": "/assets/qinzida_qinmingkuan@3x.png",
         "width": 339,
         "height": 126,
-        "alt": "亲自答示例 2",
-        "jump_url": "https://www.zhihu.com/question/347437685/answer/1943749623916242230"
+        "alt": "秦明宽",
+        "jump_url": "https://www.zhihu.com/answer/1930363206964082627"
       },
       {
-        "url": "/assets/self_answer_example_3@3x.png",
+        "url": "/assets/qinzida_wangxingxing@3x.png",
         "width": 339,
         "height": 126,
-        "alt": "亲自答示例 3",
-        "jump_url": "https://www.zhihu.com/question/347437685/answer/1943749623916242230"
+        "alt": "王兴兴",
+        "jump_url": "https://www.zhihu.com/answer/88772605774"
       },
       {
-        "url": "/assets/self_answer_example_4@3x.png",
+        "url": "/assets/qinzida_zengzhuojun@3x.png",
         "width": 339,
         "height": 126,
-        "alt": "亲自答示例 4",
-        "jump_url": "https://www.zhihu.com/question/347437685/answer/1943749623916242230"
+        "alt": "小孩曾卓君",
+        "jump_url": "https://www.zhihu.com/answer/1944849236916154872"
       },
       {
-        "url": "/assets/self_answer_example_5@3x.png",
+        "url": "/assets/qinzida_yushui@3x.png",
         "width": 339,
         "height": 126,
-        "alt": "亲自答示例 5",
-        "jump_url": "https://www.zhihu.com/question/347437685/answer/1943749623916242230"
+        "alt": "於水",
+        "jump_url": "https://www.zhihu.com/answer/1934957259076661976"
       },
       {
-        "url": "/assets/self_answer_example_6@3x.png",
+        "url": "/assets/qinzida_gediot@3x.png",
         "width": 339,
         "height": 126,
-        "alt": "亲自答示例 6",
-        "jump_url": "https://www.zhihu.com/question/347437685/answer/1943749623916242230"
+        "alt": "Gediot",
+        "jump_url": "https://www.zhihu.com/answer/1911824929839613445"
       },
       {
-        "url": "/assets/self_answer_example_7@3x.png",
+        "url": "/assets/qinzida_yudeng@3x.png",
         "width": 339,
         "height": 126,
-        "alt": "亲自答示例 7",
-        "jump_url": "https://www.zhihu.com/question/347437685/answer/1943749623916242230"
+        "alt": "Yu Deng",
+        "jump_url": "https://www.zhihu.com/answer/123281591095"
       },
       {
-        "url": "/assets/self_answer_example_8@3x.png",
+        "url": "/assets/qinzida_sujianlin@3x.png",
         "width": 339,
         "height": 126,
-        "alt": "亲自答示例 8",
-        "jump_url": "https://www.zhihu.com/question/347437685/answer/1943749623916242230"
+        "alt": "苏剑林",
+        "jump_url": "https://www.zhihu.com/answer/1928417232230277397"
       }
     ],
     "zhenShiShunJian": {

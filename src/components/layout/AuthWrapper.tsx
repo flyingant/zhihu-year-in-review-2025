@@ -6,6 +6,7 @@ import { useUserData } from "@/context/user-data-context";
 import { useZhihuApp } from "@/hooks/useZhihuApp";
 import { useZhihuHybrid } from "@/hooks/useZhihuHybrid";
 import { useAssets } from "@/context/assets-context";
+import { useMobile } from "@/hooks/useMobile";
 
 interface AuthWrapperProps {
   children: ReactNode;
@@ -23,6 +24,7 @@ export default function AuthWrapper({
   const isZhihu = useZhihuApp();
   const { isAvailable: isHybridAvailable } = useZhihuHybrid();
   const { assets } = useAssets();
+  const isMobile = useMobile();
   const hasRedirectedRef = useRef(false);
   const [hasRedirected, setHasRedirected] = useState(false);
 
@@ -102,6 +104,11 @@ export default function AuthWrapper({
               <div className="text-yellow-400">⏳ 正在加载您的数据...</div>
             )}
 
+            {/* Mobile Indicator */}
+            <div className={isMobile ? "text-blue-400" : "text-gray-400"}>
+              {isMobile ? "📱 移动端" : "💻 桌面端"}
+            </div>
+            
             {/* Debug Info */}
             <div className="mt-2 pt-2 border-t border-gray-700 text-gray-400">
               <div>

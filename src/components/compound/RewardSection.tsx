@@ -8,6 +8,7 @@ import { RewardItem, preOccupyReward, cancelOccupyReward, CampaignResponse, getC
 import { useToast } from '@/context/toast-context';
 import { useZA } from '@/hooks/useZA';
 import { useZhihuApp } from '@/hooks/useZhihuApp';
+import { useMobile } from '@/hooks/useMobile';
 
 const formatDate = (timestamp: number | undefined) => {
   if (!timestamp) return '--/--/--';
@@ -25,6 +26,7 @@ const RewardSection = () => {
   const { assets } = useAssets();
   const { trackEvent } = useZA();
   const isInZhihuApp = useZhihuApp();
+  const isMobile = useMobile();
 
   const [campaignData, setCampaignData] = useState<CampaignResponse | null>(null);
   const [isRedeemModalOpen, setIsRedeemModalOpen] = useState(false);
@@ -210,13 +212,12 @@ const RewardSection = () => {
     <div className="relative w-full pb-10 flex flex-col pt-1">
       <div 
         className="relative w-full"
-        style={{ pointerEvents: !isInZhihuApp ? 'none' : 'auto' }}
+        style={{ pointerEvents: (!isInZhihuApp && isMobile) ? 'none' : 'auto' }}
       >
       {/* 非App内用户透明遮罩层 */}
-      {!isInZhihuApp && (
+      {!isInZhihuApp && isMobile && (
         <div
           onClick={handleOverlayClick}
-          onMouseDown={handleOverlayClick}
           className="absolute inset-0 z-[60] cursor-pointer"
           style={{ 
             backgroundColor: 'rgba(0,0,0,0.01)',

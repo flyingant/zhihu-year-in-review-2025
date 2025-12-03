@@ -7,11 +7,13 @@ import { useToast } from '@/context/toast-context';
 import { useZhihuApp } from '@/hooks/useZhihuApp';
 import { useZA } from '@/hooks/useZA';
 import { useInView } from 'react-intersection-observer';
+import { useMobile } from '@/hooks/useMobile';
 
 const TaskSection = () => {
   const { showToast } = useToast();
   const isZhihuApp = useZhihuApp();
   const { assets } = useAssets();
+  const isMobile = useMobile();
   const [campaignData, setCampaignData] = useState<CampaignResponse | null>(null);
   const { trackShow, trackEvent } = useZA();
   const { ref: moduleRef, inView: moduleInView } = useInView({ triggerOnce: true });
@@ -185,10 +187,10 @@ const TaskSection = () => {
     <div ref={moduleRef} className="relative w-full pb-10 flex flex-col pt-1">
       <div 
         className="relative mx-[16px]"
-        style={{ pointerEvents: !isZhihuApp ? 'none' : 'auto' }}
+        style={{ pointerEvents: (!isZhihuApp && isMobile) ? 'none' : 'auto' }}
       >
       {/* 非App内用户透明遮罩层 */}
-      {!isZhihuApp && (
+      {!isZhihuApp && isMobile && (
         <div
           onClick={handleOverlayClick}
           onMouseDown={handleOverlayClick}

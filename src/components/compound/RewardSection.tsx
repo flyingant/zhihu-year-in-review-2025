@@ -195,10 +195,10 @@ const RewardSection = () => {
     <div className="relative w-full pb-10 flex flex-col pt-1">
       <div 
         className="relative w-full"
-        // style={{ pointerEvents: !isInZhihuApp ? 'none' : 'auto' }}
+        style={{ pointerEvents: !isInZhihuApp ? 'none' : 'auto' }}
       >
       {/* 非App内用户透明遮罩层 */}
-      {/* {!isInZhihuApp && (
+      {!isInZhihuApp && (
         <div
           onClick={handleOverlayClick}
           onMouseDown={handleOverlayClick}
@@ -209,7 +209,7 @@ const RewardSection = () => {
             minHeight: '100%'
           }}
         />
-      )} */}
+      )}
       <div className='flex justify-center pb-9 px-[54px]'>
         <LiuKanShanBianLiDian />
       </div>

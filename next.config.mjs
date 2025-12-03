@@ -1,10 +1,10 @@
 // next.config.mjs
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  // Set basePath based on environment
-  // Production: '/2025', Development: '' (empty)
-  // Note: Next.js automatically sets NODE_ENV=production during 'next build'
-  basePath: process.env.NODE_ENV === "production" ? "/zhihu2025" : "",
+  // Set basePath from NEXT_PUBLIC_BASE_URL environment variable
+  // Falls back to production default '/zhihu2025' if not set
+  // Note: NEXT_PUBLIC_* variables are available in both server and client
+  basePath: process.env.NEXT_PUBLIC_BASE_URL || "",
   output: "export", // ← Enables next export (pure static)
   trailingSlash: true, // Recommended for static hosting
   images: {

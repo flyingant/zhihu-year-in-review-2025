@@ -271,13 +271,12 @@ export function AssetsProvider({ children }: { children: ReactNode }) {
     setError(null);
 
     try {
-      // Get basePath - only use NEXT_PUBLIC_BASE_PATH for assets.json (not CDN)
-      // CDN should only be used for transforming asset URLs, not for fetching assets.json
-      const BASE_PATH = process.env.NEXT_PUBLIC_BASE_PATH || '';
+      // Get basePath from NEXT_PUBLIC_BASE_URL (same as next.config.mjs)
+      // Falls back to production default '/zhihu2025' if not set
+      const BASE_PATH = process.env.NEXT_PUBLIC_BASE_URL || '';
       const CDN_BASE_URL = process.env.NEXT_PUBLIC_CDN_BASE_URL || '';
 
-      // Construct the assets.json path with basePath (never use CDN for this)
-      // Add timestamp query parameter to prevent caching
+      // Fetch assets.json: Always use BASE_PATH (never CDN) with timestamp for cache busting
       const baseAssetsPath = BASE_PATH ? `${BASE_PATH}/assets.json` : '/assets.json';
       const separator = baseAssetsPath.includes('?') ? '&' : '?';
       const assetsJsonPath = `${baseAssetsPath}${separator}v=${BUILD_TIMESTAMP}`;
@@ -289,7 +288,7 @@ export function AssetsProvider({ children }: { children: ReactNode }) {
 
       const assetsData = await response.json();
 
-      // Transform asset URLs to include basePath and/or CDN
+      // Transform asset URLs (images, videos, etc.) to include CDN base path + BASE_PATH
       const transformAssetUrl = (url: string): string => {
         if (!url) return url;
 
@@ -298,19 +297,37 @@ export function AssetsProvider({ children }: { children: ReactNode }) {
           return url;
         }
 
+        // For relative URLs, combine CDN_BASE_URL + BASE_PATH if CDN is configured
+        // Otherwise, use BASE_PATH only
+        let baseUrl = '';
+        if (CDN_BASE_URL) {
+          // Combine CDN_BASE_URL + BASE_PATH
+          const cdnBase = CDN_BASE_URL.endsWith('/') ? CDN_BASE_URL.slice(0, -1) : CDN_BASE_URL;
+          if (BASE_PATH) {
+            const basePath = BASE_PATH.startsWith('/') ? BASE_PATH : `/${BASE_PATH}`;
+            baseUrl = `${cdnBase}${basePath}`;
+          } else {
+            baseUrl = cdnBase;
+          }
+        } else {
+          baseUrl = BASE_PATH;
+        }
+
         // Build the final URL
         let finalUrl = url;
 
-        // If URL starts with '/', we need to prepend basePath
+        // If URL starts with '/', prepend the base URL
         if (url.startsWith('/')) {
-          // If CDN_BASE_URL is set and it's different from BASE_PATH, use CDN
-          // Otherwise, use BASE_PATH for the basePath
-          const baseUrl = CDN_BASE_URL && CDN_BASE_URL !== BASE_PATH ? CDN_BASE_URL : BASE_PATH;
-
           if (baseUrl) {
             const cleanPath = url.slice(1); // Remove leading slash
-            finalUrl = `${baseUrl}/${cleanPath}`;
+            // Ensure baseUrl doesn't end with / and cleanPath doesn't start with /
+            const cleanBaseUrl = baseUrl.endsWith('/') ? baseUrl.slice(0, -1) : baseUrl;
+            finalUrl = `${cleanBaseUrl}/${cleanPath}`;
           }
+        } else if (baseUrl) {
+          // If URL doesn't start with '/', still prepend base URL if available
+          const cleanBaseUrl = baseUrl.endsWith('/') ? baseUrl.slice(0, -1) : baseUrl;
+          finalUrl = `${cleanBaseUrl}/${url}`;
         }
 
         // Append timestamp query parameter for cache busting

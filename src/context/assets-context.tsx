@@ -248,12 +248,16 @@ export function AssetsProvider({ children }: { children: ReactNode }) {
     setError(null);
 
     try {
-      // Get basePath - could be from NEXT_PUBLIC_CDN_BASE_URL or NEXT_PUBLIC_BASE_PATH
-      const BASE_PATH = process.env.NEXT_PUBLIC_BASE_PATH || process.env.NEXT_PUBLIC_CDN_BASE_URL || '';
+      // Get basePath - only use NEXT_PUBLIC_BASE_PATH for assets.json (not CDN)
+      // CDN should only be used for transforming asset URLs, not for fetching assets.json
+      const BASE_PATH = process.env.NEXT_PUBLIC_BASE_PATH || '';
       const CDN_BASE_URL = process.env.NEXT_PUBLIC_CDN_BASE_URL || '';
 
-      // Construct the assets.json path with basePath
-      const assetsJsonPath = BASE_PATH ? `${BASE_PATH}/assets.json` : '/assets.json';
+      // Construct the assets.json path with basePath (never use CDN for this)
+      // Add timestamp query parameter to prevent caching
+      const baseAssetsPath = BASE_PATH ? `${BASE_PATH}/assets.json` : '/assets.json';
+      const separator = baseAssetsPath.includes('?') ? '&' : '?';
+      const assetsJsonPath = `${baseAssetsPath}${separator}v=${BUILD_TIMESTAMP}`;
       const response = await fetch(assetsJsonPath);
 
       if (!response.ok) {

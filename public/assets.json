@@ -542,6 +542,36 @@
     }
   },
   "vote": {
+    "title": {
+      "url": "/assets/vote_title@3x.png",
+      "width": 354,
+      "height": 72,
+      "alt": "投票标题"
+    },
+    "listBg": {
+      "url": "/assets/vote_list_bg@3x.png",
+      "width": 756,
+      "height": 765,
+      "alt": "列表背景"
+    },
+    "btnBg": {
+      "url": "/assets/vote_btn_bg@3x.png",
+      "width": 333,
+      "height": 93,
+      "alt": "按钮背景"
+    },
+    "cancelBtn": {
+      "url": "/assets/vote_question_cancel@3x.png",
+      "width": 63,
+      "height": 30,
+      "alt": "取消按钮"
+    },
+    "panelBg": {
+      "url": "/assets/vote_panel_bg@3x.png",
+      "width": 750,
+      "height": 1160,
+      "alt": "面板背景"
+    },
     "science": {
       "select": {
         "url": "/assets/vote_science_select@3x.png",
@@ -554,6 +584,18 @@
         "width": 686,
         "height": 113,
         "alt": "science unselect"
+      },
+      "categorySelect": {
+        "url": "/assets/vote_science_category_select@3x.png",
+        "width": 127,
+        "height": 53,
+        "alt": "science category"
+      },
+      "categoryUnselect": {
+        "url": "/assets/vote_science_category_unselect@3x.png",
+        "width": 122,
+        "height": 48,
+        "alt": "science category"
       }
     },
     "travel": {
@@ -568,6 +610,18 @@
         "width": 686,
         "height": 113,
         "alt": "travel unselect"
+      },
+      "categorySelect": {
+        "url": "/assets/vote_travel_category_select@3x.png",
+        "width": 127,
+        "height": 53,
+        "alt": "travel category"
+      },
+      "categoryUnselect": {
+        "url": "/assets/vote_travel_category_unselect@3x.png",
+        "width": 122,
+        "height": 48,
+        "alt": "travel category"
       }
     },
     "fitness": {
@@ -582,6 +636,18 @@
         "width": 686,
         "height": 113,
         "alt": "fitness unselect"
+      },
+      "categorySelect": {
+        "url": "/assets/vote_fitness_category_select@3x.png",
+        "width": 127,
+        "height": 53,
+        "alt": "fitness category"
+      },
+      "categoryUnselect": {
+        "url": "/assets/vote_fitness_category_unselect@3x.png",
+        "width": 122,
+        "height": 48,
+        "alt": "fitness category"
       }
     },
     "parenting": {
@@ -596,6 +662,18 @@
         "width": 686,
         "height": 113,
         "alt": "parenting unselect"
+      },
+      "categorySelect": {
+        "url": "/assets/vote_parenting_category_select@3x.png",
+        "width": 122,
+        "height": 48,
+        "alt": "parenting category"
+      },
+      "categoryUnselect": {
+        "url": "/assets/vote_parenting_category_unselect@3x.png",
+        "width": 122,
+        "height": 48,
+        "alt": "parenting category"
       }
     },
     "emotion": {
@@ -610,6 +688,18 @@
         "width": 686,
         "height": 113,
         "alt": "emotion unselect"
+      },
+      "categorySelect": {
+        "url": "/assets/vote_emotion_category_select@3x.png",
+        "width": 122,
+        "height": 48,
+        "alt": "emotion category"
+      },
+      "categoryUnselect": {
+        "url": "/assets/vote_emotion_category_unselect@3x.png",
+        "width": 122,
+        "height": 48,
+        "alt": "emotion category"
       }
     },
     "movie": {
@@ -624,6 +714,18 @@
         "width": 686,
         "height": 113,
         "alt": "movie unselect"
+      },
+      "categorySelect": {
+        "url": "/assets/vote_movie_category_select@3x.png",
+        "width": 122,
+        "height": 48,
+        "alt": "movie category"
+      },
+      "categoryUnselect": {
+        "url": "/assets/vote_movie_category_unselect@3x.png",
+        "width": 122,
+        "height": 48,
+        "alt": "movie category"
       }
     },
     "fashion": {
@@ -638,6 +740,18 @@
         "width": 686,
         "height": 113,
         "alt": "fashion unselect"
+      },
+      "categorySelect": {
+        "url": "/assets/vote_fashion_category_select@3x.png",
+        "width": 122,
+        "height": 48,
+        "alt": "fashion category"
+      },
+      "categoryUnselect": {
+        "url": "/assets/vote_fashion_category_unselect@3x.png",
+        "width": 122,
+        "height": 48,
+        "alt": "fashion category"
       }
     },
     "career": {
@@ -652,6 +766,18 @@
         "width": 686,
         "height": 113,
         "alt": "career unselect"
+      },
+      "categorySelect": {
+        "url": "/assets/vote_career_category_select@3x.png",
+        "width": 122,
+        "height": 48,
+        "alt": "career category"
+      },
+      "categoryUnselect": {
+        "url": "/assets/vote_career_category_unselect@3x.png",
+        "width": 122,
+        "height": 48,
+        "alt": "career category"
       }
     },
     "game": {
@@ -666,6 +792,18 @@
         "width": 686,
         "height": 113,
         "alt": "game unselect"
+      },
+      "categorySelect": {
+        "url": "/assets/vote_game_category_select@3x.png",
+        "width": 122,
+        "height": 48,
+        "alt": "game category"
+      },
+      "categoryUnselect": {
+        "url": "/assets/vote_game_category_unselect@3x.png",
+        "width": 122,
+        "height": 48,
+        "alt": "game category"
       }
     },
     "home": {
@@ -680,6 +818,18 @@
         "width": 686,
         "height": 113,
         "alt": "home unselect"
+      },
+      "categorySelect": {
+        "url": "/assets/vote_home_category_select@3x.png",
+        "width": 122,
+        "height": 48,
+        "alt": "home category"
+      },
+      "categoryUnselect": {
+        "url": "/assets/vote_home_category_unselect@3x.png",
+        "width": 122,
+        "height": 48,
+        "alt": "home category"
       }
     },
     "tech": {
@@ -694,6 +844,18 @@
         "width": 686,
         "height": 113,
         "alt": "tech unselect"
+      },
+      "categorySelect": {
+        "url": "/assets/vote_tech_category_select@3x.png",
+        "width": 122,
+        "height": 48,
+        "alt": "tech category"
+      },
+      "categoryUnselect": {
+        "url": "/assets/vote_tech_category_unselect@3x.png",
+        "width": 122,
+        "height": 48,
+        "alt": "tech category"
       }
     },
     "edu": {
@@ -708,6 +870,18 @@
         "width": 686,
         "height": 113,
         "alt": "edu unselect"
+      },
+      "categorySelect": {
+        "url": "/assets/vote_edu_category_select@3x.png",
+        "width": 122,
+        "height": 48,
+        "alt": "edu category"
+      },
+      "categoryUnselect": {
+        "url": "/assets/vote_edu_category_unselect@3x.png",
+        "width": 122,
+        "height": 48,
+        "alt": "edu category"
       }
     },
     "sports": {
@@ -722,6 +896,18 @@
         "width": 686,
         "height": 113,
         "alt": "sports unselect"
+      },
+      "categorySelect": {
+        "url": "/assets/vote_sports_category_select@3x.png",
+        "width": 122,
+        "height": 48,
+        "alt": "sports category"
+      },
+      "categoryUnselect": {
+        "url": "/assets/vote_sports_category_unselect@3x.png",
+        "width": 122,
+        "height": 48,
+        "alt": "sports category"
       }
     }
   },

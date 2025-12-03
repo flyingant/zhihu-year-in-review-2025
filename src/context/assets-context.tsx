@@ -106,41 +106,64 @@ export interface AssetsData {
     questionClearImage: AssetMetadata;
   };
   vote: {
+    title: AssetMetadata;
+    listBg: AssetMetadata;
+    btnBg: AssetMetadata;
+    cancelBtn: AssetMetadata;
+    panelBg: AssetMetadata;
     science: {
       select: AssetMetadata;
       unselect: AssetMetadata;
+      categorySelect: AssetMetadata;
+      categoryUnselect: AssetMetadata;
     };
     fitness: {
       select: AssetMetadata;
       unselect: AssetMetadata;
+      categorySelect: AssetMetadata;
+      categoryUnselect: AssetMetadata;
     };
     movie: {
       select: AssetMetadata;
       unselect: AssetMetadata;
+      categorySelect: AssetMetadata;
+      categoryUnselect: AssetMetadata;
     };
     sports: {
       select: AssetMetadata;
       unselect: AssetMetadata;
+      categorySelect: AssetMetadata;
+      categoryUnselect: AssetMetadata;
     };
     edu: {
       select: AssetMetadata;
       unselect: AssetMetadata;
+      categorySelect: AssetMetadata;
+      categoryUnselect: AssetMetadata;
     };
     travel: {
       select: AssetMetadata;
       unselect: AssetMetadata;
+      categorySelect: AssetMetadata;
+      categoryUnselect: AssetMetadata;
     };
     home: {
       select: AssetMetadata;
       unselect: AssetMetadata;
+      categorySelect: AssetMetadata;
+      categoryUnselect: AssetMetadata;
     };
     tech: {
       select: AssetMetadata;
       unselect: AssetMetadata;
+      categorySelect: AssetMetadata;
+      categoryUnselect: AssetMetadata;
     };
     game: {
       select: AssetMetadata;
       unselect: AssetMetadata;
+      categorySelect: AssetMetadata;
+      categoryUnselect: AssetMetadata;
     };
   };
   /**

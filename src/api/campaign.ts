@@ -44,6 +44,7 @@ export interface TaskItem {
   total: number;
   finished: number;
   state: TaskState;
+  task_type?: string; // Optional task type field (e.g., 'OtherTASK')
 }
 
 export interface CampaignResponse {

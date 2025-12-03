@@ -220,7 +220,12 @@ const TaskSection = () => {
                         <span className="text-sm font-bold text-black">
                           {/* <span className="text-xs text-red-500">【ID:{task.id}】</span> */}
                           {task.name}
-                          <span className="ml-2 font-normal">({task.finished}/{task.total})</span>
+                          <span className="ml-2 font-normal">
+                            {(task.task_type === 'OtherTASK')
+                              ? (task.state.point_received ? '(1/1)' : '(0/1)')
+                              : `(${task.finished}/${task.total})`
+                            }
+                          </span>
                         </span>
                       </div>
                       <div className="text-xs text-gray">{task.desc}</div>

@@ -157,7 +157,7 @@
     "bottomBanner": {
       "url": "/assets/game_bottom_banner@3x.png",
       "width": 1000,
-      "height": 150,
+      "height": 140,
       "alt": "Game Bottom Banner"
     },
     "saveImage": {

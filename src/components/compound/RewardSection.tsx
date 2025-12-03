@@ -8,6 +8,7 @@ import { useAssets } from '@/context/assets-context';
 import { RewardItem, preOccupyReward, cancelOccupyReward, CampaignResponse, getCampaignInfo } from '@/api/campaign';
 import { useToast } from '@/context/toast-context';
 import { useZA } from '@/hooks/useZA';
+import { useZhihuApp } from '@/hooks/useZhihuApp';
 
 const formatDate = (timestamp: number | undefined) => {
   if (!timestamp) return '--/--/--';
@@ -25,6 +26,7 @@ const RewardSection = () => {
   const { showToast } = useToast();
   const { assets } = useAssets();
   const { trackEvent } = useZA();
+  const isInZhihuApp = useZhihuApp();
 
   const [campaignData, setCampaignData] = useState<CampaignResponse | null>(null);
   const [isRedeemModalOpen, setIsRedeemModalOpen] = useState(false);
@@ -187,8 +189,23 @@ const RewardSection = () => {
     }
   };
 
+  // 处理非App内用户点击奖励区域 - 跳转到App内URL
+  const handleOverlayClick = () => {
+    if (assets?.urls?.liukanshanPointRewardInAppRedirectionURL) {
+      window.location.href = assets.urls.liukanshanPointRewardInAppRedirectionURL;
+    }
+  };
+
   return (
     <div className="relative w-full pb-10 flex flex-col pt-1">
+      {/* 非App内用户透明遮罩层 */}
+      {!isInZhihuApp && (
+        <div
+          onClick={handleOverlayClick}
+          className="absolute inset-0 z-50 cursor-pointer"
+          style={{ backgroundColor: 'transparent' }}
+        />
+      )}
       <div className='flex justify-center pb-9 px-[54px]'>
         <LiuKanShanBianLiDian />
       </div>

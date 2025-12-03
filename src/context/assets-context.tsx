@@ -163,6 +163,10 @@ export interface AssetsData {
     taskPointRedeemDetails: string;
     /** 登录页面基础URL - 跳转到知乎登录页面 */
     signinBase: string;
+    /** 刘看山积分奖励App内跳转URL - 当用户不在App内时，点击奖励区域跳转到此URL */
+    liukanshanPointRewardInAppRedirectionURL: string;
+    /** 刘看山积分任务App内跳转URL - 当用户不在App内时，点击任务区域跳转到此URL */
+    liukanshanPointTaskInAppRedirectionURL: string;
     /** 年度问题链接数组 - 跳转到年度问题页面 */
     yearlyQuestions: string[];
   };

@@ -144,6 +144,13 @@ const TaskSection = () => {
       }
     };
 
+  // 处理非App内用户点击任务区域 - 跳转到App内URL
+  const handleOverlayClick = () => {
+    if (assets?.urls?.liukanshanPointTaskInAppRedirectionURL) {
+      window.location.href = assets.urls.liukanshanPointTaskInAppRedirectionURL;
+    }
+  };
+
   const renderTaskButton = (task: TaskItem) => {
     const isReceived = task.state.point_received;
     const btnText = task.state.desc;
@@ -171,6 +178,14 @@ const TaskSection = () => {
 
   return (
     <div ref={moduleRef} className="relative w-full pb-10 flex flex-col pt-1">
+      {/* 非App内用户透明遮罩层 */}
+      {!isZhihuApp && (
+        <div
+          onClick={handleOverlayClick}
+          className="absolute inset-0 z-50 cursor-pointer"
+          style={{ backgroundColor: 'transparent' }}
+        />
+      )}
       <div className="mx-[16px]">
         {/* 3. 任务列表 */}
         <div className="min-h-[100px]">

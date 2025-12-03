@@ -257,9 +257,9 @@ interface AssetsContextType {
 
 const AssetsContext = createContext<AssetsContextType | undefined>(undefined);
 
-// Build timestamp for cache busting - generated once at module load time
-// This ensures all assets in the same build have the same timestamp
-const BUILD_TIMESTAMP = process.env.NEXT_PUBLIC_BUILD_TIMESTAMP || Date.now().toString();
+// Build version for cache busting - generated once at module load time
+// This ensures all assets in the same build have the same version
+const BUILD_VERSION = process.env.NEXT_PUBLIC_BUILD_VERSION || Date.now().toString();
 
 export function AssetsProvider({ children }: { children: ReactNode }) {
   const [assets, setAssets] = useState<AssetsData | null>(null);
@@ -279,7 +279,7 @@ export function AssetsProvider({ children }: { children: ReactNode }) {
       // Fetch assets.json: Always use BASE_PATH (never CDN) with timestamp for cache busting
       const baseAssetsPath = BASE_PATH ? `${BASE_PATH}/assets.json` : '/assets.json';
       const separator = baseAssetsPath.includes('?') ? '&' : '?';
-      const assetsJsonPath = `${baseAssetsPath}${separator}v=${BUILD_TIMESTAMP}`;
+      const assetsJsonPath = `${baseAssetsPath}${separator}v=${BUILD_VERSION}`;
       const response = await fetch(assetsJsonPath);
 
       if (!response.ok) {
@@ -330,9 +330,9 @@ export function AssetsProvider({ children }: { children: ReactNode }) {
           finalUrl = `${cleanBaseUrl}/${url}`;
         }
 
-        // Append timestamp query parameter for cache busting
+        // Append version query parameter for cache busting
         const separator = finalUrl.includes('?') ? '&' : '?';
-        return `${finalUrl}${separator}v=${BUILD_TIMESTAMP}`;
+        return `${finalUrl}${separator}v=${BUILD_VERSION}`;
       };
 
       // Recursively transform all URLs in the assets object

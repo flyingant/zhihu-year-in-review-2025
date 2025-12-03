@@ -234,6 +234,10 @@ interface AssetsContextType {
 
 const AssetsContext = createContext<AssetsContextType | undefined>(undefined);
 
+// Build timestamp for cache busting - generated once at module load time
+// This ensures all assets in the same build have the same timestamp
+const BUILD_TIMESTAMP = process.env.NEXT_PUBLIC_BUILD_TIMESTAMP || Date.now().toString();
+
 export function AssetsProvider({ children }: { children: ReactNode }) {
   const [assets, setAssets] = useState<AssetsData | null>(null);
   const [isLoading, setIsLoading] = useState(false);
@@ -267,6 +271,9 @@ export function AssetsProvider({ children }: { children: ReactNode }) {
           return url;
         }
 
+        // Build the final URL
+        let finalUrl = url;
+
         // If URL starts with '/', we need to prepend basePath
         if (url.startsWith('/')) {
           // If CDN_BASE_URL is set and it's different from BASE_PATH, use CDN
@@ -275,11 +282,13 @@ export function AssetsProvider({ children }: { children: ReactNode }) {
 
           if (baseUrl) {
             const cleanPath = url.slice(1); // Remove leading slash
-            return `${baseUrl}/${cleanPath}`;
+            finalUrl = `${baseUrl}/${cleanPath}`;
           }
         }
 
-        return url;
+        // Append timestamp query parameter for cache busting
+        const separator = finalUrl.includes('?') ? '&' : '?';
+        return `${finalUrl}${separator}v=${BUILD_TIMESTAMP}`;
       };
 
       // Recursively transform all URLs in the assets object

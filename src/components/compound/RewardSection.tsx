@@ -148,9 +148,24 @@ const RewardSection = () => {
 
     setIsRedeemModalOpen(false);
     // 传递必要的参数到地址表单，stock_occupy_id 是必填参数
-    const params = `addressrequired=true&rewardId=${selectedReward.right_id}&rewardPoolId=${rewardPoolId}&requestId=${requestId}&rewardRightType=${selectedReward.right_type}&stockOccupyId=${stockOccupyId}&from=redeem`;
+    const newParams = {
+      addressrequired: 'true',
+      rewardId: String(selectedReward.right_id),
+      rewardPoolId: String(rewardPoolId),
+      requestId: String(requestId),
+      rewardRightType: String(selectedReward.right_type),
+      stockOccupyId: String(stockOccupyId),
+      from: 'redeem'
+    };
     
-    window.location.href = `/?${params}`;
+    // 获取当前URL并合并现有参数
+    const currentUrl = new URL(window.location.href);
+    // 将新参数添加到现有参数中（新参数会覆盖同名参数）
+    Object.entries(newParams).forEach(([key, value]) => {
+      currentUrl.searchParams.set(key, value);
+    });
+    
+    window.location.href = currentUrl.toString();
   };
 
   // 跳转到兑换记录

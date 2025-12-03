@@ -190,20 +190,34 @@ const RewardSection = () => {
   };
 
   // 处理非App内用户点击奖励区域 - 跳转到App内URL
-  const handleOverlayClick = () => {
+  const handleOverlayClick = (e: React.MouseEvent) => {
+    e.preventDefault();
+    e.stopPropagation();
+    console.log('Overlay clicked, URL:', assets?.urls?.liukanshanPointRewardInAppRedirectionURL);
     if (assets?.urls?.liukanshanPointRewardInAppRedirectionURL) {
       window.location.href = assets.urls.liukanshanPointRewardInAppRedirectionURL;
+    } else {
+      console.warn('liukanshanPointRewardInAppRedirectionURL is not available');
     }
   };
 
   return (
     <div className="relative w-full pb-10 flex flex-col pt-1">
+      <div 
+        className="relative w-full"
+        style={{ pointerEvents: !isInZhihuApp ? 'none' : 'auto' }}
+      >
       {/* 非App内用户透明遮罩层 */}
       {!isInZhihuApp && (
         <div
           onClick={handleOverlayClick}
-          className="absolute inset-0 z-50 cursor-pointer"
-          style={{ backgroundColor: 'transparent' }}
+          onMouseDown={handleOverlayClick}
+          className="absolute inset-0 z-[60] cursor-pointer"
+          style={{ 
+            backgroundColor: 'rgba(0,0,0,0.01)',
+            pointerEvents: 'auto',
+            minHeight: '100%'
+          }}
         />
       )}
       <div className='flex justify-center pb-9 px-[54px]'>
@@ -324,6 +338,7 @@ const RewardSection = () => {
             );
           })}
         </div>
+      </div>
       </div>
       </div>
 

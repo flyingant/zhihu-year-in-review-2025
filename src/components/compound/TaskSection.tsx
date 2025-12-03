@@ -145,9 +145,14 @@ const TaskSection = () => {
     };
 
   // 处理非App内用户点击任务区域 - 跳转到App内URL
-  const handleOverlayClick = () => {
+  const handleOverlayClick = (e: React.MouseEvent) => {
+    e.preventDefault();
+    e.stopPropagation();
+    console.log('Overlay clicked, URL:', assets?.urls?.liukanshanPointTaskInAppRedirectionURL);
     if (assets?.urls?.liukanshanPointTaskInAppRedirectionURL) {
       window.location.href = assets.urls.liukanshanPointTaskInAppRedirectionURL;
+    } else {
+      console.warn('liukanshanPointTaskInAppRedirectionURL is not available');
     }
   };
 
@@ -178,15 +183,23 @@ const TaskSection = () => {
 
   return (
     <div ref={moduleRef} className="relative w-full pb-10 flex flex-col pt-1">
+      <div 
+        className="relative mx-[16px]"
+        style={{ pointerEvents: !isZhihuApp ? 'none' : 'auto' }}
+      >
       {/* 非App内用户透明遮罩层 */}
       {!isZhihuApp && (
         <div
           onClick={handleOverlayClick}
-          className="absolute inset-0 z-50 cursor-pointer"
-          style={{ backgroundColor: 'transparent' }}
+          onMouseDown={handleOverlayClick}
+          className="absolute inset-0 z-[60] cursor-pointer"
+          style={{ 
+            backgroundColor: 'rgba(0,0,0,0.01)',
+            pointerEvents: 'auto',
+            minHeight: '100%'
+          }}
         />
       )}
-      <div className="mx-[16px]">
         {/* 3. 任务列表 */}
         <div className="min-h-[100px]">
         {

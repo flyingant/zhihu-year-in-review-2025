@@ -252,7 +252,7 @@ export default function AddressForm() {
             },
           },
         });
-        showToast("兑换成功", "success");
+        showToast("兑换成功，详细请到兑换记录查看", "success");
       } else {
         //埋点28
         //只有liukanshan收货地址点击确认才有

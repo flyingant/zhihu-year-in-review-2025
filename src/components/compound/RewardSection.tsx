@@ -160,7 +160,7 @@ const RewardSection = () => {
       from: 'redeem',
     });
     
-    router.push(`/?${params.toString()}`);
+    router.push(`/addressrequired?${params.toString()}`);
   };
 
   // 跳转到兑换记录

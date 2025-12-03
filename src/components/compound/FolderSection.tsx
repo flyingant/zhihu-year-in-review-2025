@@ -43,50 +43,13 @@ const FolderSection = () => {
 
   const footerImg = assets.folders.footer;
 
-  const folders = [
-    {
-      id: 0,
-      asset: assets.folders.all[0],
-      name: '鸡排哥',
-      clipPath: clipPathleft,
-      url: assets.folders.all[0].jump_url || ''
-    },
-    {
-      id: 1,
-      asset: assets.folders.all[1],
-      name: '张春',
-      clipPath: clipPathright,
-      url: assets.folders.all[1].jump_url || ''
-    },
-    {
-      id: 2,
-      asset: assets.folders.all[2],
-      name: '马家辉',
-      clipPath: clipPathleft,
-      url: assets.folders.all[2].jump_url || ''
-    },
-    {
-      id: 3,
-      asset: assets.folders.all[3],
-      name: '翟佳宁',
-      clipPath: clipPathright,
-      url: assets.folders.all[3].jump_url || ''
-    },
-    {
-      id: 4,
-      asset: assets.folders.all[4],
-      name: '严飞',
-      clipPath: clipPathleft,
-      url: assets.folders.all[4].jump_url || ''
-    },
-    {
-      id: 5,
-      asset: assets.folders.all[5],
-      name: '陶芳波',
-      clipPath: clipPathright,
-      url: assets.folders.all[5].jump_url || ''
-    },
-  ];
+  const folders = assets.folders.all.map((asset, index) => ({
+    id: index,
+    asset,
+    name: asset.alt,
+    clipPath: index % 2 === 0 ? clipPathleft : clipPathright,
+    url: asset.jump_url || ''
+  }));
 
   const handleFolderClick = (e: React.MouseEvent<HTMLDivElement>, index: number, item: FolderItem) => {
     const target = e.currentTarget;
@@ -141,7 +104,6 @@ const FolderSection = () => {
       <div className="relative w-full h-[165px] m-auto px-[16px]">
         {folders.map((folder, index) => {
           const zIndex = index;
-          const topOffset = index * 16;
           const isActive = activeIndex === index;
           const { url, width, height, alt } = folder.asset as { url: string; width: number; height: number; alt: string };
           const topClass = TOP_POSITIONS[index] || 'top-[0px]';

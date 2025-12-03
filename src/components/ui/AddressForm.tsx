@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { useRouter, useSearchParams } from "next/navigation";
+import { useRouter, useSearchParams, usePathname } from "next/navigation";
 import { useToast } from "@/context/toast-context";
 import { getAddressInfo, submitAddress, completeRedeemReward } from "@/api/campaign";
 import { useAssets } from "@/context/assets-context";
@@ -23,6 +23,7 @@ const phoneRegex = /^1[3-9]\d{9}$/;
 export default function AddressForm() {
   const router = useRouter();
   const searchParams = useSearchParams();
+  const pathname = usePathname();
   const { showToast } = useToast();
   const { trackPageShow, trackPageDisappear, trackEvent } = useZA();
   const { assets } = useAssets();
@@ -274,7 +275,7 @@ export default function AddressForm() {
       }
       // Redirect back after successful submission
       setTimeout(() => {
-        router.push("/");
+        router.push(pathname);
       }, 1500);
     } catch (error) {
       console.error("Failed to submit:", error);

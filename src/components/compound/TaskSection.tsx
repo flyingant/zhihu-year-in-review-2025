@@ -150,41 +150,7 @@ const TaskSection = () => {
     e.stopPropagation();
     console.log('Overlay clicked, URL:', assets?.urls?.liukanshanPointTaskInAppRedirectionURL);
     if (assets?.urls?.liukanshanPointTaskInAppRedirectionURL) {
-      try {
-        // Get current URL parameters
-        const currentUrl = new URL(window.location.href);
-        const currentParams = new URLSearchParams(currentUrl.search);
-        
-        // Parse the target URL
-        const targetUrl = new URL(assets.urls.liukanshanPointTaskInAppRedirectionURL, window.location.origin);
-        const targetParams = new URLSearchParams(targetUrl.search);
-        
-        // Merge current URL parameters into target URL (current params override target params if duplicates exist)
-        currentParams.forEach((value, key) => {
-          targetParams.set(key, value);
-        });
-        
-        // Update target URL with merged parameters
-        targetUrl.search = targetParams.toString();
-        
-        // Preserve hash from current URL if target doesn't have one
-        if (!targetUrl.hash && currentUrl.hash) {
-          targetUrl.hash = currentUrl.hash;
-        }
-        
-        const finalUrl = targetUrl.toString();
-        console.log('Final URL with merged parameters:', finalUrl);
-        window.location.href = finalUrl;
-      } catch (error) {
-        // If URL parsing fails, fallback to original URL with current query string appended
-        console.warn('Failed to parse URL, using fallback:', error);
-        const currentQuery = window.location.search;
-        const separator = assets.urls.liukanshanPointTaskInAppRedirectionURL.includes('?') ? '&' : '?';
-        const fallbackUrl = currentQuery 
-          ? `${assets.urls.liukanshanPointTaskInAppRedirectionURL}${separator}${currentQuery.slice(1)}`
-          : assets.urls.liukanshanPointTaskInAppRedirectionURL;
-        window.location.href = fallbackUrl;
-      }
+      window.location.href = assets.urls.liukanshanPointTaskInAppRedirectionURL;
     } else {
       console.warn('liukanshanPointTaskInAppRedirectionURL is not available');
     }

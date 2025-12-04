@@ -156,7 +156,7 @@ const MiniComputerSection = () => {
       try {
         // 在知乎 App 内，使用 Hybrid SDK 下载图片
         await downloadImageViaHybrid(posterUrl);
-        showToast('图片保存成功', 'success');
+        // showToast('图片保存成功', 'success'); 
       } catch (error) {
         console.error('Failed to save image via zhihuHybrid:', error);
         // 如果 zhihuHybrid 失败，降级到标准下载方法

@@ -237,7 +237,8 @@ const SidebarLiuKanshan = () => {
   const handleSidebarClick = async () => {
     trackEvent('', {
       moduleId: 'liukanshan_gift_2025',
-      type: 'Button'
+      type: 'Button',
+      page: { page_id: '60850', page_level: 1 }
     })
 
     // Call completeTask API (fire-and-forget, non-blocking)

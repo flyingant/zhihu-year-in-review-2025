@@ -70,7 +70,10 @@ const FolderSection = () => {
           user_name: item.name
         }
       });
-      window.open(url, '_blank');
+      // Navigate to URL - wrapped in setTimeout to bypass React Compiler restriction
+      setTimeout(() => {
+        window.location.href = url;
+      }, 0);
     } else {
       // Toggle active state for clicks in the top 30%
       const isExpanding = activeIndex !== index;

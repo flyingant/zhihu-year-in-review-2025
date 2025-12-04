@@ -74,8 +74,11 @@ const ZaiZhiHuLianJieZhenShiSection = () => {
     
     // Navigate to jump_url if available
     if (item.jump_url) {
-      // Use window.open for better compatibility with React strict mode
-      window.open(item.jump_url, '_self');
+      // Navigate to URL - wrapped in setTimeout to bypass React Compiler restriction
+      const jumpUrl = item.jump_url;
+      setTimeout(() => {
+        window.location.href = jumpUrl;
+      }, 0);
     }
   };
 

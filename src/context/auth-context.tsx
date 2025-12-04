@@ -19,12 +19,18 @@ interface ZhihuHybridNewAPI {
   (action: string): ZhihuHybridAction;
 }
 
+interface Profile {
+  name?: string;
+  username?: string;
+  [key: string]: unknown;
+}
+
 interface AuthContextType {
   isAuthLoading: boolean;
   isAuthenticated: boolean;
   fetchProfile: () => void;
   clear: () => void;
-  profile: unknown;
+  profile: Profile | null;
   login: (signinBase?: string) => void;
 }
 

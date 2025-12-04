@@ -28,7 +28,8 @@ const ZaiZhiHuLianJieZhenShiSection = () => {
     isVisibleRef.current = inView;
 
     if (inView && !hasTrackedModule.current) {
-      trackShow({ moduleId: 'carousel_subvenue_2025', type: 'Block' });
+      //  埋点17
+      trackShow({ moduleId: 'carousel_subvenue_2025', type: 'Block', page: { page_id: '60850', page_level: 1 } });
       hasTrackedModule.current = true;
     }
   }, [inView, trackShow]);

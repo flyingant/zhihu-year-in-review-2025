@@ -114,13 +114,14 @@ export const useZA = () => {
   };
 
   // --- 4. 交互点击  --- 
-  const trackEvent = (action: string, location: ZAElementLocation, extra?: Record<string, any>) => {
+  const trackEvent = (action: string, location: ZAElementLocation, extra?: Record<string, any>, eventType: string = 'Click') => {
     if (!clientRef.current) return;
     const payload = { ...location, type: location.type || 'Button' };
 
     clientRef.current.trackEvent({
       action: !action ? null : action,
-      elementLocation: payload
+      elementLocation: payload,
+      event_type: eventType
     }, extra);
     console.log(`ZA: Event(${action})`, payload);
   };

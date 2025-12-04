@@ -9,12 +9,22 @@ import {
   useCallback,
   ReactNode,
 } from "react";
+import { isZhihuApp } from "@/lib/zhihu-detection";
+
+interface ZhihuHybridAction {
+  dispatch(params: Record<string, unknown>): Promise<unknown> | { subscribe?: (callback: (result: unknown) => void) => void };
+}
+
+interface ZhihuHybridNewAPI {
+  (action: string): ZhihuHybridAction;
+}
+
 interface AuthContextType {
   isAuthLoading: boolean;
   isAuthenticated: boolean;
   fetchProfile: () => void;
   clear: () => void;
-  profile: any;
+  profile: unknown;
   login: (signinBase?: string) => void;
 }
 
@@ -78,6 +88,25 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       sessionStorage.setItem('auth_redirecting', 'true');
     }
     
+    // If in Zhihu App, use zhihuHybrid to show login dialog
+    if (typeof window !== 'undefined' && isZhihuApp() && window.zhihuHybrid) {
+      const nextUrl = window.location.href;
+      try {
+        // Use zhihuHybrid to show login dialog in App
+        const hybridAction = (window.zhihuHybrid as ZhihuHybridNewAPI)('account/showLoginDialog');
+        hybridAction.dispatch({
+          next: nextUrl,
+        });
+      } catch (error) {
+        console.error('Failed to show login dialog via zhihuHybrid:', error);
+        // Fallback to web redirect if hybrid fails
+        const baseUrl = signinBase || 'https://www.zhihu.com/signin';
+        window.location.href = `${baseUrl}?next=${encodeURIComponent(nextUrl)}`;
+      }
+      return;
+    }
+    
+    // Web redirect (not in App or zhihuHybrid not available)
     const baseUrl = signinBase || 'https://www.zhihu.com/signin';
     if (typeof window !== 'undefined') {
       window.location.href = `${baseUrl}?next=${encodeURIComponent(

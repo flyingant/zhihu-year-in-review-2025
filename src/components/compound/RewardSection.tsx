@@ -9,6 +9,7 @@ import { useToast } from '@/context/toast-context';
 import { useZA } from '@/hooks/useZA';
 import { useZhihuApp } from '@/hooks/useZhihuApp';
 import { useMobile } from '@/hooks/useMobile';
+import { useZhihuHybrid } from '@/hooks/useZhihuHybrid';
 
 const formatDate = (timestamp: number | undefined) => {
   if (!timestamp) return '--/--/--';
@@ -27,6 +28,7 @@ const RewardSection = () => {
   const { trackEvent } = useZA();
   const isInZhihuApp = useZhihuApp();
   const isMobile = useMobile();
+  const { isAvailable: isHybridAvailable, openURL } = useZhihuHybrid();
 
   const [campaignData, setCampaignData] = useState<CampaignResponse | null>(null);
   const [isRedeemModalOpen, setIsRedeemModalOpen] = useState(false);
@@ -175,7 +177,7 @@ const RewardSection = () => {
   };
 
   // 跳转到兑换记录
-  const handleGoToRecords = () => {
+  const handleGoToRecords = async () => {
     //埋点22
     trackEvent('', {
       moduleId: 'rewards_redemption_history_2025',
@@ -187,12 +189,22 @@ const RewardSection = () => {
     });
     if (assets?.urls?.taskPointRedeemBase && assets?.urls?.taskPointRedeemHistory) {
       const url = `${assets.urls.taskPointRedeemBase}/${assets.campaign.activityId}${assets.urls.taskPointRedeemHistory}`;
-      window.location.href = url;
+      // Use zhihuHybrid if in zhihu app, otherwise use window.location.href
+      if (isInZhihuApp && isHybridAvailable) {
+        try {
+          await openURL(url);
+        } catch (error) {
+          console.error('Failed to open URL via zhihuHybrid, falling back to window.location.href:', error);
+          window.location.href = url;
+        }
+      } else {
+        window.location.href = url;
+      }
     }
   };
 
   // 跳转到积分明细
-  const handleGoToPointDetails = () => {
+  const handleGoToPointDetails = async () => {
     //埋点21
     trackEvent('', {
       moduleId: 'points_details_button_2025',
@@ -204,7 +216,17 @@ const RewardSection = () => {
     });
     if (assets?.urls?.taskPointRedeemBase && assets?.urls?.taskPointRedeemDetails) {
       const url = `${assets.urls.taskPointRedeemBase}/${assets.campaign.activityId}${assets.urls.taskPointRedeemDetails}`;
-      window.location.href = url;
+      // Use zhihuHybrid if in zhihu app, otherwise use window.location.href
+      if (isInZhihuApp && isHybridAvailable) {
+        try {
+          await openURL(url);
+        } catch (error) {
+          console.error('Failed to open URL via zhihuHybrid, falling back to window.location.href:', error);
+          window.location.href = url;
+        }
+      } else {
+        window.location.href = url;
+      }
     }
   };
 

@@ -6,6 +6,8 @@ import Image from 'next/image';
 import { useAssets } from '@/context/assets-context';
 import { useZA } from '@/hooks/useZA';
 import { useInView } from 'react-intersection-observer';
+import { useZhihuHybrid } from '@/hooks/useZhihuHybrid';
+import { useZhihuApp } from '@/hooks/useZhihuApp';
 
 interface ItemProps {
   item: { image_url: string; jump_url: string };
@@ -14,6 +16,8 @@ interface ItemProps {
 
 const QinZiDaItem = ({ item, index }: ItemProps) => {
   const { trackShow, trackEvent } = useZA();
+  const { isAvailable: isHybridAvailable, openURL } = useZhihuHybrid();
+  const isZhihuApp = useZhihuApp();
 
   const { ref, inView } = useInView({
     triggerOnce: true,
@@ -26,7 +30,7 @@ const QinZiDaItem = ({ item, index }: ItemProps) => {
     }
   }, [inView, trackShow, index]);
 
-  const handleClick = () => {
+  const handleClick = async () => {
     //埋点16
     trackEvent('OpenUrl', {
       moduleId: 'personal_answer_2025',
@@ -39,7 +43,17 @@ const QinZiDaItem = ({ item, index }: ItemProps) => {
     });
 
     if (item.jump_url) {
-      window.location.href = item.jump_url;
+      // Use zhihuHybrid if in zhihu app, otherwise use window.location.href
+      if (isZhihuApp && isHybridAvailable) {
+        try {
+          await openURL(item.jump_url);
+        } catch (error) {
+          console.error('Failed to open URL via zhihuHybrid, falling back to window.location.href:', error);
+          window.location.href = item.jump_url;
+        }
+      } else {
+        window.location.href = item.jump_url;
+      }
     }
   };
 

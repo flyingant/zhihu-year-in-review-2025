@@ -8,6 +8,7 @@ import { useZhihuApp } from '@/hooks/useZhihuApp';
 import { useZA } from '@/hooks/useZA';
 import { useInView } from 'react-intersection-observer';
 import { useMobile } from '@/hooks/useMobile';
+import { useZhihuHybrid } from '@/hooks/useZhihuHybrid';
 
 const TaskSection = () => {
   const { showToast } = useToast();
@@ -17,6 +18,7 @@ const TaskSection = () => {
   const [campaignData, setCampaignData] = useState<CampaignResponse | null>(null);
   const { trackShow, trackEvent } = useZA();
   const { ref: moduleRef, inView: moduleInView } = useInView({ triggerOnce: true });
+  const { isAvailable: isHybridAvailable, openURL } = useZhihuHybrid();
 
   useEffect(() => {
     if (moduleInView) {
@@ -72,7 +74,7 @@ const TaskSection = () => {
     return null;
   };
 
-  const handleTaskAction = (task: TaskItem) => {
+  const handleTaskAction = async (task: TaskItem) => {
     const { state } = task;
     if (state.point_received) return;
     //埋点24
@@ -102,7 +104,17 @@ const TaskSection = () => {
     // 如果有有效URL，直接跳转
     if (targetUrl) {
       console.log(`跳转到: ${targetUrl}`);
-      window.location.href = targetUrl;
+      // Use zhihuHybrid if in zhihu app, otherwise use window.location.href
+      if (isZhihuApp && isHybridAvailable) {
+        try {
+          await openURL(targetUrl);
+        } catch (error) {
+          console.error('Failed to open URL via zhihuHybrid, falling back to window.location.href:', error);
+          window.location.href = targetUrl;
+        }
+      } else {
+        window.location.href = targetUrl;
+      }
       return;
     }
 

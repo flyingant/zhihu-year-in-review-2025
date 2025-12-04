@@ -28,8 +28,8 @@ declare global {
 }
 
 /**
- * React hook to detect if Zhihu Hybrid SDK is available and provide image download functionality
- * @returns {object} { isAvailable: boolean, downloadImage: (url: string) => Promise<void> }
+ * React hook to detect if Zhihu Hybrid SDK is available and provide hybrid functionality
+ * @returns {object} { isAvailable: boolean, downloadImage: (url: string) => Promise<void>, openURL: (url: string, openAndClose?: boolean) => Promise<void> }
  */
 export function useZhihuHybrid() {
   const [isAvailable, setIsAvailable] = useState(false);
@@ -101,6 +101,42 @@ export function useZhihuHybrid() {
     }
   }, [isAvailable]);
 
-  return { isAvailable, downloadImage };
+  /**
+   * Open URL using zhihuHybrid SDK (new API pattern)
+   * Based on tech specs: uses 'base/openURL'.dispatch(params)
+   * Opens a new page, supports Web URL & Native URL Scheme
+   * @param url - The page address, supports Web URL & Native URL Scheme
+   * @param openAndClose - Whether to close the current page when opening a new page (Android 8.5.0+, iOS: N/A)
+   * @returns Promise that resolves when URL is opened
+   */
+  const openURL = useCallback(async (url: string, openAndClose?: boolean): Promise<void> => {
+    if (!isAvailable || !window.zhihuHybrid) {
+      console.warn('zhihuHybrid SDK is not available');
+      return;
+    }
+
+    if (!url) {
+      console.warn('URL is required');
+      return;
+    }
+
+    try {
+      // Use new API pattern: window.zhihuHybrid('base/openURL').dispatch(params)
+      const hybridAction = (window.zhihuHybrid as ZhihuHybridNewAPI)('base/openURL');
+      const params: { url: string; openAndClose?: boolean } = { url };
+      if (openAndClose !== undefined) {
+        params.openAndClose = openAndClose;
+      }
+      const result = hybridAction.dispatch(params);
+      
+      // Handle PromiseObservable - can be awaited as a Promise
+      await result;
+    } catch (error) {
+      console.error('Failed to open URL via zhihuHybrid:', error);
+      throw error;
+    }
+  }, [isAvailable]);
+
+  return { isAvailable, downloadImage, openURL };
 }
 

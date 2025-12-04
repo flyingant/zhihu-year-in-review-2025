@@ -46,7 +46,7 @@ const MiniComputerSection = () => {
 
   const mirrorRef = useRef<HTMLDivElement>(null);
   const { showToast } = useToast();
-  const { downloadImage: downloadImageViaHybrid } = useZhihuHybrid();
+  const { downloadImage: downloadImageViaHybrid, isAvailable: isHybridAvailable, openURL } = useZhihuHybrid();
   const isInZhihuApp = useZhihuApp();
   const isMobile = useMobile();
 
@@ -313,7 +313,7 @@ const MiniComputerSection = () => {
     }
   };
 
-  const handleBannerClick = () => {
+  const handleBannerClick = async () => {
     //埋点9
     trackEvent('OpenUrl', {
       moduleId: 'share_moment_question_2025',
@@ -326,7 +326,17 @@ const MiniComputerSection = () => {
 
     const url = assets?.urls?.miniComputerQuestion;
     if (url) {
-      window.location.href = url;
+      // Use zhihuHybrid if in zhihu app, otherwise use window.location.href
+      if (isInZhihuApp && isHybridAvailable) {
+        try {
+          await openURL(url);
+        } catch (error) {
+          console.error('Failed to open URL via zhihuHybrid, falling back to window.location.href:', error);
+          window.location.href = url;
+        }
+      } else {
+        window.location.href = url;
+      }
     }
   };
 

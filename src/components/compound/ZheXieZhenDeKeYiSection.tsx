@@ -7,11 +7,15 @@ import { useZA } from '@/hooks/useZA';
 import { useInView } from 'react-intersection-observer';
 import { useAssets } from '@/context/assets-context';
 import { completeTask } from '@/api/campaign';
+import { useZhihuHybrid } from '@/hooks/useZhihuHybrid';
+import { useZhihuApp } from '@/hooks/useZhihuApp';
 
 const ZheXieZhenDeKeYiSection = () => {
   const { assets } = useAssets();
   const { trackShow, trackEvent } = useZA();
   const { ref: moduleRef, inView: moduleInView } = useInView({ triggerOnce: true });
+  const { isAvailable: isHybridAvailable, openURL } = useZhihuHybrid();
+  const isZhihuApp = useZhihuApp();
 
   useEffect(() => {
     if (moduleInView) {
@@ -57,7 +61,17 @@ const ZheXieZhenDeKeYiSection = () => {
                 page: { page_id: '60850', page_level: 1 }
               });
 
-              window.location.href = item.jump_url;
+              // Use zhihuHybrid if in zhihu app, otherwise use window.location.href
+              if (isZhihuApp && isHybridAvailable) {
+                try {
+                  await openURL(item.jump_url);
+                } catch (error) {
+                  console.error('Failed to open URL via zhihuHybrid, falling back to window.location.href:', error);
+                  window.location.href = item.jump_url;
+                }
+              } else {
+                window.location.href = item.jump_url;
+              }
             }
           };
 

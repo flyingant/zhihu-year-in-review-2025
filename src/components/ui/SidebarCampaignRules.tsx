@@ -4,10 +4,14 @@ import React from 'react';
 import Image from 'next/image';
 import { useAssets } from '@/context/assets-context';
 import { useZA } from '@/hooks/useZA';
+import { useZhihuHybrid } from '@/hooks/useZhihuHybrid';
+import { useZhihuApp } from '@/hooks/useZhihuApp';
 
 const SidebarCampaignRules = () => {
   const { assets } = useAssets();
   const { trackEvent } = useZA();
+  const { isAvailable: isHybridAvailable, openURL } = useZhihuHybrid();
+  const isZhihuApp = useZhihuApp();
 
   if (!assets) return null;
 
@@ -15,7 +19,7 @@ const SidebarCampaignRules = () => {
   const displayWidth = imageAsset.width / 2;
   const displayHeight = imageAsset.height / 2;
 
-  const handleClick = () => {
+  const handleClick = async () => {
     //埋点26
     trackEvent('', {
       moduleId: 'liukanshan_gift_rules_2025',
@@ -24,7 +28,17 @@ const SidebarCampaignRules = () => {
     });
     const url = assets?.urls?.sidebarCampaignRules;
     if (url) {
-      window.location.href = url;
+      // Use zhihuHybrid if in zhihu app, otherwise use window.location.href
+      if (isZhihuApp && isHybridAvailable) {
+        try {
+          await openURL(url);
+        } catch (error) {
+          console.error('Failed to open URL via zhihuHybrid, falling back to window.location.href:', error);
+          window.location.href = url;
+        }
+      } else {
+        window.location.href = url;
+      }
     }
   };
 

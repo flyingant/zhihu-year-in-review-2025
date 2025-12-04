@@ -8,6 +8,7 @@ import { useToast } from '@/context/toast-context';
 import { useZhihuApp } from '@/hooks/useZhihuApp';
 import { useZA } from '@/hooks/useZA';
 import { completeTask } from '@/api/campaign';
+import { useZhihuHybrid } from '@/hooks/useZhihuHybrid';
 
 interface TaskStatusResponse {
   task_status: number; // 0: 今日已领完, 1: 未领取还有剩余, 2: 已领取未填地址, 3: 已领取并已填地址
@@ -26,6 +27,7 @@ const SidebarLiuKanshan = () => {
   const isZhihu = useZhihuApp();
   const { assets } = useAssets();
   const { trackEvent } = useZA();
+  const { isAvailable: isHybridAvailable, openURL } = useZhihuHybrid();
 
   // Inject component-specific styles
   useEffect(() => {
@@ -305,7 +307,17 @@ const SidebarLiuKanshan = () => {
       // Redirect to publish page
       const redirectUrl = assets?.urls?.sidebarLiuKanshanPublish;
       if (redirectUrl) {
-        window.location.href = redirectUrl;
+        // Use zhihuHybrid if in zhihu app, otherwise use window.location.href
+        if (isZhihu && isHybridAvailable) {
+          try {
+            await openURL(redirectUrl);
+          } catch (error) {
+            console.error('Failed to open URL via zhihuHybrid, falling back to window.location.href:', error);
+            window.location.href = redirectUrl;
+          }
+        } else {
+          window.location.href = redirectUrl;
+        }
       }
     } catch (error) {
       console.error('Error in handlePublishClick:', error);

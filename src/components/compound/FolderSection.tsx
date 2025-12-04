@@ -5,6 +5,8 @@ import Image from 'next/image';
 import { useAssets } from '@/context/assets-context';
 import { useZA } from '@/hooks/useZA';
 import { useInView } from 'react-intersection-observer';
+import { useZhihuHybrid } from '@/hooks/useZhihuHybrid';
+import { useZhihuApp } from '@/hooks/useZhihuApp';
 
 const clipPathleft = 'polygon(43% 0, 50% 19%, 100% 20%, 100% 100%, 68% 100%, 32% 100%, 0 100%, 0% 43%, 0 0)';
 const clipPathright = 'polygon(50% 20%, 57% 0, 100% 0, 100% 100%, 68% 100%, 32% 100%, 0 100%, 0% 43%, 0 20%)';
@@ -30,6 +32,8 @@ const FolderSection = () => {
   const [activeIndex, setActiveIndex] = useState<number | null>(null);
   const { trackShow, trackEvent } = useZA();
   const { ref: moduleRef, inView: moduleInView } = useInView({ triggerOnce: true });
+  const { isAvailable: isHybridAvailable, openURL } = useZhihuHybrid();
+  const isZhihuApp = useZhihuApp();
 
   useEffect(() => {
     if (moduleInView) {
@@ -74,9 +78,18 @@ const FolderSection = () => {
           user_name: item.name
         }
       });
-      // Navigate to URL - wrapped in setTimeout to bypass React Compiler restriction
-      setTimeout(() => {
-        window.location.href = url;
+      // Navigate to URL - use zhihuHybrid if in zhihu app, otherwise use window.location.href
+      setTimeout(async () => {
+        if (isZhihuApp && isHybridAvailable) {
+          try {
+            await openURL(url);
+          } catch (error) {
+            console.error('Failed to open URL via zhihuHybrid, falling back to window.location.href:', error);
+            window.location.href = url;
+          }
+        } else {
+          window.location.href = url;
+        }
       }, 0);
     } else {
       // Toggle active state for clicks in the top 30%

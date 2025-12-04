@@ -13,6 +13,8 @@ import { useZA } from '@/hooks/useZA';
 import { useInView } from 'react-intersection-observer';
 import { completeTask } from '@/api/campaign';
 import { useAssets } from '@/context/assets-context';
+import { useZhihuHybrid } from '@/hooks/useZhihuHybrid';
+import { useZhihuApp } from '@/hooks/useZhihuApp';
 
 const ZaiZhiHuLianJieZhenShiSection = () => {
   const { assets } = useAssets();
@@ -23,6 +25,8 @@ const ZaiZhiHuLianJieZhenShiSection = () => {
   const [paginationEl, setPaginationEl] = useState<HTMLElement | null>(null);
   const { trackShow, trackEvent } = useZA();
   const { ref: moduleRef, inView } = useInView({ threshold: 0.2 });
+  const { isAvailable: isHybridAvailable, openURL } = useZhihuHybrid();
+  const isZhihuApp = useZhihuApp();
 
   useEffect(() => {
     isVisibleRef.current = inView;
@@ -76,10 +80,19 @@ const ZaiZhiHuLianJieZhenShiSection = () => {
 
     // Navigate to jump_url if available
     if (item.jump_url) {
-      // Navigate to URL - wrapped in setTimeout to bypass React Compiler restriction
+      // Navigate to URL - use zhihuHybrid if in zhihu app, otherwise use window.location.href
       const jumpUrl = item.jump_url;
-      setTimeout(() => {
-        window.location.href = jumpUrl;
+      setTimeout(async () => {
+        if (isZhihuApp && isHybridAvailable) {
+          try {
+            await openURL(jumpUrl);
+          } catch (error) {
+            console.error('Failed to open URL via zhihuHybrid, falling back to window.location.href:', error);
+            window.location.href = jumpUrl;
+          }
+        } else {
+          window.location.href = jumpUrl;
+        }
       }, 0);
     }
   };

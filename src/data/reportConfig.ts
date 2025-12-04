@@ -4,6 +4,10 @@ import SelectionScene from '@/components/report/scenes/SelectionScene';
 import P2Scene from '@/components/report/scenes/P2Scene';
 import P3Scene from '@/components/report/scenes/P3Scene';
 import P5Scene from '@/components/report/scenes/P5Scene';
+import P6Scene from '@/components/report/scenes/P6Scene';
+import P7Scene from '@/components/report/scenes/P7Scene';
+import P8Scene from '@/components/report/scenes/P8Scene';
+import P9Scene from '@/components/report/scenes/P9Scene';
 
 export type SceneConfig = {
   id: string;
@@ -64,7 +68,7 @@ export const SCENES: Record<string, SceneConfig> = {
   'p5': {
     id: 'p5',
     component: P5Scene,
-    next: 'p6', // 或者 end
+    next: 'p6',
     prepareProps: (allData) => ({
       data: {
         commentCount: allData.commentCount || 32,
@@ -74,4 +78,56 @@ export const SCENES: Record<string, SceneConfig> = {
       }
     })
   },
+  'p6': {
+    id: 'p6',
+    component: P6Scene,
+    next: 'p7',
+    prepareProps: (allData) => ({
+      data: {
+        visitDays: allData.visitDays || 365,
+        creationDays: allData.creationDays || 128,
+        mostProductiveMonth: allData.mostProductiveMonth || 8,
+        monthArticleCount: allData.monthArticleCount || 15,
+        mostProductiveDate: allData.mostProductiveDate || '11月11日',
+        dayWordCount: allData.dayWordCount || 3500,
+        totalWords: allData.totalWords || '158,000',
+        equivalentBook: allData.equivalentBook || '三体'
+      }
+    })
+  },
+  'p7': {
+    id: 'p7',
+    component: P7Scene,
+    next: 'p8',
+    prepareProps: (allData) => ({
+      data: {
+        readCount: allData.readCount || '12,580',
+        upvoteCount: allData.upvoteCount || 856,
+        collectCount: allData.collectCount || 320,
+        commentCount: allData.commentCount || 128,
+        shareCount: allData.shareCount || 45,
+        roundTableCount: allData.roundTableCount || 3,
+        editorPickCount: allData.editorPickCount || 2
+      }
+    })
+  },
+  'p8': {
+    id: 'p8',
+    component: P8Scene,
+    next: 'p9',
+    prepareProps: (allData) => ({
+      data: {
+        zhiTrendRankCount: allData.zhiTrendRankCount || 5,
+        influenceRankCount: allData.influenceRankCount || 2,
+        excellentTopicCount: allData.excellentTopicCount || 3,
+        topicName: allData.topicName || '数码',
+        navigatorCount: allData.navigatorCount || 12
+      }
+    })
+  },
+  'p9': {
+    id: 'p9',
+    component: P9Scene,
+    next: 'p10'
+  }
 };

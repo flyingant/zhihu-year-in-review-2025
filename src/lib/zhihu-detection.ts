@@ -12,7 +12,8 @@ export function isZhihuApp(): boolean {
   
   // iOS App adds "osee2unifiedRelease" to UserAgent
   // Android App adds "Futureve" to UserAgent
+  // HarmonyOS App adds "Harmony" to UserAgent
   // Matching is case-sensitive
-  return userAgent.includes('osee2unifiedRelease') || userAgent.includes('Futureve');
+  return userAgent.includes('osee2unifiedRelease') || userAgent.includes('Futureve') || userAgent.includes('ZhihuHmos');
 }
 

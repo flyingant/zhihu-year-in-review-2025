@@ -39,6 +39,8 @@ body {
   --color-r-blue: #00ADE9;
   --color-r-fern: #00C2A9;
   --color-r-green: #4BAD39;
+  /*  这个值不确定，设计稿取不出来 */
+  --color-r-yellow: #FFD700;
 
   --animate-marquee: marquee linear infinite;
   --animate-slide-in: slide-in 8s ease-out forwards;

@@ -1,16 +1,17 @@
-// data/reportConfig.ts
+import LoadingScene from '@/components/report/scenes/LoadingScene';
+import IntroScene from '@/components/report/scenes/IntroScene';
+import SelectionScene from '@/components/report/scenes/SelectionScene';
+import P2Scene from '@/components/report/scenes/P2Scene';
+import P3Scene from '@/components/report/scenes/P3Scene';
+import P5Scene from '@/components/report/scenes/P5Scene';
+
 export type SceneConfig = {
   id: string;
   component: React.ComponentType<any>;
   // 定义这个页面点击不同按钮去哪里
   next?: string | ((choice?: string) => string);
   prepareProps?: (allData: any) => Record<string, any>;
-};
-
-import LoadingScene from '@/components/report/scenes/LoadingScene';
-import IntroScene from '@/components/report/scenes/IntroScene';
-import SelectionScene from '@/components/report/scenes/SelectionScene';
-import P2Scene from '@/components/report/scenes/P2Scene';
+}
 
 export const SCENES: Record<string, SceneConfig> = {
   'loading': {
@@ -42,6 +43,34 @@ export const SCENES: Record<string, SceneConfig> = {
         answerCount: allData.answerCount || 52,
         topicCount: allData.topicCount || 4,
         topTopic: allData.topTopic || '科技',
+      }
+    })
+  },
+  'p3': {
+    id: 'p3',
+    component: P3Scene,
+    next: 'p5',
+    prepareProps: (allData) => ({
+      data: {
+        answerCount: allData.createdAnswerCount || 3,
+        articleCount: allData.createdArticleCount || 3,
+        topTopic1: allData.topCreatedTopic1 || '科技',
+        topTopic2: allData.topCreatedTopic2 || '数码',
+        firstAnswerDate: allData.firstAnswerDate || '08月12日',
+        firstAnswerTitle: allData.firstAnswerTitle || '千元预算，怎么挑选适合自己的手机？'
+      }
+    })
+  },
+  'p5': {
+    id: 'p5',
+    component: P5Scene,
+    next: 'p6', // 或者 end
+    prepareProps: (allData) => ({
+      data: {
+        commentCount: allData.commentCount || 32,
+        hotCommentLikes: allData.hotCommentLikes || 5114,
+        interactionDate: allData.interactionDate || '03月21日',
+        interactionUser: allData.interactionUser || 'aqiuqiu'
       }
     })
   },

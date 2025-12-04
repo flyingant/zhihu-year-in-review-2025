@@ -34,7 +34,7 @@ const FolderSection = () => {
   useEffect(() => {
     if (moduleInView) {
       // 埋点4
-      trackShow({ moduleId: 'quote_module_2025', type: 'Block' });
+      trackShow({ moduleId: 'quote_module_2025', type: 'Block', page: { page_id: '60850', page_level: 1 } });
     }
   }, [moduleInView]);
 
@@ -65,6 +65,10 @@ const FolderSection = () => {
       trackEvent('OpenUrl', {
         moduleId: 'quote_image_2025',
         type: 'Image',
+        page: {
+          page_id: '60850',
+          page_level: 1,
+        }
       }, {
         config_map: {
           user_name: item.name
@@ -81,7 +85,11 @@ const FolderSection = () => {
       // 埋点5
       trackEvent('', {
         moduleId: 'quote_user_name_2025',
-        type: 'Button'
+        type: 'Button',
+        page: {
+          page_id: '60850',
+          page_level: 1,
+        }
       }, {
         config_map: {
           user_name: item.name
@@ -91,7 +99,11 @@ const FolderSection = () => {
         // 埋点6
         trackShow({
           moduleId: 'quote_image_2025',
-          type: 'Image'
+          type: 'Image',
+          page: {
+            page_id: '60850',
+            page_level: 1,
+          }
         }, {
           config_map: {
             user_name: item.name

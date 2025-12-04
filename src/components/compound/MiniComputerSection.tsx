@@ -54,7 +54,7 @@ const MiniComputerSection = () => {
   useEffect(() => {
     if (moduleInView) {
       // 埋点8
-      trackShow({ moduleId: 'share_moment_2025', type: 'Block' });
+      trackShow({ moduleId: 'share_moment_2025', type: 'Block', page: { page_id: '60850', page_level: 1 } });
     }
   }, [moduleInView]);
 
@@ -87,7 +87,11 @@ const MiniComputerSection = () => {
     // 埋点10
     trackEvent('', {
       moduleId: 'share_moment_enter_2025',
-      type: 'Button'
+      type: 'Button',
+      page: {
+        page_id: '60850',
+        page_level: 1,
+      }
     });
 
     setStatus('loading');
@@ -173,21 +177,21 @@ const MiniComputerSection = () => {
         return new Promise<Blob>((resolve, reject) => {
           const img = document.createElement('img');
           img.crossOrigin = 'anonymous';
-          
+
           img.onload = () => {
             try {
               const canvas = document.createElement('canvas');
               canvas.width = img.naturalWidth || img.width;
               canvas.height = img.naturalHeight || img.height;
-              
+
               const ctx = canvas.getContext('2d');
               if (!ctx) {
                 reject(new Error('Failed to get canvas context'));
                 return;
               }
-              
+
               ctx.drawImage(img, 0, 0);
-              
+
               canvas.toBlob((blob) => {
                 if (blob) {
                   resolve(blob);
@@ -199,7 +203,7 @@ const MiniComputerSection = () => {
               reject(error);
             }
           };
-          
+
           img.onerror = () => reject(new Error('Failed to load image with CORS'));
           img.src = imageUrl;
         });
@@ -211,11 +215,11 @@ const MiniComputerSection = () => {
           mode: 'cors',
           credentials: 'omit',
         });
-        
+
         if (!response.ok) {
           throw new Error('Failed to fetch image');
         }
-        
+
         return await response.blob();
       };
 
@@ -226,14 +230,14 @@ const MiniComputerSection = () => {
         link.download = `poster-${Date.now()}.png`;
         link.target = '_blank';
         link.style.display = 'none';
-        
+
         document.body.appendChild(link);
         link.click();
         document.body.removeChild(link);
       };
 
       let blob: Blob;
-      
+
       try {
         // 首先尝试 canvas 方法
         blob = await tryCanvasMethod();
@@ -281,7 +285,11 @@ const MiniComputerSection = () => {
     trackEvent('Pin', {
       moduleId: 'share_moment_share_pin_2025',
       type: 'Button',
-      content: { type: 'Pin' }
+      content: { type: 'Pin' },
+      page: {
+        page_id: '60850',
+        page_level: 1,
+      }
     });
 
     try {
@@ -307,7 +315,11 @@ const MiniComputerSection = () => {
     //埋点9
     trackEvent('OpenUrl', {
       moduleId: 'share_moment_question_2025',
-      type: 'Button'
+      type: 'Button',
+      page: {
+        page_id: '60850',
+        page_level: 1,
+      }
     });
 
     const url = assets?.urls?.miniComputerQuestion;
@@ -337,7 +349,7 @@ const MiniComputerSection = () => {
         />
       </div>
 
-      <div 
+      <div
         className="relative w-full mx-auto h-[220px]"
         style={{ pointerEvents: !isInZhihuApp ? 'none' : 'auto' }}
       >
@@ -347,7 +359,7 @@ const MiniComputerSection = () => {
             onClick={handleOverlayClick}
             onMouseDown={handleOverlayClick}
             className="absolute inset-0 z-[60] cursor-pointer"
-            style={{ 
+            style={{
               backgroundColor: 'rgba(0,0,0,0.01)',
               pointerEvents: 'auto',
               minHeight: '100%'

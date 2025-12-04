@@ -17,7 +17,7 @@ const QinZiDa2025Section = () => {
   useEffect(() => {
     if (moduleInView) {
       // 埋点15
-      trackShow({ moduleId: 'personal_answer_block_2025', type: 'Button' });
+      trackShow({ moduleId: 'personal_answer_block_2025', type: 'Button', page: { page_id: '60850', page_level: 1 } });
     }
   }, [moduleInView, trackShow]);
 
@@ -86,7 +86,11 @@ const QinZiDa2025Section = () => {
                 trackEvent('OpenUrl', {
                   moduleId: 'personal_answer_2025',
                   type: 'Button',
-                  moduleIndex: index
+                  moduleIndex: index,
+                  page: {
+                    page_id: '60850',
+                    page_level: 1,
+                  }
                 });
 
                 if (item.jump_url) {

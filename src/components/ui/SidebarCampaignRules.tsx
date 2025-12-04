@@ -19,7 +19,8 @@ const SidebarCampaignRules = () => {
     //埋点26
     trackEvent('', {
       moduleId: 'liukanshan_gift_rules_2025',
-      type: 'Button'
+      type: 'Button',
+      page: { page_id: '60850', page_level: 1 }
     });
     const url = assets?.urls?.sidebarCampaignRules;
     if (url) {

@@ -39,11 +39,11 @@ function HomeContent() {
   useEffect(() => {
     // 埋点2
     if (isReady) {
-      trackPageShow();
+      trackPageShow({ page: { page_id: '60850', page_level: 1 } });
     }
     return () => {
       // 埋点3
-      trackPageDisappear();
+      trackPageDisappear({ page: { page_id: '60850', page_level: 1 } });
     };
   }, [isReady]);
 
@@ -60,7 +60,7 @@ function HomeContent() {
       'task': 'task-section',
       'miniComputer': 'game-section',
     };
-    
+
     const targetId = sectionMap[directToLower];
     if (!targetId) return;
 
@@ -71,7 +71,7 @@ function HomeContent() {
 
     const attemptScroll = () => {
       const targetElement = document.getElementById(targetId);
-      
+
       if (targetElement && targetElement.isConnected) {
         // Element found and connected to DOM, scroll to it
         // Use requestAnimationFrame to ensure layout is complete
@@ -81,8 +81,8 @@ function HomeContent() {
               // Use scrollIntoView for reliable scrolling
               // block: 'start' aligns the element to the top of the viewport
               // behavior: 'smooth' provides smooth scrolling animation
-              targetElement.scrollIntoView({ 
-                behavior: 'smooth', 
+              targetElement.scrollIntoView({
+                behavior: 'smooth',
                 block: 'start',
                 inline: 'nearest'
               });

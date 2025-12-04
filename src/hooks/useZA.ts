@@ -13,7 +13,11 @@ declare global {
 }
 
 type ZAElementLocation = {
-  moduleId: string;
+  page?: {
+    page_id: string;
+    page_level: number;
+  };
+  moduleId?: string;
   moduleIndex?: number;
   type?: string;
   text?: string;
@@ -80,18 +84,20 @@ export const useZA = () => {
   }, []);
 
   // --- 1. 页面曝光 ---
-  const trackPageShow = () => {
+  const trackPageShow = (location?: ZAElementLocation) => {
     if (clientRef.current) {
-      clientRef.current.trackPageShow();
+      clientRef.current.trackPageShow({
+        elementLocation: location
+      });
     }
   };
 
   // --- 2. 页面消失 ---
-  const trackPageDisappear = () => {
+  const trackPageDisappear = (location?: ZAElementLocation) => {
     if (clientRef.current) {
       clientRef.current.trackEvent({
         action: 'PageDisappear',
-        elementLocation: { type: 'Page' }
+        elementLocation: { ...location, type: 'Page', },
       });
     }
   };

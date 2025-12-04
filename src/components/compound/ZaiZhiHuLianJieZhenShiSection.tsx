@@ -35,7 +35,7 @@ const ZaiZhiHuLianJieZhenShiSection = () => {
 
   // Use real_link from userData
   const realLinkItems = userData?.masterConfig?.real_link || [];
-  
+
   type SlideItem = {
     id: number;
     url: string;
@@ -44,7 +44,7 @@ const ZaiZhiHuLianJieZhenShiSection = () => {
     alt: string;
     jump_url?: string;
   };
-  
+
   const slides: SlideItem[] = realLinkItems.map((item, index) => {
     return {
       id: index,
@@ -63,15 +63,15 @@ const ZaiZhiHuLianJieZhenShiSection = () => {
       type: 'Block',
       moduleIndex: index
     });
-    
-   // Call completeTask API (fire-and-forget, non-blocking)
-   if (assets?.campaign) {
-     completeTask(assets.campaign.completeTaskIds.BROWSE_FENHUICHANG).catch((error) => {
-      console.error('Error completing task BROWSE_FENHUICHANG:', error);
-      // Silently fail - this is just tracking, don't block user flow
-    });
-   }
-    
+
+    // Call completeTask API (fire-and-forget, non-blocking)
+    if (assets?.campaign) {
+      completeTask(assets.campaign.completeTaskIds.BROWSE_FENHUICHANG).catch((error) => {
+        console.error('Error completing task BROWSE_FENHUICHANG:', error);
+        // Silently fail - this is just tracking, don't block user flow
+      });
+    }
+
     // Navigate to jump_url if available
     if (item.jump_url) {
       // Navigate to URL - wrapped in setTimeout to bypass React Compiler restriction
@@ -89,15 +89,16 @@ const ZaiZhiHuLianJieZhenShiSection = () => {
     // 防止重复上报（如果在同一个 index 上微动）
     if (lastExposedIndex.current === currentIndex) return;
     lastExposedIndex.current = currentIndex;
-    
+
     // Get the current slide's jump_url
     const currentSlide = slides[currentIndex];
     const jumpUrl = currentSlide?.jump_url;
-    
+
     //埋点19
     trackShow({
       moduleId: 'carousel_subvenue_image_2025',
       type: 'Block',
+      page: { page_id: '60850', page_level: 1 }
     }, {
       link: {
         url: jumpUrl

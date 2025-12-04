@@ -50,9 +50,11 @@ export default function AddressForm() {
   const fromRedeem = searchParams.get("from") === "redeem";
 
   useEffect(() => {
-    if (!fromRedeem) trackPageShow();
+    //埋点29
+    if (!fromRedeem) trackPageShow({ page: { page_id: '60851', page_level: 2 } });
     return () => {
-      if (!fromRedeem) trackPageDisappear();
+      //埋点30
+      if (!fromRedeem) trackPageDisappear({ page: { page_id: '60851', page_level: 2 } });
     };
   }, [fromRedeem]);
 
@@ -232,7 +234,7 @@ export default function AddressForm() {
           setIsSubmitting(false);
           return;
         }
-        
+
         // 根据API文档，stock_occupy_id 是兑换时接口返回的字段，必须传递
         await completeRedeemReward(assets.campaign.activityId, {
           request_id: parseInt(requestId, 10), // 使用预占接口的原始 request_id
@@ -259,7 +261,8 @@ export default function AddressForm() {
         //只有liukanshan收货地址点击确认才有
         trackEvent('', {
           moduleId: 'kanshan_address_button_2025',
-          type: 'Button'
+          type: 'Button',
+          page: { page_id: '60851', page_level: 2 }
         });
         // 普通地址提交场景：调用地址提交接口
         const addressData = {

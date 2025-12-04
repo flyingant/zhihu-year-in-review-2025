@@ -30,7 +30,11 @@ const KVSection = ({ variant = 'phase1' }: KVSectionProps) => {
       // 埋点1
       trackShow({
         moduleId: 'main_key_2025_block',
-        type: 'Block'
+        type: 'Block',
+        page: {
+          page_id: '60850',
+          page_level: 1,
+        }
       });
     }
   }, [inView]);

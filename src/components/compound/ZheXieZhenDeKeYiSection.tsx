@@ -16,7 +16,7 @@ const ZheXieZhenDeKeYiSection = () => {
   useEffect(() => {
     if (moduleInView) {
       // 埋点13
-      trackShow({ moduleId: 'vote_ranking_2025', type: 'Block' });
+      trackShow({ moduleId: 'vote_ranking_2025', type: 'Block', page: { page_id: '60850', page_level: 1 } });
     }
   }, [moduleInView, trackShow]);
 
@@ -53,7 +53,8 @@ const ZheXieZhenDeKeYiSection = () => {
               //埋点14
               trackEvent('OpenUrl', {
                 moduleId: 'vote_selection_2025',
-                type: 'Button'
+                type: 'Button',
+                page: { page_id: '60850', page_level: 1 }
               });
 
               window.location.href = item.jump_url;

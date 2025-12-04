@@ -37,7 +37,7 @@ const RewardSection = () => {
 
   useEffect(() => {
     if (!assets?.campaign) return;
-    
+
     const fetchData = async () => {
       try {
         const data = await getCampaignInfo(assets.campaign.activityId);
@@ -75,7 +75,11 @@ const RewardSection = () => {
     //埋点23
     trackEvent('', {
       moduleId: 'rewards_product_2025',
-      type: 'Button'
+      type: 'Button',
+      page: {
+        page_id: '60850',
+        page_level: 1,
+      }
     }, {
       config_map: {
         sku_id: String(reward.right_id)
@@ -159,14 +163,14 @@ const RewardSection = () => {
       stockOccupyId: String(stockOccupyId),
       from: 'redeem'
     };
-    
+
     // 获取当前URL并合并现有参数
     const currentUrl = new URL(window.location.href);
     // 将新参数添加到现有参数中（新参数会覆盖同名参数）
     Object.entries(newParams).forEach(([key, value]) => {
       currentUrl.searchParams.set(key, value);
     });
-    
+
     window.location.href = currentUrl.toString();
   };
 
@@ -175,7 +179,11 @@ const RewardSection = () => {
     //埋点22
     trackEvent('', {
       moduleId: 'rewards_redemption_history_2025',
-      type: 'Button'
+      type: 'Button',
+      page: {
+        page_id: '60850',
+        page_level: 1,
+      }
     });
     if (assets?.urls?.taskPointRedeemBase && assets?.urls?.taskPointRedeemHistory) {
       const url = `${assets.urls.taskPointRedeemBase}/${assets.campaign.activityId}${assets.urls.taskPointRedeemHistory}`;
@@ -188,7 +196,11 @@ const RewardSection = () => {
     //埋点21
     trackEvent('', {
       moduleId: 'points_details_button_2025',
-      type: 'Button'
+      type: 'Button',
+      page: {
+        page_id: '60850',
+        page_level: 1,
+      }
     });
     if (assets?.urls?.taskPointRedeemBase && assets?.urls?.taskPointRedeemDetails) {
       const url = `${assets.urls.taskPointRedeemBase}/${assets.campaign.activityId}${assets.urls.taskPointRedeemDetails}`;
@@ -210,151 +222,151 @@ const RewardSection = () => {
 
   return (
     <div className="relative w-full pb-10 flex flex-col pt-1">
-      <div 
+      <div
         className="relative w-full"
         style={{ pointerEvents: (!isInZhihuApp && isMobile) ? 'none' : 'auto' }}
       >
-      {/* 非App内用户透明遮罩层 */}
-      {!isInZhihuApp && isMobile && (
-        <div
-          onClick={handleOverlayClick}
-          className="absolute inset-0 z-[60] cursor-pointer"
-          style={{ 
-            backgroundColor: 'rgba(0,0,0,0.01)',
-            pointerEvents: 'auto',
-            minHeight: '100%'
-          }}
-        />
-      )}
-      <div className='flex justify-center pb-9 px-[54px]'>
-        <LiuKanShanBianLiDian />
-      </div>
-      <div className="mx-[16px]">
-        {/* 积分看板 */}
-        <div className="bg-[#e1f4ff] rounded-[16px] px-4 mb-4 pt-[10px] pb-[20px]">
-          <div className="flex justify-between items-center mb-3 px-1">
-            <div className="flex items-center gap-1">
-              <span className="text-base font-bold text-[#121212]">活动积分</span>
-              <span className="text-[#999] cursor-pointer" onClick={() => setIsRulesOpen(true)}>
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" className="opacity-60">
-                  <path fillRule="evenodd" d="M12 20.5a8.5 8.5 0 1 0 0-17 8.5 8.5 0 0 0 0 17Zm0 1.5c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10Z" clipRule="evenodd"></path>
-                  <path d="M13.074 16.199a1.05 1.05 0 1 1-2.1.001 1.05 1.05 0 0 1 2.1-.001Z"></path>
-                  <path fillRule="evenodd" d="M10.396 8.493c-.232.403-.246.855-.246.977a.75.75 0 1 1-1.5 0c0-.191.012-.973.448-1.728.473-.819 1.382-1.492 2.926-1.492 1.58 0 2.583.787 3.055 1.807.438.949.406 2.077.034 2.84-.212.434-.543.728-.85.942-.217.152-.471.293-.68.409l-.182.102c-.533.307-.634.46-.634.695a.75.75 0 1 1-1.5 0c0-1.145.843-1.682 1.386-1.995l.263-.148c.185-.103.338-.188.49-.294.198-.138.303-.255.36-.37.163-.335.21-.99-.049-1.551-.226-.49-.698-.937-1.693-.937-1.03 0-1.433.406-1.628.743Z" clipRule="evenodd"></path>
-                </svg>
-              </span>
-            </div>
-
-            <div
-              className="text-xs text-gray cursor-pointer hover:opacity-80 active:opacity-60 transition-opacity"
-              onClick={handleGoToPointDetails}
-            >
-              积分明细
-            </div>
-          </div>
-
-          <div className="bg-white rounded-[8px] flex flex-col items-center justify-center min-h-[45px]">
-            {currentPoint !== undefined ? (
-              <>
-                <div className="text-xl font-black text-blue-500">{currentPoint}</div>
-                <div className="text-xs text-gray-400">将于 {formatEndTime} 过期</div>
-              </>
-            ) : (
-              <span className="text-gray-400 text-sm">活动未开始</span>
-            )}
-          </div>
-        </div>
-
-      {/* 奖品区域 */}
-      <div className="relative w-full mb-4">
-        <div className="relative w-full h-auto">
-          <Image
-            src={bgAsset.url}
-            alt={bgAsset.alt}
-            width={bgAsset.width}
-            height={bgAsset.height}
-            className="w-full h-auto object-contain"
-            priority
-          />
-          {/* 兑换记录遮盖层 */}
+        {/* 非App内用户透明遮罩层 */}
+        {!isInZhihuApp && isMobile && (
           <div
-            onClick={handleGoToRecords}
-            className="absolute z-30 cursor-pointer active:opacity-50"
+            onClick={handleOverlayClick}
+            className="absolute inset-0 z-[60] cursor-pointer"
             style={{
-              top: assets.campaign.recordBtnPosition.top,
-              right: assets.campaign.recordBtnPosition.right,
-              width: assets.campaign.recordBtnPosition.width,
-              height: assets.campaign.recordBtnPosition.height,
+              backgroundColor: 'rgba(0,0,0,0.01)',
+              pointerEvents: 'auto',
+              minHeight: '100%'
             }}
-          ></div>
-          {/* 奖品列表区域 */}
-          {prizeAssets.map((prizeConfig, index) => {
-            let item = rewardsList.find(r => r.right_id === prizeConfig.targetId);
+          />
+        )}
+        <div className='flex justify-center pb-9 px-[54px]'>
+          <LiuKanShanBianLiDian />
+        </div>
+        <div className="mx-[16px]">
+          {/* 积分看板 */}
+          <div className="bg-[#e1f4ff] rounded-[16px] px-4 mb-4 pt-[10px] pb-[20px]">
+            <div className="flex justify-between items-center mb-3 px-1">
+              <div className="flex items-center gap-1">
+                <span className="text-base font-bold text-[#121212]">活动积分</span>
+                <span className="text-[#999] cursor-pointer" onClick={() => setIsRulesOpen(true)}>
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" className="opacity-60">
+                    <path fillRule="evenodd" d="M12 20.5a8.5 8.5 0 1 0 0-17 8.5 8.5 0 0 0 0 17Zm0 1.5c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10Z" clipRule="evenodd"></path>
+                    <path d="M13.074 16.199a1.05 1.05 0 1 1-2.1.001 1.05 1.05 0 0 1 2.1-.001Z"></path>
+                    <path fillRule="evenodd" d="M10.396 8.493c-.232.403-.246.855-.246.977a.75.75 0 1 1-1.5 0c0-.191.012-.973.448-1.728.473-.819 1.382-1.492 2.926-1.492 1.58 0 2.583.787 3.055 1.807.438.949.406 2.077.034 2.84-.212.434-.543.728-.85.942-.217.152-.471.293-.68.409l-.182.102c-.533.307-.634.46-.634.695a.75.75 0 1 1-1.5 0c0-1.145.843-1.682 1.386-1.995l.263-.148c.185-.103.338-.188.49-.294.198-.138.303-.255.36-.37.163-.335.21-.99-.049-1.551-.226-.49-.698-.937-1.693-.937-1.03 0-1.433.406-1.628.743Z" clipRule="evenodd"></path>
+                  </svg>
+                </span>
+              </div>
 
-            if (!prizeConfig.style || !prizeConfig) return null;
-            if (!item) {
-              item = rewardsList[index];
-            }
-
-            if (!item || !prizeConfig) return null;
-
-            const isSoldOut = item.state.code === '2';
-
-            return (
               <div
-                key={item.right_id || index}
-                onClick={() => !isSoldOut && handleRedeemClick(item)}
-                className={`absolute z-20 transition-transform ${isSoldOut
-                  ? 'cursor-default'
-                  : 'cursor-pointer'
-                  }`}
-                style={{
-                  top: prizeConfig.style.top,
-                  left: prizeConfig.style.left,
-                  width: prizeConfig.style.width,
-                  height: prizeConfig.style.height,
-                }}
+                className="text-xs text-gray cursor-pointer hover:opacity-80 active:opacity-60 transition-opacity"
+                onClick={handleGoToPointDetails}
               >
-                <Image
-                  src={prizeConfig.url}
-                  alt={prizeConfig.alt}
-                  fill
-                  className="object-contain"
-                />
-                <div className="absolute bottom-[12px] left-[7px] z-30 flex items-center">
-                  <div className="relative w-[9px] h-[9px] mr-[2px]">
+                积分明细
+              </div>
+            </div>
+
+            <div className="bg-white rounded-[8px] flex flex-col items-center justify-center min-h-[45px]">
+              {currentPoint !== undefined ? (
+                <>
+                  <div className="text-xl font-black text-blue-500">{currentPoint}</div>
+                  <div className="text-xs text-gray-400">将于 {formatEndTime} 过期</div>
+                </>
+              ) : (
+                <span className="text-gray-400 text-sm">活动未开始</span>
+              )}
+            </div>
+          </div>
+
+          {/* 奖品区域 */}
+          <div className="relative w-full mb-4">
+            <div className="relative w-full h-auto">
+              <Image
+                src={bgAsset.url}
+                alt={bgAsset.alt}
+                width={bgAsset.width}
+                height={bgAsset.height}
+                className="w-full h-auto object-contain"
+                priority
+              />
+              {/* 兑换记录遮盖层 */}
+              <div
+                onClick={handleGoToRecords}
+                className="absolute z-30 cursor-pointer active:opacity-50"
+                style={{
+                  top: assets.campaign.recordBtnPosition.top,
+                  right: assets.campaign.recordBtnPosition.right,
+                  width: assets.campaign.recordBtnPosition.width,
+                  height: assets.campaign.recordBtnPosition.height,
+                }}
+              ></div>
+              {/* 奖品列表区域 */}
+              {prizeAssets.map((prizeConfig, index) => {
+                let item = rewardsList.find(r => r.right_id === prizeConfig.targetId);
+
+                if (!prizeConfig.style || !prizeConfig) return null;
+                if (!item) {
+                  item = rewardsList[index];
+                }
+
+                if (!item || !prizeConfig) return null;
+
+                const isSoldOut = item.state.code === '2';
+
+                return (
+                  <div
+                    key={item.right_id || index}
+                    onClick={() => !isSoldOut && handleRedeemClick(item)}
+                    className={`absolute z-20 transition-transform ${isSoldOut
+                      ? 'cursor-default'
+                      : 'cursor-pointer'
+                      }`}
+                    style={{
+                      top: prizeConfig.style.top,
+                      left: prizeConfig.style.left,
+                      width: prizeConfig.style.width,
+                      height: prizeConfig.style.height,
+                    }}
+                  >
                     <Image
-                      src={iconXAsset.url}
-                      alt={iconXAsset.alt}
+                      src={prizeConfig.url}
+                      alt={prizeConfig.alt}
                       fill
                       className="object-contain"
                     />
-                  </div>
-                  <span className="text-[#121212] font-bold text-base leading-none">
-                    {item.right_total_stock}
-                  </span>
-                </div>
+                    <div className="absolute bottom-[12px] left-[7px] z-30 flex items-center">
+                      <div className="relative w-[9px] h-[9px] mr-[2px]">
+                        <Image
+                          src={iconXAsset.url}
+                          alt={iconXAsset.alt}
+                          fill
+                          className="object-contain"
+                        />
+                      </div>
+                      <span className="text-[#121212] font-bold text-base leading-none">
+                        {item.right_total_stock}
+                      </span>
+                    </div>
 
-                {/* 这是测试接口有的字段 */}
-                {isSoldOut && (
-                  <div className="absolute inset-0 bg-black/40 rounded-lg flex items-center justify-center z-30">
-                    <span className="text-white text-xs font-bold bg-black/50 px-2 py-1 rounded">已兑完</span>
+                    {/* 这是测试接口有的字段 */}
+                    {isSoldOut && (
+                      <div className="absolute inset-0 bg-black/40 rounded-lg flex items-center justify-center z-30">
+                        <span className="text-white text-xs font-bold bg-black/50 px-2 py-1 rounded">已兑完</span>
+                      </div>
+                    )}
                   </div>
-                )}
-              </div>
-            );
-          })}
+                );
+              })}
+            </div>
+          </div>
         </div>
-      </div>
-      </div>
       </div>
 
       {/* 兑换确认弹窗 */}
       {isRedeemModalOpen && selectedReward && (
-        <div 
+        <div
           className="fixed inset-0 z-[100] flex items-center justify-center bg-black/60 px-8 animate-overlayShow"
           onClick={handleCancelRedeem}
         >
-          <div 
+          <div
             className="bg-white w-[300px] rounded-[16px] overflow-hidden flex flex-col items-center pt-6 pb-6 px-5 animate-contentShow relative"
             onClick={(e) => e.stopPropagation()}
           >

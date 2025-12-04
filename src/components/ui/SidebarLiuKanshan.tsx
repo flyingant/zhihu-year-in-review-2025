@@ -239,7 +239,7 @@ const SidebarLiuKanshan = () => {
       moduleId: 'liukanshan_gift_2025',
       type: 'Button'
     })
-    
+
     // Call completeTask API (fire-and-forget, non-blocking)
     if (assets?.campaign) {
       completeTask(assets.campaign.completeTaskIds.CLICK_LKS_GIFT).catch((error) => {
@@ -247,7 +247,7 @@ const SidebarLiuKanshan = () => {
         // Silently fail - this is just tracking, don't block user flow
       });
     }
-    
+
     await checkTaskStatusAndUpdate(true);
   };
 
@@ -273,9 +273,10 @@ const SidebarLiuKanshan = () => {
     //埋点27
     trackEvent('', {
       moduleId: 'liukanshan_gift_publish_2025',
-      type: 'Button'
+      type: 'Button',
+      page: { page_id: '60850', page_level: 1 }
     });
-    
+
     // Call completeTask API (fire-and-forget, non-blocking)
     if (assets?.campaign) {
       completeTask(assets.campaign.completeTaskIds.CLICK_LKS_GIFT_PUBLISH).catch((error) => {
@@ -283,7 +284,7 @@ const SidebarLiuKanshan = () => {
         // Silently fail - this is just tracking, don't block user flow
       });
     }
-    
+
     try {
       const taskStatus = await checkTaskStatusAndUpdate(false);
 

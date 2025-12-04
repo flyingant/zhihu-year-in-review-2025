@@ -123,7 +123,7 @@ export const useZA = () => {
       elementLocation: payload,
       event_type: eventType
     }, extra);
-    console.log(`ZA: Event(${action})`, payload);
+    console.log(`ZA: Event(${action || eventType})`, payload);
   };
 
   return {

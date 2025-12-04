@@ -275,7 +275,7 @@ export default function AddressForm() {
       }
       // Redirect back after successful submission
       setTimeout(() => {
-        router.push(pathname);
+        router.replace(pathname);
       }, 1500);
     } catch (error) {
       console.error("Failed to submit:", error);

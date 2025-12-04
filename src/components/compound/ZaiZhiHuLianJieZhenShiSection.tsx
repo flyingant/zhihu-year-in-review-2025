@@ -11,7 +11,7 @@ import 'swiper/css/pagination';
 import { useUserData } from '@/context/user-data-context';
 import { useZA } from '@/hooks/useZA';
 import { useInView } from 'react-intersection-observer';
-import { completeTask } from '@/api/campaign';
+import { completeTask, getCampaignInfo } from '@/api/campaign';
 import { useAssets } from '@/context/assets-context';
 import { useZhihuHybrid } from '@/hooks/useZhihuHybrid';
 import { useZhihuApp } from '@/hooks/useZhihuApp';
@@ -70,12 +70,17 @@ const ZaiZhiHuLianJieZhenShiSection = () => {
       page: { page_id: '60850', page_level: 1 }
     });
 
-    // Call completeTask API (fire-and-forget, non-blocking)
+    // Call completeTask API and reload campaign data
     if (assets?.campaign) {
-      completeTask(assets.campaign.completeTaskIds.BROWSE_FENHUICHANG).catch((error) => {
-        console.error('Error completing task BROWSE_FENHUICHANG:', error);
-        // Silently fail - this is just tracking, don't block user flow
-      });
+      completeTask(assets.campaign.completeTaskIds.BROWSE_FENHUICHANG)
+        .then(() => {
+          // Reload campaign data after successfully completing the task
+          return getCampaignInfo(assets.campaign.activityId);
+        })
+        .catch((error) => {
+          console.error('Error completing task BROWSE_FENHUICHANG or reloading campaign data:', error);
+          // Silently fail - this is just tracking, don't block user flow
+        });
     }
 
     // Navigate to jump_url if available

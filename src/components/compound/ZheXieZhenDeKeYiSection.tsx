@@ -6,7 +6,7 @@ import Image from 'next/image';
 import { useZA } from '@/hooks/useZA';
 import { useInView } from 'react-intersection-observer';
 import { useAssets } from '@/context/assets-context';
-import { completeTask } from '@/api/campaign';
+import { completeTask, getCampaignInfo } from '@/api/campaign';
 import { useZhihuHybrid } from '@/hooks/useZhihuHybrid';
 import { useZhihuApp } from '@/hooks/useZhihuApp';
 
@@ -46,12 +46,17 @@ const ZheXieZhenDeKeYiSection = () => {
       <div className="w-full flex flex-col items-center gap-4 px-4">
         {imagesToDisplay.map((item, index) => {
           const handleClick = async () => {
-            // Call completeTask API (fire-and-forget, non-blocking)
+            // Call completeTask API and reload campaign data
             if (assets?.campaign) {
-              completeTask(assets.campaign.completeTaskIds.BROWSE_ZHEXIEZHENDEKEYI).catch((error) => {
-                console.error('Error completing task BROWSE_ZHEXIEZHENDEKEYI:', error);
-                // Silently fail - this is just tracking, don't block user flow
-              });
+              completeTask(assets.campaign.completeTaskIds.BROWSE_ZHEXIEZHENDEKEYI)
+                .then(() => {
+                  // Reload campaign data after successfully completing the task
+                  return getCampaignInfo(assets.campaign.activityId);
+                })
+                .catch((error) => {
+                  console.error('Error completing task BROWSE_ZHEXIEZHENDEKEYI or reloading campaign data:', error);
+                  // Silently fail - this is just tracking, don't block user flow
+                });
             }
             if (item.jump_url) {
               //埋点14

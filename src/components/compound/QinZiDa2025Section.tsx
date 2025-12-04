@@ -7,19 +7,67 @@ import { useAssets } from '@/context/assets-context';
 import { useZA } from '@/hooks/useZA';
 import { useInView } from 'react-intersection-observer';
 
+interface ItemProps {
+  item: { image_url: string; jump_url: string };
+  index: number;
+}
+
+const QinZiDaItem = ({ item, index }: ItemProps) => {
+  const { trackShow, trackEvent } = useZA();
+
+  const { ref, inView } = useInView({
+    triggerOnce: true,
+  });
+
+  useEffect(() => {
+    if (inView) {
+      //埋点15
+      trackShow({ moduleId: 'personal_answer_block_2025', type: 'Button', page: { page_id: '60850', page_level: 1 } });
+    }
+  }, [inView, trackShow, index]);
+
+  const handleClick = () => {
+    //埋点16
+    trackEvent('OpenUrl', {
+      moduleId: 'personal_answer_2025',
+      type: 'Button',
+      moduleIndex: index,
+      page: {
+        page_id: '60850',
+        page_level: 1,
+      }
+    });
+
+    if (item.jump_url) {
+      window.location.href = item.jump_url;
+    }
+  };
+
+  return (
+    <div
+      ref={ref}
+      onClick={handleClick}
+      className="shrink-0 cursor-pointer"
+    >
+      <div className="shrink-0 w-[148px] flex items-center justify-center pr-2">
+        <div className="relative w-full flex justify-center">
+          <Image
+            src={item.image_url}
+            alt={`亲自答 ${index + 1}`}
+            width={339}
+            height={126}
+            className="w-full h-auto object-contain"
+          />
+        </div>
+      </div>
+    </div>
+  );
+};
+
 const QinZiDa2025Section = () => {
   const { assets } = useAssets();
   const scrollContainerRef = useRef<HTMLDivElement>(null);
   const [isPC, setIsPC] = useState(false);
-  const { trackShow, trackEvent } = useZA();
-  const { ref: moduleRef, inView: moduleInView } = useInView({ triggerOnce: true });
-
-  useEffect(() => {
-    if (moduleInView) {
-      // 埋点15
-      trackShow({ moduleId: 'personal_answer_block_2025', type: 'Button', page: { page_id: '60850', page_level: 1 } });
-    }
-  }, [moduleInView, trackShow]);
 
   // Check if viewport is PC (>= 768px)
   useEffect(() => {
@@ -63,7 +111,7 @@ const QinZiDa2025Section = () => {
   }));
 
   return (
-    <div ref={moduleRef} className="relative w-full flex flex-col pb-12">
+    <div className="relative w-full flex flex-col pb-12">
       {/* Title */}
       <div className="mb-4">
         <QinZiDa2025 />
@@ -80,48 +128,13 @@ const QinZiDa2025Section = () => {
           }}
         >
           <div className="flex flex-row pl-4">
-            {imagesToDisplay.map((item, index) => {
-              const handleClick = () => {
-                //埋点16
-                trackEvent('OpenUrl', {
-                  moduleId: 'personal_answer_2025',
-                  type: 'Button',
-                  moduleIndex: index,
-                  page: {
-                    page_id: '60850',
-                    page_level: 1,
-                  }
-                });
-
-                if (item.jump_url) {
-                  window.location.href = item.jump_url;
-                }
-              };
-
-              const content = (
-                <div className="shrink-0 w-[148px] flex items-center justify-center pr-2">
-                  <div className="relative w-full flex justify-center">
-                    <Image
-                      src={item.image_url}
-                      alt={`亲自答 ${index + 1}`}
-                      width={339}
-                      height={126}
-                      className="w-full h-auto object-contain"
-                    />
-                  </div>
-                </div>
-              );
-
-              return (
-                <div
-                  key={index}
-                  onClick={handleClick}
-                  className="shrink-0 cursor-pointer"
-                >
-                  {content}
-                </div>
-              )
-            })}
+            {imagesToDisplay.map((item, index) => (
+              <QinZiDaItem
+                key={index}
+                item={item}
+                index={index}
+              />
+            ))}
           </div>
         </div>
       </div>

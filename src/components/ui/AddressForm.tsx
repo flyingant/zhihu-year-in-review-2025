@@ -3,7 +3,7 @@
 import { useState, useEffect } from "react";
 import { useRouter, useSearchParams, usePathname } from "next/navigation";
 import { useToast } from "@/context/toast-context";
-import { getAddressInfo, submitAddress, completeRedeemReward } from "@/api/campaign";
+import { getAddressInfo, submitAddress, completeRedeemReward, cancelOccupyReward } from "@/api/campaign";
 import { useAssets } from "@/context/assets-context";
 import { useZA } from '@/hooks/useZA';
 import RegionPicker from "./RegionPicker";
@@ -112,7 +112,22 @@ export default function AddressForm() {
     };
   }, [showRegionPicker]);
 
-  const handleBack = () => {
+  const handleBack = async () => {
+    // If coming from redeem flow, cancel the occupy before going back
+    if (fromRedeem && rewardId && rewardPoolId && requestId && rewardRightType && assets?.campaign) {
+      try {
+        await cancelOccupyReward(assets.campaign.activityId, {
+          request_id: parseInt(requestId, 10),
+          reward_pool_id: parseInt(rewardPoolId, 10),
+          reward_right_id: parseInt(rewardId, 10),
+          reward_right_type: rewardRightType,
+        });
+        console.log('取消预占成功');
+      } catch (error) {
+        console.error('取消预占失败:', error);
+        // Even if cancel fails, still navigate back
+      }
+    }
     router.back();
   };
 

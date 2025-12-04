@@ -273,9 +273,12 @@ export default function AddressForm() {
         await submitAddress(addressData);
         showToast("地址提交成功", "success");
       }
-      // Redirect back after successful submission
+      // Remove query parameter and reload the page
+      // Include basePath if configured (e.g., /zhihu2025)
       setTimeout(() => {
-        router.replace(pathname);
+        const basePath = process.env.NEXT_PUBLIC_BASE_URL || '';
+        const fullPath = basePath ? `${basePath}${pathname}` : pathname;
+        window.location.href = fullPath;
       }, 1500);
     } catch (error) {
       console.error("Failed to submit:", error);

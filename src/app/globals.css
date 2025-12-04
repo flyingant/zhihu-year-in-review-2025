@@ -35,6 +35,10 @@ body {
   --color-black: #444;
   --color-gray: #999;
   --color-blue: #2079fe;
+  --color-r-pink: #FF8992;
+  --color-r-blue: #00ADE9;
+  --color-r-fern: #00C2A9;
+  --color-r-green: #4BAD39;
 
   --animate-marquee: marquee linear infinite;
   --animate-slide-in: slide-in 8s ease-out forwards;

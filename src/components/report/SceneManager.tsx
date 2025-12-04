@@ -15,6 +15,13 @@ export default function SceneManager() {
 
   const Component = currentSceneConfig.component;
 
+  // 这里面放到时候从接口获取到的所有数据
+  const fullReportData = {};
+
+  const extraProps = currentSceneConfig.prepareProps
+    ? currentSceneConfig.prepareProps(fullReportData)
+    : {};
+
   // 处理跳转逻辑
   const handleNext = (choice?: string) => {
     const nextLogic = currentSceneConfig.next;
@@ -45,7 +52,7 @@ export default function SceneManager() {
           className="w-full h-full"
         >
           {/* 渲染当前页面，并传入跳转函数 */}
-          <Component onNext={handleNext} />
+          <Component onNext={handleNext} {...extraProps} />
         </motion.div>
       </AnimatePresence>
     </div>

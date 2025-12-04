@@ -62,7 +62,8 @@ const ZaiZhiHuLianJieZhenShiSection = () => {
     trackEvent('OpenUrl', {
       moduleId: 'carousel_subvenue_image_2025',
       type: 'Block',
-      moduleIndex: index
+      moduleIndex: index,
+      page: { page_id: '60850', page_level: 1 }
     });
 
     // Call completeTask API (fire-and-forget, non-blocking)

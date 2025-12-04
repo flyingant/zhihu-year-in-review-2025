@@ -10,6 +10,7 @@ import { useZA } from '@/hooks/useZA';
 import { useInView } from 'react-intersection-observer';
 import { useZhihuHybrid } from '@/hooks/useZhihuHybrid';
 import { useZhihuApp } from '@/hooks/useZhihuApp';
+import { useMobile } from '@/hooks/useMobile';
 
 // Type declaration for Zhihu Hybrid SDK (new API pattern)
 // Based on tech specs: window.zhihuHybrid('base/downloadImage').dispatch(params: Params): PromiseObservable<Result>
@@ -47,6 +48,7 @@ const MiniComputerSection = () => {
   const { showToast } = useToast();
   const { downloadImage: downloadImageViaHybrid } = useZhihuHybrid();
   const isInZhihuApp = useZhihuApp();
+  const isMobile = useMobile();
 
   const loadingText = useLoadingDots("海报生成中", 400, status === 'loading');
   const HASHTAG = " #2025到底什么是真的";
@@ -351,10 +353,10 @@ const MiniComputerSection = () => {
 
       <div
         className="relative w-full mx-auto h-[220px]"
-        style={{ pointerEvents: !isInZhihuApp ? 'none' : 'auto' }}
+        style={{ pointerEvents: (!isInZhihuApp && isMobile) ? 'none' : 'auto' }}
       >
         {/* 非App内用户透明遮罩层 */}
-        {!isInZhihuApp && (
+        {!isInZhihuApp && isMobile && (
           <div
             onClick={handleOverlayClick}
             onMouseDown={handleOverlayClick}
@@ -374,7 +376,7 @@ const MiniComputerSection = () => {
           priority
         />
         {/* 电脑输入框 */}
-        <div className="absolute z-10 top-[20%] left-[14%] w-[74%] h-[30%]">
+        <div className="absolute z-10 top-[20%] left-[14%] w-[74%] h-[35%]">
           <div
             ref={mirrorRef}
             className="w-full h-full overflow-hidden text-sm leading-relaxed pointer-events-none"

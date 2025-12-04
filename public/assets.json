@@ -80,46 +80,46 @@
     },
     "all": [
       {
-        "url": "/assets/folder_word_1@3x.png",
+        "url": "/assets/folder_jipaige@3x.png",
         "width": 1030,
         "height": 500,
         "alt": "鸡排哥",
-        "jump_url": "https://www.zhihu.com/question/1974440788541793545"
+        "jump_url": "https://www.zhihu.com/question/1974440788541793545/answer/1978575239760872282"
       },
       {
-        "url": "/assets/folder_word_2@3x.png",
+        "url": "/assets/folder_zhangchun@3x.png",
         "width": 1030,
         "height": 500,
         "alt": "张春",
-        "jump_url": "https://www.zhihu.com/question/1974440788541793545"
+        "jump_url": "https://www.zhihu.com/question/1974440788541793545/answer/1979530555457553531"
       },
       {
-        "url": "/assets/folder_word_3@3x.png",
+        "url": "/assets/folder_majiahui@3x.png",
         "width": 1030,
         "height": 500,
         "alt": "马家辉",
-        "jump_url": "https://www.zhihu.com/question/1974440788541793545"
+        "jump_url": "https://www.zhihu.com/question/1974440788541793545/answer/1979630363493033184"
       },
       {
-        "url": "/assets/folder_word_4@3x.png",
+        "url": "/assets/folder_zhaijianing@3x.png",
         "width": 1030,
         "height": 500,
         "alt": "翟佳宁",
-        "jump_url": "https://www.zhihu.com/question/1974440788541793545"
+        "jump_url": ""
       },
       {
-        "url": "/assets/folder_word_5@3x.png",
+        "url": "/assets/folder_yanfei@3x.png",
         "width": 1030,
         "height": 500,
         "alt": "严飞",
-        "jump_url": "https://www.zhihu.com/question/1974440788541793545"
+        "jump_url": "https://www.zhihu.com/question/1974440788541793545/answer/1978145389082321771"
       },
       {
-        "url": "/assets/folder_word_6@3x.png",
+        "url": "/assets/folder_taofangbo@3x.png",
         "width": 1030,
         "height": 500,
         "alt": "陶芳波",
-        "jump_url": "https://www.zhihu.com/question/1974440788541793545"
+        "jump_url": "https://www.zhihu.com/question/1974440788541793545/answer/1979873528066097813"
       }
     ]
   },

@@ -22,11 +22,13 @@ const ZaiZhiHuLianJieZhenShiSection = () => {
   const hasTrackedModule = useRef(false);
   const isVisibleRef = useRef(false);
   const { userData } = useUserData();
-  const [paginationEl, setPaginationEl] = useState<HTMLElement | null>(null);
+  const [currentDotIndex, setCurrentDotIndex] = useState(0);
   const { trackShow, trackEvent } = useZA();
   const { ref: moduleRef, inView } = useInView({ threshold: 0.2 });
   const { isAvailable: isHybridAvailable, openURL } = useZhihuHybrid();
   const isZhihuApp = useZhihuApp();
+  const [swiperInstance, setSwiperInstance] = useState<SwiperType | null>(null);
+
 
   useEffect(() => {
     isVisibleRef.current = inView;
@@ -40,9 +42,14 @@ const ZaiZhiHuLianJieZhenShiSection = () => {
 
   // Use real_link from userData
   const realLinkItems = userData?.masterConfig?.real_link || [];
+  const originalLength = realLinkItems.length;
+  const rawSlides = realLinkItems.length > 0 && realLinkItems.length < 6
+    ? [...realLinkItems, ...realLinkItems]
+    : realLinkItems;
 
   type SlideItem = {
     id: number;
+    originalIndex: number;
     url: string;
     width: number;
     height: number;
@@ -50,12 +57,14 @@ const ZaiZhiHuLianJieZhenShiSection = () => {
     jump_url?: string;
   };
 
-  const slides: SlideItem[] = realLinkItems.map((item, index) => {
+  const slides: SlideItem[] = rawSlides.map((item, index) => {
+    const originalIndex = index % (realLinkItems.length || 1);
     return {
       id: index,
+      originalIndex: originalIndex,
       url: item.image_url,
       width: 339, // Default width, adjust if needed
-      height: 126, // Default height, adjust if needed
+      height: 226, // Default height, adjust if needed
       alt: `在知乎链接真实 ${index + 1}`,
       jump_url: item.jump_url,
     };
@@ -66,7 +75,7 @@ const ZaiZhiHuLianJieZhenShiSection = () => {
     trackEvent('OpenUrl', {
       moduleId: 'carousel_subvenue_image_2025',
       type: 'Block',
-      moduleIndex: index,
+      moduleIndex: item.originalIndex,
       page: { page_id: '60850', page_level: 1 }
     });
 
@@ -102,16 +111,24 @@ const ZaiZhiHuLianJieZhenShiSection = () => {
     }
   };
 
+  const handleDotClick = (index: number) => {
+    if (swiperInstance) {
+      swiperInstance.slideToLoop(index);
+    }
+  };
+
   const handleSlideExposure = (swiper: SwiperType) => {
     if (!isVisibleRef.current) return;
-    const currentIndex = swiper.realIndex;
+    const realIndex = swiper.realIndex;
+    const actualIndex = realIndex % (originalLength || 1);
+    setCurrentDotIndex(actualIndex);
 
     // 防止重复上报（如果在同一个 index 上微动）
-    if (lastExposedIndex.current === currentIndex) return;
-    lastExposedIndex.current = currentIndex;
+    if (lastExposedIndex.current === actualIndex) return;
+    lastExposedIndex.current = actualIndex;
 
     // Get the current slide's jump_url
-    const currentSlide = slides[currentIndex];
+    const currentSlide = slides[actualIndex];
     const jumpUrl = currentSlide?.jump_url;
 
     //埋点19
@@ -154,23 +171,21 @@ const ZaiZhiHuLianJieZhenShiSection = () => {
             delay: 5000,
             disableOnInteraction: false,
           }}
-          pagination={{
-            clickable: true,
-            el: paginationEl,
-          }}
           onSlideChange={(swiper) => handleSlideExposure(swiper)}
           onInit={(swiper) => handleSlideExposure(swiper)}
+          onSwiper={(swiper) => setSwiperInstance(swiper)}
           className="w-full"
         >
           {slides.map((item, index) => (
             <SwiperSlide
               key={item.id}
-              className="!w-[75%]"
+              className="!w-[282px]"
             >
               {({ isActive }) => (
                 <div
                   onClick={() => handleSlideClick(item, index)}
                   className={`
+                    aspect-[339/226]
                     relative w-full h-full rounded-lg overflow-hidden transition-all duration-300 ease-out
                     ${isActive ? 'scale-100' : 'scale-90 opacity-80'}
                   `}
@@ -178,8 +193,7 @@ const ZaiZhiHuLianJieZhenShiSection = () => {
                   <Image
                     src={item.url}
                     alt={item.alt}
-                    width={item.width}
-                    height={item.height}
+                    fill
                     className="object-cover"
                     draggable={false}
                   />
@@ -188,8 +202,21 @@ const ZaiZhiHuLianJieZhenShiSection = () => {
             </SwiperSlide>
           ))}
         </Swiper>
-        <div className="custom-pagination-container flex justify-center items-center mt-4 w-full"
-          ref={(node) => setPaginationEl(node)}></div>
+        <div className="flex justify-center items-center mt-4 w-full">
+          {realLinkItems.map((_, index) => (
+            <div
+              key={index}
+              onClick={() => handleDotClick(index)}
+              className={`
+                mx-[2px] rounded-full transition-all duration-300 cursor-pointer
+                ${currentDotIndex === index
+                  ? 'w-[8px] h-[8px] bg-[#808080]'
+                  : 'w-[6px] h-[6px] bg-[#bcbcbc]'
+                }
+              `}
+            />
+          ))}
+        </div>
       </div>
     </div>
   );

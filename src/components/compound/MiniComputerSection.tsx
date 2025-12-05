@@ -389,9 +389,9 @@ const MiniComputerSection = () => {
         <div className="absolute z-10 top-[20%] left-[14%] w-[74%] h-[35%]">
           <div
             ref={mirrorRef}
-            className="w-full h-full overflow-hidden text-sm leading-relaxed pointer-events-none"
+            className="w-full h-full overflow-hidden text-sm leading-relaxed pointer-events-none will-change-scroll transform-gpu"
           >
-            <div className="flex flex-col items-start w-full">
+            <div className="flex flex-col items-start w-full pb-8">
               {inputValue ? (
                 <span className="text-gray-600 whitespace-pre-wrap break-all">
                   {inputValue}
@@ -423,7 +423,7 @@ const MiniComputerSection = () => {
             onScroll={handleScroll}
             disabled={status !== 'idle'}
             maxLength={120}
-            className="absolute inset-0 w-full h-full bg-transparent border-none outline-none resize-none text-transparent caret-gray-600 text-sm leading-relaxed z-10"
+            className="pb-8 absolute inset-0 w-full h-full bg-transparent border-none outline-none resize-none text-transparent caret-gray-600 text-sm leading-relaxed z-10"
           />
         </div>
         {/* enter遮罩层 */}

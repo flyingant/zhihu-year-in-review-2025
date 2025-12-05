@@ -54,11 +54,9 @@ function HomeContent() {
     // Map directTo parameter to section ID (case-insensitive)
     const directToLower = directTo.toLowerCase();
     const sectionMap: Record<string, string> = {
-      'pointreward': 'reward-section',
       'reward': 'reward-section',
-      'pointtask': 'task-section',
-      'task': 'task-section',
-      'miniComputer': 'game-section',
+      'task': 'task-inner-section',
+      'computer': 'game-section',
     };
 
     const targetId = sectionMap[directToLower];

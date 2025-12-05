@@ -225,7 +225,7 @@ const TaskSection = () => {
                   <div className="text-xs text-gray">{group.desc}</div>
                 </div>
 
-                <div className="flex flex-col gap-3">
+                <div className="flex flex-col gap-3" id="task-inner-section">
                   {group.task_list.map((task) => (
                     <div key={task.id} className="bg-white rounded-[10px] p-3 flex items-center justify-between shadow-sm">
                       <div className="flex flex-col flex-1 pr-2">

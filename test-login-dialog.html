@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Zhihu Hybrid Login Dialog Test</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+        
+        .container {
+            background: white;
+            border-radius: 12px;
+            padding: 30px;
+            max-width: 600px;
+            width: 100%;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+        }
+        
+        h1 {
+            color: #333;
+            margin-bottom: 20px;
+            font-size: 24px;
+        }
+        
+        .status {
+            background: #f5f5f5;
+            border-radius: 8px;
+            padding: 15px;
+            margin-bottom: 20px;
+            font-family: 'Monaco', 'Courier New', monospace;
+            font-size: 12px;
+            line-height: 1.6;
+        }
+        
+        .status-item {
+            margin-bottom: 8px;
+        }
+        
+        .status-item:last-child {
+            margin-bottom: 0;
+        }
+        
+        .status-label {
+            font-weight: bold;
+            color: #666;
+        }
+        
+        .status-value {
+            color: #333;
+        }
+        
+        .status-value.success {
+            color: #10b981;
+        }
+        
+        .status-value.error {
+            color: #ef4444;
+        }
+        
+        .status-value.warning {
+            color: #f59e0b;
+        }
+        
+        button {
+            background: #667eea;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            width: 100%;
+            transition: background 0.2s;
+        }
+        
+        button:hover {
+            background: #5568d3;
+        }
+        
+        button:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+        }
+        
+        .log {
+            background: #1e1e1e;
+            color: #d4d4d4;
+            border-radius: 8px;
+            padding: 15px;
+            margin-top: 20px;
+            max-height: 300px;
+            overflow-y: auto;
+            font-family: 'Monaco', 'Courier New', monospace;
+            font-size: 11px;
+            line-height: 1.5;
+        }
+        
+        .log-entry {
+            margin-bottom: 4px;
+        }
+        
+        .log-entry.info {
+            color: #4fc3f7;
+        }
+        
+        .log-entry.success {
+            color: #81c784;
+        }
+        
+        .log-entry.error {
+            color: #e57373;
+        }
+        
+        .log-entry.warning {
+            color: #ffb74d;
+        }
+        
+        .clear-log {
+            margin-top: 10px;
+            background: #6b7280;
+            font-size: 14px;
+            padding: 8px 16px;
+        }
+        
+        .clear-log:hover {
+            background: #4b5563;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🧪 Zhihu Hybrid Login Dialog Test</h1>
+        
+        <div class="status" id="status">
+            <div class="status-item">
+                <span class="status-label">SDK Status:</span>
+                <span class="status-value" id="sdk-status">Checking...</span>
+            </div>
+            <div class="status-item">
+                <span class="status-label">SDK Type:</span>
+                <span class="status-value" id="sdk-type">-</span>
+            </div>
+            <div class="status-item">
+                <span class="status-label">User Agent:</span>
+                <span class="status-value" id="user-agent">-</span>
+            </div>
+            <div class="status-item">
+                <span class="status-label">Current URL:</span>
+                <span class="status-value" id="current-url">-</span>
+            </div>
+        </div>
+        
+        <button id="test-button" onclick="testLoginDialog()" disabled>Test Login Dialog</button>
+        
+        <div class="log" id="log"></div>
+        <button class="clear-log" onclick="clearLog()">Clear Log</button>
+    </div>
+
+    <!-- Load zhihu-hybrid SDK -->
+    <script src="https://unpkg.zhimg.com/zhihu-hybrid@2.80.2"></script>
+    
+    <script>
+        // Logging utility
+        function log(message, type = 'info') {
+            const logDiv = document.getElementById('log');
+            const entry = document.createElement('div');
+            entry.className = `log-entry ${type}`;
+            entry.textContent = `[${new Date().toLocaleTimeString()}] ${message}`;
+            logDiv.appendChild(entry);
+            logDiv.scrollTop = logDiv.scrollHeight;
+            console.log(`[${type.toUpperCase()}]`, message);
+        }
+        
+        function clearLog() {
+            document.getElementById('log').innerHTML = '';
+        }
+        
+        // Check SDK status
+        function checkSDK() {
+            const sdkStatusEl = document.getElementById('sdk-status');
+            const sdkTypeEl = document.getElementById('sdk-type');
+            const testButton = document.getElementById('test-button');
+            
+            if (typeof window.zhihuHybrid === 'function') {
+                sdkStatusEl.textContent = 'Available ✓';
+                sdkStatusEl.className = 'status-value success';
+                
+                // Check if it's the new API pattern
+                try {
+                    const testAction = window.zhihuHybrid('test');
+                    if (testAction && typeof testAction.dispatch === 'function') {
+                        sdkTypeEl.textContent = 'New API (action().dispatch())';
+                        sdkTypeEl.className = 'status-value success';
+                    } else {
+                        sdkTypeEl.textContent = 'Legacy API';
+                        sdkTypeEl.className = 'status-value warning';
+                    }
+                } catch (e) {
+                    sdkTypeEl.textContent = 'Unknown';
+                    sdkTypeEl.className = 'status-value warning';
+                }
+                
+                testButton.disabled = false;
+                log('zhihuHybrid SDK is available and ready', 'success');
+                return true;
+            } else {
+                sdkStatusEl.textContent = 'Not Available ✗';
+                sdkStatusEl.className = 'status-value error';
+                sdkTypeEl.textContent = '-';
+                testButton.disabled = true;
+                log('zhihuHybrid SDK is not available', 'error');
+                return false;
+            }
+        }
+        
+        // Update status info
+        function updateStatus() {
+            document.getElementById('user-agent').textContent = navigator.userAgent;
+            document.getElementById('current-url').textContent = window.location.href;
+        }
+        
+        // Test login dialog - This is the code snippet from auth-context.tsx:143-146
+        function testLoginDialog() {
+            log('=== Starting Login Dialog Test ===', 'info');
+            
+            if (!window.zhihuHybrid || typeof window.zhihuHybrid !== 'function') {
+                log('ERROR: zhihuHybrid is not available', 'error');
+                alert('zhihuHybrid SDK is not available. Please ensure you are testing in Zhihu App or the SDK has loaded.');
+                return;
+            }
+            
+            const nextUrl = window.location.href;
+            log(`Next URL: ${nextUrl}`, 'info');
+            
+            try {
+                log('Calling zhihuHybrid("account/showLoginDialog")...', 'info');
+                
+                // This is the exact code snippet from auth-context.tsx:143-146
+                const hybridAction = window.zhihuHybrid('account/showLoginDialog');
+                
+                if (!hybridAction) {
+                    throw new Error('hybridAction is null or undefined');
+                }
+                
+                if (typeof hybridAction.dispatch !== 'function') {
+                    throw new Error('hybridAction.dispatch is not a function');
+                }
+                
+                log('Dispatching with params: { next: "' + nextUrl + '" }', 'info');
+                
+                const result = hybridAction.dispatch({
+                    next: nextUrl,
+                });
+                
+                log('Login dialog dispatched successfully!', 'success');
+                log('Result type: ' + typeof result, 'info');
+                
+                // Check if result is a Promise
+                if (result && typeof result.then === 'function') {
+                    log('Result is a Promise, waiting for resolution...', 'info');
+                    result
+                        .then((res) => {
+                            log('Promise resolved: ' + JSON.stringify(res), 'success');
+                        })
+                        .catch((err) => {
+                            log('Promise rejected: ' + err.message, 'error');
+                        });
+                } else if (result && typeof result.subscribe === 'function') {
+                    log('Result has subscribe method (Observable pattern)', 'info');
+                } else {
+                    log('Result: ' + JSON.stringify(result), 'info');
+                }
+                
+            } catch (error) {
+                log('ERROR: ' + error.message, 'error');
+                log('Stack: ' + error.stack, 'error');
+                alert('Error calling login dialog: ' + error.message);
+            }
+        }
+        
+        // Initialize
+        updateStatus();
+        
+        // Check SDK immediately
+        checkSDK();
+        
+        // Poll for SDK if not available immediately
+        let attempts = 0;
+        const maxAttempts = 20;
+        const checkInterval = setInterval(() => {
+            attempts++;
+            if (checkSDK()) {
+                clearInterval(checkInterval);
+            } else if (attempts >= maxAttempts) {
+                clearInterval(checkInterval);
+                log(`SDK check timeout after ${maxAttempts} attempts`, 'warning');
+            }
+        }, 150);
+        
+        // Also check when script loads
+        window.addEventListener('load', () => {
+            setTimeout(() => {
+                checkSDK();
+            }, 500);
+        });
+    </script>
+</body>
+</html>
+

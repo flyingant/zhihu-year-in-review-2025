@@ -25,7 +25,7 @@ const QiangXianYuGaoSection = () => {
 
   return (
     <div ref={moduleRef} className="relative w-full flex flex-col items-center pb-6">
-      <div className="w-full w-[370px] flex items-center justify-center ml-[3px]">
+      <div className="w-full flex items-center justify-center">
         <div className="relative w-full flex justify-center">
           <Image
             src={qiangXianYuGaoBanner.url}

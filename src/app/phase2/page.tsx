@@ -10,13 +10,16 @@ import ZhihuLogo from "../../components/ui/ZhihuLogo";
 import ZhihuSearch from "../../components/ui/zhihuSearch";
 import HomeBottomBg from "../../components/ui/homeBottomBg";
 import TaskSection from "../../components/compound/TaskSection";
-import SidebarLiuKanshan from "../../components/ui/SidebarLiuKanshan";
 import AddressForm from "../../components/ui/AddressForm";
 import { useAssets } from '@/context/assets-context';
 import YearlyVideoSection from "@/components/compound/YearlyVideoSection";
 import YearlyReportSection from "@/components/compound/YearlyReportSection";
 import YearlyQuestionSection from "@/components/compound/YearlyQuestionSection";
 import VoteTenQuestions from "@/components/compound/VoteTenQuestions";
+import MiniComputerSection from "@/components/compound/MiniComputerSection";
+import ZaiZhiHuLianJieZhenShiSection from "@/components/compound/ZaiZhiHuLianJieZhenShiSection";
+import ZheXieZhenDeKeYiSection from "@/components/compound/ZheXieZhenDeKeYiSection";
+import RewardSection from "@/components/compound/RewardSection";
 import RealMoment from "@/components/compound/RealMoment";
 import { useEffect } from 'react';
 import { useZA } from '@/hooks/useZA';
@@ -137,8 +140,6 @@ function Phase2Content() {
               priority
             />
           </div>
-          {/* 刘看山对话框 */}
-          <SidebarLiuKanshan />
 
           {/* KV 部分 */}
           <SectionLayout topOffset={0} id="kv-section">
@@ -159,6 +160,22 @@ function Phase2Content() {
 
           <SectionLayout topOffset={0} id="vote-ten-questions-section">
             <VoteTenQuestions />
+          </SectionLayout>
+
+          <SectionLayout topOffset={0} id="zhe-xie-zhen-de-ke-yi-section">
+            <ZheXieZhenDeKeYiSection />
+          </SectionLayout>
+
+          <SectionLayout topOffset={0} id="mini-computer-section">
+            <MiniComputerSection />
+          </SectionLayout>
+
+          <SectionLayout topOffset={50} id="zai-zhihu-lianjie-zhenshi-section">
+            <ZaiZhiHuLianJieZhenShiSection />
+          </SectionLayout>
+
+          <SectionLayout topOffset={0} id="reward-section">
+            <RewardSection />
           </SectionLayout>
 
           <SectionLayout topOffset={0} id="task-section">

@@ -911,6 +911,80 @@
       }
     }
   },
+  "fourGrid": {
+    "bg": {
+      "url": "/assets/2025_2_fourgrid_bg@3x.png",
+      "width": 375,
+      "height": 310,
+      "alt": "背景框"
+    },
+    "items": [
+      {
+        "id": "video",
+        "name": "年度视频",
+        "clear": {
+          "url": "/assets/2025_2_fourgrid_video_clear@3x.png",
+          "width": 73,
+          "height": 106,
+          "alt": "年度视频-亮"
+        },
+        "blur": {
+          "url": "/assets/2025_2_fourgrid_video_blur@3x.png",
+          "width": 73,
+          "height": 106,
+          "alt": "年度视频-暗"
+        }
+      },
+      {
+        "id": "report",
+        "name": "个人报告",
+        "clear": {
+          "url": "/assets/2025_2_fourgrid_report_clear@3x.png",
+          "width": 73,
+          "height": 106,
+          "alt": "个人报告-亮"
+        },
+        "blur": {
+          "url": "/assets/2025_2_fourgrid_report_blur@3x.png",
+          "width": 73,
+          "height": 106,
+          "alt": "个人报告-暗"
+        }
+      },
+      {
+        "id": "questions",
+        "name": "年度十问",
+        "clear": {
+          "url": "/assets/2025_2_fourgrid_questions_clear@3x.png",
+          "width": 73,
+          "height": 106,
+          "alt": "年度十问-亮"
+        },
+        "blur": {
+          "url": "/assets/2025_2_fourgrid_questions_blur@3x.png",
+          "width": 73,
+          "height": 106,
+          "alt": "年度十问-暗"
+        }
+      },
+      {
+        "id": "cando",
+        "name": "这些真的可以",
+        "clear": {
+          "url": "/assets/2025_2_fourgrid_cando_clear@3x.png",
+          "width": 73,
+          "height": 106,
+          "alt": "这些真的可以-亮"
+        },
+        "blur": {
+          "url": "/assets/2025_2_fourgrid_cando_blur@3x.png",
+          "width": 73,
+          "height": 106,
+          "alt": "这些真的可以-暗"
+        }
+      }
+    ]
+  },
   "realMoment": {
     "bg": {
       "url": "/assets/2025_2_realmoment_bg@3x.png",

@@ -19,6 +19,7 @@ import VoteTenQuestions from "@/components/compound/VoteTenQuestions";
 import MiniComputerSection from "@/components/compound/MiniComputerSection";
 import ZaiZhiHuLianJieZhenShiSection from "@/components/compound/ZaiZhiHuLianJieZhenShiSection";
 import ZheXieZhenDeKeYiSection from "@/components/compound/ZheXieZhenDeKeYiSection";
+import FourGridSection from "@/components/compound/FourGridSection";
 import RewardSection from "@/components/compound/RewardSection";
 import RealMoment from "@/components/compound/RealMoment";
 import { useEffect } from 'react';
@@ -164,6 +165,10 @@ function Phase2Content() {
 
           <SectionLayout topOffset={0} id="zhe-xie-zhen-de-ke-yi-section">
             <ZheXieZhenDeKeYiSection />
+          </SectionLayout>
+
+          <SectionLayout topOffset={0} id="four-grid-section">
+            <FourGridSection />
           </SectionLayout>
 
           <SectionLayout topOffset={0} id="mini-computer-section">

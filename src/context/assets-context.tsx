@@ -105,6 +105,15 @@ export interface AssetsData {
     questionBlurImage: AssetMetadata;
     questionClearImage: AssetMetadata;
   };
+  fourGrid: {
+    bg: AssetMetadata;
+    items: {
+      id: string;
+      name: string;
+      clear: AssetMetadata;
+      blur: AssetMetadata;
+    }[];
+  };
   vote: {
     title: AssetMetadata;
     listBg: AssetMetadata;

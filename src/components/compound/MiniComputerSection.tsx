@@ -489,7 +489,7 @@ const MiniComputerSection = () => {
       {/* 成功弹框 */}
       {status === 'success' && posterUrl && (
         <div className="fixed z-[9999] inset-0 h-screen flex flex-col items-center justify-center bg-black/80 animate-overlayShow">
-          <div className="relative flex flex-col items-center gap-4 animate-contentShow max-w-[300px]">
+          <div className="relative flex flex-col items-center gap-4 animate-contentShow max-w-[260px]">
             {/* Close button */}
             <button
               onClick={handleCloseSuccess}

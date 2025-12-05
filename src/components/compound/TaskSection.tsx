@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { useAssets } from '@/context/assets-context';
 import { getCampaignInfo, CampaignResponse, TaskItem } from '@/api/campaign';
 import { useToast } from '@/context/toast-context';
@@ -16,6 +16,7 @@ const TaskSection = () => {
   const { assets } = useAssets();
   const isMobile = useMobile();
   const [campaignData, setCampaignData] = useState<CampaignResponse | null>(null);
+  const [isRefreshing, setIsRefreshing] = useState(false);
   const { trackShow, trackEvent } = useZA();
   const { ref: moduleRef, inView: moduleInView } = useInView({ triggerOnce: true });
   const { isAvailable: isHybridAvailable, openURL } = useZhihuHybrid();
@@ -27,20 +28,27 @@ const TaskSection = () => {
     }
   }, [moduleInView, trackShow]);
 
-  useEffect(() => {
+  const fetchCampaignData = useCallback(async () => {
     if (!assets?.campaign) return;
+    try {
+      const data = await getCampaignInfo(assets.campaign.activityId);
+      setCampaignData(data);
+    } catch (error) {
+      console.error("Failed to fetch campaign data:", error);
+      showToast("刷新失败，请稍后重试", "error");
+    }
+  }, [assets?.campaign, showToast]);
 
-    const fetchData = async () => {
-      try {
-        const data = await getCampaignInfo(assets.campaign.activityId);
-        setCampaignData(data);
-      } catch (error) {
-        console.error("Failed to fetch campaign data:", error);
-      }
-    };
+  useEffect(() => {
+    fetchCampaignData();
+  }, [fetchCampaignData]);
 
-    fetchData();
-  }, [assets]);
+  const handleRefresh = async () => {
+    setIsRefreshing(true);
+    await fetchCampaignData();
+    setIsRefreshing(false);
+    showToast("刷新任务状态成功", "success");
+  };
 
   if (!assets) return null;
 
@@ -220,9 +228,34 @@ const TaskSection = () => {
           {
             displayGroups.length > 0 ? displayGroups.map((group, index) => (
               <div key={index} className="bg-[#e1f4ff] rounded-[12px] pt-3 px-4 pb-5 mb-4">
-                <div className="mb-3">
-                  <div className="text-base font-bold text-black">{group.title}</div>
-                  <div className="text-xs text-gray">{group.desc}</div>
+                <div className="mb-3 flex items-start justify-between gap-2">
+                  <div className="flex-1">
+                    <div className="text-base font-bold text-black">{group.title}</div>
+                    <div className="text-xs text-gray">{group.desc}</div>
+                  </div>
+                  <button
+                    onClick={handleRefresh}
+                    disabled={isRefreshing}
+                    className="shrink-0 p-1.5 rounded-full hover:bg-[#d0e8ff] active:scale-95 transition-all disabled:opacity-50 disabled:cursor-not-allowed"
+                    aria-label="刷新"
+                  >
+                    <svg
+                      width="18"
+                      height="18"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      xmlns="http://www.w3.org/2000/svg"
+                      className={`text-blue-400 ${isRefreshing ? "animate-spin" : ""}`}
+                    >
+                      <path
+                        d="M21.5 2v6h-6M2.5 22v-6h6M2 11.5C2 6.253 6.253 2 11.5 2c2.45 0 4.675.977 6.31 2.57M22 12.5C22 17.747 17.747 22 12.5 22c-2.45 0-4.675-.977-6.31-2.57"
+                        stroke="currentColor"
+                        strokeWidth="2"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                      />
+                    </svg>
+                  </button>
                 </div>
 
                 <div className="flex flex-col gap-3" id="task-inner-section">

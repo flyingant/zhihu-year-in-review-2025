@@ -296,7 +296,8 @@ export default function AddressForm() {
       setTimeout(() => {
         const basePath = process.env.NEXT_PUBLIC_BASE_URL || '';
         const fullPath = basePath ? `${basePath}${pathname}` : pathname;
-        window.location.href = fullPath;
+        const urlWithParam = `${fullPath}?directTo=reward`;
+        window.location.href = urlWithParam;
       }, 1500);
     } catch (error) {
       console.error("Failed to submit:", error);

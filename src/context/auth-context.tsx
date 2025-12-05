@@ -22,6 +22,7 @@ interface ZhihuHybridNewAPI {
 interface Profile {
   name?: string;
   username?: string;
+  url_token?: string;
   [key: string]: unknown;
 }
 
@@ -55,10 +56,16 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         url: "/me",
       });
       setProfile(profile);
-      setIsAuthenticated(true);
-      // Clear redirect flag on successful auth
-      if (typeof window !== 'undefined') {
-        sessionStorage.removeItem('auth_redirecting');
+      // Only set authenticated to true if url_token exists and is not empty
+      const urlToken = (profile as Profile)?.url_token;
+      if (urlToken && typeof urlToken === 'string' && urlToken.trim() !== '') {
+        setIsAuthenticated(true);
+        // Clear redirect flag on successful auth
+        if (typeof window !== 'undefined') {
+          sessionStorage.removeItem('auth_redirecting');
+        }
+      } else {
+        setIsAuthenticated(false);
       }
     } catch (error) {
       setIsAuthenticated(false);

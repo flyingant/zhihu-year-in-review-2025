@@ -265,13 +265,13 @@ const SidebarLiuKanshan = () => {
     if (isCheckingStatus) return;
     setIsCheckingStatus(true);
     try {
-      // Call completeTask API (fire-and-forget, non-blocking)
-      if (assets?.campaign) {
-        completeTask(assets.campaign.completeTaskIds.CLICK_LKS_GIFT_PUBLISH).catch((error) => {
-          console.error('Error completing task CLICK_LKS_GIFT_PUBLISH:', error);
-          // Silently fail - this is just tracking, don't block user flow
-        });
-      }
+      // // Call completeTask API (fire-and-forget, non-blocking)
+      // if (assets?.campaign) {
+      //   completeTask(assets.campaign.completeTaskIds.CLICK_LKS_GIFT_PUBLISH).catch((error) => {
+      //     console.error('Error completing task CLICK_LKS_GIFT_PUBLISH:', error);
+      //     // Silently fail - this is just tracking, don't block user flow
+      //   });
+      // }
       await checkTaskStatusAndUpdate(false);
     } finally {
       setIsCheckingStatus(false);
@@ -289,13 +289,13 @@ const SidebarLiuKanshan = () => {
       page: { page_id: '60850', page_level: 1 }
     });
 
-    // Call completeTask API (fire-and-forget, non-blocking)
-    if (assets?.campaign) {
-      completeTask(assets.campaign.completeTaskIds.CLICK_LKS_GIFT_PUBLISH).catch((error) => {
-        console.error('Error completing task CLICK_LKS_GIFT_PUBLISH:', error);
-        // Silently fail - this is just tracking, don't block user flow
-      });
-    }
+    // // Call completeTask API (fire-and-forget, non-blocking)
+    // if (assets?.campaign) {
+    //   completeTask(assets.campaign.completeTaskIds.CLICK_LKS_GIFT_PUBLISH).catch((error) => {
+    //     console.error('Error completing task CLICK_LKS_GIFT_PUBLISH:', error);
+    //     // Silently fail - this is just tracking, don't block user flow
+    //   });
+    // }
 
     try {
       const taskStatus = await checkTaskStatusAndUpdate(false);

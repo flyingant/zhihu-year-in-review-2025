@@ -3,6 +3,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import Image from 'next/image';
 import { useAssets, componentExpiration } from '@/context/assets-context';
+import { useMobile } from '@/hooks/useMobile';
 import request from '@/lib/request';
 import { useToast } from '@/context/toast-context';
 import { useZhihuApp } from '@/hooks/useZhihuApp';
@@ -22,6 +23,7 @@ const SidebarLiuKanshan = () => {
   const [isCheckingStatus, setIsCheckingStatus] = useState(false);
   const [isOverlapping, setIsOverlapping] = useState(false);
   const [isAnimating, setIsAnimating] = useState(false);
+  const isMobile = useMobile();
   const sidebarRef = useRef<HTMLDivElement>(null);
   const { showToast } = useToast();
   const isZhihu = useZhihuApp();
@@ -264,12 +266,12 @@ const SidebarLiuKanshan = () => {
     setIsCheckingStatus(true);
     try {
       // Call completeTask API (fire-and-forget, non-blocking)
-    if (assets?.campaign) {
-      completeTask(assets.campaign.completeTaskIds.CLICK_LKS_GIFT_PUBLISH).catch((error) => {
-        console.error('Error completing task CLICK_LKS_GIFT_PUBLISH:', error);
-        // Silently fail - this is just tracking, don't block user flow
-      });
-    }
+      if (assets?.campaign) {
+        completeTask(assets.campaign.completeTaskIds.CLICK_LKS_GIFT_PUBLISH).catch((error) => {
+          console.error('Error completing task CLICK_LKS_GIFT_PUBLISH:', error);
+          // Silently fail - this is just tracking, don't block user flow
+        });
+      }
       await checkTaskStatusAndUpdate(false);
     } finally {
       setIsCheckingStatus(false);
@@ -447,7 +449,7 @@ const SidebarLiuKanshan = () => {
                     // Zhihu App: Use original publish button
                     <div
                       onClick={handlePublishClick}
-                      onMouseEnter={handlePublishHover}
+                      onMouseEnter={!isMobile ? handlePublishHover : undefined}
                       className="relative cursor-pointer active:opacity-80 transition-opacity"
                       style={{ width: `${maxButtonWidth}px`, height: `${publishAsset.height / 2}px` }}
                     >
@@ -464,7 +466,7 @@ const SidebarLiuKanshan = () => {
                     // Normal Browser: Use PC publish button with QR code positioned absolutely
                     <div
                       onClick={handlePublishClick}
-                      onMouseEnter={handlePublishHover}
+                      onMouseEnter={!isMobile ? handlePublishHover : undefined}
                       className="relative cursor-pointer active:opacity-80 transition-opacity"
                       style={{ width: `${maxButtonWidth}px`, height: `${publishPcAsset.height / 6}px` }}
                     >

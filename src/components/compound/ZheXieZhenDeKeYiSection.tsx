@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect } from 'react';
+import React, { useEffect, useCallback } from 'react';
 import ZheXieZhenDeKeYi from '@/components/ui/ZheXieZhenDeKeYi';
 import Image from 'next/image';
 import { useZA } from '@/hooks/useZA';
@@ -24,6 +24,41 @@ const ZheXieZhenDeKeYiSection = () => {
     }
   }, [moduleInView, trackShow]);
 
+  const handleClick = useCallback(async (item: { jump_url: string; image_url: string; width: number; height: number; alt: string }) => {
+    // Call completeTask API and reload campaign data
+    if (assets?.campaign) {
+      completeTask(assets.campaign.completeTaskIds.BROWSE_ZHEXIEZHENDEKEYI)
+        .then(() => {
+          // Reload campaign data after successfully completing the task
+          return getCampaignInfo(assets.campaign.activityId);
+        })
+        .catch((error) => {
+          console.error('Error completing task BROWSE_ZHEXIEZHENDEKEYI or reloading campaign data:', error);
+          // Silently fail - this is just tracking, don't block user flow
+        });
+    }
+    if (item.jump_url) {
+      //埋点14
+      trackEvent('OpenUrl', {
+        moduleId: 'vote_selection_2025',
+        type: 'Button',
+        page: { page_id: '60850', page_level: 1 }
+      });
+
+      // Use zhihuHybrid if in zhihu app, otherwise use window.location.href
+      if (isZhihuApp && isHybridAvailable) {
+        try {
+          await openURL(item.jump_url);
+        } catch (error) {
+          console.error('Failed to open URL via zhihuHybrid, falling back to window.location.href:', error);
+          window.location.href = item.jump_url;
+        }
+      } else {
+        window.location.href = item.jump_url;
+      }
+    }
+  }, [assets, trackEvent, isZhihuApp, isHybridAvailable, openURL]);
+
   if (!assets) return null;
 
   // Use example images from assets.json
@@ -45,41 +80,6 @@ const ZheXieZhenDeKeYiSection = () => {
       {/* Content - Column layout image list */}
       <div className="w-full flex flex-col items-center gap-4 px-4">
         {imagesToDisplay.map((item, index) => {
-          const handleClick = async () => {
-            // Call completeTask API and reload campaign data
-            if (assets?.campaign) {
-              completeTask(assets.campaign.completeTaskIds.BROWSE_ZHEXIEZHENDEKEYI)
-                .then(() => {
-                  // Reload campaign data after successfully completing the task
-                  return getCampaignInfo(assets.campaign.activityId);
-                })
-                .catch((error) => {
-                  console.error('Error completing task BROWSE_ZHEXIEZHENDEKEYI or reloading campaign data:', error);
-                  // Silently fail - this is just tracking, don't block user flow
-                });
-            }
-            if (item.jump_url) {
-              //埋点14
-              trackEvent('OpenUrl', {
-                moduleId: 'vote_selection_2025',
-                type: 'Button',
-                page: { page_id: '60850', page_level: 1 }
-              });
-
-              // Use zhihuHybrid if in zhihu app, otherwise use window.location.href
-              if (isZhihuApp && isHybridAvailable) {
-                try {
-                  await openURL(item.jump_url);
-                } catch (error) {
-                  console.error('Failed to open URL via zhihuHybrid, falling back to window.location.href:', error);
-                  window.location.href = item.jump_url;
-                }
-              } else {
-                window.location.href = item.jump_url;
-              }
-            }
-          };
-
           const content = (
             <div key={index} className="relative w-full flex justify-center">
               <Image
@@ -95,7 +95,7 @@ const ZheXieZhenDeKeYiSection = () => {
           return (
             <div
               key={index}
-              onClick={handleClick}
+              onClick={() => handleClick(item)}
               className="block w-full cursor-pointer"
             >
               {content}

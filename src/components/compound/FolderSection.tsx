@@ -8,7 +8,7 @@ import { useInView } from 'react-intersection-observer';
 import { useZhihuHybrid } from '@/hooks/useZhihuHybrid';
 import { useZhihuApp } from '@/hooks/useZhihuApp';
 
-const clipPathleft = 'polygon(43% 0, 50% 19%, 100% 20%, 100% 100%, 68% 100%, 32% 100%, 0 100%, 0% 43%, 0 0)';
+const clipPathleft = 'polygon(43% 0, 50% 15%, 100% 15%, 100% 100%, 68% 100%, 32% 100%, 0 100%, 0% 43%, 0 0)';
 const clipPathright = 'polygon(50% 20%, 57% 0, 100% 0, 100% 100%, 68% 100%, 32% 100%, 0 100%, 0% 43%, 0 20%)';
 const TOP_POSITIONS = [
   'top-[0px]',

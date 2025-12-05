@@ -4,7 +4,7 @@ import React, { useState, useEffect } from 'react';
 import Image from 'next/image';
 import LiuKanShanBianLiDian from "../ui/LiuKanShanBianLiDian";
 import { useAssets } from '@/context/assets-context';
-import { RewardItem, preOccupyReward, cancelOccupyReward, CampaignResponse, getCampaignInfo } from '@/api/campaign';
+import { RewardItem, preOccupyReward, cancelOccupyReward, CampaignResponse, getCampaignInfo, directRedeemReward } from '@/api/campaign';
 import { useToast } from '@/context/toast-context';
 import { useZA } from '@/hooks/useZA';
 import { useZhihuApp } from '@/hooks/useZhihuApp';
@@ -100,12 +100,21 @@ const RewardSection = () => {
         reward_right_type: reward.right_type, // 根据API文档示例，可能需要从接口返回
       });
 
-      // 预占成功，保存信息并显示弹窗
+      // 预占成功，保存信息
       setRequestId(newRequestId);
       setStockOccupyId(response.stock_occupy_id);
       setSelectedReward(reward);
-      setIsRedeemModalOpen(true);
-      console.log(`预占成功: ${reward.right_id} ${reward.right_name}, stock_occupy_id: ${response.stock_occupy_id}`);
+
+      // 特殊处理：KNOWLEDGE_VIP类型，stock_occupy_id为null，不需要跳转到地址表单
+      if (reward.right_type === 'KNOWLEDGE_VIP' && (response.stock_occupy_id === null || response.stock_occupy_id === undefined)) {
+        // 直接显示确认弹窗，用户点击确定后直接兑换
+        setIsRedeemModalOpen(true);
+        console.log(`预占成功 (KNOWLEDGE_VIP): ${reward.right_id} ${reward.right_name}, stock_occupy_id: null`);
+      } else {
+        // 普通奖励类型，显示弹窗，用户确认后跳转到地址表单
+        setIsRedeemModalOpen(true);
+        console.log(`预占成功: ${reward.right_id} ${reward.right_name}, stock_occupy_id: ${response.stock_occupy_id}`);
+      }
     } catch (error) {
       // 预占失败，显示错误信息
       const errorMessage = (error as { msg?: string; message?: string })?.msg ||
@@ -144,13 +153,51 @@ const RewardSection = () => {
     }
   };
 
-  // 确认兑换 - 跳转到地址表单
-  const confirmRedeem = () => {
-    // stockOccupyId 是必填参数，必须存在才能继续
-    if (!selectedReward || !requestId || !rewardPoolId || !stockOccupyId) {
-      if (!stockOccupyId) {
-        showToast('兑换信息不完整，请重新操作', 'error');
+  // 确认兑换 - 跳转到地址表单或直接兑换
+  const confirmRedeem = async () => {
+    if (!selectedReward || !requestId || !rewardPoolId) {
+      showToast('兑换信息不完整，请重新操作', 'error');
+      return;
+    }
+
+    // 特殊处理：KNOWLEDGE_VIP类型，直接调用兑换接口，不需要地址表单
+    if (selectedReward.right_type === 'KNOWLEDGE_VIP' && (stockOccupyId === null || stockOccupyId === undefined)) {
+      setIsRedeemModalOpen(false);
+      try {
+        await directRedeemReward(assets.campaign.activityId, {
+          request_id: requestId,
+          reward_pool_id: rewardPoolId,
+          reward_right_id: selectedReward.right_id,
+          reward_right_type: selectedReward.right_type,
+          // stock_occupy_id 为 null 时不传递该字段
+        });
+        showToast('兑换成功，详细请到兑换记录查看', 'success');
+        // 重置状态
+        setSelectedReward(null);
+        setRequestId(null);
+        setStockOccupyId(null);
+        // 刷新活动数据
+        if (assets?.campaign) {
+          try {
+            const data = await getCampaignInfo(assets.campaign.activityId);
+            setCampaignData(data);
+          } catch (error) {
+            console.error("Failed to refresh campaign data:", error);
+          }
+        }
+      } catch (error) {
+        const errorMessage = (error as { msg?: string; message?: string })?.msg ||
+          (error as { msg?: string; message?: string })?.message ||
+          '兑换失败，请稍后重试';
+        showToast(errorMessage, 'error');
+        console.error('兑换失败:', error);
       }
+      return;
+    }
+
+    // 普通奖励类型：需要stockOccupyId和地址表单
+    if (!stockOccupyId) {
+      showToast('兑换信息不完整，请重新操作', 'error');
       return;
     }
 
@@ -163,7 +210,8 @@ const RewardSection = () => {
       requestId: String(requestId),
       rewardRightType: String(selectedReward.right_type),
       stockOccupyId: String(stockOccupyId),
-      from: 'redeem'
+      from: 'redeem',
+      zh_hide_nav_bar: 'true' // hide the nav bar in zhihu app
     };
 
     // 获取当前URL并合并现有参数

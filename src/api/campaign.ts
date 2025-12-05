@@ -241,6 +241,30 @@ export const completeRedeemReward = (
   });
 };
 
+// 直接兑换（用于KNOWLEDGE_VIP等不需要地址的奖励类型）
+export interface DirectRedeemParams extends PreOccupyRewardParams {
+  stock_occupy_id?: number | null; // 可选：对于KNOWLEDGE_VIP可能为null
+}
+
+export const directRedeemReward = (
+  activityId: string | number,
+  params: DirectRedeemParams
+) => {
+  return request<null>({
+    url: `/campaigns/user/points/${activityId}/reward_v2/${params.reward_pool_id}/right/${params.reward_right_id}`,
+    method: 'POST',
+    data: {
+      request_id: params.request_id,
+      reward_pool_id: params.reward_pool_id,
+      reward_right_id: params.reward_right_id,
+      reward_right_type: params.reward_right_type,
+      ...(params.stock_occupy_id !== null && params.stock_occupy_id !== undefined && {
+        stock_occupy_id: params.stock_occupy_id,
+      }),
+    },
+  });
+};
+
 // 任务完成相关接口
 export interface TaskCompleteParams {
   task_id: number;

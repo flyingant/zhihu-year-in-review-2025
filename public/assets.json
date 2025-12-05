@@ -911,6 +911,14 @@
       }
     }
   },
+  "realMoment": {
+    "bg": {
+      "url": "/assets/2025_2_realmoment_bg@3x.png",
+      "width": 750,
+      "height": 1018,
+      "alt": "real moment bg"
+    }
+  },
   "urls": {
     "sidebarLiuKanshanPublish": "https://ms.zhihu.com/2_36d0za",
     "sidebarCampaignRules": "https://www.zhihu.com/parker/campaign/1976720513247250310",

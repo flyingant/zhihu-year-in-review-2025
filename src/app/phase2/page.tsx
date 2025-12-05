@@ -17,6 +17,7 @@ import YearlyVideoSection from "@/components/compound/YearlyVideoSection";
 import YearlyReportSection from "@/components/compound/YearlyReportSection";
 import YearlyQuestionSection from "@/components/compound/YearlyQuestionSection";
 import VoteTenQuestions from "@/components/compound/VoteTenQuestions";
+import RealMoment from "@/components/compound/RealMoment";
 import { useEffect } from 'react';
 import { useZA } from '@/hooks/useZA';
 
@@ -162,6 +163,10 @@ function Phase2Content() {
 
           <SectionLayout topOffset={0} id="task-section">
             <TaskSection />
+          </SectionLayout>
+
+          <SectionLayout topOffset={0} id="real-moment-section">
+            <RealMoment />
           </SectionLayout>
 
           <SectionLayout topOffset={0} id="zhihu-search-section">

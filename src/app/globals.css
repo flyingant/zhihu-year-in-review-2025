@@ -102,6 +102,24 @@ body {
     }
   }
 
+  --animate-float-path: float-path 15s linear infinite;
+
+  @keyframes float-path {
+    from {
+      offset-distance: 0%;
+    }
+
+    to {
+      offset-distance: 100%;
+    }
+  }
+}
+
+.curve-text-item {
+  offset-rotate: auto;
+  offset-anchor: center center;
+  offset-distance: 0%;
+  will-change: offset-distance;
 }
 
 /* Hide scrollbar utility */

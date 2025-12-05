@@ -166,6 +166,9 @@ export interface AssetsData {
       categoryUnselect: AssetMetadata;
     };
   };
+  realMoment: {
+    bg: AssetMetadata;
+  };
   /**
    * 外部链接URL配置
    */

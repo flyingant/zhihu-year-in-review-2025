@@ -307,20 +307,22 @@ const SidebarLiuKanshan = () => {
       }
 
       // Redirect to publish page
-      const redirectUrl = assets?.urls?.sidebarLiuKanshanPublish;
-      if (redirectUrl) {
+      const redirectInPCUrl = assets?.urls?.sidebarLiuKanshanInPCPublish;
+      const redirectInAppUrl = assets?.urls?.sidebarLiuKanshanInAppPublish;
+      if (redirectInPCUrl && redirectInAppUrl) {
         // Use zhihuHybrid if in zhihu app, otherwise use window.location.href
         if (isZhihu && isHybridAvailable) {
           try {
-            await openURL(redirectUrl);
+            await openURL(redirectInAppUrl);
           } catch (error) {
             console.error('Failed to open URL via zhihuHybrid, falling back to window.location.href:', error);
-            window.location.href = redirectUrl;
+            window.location.href = redirectInAppUrl;
           }
         } else {
-          window.location.href = redirectUrl;
+          window.location.href = redirectInPCUrl;
         }
       }
+
     } catch (error) {
       console.error('Error in handlePublishClick:', error);
     } finally {

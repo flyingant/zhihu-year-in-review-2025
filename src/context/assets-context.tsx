@@ -174,7 +174,9 @@ export interface AssetsData {
    */
   urls: {
     /** 侧边栏刘看山发布链接 - 跳转到发布想法页面，包含活动话题和主会场链接 */
-    sidebarLiuKanshanPublish: string;
+    sidebarLiuKanshanInPCPublish: string;
+    /** 侧边栏刘看山发布链接 - 跳转到发布想法页面，包含活动话题和主会场链接 */
+    sidebarLiuKanshanInAppPublish: string;
     /** 活动规则链接 - 跳转到活动规则页面 */
     sidebarCampaignRules: string;
     /** 小电脑问题链接 - 跳转到"到底什么是真的？"问题页面 */

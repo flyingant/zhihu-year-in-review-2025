@@ -128,7 +128,14 @@ export default function AddressForm() {
         // Even if cancel fails, still navigate back
       }
     }
-    router.back();
+    // Remove query parameter and reload the page
+    // Include basePath if configured (e.g., /zhihu2025)
+    setTimeout(() => {
+      const basePath = process.env.NEXT_PUBLIC_BASE_URL || '';
+      const fullPath = basePath ? `${basePath}${pathname}` : pathname;
+      const urlWithParam = `${fullPath}?directTo=reward`;
+      window.location.href = urlWithParam;
+    }, 500);
   };
 
   const handleRegionSelect = (region: string) => {
@@ -306,7 +313,7 @@ export default function AddressForm() {
         const fullPath = basePath ? `${basePath}${pathname}` : pathname;
         const urlWithParam = `${fullPath}?directTo=reward`;
         window.location.href = urlWithParam;
-      }, 1500);
+      }, 500);
     } catch (error) {
       console.error("Failed to submit:", error);
       const errorMessage = (error as { msg?: string; message?: string })?.msg ||
@@ -341,7 +348,7 @@ export default function AddressForm() {
         <div className="flex items-center justify-center h-[44px] relative">
           <button
             onClick={handleBack}
-            className="absolute left-4 p-2 -ml-2 text-gray-600"
+            className="absolute left-0 min-w-[44px] min-h-[44px] flex items-center justify-center p-2 text-gray-600 active:opacity-60 transition-opacity"
             aria-label="返回"
           >
             <svg

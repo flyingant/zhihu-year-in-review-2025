@@ -46,7 +46,7 @@ const SidebarCampaignRules = () => {
     <div id="sidebar-campaign-rules" className="absolute right-0 top-[44%] z-50 pointer-events-auto">
       <div
         onClick={handleClick}
-        className="block cursor-pointer"
+        className="block cursor-pointer p-4 -m-4"
       >
         <Image
           src={imageAsset.url}

@@ -23,6 +23,7 @@ const SidebarLiuKanshan = () => {
   const [isCheckingStatus, setIsCheckingStatus] = useState(false);
   const [isOverlapping, setIsOverlapping] = useState(false);
   const [isAnimating, setIsAnimating] = useState(false);
+  const [isPublishHovered, setIsPublishHovered] = useState(false);
   const isMobile = useMobile();
   const sidebarRef = useRef<HTMLDivElement>(null);
   const { showToast } = useToast();
@@ -73,6 +74,26 @@ const SidebarLiuKanshan = () => {
         }
         .liukanshan-animate {
           animation: scaleAndBlink 0.6s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+        }
+        @keyframes qrcodeFadeIn {
+          0% {
+            opacity: 0;
+            transform: translateY(10px);
+          }
+          100% {
+            opacity: 1;
+            transform: translateY(0);
+          }
+        }
+        .qrcode-popup {
+          animation: qrcodeFadeIn 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
+        .arrow-down {
+          width: 0;
+          height: 0;
+          border-left: 8px solid transparent;
+          border-right: 8px solid transparent;
+          border-top: 8px solid #fff;
         }
       `;
       document.head.appendChild(style);
@@ -465,48 +486,50 @@ const SidebarLiuKanshan = () => {
                       />
                     </div>
                   ) : (
-                    // Normal Browser: Use PC publish button with QR code positioned absolutely
+                    // Normal Browser: Use PC publish button with QR code popup on hover
                     <div
                       onClick={handlePublishClick}
-                      onMouseEnter={!isMobile ? handlePublishHover : undefined}
+                      onMouseEnter={!isMobile ? () => {
+                        setIsPublishHovered(true);
+                        handlePublishHover();
+                      } : undefined}
+                      onMouseLeave={!isMobile ? () => setIsPublishHovered(false) : undefined}
                       className="relative cursor-pointer active:opacity-80 transition-opacity"
-                      style={{ width: `${maxButtonWidth}px`, height: `${publishPcAsset.height / 6}px` }}
+                      style={{ width: `${maxButtonWidth}px`, height: `${publishAsset.height / 2}px` }}
                     >
                       <Image
-                        src={publishPcAsset.url}
-                        alt={publishPcAsset.alt}
-                        width={publishPcAsset.width}
-                        height={publishPcAsset.height}
+                        src={publishAsset.url}
+                        alt={publishAsset.alt}
+                        width={publishAsset.width}
+                        height={publishAsset.height}
                         className="object-contain w-full h-full"
                         style={{ pointerEvents: 'none' }}
                       />
-                      {/* QR Code and Tips */}
-                      <div className="absolute flex flex-col items-center gap-2" style={{ top: '66px', right: '26px' }}>
-                        <div
-                          className="relative shrink-0"
-                          style={{ width: `${qrcodeAsset.width / 6}px`, height: `${qrcodeAsset.height / 6}px` }}
-                        >
-                          <Image
-                            src={qrcodeAsset.url}
-                            alt={qrcodeAsset.alt}
-                            width={qrcodeAsset.width}
-                            height={qrcodeAsset.height}
-                            className="object-contain w-full h-full"
-                          />
+                      {/* QR Code Popup - appears above button on hover */}
+                      {isPublishHovered && !isMobile && (
+                        <div className="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 flex flex-col items-center gap-2 qrcode-popup" style={{ zIndex: 10001 }}>
+                          {/* White container with QR code and wording */}
+                          <div className="bg-white rounded-lg p-3 flex flex-col items-center gap-2">
+                            {/* QR Code */}
+                            <div
+                              className="relative shrink-0"
+                              style={{ width: `${qrcodeAsset.width / 4}px`, height: `${qrcodeAsset.height / 4}px` }}
+                            >
+                              <Image
+                                src={qrcodeAsset.url}
+                                alt={qrcodeAsset.alt}
+                                width={qrcodeAsset.width}
+                                height={qrcodeAsset.height}
+                                className="object-contain w-full h-full"
+                              />
+                            </div>
+                            {/* Tips wording below QR code */}
+                            <p className="text-black text-sm whitespace-nowrap">{qrcodeTipsAsset.alt}</p>
+                          </div>
+                          {/* Arrow pointing down to button */}
+                          <div className="arrow-down"></div>
                         </div>
-                        <div
-                          className="relative shrink-0"
-                          style={{ width: `${qrcodeTipsAsset.width / 6}px`, height: `${qrcodeTipsAsset.height / 6}px` }}
-                        >
-                          <Image
-                            src={qrcodeTipsAsset.url}
-                            alt={qrcodeTipsAsset.alt}
-                            width={qrcodeTipsAsset.width}
-                            height={qrcodeTipsAsset.height}
-                            className="object-contain w-full h-full"
-                          />
-                        </div>
-                      </div>
+                      )}
                     </div>
                   )}
                 </>

@@ -221,7 +221,17 @@ const RewardSection = () => {
       currentUrl.searchParams.set(key, value);
     });
 
-    window.location.href = currentUrl.toString();
+    // Use zhihuHybrid if in zhihu app, otherwise use window.location.href
+    if (isInZhihuApp && isHybridAvailable) {
+      try {
+        await openURL(currentUrl.toString());
+      } catch (error) {
+        console.error('Failed to open URL via zhihuHybrid, falling back to window.location.href:', error);
+        window.location.href = currentUrl.toString();
+      }
+    } else {
+      window.location.href = currentUrl.toString();
+    }
   };
 
   // 跳转到兑换记录

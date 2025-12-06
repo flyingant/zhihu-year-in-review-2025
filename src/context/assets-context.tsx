@@ -61,6 +61,13 @@ export interface AssetsData {
     syncIdeas: AssetMetadata;
   };
   zheXieZhenDeKeYiImages: AssetMetadataWithJumpUrl[];
+  zheXieZhenDeKeYiImages2: {
+    title: AssetMetadata;
+    zhenkeyiClearImage: AssetMetadata;
+    zhenkeyiBlurImage: AssetMetadata;
+    items: AssetMetadataWithJumpUrl[];
+    liukanshanWaving: AssetMetadata;
+  },
   newImages: {
     wuzida2025: AssetMetadata;
     wuzida2025Banner: AssetMetadata;

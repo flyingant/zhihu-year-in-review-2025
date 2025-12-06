@@ -196,6 +196,55 @@
       "jump_url": ""
     }
   ],
+  "zheXieZhenDeKeYiImages2": {
+    "title": {
+      "url": "/assets/2025_2_zheXieZhenDeKeYi2_title@3x.png",
+      "width": 256,
+      "height": 79,
+      "alt": "这些真的可以"
+    },
+    "liukanshanWaving": {
+      "url": "/assets/yearly_liukanshan_waving.mp4",
+      "width": 72,
+      "height": 72,
+      "alt": "刘看山挥手"
+    },
+    "zhenkeyiClearImage": {
+      "url": "/assets/2025_2_zheXieZhenDeKeYi2_video_clear@3x.png",
+      "width": 98,
+      "height": 60,
+      "alt": "这些真的可以"
+    },
+    "zhenkeyiBlurImage": {
+      "url": "/assets/2025_2_zheXieZhenDeKeYi2_video_blur@3x.png",
+      "width": 514,
+      "height": 163,
+      "alt": "这些真的可以"
+    },
+    "items": [
+      {
+        "url": "/assets/2025_2_zheXieZhenDeKeYi2_1@3x.png",
+        "width": 514,
+        "height": 163,
+        "alt": "这些真的可以 1",
+        "jump_url": "https://www.zhihu.com/parker/campaign/1976358189982295029"
+      },
+      {
+        "url": "/assets/2025_2_zheXieZhenDeKeYi2_2@3x.png",
+        "width": 514,
+        "height": 163,
+        "alt": "这些真的可以 2",
+        "jump_url": ""
+      },
+      {
+        "url": "/assets/2025_2_zheXieZhenDeKeYi2_3@3x.png",
+        "width": 514,
+        "height": 163,
+        "alt": "这些真的可以 3",
+        "jump_url": ""
+      }
+    ]
+  },
   "newImages": {
     "wuzida2025": {
       "url": "/assets/2025qinzida@3x.png",

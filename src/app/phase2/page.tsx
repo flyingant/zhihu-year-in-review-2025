@@ -19,7 +19,7 @@ import VoteTenQuestions from "@/components/compound/VoteTenQuestions";
 import MiniComputerSection from "@/components/compound/MiniComputerSection";
 import NianZhongXiaoWenSection from "@/components/compound/NianZhongXiaoWenSection";
 import ZaiZhiHuLianJieZhenShiSection from "@/components/compound/ZaiZhiHuLianJieZhenShiSection";
-import ZheXieZhenDeKeYiSection from "@/components/compound/ZheXieZhenDeKeYiSection";
+import ZheXieZhenDeKeYiSection2 from "@/components/compound/ZheXieZhenDeKeYiSection2";
 import FourGridSection from "@/components/compound/FourGridSection";
 import RewardSection from "@/components/compound/RewardSection";
 import RealMoment from "@/components/compound/RealMoment";
@@ -165,7 +165,7 @@ function Phase2Content() {
           </SectionLayout>
 
           <SectionLayout topOffset={0} id="zhe-xie-zhen-de-ke-yi-section">
-            <ZheXieZhenDeKeYiSection />
+            <ZheXieZhenDeKeYiSection2 />
           </SectionLayout>
 
           <SectionLayout topOffset={0} id="four-grid-section">

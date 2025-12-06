@@ -127,15 +127,25 @@ export default function AddressForm() {
         console.error('取消预占失败:', error);
         // Even if cancel fails, still navigate back
       }
-    }
-    // Remove query parameter and reload the page
+      // Remove query parameter and reload the page
+      // Include basePath if configured (e.g., /zhihu2025)
+      setTimeout(() => {
+        const basePath = process.env.NEXT_PUBLIC_BASE_URL || '';
+        const fullPath = basePath ? `${basePath}${pathname}` : pathname;
+        const urlWithParam = `${fullPath}?directTo=reward`;
+        window.location.href = urlWithParam;
+      }, 500);
+    } else {
+      // Remove query parameter and reload the page
     // Include basePath if configured (e.g., /zhihu2025)
     setTimeout(() => {
       const basePath = process.env.NEXT_PUBLIC_BASE_URL || '';
       const fullPath = basePath ? `${basePath}${pathname}` : pathname;
-      const urlWithParam = `${fullPath}?directTo=reward&zh_hide_nav_bar=false`;
+      const urlWithParam = `${fullPath}`;
       window.location.href = urlWithParam;
     }, 500);
+    }
+    
   };
 
   const handleRegionSelect = (region: string) => {

@@ -22,9 +22,11 @@ import AddressForm from "../components/ui/AddressForm";
 import { useAssets } from '@/context/assets-context';
 import { useEffect } from 'react';
 import { useZA } from '@/hooks/useZA';
+import { useZhihuApp } from '@/hooks/useZhihuApp';
 
 function HomeContent() {
   const { trackPageShow, trackPageDisappear, isReady } = useZA();
+  const isZhihuApp = useZhihuApp();
   const searchParams = useSearchParams();
   const requireAddress = searchParams.get("addressrequired");
   const directTo = searchParams.get("directTo");
@@ -46,6 +48,25 @@ function HomeContent() {
       trackPageDisappear({ page: { page_id: '60850', page_level: 1 } });
     };
   }, [isReady]);
+
+  // Show navigation bar when entering page in Zhihu App
+  useEffect(() => {
+    if (isZhihuApp && typeof window !== 'undefined' && window.zhihuHybrid && typeof window.zhihuHybrid === 'function') {
+      try {
+        // Type assertion for zhihuHybrid new API pattern
+        interface ZhihuHybridAction {
+          dispatch(params?: Record<string, unknown>): unknown;
+        }
+        interface ZhihuHybridNewAPI {
+          (action: string): ZhihuHybridAction;
+        }
+        const hybridAction = (window.zhihuHybrid as ZhihuHybridNewAPI)('browser/showNavigationBar');
+        hybridAction.dispatch();
+      } catch (error) {
+        console.warn('Failed to show navigation bar via zhihuHybrid:', error);
+      }
+    }
+  }, [isZhihuApp]);
 
   // Handle directTo search parameter for scrolling
   useEffect(() => {

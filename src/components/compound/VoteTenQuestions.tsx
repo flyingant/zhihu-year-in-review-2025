@@ -1,9 +1,17 @@
 "use client";
 
-import React, { useState, useMemo } from 'react';
+import React, { useState, useMemo, useEffect } from 'react';
 import Image from 'next/image';
 import { useAssets } from '@/context/assets-context';
 import { useToast } from '@/context/toast-context';
+import { 
+  getAnnualQuestionList, 
+  generateAnnualQuestionPoster, 
+  getAnnualQuestionPosterInfo,
+  type AnnualQuestion 
+} from '@/api/campaign';
+import { isZhihuApp } from '@/lib/zhihu-detection';
+import { useZhihuHybrid } from '@/hooks/useZhihuHybrid';
 
 const TOPICS = [
   { id: 'science', name: '科学工程', color: '#33E6F8' },
@@ -21,48 +29,78 @@ const TOPICS = [
   { id: 'sports', name: '体育竞技', color: '#85FF99' },
 ];
 
-const generateMockQuestions = () => {
-  const questions: Question[] = [];
-  let globalId = 1;
-
-  TOPICS.forEach((topic) => {
-    const count = Math.floor(Math.random() * 13) + 8;
-
-    for (let i = 0; i < count; i++) {
-      questions.push({
-        id: globalId++,
-        topicId: topic.id,
-        title: `2025 年关于 ${topic.name} 领域的年度热门问题测试数据展示 ${i}`,
-        url: 'https://www.zhihu.com'
-      });
-    }
-  });
-
-  return questions;
-};
-
-const MOCK_QUESTIONS = generateMockQuestions();
-
-
 // 类型定义
 type Question = {
   id: number;
   topicId: string;
   title: string;
   url: string;
+  category: string;
 };
 
 const VoteTenQuestions = () => {
   const { assets } = useAssets();
   const { showToast } = useToast();
+  const { downloadImage: downloadImageViaHybrid } = useZhihuHybrid();
 
   const [activeTopicId, setActiveTopicId] = useState<string>(TOPICS[0].id);
   const [selectedQuestions, setSelectedQuestions] = useState<Question[]>([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [questions, setQuestions] = useState<Question[]>([]);
+  const [isLoadingQuestions, setIsLoadingQuestions] = useState(true);
+  const [isGeneratingPoster, setIsGeneratingPoster] = useState(false);
+  const [posterUrl, setPosterUrl] = useState<string>('');
+  const [showPosterModal, setShowPosterModal] = useState(false);
+
+  // Map category name to topic ID
+  const categoryToTopicId = useMemo(() => {
+    const map: Record<string, string> = {};
+    TOPICS.forEach(topic => {
+      map[topic.name] = topic.id;
+    });
+    return map;
+  }, []);
+
+  // Fetch questions from API
+  useEffect(() => {
+    const fetchQuestions = async () => {
+      try {
+        setIsLoadingQuestions(true);
+        const categories = await getAnnualQuestionList();
+        const allQuestions: Question[] = [];
+        let globalId = 1;
+
+        categories.forEach((category) => {
+          category.question_list.forEach((q) => {
+            const topicId = categoryToTopicId[category.category] || categoryToTopicId[q.category] || TOPICS[0].id;
+            allQuestions.push({
+              id: globalId++,
+              topicId,
+              title: q.question_text,
+              url: q.question_url,
+              category: category.category || q.category,
+            });
+          });
+        });
+
+        setQuestions(allQuestions);
+      } catch (error) {
+        console.error('Failed to fetch questions:', error);
+        const errorMessage = error && typeof error === 'object' && 'msg' in error
+          ? String(error.msg)
+          : '获取问题列表失败，请稍后重试';
+        showToast(errorMessage, 'error');
+      } finally {
+        setIsLoadingQuestions(false);
+      }
+    };
+
+    fetchQuestions();
+  }, [categoryToTopicId, showToast]);
 
   const currentQuestions = useMemo(() =>
-    MOCK_QUESTIONS.filter(q => q.topicId === activeTopicId),
-    [activeTopicId]);
+    questions.filter(q => q.topicId === activeTopicId),
+    [activeTopicId, questions]);
 
   if (!assets) return null;
 
@@ -98,6 +136,174 @@ const VoteTenQuestions = () => {
 
   const handleQuestionClick = (url: string) => {
     window.open(url, '_blank');
+  };
+
+  const handleGeneratePoster = async () => {
+    if (selectedQuestions.length === 0) {
+      showToast('请至少选择一个问题', 'info');
+      return;
+    }
+
+    setIsGeneratingPoster(true);
+    try {
+      // Convert selected questions to API format
+      const apiQuestions: AnnualQuestion[] = selectedQuestions.map(q => ({
+        question_text: q.title,
+        question_url: q.url,
+        category: q.category,
+      }));
+
+      const response = await generateAnnualQuestionPoster(apiQuestions);
+      
+      if (response.poster_generate_status === 1) {
+        // Fetch the poster info to get the image URL
+        const posterInfo = await getAnnualQuestionPosterInfo();
+        if (posterInfo.poster_image_url) {
+          setPosterUrl(posterInfo.poster_image_url);
+          setShowPosterModal(true);
+          
+          if (response.publish_pin_status === 1) {
+            showToast('海报生成并发布成功', 'success');
+          } else {
+            showToast('海报生成成功', 'success');
+          }
+        } else {
+          showToast('海报生成成功，但获取图片失败', 'warning');
+        }
+      } else {
+        showToast('海报生成失败，请稍后重试', 'error');
+      }
+    } catch (error) {
+      console.error('Failed to generate poster:', error);
+      const errorMessage = error && typeof error === 'object' && 'msg' in error
+        ? String(error.msg)
+        : '海报生成失败，请稍后重试';
+      showToast(errorMessage, 'error');
+    } finally {
+      setIsGeneratingPoster(false);
+    }
+  };
+
+  const handleSaveImage = async () => {
+    if (!posterUrl) {
+      showToast('没有可保存的图片', 'error');
+      return;
+    }
+
+    if (isZhihuApp()) {
+      try {
+        await downloadImageViaHybrid(posterUrl);
+      } catch (error) {
+        console.error('Failed to save image via zhihuHybrid:', error);
+        await downloadImageStandard(posterUrl);
+      }
+    } else {
+      await downloadImageStandard(posterUrl);
+    }
+  };
+
+  const downloadImageStandard = async (imageUrl: string) => {
+    try {
+      const tryCanvasMethod = (): Promise<Blob> => {
+        return new Promise<Blob>((resolve, reject) => {
+          const img = document.createElement('img');
+          img.crossOrigin = 'anonymous';
+
+          img.onload = () => {
+            try {
+              const canvas = document.createElement('canvas');
+              canvas.width = img.naturalWidth || img.width;
+              canvas.height = img.naturalHeight || img.height;
+
+              const ctx = canvas.getContext('2d');
+              if (!ctx) {
+                reject(new Error('Failed to get canvas context'));
+                return;
+              }
+
+              ctx.drawImage(img, 0, 0);
+
+              canvas.toBlob((blob) => {
+                if (blob) {
+                  resolve(blob);
+                } else {
+                  reject(new Error('Failed to convert canvas to blob'));
+                }
+              }, 'image/png');
+            } catch (error) {
+              reject(error);
+            }
+          };
+
+          img.onerror = () => reject(new Error('Failed to load image with CORS'));
+          img.src = imageUrl;
+        });
+      };
+
+      const tryFetchMethod = async (): Promise<Blob> => {
+        const response = await fetch(imageUrl, {
+          mode: 'cors',
+          credentials: 'omit',
+        });
+
+        if (!response.ok) {
+          throw new Error('Failed to fetch image');
+        }
+
+        return await response.blob();
+      };
+
+      const tryDirectDownload = () => {
+        const link = document.createElement('a');
+        link.href = imageUrl;
+        link.download = `poster-${Date.now()}.png`;
+        link.target = '_blank';
+        link.style.display = 'none';
+
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+      };
+
+      let blob: Blob;
+
+      try {
+        blob = await tryCanvasMethod();
+      } catch (canvasError) {
+        console.warn('Canvas method failed, trying fetch:', canvasError);
+        try {
+          blob = await tryFetchMethod();
+        } catch (fetchError) {
+          console.warn('Fetch method failed, using direct download:', fetchError);
+          tryDirectDownload();
+          return;
+        }
+      }
+
+      const blobUrl = window.URL.createObjectURL(blob);
+      const link = document.createElement('a');
+      link.href = blobUrl;
+      link.download = `poster-${Date.now()}.png`;
+      link.style.display = 'none';
+
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+
+      setTimeout(() => {
+        window.URL.revokeObjectURL(blobUrl);
+      }, 100);
+
+      showToast('图片保存成功', 'success');
+    } catch (error) {
+      console.error('Failed to download image:', error);
+      showToast('保存失败，请稍后重试', 'error');
+    }
+  };
+
+  const handleClosePosterModal = () => {
+    setShowPosterModal(false);
+    setPosterUrl('');
   };
 
   const topRowTopics = TOPICS.slice(0, 7);
@@ -167,47 +373,52 @@ const VoteTenQuestions = () => {
         <div
           className="relative w-full h-[370px] overflow-y-auto my-2 hide-scrollbar">
           <div className="pt-2 flex flex-col justify-center items-center">
-            {currentQuestions.map((q) => {
-              const isSelected = selectedQuestions.some(sq => sq.id === q.id);
+            {isLoadingQuestions ? (
+              <div className="text-center text-gray-400 py-10">加载中...</div>
+            ) : (
+              <>
+                {currentQuestions.map((q) => {
+                  const isSelected = selectedQuestions.some(sq => sq.id === q.id);
 
-              const bgAsset = voteAssets[activeTopicId][isSelected ? 'select' : 'unselect'];
+                  const bgAsset = voteAssets[activeTopicId][isSelected ? 'select' : 'unselect'];
 
-              if (!bgAsset) return null;
+                  if (!bgAsset) return null;
 
-              return (
-                <div
-                  key={q.id}
-                  className="relative w-[343px] h-[56px] transition-transform mb-[14px]"
-                >
-                  <div className="absolute inset-0 z-0">
-                    <Image
-                      src={bgAsset.url}
-                      alt="bg"
-                      fill
-                      className="object-fill"
-                    />
-                  </div>
-
-                  <div className="absolute inset-0 z-10 flex items-center justify-between px-4">
+                  return (
                     <div
-                      className="flex-1 text-[14px] font-bold text-[#333] line-clamp-2 mr-4 cursor-pointer leading-tight"
-                      onClick={() => handleQuestionClick(q.url)}
+                      key={q.id}
+                      className="relative w-[343px] h-[56px] transition-transform mb-[14px]"
                     >
-                      {q.title}
-                    </div>
+                      <div className="absolute inset-0 z-0">
+                        <Image
+                          src={bgAsset.url}
+                          alt="bg"
+                          fill
+                          className="object-fill"
+                        />
+                      </div>
 
-                    <div
-                      onClick={() => handleToggleSelect(q)}
-                      className="relative w-[60px] h-[32px] flex items-center justify-center cursor-pointer"
-                    >
-                    </div>
-                  </div>
-                </div>
-              );
-            })}
+                      <div className="absolute inset-0 z-10 flex items-center justify-between px-4">
+                        <div
+                          className="flex-1 text-[14px] font-bold text-[#333] line-clamp-2 mr-4 cursor-pointer leading-tight"
+                          onClick={() => handleQuestionClick(q.url)}
+                        >
+                          {q.title}
+                        </div>
 
-            {currentQuestions.length === 0 && (
-              <div className="text-center text-gray-400 py-10">该话题下暂无问题</div>
+                        <div
+                          onClick={() => handleToggleSelect(q)}
+                          className="relative w-[60px] h-[32px] flex items-center justify-center cursor-pointer"
+                        >
+                        </div>
+                      </div>
+                    </div>
+                  );
+                })}
+                {currentQuestions.length === 0 && (
+                  <div className="text-center text-gray-400 py-10">该话题下暂无问题</div>
+                )}
+              </>
             )}
           </div>
         </div>
@@ -223,11 +434,12 @@ const VoteTenQuestions = () => {
           </span>
         </div>
         <div
-          className="relative flex-1 h-[48px] flex items-center justify-center cursor-pointer active:scale-95 transition-transform"
+          onClick={handleGeneratePoster}
+          className="relative flex-1 h-[48px] flex items-center justify-center cursor-pointer active:scale-95 transition-transform disabled:opacity-50"
         >
           <Image src={btnBgAsset.url} alt="btn" fill className="object-fill" />
           <span className="relative z-10 text-white font-bold text-[15px] pixel-font drop-shadow-md">
-            生成海报并发想法
+            {isGeneratingPoster ? '生成中...' : '生成海报并发想法'}
           </span>
         </div>
       </div>
@@ -283,6 +495,59 @@ const VoteTenQuestions = () => {
               </div>
             </div>
 
+          </div>
+        </div>
+      )}
+      {/* 海报展示弹框 */}
+      {showPosterModal && posterUrl && (
+        <div className="fixed z-[9999] inset-0 h-screen flex flex-col items-center justify-center bg-black/80 animate-overlayShow">
+          <div className="relative flex flex-col items-center gap-4 animate-contentShow max-w-[260px]">
+            {/* Close button */}
+            <button
+              onClick={handleClosePosterModal}
+              className="absolute -top-10 right-0 w-8 h-8 flex items-center justify-center text-white hover:opacity-70 transition-opacity z-30"
+              aria-label="Close"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                className="h-6 w-6"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+                strokeWidth={2}
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  d="M6 18L18 6M6 6l12 12"
+                />
+              </svg>
+            </button>
+            <Image
+              src={posterUrl}
+              alt="Generated poster"
+              width={260}
+              height={400}
+              className="w-full h-auto object-contain"
+              unoptimized
+            />
+            <div className="flex gap-4 w-full px-2">
+              <div
+                onClick={handleSaveImage}
+                className="flex-1 cursor-pointer active:opacity-50"
+              >
+                {assets.games?.saveImage && (
+                  <Image
+                    src={assets.games.saveImage.url}
+                    alt={assets.games.saveImage.alt}
+                    width={assets.games.saveImage.width}
+                    height={assets.games.saveImage.height}
+                    className="w-full h-auto object-contain"
+                    unoptimized
+                  />
+                )}
+              </div>
+            </div>
           </div>
         </div>
       )}

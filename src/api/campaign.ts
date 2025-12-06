@@ -299,3 +299,58 @@ export const completeTask = (taskId: number) => {
     },
   });
 };
+
+// 年度十问相关接口
+export interface AnnualQuestion {
+  question_text: string;
+  question_url: string;
+  category: string;
+}
+
+export interface AnnualQuestionCategory {
+  category: string;
+  question_list: AnnualQuestion[];
+}
+
+// 获取年度十问问题列表
+export const getAnnualQuestionList = () => {
+  return request<AnnualQuestionCategory[]>({
+    url: '/campaigns/v2/2025/annual_question_list',
+    method: 'GET',
+  });
+};
+
+// 年度十问海报生成及发布想法
+export interface GeneratePosterRequest {
+  questions: AnnualQuestion[];
+}
+
+export interface GeneratePosterResponse {
+  poster_generate_status: number; // 1:成功 0:失败
+  publish_pin_status: number; // 1:成功 0:失败
+  task_complete_status: number; // 1:成功 0:失败
+}
+
+export const generateAnnualQuestionPoster = (questions: AnnualQuestion[]) => {
+  return request<GeneratePosterResponse>({
+    url: '/campaigns/v2/2025/annual_question_generate_poster',
+    method: 'POST',
+    data: {
+      questions,
+    },
+  });
+};
+
+// 年度十问已生成海报及发布想法状态
+export interface AnnualQuestionPosterInfo {
+  poster_image_url: string;
+  poster_generate_status: number; // 1:成功 0:失败
+  publish_pin_status: number; // 1:成功 0:失败
+}
+
+export const getAnnualQuestionPosterInfo = () => {
+  return request<AnnualQuestionPosterInfo>({
+    url: '/campaigns/v2/2025/annual_question_poster_info',
+    method: 'GET',
+  });
+};

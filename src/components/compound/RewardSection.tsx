@@ -88,6 +88,20 @@ const RewardSection = () => {
       }
     });
 
+    // 特殊处理：KNOWLEDGE_VIP类型，跳过预占接口，直接显示确认弹窗
+    if (reward.right_type === 'KNOWLEDGE_VIP') {
+      // 生成请求ID（毫秒级时间戳）
+      const newRequestId = Date.now();
+      setRequestId(newRequestId);
+      setStockOccupyId(null);
+      setSelectedReward(reward);
+      // 直接显示确认弹窗，用户点击确定后直接兑换
+      setIsRedeemModalOpen(true);
+      console.log(`KNOWLEDGE_VIP类型，跳过预占，直接显示弹窗: ${reward.right_id} ${reward.right_name}`);
+      return;
+    }
+
+    // 普通奖励类型：需要先调用预占接口
     // 生成请求ID（毫秒级时间戳）
     const newRequestId = Date.now();
 
@@ -97,43 +111,34 @@ const RewardSection = () => {
         request_id: newRequestId,
         reward_pool_id: rewardPoolId,
         reward_right_id: reward.right_id,
-        reward_right_type: reward.right_type, // 根据API文档示例，可能需要从接口返回
+        reward_right_type: reward.right_type,
       });
 
       // 先验证响应，再设置状态，避免状态污染
       // 安全地获取 stock_occupy_id，处理可能不存在的情况
       const responseStockOccupyId = response?.stock_occupy_id ?? null;
       
-      // 特殊处理：KNOWLEDGE_VIP类型，stock_occupy_id为null或undefined，不需要跳转到地址表单
-      if (reward.right_type === 'KNOWLEDGE_VIP' && (responseStockOccupyId === null || responseStockOccupyId === undefined)) {
-        // 预占成功，保存信息（KNOWLEDGE_VIP允许stock_occupy_id为null）
-        setRequestId(newRequestId);
-        setStockOccupyId(null);
-        setSelectedReward(reward);
-        // 直接显示确认弹窗，用户点击确定后直接兑换
-        setIsRedeemModalOpen(true);
-        console.log(`预占成功 (KNOWLEDGE_VIP): ${reward.right_id} ${reward.right_name}, stock_occupy_id: null`);
-      } else if (responseStockOccupyId === null || responseStockOccupyId === undefined) {
-        // 非KNOWLEDGE_VIP类型但stock_occupy_id为null或不存在，这是异常情况
-        // 不设置状态，直接返回错误
+      if (responseStockOccupyId === null || responseStockOccupyId === undefined) {
+        // stock_occupy_id为null或不存在，这是异常情况
         showToast('预占失败：库存信息异常，请稍后重试', 'error');
-        console.error(`预占异常: ${reward.right_id} ${reward.right_name}, 非KNOWLEDGE_VIP类型但stock_occupy_id为null或不存在`);
+        console.error(`预占异常: ${reward.right_id} ${reward.right_name}, stock_occupy_id为null或不存在`);
         return;
-      } else {
-        // 普通奖励类型，验证stock_occupy_id为正整数
-        if (responseStockOccupyId <= 0 || !Number.isInteger(responseStockOccupyId)) {
-          showToast('预占失败：库存信息异常，请稍后重试', 'error');
-          console.error(`预占异常: ${reward.right_id} ${reward.right_name}, stock_occupy_id无效: ${responseStockOccupyId}`);
-          return;
-        }
-        // 预占成功，保存信息
-        setRequestId(newRequestId);
-        setStockOccupyId(responseStockOccupyId);
-        setSelectedReward(reward);
-        // 显示弹窗，用户确认后跳转到地址表单
-        setIsRedeemModalOpen(true);
-        console.log(`预占成功: ${reward.right_id} ${reward.right_name}, stock_occupy_id: ${responseStockOccupyId}`);
       }
+      
+      // 验证stock_occupy_id为正整数
+      if (responseStockOccupyId <= 0 || !Number.isInteger(responseStockOccupyId)) {
+        showToast('预占失败：库存信息异常，请稍后重试', 'error');
+        console.error(`预占异常: ${reward.right_id} ${reward.right_name}, stock_occupy_id无效: ${responseStockOccupyId}`);
+        return;
+      }
+      
+      // 预占成功，保存信息
+      setRequestId(newRequestId);
+      setStockOccupyId(responseStockOccupyId);
+      setSelectedReward(reward);
+      // 显示弹窗，用户确认后跳转到地址表单
+      setIsRedeemModalOpen(true);
+      console.log(`预占成功: ${reward.right_id} ${reward.right_name}, stock_occupy_id: ${responseStockOccupyId}`);
     } catch (error) {
       // 预占失败，显示错误信息
       const errorMessage = (error as { msg?: string; message?: string })?.msg ||
@@ -150,6 +155,15 @@ const RewardSection = () => {
       setIsRedeemModalOpen(false);
       setSelectedReward(null);
       setRequestId(null);
+      return;
+    }
+
+    // KNOWLEDGE_VIP类型不需要调用取消预占接口（因为没有调用预占接口）
+    if (selectedReward.right_type === 'KNOWLEDGE_VIP') {
+      setIsRedeemModalOpen(false);
+      setSelectedReward(null);
+      setRequestId(null);
+      setStockOccupyId(null);
       return;
     }
 

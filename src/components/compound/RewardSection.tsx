@@ -232,7 +232,6 @@ const RewardSection = () => {
       rewardRightType: String(selectedReward.right_type),
       stockOccupyId: String(stockOccupyId),
       from: 'redeem',
-      zh_hide_nav_bar: 'true' // hide the nav bar in zhihu app
     };
 
     // 获取当前URL并合并现有参数

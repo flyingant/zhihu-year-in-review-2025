@@ -6,6 +6,7 @@ import { useToast } from "@/context/toast-context";
 import { getAddressInfo, submitAddress, completeRedeemReward, cancelOccupyReward } from "@/api/campaign";
 import { useAssets } from "@/context/assets-context";
 import { useZA } from '@/hooks/useZA';
+import { useZhihuApp } from '@/hooks/useZhihuApp';
 import RegionPicker from "./RegionPicker";
 
 interface AddressFormData {
@@ -27,6 +28,7 @@ export default function AddressForm() {
   const { showToast } = useToast();
   const { trackPageShow, trackPageDisappear, trackEvent } = useZA();
   const { assets } = useAssets();
+  const isZhihuApp = useZhihuApp();
 
   const [formData, setFormData] = useState<AddressFormData>({
     region: "",
@@ -57,6 +59,42 @@ export default function AddressForm() {
       trackPageDisappear({ page: { page_id: '60851', page_level: 2 } });
     };
   }, [fromRedeem]);
+
+  // Hide navigation bar when entering address form in Zhihu App
+  useEffect(() => {
+    if (isZhihuApp && typeof window !== 'undefined' && window.zhihuHybrid && typeof window.zhihuHybrid === 'function') {
+      try {
+        // Type assertion for zhihuHybrid new API pattern
+        interface ZhihuHybridAction {
+          dispatch(params?: Record<string, unknown>): unknown;
+        }
+        interface ZhihuHybridNewAPI {
+          (action: string): ZhihuHybridAction;
+        }
+        const hybridAction = (window.zhihuHybrid as ZhihuHybridNewAPI)('browser/hideNavigationBar');
+        hybridAction.dispatch();
+      } catch (error) {
+        console.warn('Failed to hide navigation bar via zhihuHybrid:', error);
+      }
+    }
+    // Restore navigation bar when component unmounts
+    return () => {
+      if (isZhihuApp && typeof window !== 'undefined' && window.zhihuHybrid && typeof window.zhihuHybrid === 'function') {
+        try {
+          interface ZhihuHybridAction {
+            dispatch(params?: Record<string, unknown>): unknown;
+          }
+          interface ZhihuHybridNewAPI {
+            (action: string): ZhihuHybridAction;
+          }
+          const hybridAction = (window.zhihuHybrid as ZhihuHybridNewAPI)('browser/showNavigationBar');
+          hybridAction.dispatch();
+        } catch (error) {
+          console.warn('Failed to show navigation bar via zhihuHybrid:', error);
+        }
+      }
+    };
+  }, [isZhihuApp]);
 
   const isFormFilled =
     !!formData.region &&

@@ -41,6 +41,7 @@ const MiniComputerSection = () => {
   const [inputValue, setInputValue] = useState('');
   const [isFocused, setIsFocused] = useState(false);
   const [posterUrl, setPosterUrl] = useState<string>('');
+  const textareaRef = useRef<HTMLTextAreaElement>(null);
   const { trackEvent, trackShow } = useZA();
   const { ref: moduleRef, inView: moduleInView } = useInView({ triggerOnce: true });
 
@@ -73,6 +74,26 @@ const MiniComputerSection = () => {
       document.body.style.overflow = '';
     };
   }, [status]);
+
+  useEffect(() => {
+    let animationFrameId: number;
+
+    const syncScroll = () => {
+      if (textareaRef.current && mirrorRef.current) {
+        if (mirrorRef.current.scrollTop !== textareaRef.current.scrollTop) {
+          mirrorRef.current.scrollTop = textareaRef.current.scrollTop;
+        }
+      }
+      animationFrameId = requestAnimationFrame(syncScroll);
+    };
+
+    // 启动同步循环
+    syncScroll();
+
+    return () => {
+      cancelAnimationFrame(animationFrameId);
+    };
+  }, []);
 
   if (!assets) return null;
 
@@ -307,12 +328,6 @@ const MiniComputerSection = () => {
   };
 
 
-  const handleScroll = (e: React.UIEvent<HTMLTextAreaElement>) => {
-    if (mirrorRef.current) {
-      mirrorRef.current.scrollTop = e.currentTarget.scrollTop;
-    }
-  };
-
   const handleBannerClick = async () => {
     //埋点9
     trackEvent('OpenUrl', {
@@ -389,6 +404,12 @@ const MiniComputerSection = () => {
         <div className="absolute z-10 top-[20%] left-[14%] w-[74%] h-[35%]">
           <div
             ref={mirrorRef}
+            style={{
+              backfaceVisibility: 'hidden',
+              WebkitBackfaceVisibility: 'hidden',
+              perspective: 1000,
+              WebkitPerspective: 1000
+            }}
             className="w-full h-full overflow-hidden text-sm leading-relaxed pointer-events-none will-change-scroll transform-gpu"
           >
             <div className="flex flex-col items-start w-full pb-8">
@@ -416,11 +437,11 @@ const MiniComputerSection = () => {
             </div>
           </div>
           <textarea
+            ref={textareaRef}
             value={inputValue}
             onChange={(e) => setInputValue(e.target.value)}
             onFocus={() => setIsFocused(true)}
             onBlur={() => setIsFocused(false)}
-            onScroll={handleScroll}
             disabled={status !== 'idle'}
             maxLength={120}
             className="pb-8 absolute inset-0 w-full h-full bg-transparent border-none outline-none resize-none text-transparent caret-gray-600 text-sm leading-relaxed z-10"

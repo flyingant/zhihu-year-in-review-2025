@@ -21,6 +21,7 @@
     "react-docgen-typescript": "^2.4.0",
     "react-dom": "19.2.0",
     "react-intersection-observer": "^10.0.0",
+    "react-qr-code": "^2.0.18",
     "swiper": "^12.0.3",
     "tailwind-merge": "^3.4.0",
     "za-js-sdk": "^4.19.2"

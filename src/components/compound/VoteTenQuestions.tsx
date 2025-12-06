@@ -96,7 +96,8 @@ const VoteTenQuestions = () => {
     };
 
     fetchQuestions();
-  }, [categoryToTopicId, showToast]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [categoryToTopicId]);
 
   const currentQuestions = useMemo(() =>
     questions.filter(q => q.topicId === activeTopicId),

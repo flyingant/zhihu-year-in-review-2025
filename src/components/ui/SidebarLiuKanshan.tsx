@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect, useRef } from 'react';
 import Image from 'next/image';
+import QRCode from 'react-qr-code';
 import { useAssets, componentExpiration } from '@/context/assets-context';
 import { useMobile } from '@/hooks/useMobile';
 import request from '@/lib/request';
@@ -512,15 +513,15 @@ const SidebarLiuKanshan = () => {
                           <div className="bg-white rounded-lg p-3 flex flex-col items-center gap-2">
                             {/* QR Code */}
                             <div
-                              className="relative shrink-0"
+                              className="relative shrink-0 bg-white p-2 rounded flex items-center justify-center"
                               style={{ width: `${qrcodeAsset.width / 4}px`, height: `${qrcodeAsset.height / 4}px` }}
                             >
-                              <Image
-                                src={qrcodeAsset.url}
-                                alt={qrcodeAsset.alt}
-                                width={qrcodeAsset.width}
-                                height={qrcodeAsset.height}
-                                className="object-contain w-full h-full"
+                              <QRCode
+                                value={assets?.urls?.sidebarLiuKanshanInPCPublish || ''}
+                                size={qrcodeAsset.width / 4 - 16}
+                                style={{ height: 'auto', maxWidth: '100%', width: '100%' }}
+                                bgColor="#ffffff"
+                                fgColor="#000000"
                               />
                             </div>
                             {/* Tips wording below QR code */}

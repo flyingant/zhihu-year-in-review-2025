@@ -17,6 +17,7 @@ import YearlyReportSection from "@/components/compound/YearlyReportSection";
 import YearlyQuestionSection from "@/components/compound/YearlyQuestionSection";
 import VoteTenQuestions from "@/components/compound/VoteTenQuestions";
 import MiniComputerSection from "@/components/compound/MiniComputerSection";
+import NianZhongXiaoWenSection from "@/components/compound/NianZhongXiaoWenSection";
 import ZaiZhiHuLianJieZhenShiSection from "@/components/compound/ZaiZhiHuLianJieZhenShiSection";
 import ZheXieZhenDeKeYiSection from "@/components/compound/ZheXieZhenDeKeYiSection";
 import FourGridSection from "@/components/compound/FourGridSection";
@@ -169,6 +170,10 @@ function Phase2Content() {
 
           <SectionLayout topOffset={0} id="four-grid-section">
             <FourGridSection />
+          </SectionLayout>
+
+          <SectionLayout topOffset={0} id="nian-zhong-xiao-wen-section">
+            <NianZhongXiaoWenSection />
           </SectionLayout>
 
           <SectionLayout topOffset={0} id="mini-computer-section">

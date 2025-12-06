@@ -175,6 +175,9 @@ export interface AssetsData {
       categoryUnselect: AssetMetadata;
     };
   };
+  nianZhongXiaoWen: {
+    bg: AssetMetadata;
+  };
   realMoment: {
     bg: AssetMetadata;
   };
@@ -194,6 +197,8 @@ export interface AssetsData {
     miniComputerQuestionInAppRedirectionURL: string;
     /** 年度视频链接 - 跳转到年度视频活动页面 */
     yearlyVideo: string;
+    /** 年终小问链接 - 跳转到年终小问视频活动页面 */
+    nianZhongXiaoWenVideo: string;
     /** 积分兑换基础URL - 用于构建积分兑换相关页面的完整URL */
     taskPointRedeemBase: string;
     /** 积分兑换历史记录URL后缀 - 与taskPointRedeemBase组合使用 */

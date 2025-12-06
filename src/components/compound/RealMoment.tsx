@@ -4,6 +4,8 @@ import React, { useState, useEffect, useRef } from "react";
 import Image from "next/image";
 import { useMobile } from "@/hooks/useMobile";
 import { useAssets } from '@/context/assets-context';
+import { useZA } from '@/hooks/useZA';
+import { useInView } from 'react-intersection-observer';
 
 
 const MOMENTS = [
@@ -51,6 +53,22 @@ export default function CurveMarquee() {
 
   const progressRef = useRef(0);
   const spansRef = useRef<(HTMLSpanElement | null)[]>([]);
+  const { trackShow } = useZA();
+  const { ref: inViewRef, inView } = useInView({
+    triggerOnce: true,
+  });
+
+  useEffect(() => {
+    if (inView) {
+      // phase2埋点8
+      trackShow({
+        moduleId: 'annual_report_moments_2025',
+        type: 'Block',
+        page: { page_id: '60850', page_level: 1 }
+      });
+    }
+  }, [inView, trackShow]);
+
 
   const dragRef = useRef({
     startX: 0,
@@ -191,7 +209,7 @@ export default function CurveMarquee() {
   return (
     <div ref={containerRef} className="relative w-full max-w-[500px] mx-auto h-[500px] overflow-hidden bg-white touch-none"
       onPointerDown={handlePointerDown}>
-      <div className="absolute inset-0 z-0">
+      <div ref={inViewRef} className="absolute inset-0 z-0">
         <Image
           src={bgAsset.url}
           alt={bgAsset.alt}

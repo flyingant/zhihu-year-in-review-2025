@@ -4,20 +4,48 @@ import React, { useRef, useEffect, useState } from 'react';
 import Image from 'next/image';
 import { useAssets } from '@/context/assets-context';
 import { useElementCenter } from '@/hooks/useElementCenter';
+import { useZA } from '@/hooks/useZA';
 
 const YearlyReportSection = () => {
   const { assets } = useAssets();
-  const videoRef = useRef<HTMLVideoElement>(null);
+  const { trackShow, trackEvent } = useZA();
 
   const { ref: setRefs, isCenter: showIcon, inView } = useElementCenter({
+    triggerOnce: true,
     threshold: 0.5
   });
   const [showClearImage, setShowClearImage] = useState(false);
+
+  useEffect(() => {
+    if (inView) {
+      // phase2埋点4
+      trackShow({
+        moduleId: 'annual_report_2025',
+        type: 'Block',
+        page: { page_id: '60850', page_level: 1 }
+      });
+    }
+  }, [inView, trackShow]);
 
   if (!assets) return null;
 
   const handleReportClick = () => {
     setShowClearImage(true);
+    // phase2埋点5
+    trackEvent('OpenUrl', {
+      moduleId: 'annual_report_2025',
+      type: 'Block',
+      page: { page_id: '60850', page_level: 1 }
+    });
+  };
+
+  const handleDiscussClick = () => {
+    // phase2埋点6
+    trackEvent('', {
+      moduleId: 'annual_report_discussion_2025',
+      type: 'Button',
+      page: { page_id: '60850', page_level: 1 }
+    });
   };
 
   const reportBg = assets.yearly.reportBg;
@@ -46,7 +74,6 @@ const YearlyReportSection = () => {
               }`}
           >
             <video
-              ref={videoRef}
               className="w-full h-full object-contain rounded-lg"
               loop
               muted
@@ -81,7 +108,7 @@ const YearlyReportSection = () => {
         </div>
         <div
           className="absolute bottom-[8%] left-[8%] w-[32%] h-[16%] z-30 cursor-pointer"
-          onClick={handleReportClick}
+          onClick={handleDiscussClick}
         >
         </div>
       </div>

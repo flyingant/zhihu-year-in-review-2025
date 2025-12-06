@@ -42,7 +42,7 @@ const RealCanDoSection = () => {
     if (item.jump_url) {
       // 埋点
       trackEvent('OpenUrl', {
-        moduleId: 'vote_selection_2025_new', // 请根据文档更新 ID
+        moduleId: 'vote_selection_2025_new',
         type: 'Button',
         page: { page_id: '60850', page_level: 1 }
       });

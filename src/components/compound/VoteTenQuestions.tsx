@@ -4,11 +4,12 @@ import React, { useState, useMemo, useEffect } from 'react';
 import Image from 'next/image';
 import { useAssets } from '@/context/assets-context';
 import { useToast } from '@/context/toast-context';
-import { 
-  getAnnualQuestionList, 
-  generateAnnualQuestionPoster, 
+import { useZA } from '@/hooks/useZA';
+import {
+  getAnnualQuestionList,
+  generateAnnualQuestionPoster,
   getAnnualQuestionPosterInfo,
-  type AnnualQuestion 
+  type AnnualQuestion
 } from '@/api/campaign';
 import { isZhihuApp } from '@/lib/zhihu-detection';
 import { useZhihuHybrid } from '@/hooks/useZhihuHybrid';
@@ -42,6 +43,7 @@ const VoteTenQuestions = () => {
   const { assets } = useAssets();
   const { showToast } = useToast();
   const { downloadImage: downloadImageViaHybrid } = useZhihuHybrid();
+  const { trackEvent } = useZA();
 
   const [activeTopicId, setActiveTopicId] = useState<string>(TOPICS[0].id);
   const [selectedQuestions, setSelectedQuestions] = useState<Question[]>([]);
@@ -145,6 +147,13 @@ const VoteTenQuestions = () => {
       return;
     }
 
+    // phase2埋点7
+    trackEvent('', {
+      moduleId: 'annual_report_publish_pin_2025',
+      type: 'Button',
+      page: { page_id: '60850', page_level: 1 }
+    });
+
     setIsGeneratingPoster(true);
     try {
       // Convert selected questions to API format
@@ -155,14 +164,14 @@ const VoteTenQuestions = () => {
       }));
 
       const response = await generateAnnualQuestionPoster(apiQuestions);
-      
+
       if (response.poster_generate_status === 1) {
         // Fetch the poster info to get the image URL
         const posterInfo = await getAnnualQuestionPosterInfo();
         if (posterInfo.poster_image_url) {
           setPosterUrl(posterInfo.poster_image_url);
           setShowPosterModal(true);
-          
+
           if (response.publish_pin_status === 1) {
             showToast('海报生成并发布成功', 'success');
           } else {

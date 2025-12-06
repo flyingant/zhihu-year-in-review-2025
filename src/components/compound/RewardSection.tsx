@@ -100,23 +100,34 @@ const RewardSection = () => {
         reward_right_type: reward.right_type, // 根据API文档示例，可能需要从接口返回
       });
 
-      // 预占成功，保存信息
-      setRequestId(newRequestId);
-      setStockOccupyId(response.stock_occupy_id);
-      setSelectedReward(reward);
-
+      // 先验证响应，再设置状态，避免状态污染
       // 特殊处理：KNOWLEDGE_VIP类型，stock_occupy_id为null，不需要跳转到地址表单
       if (reward.right_type === 'KNOWLEDGE_VIP' && (response.stock_occupy_id === null || response.stock_occupy_id === undefined)) {
+        // 预占成功，保存信息（KNOWLEDGE_VIP允许stock_occupy_id为null）
+        setRequestId(newRequestId);
+        setStockOccupyId(null);
+        setSelectedReward(reward);
         // 直接显示确认弹窗，用户点击确定后直接兑换
         setIsRedeemModalOpen(true);
         console.log(`预占成功 (KNOWLEDGE_VIP): ${reward.right_id} ${reward.right_name}, stock_occupy_id: null`);
       } else if (response.stock_occupy_id === null || response.stock_occupy_id === undefined) {
         // 非KNOWLEDGE_VIP类型但stock_occupy_id为null，这是异常情况
+        // 不设置状态，直接返回错误
         showToast('预占失败：库存信息异常，请稍后重试', 'error');
         console.error(`预占异常: ${reward.right_id} ${reward.right_name}, 非KNOWLEDGE_VIP类型但stock_occupy_id为null`);
         return;
       } else {
-        // 普通奖励类型，显示弹窗，用户确认后跳转到地址表单
+        // 普通奖励类型，验证stock_occupy_id为正整数
+        if (response.stock_occupy_id <= 0 || !Number.isInteger(response.stock_occupy_id)) {
+          showToast('预占失败：库存信息异常，请稍后重试', 'error');
+          console.error(`预占异常: ${reward.right_id} ${reward.right_name}, stock_occupy_id无效: ${response.stock_occupy_id}`);
+          return;
+        }
+        // 预占成功，保存信息
+        setRequestId(newRequestId);
+        setStockOccupyId(response.stock_occupy_id);
+        setSelectedReward(reward);
+        // 显示弹窗，用户确认后跳转到地址表单
         setIsRedeemModalOpen(true);
         console.log(`预占成功: ${reward.right_id} ${reward.right_name}, stock_occupy_id: ${response.stock_occupy_id}`);
       }
@@ -201,18 +212,14 @@ const RewardSection = () => {
     }
 
     // 普通奖励类型：需要stockOccupyId和地址表单
-    if (!stockOccupyId) {
+    // 确保 stockOccupyId 存在且为正整数
+    if (!stockOccupyId || stockOccupyId <= 0 || !Number.isInteger(stockOccupyId)) {
       showToast('兑换信息不完整，请重新操作', 'error');
       return;
     }
 
     setIsRedeemModalOpen(false);
     // 传递必要的参数到地址表单，stock_occupy_id 是必填参数
-    // 确保 stockOccupyId 不为 null 或 undefined
-    if (stockOccupyId === null || stockOccupyId === undefined) {
-      showToast('兑换信息不完整，请重新操作', 'error');
-      return;
-    }
     
     const newParams = {
       addressrequired: 'true',

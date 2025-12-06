@@ -65,6 +65,7 @@
 # .env.development
 NEXT_PUBLIC_BASE_API_URL=/api
 NEXT_PUBLIC_BASE_LOGIN_API_URL=/auth
+NEXT_PUBLIC_BASE_VIDEO_API_URL=
 NEXT_PUBLIC_CDN_BASE_URL=
 # copy from zhihu.com
 NEXT_PUBLIC_ZHIHU_COOKIE=
@@ -74,6 +75,7 @@ NEXT_PUBLIC_ZHIHU_COOKIE=
 # .env.production
 NEXT_PUBLIC_BASE_API_URL=https://api.zhihu.com/api
 NEXT_PUBLIC_BASE_LOGIN_API_URL=https://www.zhihu.com/api/v4
+NEXT_PUBLIC_BASE_VIDEO_API_URL=https://api.zhihu.com
 NEXT_PUBLIC_CDN_BASE_URL=/2025
 # copy from zhihu.com
 NEXT_PUBLIC_ZHIHU_COOKIE=

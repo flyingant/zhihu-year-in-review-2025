@@ -2,14 +2,21 @@
 
 import React, { useRef, useState, useEffect } from 'react';
 import Image from 'next/image';
+import Player from 'griffith';
 import { useAssets } from '@/context/assets-context';
-import { useZA } from '@/hooks/useZA'; // 假设你有埋点需求
 import { useInView } from 'react-intersection-observer';
+import { getVideoDetails, VideoDetailResponse, extractVideoPlayUrl, extractVideoQualityUrls } from '@/api/video';
+
+const VIDEO_ID = "1855624605156438016";
 
 const NianZhongXiaoWenSection = () => {
   const { assets } = useAssets();
-  const videoRef = useRef<HTMLVideoElement>(null);
+  const playerContainerRef = useRef<HTMLDivElement>(null);
   const [isPlaying, setIsPlaying] = useState(false);
+  const [videoDetails, setVideoDetails] = useState<VideoDetailResponse | null>(null);
+  const [videoUrl, setVideoUrl] = useState<string>('');
+  const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
 
   // const { trackShow, trackEvent } = useZA();
   const { ref: moduleRef, inView } = useInView({ triggerOnce: true });
@@ -21,30 +28,126 @@ const NianZhongXiaoWenSection = () => {
     }
   }, [inView]);
 
+  // Prepare sources for Griffith Player with quality-specific URLs if available
+  const playerSources = videoDetails ? (() => {
+    const qualityUrls = extractVideoQualityUrls(videoDetails);
+    if (qualityUrls.hd || qualityUrls.sd) {
+      return {
+        ...(qualityUrls.hd && { hd: { play_url: qualityUrls.hd } }),
+        ...(qualityUrls.sd && { sd: { play_url: qualityUrls.sd } }),
+      };
+    }
+    // Fallback to single URL if no quality-specific URLs
+    return videoUrl ? {
+      hd: { play_url: videoUrl },
+      sd: { play_url: videoUrl },
+    } : null;
+  })() : (videoUrl ? {
+    hd: { play_url: videoUrl },
+    sd: { play_url: videoUrl },
+  } : null);
+
+  // Fetch video details on component mount
+  useEffect(() => {
+    const fetchVideoDetails = async () => {
+      try {
+        setIsLoading(true);
+        setError(null);
+        const details = await getVideoDetails(VIDEO_ID);
+        setVideoDetails(details);
+        
+        // Extract video URL from response using helper function
+        const url = extractVideoPlayUrl(details);
+        if (url) {
+          setVideoUrl(url);
+        } else {
+          // Fallback to assets if API doesn't provide URL
+          setVideoUrl(assets?.urls?.nianZhongXiaoWenVideo || '');
+        }
+      } catch (err) {
+        console.error('Failed to fetch video details:', err);
+        setError('Failed to load video');
+        // Fallback to assets video URL on error
+        setVideoUrl(assets?.urls?.nianZhongXiaoWenVideo || '');
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    if (assets) {
+      fetchVideoDetails();
+    }
+  }, [assets]);
+
+  // Listen for play events from Griffith player
+  useEffect(() => {
+    if (!playerContainerRef.current || !videoUrl) return;
+
+    let videoElement: HTMLVideoElement | null = null;
+    let attempts = 0;
+
+    const findAndAttachListener = () => {
+      videoElement = playerContainerRef.current?.querySelector('video') as HTMLVideoElement | null;
+      if (videoElement) {
+        const handlePlay = () => {
+          setIsPlaying(true);
+        };
+
+        const handlePause = () => {
+          setIsPlaying(false);
+        };
+
+        const handleEnded = () => {
+          setIsPlaying(false);
+        };
+
+        videoElement.addEventListener('play', handlePlay);
+        videoElement.addEventListener('pause', handlePause);
+        videoElement.addEventListener('ended', handleEnded);
+        
+        return () => {
+          videoElement?.removeEventListener('play', handlePlay);
+          videoElement?.removeEventListener('pause', handlePause);
+          videoElement?.removeEventListener('ended', handleEnded);
+        };
+      } else if (attempts < 20) {
+        attempts++;
+        setTimeout(findAndAttachListener, 100);
+      }
+      return undefined;
+    };
+
+    const cleanup = findAndAttachListener();
+    return cleanup;
+  }, [videoUrl]);
+
+  const togglePlay = () => {
+    if (!playerContainerRef.current) return;
+
+    const videoElement = playerContainerRef.current.querySelector('video') as HTMLVideoElement | null;
+    if (videoElement) {
+      if (videoElement.paused) {
+        videoElement.play();
+        setIsPlaying(true);
+        // 埋点：点击播放
+        // trackEvent('Click', { moduleId: 'annual_video_play_2025', type: 'Button' });
+      } else {
+        videoElement.pause();
+        setIsPlaying(false);
+      }
+    }
+  };
+
   if (!assets) return null;
 
   const bgAsset = assets.nianZhongXiaoWen.bg;
-  const videoUrl = assets.urls.nianZhongXiaoWenVideo;
-
-  const togglePlay = () => {
-    if (!videoRef.current) return;
-
-    if (videoRef.current.paused) {
-      videoRef.current.play();
-      setIsPlaying(true);
-      // 埋点：点击播放
-      // trackEvent('Click', { moduleId: 'annual_video_play_2025', type: 'Button' });
-    } else {
-      videoRef.current.pause();
-      setIsPlaying(false);
-    }
-  };
 
   return (
     <div ref={moduleRef} className="relative w-full flex flex-col items-center">
       <div className="relative w-full pl-[16px]">
 
         <div
+          ref={playerContainerRef}
           className="absolute overflow-hidden rounded-[4px] z-10"
           style={{
             top: '36%',
@@ -54,28 +157,26 @@ const NianZhongXiaoWenSection = () => {
             // background: 'red', // 调试用：打开红色背景来对齐位置
           }}
         >
-          <video
-            ref={videoRef}
-            src={videoUrl}
-            className="w-full h-full object-cover"
-            playsInline
-            webkit-playsinline="true"
-            onClick={togglePlay}
-            onEnded={() => setIsPlaying(false)}
-          />
-
-          {/* 播放按钮遮罩 (未播放时显示) */}
-          {!isPlaying && (
-            <div
-              className="absolute inset-0 flex items-center justify-center bg-black/20 cursor-pointer"
-              onClick={togglePlay}
-            >
-              {/* 播放图标 (SVG) */}
-              <div className="w-12 h-12 bg-white/80 rounded-full flex items-center justify-center backdrop-blur-sm">
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="w-6 h-6 text-black ml-1">
-                  <path fillRule="evenodd" d="M4.5 5.653c0-1.426 1.529-2.33 2.779-1.643l11.54 6.348c1.295.712 1.295 2.573 0 3.285L7.28 19.991c-1.25.687-2.779-.217-2.779-1.643V5.653z" clipRule="evenodd" />
-                </svg>
-              </div>
+          {isLoading ? (
+            <div className="w-full h-full flex items-center justify-center bg-black text-white">
+              <span>Loading video...</span>
+            </div>
+          ) : error ? (
+            <div className="w-full h-full flex items-center justify-center bg-black text-white">
+              <span>{error}</span>
+            </div>
+          ) : playerSources ? (
+            <div className="w-full h-full [&>div]:w-full [&>div]:h-full [&_video]:w-full [&_video]:h-full [&_video]:object-cover">
+              {/* @ts-expect-error - Griffith Player type compatibility with React 19 */}
+              <Player
+                sources={playerSources}
+                id="nianzhong-video-player"
+                defaultQuality="hd"
+              />
+            </div>
+          ) : (
+            <div className="w-full h-full flex items-center justify-center bg-black text-white">
+              <span>No video available</span>
             </div>
           )}
         </div>

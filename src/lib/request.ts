@@ -40,3 +40,15 @@ export async function authRequest<T = any>(
   const response = await axiosInstance(requestConfig);
   return response.data;
 }
+
+// 给调用 api.zhihu.com/zvideos 使用
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export async function videoRequest<T = any>(
+  requestConfig: RequestConfig
+): Promise<T> {
+  requestConfig.baseURL = process.env.NEXT_PUBLIC_BASE_VIDEO_API_URL;
+  requestConfig.withCredentials = true;
+  const response = await axiosInstance(requestConfig);
+  // Video API might not follow the same response structure, return data directly
+  return response.data?.data || response.data;
+}

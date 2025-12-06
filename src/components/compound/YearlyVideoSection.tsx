@@ -1,47 +1,152 @@
 "use client";
 
-import React, { useRef, useEffect, useState, useCallback } from 'react';
+import React, { useRef, useEffect, useState } from 'react';
 import Image from 'next/image';
+import Player from 'griffith';
 import { useAssets } from '@/context/assets-context';
 import { useElementCenter } from '@/hooks/useElementCenter';
+import { getVideoDetails, VideoDetailResponse, extractVideoPlayUrl, extractVideoQualityUrls } from '@/api/video';
 
+const VIDEO_ID = "1855624605156438016";
 
 const YearlyVideoSection = () => {
   const { assets } = useAssets();
-  const videoRef = useRef<HTMLVideoElement>(null);
+  const playerContainerRef = useRef<HTMLDivElement>(null);
 
   const { ref: setRefs, isCenter: showIcon, inView } = useElementCenter({
     threshold: 0.5,
   });
 
   const [showClearImage, setShowClearImage] = useState(false);
+  const [videoDetails, setVideoDetails] = useState<VideoDetailResponse | null>(null);
+  const [videoUrl, setVideoUrl] = useState<string>('');
+  const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
 
   const hasStartedPlayingRef = useRef(false);
+  
+  // Prepare sources for Griffith Player with quality-specific URLs if available
+  const playerSources = videoDetails ? (() => {
+    const qualityUrls = extractVideoQualityUrls(videoDetails);
+    if (qualityUrls.hd || qualityUrls.sd) {
+      return {
+        ...(qualityUrls.hd && { hd: { play_url: qualityUrls.hd } }),
+        ...(qualityUrls.sd && { sd: { play_url: qualityUrls.sd } }),
+      };
+    }
+    // Fallback to single URL if no quality-specific URLs
+    return videoUrl ? {
+      hd: { play_url: videoUrl },
+      sd: { play_url: videoUrl },
+    } : null;
+  })() : (videoUrl ? {
+    hd: { play_url: videoUrl },
+    sd: { play_url: videoUrl },
+  } : null);
 
+  // Fetch video details on component mount
   useEffect(() => {
-    if (inView && !hasStartedPlayingRef.current) {
-      // 延迟 1s 播放
-      const timer = setTimeout(() => {
-        if (videoRef.current) {
-          // 大多数浏览器要求静音才能自动播放，或者需要用户交互
-          // 这里尝试播放，如果失败（被浏览器拦截）则捕获错误
-          videoRef.current.play().catch(() => {
-            // 自动播放失败是正常的，静默处理
-          });
-          hasStartedPlayingRef.current = true;
+    const fetchVideoDetails = async () => {
+      try {
+        setIsLoading(true);
+        setError(null);
+        const details = await getVideoDetails(VIDEO_ID);
+        setVideoDetails(details);
+        
+        // Extract video URL from response using helper function
+        const url = extractVideoPlayUrl(details);
+        if (url) {
+          setVideoUrl(url);
+        } else {
+          // Fallback to assets if API doesn't provide URL
+          setVideoUrl(assets?.urls?.yearlyVideo || '');
         }
+      } catch (err) {
+        console.error('Failed to fetch video details:', err);
+        setError('Failed to load video');
+        // Fallback to assets video URL on error
+        setVideoUrl(assets?.urls?.yearlyVideo || '');
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    if (assets) {
+      fetchVideoDetails();
+    }
+  }, [assets]);
+
+  // Handle viewport visibility for auto-play/pause
+  useEffect(() => {
+    if (!playerContainerRef.current || !videoUrl) return;
+
+    // Find the video element inside Griffith player (with retry logic)
+    const findVideoElement = (retries = 10): HTMLVideoElement | null => {
+      const element = playerContainerRef.current?.querySelector('video') as HTMLVideoElement | null;
+      if (element || retries === 0) return element;
+      // Retry after a short delay if element not found
+      return null;
+    };
+
+    if (inView && !hasStartedPlayingRef.current) {
+      // 延迟 1s 播放，并等待 Griffith 渲染完成
+      const timer = setTimeout(() => {
+        let attempts = 0;
+        const tryPlay = () => {
+          const videoElement = findVideoElement();
+          if (videoElement) {
+            // 大多数浏览器要求静音才能自动播放，或者需要用户交互
+            // 这里尝试播放，如果失败（被浏览器拦截）则捕获错误
+            videoElement.play().catch(() => {
+              // 自动播放失败是正常的，静默处理
+            });
+            hasStartedPlayingRef.current = true;
+          } else if (attempts < 10) {
+            attempts++;
+            setTimeout(tryPlay, 100);
+          }
+        };
+        tryPlay();
       }, 1000);
       return () => clearTimeout(timer);
-    } else if (!inView && videoRef.current) {
+    } else if (!inView) {
       // 离开视口暂停
-      videoRef.current.pause();
-      hasStartedPlayingRef.current = true;
+      const videoElement = findVideoElement();
+      if (videoElement) {
+        videoElement.pause();
+      }
     }
-  }, [inView]);
+  }, [inView, videoUrl]);
 
-  const handleVideoPlay = () => {
-    setShowClearImage(true);
-  };
+  // Listen for play events from Griffith player
+  useEffect(() => {
+    if (!playerContainerRef.current || !videoUrl) return;
+
+    let videoElement: HTMLVideoElement | null = null;
+    let attempts = 0;
+
+    const findAndAttachListener = () => {
+      videoElement = playerContainerRef.current?.querySelector('video') as HTMLVideoElement | null;
+      if (videoElement) {
+        const handlePlay = () => {
+          setShowClearImage(true);
+        };
+
+        videoElement.addEventListener('play', handlePlay);
+        return () => {
+          videoElement?.removeEventListener('play', handlePlay);
+        };
+      } else if (attempts < 20) {
+        attempts++;
+        setTimeout(findAndAttachListener, 100);
+      }
+      return undefined;
+    };
+
+    const cleanup = findAndAttachListener();
+    return cleanup;
+  }, [videoUrl]);
+
 
   if (!assets) return null;
 
@@ -50,12 +155,12 @@ const YearlyVideoSection = () => {
   const blurryImage = assets.yearly.videoBlurImage;
   const clearImage = assets.yearly.videoClearImage;
 
-
   return (
     <div ref={setRefs} className="relative w-full flex flex-col items-center px-[16px] py-10">
       <div className="relative w-full flex flex-col items-center">
         <div className="relative w-full flex items-center justify-center">
           <div
+            ref={playerContainerRef}
             className="absolute z-20 overflow-hidden bg-black rounded-[20px]"
             style={{
               top: '27.5%',
@@ -64,16 +169,28 @@ const YearlyVideoSection = () => {
               height: '51%',
             }}
           >
-            <video
-              ref={videoRef}
-              src={assets.urls.yearlyVideo}
-              className="w-full h-full object-cover"
-              controls
-              muted={false}
-              playsInline
-              preload="auto"
-              onPlay={handleVideoPlay}
-            />
+            {isLoading ? (
+              <div className="w-full h-full flex items-center justify-center bg-black text-white">
+                <span>Loading video...</span>
+              </div>
+            ) : error ? (
+              <div className="w-full h-full flex items-center justify-center bg-black text-white">
+                <span>{error}</span>
+              </div>
+            ) : playerSources ? (
+              <div className="w-full h-full [&>div]:w-full [&>div]:h-full [&_video]:w-full [&_video]:h-full [&_video]:object-cover">
+                {/* @ts-expect-error - Griffith Player type compatibility with React 19 */}
+                <Player
+                  sources={playerSources}
+                  id="yearly-video-player"
+                  defaultQuality="hd"
+                />
+              </div>
+            ) : (
+              <div className="w-full h-full flex items-center justify-center bg-black text-white">
+                <span>No video available</span>
+              </div>
+            )}
           </div>
           <div className="relative z-10 pointer-events-none">
             <Image
@@ -89,7 +206,7 @@ const YearlyVideoSection = () => {
           <div
             className={`absolute top-[14%] -right-[2%] w-[72px] z-0 transition-transform duration-500 ease-out ${showIcon
               ? 'translate-y-0 opacity-100'
-              : 'translate-y-[100%]'
+              : 'translate-y-full'
               }`}
           >
             <video

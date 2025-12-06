@@ -1,6 +1,5 @@
 "use client";
 import Image from "next/image";
-import Head from "next/head";
 import { Suspense } from "react";
 import { useSearchParams } from "next/navigation";
 import AuthWrapper from "../components/layout/AuthWrapper";
@@ -20,9 +19,17 @@ import ZheXieZhenDeKeYiSection from "../components/compound/ZheXieZhenDeKeYiSect
 import SidebarLiuKanshan from "../components/ui/SidebarLiuKanshan";
 import AddressForm from "../components/ui/AddressForm";
 import { useAssets } from '@/context/assets-context';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useZA } from '@/hooks/useZA';
 import { useZhihuApp } from '@/hooks/useZhihuApp';
+
+interface RedeemParams {
+  rewardId: string;
+  rewardPoolId: string;
+  requestId: string;
+  rewardRightType: string;
+  stockOccupyId: string;
+}
 
 function HomeContent() {
   const { trackPageShow, trackPageDisappear, isReady } = useZA();
@@ -31,6 +38,10 @@ function HomeContent() {
   const requireAddress = searchParams.get("addressrequired");
   const directTo = searchParams.get("directTo");
   const { assets, isLoading: isLoadingAssets, error: assetsError, fetchAssets } = useAssets();
+  
+  // State for managing address form visibility (non-redirect flow)
+  const [showAddressForm, setShowAddressForm] = useState(false);
+  const [redeemParams, setRedeemParams] = useState<RedeemParams | null>(null);
 
   const handleReload = () => {
     if (typeof window !== "undefined") {
@@ -47,7 +58,7 @@ function HomeContent() {
       // 埋点3
       trackPageDisappear({ page: { page_id: '60850', page_level: 1 } });
     };
-  }, [isReady]);
+  }, [isReady, trackPageShow, trackPageDisappear]);
 
   // Show navigation bar when entering page in Zhihu App
   useEffect(() => {
@@ -147,13 +158,20 @@ function HomeContent() {
     };
   }, [directTo, isLoadingAssets, assets]);
 
-  // Show address form if requireAddress parameter is present
+  // Show address form if requireAddress parameter is present (URL-based flow)
+  // or if showAddressForm state is true (non-redirect flow)
   // Check this early to avoid loading state blink
-  if (requireAddress) {
+  if (requireAddress || showAddressForm) {
     return (
       <div className="min-h-screen bg-white">
         <AuthWrapper>
-          <AddressForm />
+          <AddressForm 
+            redeemParams={redeemParams || undefined}
+            onClose={() => {
+              setShowAddressForm(false);
+              setRedeemParams(null);
+            }}
+          />
         </AuthWrapper>
       </div>
     );
@@ -274,7 +292,12 @@ function HomeContent() {
           </SectionLayout>
 
           <SectionLayout topOffset={0} id="reward-section">
-            <RewardSection />
+            <RewardSection 
+              onShowAddressForm={(params: RedeemParams) => {
+                setRedeemParams(params);
+                setShowAddressForm(true);
+              }}
+            />
           </SectionLayout>
 
           <SectionLayout topOffset={0} id="task-section">

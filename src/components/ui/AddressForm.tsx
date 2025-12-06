@@ -21,7 +21,19 @@ interface AddressFormData {
 
 const phoneRegex = /^1[3-9]\d{9}$/;
 
-export default function AddressForm() {
+interface AddressFormProps {
+  // Optional props for redeem flow (if provided, will override URL params)
+  redeemParams?: {
+    rewardId: string;
+    rewardPoolId: string;
+    requestId: string;
+    rewardRightType: string;
+    stockOccupyId: string;
+  };
+  onClose?: () => void; // Callback when form should be closed (for non-redirect flow)
+}
+
+export default function AddressForm({ redeemParams, onClose }: AddressFormProps = {}) {
   const router = useRouter();
   const searchParams = useSearchParams();
   const pathname = usePathname();
@@ -44,12 +56,13 @@ export default function AddressForm() {
   const [isLoading, setIsLoading] = useState(true);
   const [errors, setErrors] = useState<Partial<Record<keyof AddressFormData, string>>>({});
 
-  const rewardId = searchParams.get("rewardId");
-  const rewardPoolId = searchParams.get("rewardPoolId");
-  const requestId = searchParams.get("requestId");
-  const rewardRightType = searchParams.get("rewardRightType");
-  const stockOccupyId = searchParams.get("stockOccupyId");
-  const fromRedeem = searchParams.get("from") === "redeem";
+  // Use props if provided, otherwise fall back to URL params
+  const rewardId = redeemParams?.rewardId || searchParams.get("rewardId");
+  const rewardPoolId = redeemParams?.rewardPoolId || searchParams.get("rewardPoolId");
+  const requestId = redeemParams?.requestId || searchParams.get("requestId");
+  const rewardRightType = redeemParams?.rewardRightType || searchParams.get("rewardRightType");
+  const stockOccupyId = redeemParams?.stockOccupyId || searchParams.get("stockOccupyId");
+  const fromRedeem = !!redeemParams || searchParams.get("from") === "redeem";
 
   useEffect(() => {
     //埋点29
@@ -58,7 +71,7 @@ export default function AddressForm() {
       //埋点30
       trackPageDisappear({ page: { page_id: '60851', page_level: 2 } });
     };
-  }, [fromRedeem]);
+  }, [fromRedeem, trackPageShow, trackPageDisappear]);
 
   // Hide navigation bar when entering address form in Zhihu App
   useEffect(() => {
@@ -165,9 +178,21 @@ export default function AddressForm() {
         console.error('取消预占失败:', error);
         // Even if cancel fails, still navigate back
       }
+      if (onClose) {
+        setTimeout(() => {
+          onClose();
+        }, 500);
+      }
+    } else {
+    // Remove query parameter and reload the page
+    // Include basePath if configured (e.g., /zhihu2025)
+    setTimeout(() => {
+      const basePath = process.env.NEXT_PUBLIC_BASE_URL || '';
+      const fullPath = basePath ? `${basePath}${pathname}` : pathname;
+      const urlWithParam = `${fullPath}`;
+      window.location.replace(urlWithParam);
+    }, 500);
     }
-    // Go back to previous page
-    router.back();
   };
 
   const handleRegionSelect = (region: string) => {
@@ -338,14 +363,22 @@ export default function AddressForm() {
         await submitAddress(addressData);
         showToast("地址提交成功", "success");
       }
-      // Remove query parameter and reload the page
-      // Include basePath if configured (e.g., /zhihu2025)
-      setTimeout(() => {
-        const basePath = process.env.NEXT_PUBLIC_BASE_URL || '';
-        const fullPath = basePath ? `${basePath}${pathname}` : pathname;
-        const urlWithParam = `${fullPath}?directTo=reward`;
-        window.location.replace(urlWithParam);
-      }, 500);
+      // If onClose callback is provided, use it (for non-redirect flow)
+      // Otherwise, redirect to reward section (for URL-based flow)
+      if (onClose) {
+        setTimeout(() => {
+          onClose();
+        }, 500);
+      } else {
+        // Remove query parameter and reload the page
+        // Include basePath if configured (e.g., /zhihu2025)
+        setTimeout(() => {
+          const basePath = process.env.NEXT_PUBLIC_BASE_URL || '';
+          const fullPath = basePath ? `${basePath}${pathname}` : pathname;
+          const urlWithParam = `${fullPath}?directTo=reward`;
+          window.location.replace(urlWithParam);
+        }, 500);
+      }
     } catch (error) {
       console.error("Failed to submit:", error);
       const errorMessage = (error as { msg?: string; message?: string })?.msg ||

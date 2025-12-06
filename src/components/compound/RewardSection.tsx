@@ -22,7 +22,19 @@ const formatDate = (timestamp: number | undefined) => {
   return `${year}/${month}/${day}`;
 };
 
-const RewardSection = () => {
+interface RedeemParams {
+  rewardId: string;
+  rewardPoolId: string;
+  requestId: string;
+  rewardRightType: string;
+  stockOccupyId: string;
+}
+
+interface RewardSectionProps {
+  onShowAddressForm?: (params: RedeemParams) => void;
+}
+
+const RewardSection = ({ onShowAddressForm }: RewardSectionProps = {}) => {
   const { showToast } = useToast();
   const { assets } = useAssets();
   const { trackEvent } = useZA();
@@ -238,24 +250,34 @@ const RewardSection = () => {
     setIsRedeemModalOpen(false);
     // 传递必要的参数到地址表单，stock_occupy_id 是必填参数
     
-    const newParams = {
-      addressrequired: 'true',
+    const redeemParams: RedeemParams = {
       rewardId: String(selectedReward.right_id),
       rewardPoolId: String(rewardPoolId),
       requestId: String(requestId),
       rewardRightType: String(selectedReward.right_type),
       stockOccupyId: String(stockOccupyId),
-      from: 'redeem',
     };
 
-    // 获取当前URL并合并现有参数
-    const currentUrl = new URL(window.location.href);
-    // 将新参数添加到现有参数中（新参数会覆盖同名参数）
-    Object.entries(newParams).forEach(([key, value]) => {
-      currentUrl.searchParams.set(key, value);
-    });
+    // 如果提供了回调函数，使用React组件方式传递参数（避免页面重定向）
+    if (onShowAddressForm) {
+      onShowAddressForm(redeemParams);
+    } else {
+      // 回退到URL重定向方式（向后兼容）
+      const newParams = {
+        addressrequired: 'true',
+        ...redeemParams,
+        from: 'redeem',
+      };
 
-    window.location.href = currentUrl.toString();
+      // 获取当前URL并合并现有参数
+      const currentUrl = new URL(window.location.href);
+      // 将新参数添加到现有参数中（新参数会覆盖同名参数）
+      Object.entries(newParams).forEach(([key, value]) => {
+        currentUrl.searchParams.set(key, value);
+      });
+
+      window.location.href = currentUrl.toString();
+    }
   };
 
   // 跳转到兑换记录

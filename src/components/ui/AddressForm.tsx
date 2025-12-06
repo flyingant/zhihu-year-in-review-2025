@@ -55,6 +55,7 @@ export default function AddressForm({ redeemParams, onClose }: AddressFormProps 
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
   const [errors, setErrors] = useState<Partial<Record<keyof AddressFormData, string>>>({});
+  const [hasExistingAddress, setHasExistingAddress] = useState(false);
 
   // Use props if provided, otherwise fall back to URL params
   const rewardId = redeemParams?.rewardId || searchParams.get("rewardId");
@@ -139,10 +140,12 @@ export default function AddressForm({ redeemParams, onClose }: AddressFormProps 
             recipientName: addressInfo.receiver || "",
             phoneNumber: addressInfo.mobile || "",
           });
+          setHasExistingAddress(true);
         }
       } catch {
         // If address doesn't exist, that's fine - form will be empty
         console.log("No existing address found");
+        setHasExistingAddress(false);
       } finally {
         setIsLoading(false);
       }
@@ -294,6 +297,10 @@ export default function AddressForm({ redeemParams, onClose }: AddressFormProps 
   };
 
   const handleSubmit = async () => {
+    // Prevent submission if existing address is found
+    if (hasExistingAddress) {
+      return;
+    }
     if (!validateForm()) {
       return;
     }
@@ -530,7 +537,7 @@ export default function AddressForm({ redeemParams, onClose }: AddressFormProps 
       <div className="fixed bottom-0 left-0 right-0 bg-white p-4 pb-safe text-sm">
         <button
           onClick={handleSubmit}
-          disabled={isSubmitting || !isFormFilled}
+          disabled={isSubmitting || !isFormFilled || hasExistingAddress}
           className="w-full bg-blue text-white py-3 rounded-[30px] font-medium disabled:opacity-50 disabled:cursor-not-allowed"
         >
           {isSubmitting ? "提交中..." : "确认地址"}

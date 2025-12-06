@@ -167,7 +167,7 @@ export interface PreOccupyRewardParams {
 
 // 预占奖品响应
 export interface PreOccupyRewardResponse {
-  stock_occupy_id: number;
+  stock_occupy_id: number | null; // 对于KNOWLEDGE_VIP类型可能为null
 }
 
 // 预占奖品（点击兑换时调用）

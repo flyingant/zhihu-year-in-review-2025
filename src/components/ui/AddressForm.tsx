@@ -238,8 +238,16 @@ export default function AddressForm() {
       // 兑换场景：调用完成兑换接口
       if (fromRedeem) {
         // 验证兑换场景所需的参数（stockOccupyId 是必填参数）
-        if (!rewardId || !rewardPoolId || !requestId || !rewardRightType || !stockOccupyId) {
+        if (!rewardId || !rewardPoolId || !requestId || !rewardRightType || !stockOccupyId || stockOccupyId === 'null' || stockOccupyId === 'undefined') {
           showToast("兑换信息不完整，请重新操作", "error");
+          setIsSubmitting(false);
+          return;
+        }
+        
+        // 验证 stockOccupyId 是否为有效数字
+        const stockOccupyIdNum = parseInt(stockOccupyId, 10);
+        if (isNaN(stockOccupyIdNum)) {
+          showToast("兑换信息异常，请重新操作", "error");
           setIsSubmitting(false);
           return;
         }
@@ -263,7 +271,7 @@ export default function AddressForm() {
           reward_pool_id: parseInt(rewardPoolId, 10),
           reward_right_id: parseInt(rewardId, 10),
           reward_right_type: rewardRightType,
-          stock_occupy_id: parseInt(stockOccupyId, 10), // 必填：从预占接口返回
+          stock_occupy_id: stockOccupyIdNum, // 必填：从预占接口返回（已验证为有效数字）
           receive_info: {
             user_info: {
               name: formData.recipientName.trim(),

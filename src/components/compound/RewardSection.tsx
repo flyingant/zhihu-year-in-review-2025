@@ -110,6 +110,11 @@ const RewardSection = () => {
         // 直接显示确认弹窗，用户点击确定后直接兑换
         setIsRedeemModalOpen(true);
         console.log(`预占成功 (KNOWLEDGE_VIP): ${reward.right_id} ${reward.right_name}, stock_occupy_id: null`);
+      } else if (response.stock_occupy_id === null || response.stock_occupy_id === undefined) {
+        // 非KNOWLEDGE_VIP类型但stock_occupy_id为null，这是异常情况
+        showToast('预占失败：库存信息异常，请稍后重试', 'error');
+        console.error(`预占异常: ${reward.right_id} ${reward.right_name}, 非KNOWLEDGE_VIP类型但stock_occupy_id为null`);
+        return;
       } else {
         // 普通奖励类型，显示弹窗，用户确认后跳转到地址表单
         setIsRedeemModalOpen(true);
@@ -203,6 +208,12 @@ const RewardSection = () => {
 
     setIsRedeemModalOpen(false);
     // 传递必要的参数到地址表单，stock_occupy_id 是必填参数
+    // 确保 stockOccupyId 不为 null 或 undefined
+    if (stockOccupyId === null || stockOccupyId === undefined) {
+      showToast('兑换信息不完整，请重新操作', 'error');
+      return;
+    }
+    
     const newParams = {
       addressrequired: 'true',
       rewardId: String(selectedReward.right_id),

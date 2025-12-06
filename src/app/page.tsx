@@ -147,6 +147,18 @@ function HomeContent() {
     };
   }, [directTo, isLoadingAssets, assets]);
 
+  // Show address form if requireAddress parameter is present
+  // Check this early to avoid loading state blink
+  if (requireAddress) {
+    return (
+      <div className="min-h-screen bg-white">
+        <AuthWrapper>
+          <AddressForm />
+        </AuthWrapper>
+      </div>
+    );
+  }
+
   // Show error state if assets failed to load
   if (assetsError && !isLoadingAssets) {
     return (
@@ -209,17 +221,6 @@ function HomeContent() {
   }
 
   const bgAsset = assets.home.bg;
-
-  // Show address form if requireAddress parameter is present
-  if (requireAddress) {
-    return (
-      <div className="min-h-screen bg-white">
-        <AuthWrapper>
-          <AddressForm />
-        </AuthWrapper>
-      </div>
-    );
-  }
 
   return (
     <div className="min-h-screen bg-white">

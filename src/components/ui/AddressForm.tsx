@@ -133,7 +133,7 @@ export default function AddressForm() {
     setTimeout(() => {
       const basePath = process.env.NEXT_PUBLIC_BASE_URL || '';
       const fullPath = basePath ? `${basePath}${pathname}` : pathname;
-      const urlWithParam = `${fullPath}?directTo=reward`;
+      const urlWithParam = `${fullPath}?directTo=reward&zh_hide_nav_bar=false`;
       window.location.href = urlWithParam;
     }, 500);
   };

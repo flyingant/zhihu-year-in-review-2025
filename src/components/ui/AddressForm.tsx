@@ -332,7 +332,12 @@ export default function AddressForm() {
   return (
     <div className="min-h-screen bg-white">
       {/* Header */}
-      <div className="sticky top-0 bg-white z-10">
+      <div 
+        className="sticky top-0 bg-white z-10"
+        style={{
+          paddingTop: 'env(safe-area-inset-top, 0px)'
+        }}
+      >
         <div className="flex items-center justify-center h-[44px] relative">
           <button
             onClick={handleBack}

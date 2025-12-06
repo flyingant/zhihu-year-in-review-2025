@@ -171,7 +171,7 @@ export default function AddressForm() {
         const basePath = process.env.NEXT_PUBLIC_BASE_URL || '';
         const fullPath = basePath ? `${basePath}${pathname}` : pathname;
         const urlWithParam = `${fullPath}?directTo=reward`;
-        window.location.href = urlWithParam;
+        window.location.replace(urlWithParam);
       }, 500);
     } else {
       // Remove query parameter and reload the page
@@ -180,7 +180,7 @@ export default function AddressForm() {
       const basePath = process.env.NEXT_PUBLIC_BASE_URL || '';
       const fullPath = basePath ? `${basePath}${pathname}` : pathname;
       const urlWithParam = `${fullPath}`;
-      window.location.href = urlWithParam;
+      window.location.replace(urlWithParam);
     }, 500);
     }
     
@@ -360,7 +360,7 @@ export default function AddressForm() {
         const basePath = process.env.NEXT_PUBLIC_BASE_URL || '';
         const fullPath = basePath ? `${basePath}${pathname}` : pathname;
         const urlWithParam = `${fullPath}?directTo=reward`;
-        window.location.href = urlWithParam;
+        window.location.replace(urlWithParam);
       }, 500);
     } catch (error) {
       console.error("Failed to submit:", error);

@@ -57,10 +57,9 @@ export default function AuthWrapper({
   // Show loading state while checking auth
   if (isAuthLoading && showLoadingIndicator) {
     return (
-      <div className="min-h-screen bg-black flex items-center justify-center">
+      <div className="min-h-screen bg-white flex items-center justify-center">
         <div className="text-center">
-          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-white mx-auto mb-4"></div>
-          <p className="text-white font-mono text-sm">加载中...</p>
+          <p className="text-black font-mono text-sm">加载中...</p>
         </div>
       </div>
     );

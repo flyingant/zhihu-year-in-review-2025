@@ -144,7 +144,7 @@ export default function AddressForm({ redeemParams, onClose }: AddressFormProps 
         setTaskStatus(currentTaskStatus);
         
         // Only fetch address if task status is 2 (已领取未填地址) or 3 (已领取并已填地址)
-        if (currentTaskStatus === 2 || currentTaskStatus === 3) {
+        if (currentTaskStatus === 3) {
           try {
             const addressInfo = await getAddressInfo();
             if (addressInfo) {

@@ -1,16 +1,10 @@
-@import "tailwindcss";
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
 :root {
   --background: #ffffff;
   --foreground: #171717;
-}
-
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-  --font-tianwang: var(--font-tianwang);
 }
 
 @media (prefers-color-scheme: dark) {
@@ -26,92 +20,66 @@ body {
   font-family: Arial, Helvetica, sans-serif;
 }
 
-
-@theme {
-
-  --color-theme-blue: rgb(5 109 232);
-  --color-theme-blue-light: rgba(5, 109, 232, 0.08);
-  --color-card-glass: rgba(255, 255, 255, 0.7);
-  --color-black: #444;
-  --color-gray: #999;
-  --color-blue: #2079fe;
-  --color-r-pink: #FF8992;
-  --color-r-blue: #00ADE9;
-  --color-r-fern: #00C2A9;
-  --color-r-green: #4BAD39;
-  /*  这个值不确定，设计稿取不出来 */
-  --color-r-yellow: #FFD700;
-
-  --animate-marquee: marquee linear infinite;
-  --animate-slide-in: slide-in 8s ease-out forwards;
-  --animate-contentShow: contentShow 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-
-  @keyframes slide-in {
-    0% {
-      transform: translateX(100vw);
-    }
-
-    100% {
-      transform: translateX(0);
-    }
+@keyframes slide-in {
+  0% {
+    transform: translateX(100vw);
   }
 
-  @keyframes marquee {
-    0% {
-      transform: translateX(0);
-    }
+  100% {
+    transform: translateX(0);
+  }
+}
 
-    100% {
-      transform: translateX(-50%);
-    }
+@keyframes marquee {
+  0% {
+    transform: translateX(0);
   }
 
-  @keyframes contentShow {
-    0% {
-      opacity: 0;
-      transform: scale(0.9);
-    }
+  100% {
+    transform: translateX(-50%);
+  }
+}
 
-    100% {
-      opacity: 1;
-      transform: scale(1);
-    }
+@keyframes contentShow {
+  0% {
+    opacity: 0;
+    transform: scale(0.9);
   }
 
-  @keyframes blink {
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
 
-    0%,
-    100% {
-      opacity: 1;
-    }
-
-    50% {
-      opacity: 0;
-    }
+@keyframes blink {
+  0%,
+  100% {
+    opacity: 1;
   }
 
-  --animate-slide-up: slide-up 0.3s ease-out forwards;
+  50% {
+    opacity: 0;
+  }
+}
 
-  @keyframes slide-up {
-    0% {
-      transform: translateY(100%);
-    }
-
-    100% {
-      transform: translateY(0);
-    }
+@keyframes slide-up {
+  0% {
+    transform: translateY(100%);
   }
 
-  --animate-float-path: float-path 15s linear infinite;
+  100% {
+    transform: translateY(0);
+  }
+}
 
-  @keyframes float-path {
-    from {
-      offset-distance: 0%;
-    }
+@keyframes float-path {
+  from {
+    offset-distance: 0%;
+  }
 
-    to {
-      offset-distance: 100%;
-    }
+  to {
+    offset-distance: 100%;
   }
 }
 

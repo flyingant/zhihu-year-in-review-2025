@@ -1,6 +1,6 @@
 module.exports = {
   plugins: {
-    '@tailwindcss/postcss': {},
+    tailwindcss: {},
     'postcss-mobile-forever': {
       viewportWidth: 375,
       maxDisplayWidth: 600,

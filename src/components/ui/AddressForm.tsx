@@ -1,13 +1,14 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { useRouter, useSearchParams, usePathname } from "next/navigation";
+import { useSearchParams, usePathname } from "next/navigation";
 import { useToast } from "@/context/toast-context";
 import { getAddressInfo, submitAddress, completeRedeemReward, cancelOccupyReward } from "@/api/campaign";
 import { useAssets } from "@/context/assets-context";
 import { useZA } from '@/hooks/useZA';
 import { useZhihuApp } from '@/hooks/useZhihuApp';
 import RegionPicker from "./RegionPicker";
+import request from '@/lib/request';
 
 interface AddressFormData {
   region: string;
@@ -20,6 +21,10 @@ interface AddressFormData {
 }
 
 const phoneRegex = /^1[3-9]\d{9}$/;
+
+interface TaskStatusResponse {
+  task_status: number; // 0: 今日已领完, 1: 未领取还有剩余, 2: 已领取未填地址, 3: 已领取并已填地址
+}
 
 interface AddressFormProps {
   // Optional props for redeem flow (if provided, will override URL params)
@@ -34,7 +39,6 @@ interface AddressFormProps {
 }
 
 export default function AddressForm({ redeemParams, onClose }: AddressFormProps = {}) {
-  const router = useRouter();
   const searchParams = useSearchParams();
   const pathname = usePathname();
   const { showToast } = useToast();
@@ -56,6 +60,7 @@ export default function AddressForm({ redeemParams, onClose }: AddressFormProps 
   const [isLoading, setIsLoading] = useState(true);
   const [errors, setErrors] = useState<Partial<Record<keyof AddressFormData, string>>>({});
   const [hasExistingAddress, setHasExistingAddress] = useState(false);
+  const [taskStatus, setTaskStatus] = useState<number | null>(null);
 
   // Use props if provided, otherwise fall back to URL params
   const rewardId = redeemParams?.rewardId || searchParams.get("rewardId");
@@ -117,41 +122,60 @@ export default function AddressForm({ redeemParams, onClose }: AddressFormProps 
     !!formData.phoneNumber?.trim() &&
     phoneRegex.test(formData.phoneNumber?.trim());
 
-  // Fetch existing address on mount (only for non-redeem scenarios)
+  // Check task status and fetch existing address on mount (only for non-redeem scenarios)
   useEffect(() => {
-    // Skip fetching address in redeem scenario
+    // Skip fetching in redeem scenario
     if (fromRedeem) {
       setIsLoading(false);
       return;
     }
 
-    const fetchExistingAddress = async () => {
+    const checkTaskStatusAndFetchAddress = async () => {
       try {
         setIsLoading(true);
-        const addressInfo = await getAddressInfo();
-        if (addressInfo) {
-          const regionString = `${addressInfo.province_name} ${addressInfo.city_name} ${addressInfo.district_name}`;
-          setFormData({
-            region: regionString.trim(),
-            provinceName: addressInfo.province_name,
-            cityName: addressInfo.city_name,
-            districtName: addressInfo.district_name,
-            detailedAddress: addressInfo.address_detail || "",
-            recipientName: addressInfo.receiver || "",
-            phoneNumber: addressInfo.mobile || "",
-          });
-          setHasExistingAddress(true);
+        
+        // First, check task status
+        const taskStatusResponse = await request<TaskStatusResponse>({
+          url: '/campaigns/v2/2025/lks_gift_task_status',
+          method: 'get',
+        });
+        
+        const currentTaskStatus = taskStatusResponse.task_status;
+        setTaskStatus(currentTaskStatus);
+        
+        // Only fetch address if task status is 2 (已领取未填地址) or 3 (已领取并已填地址)
+        if (currentTaskStatus === 2 || currentTaskStatus === 3) {
+          try {
+            const addressInfo = await getAddressInfo();
+            if (addressInfo) {
+              const regionString = `${addressInfo.province_name} ${addressInfo.city_name} ${addressInfo.district_name}`;
+              setFormData({
+                region: regionString.trim(),
+                provinceName: addressInfo.province_name,
+                cityName: addressInfo.city_name,
+                districtName: addressInfo.district_name,
+                detailedAddress: addressInfo.address_detail || "",
+                recipientName: addressInfo.receiver || "",
+                phoneNumber: addressInfo.mobile || "",
+              });
+              setHasExistingAddress(true);
+            }
+          } catch {
+            // If address doesn't exist, that's fine - form will be empty
+            console.log("No existing address found");
+            setHasExistingAddress(false);
+          }
         }
-      } catch {
-        // If address doesn't exist, that's fine - form will be empty
-        console.log("No existing address found");
-        setHasExistingAddress(false);
+      } catch (error) {
+        console.error('Error checking task status:', error);
+        // On error, still allow form to be shown but disable submit
+        setTaskStatus(null);
       } finally {
         setIsLoading(false);
       }
     };
 
-    fetchExistingAddress();
+    checkTaskStatusAndFetchAddress();
   }, [fromRedeem]);
 
   // Prevent body scroll when region picker is open
@@ -537,7 +561,7 @@ export default function AddressForm({ redeemParams, onClose }: AddressFormProps 
       <div className="fixed bottom-0 left-0 right-0 bg-white p-4 pb-safe text-sm">
         <button
           onClick={handleSubmit}
-          disabled={isSubmitting || !isFormFilled || hasExistingAddress}
+          disabled={isSubmitting || !isFormFilled || hasExistingAddress || (!fromRedeem && taskStatus !== null && taskStatus !== 2)}
           className="w-full bg-blue text-white py-3 rounded-[30px] font-medium disabled:opacity-50 disabled:cursor-not-allowed"
         >
           {isSubmitting ? "提交中..." : "确认地址"}

@@ -6,14 +6,22 @@ import Player from 'griffith';
 import { useAssets } from '@/context/assets-context';
 import { useElementCenter } from '@/hooks/useElementCenter';
 import { getVideoDetails, VideoDetailResponse, extractVideoPlayUrl, extractVideoQualityUrls } from '@/api/video';
+import { useZA } from '@/hooks/useZA';
 
 const VIDEO_ID = "1855624605156438016";
+
+const generateRandomId = () => {
+  return Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15);
+};
 
 const YearlyVideoSection = () => {
   const { assets } = useAssets();
   const playerContainerRef = useRef<HTMLDivElement>(null);
+  const { trackShow, trackEvent } = useZA();
+  const playIdentifierRef = useRef<string>("");
 
   const { ref: setRefs, isCenter: showIcon, inView } = useElementCenter({
+    triggerOnce: true,
     threshold: 0.5,
   });
 
@@ -24,7 +32,7 @@ const YearlyVideoSection = () => {
   const [error, setError] = useState<string | null>(null);
 
   const hasStartedPlayingRef = useRef(false);
-  
+
   // Prepare sources for Griffith Player with quality-specific URLs if available
   const playerSources = videoDetails ? (() => {
     const qualityUrls = extractVideoQualityUrls(videoDetails);
@@ -44,6 +52,29 @@ const YearlyVideoSection = () => {
     sd: { play_url: videoUrl },
   } : null);
 
+  useEffect(() => {
+    if (inView && videoDetails) {
+      const durationMs = (videoDetails.video?.duration || 0) * 1000;
+
+      trackShow({
+        moduleId: 'annual_video_2025',
+        type: 'Video',
+        content: {
+          type: 'Zvideo',
+          token: VIDEO_ID,
+        }
+      }, {
+        media_info: {
+          video_info: {
+            video_id: VIDEO_ID
+          },
+          duration: durationMs
+        }
+      });
+    }
+
+  }, [inView, videoDetails, trackShow]);
+
   // Fetch video details on component mount
   useEffect(() => {
     const fetchVideoDetails = async () => {
@@ -52,7 +83,7 @@ const YearlyVideoSection = () => {
         setError(null);
         const details = await getVideoDetails(VIDEO_ID);
         setVideoDetails(details);
-        
+
         // Extract video URL from response using helper function
         const url = extractVideoPlayUrl(details);
         if (url) {
@@ -118,6 +149,58 @@ const YearlyVideoSection = () => {
     }
   }, [inView, videoUrl]);
 
+  const getPlayEventExtra = (videoEl: HTMLVideoElement | null) => {
+    if (!videoEl) {
+      return {
+        media_info: {
+          duration: (videoDetails?.video?.duration || 0) * 1000,
+          progress_time: 0,
+          video_quality: 'UNKNOWN',
+          play_event_identifier: playIdentifierRef.current || generateRandomId(),
+          video_info: {
+            video_id: VIDEO_ID,
+            sound_rate: 1,
+          }
+        }
+      };
+    }
+
+    const currentTimeMs = Math.floor(videoEl.currentTime * 1000);
+    console.dir(videoEl, 8771122)
+    if (!playIdentifierRef.current) {
+      playIdentifierRef.current = generateRandomId();
+    }
+    // 根据playsource选择的视频链接决定是用的什么清晰度的视频
+    let currentQuality = 'unknown';
+    if (playerSources) {
+      const currentSrc = videoEl.currentSrc;
+
+      for (const [qualityKey, qualityData] of Object.entries(playerSources)) {
+        if (qualityData && qualityData.play_url && currentSrc.includes(qualityData.play_url)) {
+          currentQuality = qualityKey;
+          break;
+        }
+        if (qualityData && qualityData.play_url === currentSrc) {
+          currentQuality = qualityKey;
+          break;
+        }
+      }
+    }
+    return {
+      media_info: {
+        duration: (videoDetails?.video?.duration || 0) * 1000,
+        progress_time: currentTimeMs,
+        video_quality: currentQuality.toUpperCase(),
+        play_event_identifier: playIdentifierRef.current,
+        video_info: {
+          video_id: VIDEO_ID,
+          sound_rate: String(videoEl.playbackRate),
+        }
+      }
+    };
+  };
+
+
   // Listen for play events from Griffith player
   useEffect(() => {
     if (!playerContainerRef.current || !videoUrl) return;
@@ -130,9 +213,26 @@ const YearlyVideoSection = () => {
       if (videoElement) {
         const handlePlay = () => {
           setShowClearImage(true);
+          trackEvent('Play', {
+            moduleId: 'annual_video_2025',
+            type: 'Button',
+            content: {
+              type: 'Zvideo',
+            }
+          }, getPlayEventExtra(videoElement));
+        };
+        const handlePause = () => {
+          trackEvent('Pause', {
+            moduleId: 'annual_video_2025',
+            type: 'Button',
+            content: {
+              type: 'Zvideo',
+            }
+          }, getPlayEventExtra(videoElement));
         };
 
         videoElement.addEventListener('play', handlePlay);
+        videoElement.addEventListener('pause', handlePause);
         return () => {
           videoElement?.removeEventListener('play', handlePlay);
         };
@@ -146,6 +246,17 @@ const YearlyVideoSection = () => {
     const cleanup = findAndAttachListener();
     return cleanup;
   }, [videoUrl]);
+
+  const handleDiscuss = () => {
+    trackEvent('OpenUrl', {
+      moduleId: 'annual_video_discussion',
+      type: 'Button',
+      content: {
+        type: 'Answer',
+        token: VIDEO_ID
+      }
+    })
+  };
 
 
   if (!assets) return null;
@@ -244,7 +355,7 @@ const YearlyVideoSection = () => {
           {/* // 右下角按钮遮罩 */}
           <div
             className="absolute bottom-[4%] right-[5%] w-[32%] h-[12%] z-30 cursor-pointer"
-            onClick={() => console.log('Go to discuss')}
+            onClick={() => handleDiscuss()}
           >
           </div>
         </div>

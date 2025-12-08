@@ -1,79 +1,58 @@
 "use client";
 
-export interface P7Data {
-  readCount: number | string;
-  upvoteCount: number | string;
-  collectCount: number | string;
-  commentCount: number | string;
-  shareCount: number | string;
-  roundTableCount: number | string;
-  editorPickCount: number | string;
-}
+import { useUserReportData } from "@/context/user-report-data-context";
+import { colorClass, typographyClass } from "@/hooks/useSceneTheme";
+import BaseScene from "./BaseScene";
 
-interface P7Props {
+interface PageProps {
   onNext?: () => void;
-  data: P7Data;
+  sceneName?: string;
 }
 
-export default function P7Scene({ onNext, data }: P7Props) {
-  const {
-    readCount = 0,
-    upvoteCount = 0,
-    collectCount = 0,
-    commentCount = 0,
-    shareCount = 0,
-    roundTableCount = 0,
-    editorPickCount = 0
-  } = data || {};
+export default function P7Scene({ onNext, sceneName }: PageProps) {
+  const { reportData } = useUserReportData();
+  
+  // Map context data to component variables according to P7 spec
+  const readCount = reportData?.content_pv_cnt ?? null;
+  const upvoteCount = reportData?.content_upvote_cnt ?? null;
+  const collectCount = reportData?.content_collect_cnt ?? null;
+  const commentCount = reportData?.content_comment_cnt ?? null;
+  const shareCount = reportData?.content_share_cnt ?? null;
+  const roundTableCount = reportData?.roundtable_cnt ?? null;
+  const editorPickCount = reportData?.recommended_cnt ?? null;
 
   return (
-    <div
-      className="relative w-full h-screen overflow-hidden bg-white flex pt-[120px]"
-      style={{ fontFamily: 'var(--font-tianwang)' }}
-      onClick={onNext}
-    >
-      <div className="relative w-[375px] bg-white">
-        <div className="text-[14px] pl-[34px] pr-[34px]">
+    <BaseScene onNext={onNext} sceneName={sceneName}>
+      <div className={typographyClass('title') + ' mb-[40px]'}>
+        真诚的文字值得被认真回应
+      </div>
 
-          <div className="text-[16px] leading-[32px] mb-[180px]">
-            <div>
-              你的内容一共收获了
-              <span className="text-r-blue text-[20px] px-[4px]">{readCount}</span>
-              次阅读
-            </div>
-            <div>
-              <span className="text-r-fern text-[20px] pr-[4px]">{upvoteCount}</span>
-              个赞同
-            </div>
-            <div>
-              <span className="text-r-pink text-[20px] pr-[4px]">{collectCount}</span>
-              次收藏
-            </div>
-            <div>
-              <span className="text-r-blue text-[20px] pr-[4px]">{commentCount}</span>
-              条评论
-            </div>
-            <div>
-              <span className="text-r-fern text-[20px] pr-[4px]">{shareCount}</span>
-              次分享
-            </div>
-          </div>
-
-          <div className="text-[15px] leading-[28px]">
-            <div>
-              你曾在
-              <span className="text-r-blue text-[20px] px-[2px]">{roundTableCount}</span>
-              个圆桌中与他人探讨
-            </div>
-            <div>
-              有
-              <span className="text-r-pink text-[20px] px-[2px]">{editorPickCount}</span>
-              条回答，得到了编辑推荐
-            </div>
-          </div>
-
+      <div className="text-[16px] leading-[32px] mb-[180px]">
+        <div>
+          这一年，你的内容收获了 <span className={`${colorClass('blue')} text-[20px] px-[4px]`}>{readCount ?? 'content_pv_cnt'}</span> 次阅读
+        </div>
+        <div>
+          <span className={`${colorClass('fern')} text-[20px] pr-[4px]`}>{upvoteCount ?? 'content_upvote_cnt'}</span> 个赞同
+        </div>
+        <div>
+          <span className={`${colorClass('pink')} text-[20px] pr-[4px]`}>{collectCount ?? 'content_collect_cnt'}</span> 次收藏
+        </div>
+        <div>
+          <span className={`${colorClass('blue')} text-[20px] pr-[4px]`}>{commentCount ?? 'content_comment_cnt'}</span> 条评论
+        </div>
+        <div>
+          <span className={`${colorClass('fern')} text-[20px] pr-[4px]`}>{shareCount ?? 'content_share_cnt'}</span> 次分享
         </div>
       </div>
-    </div>
+
+      <div className="text-[15px] leading-[28px]">
+        <div>
+          你走进了 <span className={`${colorClass('blue')} text-[20px] px-[2px]`}>{roundTableCount ?? 'roundtable_cnt'}</span> 个圆桌讨论
+        </div>
+        <div>
+          有 <span className={`${colorClass('pink')} text-[20px] px-[2px]`}>{editorPickCount ?? 'recommended_cnt'}</span> 篇内容被「编辑推荐」
+        </div>
+      </div>
+    </BaseScene>
   );
 }

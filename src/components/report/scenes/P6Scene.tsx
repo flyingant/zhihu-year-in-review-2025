@@ -1,86 +1,61 @@
 "use client";
 
-export interface P6Data {
-  visitDays: number | string;
-  creationDays: number | string;
-  mostProductiveMonth: number | string;
-  monthArticleCount: number | string;
-  mostProductiveDate: string;
-  dayWordCount: number | string;
-  totalWords: number | string;
-  equivalentBook: string;
-}
+import { useUserReportData } from "@/context/user-report-data-context";
+import { colorClass, typographyClass } from "@/hooks/useSceneTheme";
+import BaseScene from "./BaseScene";
 
-interface P6Props {
+interface PageProps {
   onNext?: () => void;
-  data: P6Data;
+  sceneName?: string;
 }
 
-export default function P6Scene({ onNext, data }: P6Props) {
-  const {
-    visitDays = 0,
-    creationDays = 0,
-    mostProductiveMonth = 0,
-    monthArticleCount = 0,
-    mostProductiveDate = '',
-    dayWordCount = 0,
-    totalWords = 0,
-    equivalentBook = ''
-  } = data || {};
+export default function P6Scene({ onNext, sceneName }: PageProps) {
+  const { reportData } = useUserReportData();
+  
+  // Map context data to component variables according to P6 spec
+  const totalWords = reportData?.content_total_word_cnt ?? null;
+  const creationDays = reportData?.publish_total_day_cnt ?? null;
+  const mostProductiveMonth = reportData?.publish_max_month ?? null;
+  const mostProductiveDate = reportData?.publish_most_word_date ?? null;
+  const dayWordCount = reportData?.publish_most_word_cnt ?? null;
+  // Note: equivalentBook calculation is frontend logic based on totalWords
 
   return (
-    <div
-      className="relative w-full h-screen overflow-hidden bg-white flex pt-[120px]"
-      style={{ fontFamily: 'var(--font-tianwang)' }}
-      onClick={onNext}
-    >
-      <div className="relative w-[375px] bg-white">
-        <div className="text-[14px] pl-[34px] pr-[34px]">
-          <div className="text-[22px] mb-[40px]">
-            <div>
-              今年你一共有
-              <span className="text-r-blue text-[24px] px-[4px]">{visitDays}</span>
-              天来到过知乎
-            </div>
-            <div className="mt-[10px]">
-              有
-              <span className="text-r-fern text-[24px] px-[4px]">{creationDays}</span>
-              天，都留下了你的创作
-            </div>
-          </div>
+    <BaseScene onNext={onNext} sceneName={sceneName}>
+      <div className={typographyClass('title') + ' mb-[40px]'}>
+        真实的表达，写满了自己
+      </div>
 
-          <div className="pb-[30px]">
-            <div className="mb-[6px]">
-              <span className="text-r-pink text-[18px] pr-[2px]">{mostProductiveMonth}</span> 月，
-              你书写了 <span className="text-r-pink text-[18px] px-[2px]">{monthArticleCount}</span> 篇内容
-            </div>
-            <div className="text-[#999] text-[12px]">
-              是你灵感旺盛，表达最多的月份
-            </div>
-          </div>
+      {/* 总字数 */}
+      <div className="mb-[40px] leading-[32px]">
+        你在知乎写下了 <span className={`${colorClass('fern')} ${typographyClass('highlight')} pr-[4px]`}>{totalWords ?? 'content_total_word_cnt'}</span> 个字
+        {/* Note: equivalentBook calculation should be done in frontend based on totalWords */}
+      </div>
 
-          <div className="pb-[60px]">
-            <div className="mb-[6px]">
-              <span className="text-r-blue text-[18px] pr-[5px]">{mostProductiveDate}</span>，
-              你写下 <span className="text-r-blue text-[18px] px-[2px]">{dayWordCount}</span> 字
-            </div>
-            <div className="text-[#999] text-[12px]">
-              是你思如泉涌，妙笔生花的时间
-            </div>
-          </div>
+      {/* 创作天数 */}
+      <div className="mb-[30px]">
+        今年，你有 <span className={`${colorClass('blue')} ${typographyClass('highlight')} px-[4px]`}>{creationDays ?? 'publish_total_day_cnt'}</span> 天发布了内容
+      </div>
 
-          <div className="leading-[32px]">
-            这一年，你在知乎一共写下
-            <br />
-            <span className="text-r-fern text-[24px] pr-[4px]">{totalWords}</span>
-            个字
-          </div>
-          <div className="mt-[10px]">
-            相当于写完一本《<span className="text-r-blue text-[16px]">{equivalentBook}</span>》
-          </div>
-
+      {/* 最高产月份 */}
+      <div className="pb-[30px]">
+        <div className="mb-[6px]">
+          <span className={`${colorClass('pink')} ${typographyClass('subtitle')} pr-[2px]`}>{mostProductiveMonth ?? 'publish_max_month'}</span> 月是你的灵感高峰
+        </div>
+        <div className="text-gray-500 text-[12px]">
+          是你灵感旺盛，表达最多的月份
         </div>
       </div>
-    </div>
+
+      {/* 文思泉涌的一天 */}
+      <div className="pb-[60px]">
+        <div className="mb-[6px]">
+          <span className={`${colorClass('blue')} ${typographyClass('subtitle')} pr-[5px]`}>{mostProductiveDate ?? 'publish_most_word_date'}</span> 是你文思泉涌的一天，你在知乎写下共 <span className={`${colorClass('blue')} ${typographyClass('subtitle')} px-[2px]`}>{dayWordCount ?? 'publish_most_word_cnt'}</span> 字
+        </div>
+        <div className="text-gray-500 text-[12px]">
+          是你思如泉涌，妙笔生花的时间
+        </div>
+      </div>
+    </BaseScene>
   );
 }

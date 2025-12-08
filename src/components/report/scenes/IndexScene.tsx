@@ -1,8 +1,14 @@
 // components/report/scenes/SelectionScene.tsx
 import { motion } from 'framer-motion';
 import Image from 'next/image';
+import BaseScene from './BaseScene';
 
-export default function IndexScene({ onNext }: { onNext: (choice: string) => void }) {
+interface IndexSceneProps {
+  onNext?: () => void;
+  sceneName?: string;
+}
+
+export default function IndexScene({ onNext, sceneName }: IndexSceneProps) {
 
   // 选项动画配置
   const cardVariants = {
@@ -17,7 +23,14 @@ export default function IndexScene({ onNext }: { onNext: (choice: string) => voi
   };
 
   return (
-    <div className="relative w-full h-full bg-blue-50 overflow-hidden flex flex-col items-center justify-center perspective-1000">
+    <BaseScene 
+      onNext={onNext} 
+      sceneName={sceneName}
+      className="pt-0 bg-blue-50"
+      containerClassName="w-full max-w-none"
+      contentClassName="p-0"
+    >
+      <div className="relative w-full h-full overflow-hidden flex flex-col items-center justify-center perspective-1000">
       <motion.div
         className="mb-10 relative z-10"
         animate={{ y: [-10, 10, -10] }}
@@ -53,6 +66,7 @@ export default function IndexScene({ onNext }: { onNext: (choice: string) => voi
       </div>
 
       <div className="absolute inset-0 z-0 bg-[url('/assets/home_bg@3x.png')] opacity-20 pointer-events-none" />
-    </div>
+      </div>
+    </BaseScene>
   );
 }

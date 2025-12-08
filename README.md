@@ -104,3 +104,149 @@ npm run build
 # or
 pnpm build
 ```
+
+## Scene Theme System
+
+This document explains how to use the centralized theme system for report scenes.
+
+### Overview
+
+The theme system provides consistent styling (fonts, colors, layout, typography) across all scene components. It consists of:
+
+1. **Theme Configuration** (`src/lib/scene-theme.ts`) - Central theme definitions
+2. **Theme Hooks** (`src/hooks/useSceneTheme.ts`) - React hooks to access theme
+3. **BaseScene Component** (`src/components/report/scenes/BaseScene.tsx`) - Reusable wrapper component
+
+### Usage
+
+#### Option 1: Using BaseScene Component (Recommended)
+
+The easiest way is to wrap your scene content with `BaseScene`:
+
+```tsx
+import BaseScene from "./BaseScene";
+import { useSceneTheme, colorClass, typographyClass } from "@/hooks/useSceneTheme";
+
+export default function MyScene({ onNext }: PageProps) {
+  const theme = useSceneTheme();
+  
+  return (
+    <BaseScene onNext={onNext}>
+      <div className={typographyClass('title')}>
+        Your Title
+      </div>
+      <span className={colorClass('pink', 'font-bold text-[18px]')}>
+        Highlighted Text
+      </span>
+    </BaseScene>
+  );
+}
+```
+
+#### Option 2: Manual Implementation
+
+If you need more control, you can use the hooks directly:
+
+```tsx
+import { useSceneTheme, useSceneThemeStyles, colorClass, typographyClass } from "@/hooks/useSceneTheme";
+
+export default function MyScene({ onNext }: PageProps) {
+  const theme = useSceneTheme();
+  const styles = useSceneThemeStyles();
+  
+  return (
+    <div
+      className={`relative w-full h-screen overflow-hidden bg-white flex ${theme.layout.paddingTop}`}
+      style={styles}
+      onClick={onNext}
+    >
+      <div className={`relative ${theme.layout.containerWidth} bg-white`}>
+        <div className={`${theme.layout.baseFontSize} ${theme.layout.paddingX}`}>
+          {/* Your content */}
+        </div>
+      </div>
+    </div>
+  );
+}
+```
+
+### Available Theme Properties
+
+#### Colors
+- `theme.colors.pink` → `text-r-pink`
+- `theme.colors.blue` → `text-r-blue`
+- `theme.colors.fern` → `text-r-fern`
+- `theme.colors.green` → `text-r-green`
+- `theme.colors.yellow` → `text-r-yellow`
+
+#### Typography Sizes
+- `theme.typography.title` → `text-[22px]`
+- `theme.typography.subtitle` → `text-[18px]`
+- `theme.typography.body` → `text-[14px]`
+- `theme.typography.highlight` → `text-[24px]`
+- `theme.typography.large` → `text-[32px]`
+
+#### Layout
+- `theme.layout.containerWidth` → `w-[375px]`
+- `theme.layout.paddingTop` → `pt-[120px]`
+- `theme.layout.paddingX` → `pl-[34px] pr-[34px]`
+- `theme.layout.baseFontSize` → `text-[14px]`
+
+#### Font
+- `theme.font.family` → `var(--font-tianwang)`
+
+### Helper Functions
+
+#### `colorClass(color, size?)`
+Creates a color class with optional size classes:
+
+```tsx
+colorClass('pink', 'font-bold text-[18px]') 
+// → "text-r-pink font-bold text-[18px]"
+```
+
+#### `typographyClass(type)`
+Gets typography size class:
+
+```tsx
+typographyClass('title') 
+// → "text-[22px]"
+```
+
+### Customizing Theme
+
+You can override theme settings per scene:
+
+```tsx
+const theme = useSceneTheme({
+  layout: {
+    paddingTop: 'pt-[100px]', // Custom padding
+  },
+  colors: {
+    pink: 'text-custom-pink', // Custom color
+  }
+});
+```
+
+### Migration Example
+
+**Before:**
+```tsx
+<div className="relative w-full h-screen overflow-hidden bg-white flex pt-[120px]"
+      style={{ fontFamily: 'var(--font-tianwang)' }}>
+  <div className="relative w-[375px] bg-white">
+    <div className="text-[14px] pl-[34px]">
+      <span className="text-r-pink font-bold text-[18px]">Text</span>
+    </div>
+  </div>
+</div>
+```
+
+**After:**
+```tsx
+<BaseScene>
+  <span className={`${colorClass('pink', 'font-bold')} ${typographyClass('subtitle')}`}>
+    Text
+  </span>
+</BaseScene>
+```

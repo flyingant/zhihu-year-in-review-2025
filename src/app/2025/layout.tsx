@@ -1,5 +1,6 @@
 import type { ReactNode } from 'react';
 import localFont from 'next/font/local';
+import { UserReportDataProvider } from '@/context/user-report-data-context';
 
 const tianwangFont = localFont({
   src: '../../../public/fonts/tianwangxingxiangsu.ttf',
@@ -14,7 +15,9 @@ export default function Report2025Layout({
 }) {
   return (
     <div className={tianwangFont.variable}>
-      {children}
+      <UserReportDataProvider>
+        {children}
+      </UserReportDataProvider>
     </div>
   );
 }

@@ -8,7 +8,7 @@ interface PageProps {
   sceneName?: string;
 }
 
-export default function P9Scene({ onNext, sceneName }: PageProps) {
+export default function P21Scene({ onNext, sceneName }: PageProps) {
   const handleChoice = (e: React.MouseEvent, choice: string) => {
     e.stopPropagation();
     if (onNext) {
@@ -19,9 +19,10 @@ export default function P9Scene({ onNext, sceneName }: PageProps) {
   return (
     <BaseScene onNext={undefined} sceneName={sceneName}>
       <div className={typographyClass('large') + ' font-bold mb-[20px]'}>
-        过渡页...P9
+        过渡页...P21
         <br />
       </div>
     </BaseScene>
   );
 }
+

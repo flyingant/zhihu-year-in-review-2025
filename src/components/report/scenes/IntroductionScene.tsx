@@ -1,10 +1,23 @@
 // components/report/scenes/IntroductionScene.tsx
 import { motion } from 'framer-motion';
 import Image from 'next/image';
+import BaseScene from './BaseScene';
 
-export default function IntroductionScene({ onNext }: { onNext: () => void }) {
+interface IntroductionSceneProps {
+  onNext: () => void;
+  sceneName?: string;
+}
+
+export default function IntroductionScene({ onNext, sceneName }: IntroductionSceneProps) {
   return (
-    <div className="relative w-full h-full overflow-hidden bg-white" onClick={onNext}>
+    <BaseScene 
+      onNext={onNext} 
+      sceneName={sceneName}
+      className="pt-0"
+      containerClassName="w-full max-w-none"
+      contentClassName="p-0"
+    >
+      <div className="relative w-full h-full overflow-hidden bg-white">
 
       {/* 1. 清晰层 (底层) */}
       {/* <div className="absolute inset-0 z-0">
@@ -55,7 +68,8 @@ export default function IntroductionScene({ onNext }: { onNext: () => void }) {
           <span>点击进入数据世界</span>
         </div>
       </motion.div>
-    </div>
+      </div>
+    </BaseScene>
   );
 }
 

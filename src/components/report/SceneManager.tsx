@@ -109,7 +109,7 @@ export default function SceneManager() {
           className="w-full h-full"
         >
           {/* 渲染当前页面，并传入跳转函数 */}
-          <Component onNext={handleNext} {...extraProps} />
+          <Component onNext={handleNext} sceneName={currentSceneId} {...extraProps} />
         </motion.div>
       </AnimatePresence>
     </div>

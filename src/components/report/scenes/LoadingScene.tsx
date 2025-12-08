@@ -3,8 +3,14 @@ import { motion } from 'framer-motion';
 import Image from 'next/image'; // 1. 引入 Image
 import PixelGlitchOverlay from '@/components/report/effects/PixelGlitchOverlay';
 import { useEffect, useState } from 'react';
+import BaseScene from './BaseScene';
 
-export default function LoadingScene({ onNext }: { onNext: () => void }) {
+interface LoadingSceneProps {
+  onNext: () => void;
+  sceneName?: string;
+}
+
+export default function LoadingScene({ onNext, sceneName }: LoadingSceneProps) {
   const [progress, setProgress] = useState(0);
 
   // 模拟加载进度
@@ -23,7 +29,13 @@ export default function LoadingScene({ onNext }: { onNext: () => void }) {
   }, [onNext]);
 
   return (
-    <>
+    <BaseScene 
+      onNext={undefined} 
+      sceneName={sceneName}
+      className="pt-0"
+      containerClassName="w-full max-w-none"
+      contentClassName="p-0"
+    >
       <div className="absolute inset-0 z-0">
         <Image
           src="/assets/home_bg@3x.png"
@@ -58,6 +70,6 @@ export default function LoadingScene({ onNext }: { onNext: () => void }) {
 
         <p className="font-mono font-bold tracking-widest text-black">LOADING... {progress}%</p>
       </div>
-    </>
+    </BaseScene>
   );
 }

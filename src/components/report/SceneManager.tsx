@@ -1,12 +1,69 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
 import { SCENES } from '@/data/reportConfig';
 
 export default function SceneManager() {
-  // 当前场景 ID，初始为 loading
-  const [currentSceneId, setCurrentSceneId] = useState('loading');
+  // 从 URL hash 获取初始场景的懒加载函数
+  const getInitialSceneId = (): string => {
+    if (typeof window === 'undefined') return 'loading';
+    const hash = window.location.hash.slice(1);
+    return (hash && SCENES[hash]) ? hash : 'loading';
+  };
+
+  // 当前场景 ID，使用懒加载初始化
+  const [currentSceneId, setCurrentSceneId] = useState(getInitialSceneId);
+  const isInitializedRef = useRef(false);
+
+  // 客户端挂载后：标记为已初始化，并同步 URL hash（仅在挂载时运行一次）
+  useEffect(() => {
+    if (typeof window === 'undefined') return;
+    
+    // 检查 URL hash 是否与当前状态匹配（处理直接访问带 hash 的 URL 或 SSR 场景）
+    const hash = window.location.hash.slice(1);
+    if (hash && SCENES[hash] && hash !== currentSceneId) {
+      // 延迟更新以避免在 effect 中直接 setState 的警告
+      requestAnimationFrame(() => {
+        setCurrentSceneId(hash);
+      });
+    }
+    
+    // 标记为已初始化（避免在初始化时更新 URL hash）
+    isInitializedRef.current = true;
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []); // 只在挂载时运行一次
+
+  // 监听 URL hash 变化（浏览器前进/后退）
+  useEffect(() => {
+    if (typeof window === 'undefined' || !isInitializedRef.current) return;
+
+    const handleHashChange = () => {
+      const hash = window.location.hash.slice(1);
+      if (hash && SCENES[hash] && hash !== currentSceneId) {
+        setCurrentSceneId(hash);
+      } else if (!hash) {
+        // 如果 hash 被清除，回到默认场景
+        setCurrentSceneId('loading');
+      }
+    };
+
+    window.addEventListener('hashchange', handleHashChange);
+    return () => window.removeEventListener('hashchange', handleHashChange);
+  }, [currentSceneId]);
+
+  // 当场景变化时更新 URL hash（但不在初始化时更新，避免覆盖 URL 中的 hash）
+  useEffect(() => {
+    if (typeof window === 'undefined' || !isInitializedRef.current) return;
+
+    const newHash = `#${currentSceneId}`;
+    const currentHash = window.location.hash;
+    
+    // 只在 hash 不同时更新，避免不必要的历史记录
+    if (currentHash !== newHash) {
+      window.history.replaceState(null, '', `${window.location.pathname}${newHash}`);
+    }
+  }, [currentSceneId]);
 
   // 获取当前场景的配置
   const currentSceneConfig = SCENES[currentSceneId];

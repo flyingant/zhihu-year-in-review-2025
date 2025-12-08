@@ -61,6 +61,7 @@ export default function AddressForm({ redeemParams, onClose }: AddressFormProps 
   const [errors, setErrors] = useState<Partial<Record<keyof AddressFormData, string>>>({});
   const [hasExistingAddress, setHasExistingAddress] = useState(false);
   const [taskStatus, setTaskStatus] = useState<number | null>(null);
+  const [isSubmittedSuccessfully, setIsSubmittedSuccessfully] = useState(false);
 
   // Use props if provided, otherwise fall back to URL params
   const rewardId = redeemParams?.rewardId || searchParams.get("rewardId");
@@ -211,14 +212,12 @@ export default function AddressForm({ redeemParams, onClose }: AddressFormProps 
         }, 500);
       }
     } else {
-    // Remove query parameter and reload the page
-    // Include basePath if configured (e.g., /zhihu2025)
-    setTimeout(() => {
-      const basePath = process.env.NEXT_PUBLIC_BASE_URL || '';
-      const fullPath = basePath ? `${basePath}${pathname}` : pathname;
-      const urlWithParam = `${fullPath}`;
-      window.location.replace(urlWithParam);
-    }, 500);
+      // Remove all URL parameters and reload the current page
+      setTimeout(() => {
+        // pathname from usePathname() already excludes query params, but we ensure clean URL
+        const cleanPath = pathname.split('?')[0]; // Remove any query params if present
+        window.location.replace(cleanPath);
+      }, 500);
     }
   };
 
@@ -381,6 +380,7 @@ export default function AddressForm({ redeemParams, onClose }: AddressFormProps 
           },
         });
         showToast("兑换成功，详细请到兑换记录查看", "success");
+        setIsSubmittedSuccessfully(true);
       } else {
         // 普通地址提交场景：调用地址提交接口
         const addressData = {
@@ -393,6 +393,7 @@ export default function AddressForm({ redeemParams, onClose }: AddressFormProps 
         };
         await submitAddress(addressData);
         showToast("地址提交成功", "success");
+        setIsSubmittedSuccessfully(true);
       }
       // If onClose callback is provided, use it (for non-redirect flow)
       // Otherwise, redirect to reward section (for URL-based flow)
@@ -401,13 +402,11 @@ export default function AddressForm({ redeemParams, onClose }: AddressFormProps 
           onClose();
         }, 500);
       } else {
-        // Remove query parameter and reload the page
-        // Include basePath if configured (e.g., /zhihu2025)
+        // Remove all URL parameters and reload the current page
         setTimeout(() => {
-          const basePath = process.env.NEXT_PUBLIC_BASE_URL || '';
-          const fullPath = basePath ? `${basePath}${pathname}` : pathname;
-          const urlWithParam = `${fullPath}?directTo=reward`;
-          window.location.replace(urlWithParam);
+          // pathname from usePathname() already excludes query params, but we ensure clean URL
+          const cleanPath = pathname.split('?')[0]; // Remove any query params if present
+          window.location.replace(cleanPath);
         }, 500);
       }
     } catch (error) {
@@ -474,15 +473,15 @@ export default function AddressForm({ redeemParams, onClose }: AddressFormProps 
           <button
             type="button"
             onClick={() => {
-              if (taskStatus !== 3) {
+              if (taskStatus !== 3 && !isSubmittedSuccessfully) {
                 setShowRegionPicker(true);
               }
             }}
-            disabled={taskStatus === 3}
+            disabled={taskStatus === 3 || isSubmittedSuccessfully}
             className={`w-full text-left pb-3 border-b focus:outline-none ${errors.region
               ? "border-red-500"
               : "border-gray-200 focus:border-blue-500"
-              } ${taskStatus === 3 ? "opacity-50 cursor-not-allowed" : ""}`}
+              } ${taskStatus === 3 || isSubmittedSuccessfully ? "opacity-50 cursor-not-allowed" : ""}`}
           >
             <span
               className={
@@ -509,11 +508,11 @@ export default function AddressForm({ redeemParams, onClose }: AddressFormProps 
             }
             onBlur={() => handleBlur("detailedAddress")}
             placeholder="*详细地址与门牌号"
-            disabled={taskStatus === 3}
+            disabled={taskStatus === 3 || isSubmittedSuccessfully}
             className={`w-full pb-3 border-b focus:outline-none text-gray-900 placeholder:text-gray-400 ${errors.detailedAddress
               ? "border-red-500"
               : "border-gray-200 focus:border-blue-500"
-              } ${taskStatus === 3 ? "opacity-50 cursor-not-allowed" : ""}`}
+              } ${taskStatus === 3 || isSubmittedSuccessfully ? "opacity-50 cursor-not-allowed" : ""}`}
           />
           {errors.detailedAddress && (
             <p className="text-red-500 text-xs mt-1">{errors.detailedAddress}</p>
@@ -528,11 +527,11 @@ export default function AddressForm({ redeemParams, onClose }: AddressFormProps 
             onChange={(e) => handleInputChange("recipientName", e.target.value)}
             onBlur={() => handleBlur("recipientName")}
             placeholder="*收货人姓名"
-            disabled={taskStatus === 3}
+            disabled={taskStatus === 3 || isSubmittedSuccessfully}
             className={`w-full pb-3 border-b focus:outline-none text-gray-900 placeholder:text-gray-400 ${errors.recipientName
               ? "border-red-500"
               : "border-gray-200 focus:border-blue-500"
-              } ${taskStatus === 3 ? "opacity-50 cursor-not-allowed" : ""}`}
+              } ${taskStatus === 3 || isSubmittedSuccessfully ? "opacity-50 cursor-not-allowed" : ""}`}
           />
           {errors.recipientName && (
             <p className="text-red-500 text-xs mt-1">{errors.recipientName}</p>
@@ -548,11 +547,11 @@ export default function AddressForm({ redeemParams, onClose }: AddressFormProps 
             onBlur={() => handleBlur("phoneNumber")}
             placeholder="*手机号"
             maxLength={11}
-            disabled={taskStatus === 3}
+            disabled={taskStatus === 3 || isSubmittedSuccessfully}
             className={`w-full pb-3 border-b focus:outline-none text-gray-900 placeholder:text-gray-400 ${errors.phoneNumber
               ? "border-red-500"
               : "border-gray-200 focus:border-blue-500"
-              } ${taskStatus === 3 ? "opacity-50 cursor-not-allowed" : ""}`}
+              } ${taskStatus === 3 || isSubmittedSuccessfully ? "opacity-50 cursor-not-allowed" : ""}`}
           />
           {errors.phoneNumber && (
             <p className="text-red-500 text-xs mt-1">{errors.phoneNumber}</p>
@@ -569,10 +568,10 @@ export default function AddressForm({ redeemParams, onClose }: AddressFormProps 
       <div className="fixed bottom-0 left-0 right-0 bg-white p-4 pb-safe text-sm">
         <button
           onClick={handleSubmit}
-          disabled={isSubmitting || !isFormFilled || hasExistingAddress || (!fromRedeem && taskStatus !== null && taskStatus !== 2)}
+          disabled={isSubmitting || isSubmittedSuccessfully || !isFormFilled || hasExistingAddress || (!fromRedeem && taskStatus !== null && taskStatus !== 2)}
           className="w-full bg-blue text-white py-3 rounded-[30px] font-medium disabled:opacity-50 disabled:cursor-not-allowed"
         >
-          {isSubmitting ? "提交中..." : "确认地址"}
+          {isSubmitting ? "提交中..." : isSubmittedSuccessfully ? "已提交" : "确认地址"}
         </button>
       </div>
 

@@ -1,8 +1,8 @@
-// components/report/scenes/IntroScene.tsx
+// components/report/scenes/IntroductionScene.tsx
 import { motion } from 'framer-motion';
 import Image from 'next/image';
 
-export default function IntroScene({ onNext }: { onNext: () => void }) {
+export default function IntroductionScene({ onNext }: { onNext: () => void }) {
   return (
     <div className="relative w-full h-full overflow-hidden bg-white" onClick={onNext}>
 
@@ -58,3 +58,4 @@ export default function IntroScene({ onNext }: { onNext: () => void }) {
     </div>
   );
 }
+

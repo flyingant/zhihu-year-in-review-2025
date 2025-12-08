@@ -1,7 +1,6 @@
 // components/report/scenes/LoadingScene.tsx
 import { motion } from 'framer-motion';
 import Image from 'next/image'; // 1. 引入 Image
-import GridBackground from '@/components/report/effects/GridBackground';
 import PixelGlitchOverlay from '@/components/report/effects/PixelGlitchOverlay';
 import { useEffect, useState } from 'react';
 
@@ -24,7 +23,7 @@ export default function LoadingScene({ onNext }: { onNext: () => void }) {
   }, [onNext]);
 
   return (
-    <GridBackground>
+    <>
       <div className="absolute inset-0 z-0">
         <Image
           src="/assets/home_bg@3x.png"
@@ -59,6 +58,6 @@ export default function LoadingScene({ onNext }: { onNext: () => void }) {
 
         <p className="font-mono font-bold tracking-widest text-black">LOADING... {progress}%</p>
       </div>
-    </GridBackground>
+    </>
   );
 }

@@ -1,6 +1,7 @@
 import LoadingScene from '@/components/report/scenes/LoadingScene';
-import IntroScene from '@/components/report/scenes/IntroScene';
-import SelectionScene from '@/components/report/scenes/SelectionScene';
+import IntroductionScene from '@/components/report/scenes/IntroductionScene';
+import IndexScene from '@/components/report/scenes/IndexScene';
+import P1Scene from '@/components/report/scenes/P1Scene';
 import P2Scene from '@/components/report/scenes/P2Scene';
 import P3Scene from '@/components/report/scenes/P3Scene';
 import P5Scene from '@/components/report/scenes/P5Scene';
@@ -12,7 +13,6 @@ import P9Scene from '@/components/report/scenes/P9Scene';
 export type SceneConfig = {
   id: string;
   component: React.ComponentType<any>;
-  // 定义这个页面点击不同按钮去哪里
   next?: string | ((choice?: string) => string);
   prepareProps?: (allData: any) => Record<string, any>;
 }
@@ -21,16 +21,16 @@ export const SCENES: Record<string, SceneConfig> = {
   'loading': {
     id: 'loading',
     component: LoadingScene,
-    next: 'intro', // Loading 完自动去 Intro
+    next: 'introduction', // Loading 完自动去 Intro
   },
-  'intro': {
-    id: 'intro',
-    component: IntroScene,
+  'introduction': {
+    id: 'introintroduction',
+    component: IntroductionScene,
     next: 'selection', // 点击开始去 Selection
   },
-  'selection': {
-    id: 'selection',
-    component: SelectionScene,
+  'index': {
+    id: 'index',
+    component: IndexScene,
     next: (choice) => {
       if (choice === 'tech') return 'p2';
       if (choice === 'life') return 'p2';

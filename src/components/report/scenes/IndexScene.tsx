@@ -2,7 +2,7 @@
 import { motion } from 'framer-motion';
 import Image from 'next/image';
 
-export default function SelectionScene({ onNext }: { onNext: (choice: string) => void }) {
+export default function IndexScene({ onNext }: { onNext: (choice: string) => void }) {
 
   // 选项动画配置
   const cardVariants = {

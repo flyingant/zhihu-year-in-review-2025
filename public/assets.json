@@ -353,7 +353,7 @@
       "alt": "刘看山"
     },
     "sidebarLiuKanshanDialog": {
-      "url": "/assets/sidebar_liukanshan_dialog_1208@3x.png",
+      "url": "/assets/sidebar_liukanshan_dialog_1209@3x.png",
       "width": 750,
       "height": 1334,
       "alt": "刘看山对话框"
@@ -389,7 +389,7 @@
       "alt": "请打开知乎 App 扫码 继续完成发布"
     },
     "sidebarLiuKanshanDialogSoldOut": {
-      "url": "/assets/sidebar_liukanshan_dialog_sold_out.png",
+      "url": "/assets/sidebar_liukanshan_dialog_sold_out_1209@3x.png",
       "width": 750,
       "height": 1334,
       "alt": "刘看山对话框-已售罄"

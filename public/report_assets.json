@@ -1,0 +1,14 @@
+{
+  "bg": {
+  "url": "/report_assets/home_bg@3x.png",
+  "width": 1125,
+  "height": 6938,
+  "alt": "Home Background"
+},
+"bgBottom": {
+  "url": "/report_assets/home_bottom_bg@3x.png",
+  "width": 1125,
+  "height": 209,
+  "alt": "Home Background"
+}
+}

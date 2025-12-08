@@ -52,6 +52,9 @@ const TaskSection = () => {
 
   if (!assets) return null;
 
+  // Check if activity is finished
+  const isActivityFinished = campaignData?.activity_data?.state === 'finished';
+
   const body = campaignData?.body;
   const rawGroups = body?.task || [];
 
@@ -258,8 +261,13 @@ const TaskSection = () => {
                   </button>
                 </div>
 
-                <div className="flex flex-col gap-3" id="task-inner-section">
-                  {group.task_list.map((task) => (
+              <div className="flex flex-col gap-3" id="task-inner-section">
+                {isActivityFinished ? (
+                  <div className="bg-white rounded-[10px] p-3">
+                    <div className="w-full text-sm text-gray-600 text-center">活动已结束</div>
+                  </div>
+                ) : (
+                  group.task_list.map((task) => (
                     <div key={task.id} className="bg-white rounded-[10px] p-3 flex items-center justify-between shadow-sm">
                       <div className="flex flex-col flex-1 pr-2">
                         <div className="flex items-center mb-1">
@@ -281,15 +289,15 @@ const TaskSection = () => {
                         {renderTaskButton(task)}
                       </div>
                     </div>
-                  ))}
-                </div>
+                  ))
+                )}
               </div>
-            )) : (
-              <div className="bg-[#e1f4ff] rounded-[12px] pt-3 px-4 pb-5 mb-4">
-                <div className="text-sm text-gray-400 text-center">任务加载中...</div>
-              </div>
-            )
-          }
+            </div>
+          )) : (
+            <div className="bg-[#e1f4ff] rounded-[12px] pt-3 px-4 pb-5 mb-4">
+              <div className="text-sm text-gray-400 text-center">任务加载中...</div>
+            </div>
+          )}
         </div>
 
       </div>

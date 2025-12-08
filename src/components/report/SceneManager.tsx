@@ -73,7 +73,7 @@ export default function SceneManager() {
   const Component = currentSceneConfig.component;
 
   // 这里面放到时候从接口获取到的所有数据
-  const fullReportData = {};
+  const fullReportData: Record<string, unknown> = {};
 
   const extraProps = currentSceneConfig.prepareProps
     ? currentSceneConfig.prepareProps(fullReportData)

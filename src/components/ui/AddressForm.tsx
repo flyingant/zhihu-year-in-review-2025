@@ -473,11 +473,16 @@ export default function AddressForm({ redeemParams, onClose }: AddressFormProps 
         <div className="mb-4 text-sm">
           <button
             type="button"
-            onClick={() => setShowRegionPicker(true)}
+            onClick={() => {
+              if (taskStatus !== 3) {
+                setShowRegionPicker(true);
+              }
+            }}
+            disabled={taskStatus === 3}
             className={`w-full text-left pb-3 border-b focus:outline-none ${errors.region
               ? "border-red-500"
               : "border-gray-200 focus:border-blue-500"
-              }`}
+              } ${taskStatus === 3 ? "opacity-50 cursor-not-allowed" : ""}`}
           >
             <span
               className={
@@ -504,10 +509,11 @@ export default function AddressForm({ redeemParams, onClose }: AddressFormProps 
             }
             onBlur={() => handleBlur("detailedAddress")}
             placeholder="*详细地址与门牌号"
+            disabled={taskStatus === 3}
             className={`w-full pb-3 border-b focus:outline-none text-gray-900 placeholder:text-gray-400 ${errors.detailedAddress
               ? "border-red-500"
               : "border-gray-200 focus:border-blue-500"
-              }`}
+              } ${taskStatus === 3 ? "opacity-50 cursor-not-allowed" : ""}`}
           />
           {errors.detailedAddress && (
             <p className="text-red-500 text-xs mt-1">{errors.detailedAddress}</p>
@@ -522,10 +528,11 @@ export default function AddressForm({ redeemParams, onClose }: AddressFormProps 
             onChange={(e) => handleInputChange("recipientName", e.target.value)}
             onBlur={() => handleBlur("recipientName")}
             placeholder="*收货人姓名"
+            disabled={taskStatus === 3}
             className={`w-full pb-3 border-b focus:outline-none text-gray-900 placeholder:text-gray-400 ${errors.recipientName
               ? "border-red-500"
               : "border-gray-200 focus:border-blue-500"
-              }`}
+              } ${taskStatus === 3 ? "opacity-50 cursor-not-allowed" : ""}`}
           />
           {errors.recipientName && (
             <p className="text-red-500 text-xs mt-1">{errors.recipientName}</p>
@@ -541,10 +548,11 @@ export default function AddressForm({ redeemParams, onClose }: AddressFormProps 
             onBlur={() => handleBlur("phoneNumber")}
             placeholder="*手机号"
             maxLength={11}
+            disabled={taskStatus === 3}
             className={`w-full pb-3 border-b focus:outline-none text-gray-900 placeholder:text-gray-400 ${errors.phoneNumber
               ? "border-red-500"
               : "border-gray-200 focus:border-blue-500"
-              }`}
+              } ${taskStatus === 3 ? "opacity-50 cursor-not-allowed" : ""}`}
           />
           {errors.phoneNumber && (
             <p className="text-red-500 text-xs mt-1">{errors.phoneNumber}</p>

@@ -33,6 +33,7 @@ export type SceneConfig = {
   id: string;
   component: React.ComponentType<any>;
   next?: string | ((choice?: string) => string);
+  prepareProps?: (data: Record<string, unknown>) => Record<string, unknown>;
 }
 
 export const SCENES: Record<string, SceneConfig> = {

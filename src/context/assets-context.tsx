@@ -188,6 +188,15 @@ export interface AssetsData {
   realMoment: {
     bg: AssetMetadata;
   };
+  report: {
+    bg: {
+      blue1: AssetMetadata;
+      blue2: AssetMetadata;
+      green1: AssetMetadata;
+      mix1: AssetMetadata;
+      mix2: AssetMetadata;
+    };
+  };
   /**
    * 外部链接URL配置
    */

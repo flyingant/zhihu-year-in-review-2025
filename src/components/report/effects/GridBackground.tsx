@@ -9,7 +9,7 @@ export default function GridBackground({ children }: { children: React.ReactNode
             linear-gradient(to right, #3b82f6 1px, transparent 1px),
             linear-gradient(to bottom, #3b82f6 1px, transparent 1px)
           `,
-          backgroundSize: '10px 10px'
+          backgroundSize: '18px 18px'
         }}
       />
       {children}

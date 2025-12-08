@@ -1101,5 +1101,39 @@
       "width": "25%",
       "height": "5%"
     }
+  },
+  "report": {
+    "bg": {
+      "blue1": {
+        "url": "/assets/2025_2_report_bg_blue_1.png",
+        "width": 55,
+        "height": 74,
+        "alt": "蓝色色块1"
+      },
+      "blue2": {
+        "url": "/assets/2025_2_report_bg_blue_2.png",
+        "width": 55,
+        "height": 55,
+        "alt": "蓝色色块2"
+      },
+      "green1": {
+        "url": "/assets/2025_2_report_bg_green_1.png",
+        "width": 55,
+        "height": 55,
+        "alt": "绿色色块1"
+      },
+      "mix1": {
+        "url": "/assets/2025_2_report_bg_mix_1.png",
+        "width": 55,
+        "height": 55,
+        "alt": "混合色块1"
+      },
+      "mix2": {
+        "url": "/assets/2025_2_report_bg_mix_2.png",
+        "width": 55,
+        "height": 55,
+        "alt": "混合色块2"
+      }
+    }
   }
 }

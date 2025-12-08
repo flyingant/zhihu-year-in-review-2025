@@ -4,7 +4,7 @@ import Image from 'next/image';
 import BaseScene from './BaseScene';
 
 interface IndexSceneProps {
-  onNext?: () => void;
+  onNext?: (choice?: string) => void;
   sceneName?: string;
 }
 
@@ -50,7 +50,7 @@ export default function IndexScene({ onNext, sceneName }: IndexSceneProps) {
             initial="hidden"
             animate="visible"
             whileHover="hover"
-            onClick={() => onNext(item.toLowerCase())} // 传递选择
+            onClick={() => onNext?.(item.toLowerCase())} // 传递选择
             className="
               h-32 bg-white/80 backdrop-blur-md border-2 border-white 
               rounded-xl shadow-xl flex items-center justify-center

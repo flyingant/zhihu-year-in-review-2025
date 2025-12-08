@@ -12,10 +12,13 @@ interface PageProps {
 export default function P10Scene({ onNext, sceneName }: PageProps) {
   const { reportData } = useUserReportData();
   
+  const toNumberOrNull = (value: unknown): number | null =>
+    typeof value === "number" ? value : null;
+
   // Map context data to component variables according to P10 spec (消费-基础数据)
-  const articleCount = reportData?.consume_article_cnt ?? null;
-  const pinCount = reportData?.consume_pin_cnt ?? null;
-  const wordCount = reportData?.consume_word_cnt ?? null;
+  const articleCount = toNumberOrNull(reportData?.consume_article_cnt);
+  const pinCount = toNumberOrNull(reportData?.consume_pin_cnt);
+  const wordCount = toNumberOrNull(reportData?.consume_word_cnt);
   // Note: equivalentBook calculation is frontend logic based on wordCount
 
   // Calculate equivalent books (assuming ~200,000 words per book)

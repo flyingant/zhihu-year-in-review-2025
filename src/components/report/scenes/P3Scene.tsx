@@ -41,13 +41,13 @@ export default function P3Scene({ onNext, sceneName }: PageProps) {
       <div className="z-0">
         {/* 顺序从上到下 */}
         <Image src={blue2Asset.url} alt="{blue2Asset.alt}" width={blue2Asset.width} height={blue2Asset.height} 
-          className="object-contain absolute -top-[75px] left-[-8px] pointer-events-none select-none z-0" />
+          className="object-contain absolute -top-[75px] left-[-8px] pointer-events-none select-none z-1" />
         <Image src={mix3Asset.url} alt="{mix3Asset.alt}" width={mix3Asset.width} height={mix3Asset.height} 
-          className="object-contain absolute top-[35px] right-[0px] pointer-events-none select-none z-0" />
+          className="object-contain absolute top-[35px] right-[0px] pointer-events-none select-none z-1" />
         <Image src={mix4Asset.url} alt="{mix4Asset.alt}" width={mix4Asset.width} height={mix4Asset.height} 
-          className="object-contain absolute top-[319px] left-[0px] pointer-events-none select-none z-0" />
+          className="object-contain absolute top-[319px] left-[0px] pointer-events-none select-none z-1" />
         <Image src={blue1Asset.url} alt="{blue1Asset.alt}" width={blue1Asset.width} height={blue1Asset.height} 
-          className="object-contain absolute bottom-[267px] right-[56px] pointer-events-none select-none z-0" />
+          className="object-contain absolute bottom-[267px] right-[56px] pointer-events-none select-none z-1" />
         <Image src={mix5Asset.url} alt="{mix5Asset.alt}" width={mix5Asset.width} height={mix5Asset.height} 
           className="object-contain absolute bottom-[22px] right-[88px] pointer-events-none select-none z-1" />
       </div>
@@ -57,14 +57,14 @@ export default function P3Scene({ onNext, sceneName }: PageProps) {
           alt={liukanshanAsset.alt} 
           width={liukanshanAsset.width} 
           height={liukanshanAsset.height} 
-          className="object-contain absolute bottom-[85px] left-[12%]  pointer-events-none select-none z-0" 
+          className="object-contain absolute bottom-[85px] left-[12%]  pointer-events-none select-none z-1" 
         />
         <Image 
           src={jiangtaiAsset.url} 
           alt={jiangtaiAsset.alt} 
           width={jiangtaiAsset.width} 
           height={jiangtaiAsset.height} 
-          className="object-contain absolute bottom-[47px] left-[7%] pointer-events-none select-none z-0" 
+          className="object-contain absolute bottom-[47px] left-[7%] pointer-events-none select-none z-1" 
         />
       </div>
       <div className={typographyClass('title')}>

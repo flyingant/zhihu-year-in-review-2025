@@ -46,42 +46,42 @@ export default function P5Scene({ onNext, sceneName }: PageProps) {
       <div className="z-0">
         {/* 顺序从上到下 */}
         <Image src={mix6Asset.url} alt="{mix6Asset.alt}" width={mix6Asset.width} height={mix6Asset.height} 
-          className="object-contain absolute -top-[95px] left-[-8px] pointer-events-none select-none z-0" />
+          className="object-contain absolute -top-[95px] left-[-8px] pointer-events-none select-none z-1" />
         <Image src={mix3Asset.url} alt="{mix3Asset.alt}" width={mix3Asset.width} height={mix3Asset.height} 
-          className="object-contain absolute top-[35px] right-[0px] pointer-events-none select-none z-0" />
+          className="object-contain absolute top-[35px] right-[0px] pointer-events-none select-none z-1" />
         <Image src={blue2Asset.url} alt="{blue2Asset.alt}" width={blue2Asset.width} height={blue2Asset.height} 
-          className="object-contain absolute bottom-[267px] right-[56px] pointer-events-none select-none z-0" />
+          className="object-contain absolute bottom-[267px] right-[56px] pointer-events-none select-none z-1" />
         <Image src={mix5Asset.url} alt="{mix5Asset.alt}" width={mix5Asset.width} height={mix5Asset.height} 
           className="object-contain absolute bottom-[8px] right-[-20px] pointer-events-none select-none z-1" />
       </div>
-      <div className="z-0">
+      <div className="z-1">
         <Image 
           src={yellowMirrorAsset.url} 
           alt={yellowMirrorAsset.alt} 
           width={yellowMirrorAsset.width} 
           height={yellowMirrorAsset.height} 
-          className="object-contain absolute bottom-[49px] left-[0] pointer-events-none select-none z-0" 
+          className="object-contain absolute bottom-[49px] left-[0] pointer-events-none select-none z-1" 
         />
         <Image 
           src={liukanshanPixelAsset.url} 
           alt={liukanshanPixelAsset.alt} 
           width={liukanshanPixelAsset.width} 
           height={liukanshanPixelAsset.height} 
-          className="object-contain absolute bottom-[73px] left-[26px]  pointer-events-none select-none z-0" 
+          className="object-contain absolute bottom-[73px] left-[26px]  pointer-events-none select-none z-1" 
         />
         <Image 
           src={hiAsset.url} 
           alt={hiAsset.alt} 
           width={hiAsset.width} 
           height={hiAsset.height} 
-          className="object-contain absolute bottom-[203px] left-[126px] pointer-events-none select-none z-0" 
+          className="object-contain absolute bottom-[203px] left-[126px] pointer-events-none select-none z-1" 
         />
         <Image 
           src={liukanshanAsset.url} 
           alt={liukanshanAsset.alt} 
           width={liukanshanAsset.width} 
           height={liukanshanAsset.height} 
-          className="object-contain absolute bottom-[53px] right-[28px] pointer-events-none select-none z-0" 
+          className="object-contain absolute bottom-[53px] right-[28px] pointer-events-none select-none z-1" 
         />
       </div>
       <div className={typographyClass('title') + ' mb-[60px]'}>

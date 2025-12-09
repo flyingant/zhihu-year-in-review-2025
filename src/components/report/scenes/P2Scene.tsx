@@ -39,19 +39,19 @@ export default function P2Scene({ onNext, sceneName }: PageProps) {
       <div className="z-0">
         {/* 标题右侧蓝色小块 */}
         <Image src={blue1Asset.url} alt="{blue1Asset.alt}" width={blue1Asset.width} height={blue1Asset.height} 
-          className="object-contain absolute -top-[100px] right-[36px] pointer-events-none select-none z-0" />
+          className="object-contain absolute -top-[100px] right-[36px] pointer-events-none select-none z-1" />
         {/* 标题左侧粉色/绿色小块 */}
         <Image src={mix2Asset.url} alt="{mix2Asset.alt}" width={mix2Asset.width} height={mix2Asset.height} 
-          className="object-contain absolute top-[31px] left-[0px] pointer-events-none select-none z-0" />
+          className="object-contain absolute top-[31px] left-[0px] pointer-events-none select-none z-1" />
         {/* 中间左侧蓝色马赛克*/}
         <Image src={blue2Asset.url} alt="{blue2Asset.alt}" width={blue2Asset.width} height={blue2Asset.height} 
-          className="object-contain absolute bottom-[231px] left-[26px] pointer-events-none select-none z-0" />
+          className="object-contain absolute bottom-[231px] left-[26px] pointer-events-none select-none z-1" />
         {/* 左下角绿色故障树 */}
         <Image src={green1Asset.url} alt="{green1Asset.alt}" width={green1Asset.width} height={green1Asset.height} 
-          className="object-contain absolute bottom-[0%] left-[0px] pointer-events-none select-none z-0" />
+          className="object-contain absolute bottom-[0%] left-[0px] pointer-events-none select-none z-1" />
         {/* 右下角红绿长条 */}
         <Image src={mix1Asset.url} alt="{mix1Asset.alt}" width={mix1Asset.width} height={mix1Asset.height} 
-          className="object-contain absolute bottom-[0%] right-[0px] pointer-events-none select-none z-0" />
+          className="object-contain absolute bottom-[0%] right-[0px] pointer-events-none select-none z-1" />
       </div>
       <div className="z-0">
         <Image 
@@ -59,14 +59,14 @@ export default function P2Scene({ onNext, sceneName }: PageProps) {
           alt={blueBallAsset.alt} 
           width={blueBallAsset.width} 
           height={blueBallAsset.height} 
-          className="object-contain absolute bottom-[212px] right-[74px] pointer-events-none select-none z-0" 
+          className="object-contain absolute bottom-[212px] right-[74px] pointer-events-none select-none z-1" 
         />
         <Image 
           src={liukanshanAsset.url} 
           alt={liukanshanAsset.alt} 
           width={liukanshanAsset.width} 
           height={liukanshanAsset.height} 
-          className="object-contain absolute bottom-[40px] right-[55px]  pointer-events-none select-none z-0" 
+          className="object-contain absolute bottom-[40px] right-[55px]  pointer-events-none select-none z-1" 
         />
       </div>
      

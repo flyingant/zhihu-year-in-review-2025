@@ -216,6 +216,9 @@ export interface AssetsData {
       yellowMirror: AssetMetadata;
       hi: AssetMetadata;
     };
+    p6: {
+      liukanshan: AssetMetadata;
+    };
   };
   /**
    * 外部链接URL配置

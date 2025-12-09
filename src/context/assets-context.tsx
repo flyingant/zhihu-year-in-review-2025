@@ -196,6 +196,11 @@ export interface AssetsData {
       mix1: AssetMetadata;
       mix2: AssetMetadata;
     };
+    p2: {
+      liukanshan: AssetMetadata;
+      blueBall: AssetMetadata;
+      yellowBall: AssetMetadata;
+    };
   };
   /**
    * 外部链接URL配置

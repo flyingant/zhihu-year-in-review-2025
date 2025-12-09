@@ -64,6 +64,25 @@ const RewardSection = ({ onShowAddressForm }: RewardSectionProps = {}) => {
     fetchData();
   }, [assets]);
 
+  // Listen for refresh events from TaskSection
+  useEffect(() => {
+    if (!assets?.campaign) return;
+
+    const handleRefresh = async () => {
+      try {
+        const data = await getCampaignInfo(assets.campaign.activityId);
+        setCampaignData(data);
+      } catch (error) {
+        console.error("Failed to refresh campaign data:", error);
+      }
+    };
+
+    window.addEventListener('campaign-data-refresh', handleRefresh);
+    return () => {
+      window.removeEventListener('campaign-data-refresh', handleRefresh);
+    };
+  }, [assets]);
+
   if (!assets) return null;
 
   const bgAsset = assets.tasks.bg;

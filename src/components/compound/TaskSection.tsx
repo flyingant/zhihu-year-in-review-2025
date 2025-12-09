@@ -48,6 +48,10 @@ const TaskSection = () => {
     await fetchCampaignData();
     setIsRefreshing(false);
     showToast("刷新任务状态成功", "success");
+    // Dispatch event to notify other components (like RewardSection) to refresh
+    if (typeof window !== 'undefined') {
+      window.dispatchEvent(new CustomEvent('campaign-data-refresh'));
+    }
   };
 
   if (!assets) return null;

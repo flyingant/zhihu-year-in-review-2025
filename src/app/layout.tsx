@@ -11,10 +11,10 @@ import "./globals.css";
 
 export const metadata: Metadata = {
   title: "知乎 2025 年度盘点",
-  description: "知乎 2025 年度盘点",
+  description: "2025，到底什么是真的？",
   openGraph: {
     title: "知乎 2025 年度盘点",
-    description: "知乎 2025 年度盘点",
+    description: "2025，到底什么是真的？",
     images: [
       {
         url: "https://static.zhihu.com/event/zhihu2025/assets/share.png",

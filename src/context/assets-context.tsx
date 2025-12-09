@@ -207,6 +207,9 @@ export interface AssetsData {
     p3: {
       jiangtai: AssetMetadata;
     };
+    p4: {
+      caidai: AssetMetadata;
+    };
   };
   /**
    * 外部链接URL配置

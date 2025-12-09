@@ -24,10 +24,8 @@ export default function P3Scene({ onNext, sceneName }: PageProps) {
   const mix4Asset = bgAsset.mix4;
   const mix5Asset = bgAsset.mix5;
 
-  const p3Assets = assets.report.p3;
-  const p2Assets = assets.report.p2;
-  const liukanshanAsset = p2Assets.liukanshan;
-  const jiangtaiAsset = p3Assets.jiangtai;
+  const liukanshanAsset = assets.report.p2.liukanshan;
+  const jiangtaiAsset = assets.report.p3.jiangtai;
   
   // Map context data to component variables according to P3 spec
   const answerCount = reportData?.publish_answer_cnt ?? null;

@@ -192,6 +192,7 @@ export interface AssetsData {
     bg: {
       blue1: AssetMetadata;
       blue2: AssetMetadata;
+      blue15: AssetMetadata
       green1: AssetMetadata;
       mix1: AssetMetadata;
       mix2: AssetMetadata;
@@ -199,6 +200,9 @@ export interface AssetsData {
       mix4: AssetMetadata;
       mix5: AssetMetadata;
       mix6: AssetMetadata;
+      mix15: AssetMetadata;
+      mix15_1: AssetMetadata;
+      mix15_2: AssetMetadata;
     };
     p2: {
       liukanshan: AssetMetadata;
@@ -218,6 +222,9 @@ export interface AssetsData {
     };
     p6: {
       liukanshan: AssetMetadata;
+    };
+    p15: {
+      ladder: AssetMetadata;
     };
   };
   /**

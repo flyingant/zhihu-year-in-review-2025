@@ -17,6 +17,7 @@ export interface SceneTheme {
     fern: string;
     green: string;
     yellow: string;
+    purple: string;
   };
   
   // Typography sizes
@@ -42,6 +43,7 @@ export const defaultSceneTheme: SceneTheme = {
     fern: 'text-r-fern',
     green: 'text-r-green',
     yellow: 'text-r-yellow',
+    purple: 'text-r-purple',
   },
   typography: {
     title: 'text-[22px]',

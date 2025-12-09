@@ -102,7 +102,7 @@ export default function SceneManager() {
   };
 
   return (
-    <div className="w-full h-screen bg-gray-100 overflow-hidden">
+    <div className="w-full h-screen overflow-hidden">
       {/* AnimatePresence 处理页面转场 */}
       <AnimatePresence mode='wait'>
         <motion.div

@@ -514,7 +514,7 @@ const SidebarLiuKanshan = () => {
                             {/* QR Code */}
                             <div
                               className="relative shrink-0 bg-white p-2 rounded flex items-center justify-center"
-                              style={{ width: `${qrcodeAsset.width / 4}px`, height: `${qrcodeAsset.height / 4}px` }}
+                              style={{ width: `${qrcodeAsset.width / 2}px`, height: `${qrcodeAsset.height / 2}px` }}
                             >
                               <QRCode
                                 value={assets?.urls?.sidebarLiuKanshanInPCPublish || ''}

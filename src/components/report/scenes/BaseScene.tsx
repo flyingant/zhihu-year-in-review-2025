@@ -138,12 +138,16 @@ export default function BaseScene({
 
   return (
     <div
-      className={`relative w-full h-screen bg-white flex ${theme.layout.paddingTop} ${className} border border-red-500`}
-      style={styles}
+      className={`relative z-30 w-full h-full pt-[120px] ${className} `}
+      style={{
+        ...styles,
+        width: "100%",
+        maxWidth: '420px',
+      }}
     >
       <DebugPanel sceneName={sceneName} onNext={onNext} theme={theme} />
-      <div className={`relative ${theme.layout.containerWidth} bg-white ${containerClassName}`}>
-        <div className={`${theme.layout.baseFontSize} ${theme.layout.paddingX} ${contentClassName} `}>
+      <div className={`relative z-40 w-full h-full ${containerClassName}`}>
+        <div className={`${contentClassName} `}>
           {children}
         </div>
       </div>

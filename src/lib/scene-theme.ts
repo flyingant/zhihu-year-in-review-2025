@@ -19,14 +19,6 @@ export interface SceneTheme {
     yellow: string;
   };
   
-  // Layout settings
-  layout: {
-    containerWidth: string;
-    paddingTop: string;
-    paddingX: string;
-    baseFontSize: string;
-  };
-  
   // Typography sizes
   typography: {
     title: string;
@@ -50,12 +42,6 @@ export const defaultSceneTheme: SceneTheme = {
     fern: 'text-r-fern',
     green: 'text-r-green',
     yellow: 'text-r-yellow',
-  },
-  layout: {
-    containerWidth: 'w-[375px]',
-    paddingTop: 'pt-[120px]',
-    paddingX: 'pl-[34px] pr-[34px]',
-    baseFontSize: 'text-[14px]',
   },
   typography: {
     title: 'text-[22px]',
@@ -81,10 +67,6 @@ export function getSceneTheme(overrides?: Partial<SceneTheme>): SceneTheme {
     colors: {
       ...defaultSceneTheme.colors,
       ...overrides?.colors,
-    },
-    layout: {
-      ...defaultSceneTheme.layout,
-      ...overrides?.layout,
     },
     typography: {
       ...defaultSceneTheme.typography,

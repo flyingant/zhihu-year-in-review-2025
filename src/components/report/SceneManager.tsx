@@ -102,7 +102,7 @@ export default function SceneManager() {
   };
 
   return (
-    <div className="w-full h-screen overflow-hidden">
+    <div className="relative w-full h-full flex justify-center items-center z-20">
       {/* AnimatePresence 处理页面转场 */}
       <AnimatePresence mode='wait'>
         <motion.div
@@ -111,7 +111,7 @@ export default function SceneManager() {
           animate={{ opacity: 1, y: 0 }}
           exit={{ opacity: 0, y: -50 }}   // 离场：往上淡出
           transition={{ duration: 0.5 }}
-          className="w-full h-full"
+          className="h-full"
         >
           {/* 渲染当前页面，并传入跳转函数 */}
           <Component onNext={handleNext} sceneName={currentSceneId} {...extraProps} />

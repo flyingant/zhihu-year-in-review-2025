@@ -13,14 +13,11 @@ const tianwangFont = localFont({
 
 export default function ReportPage() {
   return (
-    <div className={tianwangFont.variable}>
+    <main className={`w-full h-screen bg-white text-black ${tianwangFont.variable}`}>
       <UserReportDataProvider>
-        <main className="w-full min-h-screen bg-white">
-          <GridBackground>
-            <SceneManager />
-          </GridBackground>
-        </main>
+        <GridBackground />
+        <SceneManager />
       </UserReportDataProvider>
-    </div>
+    </main>
   );
 }

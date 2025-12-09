@@ -128,9 +128,6 @@ function DebugPanel({ sceneName, onNext, theme }: { sceneName?: string; onNext?:
 export default function BaseScene({
   children,
   onNext,
-  className = '',
-  containerClassName = '',
-  contentClassName = '',
   sceneName,
 }: BaseSceneProps) {
   const theme = useSceneTheme();
@@ -138,7 +135,7 @@ export default function BaseScene({
 
   return (
     <div
-      className={`relative z-30 w-full h-full ${className} `}
+      className={`relative z-30 w-full h-full`}
       style={{
         ...styles,
         width: "100%",
@@ -146,10 +143,8 @@ export default function BaseScene({
       }}
     >
       <DebugPanel sceneName={sceneName} onNext={onNext} theme={theme} />
-      <div className={`relative z-40 w-full h-full ${containerClassName}`}>
-        <div className={`${contentClassName} `}>
-          {children}
-        </div>
+      <div className={`relative z-40 w-full h-full pt-[120px]`}>
+        {children}
       </div>
     </div>
   );

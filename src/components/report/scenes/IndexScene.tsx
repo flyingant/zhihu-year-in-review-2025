@@ -26,9 +26,6 @@ export default function IndexScene({ onNext, sceneName }: IndexSceneProps) {
     <BaseScene 
       onNext={onNext} 
       sceneName={sceneName}
-      className="pt-0 bg-blue-50"
-      containerClassName="w-full max-w-none"
-      contentClassName="p-0"
     >
       <div className="relative w-full h-full overflow-hidden flex flex-col items-center justify-center perspective-1000">
       <motion.div

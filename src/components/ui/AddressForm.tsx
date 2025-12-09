@@ -214,8 +214,8 @@ export default function AddressForm({ redeemParams, onClose }: AddressFormProps 
     } else {
       // Remove all URL parameters and reload the current page
       setTimeout(() => {
-        // pathname from usePathname() already excludes query params, but we ensure clean URL
-        let cleanPath = pathname.split('?')[0]; // Remove any query params if present
+        // Use window.location.pathname to preserve basePath (usePathname() excludes basePath)
+        let cleanPath = window.location.pathname.split('?')[0]; // Remove any query params if present
         // Ensure trailing slash for consistency with Next.js trailingSlash: true config
         if (cleanPath !== '/' && !cleanPath.endsWith('/')) {
           cleanPath = `${cleanPath}/`;
@@ -408,8 +408,8 @@ export default function AddressForm({ redeemParams, onClose }: AddressFormProps 
       } else {
         // Remove all URL parameters and reload the current page
         setTimeout(() => {
-          // pathname from usePathname() already excludes query params, but we ensure clean URL
-          let cleanPath = pathname.split('?')[0]; // Remove any query params if present
+          // Use window.location.pathname to preserve basePath (usePathname() excludes basePath)
+          let cleanPath = window.location.pathname.split('?')[0]; // Remove any query params if present
           // Ensure trailing slash for consistency with Next.js trailingSlash: true config
           if (cleanPath !== '/' && !cleanPath.endsWith('/')) {
             cleanPath = `${cleanPath}/`;

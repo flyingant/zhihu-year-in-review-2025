@@ -51,7 +51,12 @@ function DebugPanel({ sceneName, onNext, theme }: { sceneName?: string; onNext?:
     e.stopPropagation();
     if (typeof window !== 'undefined') {
       // Update hash using history API
-      const newUrl = `${window.location.pathname}#${sceneId}`;
+      // Ensure trailing slash for consistency with Next.js trailingSlash: true config
+      let pathname = window.location.pathname;
+      if (pathname !== '/' && !pathname.endsWith('/')) {
+        pathname = `${pathname}/`;
+      }
+      const newUrl = `${pathname}#${sceneId}`;
       window.history.replaceState(null, '', newUrl);
       // Manually trigger hashchange event for SceneManager to pick up
       // Using a custom event since HashChangeEvent constructor may not be available

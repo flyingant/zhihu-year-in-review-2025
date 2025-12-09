@@ -61,7 +61,12 @@ export default function SceneManager() {
     
     // 只在 hash 不同时更新，避免不必要的历史记录
     if (currentHash !== newHash) {
-      window.history.replaceState(null, '', `${window.location.pathname}${newHash}`);
+      // Ensure trailing slash for consistency with Next.js trailingSlash: true config
+      let pathname = window.location.pathname;
+      if (pathname !== '/' && !pathname.endsWith('/')) {
+        pathname = `${pathname}/`;
+      }
+      window.history.replaceState(null, '', `${pathname}${newHash}`);
     }
   }, [currentSceneId]);
 

@@ -3,6 +3,9 @@
 import { useUserReportData } from "@/context/user-report-data-context";
 import { colorClass, typographyClass } from "@/hooks/useSceneTheme";
 import BaseScene from "./BaseScene";
+import Image from "next/image";
+import { useAssets } from "@/context/assets-context";
+
 
 interface PageProps {
   onNext?: () => void;
@@ -11,6 +14,20 @@ interface PageProps {
 
 export default function P3Scene({ onNext, sceneName }: PageProps) {
   const { reportData } = useUserReportData();
+  const { assets } = useAssets();
+  if (!assets) return null;
+
+  const bgAsset = assets.report.bg;
+  const blue1Asset = bgAsset.blue1;
+  const blue2Asset = bgAsset.blue2;
+  const mix3Asset = bgAsset.mix3;
+  const mix4Asset = bgAsset.mix4;
+  const mix5Asset = bgAsset.mix5;
+
+  const p3Assets = assets.report.p3;
+  const p2Assets = assets.report.p2;
+  const liukanshanAsset = p2Assets.liukanshan;
+  const jiangtaiAsset = p3Assets.jiangtai;
   
   // Map context data to component variables according to P3 spec
   const answerCount = reportData?.publish_answer_cnt ?? null;
@@ -23,8 +40,37 @@ export default function P3Scene({ onNext, sceneName }: PageProps) {
 
   return (
     <BaseScene onNext={onNext} sceneName={sceneName}>
+      <div className="z-0">
+        {/* 顺序从上到下 */}
+        <Image src={blue2Asset.url} alt="{blue2Asset.alt}" width={blue2Asset.width} height={blue2Asset.height} 
+          className="object-contain absolute -top-[75px] left-[-8px] pointer-events-none select-none z-0" />
+        <Image src={mix3Asset.url} alt="{mix3Asset.alt}" width={mix3Asset.width} height={mix3Asset.height} 
+          className="object-contain absolute top-[35px] right-[0px] pointer-events-none select-none z-0" />
+        <Image src={mix4Asset.url} alt="{mix4Asset.alt}" width={mix4Asset.width} height={mix4Asset.height} 
+          className="object-contain absolute top-[319px] left-[0px] pointer-events-none select-none z-0" />
+        <Image src={blue1Asset.url} alt="{blue1Asset.alt}" width={blue1Asset.width} height={blue1Asset.height} 
+          className="object-contain absolute bottom-[267px] right-[56px] pointer-events-none select-none z-0" />
+        <Image src={mix5Asset.url} alt="{mix5Asset.alt}" width={mix5Asset.width} height={mix5Asset.height} 
+          className="object-contain absolute bottom-[22px] right-[88px] pointer-events-none select-none z-1" />
+      </div>
+      <div className="z-0">
+        <Image 
+          src={liukanshanAsset.url} 
+          alt={liukanshanAsset.alt} 
+          width={liukanshanAsset.width} 
+          height={liukanshanAsset.height} 
+          className="object-contain absolute bottom-[85px] left-[12%]  pointer-events-none select-none z-0" 
+        />
+        <Image 
+          src={jiangtaiAsset.url} 
+          alt={jiangtaiAsset.alt} 
+          width={jiangtaiAsset.width} 
+          height={jiangtaiAsset.height} 
+          className="object-contain absolute bottom-[47px] left-[7%] pointer-events-none select-none z-0" 
+        />
+      </div>
       <div className={typographyClass('title')}>
-        你的答案,让混沌变得清晰
+        这一年，你依旧好奇
       </div>
 
       <div className="pt-[60px] pb-[20px]">

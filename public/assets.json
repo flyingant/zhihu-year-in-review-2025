@@ -1133,6 +1133,24 @@
         "width": 44,
         "height": 32,
         "alt": "混合色块2"
+      },
+      "mix3": {
+        "url": "/assets/2025_2_report_bg_mix_3.png",
+        "width": 165,
+        "height": 24,
+        "alt": "混合色块3"
+      },
+      "mix4": {
+        "url": "/assets/2025_2_report_bg_mix_4.png",
+        "width": 108,
+        "height": 26,
+        "alt": "混合色块4"
+      },
+      "mix5": {
+        "url": "/assets/2025_2_report_bg_mix_5.png",
+        "width": 127,
+        "height": 52,
+        "alt": "混合色块5"
       }
     },
     "p2":{
@@ -1153,6 +1171,14 @@
         "width": 256,
         "height": 219,
         "alt": "yellowBall"
+      }
+    },
+    "p3": {
+      "jiangtai": {
+        "url": "/assets/2025_2_report_p3_jiangtai.png",
+        "width": 310,
+        "height": 146,
+        "alt": "jiangtai"
       }
     }
   }

@@ -195,11 +195,17 @@ export interface AssetsData {
       green1: AssetMetadata;
       mix1: AssetMetadata;
       mix2: AssetMetadata;
+      mix3: AssetMetadata;
+      mix4: AssetMetadata;
+      mix5: AssetMetadata;
     };
     p2: {
       liukanshan: AssetMetadata;
       blueBall: AssetMetadata;
       yellowBall: AssetMetadata;
+    };
+    p3: {
+      jiangtai: AssetMetadata;
     };
   };
   /**

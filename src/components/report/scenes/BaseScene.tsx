@@ -135,7 +135,7 @@ export default function BaseScene({
 
   return (
     <div
-      className={`relative z-30 w-full h-full`}
+      className={`relative z-30 w-full h-full bg-transparent`}
       style={{
         ...styles,
         width: "100%",
@@ -143,7 +143,7 @@ export default function BaseScene({
       }}
     >
       <DebugPanel sceneName={sceneName} onNext={onNext} theme={theme} />
-      <div className={`relative z-40 w-full h-full pt-[120px]`}>
+      <div className={`relative z-40 w-full h-full`}>
         {children}
       </div>
     </div>

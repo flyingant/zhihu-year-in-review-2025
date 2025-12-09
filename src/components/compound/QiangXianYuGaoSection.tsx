@@ -24,7 +24,7 @@ const QiangXianYuGaoSection = () => {
   const qiangXianYuGaoBanner = assets.newImages.qiangXianYuGaoBanner;
 
   return (
-    <div ref={moduleRef} className="relative w-full flex flex-col items-center pb-6">
+    <div id="preview-section" ref={moduleRef} className="relative w-full flex flex-col items-center pb-6">
       <div className="w-full flex items-center justify-center">
         <div className="relative w-full flex justify-center">
           <Image

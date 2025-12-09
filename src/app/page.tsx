@@ -89,6 +89,7 @@ function HomeContent() {
       'reward': 'reward-section',
       'task': 'task-inner-section',
       'computer': 'game-section',
+      'preview': 'preview-section',
     };
 
     const targetId = sectionMap[directToLower];

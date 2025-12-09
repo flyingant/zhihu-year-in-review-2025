@@ -1254,6 +1254,14 @@
         "height": 568,
         "alt": "ladder"
       }
+    },
+    "p16": {
+      "thumbUp": {
+        "url": "/assets/2025_2_report_p16_thumb_up.png",
+        "width": 375,
+        "height": 313,
+        "alt": "thumb_up"
+      }
     }
   }
 }

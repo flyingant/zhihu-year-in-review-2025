@@ -226,6 +226,9 @@ export interface AssetsData {
     p15: {
       ladder: AssetMetadata;
     };
+    p16: {
+      thumbUp: AssetMetadata;
+    };
   };
   /**
    * 外部链接URL配置

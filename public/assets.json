@@ -1151,6 +1151,12 @@
         "width": 127,
         "height": 52,
         "alt": "混合色块5"
+      },
+      "mix6": {
+        "url": "/assets/2025_2_report_bg_mix_6.png",
+        "width": 83,
+        "height": 40,
+        "alt": "混合色块6"
       }
     },
     "p2":{
@@ -1187,6 +1193,26 @@
         "width": 256,
         "height": 520,
         "alt": "caidai"
+      }
+    },
+    "p5": {
+      "liukanshan": {
+        "url": "/assets/2025_2_report_p5_liukanshan.png",
+        "width": 129,
+        "height": 159,
+        "alt": "liukanshan"
+      },
+      "yellowMirror": {
+        "url": "/assets/2025_2_report_p5_yellow_mirror.png",
+        "width": 191,
+        "height": 238,
+        "alt": "yellowMirror"
+      },
+      "hi": {
+        "url": "/assets/2025_2_report_p5_hi.png",
+        "width": 82,
+        "height": 82,
+        "alt": "hi"
       }
     }
   }

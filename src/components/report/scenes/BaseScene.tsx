@@ -138,7 +138,7 @@ export default function BaseScene({
 
   return (
     <div
-      className={`relative z-30 w-full h-full pt-[120px] ${className} `}
+      className={`relative z-30 w-full h-full ${className} `}
       style={{
         ...styles,
         width: "100%",

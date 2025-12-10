@@ -1142,6 +1142,12 @@
         "height": 33,
         "alt": "蓝色色块15"
       },
+      "blue16": {
+        "url": "/assets/2025_2_report_bg_blue_16.png",
+        "width": 26,
+        "height": 27,
+        "alt": "蓝色色块16"
+      },
       "green1": {
         "url": "/assets/2025_2_report_bg_green_1.png",
         "width": 145,
@@ -1213,6 +1219,18 @@
         "width": 116,
         "height": 26,
         "alt": "混合色块15_2"
+      },
+      "mix16_1": {
+        "url": "/assets/2025_2_report_bg_mix_16_1.png",
+        "width": 58,
+        "height": 24,
+        "alt": "混合色块16_1"
+      },
+      "mix16_2": {
+        "url": "/assets/2025_2_report_bg_mix_16_2.png",
+        "width": 138,
+        "height": 70,
+        "alt": "混合色块16_2"
       }
     },
     "p2": {
@@ -1359,6 +1377,18 @@
         "width": 375,
         "height": 313,
         "alt": "thumb_up"
+      },
+      "subscribe": {
+        "url": "/assets/2025_2_report_p16_subscribe.png",
+        "width": 40,
+        "height": 17,
+        "alt": "subscribe"
+      },
+      "subscribed": {
+        "url": "/assets/2025_2_report_p16_subscribed.png",
+        "width": 40,
+        "height": 17,
+        "alt": "subscribed"
       }
     }
   }

@@ -91,7 +91,7 @@ export default function P15Scene({ onNext, sceneName }: PageProps) {
         />
       </div>
 
-      <div className="z-0">
+      <div className={typographyClass("body") + " z-0"}>
         <div
           className={
             typographyClass("title") + " absolute leading-relaxed left-[32px]"
@@ -131,7 +131,7 @@ export default function P15Scene({ onNext, sceneName }: PageProps) {
               @{String(mostUpvoteMemberName ?? "most_upvote_member_name")}
             </span>
           </div>
-          <div className="text-sm">
+          <div>
             TA用{" "}
             <span
               className={`${colorClass("fern")} ${typographyClass(
@@ -142,7 +142,7 @@ export default function P15Scene({ onNext, sceneName }: PageProps) {
             </span>{" "}
             个赞同回应你的表达
           </div>
-          <div className="text-sm">
+          <div>
             和你互动最多的，是
             <span
               className={`${colorClass("pink")} ${typographyClass(
@@ -156,7 +156,7 @@ export default function P15Scene({ onNext, sceneName }: PageProps) {
           </div>
         </div>
 
-        <div className="absolute top-[566px] left-[114px] right-[20px] text-sm">
+        <div className="absolute top-[566px] left-[114px] right-[20px]">
           <div className="mb-[10px] wrap-break-word">
             <span
               className={`${colorClass("green")} ${typographyClass(

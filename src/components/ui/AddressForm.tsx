@@ -568,7 +568,8 @@ export default function AddressForm({ redeemParams, onClose }: AddressFormProps 
 
         {/* Notice Text */}
         <p className="text-xs text-gray mb-8">
-          收货地址不支持更换,请确保地址准确
+          收货地址不支持更换,请确保地址准确 <br />
+          实物奖品仅支持大陆地区寄送，港澳台用户请填写大陆亲友地址
         </p>
       </div>
 

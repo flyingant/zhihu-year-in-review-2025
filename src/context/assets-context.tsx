@@ -222,6 +222,7 @@ export interface AssetsData {
       mix16_1: AssetMetadata;
       mix16_2: AssetMetadata;
       mix17: AssetMetadata;
+      mix19: AssetMetadata;
     };
     p2: {
       liukanshan: AssetMetadata;
@@ -288,6 +289,13 @@ export interface AssetsData {
     };
     p18: {
       main: AssetMetadata;
+    };
+    p19: {
+      blue: AssetMetadata;
+      pink: AssetMetadata;
+      tiffany: AssetMetadata;
+      yellow: AssetMetadata;
+      liukanshan: AssetMetadata;
     };
   };
   /**

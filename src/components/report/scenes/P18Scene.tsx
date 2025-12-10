@@ -19,8 +19,6 @@ export default function P18Scene({ onNext, sceneName }: PageProps) {
 
   if (!assets) return null;
 
-  // const { ity, pointer1, pointer2, pointer3, pointer4, pointer5 } =
-  //   assets.report.p17;
   const { main } = assets.report.p18;
   const { blue15, blue16, mix15_1, mix15_2, mix16_1, mix16_2 } =
     assets.report.bg;

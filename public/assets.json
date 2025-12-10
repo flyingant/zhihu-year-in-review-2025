@@ -1243,6 +1243,12 @@
         "width": 79,
         "height": 26,
         "alt": "混合色块17"
+      },
+      "mix19": {
+        "url": "/assets/2025_2_report_bg_mix_19.png",
+        "width": 121,
+        "height": 38,
+        "alt": "混合色块19"
       }
     },
     "p2": {
@@ -1493,6 +1499,38 @@
         "width": 323,
         "height": 232,
         "alt": "main"
+      }
+    },
+    "p19": {
+      "liukanshan": {
+        "url": "/assets/2025_2_report_p19_liukanshan.png",
+        "width": 186,
+        "height": 91,
+        "alt": "liukanshan"
+      },
+      "blue": {
+        "url": "/assets/2025_2_report_p19_blue.png",
+        "width": 121,
+        "height": 151,
+        "alt": "blue"
+      },
+      "pink": {
+        "url": "/assets/2025_2_report_p19_pink.png",
+        "width": 135,
+        "height": 92,
+        "alt": "pink"
+      },
+      "tiffany": {
+        "url": "/assets/2025_2_report_p19_tiffany.png",
+        "width": 405,
+        "height": 202,
+        "alt": "tiffany"
+      },
+      "yellow": {
+        "url": "/assets/2025_2_report_p19_yellow.png",
+        "width": 196,
+        "height": 70,
+        "alt": "yellow"
       }
     }
   }

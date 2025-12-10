@@ -1486,6 +1486,14 @@
         "height": 144,
         "alt": "pointer5"
       }
+    },
+    "p18": {
+      "main": {
+        "url": "/assets/2025_2_report_p18_main.png",
+        "width": 323,
+        "height": 232,
+        "alt": "main"
+      }
     }
   }
 }

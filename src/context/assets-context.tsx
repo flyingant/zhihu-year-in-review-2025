@@ -286,6 +286,9 @@ export interface AssetsData {
       pointer4: AssetMetadata;
       pointer5: AssetMetadata;
     };
+    p18: {
+      main: AssetMetadata;
+    };
   };
   /**
    * 外部链接URL配置

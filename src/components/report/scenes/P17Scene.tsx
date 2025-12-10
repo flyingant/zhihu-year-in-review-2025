@@ -148,6 +148,7 @@ export default function P17Scene({ onNext, sceneName }: PageProps) {
           className="object-contain absolute top-[531px] left-[41px] pointer-events-none select-none z-1"
         />
       </div>
+      {/* content */}
       <div className="z-0 absolute top-[233px] left-[35px] right-[37px]">
         <div className="">
           <div className="mb-[10px]">

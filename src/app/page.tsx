@@ -10,6 +10,7 @@ import MiniComputerSection from "../components/compound/MiniComputerSection";
 import ZhihuLogo from "../components/ui/ZhihuLogo";
 import ZhihuSearch from "../components/ui/zhihuSearch";
 import HomeBottomBg from "../components/ui/homeBottomBg";
+import H5Logo from "../components/ui/H5Logo";
 import TaskSection from "../components/compound/TaskSection";
 import RewardSection from "../components/compound/RewardSection";
 import QiangXianYuGaoSection from "../components/compound/QiangXianYuGaoSection";
@@ -303,6 +304,10 @@ function HomeContent() {
 
           <SectionLayout topOffset={0} id="task-section">
             <TaskSection />
+          </SectionLayout>
+
+          <SectionLayout topOffset={0} id="h5-logo-section">
+            <H5Logo />
           </SectionLayout>
 
           <SectionLayout topOffset={0} id="zhihu-search-section">

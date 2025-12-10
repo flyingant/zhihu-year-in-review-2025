@@ -1281,6 +1281,26 @@
         "alt": "bubble"
       }
     },
+    "p8": {
+      "liukanshan": {
+        "url": "/assets/2025_2_report_p8_liukanshan.png",
+        "width": 170,
+        "height": 260,
+        "alt": "liukanshan"
+      },
+      "sparkle": {
+        "url": "/assets/2025_2_report_p8_sparkle.png",
+        "width": 190,
+        "height": 133,
+        "alt": "sparkle"
+      },  
+      "ship": {
+        "url": "/assets/2025_2_report_p8_ship.png",
+        "width": 32,
+        "height": 32,
+        "alt": "ship"
+      }
+    },
     "p15": {
       "ladder": {
         "url": "/assets/2025_2_report_p15_ladder.png",

@@ -232,6 +232,11 @@ export interface AssetsData {
       liukanshan: AssetMetadata;
       bubble: AssetMetadata;
     };
+    p8: {
+      liukanshan: AssetMetadata;
+      sparkle: AssetMetadata;
+      ship: AssetMetadata;
+    };
     p15: {
       ladder: AssetMetadata;
     };

@@ -99,6 +99,9 @@ export interface AssetsData {
   zhihuSearch: {
     bg: AssetMetadata;
   };
+  h5Logo: {
+    bg: AssetMetadata;
+  };
   yearly: {
     videoBg: AssetMetadata;
     reportBg: AssetMetadata;

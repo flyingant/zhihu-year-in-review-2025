@@ -522,6 +522,14 @@
       "alt": "知乎搜索"
     }
   },
+  "h5Logo": {
+    "bg": {
+      "url": "/assets/h5_logo.png",
+      "width": 750,
+      "height": 406,
+      "alt": "联合发布"
+    }
+  },
   "yearly": {
     "videoBg": {
       "url": "/assets/yearly_video_bg.png",

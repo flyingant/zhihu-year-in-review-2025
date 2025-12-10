@@ -11,9 +11,10 @@
 - **TypeScript** 5 - 类型系统
 
 ### 样式与 CSS
-- **Tailwind CSS** 4 - 实用优先的 CSS 框架
+- **Tailwind CSS** 3.4.17 - 实用优先的 CSS 框架
 - **PostCSS** - CSS 处理工具
-  - `@tailwindcss/postcss` 4.1.17
+  - `tailwindcss` 3.4.17
+  - `autoprefixer` 10.4.20 - 自动添加浏览器前缀
   - `postcss-mobile-forever` 5.0.0 - 移动端优先响应式设计
   - `postcss-px-to-viewport-8-plugin` 1.2.5 - px 到 vw/vh 转换
 - **CSS Filters** - 原生 CSS 滤镜效果（用于动画和视觉效果）

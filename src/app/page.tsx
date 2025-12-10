@@ -306,7 +306,7 @@ function HomeContent() {
             <TaskSection />
           </SectionLayout>
 
-          <SectionLayout topOffset={0} id="h5-logo-section">
+          <SectionLayout topOffset={-20} id="h5-logo-section">
             <H5Logo />
           </SectionLayout>
 

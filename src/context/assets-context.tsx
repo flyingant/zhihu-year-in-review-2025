@@ -208,6 +208,7 @@ export interface AssetsData {
       mix6: AssetMetadata;
       mix7: AssetMetadata;
       mix8: AssetMetadata;
+      mix9: AssetMetadata;
       mix15: AssetMetadata;
       mix15_1: AssetMetadata;
       mix15_2: AssetMetadata;
@@ -248,6 +249,15 @@ export interface AssetsData {
       group3: AssetMetadata;
       group4: AssetMetadata;
       words: AssetMetadata;
+    };
+    p11: {
+      folder: AssetMetadata;
+      words: AssetMetadata;
+      liukanshan: AssetMetadata;
+      table: AssetMetadata;
+      green: AssetMetadata;
+      yellow: AssetMetadata;
+      crown: AssetMetadata;
     };
     p15: {
       ladder: AssetMetadata;

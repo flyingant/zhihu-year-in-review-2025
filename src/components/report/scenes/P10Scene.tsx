@@ -20,7 +20,7 @@ export default function P10Scene({ onNext, sceneName }: PageProps) {
   const bgAsset = assets.report.bg;
   const blue1Asset = bgAsset.blue1;
   const blue2Asset = bgAsset.blue2;
-  const mix5Asset = bgAsset.mix5;
+  const mix9Asset = bgAsset.mix9;
   const mix7Asset = bgAsset.mix7;
   const mix8Asset = bgAsset.mix8;
   const group1Asset = assets.report.p10.group1;
@@ -62,8 +62,8 @@ export default function P10Scene({ onNext, sceneName }: PageProps) {
           className="object-contain absolute bottom-[308px] left-[0px] pointer-events-none select-none z-1" />
         <Image src={blue2Asset.url} alt="{blue2Asset.alt}" width={blue2Asset.width} height={blue2Asset.height} 
           className="object-contain absolute bottom-[220px] right-[21px] pointer-events-none select-none z-1" />
-        <Image src={mix5Asset.url} alt="{mix5Asset.alt}" width={mix5Asset.width} height={mix5Asset.height} 
-          className="object-contain absolute bottom-[60] right-[6px] pointer-events-none select-none z-1" />
+        <Image src={mix9Asset.url} alt="{mix9Asset.alt}" width={mix9Asset.width} height={mix9Asset.height} 
+          className="object-contain absolute bottom-[0] right-[6px] pointer-events-none select-none z-1" />
       </div>
       <div className={typographyClass('title') + ' leading-relaxed text-center pb-[24px]'}>
         你总共浏览了

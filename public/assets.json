@@ -1184,6 +1184,18 @@
         "height": 40,
         "alt": "混合色块6"
       },
+      "mix7": {
+        "url": "/assets/2025_2_report_bg_mix_7.png",
+        "width": 107,
+        "height": 29,
+        "alt": "混合色块7"
+      },
+      "mix8": {
+        "url": "/assets/2025_2_report_bg_mix_8.png",
+        "width": 76,
+        "height": 25,
+        "alt": "混合色块8"
+      },
       "mix15": {
         "url": "/assets/2025_2_report_bg_mix_15.png",
         "width": 167,
@@ -1299,6 +1311,38 @@
         "width": 32,
         "height": 32,
         "alt": "ship"
+      }
+    },
+    "p10": {
+      "group1": {
+        "url": "/assets/2025_2_report_p10_group1.png",
+        "width": 205,
+        "height": 164,
+        "alt": "group1"
+      },
+      "group2": {
+        "url": "/assets/2025_2_report_p10_group2.png",
+        "width": 205,
+        "height": 164,
+        "alt": "group2"
+      },
+      "group3": {
+        "url": "/assets/2025_2_report_p10_group3.png",
+        "width": 205,
+        "height": 164,
+        "alt": "group3"
+      },
+      "group4": {
+        "url": "/assets/2025_2_report_p10_group4.png",
+        "width": 205,
+        "height": 164,
+        "alt": "group4"
+      },
+      "words": {
+        "url": "/assets/2025_2_report_p10_words.png",
+        "width": 292,
+        "height": 42,
+        "alt": "words"
       }
     },
     "p15": {

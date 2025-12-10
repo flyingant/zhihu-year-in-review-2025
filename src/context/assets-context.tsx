@@ -267,6 +267,9 @@ export interface AssetsData {
       yellow: AssetMetadata;
       crown: AssetMetadata;
     };
+    p13: {
+      liukanshan: AssetMetadata;
+    };
     p15: {
       ladder: AssetMetadata;
     };

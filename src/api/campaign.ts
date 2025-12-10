@@ -121,6 +121,17 @@ export const getMomentLightList = () => {
   });
 };
 
+// 点亮/显影瞬间接口
+export const lightUpMoment = (position: MomentPosition) => {
+  return request<null>({
+    url: '/campaigns/v2/2025/moment_light',
+    method: 'POST',
+    data: {
+      position,
+    },
+  });
+};
+
 // 地址相关接口
 export interface RegionData {
   abcode: string;

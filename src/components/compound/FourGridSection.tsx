@@ -26,7 +26,6 @@ const FourGridSection = () => {
   const lightStatusMap = new Map<string, { light_status: 0 | 1; light_image_url: string; un_light_image_url: string }>();
 
   if (userData?.momentLightList) {
-    console.log('userData.momentLightList', userData.momentLightList);
     userData.momentLightList.forEach((item) => {
       const assetId = POSITION_TO_ID_MAP[item.position];
       if (!assetId) return;

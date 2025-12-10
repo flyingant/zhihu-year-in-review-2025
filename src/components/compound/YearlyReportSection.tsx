@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import Image from 'next/image';
 import { useAssets } from '@/context/assets-context';
 import { useElementCenter } from '@/hooks/useElementCenter';
@@ -9,14 +9,14 @@ import { useUserData } from '@/context/user-data-context';
 
 const YearlyReportSection = () => {
   const { assets } = useAssets();
-  const { userData } = useUserData();
+  const { userData, lightUpMomentAndRefresh } = useUserData();
   const { trackShow, trackEvent } = useZA();
 
   const { ref: setRefs, isCenter: showIcon, inView } = useElementCenter({
     triggerOnce: true,
     threshold: 0.5
   });
-  const [showClearImage, setShowClearImage] = useState(false);
+  // Removed local showClearImage usage now that images rely solely on API data
 
   useEffect(() => {
     if (inView) {
@@ -32,7 +32,7 @@ const YearlyReportSection = () => {
   if (!assets) return null;
 
   const handleReportClick = () => {
-    setShowClearImage(true);
+    lightUpMomentAndRefresh('annual_report');
     // phase2埋点5
     trackEvent('OpenUrl', {
       moduleId: 'annual_report_2025',
@@ -52,13 +52,18 @@ const YearlyReportSection = () => {
 
   const reportBg = assets.yearly.reportBg;
   const liukanshanLookup = assets.yearly.liukanshanLookup;
-  const blurryImage = assets.yearly.reportBlurImage;
-  const clearImage = assets.yearly.reportClearImage;
 
   // Get annual_report status from API
   const annualReportStatus = userData?.momentLightList?.find(
     (item) => item.position === 'annual_report'
   );
+
+  // Get the image URL to display based on status
+  const displayedImageUrl = annualReportStatus
+    ? (annualReportStatus.light_status === 1
+        ? annualReportStatus.light_image_url
+        : annualReportStatus.un_light_image_url)
+    : undefined;
 
   return (
     <div className="relative w-full flex flex-col items-center px-[16px]">
@@ -93,53 +98,17 @@ const YearlyReportSection = () => {
             </video>
           </div>
         </div>
-        <div className="absolute bottom-[5.5%] right-[8%] z-50 w-[20%] overflow-hidden rounded-[2px]">
-          {annualReportStatus && (annualReportStatus.un_light_image_url || annualReportStatus.light_image_url) ? (
-            <>
-              {annualReportStatus.un_light_image_url && (
-                <div className={`relative w-full transition-opacity duration-500 ${annualReportStatus.light_status === 1 ? 'opacity-0' : 'opacity-100'}`}>
-                  <Image
-                    src={annualReportStatus.un_light_image_url}
-                    alt={blurryImage.alt}
-                    width={blurryImage.width}
-                    height={blurryImage.height}
-                    className="object-cover"
-                  />
-                </div>
-              )}
-              {annualReportStatus.light_image_url && (
-                <div className={`absolute inset-0 w-full transition-opacity duration-500 ${annualReportStatus.light_status === 1 ? 'opacity-100' : 'opacity-0'}`}>
-                  <Image
-                    src={annualReportStatus.light_image_url}
-                    alt={clearImage.alt}
-                    width={clearImage.width}
-                    height={clearImage.height}
-                    className="object-cover"
-                  />
-                </div>
-              )}
-            </>
-          ) : (
-            <>
-              <div className={`relative w-full transition-opacity duration-500 ${showClearImage ? 'opacity-0' : 'opacity-100'}`}>
-                <Image
-                  src={blurryImage?.url}
-                  alt={blurryImage.alt}
-                  width={blurryImage.width}
-                  height={blurryImage.height}
-                  className="object-cover"
-                />
-              </div>
-              <div className={`absolute inset-0 w-full transition-opacity duration-500 ${showClearImage ? 'opacity-100' : 'opacity-0'}`}>
-                <Image
-                  src={clearImage?.url}
-                  alt={clearImage.alt}
-                  width={clearImage.width}
-                  height={clearImage.height}
-                  className="object-cover"
-                />
-              </div>
-            </>
+        <div className="absolute bottom-[5.5%] right-[8%] z-50 w-[20%] aspect-[184/104] overflow-hidden rounded-[2px]">
+          {displayedImageUrl && (
+            <div className="relative w-full h-full">
+              <Image
+                key={displayedImageUrl}
+                src={displayedImageUrl}
+                alt={annualReportStatus?.light_status === 1 ? "annual report clear" : "annual report blur"}
+                fill
+                className="object-cover transition-opacity duration-500 ease-in-out"
+              />
+            </div>
           )}
         </div>
         <div

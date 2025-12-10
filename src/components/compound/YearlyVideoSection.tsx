@@ -17,7 +17,7 @@ const generateRandomId = () => {
 
 const YearlyVideoSection = () => {
   const { assets } = useAssets();
-  const { userData } = useUserData();
+  const { userData, lightUpMomentAndRefresh } = useUserData();
   const playerContainerRef = useRef<HTMLDivElement>(null);
   const { trackShow, trackEvent } = useZA();
   const playIdentifierRef = useRef<string>("");
@@ -27,7 +27,7 @@ const YearlyVideoSection = () => {
     threshold: 0.5,
   });
 
-  const [showClearImage, setShowClearImage] = useState(false);
+  // Removed local showClearImage usage now that images rely solely on API data
   const [videoDetails, setVideoDetails] = useState<VideoDetailResponse | null>(null);
   const [videoUrl, setVideoUrl] = useState<string>('');
   const [isLoading, setIsLoading] = useState(true);
@@ -214,7 +214,7 @@ const YearlyVideoSection = () => {
       videoElement = playerContainerRef.current?.querySelector('video') as HTMLVideoElement | null;
       if (videoElement) {
         const handlePlay = () => {
-          setShowClearImage(true);
+          lightUpMomentAndRefresh('annual_video');
           trackEvent('Play', {
             moduleId: 'annual_video_2025',
             type: 'Button',
@@ -247,7 +247,7 @@ const YearlyVideoSection = () => {
 
     const cleanup = findAndAttachListener();
     return cleanup;
-  }, [videoUrl]);
+  }, [videoUrl, lightUpMomentAndRefresh, trackEvent]);
 
   const handleDiscuss = () => {
     trackEvent('OpenUrl', {
@@ -265,13 +265,18 @@ const YearlyVideoSection = () => {
 
   const videoBg = assets.yearly.videoBg;
   const liukanshanWaving = assets.yearly.liukanshanWaving;
-  const blurryImage = assets.yearly.videoBlurImage;
-  const clearImage = assets.yearly.videoClearImage;
 
   // Get annual_video status from API
   const annualVideoStatus = userData?.momentLightList?.find(
     (item) => item.position === 'annual_video'
   );
+
+  // Get the image URL to display based on status
+  const displayedImageUrl = annualVideoStatus
+    ? (annualVideoStatus.light_status === 1
+        ? annualVideoStatus.light_image_url
+        : annualVideoStatus.un_light_image_url)
+    : undefined;
 
   return (
     <div ref={setRefs} className="relative w-full flex flex-col items-center px-[16px] py-10">
@@ -338,54 +343,18 @@ const YearlyVideoSection = () => {
             </video>
           </div>
           <div
-            className="absolute bottom-[3%] left-[9%] w-[20%] z-20"
+            className="absolute bottom-[3%] left-[9%] w-[20%] aspect-[208/120] z-20"
           >
-            {annualVideoStatus && (annualVideoStatus.un_light_image_url || annualVideoStatus.light_image_url) ? (
-              <>
-                {annualVideoStatus.un_light_image_url && (
-                  <div className={`relative w-full transition-opacity duration-500 ${annualVideoStatus.light_status === 1 ? 'opacity-0' : 'opacity-100'}`}>
-                    <Image
-                      src={annualVideoStatus.un_light_image_url}
-                      alt={blurryImage.alt}
-                      width={blurryImage.width}
-                      height={blurryImage.height}
-                      className="object-cover"
-                    />
-                  </div>
-                )}
-                {annualVideoStatus.light_image_url && (
-                  <div className={`absolute inset-0 w-full transition-opacity duration-500 ${annualVideoStatus.light_status === 1 ? 'opacity-100' : 'opacity-0'}`}>
-                    <Image
-                      src={annualVideoStatus.light_image_url}
-                      alt={clearImage.alt}
-                      width={clearImage.width}
-                      height={clearImage.height}
-                      className="object-cover"
-                    />
-                  </div>
-                )}
-              </>
-            ) : (
-              <>
-                <div className={`relative w-full transition-opacity duration-500 ${showClearImage ? 'opacity-0' : 'opacity-100'}`}>
-                  <Image
-                    src={blurryImage?.url}
-                    alt={blurryImage.alt}
-                    width={blurryImage.width}
-                    height={blurryImage.height}
-                    className="object-cover"
-                  />
-                </div>
-                <div className={`absolute inset-0 w-full transition-opacity duration-500 ${showClearImage ? 'opacity-100' : 'opacity-0'}`}>
-                  <Image
-                    src={clearImage?.url}
-                    alt={clearImage.alt}
-                    width={clearImage.width}
-                    height={clearImage.height}
-                    className="object-cover"
-                  />
-                </div>
-              </>
+            {displayedImageUrl && (
+              <div className="relative w-full h-full">
+                <Image
+                  key={displayedImageUrl}
+                  src={displayedImageUrl}
+                  alt={annualVideoStatus?.light_status === 1 ? "annual video clear" : "annual video blur"}
+                  fill
+                  className="object-cover transition-opacity duration-500 ease-in-out"
+                />
+              </div>
             )}
           </div>
           {/* // 右下角按钮遮罩 */}

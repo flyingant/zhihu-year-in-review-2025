@@ -67,6 +67,7 @@ export interface AssetsData {
     zhenkeyiBlurImage: AssetMetadata;
     items: AssetMetadataWithJumpUrl[];
     liukanshanWaving: AssetMetadata;
+    liukanshanLookup: AssetMetadata;
   },
   newImages: {
     wuzida2025: AssetMetadata;
@@ -106,6 +107,7 @@ export interface AssetsData {
     videoBg: AssetMetadata;
     reportBg: AssetMetadata;
     liukanshanWaving: AssetMetadata;
+    liukanshanLookup: AssetMetadata;
     videoFrame: AssetMetadata;
     videoBlurImage: AssetMetadata;
     videoClearImage: AssetMetadata;

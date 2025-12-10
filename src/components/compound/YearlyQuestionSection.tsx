@@ -1,10 +1,11 @@
 "use client";
 
-import React, { useState, useRef } from 'react';
+import React, { useState } from 'react';
 import Image from 'next/image';
 import { useAssets } from '@/context/assets-context';
 import { useElementCenter } from '@/hooks/useElementCenter';
 import { useZA } from '@/hooks/useZA';
+import { useUserData } from '@/context/user-data-context';
 
 const MASK_POSITIONS = [
   { top: '16.5%', left: '6%', width: '43%', height: '12%' },  // 左1
@@ -21,6 +22,7 @@ const MASK_POSITIONS = [
 
 const TenQuestionsSection = () => {
   const { assets } = useAssets();
+  const { userData } = useUserData();
   const { ref: setRefs, isCenter: showIcon } = useElementCenter({ threshold: 0.5 });
 
   const { trackShow, trackEvent } = useZA();
@@ -34,6 +36,11 @@ const TenQuestionsSection = () => {
   const clearAsset = assets.yearly?.questionClearImage;
   const liukanshanAsset = assets.yearly.liukanshanWaving;
   const urlAsset = assets.urls.yearlyQuestions;
+
+  // Get annual_question status from API
+  const annualQuestionStatus = userData?.momentLightList?.find(
+    (item) => item.position === 'annual_question'
+  );
 
   const handleQuestionClick = (url: string, index: number) => {
     setShowClearImage(true);
@@ -92,19 +99,36 @@ const TenQuestionsSection = () => {
           ))}
 
           <div className="absolute bottom-[2.5%] left-[11.5%] w-[112px] h-[44px] z-50">
-            {/* 模糊图 */}
-            <div className={`absolute inset-0 w-full h-full transition-opacity duration-500 ${showClearImage ? 'opacity-0' : 'opacity-100'}`}>
-              {blurAsset && (
-                <Image src={blurAsset.url} fill className="object-contain" alt="blur" />
-              )}
-            </div>
+            {annualQuestionStatus && (annualQuestionStatus.un_light_image_url || annualQuestionStatus.light_image_url) ? (
+              <>
+                {annualQuestionStatus.un_light_image_url && (
+                  <div className={`absolute inset-0 w-full h-full transition-opacity duration-500 ${annualQuestionStatus.light_status === 1 ? 'opacity-0' : 'opacity-100'}`}>
+                    <Image src={annualQuestionStatus.un_light_image_url} fill className="object-contain" alt="blur" />
+                  </div>
+                )}
+                {annualQuestionStatus.light_image_url && (
+                  <div className={`absolute inset-0 w-full h-full transition-opacity duration-500 ${annualQuestionStatus.light_status === 1 ? 'opacity-100' : 'opacity-0'}`}>
+                    <Image src={annualQuestionStatus.light_image_url} fill className="object-contain" alt="clear" />
+                  </div>
+                )}
+              </>
+            ) : (
+              <>
+                {/* 模糊图 */}
+                <div className={`absolute inset-0 w-full h-full transition-opacity duration-500 ${showClearImage ? 'opacity-0' : 'opacity-100'}`}>
+                  {blurAsset && (
+                    <Image src={blurAsset.url} fill className="object-contain" alt="blur" />
+                  )}
+                </div>
 
-            {/* 清晰图 */}
-            <div className={`absolute inset-0 w-full h-full transition-opacity duration-500 ${showClearImage ? 'opacity-100' : 'opacity-0'}`}>
-              {clearAsset && (
-                <Image src={clearAsset.url} fill className="object-contain" alt="clear" />
-              )}
-            </div>
+                {/* 清晰图 */}
+                <div className={`absolute inset-0 w-full h-full transition-opacity duration-500 ${showClearImage ? 'opacity-100' : 'opacity-0'}`}>
+                  {clearAsset && (
+                    <Image src={clearAsset.url} fill className="object-contain" alt="clear" />
+                  )}
+                </div>
+              </>
+            )}
           </div>
 
         </div>

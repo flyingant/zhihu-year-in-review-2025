@@ -209,6 +209,12 @@
       "height": 72,
       "alt": "刘看山挥手"
     },
+    "liukanshanLookup": {
+      "url": "/assets/yearly_liukanshan_lookup.mp4",
+      "width": 72,
+      "height": 72,
+      "alt": "刘看山抬头"
+    },
     "zhenkeyiClearImage": {
       "url": "/assets/2025_2_zheXieZhenDeKeYi2_video_clear@3x.png",
       "width": 98,
@@ -572,6 +578,12 @@
       "width": 72,
       "height": 72,
       "alt": "刘看山挥手"
+    },
+    "liukanshanLookup": {
+      "url": "/assets/yearly_liukanshan_lookup.mp4",
+      "width": 72,
+      "height": 72,
+      "alt": "刘看山抬头"
     },
     "videoFrame": {
       "url": "/assets/yearly_video_frame.png",

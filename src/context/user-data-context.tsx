@@ -3,6 +3,7 @@
 import { createContext, useContext, useState, useEffect, useCallback, ReactNode } from "react";
 import { useAuth } from "./auth-context";
 import request from "@/lib/request";
+import { getMomentLightList, MomentLightItem } from "@/api/campaign";
 
 export interface MasterConfigItem {
   image_url: string;
@@ -18,6 +19,7 @@ interface UserData {
   address?: unknown;
   pointsTask?: unknown;
   masterConfig?: MasterConfig;
+  momentLightList?: MomentLightItem[];
 }
 
 interface UserDataContextType {
@@ -71,6 +73,18 @@ export function UserDataProvider({ children }: { children: ReactNode }) {
         ...prev,
         address: addressData,
       }));
+
+      // Fetch moment light list
+      try {
+        const momentLightListData = await getMomentLightList();
+        setUserData((prev) => ({
+          ...prev,
+          momentLightList: momentLightListData.list,
+        }));
+      } catch (err: unknown) {
+        console.error("Error fetching moment light list:", err);
+        // Don't set error for moment light list as it's not critical
+      }
     } catch (err: unknown) {
       console.error("Error fetching user data:", err);
       const errorMessage =
@@ -94,6 +108,7 @@ export function UserDataProvider({ children }: { children: ReactNode }) {
       // Clear user-specific data when user logs out, but keep master config
       setUserData((prev) => ({
         masterConfig: prev?.masterConfig,
+        momentLightList: undefined,
       }));
       setError(null);
     }

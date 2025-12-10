@@ -1,13 +1,15 @@
 "use client";
 
-import React, { useRef, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Image from 'next/image';
 import { useAssets } from '@/context/assets-context';
 import { useElementCenter } from '@/hooks/useElementCenter';
 import { useZA } from '@/hooks/useZA';
+import { useUserData } from '@/context/user-data-context';
 
 const YearlyReportSection = () => {
   const { assets } = useAssets();
+  const { userData } = useUserData();
   const { trackShow, trackEvent } = useZA();
 
   const { ref: setRefs, isCenter: showIcon, inView } = useElementCenter({
@@ -49,9 +51,14 @@ const YearlyReportSection = () => {
   };
 
   const reportBg = assets.yearly.reportBg;
-  const liukanshanWaving = assets.yearly.liukanshanWaving;
+  const liukanshanLookup = assets.yearly.liukanshanLookup;
   const blurryImage = assets.yearly.reportBlurImage;
   const clearImage = assets.yearly.reportClearImage;
+
+  // Get annual_report status from API
+  const annualReportStatus = userData?.momentLightList?.find(
+    (item) => item.position === 'annual_report'
+  );
 
   return (
     <div className="relative w-full flex flex-col items-center px-[16px]">
@@ -81,30 +88,59 @@ const YearlyReportSection = () => {
               playsInline
               preload="auto"
             >
-              <source src={liukanshanWaving.url} type="video/mp4" />
+              <source src={liukanshanLookup.url} type="video/mp4" />
               Your browser does not support the video tag.
             </video>
           </div>
         </div>
         <div className="absolute bottom-[5.5%] right-[8%] z-50 w-[20%] overflow-hidden rounded-[2px]">
-          <div className={`relative w-full transition-opacity duration-500 ${showClearImage ? 'opacity-0' : 'opacity-100'}`}>
-            <Image
-              src={blurryImage?.url}
-              alt={blurryImage.alt}
-              width={blurryImage.width}
-              height={blurryImage.height}
-              className="object-cover"
-            />
-          </div>
-          <div className={`absolute inset-0 w-full transition-opacity duration-500 ${showClearImage ? 'opacity-100' : 'opacity-0'}`}>
-            <Image
-              src={clearImage?.url}
-              alt={clearImage.alt}
-              width={clearImage.width}
-              height={clearImage.height}
-              className="object-cover"
-            />
-          </div>
+          {annualReportStatus && (annualReportStatus.un_light_image_url || annualReportStatus.light_image_url) ? (
+            <>
+              {annualReportStatus.un_light_image_url && (
+                <div className={`relative w-full transition-opacity duration-500 ${annualReportStatus.light_status === 1 ? 'opacity-0' : 'opacity-100'}`}>
+                  <Image
+                    src={annualReportStatus.un_light_image_url}
+                    alt={blurryImage.alt}
+                    width={blurryImage.width}
+                    height={blurryImage.height}
+                    className="object-cover"
+                  />
+                </div>
+              )}
+              {annualReportStatus.light_image_url && (
+                <div className={`absolute inset-0 w-full transition-opacity duration-500 ${annualReportStatus.light_status === 1 ? 'opacity-100' : 'opacity-0'}`}>
+                  <Image
+                    src={annualReportStatus.light_image_url}
+                    alt={clearImage.alt}
+                    width={clearImage.width}
+                    height={clearImage.height}
+                    className="object-cover"
+                  />
+                </div>
+              )}
+            </>
+          ) : (
+            <>
+              <div className={`relative w-full transition-opacity duration-500 ${showClearImage ? 'opacity-0' : 'opacity-100'}`}>
+                <Image
+                  src={blurryImage?.url}
+                  alt={blurryImage.alt}
+                  width={blurryImage.width}
+                  height={blurryImage.height}
+                  className="object-cover"
+                />
+              </div>
+              <div className={`absolute inset-0 w-full transition-opacity duration-500 ${showClearImage ? 'opacity-100' : 'opacity-0'}`}>
+                <Image
+                  src={clearImage?.url}
+                  alt={clearImage.alt}
+                  width={clearImage.width}
+                  height={clearImage.height}
+                  className="object-cover"
+                />
+              </div>
+            </>
+          )}
         </div>
         <div
           className="absolute bottom-[8%] left-[8%] w-[32%] h-[16%] z-30 cursor-pointer"

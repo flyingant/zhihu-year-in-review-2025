@@ -100,6 +100,27 @@ export const publishMomentPin = (momentContent: string, posterUrl: string) => {
   });
 };
 
+// 获取「分享瞬间」轻量列表（瞬间状态接口）
+export type MomentPosition = 'annual_video' | 'annual_report' | 'annual_question' | 'really_can';
+
+export interface MomentLightItem {
+  position: MomentPosition; // 模块位置
+  light_status: 0 | 1; // 点亮状态: 0=未点亮, 1=已点亮
+  light_image_url: string; // 点亮后图片地址
+  un_light_image_url: string; // 未点亮图片地址
+}
+
+export interface MomentLightListResponse {
+  list: MomentLightItem[];
+}
+
+export const getMomentLightList = () => {
+  return request<MomentLightListResponse>({
+    url: '/campaigns/v2/2025/moment_light_list',
+    method: 'GET',
+  });
+};
+
 // 地址相关接口
 export interface RegionData {
   abcode: string;
@@ -313,8 +334,12 @@ export interface AnnualQuestionCategory {
 }
 
 // 获取年度十问问题列表
+export interface AnnualQuestionListResponse {
+  list: AnnualQuestionCategory[];
+}
+
 export const getAnnualQuestionList = () => {
-  return request<AnnualQuestionCategory[]>({
+  return request<AnnualQuestionListResponse>({
     url: '/campaigns/v2/2025/annual_question_list',
     method: 'GET',
   });

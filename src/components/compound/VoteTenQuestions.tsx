@@ -16,17 +16,17 @@ import { useZhihuHybrid } from '@/hooks/useZhihuHybrid';
 
 const TOPICS = [
   { id: 'science', name: '科学工程', color: '#33E6F8' },
-  { id: 'travel', name: '旅 行', color: '#9DFF7F' },
+  { id: 'travel', name: '旅行', color: '#9DFF7F' },
   { id: 'fitness', name: '运动健身', color: '#C2F654' },
   { id: 'parenting', name: '母婴亲子', color: '#FFE655' },
   { id: 'emotion', name: '心理情感', color: '#FFC46B' },
   { id: 'movie', name: '影视娱乐', color: '#FF7E6B' },
-  { id: 'fashion', name: '时 尚', color: '#FF7EAB' },
-  { id: 'career', name: '职 场', color: '#FF9EE6' },
+  { id: 'fashion', name: '时尚', color: '#FF7EAB' },
+  { id: 'career', name: '职场', color: '#FF9EE6' },
   { id: 'game', name: '动漫游戏', color: '#D58DF9' },
   { id: 'home', name: '家居家电', color: '#90D7FF' },
-  { id: 'tech', name: '科 技', color: '#7E9FFF' },
-  { id: 'edu', name: '教 育', color: '#55E6D7' },
+  { id: 'tech', name: '科技', color: '#7E9FFF' },
+  { id: 'edu', name: '教育', color: '#55E6D7' },
   { id: 'sports', name: '体育竞技', color: '#85FF99' },
 ];
 
@@ -68,7 +68,8 @@ const VoteTenQuestions = () => {
     const fetchQuestions = async () => {
       try {
         setIsLoadingQuestions(true);
-        const categories = await getAnnualQuestionList();
+        const results = await getAnnualQuestionList();
+        const categories = results.list;
         const allQuestions: Question[] = [];
         let globalId = 1;
 

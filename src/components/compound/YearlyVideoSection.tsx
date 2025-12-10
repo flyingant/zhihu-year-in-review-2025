@@ -7,6 +7,7 @@ import { useAssets } from '@/context/assets-context';
 import { useElementCenter } from '@/hooks/useElementCenter';
 import { getVideoDetails, VideoDetailResponse, extractVideoPlayUrl, extractVideoQualityUrls } from '@/api/video';
 import { useZA } from '@/hooks/useZA';
+import { useUserData } from '@/context/user-data-context';
 
 const VIDEO_ID = "1855624605156438016";
 
@@ -16,6 +17,7 @@ const generateRandomId = () => {
 
 const YearlyVideoSection = () => {
   const { assets } = useAssets();
+  const { userData } = useUserData();
   const playerContainerRef = useRef<HTMLDivElement>(null);
   const { trackShow, trackEvent } = useZA();
   const playIdentifierRef = useRef<string>("");
@@ -266,6 +268,11 @@ const YearlyVideoSection = () => {
   const blurryImage = assets.yearly.videoBlurImage;
   const clearImage = assets.yearly.videoClearImage;
 
+  // Get annual_video status from API
+  const annualVideoStatus = userData?.momentLightList?.find(
+    (item) => item.position === 'annual_video'
+  );
+
   return (
     <div ref={setRefs} className="relative w-full flex flex-col items-center px-[16px] py-10">
       <div className="relative w-full flex flex-col items-center">
@@ -333,24 +340,53 @@ const YearlyVideoSection = () => {
           <div
             className="absolute bottom-[3%] left-[9%] w-[20%] z-20"
           >
-            <div className={`relative w-full transition-opacity duration-500 ${showClearImage ? 'opacity-0' : 'opacity-100'}`}>
-              <Image
-                src={blurryImage?.url}
-                alt={blurryImage.alt}
-                width={blurryImage.width}
-                height={blurryImage.height}
-                className="object-cover"
-              />
-            </div>
-            <div className={`absolute inset-0 w-full transition-opacity duration-500 ${showClearImage ? 'opacity-100' : 'opacity-0'}`}>
-              <Image
-                src={clearImage?.url}
-                alt={clearImage.alt}
-                width={clearImage.width}
-                height={clearImage.height}
-                className="object-cover"
-              />
-            </div>
+            {annualVideoStatus && (annualVideoStatus.un_light_image_url || annualVideoStatus.light_image_url) ? (
+              <>
+                {annualVideoStatus.un_light_image_url && (
+                  <div className={`relative w-full transition-opacity duration-500 ${annualVideoStatus.light_status === 1 ? 'opacity-0' : 'opacity-100'}`}>
+                    <Image
+                      src={annualVideoStatus.un_light_image_url}
+                      alt={blurryImage.alt}
+                      width={blurryImage.width}
+                      height={blurryImage.height}
+                      className="object-cover"
+                    />
+                  </div>
+                )}
+                {annualVideoStatus.light_image_url && (
+                  <div className={`absolute inset-0 w-full transition-opacity duration-500 ${annualVideoStatus.light_status === 1 ? 'opacity-100' : 'opacity-0'}`}>
+                    <Image
+                      src={annualVideoStatus.light_image_url}
+                      alt={clearImage.alt}
+                      width={clearImage.width}
+                      height={clearImage.height}
+                      className="object-cover"
+                    />
+                  </div>
+                )}
+              </>
+            ) : (
+              <>
+                <div className={`relative w-full transition-opacity duration-500 ${showClearImage ? 'opacity-0' : 'opacity-100'}`}>
+                  <Image
+                    src={blurryImage?.url}
+                    alt={blurryImage.alt}
+                    width={blurryImage.width}
+                    height={blurryImage.height}
+                    className="object-cover"
+                  />
+                </div>
+                <div className={`absolute inset-0 w-full transition-opacity duration-500 ${showClearImage ? 'opacity-100' : 'opacity-0'}`}>
+                  <Image
+                    src={clearImage?.url}
+                    alt={clearImage.alt}
+                    width={clearImage.width}
+                    height={clearImage.height}
+                    className="object-cover"
+                  />
+                </div>
+              </>
+            )}
           </div>
           {/* // 右下角按钮遮罩 */}
           <div

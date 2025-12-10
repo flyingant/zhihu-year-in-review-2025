@@ -10,9 +10,11 @@ import { completeTask, getCampaignInfo } from '@/api/campaign';
 import { useZhihuHybrid } from '@/hooks/useZhihuHybrid';
 import { useZhihuApp } from '@/hooks/useZhihuApp';
 import { useElementCenter } from '@/hooks/useElementCenter';
+import { useUserData } from '@/context/user-data-context';
 
 const RealCanDoSection = () => {
   const { assets } = useAssets();
+  const { userData } = useUserData();
   const { trackShow, trackEvent } = useZA();
   const { isAvailable: isHybridAvailable, openURL } = useZhihuHybrid();
   const isZhihuApp = useZhihuApp();
@@ -65,9 +67,14 @@ const RealCanDoSection = () => {
   const imagesToDisplay = sectionAssets.items || [];
   const titleAsset = sectionAssets.title;
   const liukanshanWaving = assets.yearly.liukanshanWaving;
+  const liukanshanLookup = assets.yearly.liukanshanLookup;
   const clearImageAsset = sectionAssets.zhenkeyiClearImage;
   const blurImageAsset = sectionAssets.zhenkeyiBlurImage;
-  ;
+
+  // Get really_can status from API
+  const reallyCanStatus = userData?.momentLightList?.find(
+    (item) => item.position === 'really_can'
+  );
 
   return (
     <div ref={setRefs} className="relative w-full flex flex-col">
@@ -94,18 +101,31 @@ const RealCanDoSection = () => {
             muted
             playsInline
           >
-            <source src={liukanshanWaving.url} type="video/mp4" />
+            <source src={liukanshanLookup.url} type="video/mp4" />
           </video>
         </div>
 
         <div className="absolute right-0 top-3 w-[100px] h-[80px] z-60">
           <div className="relative w-full h-full transition-all duration-500">
-            <Image
-              src={showClearImage ? clearImageAsset.url : blurImageAsset.url}
-              alt="状态图片"
-              fill
-              className="object-contain"
-            />
+            {reallyCanStatus && 
+             ((reallyCanStatus.light_status === 1 && reallyCanStatus.light_image_url) ||
+              (reallyCanStatus.light_status === 0 && reallyCanStatus.un_light_image_url)) ? (
+              <Image
+                src={reallyCanStatus.light_status === 1 
+                  ? reallyCanStatus.light_image_url 
+                  : reallyCanStatus.un_light_image_url}
+                alt="状态图片"
+                fill
+                className="object-contain"
+              />
+            ) : (
+              <Image
+                src={showClearImage ? clearImageAsset.url : blurImageAsset.url}
+                alt="状态图片"
+                fill
+                className="object-contain"
+              />
+            )}
           </div>
         </div>
       </div>

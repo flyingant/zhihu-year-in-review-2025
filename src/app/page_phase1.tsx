@@ -4,6 +4,7 @@ import { Suspense } from "react";
 import { useSearchParams } from "next/navigation";
 import AuthWrapper from "../components/layout/AuthWrapper";
 import KVSection from "../components/compound/KVSection";
+import FolderSection from "../components/compound/FolderSection";
 import SectionLayout from "../components/layout/SectionLayout";
 import MiniComputerSection from "../components/compound/MiniComputerSection";
 import ZhihuLogo from "../components/ui/ZhihuLogo";
@@ -12,21 +13,16 @@ import HomeBottomBg from "../components/ui/homeBottomBg";
 import H5Logo from "../components/ui/H5Logo";
 import TaskSection from "../components/compound/TaskSection";
 import RewardSection from "../components/compound/RewardSection";
+import QiangXianYuGaoSection from "../components/compound/QiangXianYuGaoSection";
+import QinZiDa2025Section from "../components/compound/QinZiDa2025Section";
 import ZaiZhiHuLianJieZhenShiSection from "../components/compound/ZaiZhiHuLianJieZhenShiSection";
+import ZheXieZhenDeKeYiSection from "../components/compound/ZheXieZhenDeKeYiSection";
 import SidebarLiuKanshan from "../components/ui/SidebarLiuKanshan";
 import AddressForm from "../components/ui/AddressForm";
 import { useAssets } from '@/context/assets-context';
 import { useEffect, useState } from 'react';
 import { useZA } from '@/hooks/useZA';
 import { useZhihuApp } from '@/hooks/useZhihuApp';
-import YearlyReportSection from "@/components/compound/YearlyReportSection";
-import YearlyQuestionSection from "@/components/compound/YearlyQuestionSection";
-import YearlyVideoSection from "@/components/compound/YearlyVideoSection";
-import VoteTenQuestions from "@/components/compound/VoteTenQuestions";
-import ZheXieZhenDeKeYiSection2 from "@/components/compound/ZheXieZhenDeKeYiSection2";
-import FourGridSection from "@/components/compound/FourGridSection";
-import NianZhongXiaoWenSection from "@/components/compound/NianZhongXiaoWenSection";
-import RealMoment from "@/components/compound/RealMoment";
 
 interface RedeemParams {
   rewardId: string;
@@ -265,43 +261,32 @@ function HomeContent() {
             />
           </div>
           {/* 刘看山对话框 */}
-          {/* <SidebarLiuKanshan /> */}
+          <SidebarLiuKanshan />
 
-           {/* KV 部分 */}
-           <SectionLayout topOffset={0} id="kv-section">
-            <KVSection variant="phase2" />
+          {/* KV 部分 */}
+          <SectionLayout topOffset={0} id="kv-section">
+            <KVSection />
           </SectionLayout>
 
-          <SectionLayout topOffset={-45} id="yearly-video-section">
-            <YearlyVideoSection />
-          </SectionLayout>
-
-          <SectionLayout topOffset={0} id="yearly-report-section">
-            <YearlyReportSection />
-          </SectionLayout>
-
-          <SectionLayout topOffset={0} id="yearly-questions-section">
-            <YearlyQuestionSection />
-          </SectionLayout>
-
-          <SectionLayout topOffset={0} id="vote-ten-questions-section">
-            <VoteTenQuestions />
-          </SectionLayout>
-
-          <SectionLayout topOffset={0} id="zhe-xie-zhen-de-ke-yi-section">
-            <ZheXieZhenDeKeYiSection2 />
-          </SectionLayout>
-
-          <SectionLayout topOffset={0} id="four-grid-section">
-            <FourGridSection />
-          </SectionLayout>
-
-          <SectionLayout topOffset={0} id="nian-zhong-xiao-wen-section">
-            <NianZhongXiaoWenSection />
+          {/* 文件夹交互部分 */}
+          <SectionLayout topOffset={0} id="folder-section">
+            <FolderSection />
           </SectionLayout>
 
           <SectionLayout topOffset={0} id="game-section">
             <MiniComputerSection />
+          </SectionLayout>
+
+          <SectionLayout topOffset={0} id="qiangxian-yugao-section">
+            <QiangXianYuGaoSection />
+          </SectionLayout>
+
+          <SectionLayout topOffset={0} id="zhexie-zhende-keyi-section">
+            <ZheXieZhenDeKeYiSection />
+          </SectionLayout>
+
+          <SectionLayout topOffset={0} id="wuzida2025-section">
+            <QinZiDa2025Section />
           </SectionLayout>
 
           <SectionLayout topOffset={0} id="zaizhihu-lianjie-zhenshi-section">
@@ -319,10 +304,6 @@ function HomeContent() {
 
           <SectionLayout topOffset={0} id="task-section">
             <TaskSection />
-          </SectionLayout>
-
-          <SectionLayout topOffset={0} id="real-moment-section">
-            <RealMoment />
           </SectionLayout>
 
           <SectionLayout topOffset={-20} id="h5-logo-section">

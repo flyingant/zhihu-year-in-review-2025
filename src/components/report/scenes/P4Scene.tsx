@@ -5,6 +5,7 @@ import { colorClass, typographyClass } from "@/hooks/useSceneTheme";
 import BaseScene from "./BaseScene";
 import Image from "next/image";
 import { useAssets } from "@/context/assets-context";
+import ZhihuLogo from "../../ui/ZhihuLogo";
 
 interface PageProps {
   onNext?: () => void;
@@ -43,12 +44,15 @@ export default function P4Scene({ onNext, sceneName }: PageProps) {
 
   return (
     <BaseScene onNext={onNext} sceneName={sceneName}>
+      <div className="pt-[60px] pb-[43px]">
+        <ZhihuLogo />
+      </div>
       <div className="z-0">
         {/* 顺序从上到下 */}
         <Image src={blue2Asset.url} alt="{blue2Asset.alt}" width={blue2Asset.width} height={blue2Asset.height} 
-          className="object-contain absolute -top-[75px] left-[-8px] pointer-events-none select-none z-1" />
+          className="object-contain absolute top-[45px] left-[-8px] pointer-events-none select-none z-1" />
         <Image src={mix3Asset.url} alt="{mix3Asset.alt}" width={mix3Asset.width} height={mix3Asset.height} 
-          className="object-contain absolute top-[35px] right-[0px] pointer-events-none select-none z-1" />
+          className="object-contain absolute top-[152px] right-[0px] pointer-events-none select-none z-1" />
         <Image src={mix4Asset.url} alt="{mix4Asset.alt}" width={mix4Asset.width} height={mix4Asset.height} 
           className="object-contain absolute top-[339px] left-[0px] pointer-events-none select-none z-1" />
         <Image src={blue1Asset.url} alt="{blue1Asset.alt}" width={blue1Asset.width} height={blue1Asset.height} 
@@ -79,16 +83,19 @@ export default function P4Scene({ onNext, sceneName }: PageProps) {
           className="object-contain absolute bottom-[47px] left-[7%] pointer-events-none select-none z-1" 
         />
       </div>
-      <div className={typographyClass('title')}>
-        这一年，你依旧好奇
-      </div>
-      <div className={typographyClass('title') + ' leading-relaxed'}>
-        你在「<span className={`${colorClass('blue')} ${typographyClass('subtitle')} px-[2px]`}>{questionTitle}</span>」问题下的回答,被<span className={`${colorClass('pink', 'font-bold')} ${typographyClass('subtitle')} px-[2px]`}>{upvoteCount}</span> 次赞同点亮,那是一次真实地被看见
-      </div>
+      <div className="px-[34px]">
+        <div className={typographyClass('title')}>
+          这一年，你依旧好奇
+        </div>
+        <div className={typographyClass('title') + ' leading-relaxed'}>
+          你在「<span className={`${colorClass('blue')} ${typographyClass('subtitle')} px-[2px]`}>{questionTitle}</span>」问题下的回答,被<span className={`${colorClass('pink', 'font-bold')} ${typographyClass('subtitle')} px-[2px]`}>{upvoteCount}</span> 次赞同点亮,那是一次真实地被看见
+        </div>
 
-      <div className="pt-[60px] pb-[20px]">
-        这一年,你还迎来了 <span className={`${colorClass('fern', 'font-bold')} ${typographyClass('highlight')} px-[2px]`}>{thousandUpvoteAnswers}</span> 条千赞时刻
+        <div className="pt-[60px] pb-[20px]">
+          这一年,你还迎来了 <span className={`${colorClass('fern', 'font-bold')} ${typographyClass('highlight')} px-[2px]`}>{thousandUpvoteAnswers}</span> 条千赞时刻
+        </div>
       </div>
+      
     </BaseScene>
   );
 }

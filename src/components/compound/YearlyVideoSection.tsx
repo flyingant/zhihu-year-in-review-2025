@@ -343,7 +343,7 @@ const YearlyVideoSection = () => {
             </video>
           </div>
           <div
-            className="absolute bottom-[3%] left-[9%] w-[20%] aspect-[208/120] z-20"
+            className="absolute bottom-[3%] left-[9%] w-[65px] h-[50px] z-20"
           >
             {displayedImageUrl && (
               <div className="relative w-full h-full">

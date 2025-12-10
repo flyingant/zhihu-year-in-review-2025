@@ -304,7 +304,7 @@ function HomeContent() {
             <MiniComputerSection />
           </SectionLayout>
 
-          <SectionLayout topOffset={0} id="zaizhihu-lianjie-zhenshi-section">
+          <SectionLayout topOffset={40} id="zaizhihu-lianjie-zhenshi-section">
             <ZaiZhiHuLianJieZhenShiSection />
           </SectionLayout>
 

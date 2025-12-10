@@ -98,7 +98,7 @@ const YearlyReportSection = () => {
             </video>
           </div>
         </div>
-        <div className="absolute bottom-[5.5%] right-[8%] z-50 w-[20%] aspect-[184/104] overflow-hidden rounded-[2px]">
+        <div className="absolute bottom-[5.5%] right-[8%] z-50 w-[65px] h-[50px] overflow-hidden rounded-[2px]">
           {displayedImageUrl && (
             <div className="relative w-full h-full">
               <Image

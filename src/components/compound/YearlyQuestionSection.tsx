@@ -103,7 +103,7 @@ const TenQuestionsSection = () => {
             />
           ))}
 
-          <div className="absolute bottom-[2.5%] left-[11.5%] w-[112px] h-[44px] z-50">
+          <div className="absolute bottom-[2.5%] left-[18%] w-[65px] h-[50px] z-50">
             {displayedImageUrl && (
               <div className="absolute inset-0 w-full h-full">
                 <Image 

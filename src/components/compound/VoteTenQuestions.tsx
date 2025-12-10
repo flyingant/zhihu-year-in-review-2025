@@ -158,6 +158,7 @@ const VoteTenQuestions = () => {
     setIsGeneratingPoster(true);
     try {
       // Convert selected questions to API format
+      // to mayi 这个就是我们要传给后端的格式
       const apiQuestions: AnnualQuestion[] = selectedQuestions.map(q => ({
         question_text: q.title,
         question_url: q.url,

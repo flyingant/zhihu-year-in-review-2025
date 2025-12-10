@@ -20,11 +20,11 @@ const convertRegionData = (apiData: RegionData[]): Region[] => {
   return apiData.map((province) => ({
     code: province.abcode || "",
     name: province.name,
-    children: province.city.map((city) => ({
-      code: city.code,
+    children: (province.city || []).map((city) => ({
+      code: city.code || "",
       name: city.name,
-      children: city.area.map((area) => ({
-        code: area.code,
+      children: (city.area || []).map((area) => ({
+        code: area.code || "",
         name: area.name,
       })),
     })),
@@ -53,15 +53,19 @@ export default function RegionPicker({
         
         // Set default selection if no region is selected
         if (convertedData.length > 0 && !selectedRegion) {
-          setSelectedProvince(convertedData[0]);
-          if (convertedData[0].children && convertedData[0].children.length > 0) {
-            setSelectedCity(convertedData[0].children[0]);
-            if (
-              convertedData[0].children[0].children &&
-              convertedData[0].children[0].children.length > 0
-            ) {
-              setSelectedDistrict(convertedData[0].children[0].children[0]);
+          const firstProvince = convertedData[0];
+          setSelectedProvince(firstProvince);
+          if (firstProvince.children && firstProvince.children.length > 0) {
+            const firstCity = firstProvince.children[0];
+            setSelectedCity(firstCity);
+            if (firstCity && firstCity.children && firstCity.children.length > 0) {
+              setSelectedDistrict(firstCity.children[0]);
+            } else {
+              setSelectedDistrict(null);
             }
+          } else {
+            setSelectedCity(null);
+            setSelectedDistrict(null);
           }
         }
       } catch (error) {
@@ -101,20 +105,23 @@ export default function RegionPicker({
 
   // Update city when province changes
   useEffect(() => {
-    if (selectedProvince && selectedProvince.children) {
+    if (selectedProvince && selectedProvince.children && selectedProvince.children.length > 0) {
       const newCity = selectedProvince.children[0];
       setSelectedCity(newCity);
-      if (newCity.children && newCity.children.length > 0) {
+      if (newCity && newCity.children && newCity.children.length > 0) {
         setSelectedDistrict(newCity.children[0]);
       } else {
         setSelectedDistrict(null);
       }
+    } else {
+      setSelectedCity(null);
+      setSelectedDistrict(null);
     }
   }, [selectedProvince]);
 
   // Update district when city changes
   useEffect(() => {
-    if (selectedCity && selectedCity.children) {
+    if (selectedCity && selectedCity.children && selectedCity.children.length > 0) {
       setSelectedDistrict(selectedCity.children[0]);
     } else {
       setSelectedDistrict(null);
@@ -122,10 +129,18 @@ export default function RegionPicker({
   }, [selectedCity]);
 
   const handleConfirm = () => {
-    if (selectedProvince && selectedCity && selectedDistrict) {
-      const regionString = `${selectedProvince.name} ${selectedCity.name} ${selectedDistrict.name}`;
-      onSelect(regionString);
+    if (!selectedProvince) return;
+    
+    const parts: string[] = [selectedProvince.name];
+    if (selectedCity) {
+      parts.push(selectedCity.name);
+      if (selectedDistrict) {
+        parts.push(selectedDistrict.name);
+      }
     }
+    
+    const regionString = parts.join(' ');
+    onSelect(regionString);
   };
 
   const provinces = regionData;
@@ -171,9 +186,9 @@ export default function RegionPicker({
         <div className="flex-1 flex overflow-hidden" style={{ height: 'calc(400px - 57px)' }}>
           {/* Province Column */}
           <div className="flex-1 overflow-y-auto border-r border-gray-200">
-            {provinces.map((province, index) => (
+            {provinces.map((province) => (
               <button
-                key={province.code || province.name || `province-${index}`}
+                key={`${province.name}-${province.code}`}
                 onClick={() => setSelectedProvince(province)}
                 className={`w-full text-left px-4 py-3 text-sm ${
                   selectedProvince?.name === province.name
@@ -189,12 +204,12 @@ export default function RegionPicker({
           {/* City Column */}
           {cities.length > 0 && (
             <div className="flex-1 overflow-y-auto border-r border-gray-200">
-              {cities.map((city, index) => (
+              {cities.map((city) => (
                 <button
-                  key={city.code || city.name || `city-${index}`}
+                  key={`${city.name}-${city.code}`}
                   onClick={() => setSelectedCity(city)}
                   className={`w-full text-left px-4 py-3 text-sm ${
-                    selectedCity?.code === city.code
+                    selectedCity && selectedCity.name === city.name
                       ? "bg-blue-50 text-[#056DE8] font-medium"
                       : "text-gray-900"
                   }`}
@@ -208,12 +223,12 @@ export default function RegionPicker({
           {/* District Column */}
           {districts.length > 0 && (
             <div className="flex-1 overflow-y-auto">
-              {districts.map((district, index) => (
+              {districts.map((district) => (
                 <button
-                  key={district.code || district.name || `district-${index}`}
+                  key={`${district.name}-${district.code}`}
                   onClick={() => setSelectedDistrict(district)}
                   className={`w-full text-left px-4 py-3 text-sm ${
-                    selectedDistrict?.code === district.code
+                    selectedDistrict && selectedDistrict.name === district.name
                       ? "bg-blue-50 text-[#056DE8] font-medium"
                       : "text-gray-900"
                   }`}

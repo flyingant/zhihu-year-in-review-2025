@@ -1267,6 +1267,20 @@
         "alt": "liukanshan"
       }
     },
+    "p7": {
+      "liukanshan": {
+        "url": "/assets/2025_2_report_p7_liukanshan.png",
+        "width": 334,
+        "height": 201,
+        "alt": "liukanshan"
+      },
+      "bubble": {
+        "url": "/assets/2025_2_report_p7_bubble.png",
+        "width": 81,
+        "height": 79,
+        "alt": "bubble"
+      }
+    },
     "p15": {
       "ladder": {
         "url": "/assets/2025_2_report_p15_ladder.png",

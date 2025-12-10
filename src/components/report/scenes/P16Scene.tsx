@@ -70,7 +70,7 @@ export default function P16Scene({ onNext, sceneName }: PageProps) {
           height={blue15.height}
           className="object-contain rotate-90 absolute top-[112px] right-[78px] pointer-events-none select-none z-0"
         />
-         <Image
+        <Image
           src={blue15.url}
           alt={blue15.alt}
           width={blue15.width}
@@ -82,7 +82,7 @@ export default function P16Scene({ onNext, sceneName }: PageProps) {
           alt={mix15_1.alt}
           width={mix15_1.width}
           height={mix15_1.height}
-          className="object-contain absolute top-[79px] left-[0px] pointer-events-none select-none z-1"
+          className="object-contain absolute top-[79px] left-0 pointer-events-none select-none z-1"
         />
         <Image
           src={mix16_2.url}
@@ -91,10 +91,13 @@ export default function P16Scene({ onNext, sceneName }: PageProps) {
           height={mix16_2.height}
           className="object-contain absolute top-[689px] right-0 pointer-events-none select-none z-1"
         />
- 
       </div>
       {/* content */}
-      <div className={typographyClass("body") + "  absolute z-0 top-[381px] left-[35px]"}>
+      <div
+        className={
+          typographyClass("body") + "  absolute z-0 top-[381px] left-[35px]"
+        }
+      >
         <div className="leading-relaxed">
           今年,你点亮了{" "}
           <span
@@ -136,10 +139,7 @@ export default function P16Scene({ onNext, sceneName }: PageProps) {
                 "subtitle"
               )} px-[2px]`}
             >
-              @
-              {String(
-                sendMostUpvoteMemberName ?? "sote_member_name"
-              )}
+              @{String(sendMostUpvoteMemberName ?? "sote_member_name")}
             </span>
           </div>
         </div>

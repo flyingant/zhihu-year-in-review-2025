@@ -1,6 +1,13 @@
 "use client";
 
-import { createContext, useContext, useState, useEffect, useCallback, ReactNode } from "react";
+import {
+  createContext,
+  useContext,
+  useState,
+  useEffect,
+  useCallback,
+  ReactNode,
+} from "react";
 
 /**
  * Asset metadata type
@@ -68,7 +75,7 @@ export interface AssetsData {
     items: AssetMetadataWithJumpUrl[];
     liukanshanWaving: AssetMetadata;
     liukanshanLookup: AssetMetadata;
-  },
+  };
   newImages: {
     wuzida2025: AssetMetadata;
     wuzida2025Banner: AssetMetadata;
@@ -214,6 +221,7 @@ export interface AssetsData {
       mix15_2: AssetMetadata;
       mix16_1: AssetMetadata;
       mix16_2: AssetMetadata;
+      mix17: AssetMetadata;
     };
     p2: {
       liukanshan: AssetMetadata;
@@ -266,6 +274,14 @@ export interface AssetsData {
       thumbUp: AssetMetadata;
       subscribe: AssetMetadata;
       subscribed: AssetMetadata;
+    };
+    p17: {
+      city: AssetMetadata;
+      pointer1: AssetMetadata;
+      pointer2: AssetMetadata;
+      pointer3: AssetMetadata;
+      pointer4: AssetMetadata;
+      pointer5: AssetMetadata;
     };
   };
   /**
@@ -350,7 +366,7 @@ export interface AssetsData {
 
 // Component expiration dates (in milliseconds since epoch)
 export const componentExpiration = {
-  sidebarLiuKanshan: new Date('2025-12-25T00:00:00').getTime(), // 2025.12.25 00:00
+  sidebarLiuKanshan: new Date("2025-12-25T00:00:00").getTime(), // 2025.12.25 00:00
 };
 
 interface AssetsContextType {
@@ -365,7 +381,8 @@ const AssetsContext = createContext<AssetsContextType | undefined>(undefined);
 
 // Build version for cache busting - generated once at module load time
 // This ensures all assets in the same build have the same version
-const BUILD_VERSION = process.env.NEXT_PUBLIC_BUILD_VERSION || Date.now().toString();
+const BUILD_VERSION =
+  process.env.NEXT_PUBLIC_BUILD_VERSION || Date.now().toString();
 
 export function AssetsProvider({ children }: { children: ReactNode }) {
   const [assets, setAssets] = useState<AssetsData | null>(null);
@@ -379,12 +396,14 @@ export function AssetsProvider({ children }: { children: ReactNode }) {
     try {
       // Get basePath from NEXT_PUBLIC_BASE_URL (same as next.config.mjs)
       // Falls back to production default '/zhihu2025' if not set
-      const BASE_PATH = process.env.NEXT_PUBLIC_BASE_URL || '';
-      const CDN_BASE_URL = process.env.NEXT_PUBLIC_CDN_BASE_URL || '';
+      const BASE_PATH = process.env.NEXT_PUBLIC_BASE_URL || "";
+      const CDN_BASE_URL = process.env.NEXT_PUBLIC_CDN_BASE_URL || "";
 
       // Fetch assets.json: Always use BASE_PATH (never CDN) with timestamp for cache busting
-      const baseAssetsPath = BASE_PATH ? `${BASE_PATH}/assets.json` : '/assets.json';
-      const separator = baseAssetsPath.includes('?') ? '&' : '?';
+      const baseAssetsPath = BASE_PATH
+        ? `${BASE_PATH}/assets.json`
+        : "/assets.json";
+      const separator = baseAssetsPath.includes("?") ? "&" : "?";
       const assetsJsonPath = `${baseAssetsPath}${separator}v=${BUILD_VERSION}`;
       const response = await fetch(assetsJsonPath);
 
@@ -399,18 +418,22 @@ export function AssetsProvider({ children }: { children: ReactNode }) {
         if (!url) return url;
 
         // If URL is already absolute (starts with http:// or https://), return as is
-        if (url.startsWith('http://') || url.startsWith('https://')) {
+        if (url.startsWith("http://") || url.startsWith("https://")) {
           return url;
         }
 
         // For relative URLs, combine CDN_BASE_URL + BASE_PATH if CDN is configured
         // Otherwise, use BASE_PATH only
-        let baseUrl = '';
+        let baseUrl = "";
         if (CDN_BASE_URL) {
           // Combine CDN_BASE_URL + BASE_PATH
-          const cdnBase = CDN_BASE_URL.endsWith('/') ? CDN_BASE_URL.slice(0, -1) : CDN_BASE_URL;
+          const cdnBase = CDN_BASE_URL.endsWith("/")
+            ? CDN_BASE_URL.slice(0, -1)
+            : CDN_BASE_URL;
           if (BASE_PATH) {
-            const basePath = BASE_PATH.startsWith('/') ? BASE_PATH : `/${BASE_PATH}`;
+            const basePath = BASE_PATH.startsWith("/")
+              ? BASE_PATH
+              : `/${BASE_PATH}`;
             baseUrl = `${cdnBase}${basePath}`;
           } else {
             baseUrl = cdnBase;
@@ -423,21 +446,25 @@ export function AssetsProvider({ children }: { children: ReactNode }) {
         let finalUrl = url;
 
         // If URL starts with '/', prepend the base URL
-        if (url.startsWith('/')) {
+        if (url.startsWith("/")) {
           if (baseUrl) {
             const cleanPath = url.slice(1); // Remove leading slash
             // Ensure baseUrl doesn't end with / and cleanPath doesn't start with /
-            const cleanBaseUrl = baseUrl.endsWith('/') ? baseUrl.slice(0, -1) : baseUrl;
+            const cleanBaseUrl = baseUrl.endsWith("/")
+              ? baseUrl.slice(0, -1)
+              : baseUrl;
             finalUrl = `${cleanBaseUrl}/${cleanPath}`;
           }
         } else if (baseUrl) {
           // If URL doesn't start with '/', still prepend base URL if available
-          const cleanBaseUrl = baseUrl.endsWith('/') ? baseUrl.slice(0, -1) : baseUrl;
+          const cleanBaseUrl = baseUrl.endsWith("/")
+            ? baseUrl.slice(0, -1)
+            : baseUrl;
           finalUrl = `${cleanBaseUrl}/${url}`;
         }
 
         // Append version query parameter for cache busting
-        const separator = finalUrl.includes('?') ? '&' : '?';
+        const separator = finalUrl.includes("?") ? "&" : "?";
         return `${finalUrl}${separator}v=${BUILD_VERSION}`;
       };
 
@@ -445,16 +472,19 @@ export function AssetsProvider({ children }: { children: ReactNode }) {
       const transformAssets = (obj: unknown): unknown => {
         if (Array.isArray(obj)) {
           return obj.map(transformAssets);
-        } else if (obj && typeof obj === 'object' && obj !== null) {
+        } else if (obj && typeof obj === "object" && obj !== null) {
           const objRecord = obj as Record<string, unknown>;
-          if ('url' in objRecord && typeof objRecord.url === 'string') {
+          if ("url" in objRecord && typeof objRecord.url === "string") {
             return {
               ...objRecord,
               url: transformAssetUrl(objRecord.url),
             };
           }
           return Object.fromEntries(
-            Object.entries(objRecord).map(([key, value]) => [key, transformAssets(value)])
+            Object.entries(objRecord).map(([key, value]) => [
+              key,
+              transformAssets(value),
+            ])
           );
         }
         return obj;
@@ -503,4 +533,3 @@ export function useAssets() {
   }
   return context;
 }
-

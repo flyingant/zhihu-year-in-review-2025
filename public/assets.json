@@ -1237,6 +1237,12 @@
         "width": 138,
         "height": 70,
         "alt": "混合色块16_2"
+      },
+      "mix17": {
+        "url": "/assets/2025_2_report_bg_mix_17.png",
+        "width": 79,
+        "height": 26,
+        "alt": "混合色块17"
       }
     },
     "p2": {
@@ -1433,6 +1439,44 @@
         "width": 40,
         "height": 17,
         "alt": "subscribed"
+      }
+    },
+    "p17": {
+      "city": {
+        "url": "/assets/2025_2_report_p17_city.png",
+        "width": 100,
+        "height": 39,
+        "alt": "city"
+      },
+      "pointer1": {
+        "url": "/assets/2025_2_report_p17_pointer1.png",
+        "width": 81,
+        "height": 105,
+        "alt": "pointer1"
+      },
+      "pointer2": {
+        "url": "/assets/2025_2_report_p17_pointer2.png",
+        "width": 60,
+        "height": 74,
+        "alt": "pointer2"
+      },
+      "pointer3": {
+        "url": "/assets/2025_2_report_p17_pointer3.png",
+        "width": 71,
+        "height": 64,
+        "alt": "pointer3"
+      },
+      "pointer4": {
+        "url": "/assets/2025_2_report_p17_pointer4.png",
+        "width": 66,
+        "height": 82,
+        "alt": "pointer4"
+      },
+      "pointer5": {
+        "url": "/assets/2025_2_report_p17_pointer5.png",
+        "width": 139,
+        "height": 144,
+        "alt": "pointer5"
       }
     }
   }

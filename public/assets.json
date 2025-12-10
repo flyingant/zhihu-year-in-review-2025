@@ -1249,6 +1249,12 @@
         "width": 121,
         "height": 38,
         "alt": "混合色块19"
+      },
+      "mix20": {
+        "url": "/assets/2025_2_report_bg_mix_20.png",
+        "width": 66,
+        "height": 31,
+        "alt": "混合色块20"
       }
     },
     "p2": {
@@ -1531,6 +1537,14 @@
         "width": 196,
         "height": 70,
         "alt": "yellow"
+      }
+    },
+    "p20": {
+      "main": {
+        "url": "/assets/2025_2_report_p20_main.png",
+        "width": 299,
+        "height": 421,
+        "alt": "main"
       }
     }
   }

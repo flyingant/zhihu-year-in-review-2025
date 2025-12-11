@@ -35,9 +35,6 @@ export default function P15Scene({ onNext, sceneName }: PageProps) {
 
   return (
     <BaseScene onNext={onNext} sceneName={sceneName}>
-      <div className="pt-[55px] pb-[35px]">
-        <ZhihuLogo />
-      </div>
       <div className="z-0">
         <Image
           src={blue15.url}
@@ -91,14 +88,14 @@ export default function P15Scene({ onNext, sceneName }: PageProps) {
         />
       </div>
 
-      <div className={typographyClass("body") + " z-0"}>
-        <div
+      <div className=" z-0 pt-[113px]">
+        <span
           className={
             typographyClass("title") + " absolute leading-relaxed left-[32px]"
           }
         >
-          真实的连接,从点滴开启
-        </div>
+          真实的连接, 从点滴开启
+        </span>
 
         <div className="absolute left-[120px] top-[172px]">
           <div className="flex items-center gap-1">

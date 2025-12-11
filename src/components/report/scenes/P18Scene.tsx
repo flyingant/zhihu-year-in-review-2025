@@ -5,7 +5,6 @@ import { colorClass, typographyClass } from "@/hooks/useSceneTheme";
 import BaseScene from "./BaseScene";
 import { useAssets } from "@/context/assets-context";
 import Image from "next/image";
-import ZhihuLogo from "@/components/ui/ZhihuLogo";
 
 interface PageProps {
   onNext?: () => void;
@@ -43,10 +42,6 @@ export default function P18Scene({ onNext, sceneName }: PageProps) {
 
   return (
     <BaseScene onNext={onNext} sceneName={sceneName}>
-      {/* logo */}
-      <div className="pt-[55px] pb-[35px]">
-        <ZhihuLogo />
-      </div>
       {/* background */}
       <div className="z-0">
         <Image
@@ -111,7 +106,7 @@ export default function P18Scene({ onNext, sceneName }: PageProps) {
         <div
           className={
             typographyClass("subtitle") +
-            " leading-relaxed absolute left-[30px]"
+            " leading-relaxed absolute left-[30px] top-[121px]"
           }
         >
           感谢有你,圈子一直在发光

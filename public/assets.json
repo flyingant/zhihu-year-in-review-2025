@@ -1617,6 +1617,38 @@
         "alt": "yellow"
       }
     },
+    "p12": {
+      "liukanshan": {
+        "url": "/assets/2025_2_report_p12_liukanshan.png",
+        "width": 105,
+        "height": 132,
+        "alt": "liukanshan"
+      },
+      "sun": {
+        "url": "/assets/2025_2_report_p12_sun.png",
+        "width": 44,
+        "height": 45,
+        "alt": "sun"
+      },
+      "moon": {
+        "url": "/assets/2025_2_report_p12_moon.png",
+        "width": 52,
+        "height": 48,
+        "alt": "moon"
+      },
+      "bar": {
+        "url": "/assets/2025_2_report_p12_bar.png",
+        "width": 329,
+        "height": 98,
+        "alt": "bar"
+      },
+      "clock": {
+        "url": "/assets/2025_2_report_p12_clock.png",
+        "width": 263,
+        "height": 263,
+        "alt": "clock"
+      }
+    },
     "p13": {
       "liukanshan": {
         "url": "/assets/2025_2_report_p13_liukanshan.png",

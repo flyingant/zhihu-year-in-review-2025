@@ -306,6 +306,13 @@ export interface AssetsData {
       yellow: AssetMetadata;
       crown: AssetMetadata;
     };
+    p12: {
+      liukanshan: AssetMetadata;
+      sun: AssetMetadata;
+      moon: AssetMetadata;
+      bar: AssetMetadata;
+      clock: AssetMetadata;
+    };
     p13: {
       liukanshan: AssetMetadata;
     };

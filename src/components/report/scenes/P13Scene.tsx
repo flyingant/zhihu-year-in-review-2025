@@ -18,7 +18,7 @@ export default function P13Scene({ onNext, sceneName }: PageProps) {
   if (!assets) return null;
 
   const bgAsset = assets.report.bg;
-  const blue1Asset = bgAsset.blue1;
+  const blue10Asset = bgAsset.blue10;
   const mix9Asset = bgAsset.mix9;
   const mix7Asset = bgAsset.mix7;
   const mix8Asset = bgAsset.mix8;
@@ -40,13 +40,13 @@ export default function P13Scene({ onNext, sceneName }: PageProps) {
     <BaseScene onNext={onNext} sceneName={sceneName}>
       <GlitchLayer className="z-0">
         {/* 顺序从上到下 */}
-        <Image src={blue1Asset.url} alt="{blue1Asset.alt}" width={blue1Asset.width} height={blue1Asset.height} 
+        <Image src={blue10Asset.url} alt="{blue10Asset.alt}" width={blue10Asset.width} height={blue10Asset.height} 
           className="object-contain absolute top-[49px] left-[27px] pointer-events-none select-none z-1" />
         <Image src={mix7Asset.url} alt="{mix7Asset.alt}" width={mix7Asset.width} height={mix7Asset.height} 
           className="object-contain absolute top-[30px] right-[0px] pointer-events-none select-none z-1" />
         <Image src={mix8Asset.url} alt="{mix8Asset.alt}" width={mix8Asset.width} height={mix8Asset.height} 
           className="object-contain absolute bottom-[380px] left-[0px] pointer-events-none select-none z-1" />
-        <Image src={blue1Asset.url} alt="{blue1Asset.alt}" width={blue1Asset.width} height={blue1Asset.height} 
+        <Image src={blue10Asset.url} alt="{blue10Asset.alt}" width={blue10Asset.width} height={blue10Asset.height} 
           className="object-contain absolute bottom-[90px] right-[35px] pointer-events-none select-none z-1" />
         <Image src={mix9Asset.url} alt="{mix9Asset.alt}" width={mix9Asset.width} height={mix9Asset.height} 
           className="object-contain absolute bottom-[0] left-[-50px] pointer-events-none select-none z-1" />

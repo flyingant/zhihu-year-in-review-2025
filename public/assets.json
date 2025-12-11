@@ -20,6 +20,12 @@
       "height": 36,
       "alt": "Zhihu Logo"
     },
+    "logoWhite": {
+      "url": "/assets/zhihu_logo_white.png",
+      "width": 187,
+      "height": 36,
+      "alt": "Zhihu Logo"
+    },
     "bg": {
       "url": "/assets/kv_danmakus_bg@3x.png",
       "width": 1041,
@@ -1857,6 +1863,38 @@
         "width": 375,
         "height": 787,
         "alt": "P24 Film"
+      }
+    },
+    "p25": {
+      "liukanshan": {
+        "url": "/assets/2025_2_report_p25_liukanshan.png",
+        "width": 375,
+        "height": 198,
+        "alt": "P25 Liukanshan"
+      },
+      "top": {
+        "url": "/assets/2025_2_report_p25_top.png",
+        "width": 375,
+        "height": 190,
+        "alt": "P25 Top"
+      },
+      "left": {
+        "url": "/assets/2025_2_report_p25_left.png",
+        "width": 0.9,
+        "height": 95,
+        "alt": "P25 Left"
+      },
+      "middle": {
+        "url": "/assets/2025_2_report_p25_middle.png",
+        "width": 1,
+        "height": 47,
+        "alt": "P25 Middle"
+      },
+      "right": {
+        "url": "/assets/2025_2_report_p25_right.png",
+        "width": 1,
+        "height": 73,
+        "alt": "P25 Right"
       }
     },
     "loading": {

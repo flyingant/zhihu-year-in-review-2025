@@ -49,6 +49,7 @@ export interface AssetsData {
   };
   kv: {
     logo: AssetMetadata;
+    logoWhite: AssetMetadata;
     bg: AssetMetadata;
     bgPhase2: AssetMetadata;
     danmakus: AssetMetadata[];
@@ -367,6 +368,13 @@ export interface AssetsData {
     p24: {
       liukanshan: AssetMetadata;
       film: AssetMetadata;
+    };
+    p25: {
+      liukanshan: AssetMetadata;
+      top: AssetMetadata;
+      left: AssetMetadata;
+      middle: AssetMetadata;
+      right: AssetMetadata;
     };
     loading: AssetMetadata;
     loadingBar: AssetMetadata;

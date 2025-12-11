@@ -53,7 +53,7 @@ export default function P1Scene({ onNext, sceneName }: PageProps) {
   return (
     <BaseScene onNext={onNext} sceneName={sceneName}>
       <div ref={containerRef} className="relative w-full h-full overflow-hidden" style={{ perspective: '1000px' }}>
-        <p className="relative z-30 text-center text-xl" style={{ top: '106px' }}>这一年，<br/>是什么在驱动你的创作？</p>
+        <p className="absolute z-30 text-center text-xl w-full" style={{ top: '106px' }}>这一年，<br/>是什么在驱动你的创作？</p>
         <p 
           className="absolute z-30 text-center text-sm" 
           style={{ width: '121px', top: '192px', left: '43px', transform: 'skew(-25deg) rotate(16deg) translateZ(20px)', transformStyle: 'preserve-3d' }}

@@ -5,7 +5,6 @@ import { colorClass, typographyClass } from "@/hooks/useSceneTheme";
 import BaseScene from "./BaseScene";
 import Image from "next/image";
 import { useAssets } from "@/context/assets-context";
-import ZhihuLogo from "../../ui/ZhihuLogo";
 
 interface PageProps {
   onNext?: () => void;
@@ -44,9 +43,6 @@ export default function P4Scene({ onNext, sceneName }: PageProps) {
 
   return (
     <BaseScene onNext={onNext} sceneName={sceneName}>
-      <div className="pt-[60px] pb-[43px]">
-        <ZhihuLogo />
-      </div>
       <div className="z-0">
         {/* 顺序从上到下 */}
         <Image src={blue2Asset.url} alt="{blue2Asset.alt}" width={blue2Asset.width} height={blue2Asset.height} 
@@ -83,7 +79,7 @@ export default function P4Scene({ onNext, sceneName }: PageProps) {
           className="object-contain absolute bottom-[47px] left-[7%] pointer-events-none select-none z-1" 
         />
       </div>
-      <div className="px-[34px]">
+      <div className="px-[34px] pt-[120px]">
         <div className={typographyClass('title')}>
           这一年，你依旧好奇
         </div>

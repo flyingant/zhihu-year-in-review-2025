@@ -5,7 +5,6 @@ import { colorClass, typographyClass } from "@/hooks/useSceneTheme";
 import BaseScene from "./BaseScene";
 import Image from "next/image";
 import { useAssets } from "@/context/assets-context";
-import ZhihuLogo from "../../ui/ZhihuLogo";
 
 interface PageProps {
   onNext?: () => void;
@@ -38,9 +37,6 @@ export default function P13Scene({ onNext, sceneName }: PageProps) {
 
   return (
     <BaseScene onNext={onNext} sceneName={sceneName}>
-      <div className="pt-[60px] pb-[43px]">
-        <ZhihuLogo />
-      </div>
       <div className="z-0">
         {/* 顺序从上到下 */}
         <Image src={blue1Asset.url} alt="{blue1Asset.alt}" width={blue1Asset.width} height={blue1Asset.height} 
@@ -54,7 +50,7 @@ export default function P13Scene({ onNext, sceneName }: PageProps) {
         <Image src={mix9Asset.url} alt="{mix9Asset.alt}" width={mix9Asset.width} height={mix9Asset.height} 
           className="object-contain absolute bottom-[0] left-[-50px] pointer-events-none select-none z-1" />
       </div>
-      <div className="px-[34px]">
+      <div className="px-[34px] pt-[120px]">
         <div className={typographyClass('title') + ' leading-relaxed'}>
           <div>在你忘我时流淌而过的 </div>
           <div>是放满收获的心流</div>

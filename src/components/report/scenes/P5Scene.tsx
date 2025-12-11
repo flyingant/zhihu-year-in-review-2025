@@ -5,7 +5,6 @@ import { colorClass, typographyClass } from "@/hooks/useSceneTheme";
 import BaseScene from "./BaseScene";
 import Image from "next/image";
 import { useAssets } from "@/context/assets-context";
-import ZhihuLogo from "../../ui/ZhihuLogo";
 
 interface PageProps {
   onNext?: () => void;
@@ -44,9 +43,6 @@ export default function P5Scene({ onNext, sceneName }: PageProps) {
 
   return (
     <BaseScene onNext={onNext} sceneName={sceneName}>
-      <div className="pt-[60px] pb-[43px]">
-        <ZhihuLogo />
-      </div>
       <div className="z-0">
         {/* 顺序从上到下 */}
         <Image src={mix6Asset.url} alt="{mix6Asset.alt}" width={mix6Asset.width} height={mix6Asset.height} 
@@ -88,7 +84,7 @@ export default function P5Scene({ onNext, sceneName }: PageProps) {
           className="object-contain absolute bottom-[53px] right-[28px] pointer-events-none select-none z-1" 
         />
       </div>
-      <div className="px-[34px]">
+      <div className="px-[34px] pt-[120px]">
         <div className={typographyClass('title') + ' mb-[60px]'}>
         这一年，你真心分享
         </div>

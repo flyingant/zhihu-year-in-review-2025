@@ -5,7 +5,6 @@ import { colorClass, typographyClass } from "@/hooks/useSceneTheme";
 import BaseScene from "./BaseScene";
 import Image from "next/image";
 import { useAssets } from "@/context/assets-context";
-import ZhihuLogo from "../../ui/ZhihuLogo";
 
 interface PageProps {
   onNext?: () => void;
@@ -37,9 +36,6 @@ export default function P8Scene({ onNext, sceneName }: PageProps) {
 
   return (
     <BaseScene onNext={onNext} sceneName={sceneName}>
-      <div className="pt-[60px] pb-[43px]">
-        <ZhihuLogo />
-      </div>
       <div className="z-0">
         {/* 顺序从上到下 */}
         <Image src={blue1Asset.url} alt="{blue1Asset.alt}" width={blue1Asset.width} height={blue1Asset.height} 
@@ -49,7 +45,7 @@ export default function P8Scene({ onNext, sceneName }: PageProps) {
         <Image src={mix5Asset.url} alt="{mix5Asset.alt}" width={mix5Asset.width} height={mix5Asset.height} 
           className="object-contain absolute bottom-[20] right-[74px] pointer-events-none select-none z-1" />
       </div>
-      <div className="px-[34px]">
+      <div className="px-[34px] pt-[120px]">
         <div className={typographyClass('highlight') + ' leading-[1.4] mb-[68px]'}>
           这一年，你荣登榜首
         </div>

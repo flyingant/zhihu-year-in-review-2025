@@ -5,7 +5,6 @@ import { colorClass, typographyClass } from "@/hooks/useSceneTheme";
 import BaseScene from "./BaseScene";
 import Image from "next/image";
 import { useAssets } from "@/context/assets-context";
-import ZhihuLogo from "../../ui/ZhihuLogo";
 
 interface PageProps {
   onNext?: () => void;
@@ -49,9 +48,6 @@ export default function P10Scene({ onNext, sceneName }: PageProps) {
 
   return (
     <BaseScene onNext={onNext} sceneName={sceneName}>
-      <div className="pt-[60px] pb-[43px]">
-        <ZhihuLogo />
-      </div>
       <div className="z-0">
         {/* 顺序从上到下 */}
         <Image src={mix7Asset.url} alt="{mix7Asset.alt}" width={mix7Asset.width} height={mix7Asset.height} 
@@ -65,7 +61,7 @@ export default function P10Scene({ onNext, sceneName }: PageProps) {
         <Image src={mix9Asset.url} alt="{mix9Asset.alt}" width={mix9Asset.width} height={mix9Asset.height} 
           className="object-contain absolute bottom-[0] right-[6px] pointer-events-none select-none z-1" />
       </div>
-      <div className={typographyClass('title') + ' leading-relaxed text-center pb-[24px]'}>
+      <div className={typographyClass('title') + ' leading-relaxed text-center pb-[24px] pt-[120px]'}>
         你总共浏览了
       </div>
       <div className="">

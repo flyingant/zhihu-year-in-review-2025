@@ -4,7 +4,6 @@ import { useUserReportData } from "@/context/user-report-data-context";
 import { colorClass, typographyClass } from "@/hooks/useSceneTheme";
 import { useAssets } from '@/context/assets-context';
 import BaseScene from "./BaseScene";
-import ZhihuLogo from "../../ui/ZhihuLogo";
 
 interface PageProps {
   onNext?: () => void;
@@ -37,9 +36,6 @@ export default function P2Scene({ onNext, sceneName }: PageProps) {
   
   return (
     <BaseScene onNext={onNext} sceneName={sceneName}>
-      <div className="pt-[60px] pb-[43px]">
-        <ZhihuLogo />
-      </div>
       <div className="z-0">
         {/* 标题右侧蓝色小块 */}
         <Image src={blue1Asset.url} alt="{blue1Asset.alt}" width={blue1Asset.width} height={blue1Asset.height} 
@@ -73,7 +69,7 @@ export default function P2Scene({ onNext, sceneName }: PageProps) {
           className="object-contain absolute bottom-[40px] right-[55px]  pointer-events-none select-none z-1" 
         />
       </div>
-      <div className="px-[34px]">
+      <div className="px-[34px] pt-[120px]">
         <div className={typographyClass('title') + ' leading-relaxed'}>
           这一年，你依旧好奇
         </div>

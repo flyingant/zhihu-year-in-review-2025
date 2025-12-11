@@ -1,8 +1,11 @@
 "use client";
 
 import { ReactNode, useState, useRef, useEffect } from 'react';
+import Image from 'next/image';
 import { useSceneTheme, useSceneThemeStyles } from '@/hooks/useSceneTheme';
 import { SCENES } from '@/data/reportConfig';
+import ZhihuLogo from '@/components/ui/ZhihuLogo';
+import { useAssets } from '@/context/assets-context';
 
 interface BaseSceneProps {
   children: ReactNode;
@@ -130,20 +133,33 @@ export default function BaseScene({
   onNext,
   sceneName,
 }: BaseSceneProps) {
+  const { assets } = useAssets();
   const theme = useSceneTheme();
   const styles = useSceneThemeStyles();
-
+  const logoAsset = assets?.kv.logo;
   return (
     <div
       className={`relative z-30 w-full h-full bg-transparent`}
       style={{
         ...styles,
-        width: "100%",
-        maxWidth: '420px',
+        width: '375px',
+        height: '812px',
+        overflow: 'hidden',
       }}
     >
       <DebugPanel sceneName={sceneName} onNext={onNext} theme={theme} />
       <div className={`relative z-40 w-full h-full`}>
+      {logoAsset ? (
+        <div className={`absolute z-50`} style={{ top: '58px', left: '140px' }}>
+          <Image
+            src={logoAsset.url}
+            alt={logoAsset.alt}
+            width={logoAsset.width / 2}
+            height={logoAsset.height / 2}
+            className="object-contain"
+          />
+        </div>
+      ) : null}
         {children}
       </div>
     </div>

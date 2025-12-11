@@ -1381,6 +1381,32 @@
         "alt": "ship"
       }
     },
+    "p9": {
+      "bg": {
+        "url": "/assets/2025_2_report_p9_bg.png",
+        "width": 692,
+        "height": 2338,
+        "alt": "P9 Background"
+      },
+      "middle": {
+        "url": "/assets/2025_2_report_p9_middle.png",
+        "width": 1262,
+        "height": 2338,
+        "alt": "P9 Middle"
+      },
+      "top": {
+        "url": "/assets/2025_2_report_p9_top.png",
+        "width": 1080,
+        "height": 2338,
+        "alt": "P9 Top"
+      },
+      "liukanshan": {
+        "url": "/assets/2025_2_report_p9_liukanshan.png",
+        "width": 164,
+        "height": 207,
+        "alt": "P9 Liukanshan"
+      }
+    },
     "p10": {
       "group1": {
         "url": "/assets/2025_2_report_p10_group1.png",
@@ -1572,6 +1598,44 @@
         "height": 421,
         "alt": "main"
       }
+    },
+    "p21": {
+      "bg": {
+        "url": "/assets/2025_2_report_p21_bg.png",
+        "width": 1080,
+        "height": 2338,
+        "alt": "P21 Background"
+      },
+      "middle": {
+        "url": "/assets/2025_2_report_p21_middle.png",
+        "width": 2395,
+        "height": 2338,
+        "alt": "P21 Middle"
+      },
+      "top": {
+        "url": "/assets/2025_2_report_p21_top.png",
+        "width": 1080,
+        "height": 2338,
+        "alt": "P21 Top"
+      },
+      "liukanshan": {
+        "url": "/assets/2025_2_report_p21_liukanshan.png",
+        "width": 185,
+        "height": 235,
+        "alt": "P21 Liukanshan"
+      }
+    },
+    "loading": {
+      "url": "/assets/2025_2_report_loading.gif",
+      "width": 300,
+      "height": 301,
+      "alt": "Loading Animation"
+    },
+    "loadingBar": {
+      "url": "/assets/2025_2_report_loading_bar.png",
+      "width": 297,
+      "height": 24,
+      "alt": "Loading Bar Background"
     }
   }
 }

@@ -259,6 +259,12 @@ export interface AssetsData {
       sparkle: AssetMetadata;
       ship: AssetMetadata;
     };
+    p9: {
+      bg: AssetMetadata;
+      middle: AssetMetadata;
+      top: AssetMetadata;
+      liukanshan: AssetMetadata;
+    };
     p10: {
       group1: AssetMetadata;
       group2: AssetMetadata;
@@ -307,6 +313,14 @@ export interface AssetsData {
     p20: {
       main: AssetMetadata;
     };
+    p21: {
+      bg: AssetMetadata;
+      middle: AssetMetadata;
+      top: AssetMetadata;
+      liukanshan: AssetMetadata;
+    };
+    loading: AssetMetadata;
+    loadingBar: AssetMetadata;
   };
   /**
    * 外部链接URL配置

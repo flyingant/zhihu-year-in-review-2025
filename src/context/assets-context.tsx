@@ -244,6 +244,11 @@ export interface AssetsData {
       mix21_2: AssetMetadata;
       mix21_3: AssetMetadata;
       mix21_4: AssetMetadata;
+      mix22_1: AssetMetadata;
+      mix22_2: AssetMetadata;
+      mix22_3: AssetMetadata;
+      mix22_4: AssetMetadata;
+      mix22_5: AssetMetadata;
     };
     p1: {
       bg: AssetMetadata;
@@ -343,6 +348,11 @@ export interface AssetsData {
       middle: AssetMetadata;
       top: AssetMetadata;
       liukanshan: AssetMetadata;
+    };
+    p22: {
+      liukanshan: AssetMetadata;
+      front: AssetMetadata;
+      back: AssetMetadata;
     };
     loading: AssetMetadata;
     loadingBar: AssetMetadata;

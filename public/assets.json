@@ -1365,6 +1365,36 @@
         "width": 39,
         "height": 39,
         "alt": "混合色块21_4"
+      },
+      "mix22_1": {
+        "url": "/assets/2025_2_report_bg_mix_22_1.png",
+        "width": 87,
+        "height": 24,
+        "alt": "混合色块22_1"
+      },
+      "mix22_2": {
+        "url": "/assets/2025_2_report_bg_mix_22_2.png",
+        "width": 124,
+        "height": 30,
+        "alt": "混合色块22_2"
+      },
+      "mix22_3": {
+        "url": "/assets/2025_2_report_bg_mix_22_3.png",
+        "width": 97,
+        "height": 22,
+        "alt": "混合色块22_3"
+      },
+      "mix22_4": {
+        "url": "/assets/2025_2_report_bg_mix_22_4.png",
+        "width": 118,
+        "height": 26,
+        "alt": "混合色块22_4"
+      },
+      "mix22_5": {
+        "url": "/assets/2025_2_report_bg_mix_22_5.png",
+        "width": 26,
+        "height": 26,
+        "alt": "混合色块22_5"
       }
     },
     "p1": {
@@ -1753,6 +1783,26 @@
         "width": 185,
         "height": 235,
         "alt": "P21 Liukanshan"
+      }
+    },
+    "p22": {
+      "liukanshan": {
+        "url": "/assets/2025_2_report_p22_liukanshan.png",
+        "width": 224,
+        "height": 186,
+        "alt": "P22 Liukanshan"
+      },
+      "front": {
+        "url": "/assets/2025_2_report_p22_front.png",
+        "width": 375,
+        "height": 371,
+        "alt": "P22 Front"
+      },
+      "back": {
+        "url": "/assets/2025_2_report_p22_back.png",
+        "width": 375,
+        "height": 514,
+        "alt": "P22 Back"
       }
     },
     "loading": {

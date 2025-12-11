@@ -2,9 +2,8 @@
 
 import { ReactNode, useState, useRef, useEffect } from 'react';
 import Image from 'next/image';
-import { useSceneTheme, useSceneThemeStyles } from '@/hooks/useSceneTheme';
+import { useSceneThemeStyles } from '@/hooks/useSceneTheme';
 import { SCENES } from '@/data/reportConfig';
-import ZhihuLogo from '@/components/ui/ZhihuLogo';
 import { useAssets } from '@/context/assets-context';
 
 interface BaseSceneProps {
@@ -19,7 +18,7 @@ interface BaseSceneProps {
 /**
  * Debug Panel Component
  */
-function DebugPanel({ sceneName, onNext, theme }: { sceneName?: string; onNext?: () => void; theme: ReturnType<typeof useSceneTheme> }) {
+function DebugPanel({ sceneName, onNext }: { sceneName?: string; onNext?: () => void }) {
   // Only show in development
   const isDev = process.env.NODE_ENV === 'development';
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
@@ -134,33 +133,75 @@ export default function BaseScene({
   sceneName,
 }: BaseSceneProps) {
   const { assets } = useAssets();
-  const theme = useSceneTheme();
   const styles = useSceneThemeStyles();
   const logoAsset = assets?.kv.logo;
+  const [scale, setScale] = useState(1);
+  const containerRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const calculateScale = () => {
+      if (typeof window !== 'undefined') {
+        const screenWidth = window.innerWidth;
+        const screenHeight = window.innerHeight;
+        const baseWidth = 375;
+        const baseHeight = 812;
+        const maxScale = 1.5;
+        
+        // Calculate scale based on width and height separately
+        const widthScale = screenWidth / baseWidth;
+        const heightScale = screenHeight / baseHeight;
+        
+        // Use the minimum to maintain aspect ratio and fit both dimensions
+        const newScale = Math.min(widthScale, heightScale, maxScale);
+        setScale(newScale);
+      }
+    };
+
+    // Calculate initial scale
+    calculateScale();
+
+    // Listen for resize events
+    window.addEventListener('resize', calculateScale);
+
+    return () => {
+      window.removeEventListener('resize', calculateScale);
+    };
+  }, []);
+
   return (
     <div
-      className={`relative z-30 w-full h-full bg-transparent`}
+      className="relative z-30 w-full h-full bg-transparent flex items-center justify-center"
       style={{
         ...styles,
-        width: '375px',
-        height: '812px',
         overflow: 'hidden',
       }}
     >
-      <DebugPanel sceneName={sceneName} onNext={onNext} theme={theme} />
-      <div className={`relative z-40 w-full h-full`}>
-      {logoAsset ? (
-        <div className={`absolute z-50`} style={{ top: '58px', left: '140px' }}>
-          <Image
-            src={logoAsset.url}
-            alt={logoAsset.alt}
-            width={logoAsset.width / 2}
-            height={logoAsset.height / 2}
-            className="object-contain"
-          />
+      <div
+        ref={containerRef}
+        className="relative bg-transparent"
+        style={{
+          width: '375px',
+          height: '812px',
+          overflow: 'hidden',
+          transform: `scale(${scale})`,
+          transformOrigin: 'center center',
+        }}
+      >
+        <DebugPanel sceneName={sceneName} onNext={onNext} />
+        <div className={`relative z-40 w-full h-full`}>
+        {logoAsset ? (
+          <div className={`absolute z-50`} style={{ top: '58px', left: '140px' }}>
+            <Image
+              src={logoAsset.url}
+              alt={logoAsset.alt}
+              width={logoAsset.width / 2}
+              height={logoAsset.height / 2}
+              className="object-contain"
+            />
+          </div>
+        ) : null}
+          {children}
         </div>
-      ) : null}
-        {children}
       </div>
     </div>
   );

@@ -1329,6 +1329,30 @@
         "width": 66,
         "height": 31,
         "alt": "混合色块20"
+      },
+      "mix21_1": {
+        "url": "/assets/2025_2_report_bg_mix_21_1.png",
+        "width": 45,
+        "height": 45,
+        "alt": "混合色块21_1"
+      },
+      "mix21_2": {
+        "url": "/assets/2025_2_report_bg_mix_21_2.png",
+        "width": 139,
+        "height": 70,
+        "alt": "混合色块21_2"
+      },
+      "mix21_3": {
+        "url": "/assets/2025_2_report_bg_mix_21_3.png",
+        "width": 187,
+        "height": 41,
+        "alt": "混合色块21_3"
+      },
+      "mix21_4": {
+        "url": "/assets/2025_2_report_bg_mix_21_4.png",
+        "width": 39,
+        "height": 39,
+        "alt": "混合色块21_4"
       }
     },
     "p1": {

@@ -238,6 +238,10 @@ export interface AssetsData {
       mix17: AssetMetadata;
       mix19: AssetMetadata;
       mix20: AssetMetadata;
+      mix21_1: AssetMetadata;
+      mix21_2: AssetMetadata;
+      mix21_3: AssetMetadata;
+      mix21_4: AssetMetadata;
     };
     p1: {
       bg: AssetMetadata;

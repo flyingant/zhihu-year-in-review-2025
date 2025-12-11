@@ -38,12 +38,12 @@ export const defaultSceneTheme: SceneTheme = {
     family: 'var(--font-tianwang)',
   },
   colors: {
-    pink: 'text-r-pink',
-    blue: 'text-r-blue',
-    fern: 'text-r-fern',
-    green: 'text-r-green',
-    yellow: 'text-r-yellow',
-    purple: 'text-r-purple',
+    pink: '#FF8992',
+    blue: '#00ADE9',
+    fern: '#00C2A9',
+    green: '#00AF22',
+    yellow: '#FFAE00',
+    purple: '#BC66CD',
   },
   typography: {
     title: 'text-[22px]',

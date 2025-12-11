@@ -1259,25 +1259,25 @@
     },
     "p1": {
       "bg": {
-        "url": "/assets/report_p1_bg.png",
+        "url": "/assets/2025_2_report_p1_bg.png",
         "width": 2160,
         "height": 4676,
         "alt": "P1 Background"
       },
       "middle": {
-        "url": "/assets/report_p1_middle.png",
+        "url": "/assets/2025_2_report_p1_middle.png",
         "width": 3584,
         "height": 4676,
         "alt": "P1 Middle"
       },
       "top": {
-        "url": "/assets/report_p1_top.png",
+        "url": "/assets/2025_2_report_p1_top.png",
         "width": 2160,
         "height": 4676,
         "alt": "P1 Top"
       },
       "liukanshanReading": {
-        "url": "/assets/report_p1_liukanshan_reading.png",
+        "url": "/assets/2025_2_report_p1_liukanshan_reading.png",
         "width": 233,
         "height": 144,
         "alt": "P1 Liukanshan Reading"

@@ -201,6 +201,10 @@ export interface AssetsData {
     bg: AssetMetadata;
   };
   report: {
+    intro: {
+      step1: AssetMetadata;
+      step2: AssetMetadata;
+    };
     bg: {
       blue1: AssetMetadata;
       blue2: AssetMetadata;

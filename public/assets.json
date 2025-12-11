@@ -1123,6 +1123,20 @@
     }
   },
   "report": {
+    "intro": {
+      "step1": {
+        "url": "/assets/2025_2_report_intro_step1.mp4",
+        "width": 375,
+        "height": 812,
+        "alt": "Introduction Step 1 Video"
+      },
+      "step2": {
+        "url": "/assets/2025_2_report_intro_step2.mp4",
+        "width": 375,
+        "height": 812,
+        "alt": "Introduction Step 2 Video"
+      }
+    },
     "bg": {
       "blue1": {
         "url": "/assets/2025_2_report_bg_blue_1.png",

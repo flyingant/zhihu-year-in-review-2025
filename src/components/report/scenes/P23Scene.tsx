@@ -28,7 +28,7 @@ export default function P23Scene({ onNext, sceneName }: PageProps) {
 
   return (
     <BaseScene onNext={onNext} sceneName={sceneName}>
-      {/* mix block */}
+      {/* pixel block */}
       <GlitchLayer>
         {/* 顺序从上到下 */}
         <Image
@@ -70,6 +70,7 @@ export default function P23Scene({ onNext, sceneName }: PageProps) {
           className="object-contain absolute top-[456px] left-0 pointer-events-none select-none -z-10"
         />
       </div>
+      {/* content */}
       <div className="z-0">
         <div
           className={

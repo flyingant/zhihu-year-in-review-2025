@@ -364,6 +364,10 @@ export interface AssetsData {
     p23: {
       review: AssetMetadata;
     };
+    p24: {
+      liukanshan: AssetMetadata;
+      film: AssetMetadata;
+    };
     loading: AssetMetadata;
     loadingBar: AssetMetadata;
     index: {

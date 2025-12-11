@@ -1845,6 +1845,20 @@
         "alt": "P23 Review"
       }
     },
+    "p24": {
+      "liukanshan": {
+        "url": "/assets/2025_2_report_p24_liukanshan.png",
+        "width": 151,
+        "height": 139,
+        "alt": "P24 Liukanshan"
+      },
+      "film": {
+        "url": "/assets/2025_2_report_p24_film.png",
+        "width": 375,
+        "height": 787,
+        "alt": "P24 Film"
+      }
+    },
     "loading": {
       "url": "/assets/2025_2_report_loading.gif",
       "width": 300,

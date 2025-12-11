@@ -206,11 +206,21 @@ export interface AssetsData {
       step2: AssetMetadata;
     };
     bg: {
+      blue0_1: AssetMetadata;
+      blue0_2: AssetMetadata;
+      blue0_3: AssetMetadata;
+      blue0_4: AssetMetadata;
       blue1: AssetMetadata;
       blue2: AssetMetadata;
       blue15: AssetMetadata;
       blue16: AssetMetadata;
+      green0: AssetMetadata;
       green1: AssetMetadata;
+      mix0_1: AssetMetadata;
+      mix0_2: AssetMetadata;
+      mix0_3: AssetMetadata;
+      mix0_4: AssetMetadata;
+      mix0_5: AssetMetadata;
       mix1: AssetMetadata;
       mix2: AssetMetadata;
       mix3: AssetMetadata;

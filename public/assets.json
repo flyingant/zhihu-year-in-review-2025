@@ -1138,6 +1138,30 @@
       }
     },
     "bg": {
+      "blue0_1": {
+        "url": "/assets/2025_2_report_bg_blue_0_1.png",
+        "width": 27,
+        "height": 36,
+        "alt": "蓝色色块0_1"
+      },
+      "blue0_2": {
+        "url": "/assets/2025_2_report_bg_blue_0_2.png",
+        "width": 39,
+        "height": 39,
+        "alt": "蓝色色块0_2"
+      },
+      "blue0_3": {
+        "url": "/assets/2025_2_report_bg_blue_0_3.png",
+        "width": 27,
+        "height": 27,
+        "alt": "蓝色色块0_3"
+      },
+      "blue0_4": {
+        "url": "/assets/2025_2_report_bg_blue_0_4.png",
+        "width": 39,
+        "height": 39,
+        "alt": "蓝色色块0_4"
+      },
       "blue1": {
         "url": "/assets/2025_2_report_bg_blue_1.png",
         "width": 55,
@@ -1162,11 +1186,47 @@
         "height": 27,
         "alt": "蓝色色块16"
       },
+      "green0": {
+        "url": "/assets/2025_2_report_bg_green_0.png",
+        "width": 187,
+        "height": 41,
+        "alt": "绿色色块0"
+      },
       "green1": {
         "url": "/assets/2025_2_report_bg_green_1.png",
         "width": 145,
         "height": 107,
         "alt": "绿色色块1"
+      },
+      "mix0_1": {
+        "url": "/assets/2025_2_report_bg_mix_0_1.png",
+        "width": 124,
+        "height": 30,
+        "alt": "混合色块0_1"
+      },
+      "mix0_2": {
+        "url": "/assets/2025_2_report_bg_mix_0_2.png",
+        "width": 119,
+        "height": 26,
+        "alt": "混合色块0_2"
+      },
+      "mix0_3": {
+        "url": "/assets/2025_2_report_bg_mix_0_3.png",
+        "width": 87,
+        "height": 24,
+        "alt": "混合色块0_3"
+      },
+      "mix0_4": {
+        "url": "/assets/2025_2_report_bg_mix_0_4.png",
+        "width": 118,
+        "height": 26,
+        "alt": "混合色块0_4"
+      },
+      "mix0_5": {
+        "url": "/assets/2025_2_report_bg_mix_0_5.png",
+        "width": 138,
+        "height": 70,
+        "alt": "混合色块0_5"
       },
       "mix1": {
         "url": "/assets/2025_2_report_bg_mix_1.png",

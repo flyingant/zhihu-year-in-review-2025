@@ -212,6 +212,7 @@ export interface AssetsData {
       blue0_4: AssetMetadata;
       blue1: AssetMetadata;
       blue2: AssetMetadata;
+      blue10: AssetMetadata;
       blue15: AssetMetadata;
       blue16: AssetMetadata;
       green0: AssetMetadata;
@@ -230,6 +231,7 @@ export interface AssetsData {
       mix7: AssetMetadata;
       mix8: AssetMetadata;
       mix9: AssetMetadata;
+      mix14: AssetMetadata;
       mix15: AssetMetadata;
       mix15_1: AssetMetadata;
       mix15_2: AssetMetadata;
@@ -304,6 +306,11 @@ export interface AssetsData {
     };
     p15: {
       ladder: AssetMetadata;
+    };
+    p14: {
+      bg: AssetMetadata;
+      top: AssetMetadata;
+      middle: AssetMetadata;
     };
     p16: {
       thumbUp: AssetMetadata;

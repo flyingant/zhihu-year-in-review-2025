@@ -14,6 +14,27 @@ import {
 import { isZhihuApp } from '@/lib/zhihu-detection';
 import { useZhihuHybrid } from '@/hooks/useZhihuHybrid';
 
+const useLoadingDots = (baseText: string, speed = 300, isActive: boolean) => {
+  const [dots, setDots] = useState('');
+
+  useEffect(() => {
+    if (!isActive) return;
+
+    let count = 0;
+    const interval = setInterval(() => {
+      count = (count + 1) % 4;
+      setDots('.'.repeat(count));
+    }, speed);
+
+    return () => {
+      clearInterval(interval);
+      setDots('');
+    };
+  }, [speed, isActive]);
+
+  return `${baseText}${dots}`;
+};
+
 const TOPICS = [
   { id: 'science', name: '科学工程', color: '#33E6F8' },
   { id: 'travel', name: '旅行', color: '#9DFF7F' },
@@ -106,6 +127,8 @@ const VoteTenQuestions = () => {
     questions.filter(q => q.topicId === activeTopicId),
     [activeTopicId, questions]);
 
+  const loadingText = useLoadingDots("海报生成中", 400, isGeneratingPoster);
+
   if (!assets) return null;
 
   const titleAsset = assets.vote.title;
@@ -114,6 +137,7 @@ const VoteTenQuestions = () => {
   const btnBgAsset = voteAssets.btnBg;
   const cancelBtnAsset = voteAssets.cancelBtn;
   const panelBgAsset = voteAssets.panelBg;
+  const liukanshanAsset = assets.games.liukanshan;
 
 
   const handleTopicClick = (id: string) => {
@@ -507,6 +531,22 @@ const VoteTenQuestions = () => {
               </div>
             </div>
 
+          </div>
+        </div>
+      )}
+      {/* 生成中弹框 */}
+      {isGeneratingPoster && (
+        <div className="fixed z-[9999] inset-0 h-screen bg-black/60 backdrop-blur-[2px] flex flex-col items-center justify-center">
+          <div className="relative w-[74px] h-[104px]">
+            <Image
+              src={liukanshanAsset.url}
+              alt="Loading"
+              fill
+              className="object-contain"
+            />
+          </div>
+          <div className="mt-4 text-cyan-400 text-xl font-bold tracking-widest h-[30px]">
+            {loadingText}
           </div>
         </div>
       )}

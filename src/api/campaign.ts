@@ -372,7 +372,7 @@ export const generateAnnualQuestionPoster = (questions: AnnualQuestion[]) => {
     url: '/campaigns/v2/2025/annual_question_generate_poster',
     method: 'POST',
     data: {
-      questions,
+      question_list: questions,
     },
   });
 };

@@ -1636,6 +1636,62 @@
       "width": 297,
       "height": 24,
       "alt": "Loading Bar Background"
+    },
+    "index": {
+      "topLeft": {
+        "url": "/assets/2025_2_report_index_top_left.png",
+        "width": 504,
+        "height": 1098,
+        "alt": "Index Top Left"
+      },
+      "topRight": {
+        "url": "/assets/2025_2_report_index_top_right.png",
+        "width": 417,
+        "height": 1097,
+        "alt": "Index Top Right"
+      },
+      "bottomLeft": {
+        "url": "/assets/2025_2_report_index_bottom_left.png",
+        "width": 678,
+        "height": 870,
+        "alt": "Index Bottom Left"
+      },
+      "bottomRight": {
+        "url": "/assets/2025_2_report_index_bottom_right.png",
+        "width": 517,
+        "height": 872,
+        "alt": "Index Bottom Right"
+      },
+      "liukanshan": {
+        "url": "/assets/2025_2_report_index_liukanshan.png",
+        "width": 548,
+        "height": 509,
+        "alt": "Index Liukanshan"
+      },
+      "bgTopLeft": {
+        "url": "/assets/2025_2_report_index_top_left_bg.png",
+        "width": 1080,
+        "height": 2247,
+        "alt": "Index Top Left Background"
+      },
+      "bgTopRight": {
+        "url": "/assets/2025_2_report_index_top_right_bg.png",
+        "width": 1080,
+        "height": 2338,
+        "alt": "Index Top Right Background"
+      },
+      "bgBottomLeft": {
+        "url": "/assets/2025_2_report_index_bottom_left_bg.png",
+        "width": 1080,
+        "height": 2128,
+        "alt": "Index Bottom Left Background"
+      },
+      "bgBottomRight": {
+        "url": "/assets/2025_2_report_index_bottom_right_bg.png",
+        "width": 1080,
+        "height": 2073,
+        "alt": "Index Bottom Right Background"
+      }
     }
   }
 }

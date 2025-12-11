@@ -321,6 +321,17 @@ export interface AssetsData {
     };
     loading: AssetMetadata;
     loadingBar: AssetMetadata;
+    index: {
+      topLeft: AssetMetadata;
+      topRight: AssetMetadata;
+      bottomLeft: AssetMetadata;
+      bottomRight: AssetMetadata;
+      liukanshan: AssetMetadata;
+      bgTopLeft: AssetMetadata;
+      bgTopRight: AssetMetadata;
+      bgBottomLeft: AssetMetadata;
+      bgBottomRight: AssetMetadata;
+    };
   };
   /**
    * 外部链接URL配置

@@ -5,6 +5,7 @@ import { colorClass, typographyClass } from "@/hooks/useSceneTheme";
 import BaseScene from "./BaseScene";
 import Image from "next/image";
 import { useAssets } from "@/context/assets-context";
+import GlitchLayer from "@/components/report/effects/GlitchLayer";
 
 interface PageProps {
   onNext?: () => void;
@@ -48,7 +49,7 @@ export default function P10Scene({ onNext, sceneName }: PageProps) {
 
   return (
     <BaseScene onNext={onNext} sceneName={sceneName}>
-      <div className="z-0">
+      <GlitchLayer>
         {/* 顺序从上到下 */}
         <Image src={mix7Asset.url} alt="{mix7Asset.alt}" width={mix7Asset.width} height={mix7Asset.height} 
           className="object-contain absolute top-[40px] right-[0px] pointer-events-none select-none z-1" />
@@ -60,7 +61,7 @@ export default function P10Scene({ onNext, sceneName }: PageProps) {
           className="object-contain absolute bottom-[220px] right-[21px] pointer-events-none select-none z-1" />
         <Image src={mix9Asset.url} alt="{mix9Asset.alt}" width={mix9Asset.width} height={mix9Asset.height} 
           className="object-contain absolute bottom-[0] right-[6px] pointer-events-none select-none z-1" />
-      </div>
+      </GlitchLayer>
       <div className={typographyClass('title') + ' leading-relaxed text-center pb-[24px] pt-[120px]'}>
         你总共浏览了
       </div>

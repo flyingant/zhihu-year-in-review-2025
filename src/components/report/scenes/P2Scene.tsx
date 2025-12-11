@@ -4,6 +4,7 @@ import { useUserReportData } from "@/context/user-report-data-context";
 import { colorClass, typographyClass } from "@/hooks/useSceneTheme";
 import { useAssets } from '@/context/assets-context';
 import BaseScene from "./BaseScene";
+import GlitchLayer from "@/components/report/effects/GlitchLayer";
 
 interface PageProps {
   onNext?: () => void;
@@ -36,7 +37,7 @@ export default function P2Scene({ onNext, sceneName }: PageProps) {
   
   return (
     <BaseScene onNext={onNext} sceneName={sceneName}>
-      <div className="z-0">
+      <GlitchLayer>
         {/* 标题右侧蓝色小块 */}
         <Image src={blue1Asset.url} alt="{blue1Asset.alt}" width={blue1Asset.width} height={blue1Asset.height} 
           className="object-contain absolute top-[20px] right-[36px] pointer-events-none select-none z-1" />
@@ -52,7 +53,7 @@ export default function P2Scene({ onNext, sceneName }: PageProps) {
         {/* 右下角红绿长条 */}
         <Image src={mix1Asset.url} alt="{mix1Asset.alt}" width={mix1Asset.width} height={mix1Asset.height} 
           className="object-contain absolute bottom-[0%] right-[0px] pointer-events-none select-none z-1" />
-      </div>
+      </GlitchLayer>
       <div className="z-0">
         <Image 
           src={blueBallAsset.url} 

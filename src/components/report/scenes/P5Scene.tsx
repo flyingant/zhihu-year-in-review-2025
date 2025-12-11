@@ -5,7 +5,7 @@ import { colorClass, typographyClass } from "@/hooks/useSceneTheme";
 import BaseScene from "./BaseScene";
 import Image from "next/image";
 import { useAssets } from "@/context/assets-context";
-
+import GlitchLayer from "@/components/report/effects/GlitchLayer";
 interface PageProps {
   onNext?: () => void;
   sceneName?: string;
@@ -43,7 +43,7 @@ export default function P5Scene({ onNext, sceneName }: PageProps) {
 
   return (
     <BaseScene onNext={onNext} sceneName={sceneName}>
-      <div className="z-0">
+      <GlitchLayer>
         {/* 顺序从上到下 */}
         <Image src={mix6Asset.url} alt="{mix6Asset.alt}" width={mix6Asset.width} height={mix6Asset.height} 
           className="object-contain absolute top-[15px] left-[-8px] pointer-events-none select-none z-1" />
@@ -53,7 +53,7 @@ export default function P5Scene({ onNext, sceneName }: PageProps) {
           className="object-contain absolute bottom-[267px] right-[56px] pointer-events-none select-none z-1" />
         <Image src={mix5Asset.url} alt="{mix5Asset.alt}" width={mix5Asset.width} height={mix5Asset.height} 
           className="object-contain absolute bottom-[8px] right-[-20px] pointer-events-none select-none z-1" />
-      </div>
+      </GlitchLayer>
       <div className="z-1">
         <Image 
           src={yellowMirrorAsset.url} 

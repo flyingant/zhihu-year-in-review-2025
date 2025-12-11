@@ -5,6 +5,8 @@ import { colorClass, typographyClass } from "@/hooks/useSceneTheme";
 import BaseScene from "./BaseScene";
 import Image from "next/image";
 import { useAssets } from "@/context/assets-context";
+import GlitchLayer from "@/components/report/effects/GlitchLayer";
+
 
 interface PageProps {
   onNext?: () => void;
@@ -36,7 +38,7 @@ export default function P8Scene({ onNext, sceneName }: PageProps) {
 
   return (
     <BaseScene onNext={onNext} sceneName={sceneName}>
-      <div className="z-0">
+      <GlitchLayer>
         {/* 顺序从上到下 */}
         <Image src={blue1Asset.url} alt="{blue1Asset.alt}" width={blue1Asset.width} height={blue1Asset.height} 
           className="object-contain absolute top-[20px] right-[36px] pointer-events-none select-none z-1" />
@@ -44,7 +46,7 @@ export default function P8Scene({ onNext, sceneName }: PageProps) {
           className="object-contain absolute top-[152px] left-[0px] pointer-events-none select-none z-1" />
         <Image src={mix5Asset.url} alt="{mix5Asset.alt}" width={mix5Asset.width} height={mix5Asset.height} 
           className="object-contain absolute bottom-[20] right-[74px] pointer-events-none select-none z-1" />
-      </div>
+      </GlitchLayer>
       <div className="px-[34px] pt-[120px]">
         <div className={typographyClass('highlight') + ' leading-[1.4] mb-[68px]'}>
           这一年，你荣登榜首

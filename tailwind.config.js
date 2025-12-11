@@ -53,6 +53,10 @@ module.exports = {
           from: { offsetDistance: '0%' },
           to: { offsetDistance: '100%' },
         },
+        'glitch': {
+          '0%, 100%': { opacity: '1' },
+          '50%': { opacity: '0.4' },
+        },
       },
       animation: {
         marquee: 'marquee linear infinite',
@@ -60,6 +64,8 @@ module.exports = {
         contentShow: 'contentShow 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards',
         'slide-up': 'slide-up 0.3s ease-out forwards',
         'float-path': 'float-path 15s linear infinite',
+        'glitch-light': 'glitch 3s infinite',
+        'glitch-heavy': 'glitch 1.5s infinite steps(2, end)',
       },
     },
   },

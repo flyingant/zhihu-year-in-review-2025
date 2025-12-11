@@ -354,6 +354,9 @@ export interface AssetsData {
       front: AssetMetadata;
       back: AssetMetadata;
     };
+    p23: {
+      review: AssetMetadata;
+    };
     loading: AssetMetadata;
     loadingBar: AssetMetadata;
     index: {

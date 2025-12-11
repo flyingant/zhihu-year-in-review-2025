@@ -1805,6 +1805,14 @@
         "alt": "P22 Back"
       }
     },
+    "p23": {
+      "review": {
+        "url": "/assets/2025_2_report_p23_review.png",
+        "width": 375,
+        "height": 355,
+        "alt": "P23 Review"
+      }
+    },
     "loading": {
       "url": "/assets/2025_2_report_loading.gif",
       "width": 300,

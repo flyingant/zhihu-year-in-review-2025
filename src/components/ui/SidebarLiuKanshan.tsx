@@ -264,7 +264,7 @@ const SidebarLiuKanshan = () => {
     trackEvent('', {
       moduleId: 'liukanshan_gift_2025',
       type: 'Button',
-      page: { page_id: '60850', page_level: 1 }
+      page: { page_id: '60850' }
     })
 
     // Call completeTask API (fire-and-forget, non-blocking)
@@ -308,7 +308,7 @@ const SidebarLiuKanshan = () => {
     trackEvent('', {
       moduleId: 'liukanshan_gift_publish_2025',
       type: 'Button',
-      page: { page_id: '60850', page_level: 1 }
+      page: { page_id: '60850' }
     });
 
     // // Call completeTask API (fire-and-forget, non-blocking)

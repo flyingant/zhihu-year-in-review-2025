@@ -64,7 +64,7 @@ export default function CurveMarquee() {
       trackShow({
         moduleId: 'annual_report_moments_2025',
         type: 'Block',
-        page: { page_id: '60850', page_level: 1 }
+        page: { page_id: '60850' }
       });
     }
   }, [inView, trackShow]);

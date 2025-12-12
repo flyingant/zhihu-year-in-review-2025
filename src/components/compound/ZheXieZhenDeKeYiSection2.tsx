@@ -24,7 +24,7 @@ const RealCanDoSection = () => {
 
   useEffect(() => {
     if (inView) {
-      trackShow({ moduleId: 'vote_ranking_2025_new', type: 'Block', page: { page_id: '60850', page_level: 1 } });
+      trackShow({ moduleId: 'vote_ranking_2025_new', type: 'Block', page: { page_id: '60850' } });
     }
   }, [inView, trackShow]);
 
@@ -44,7 +44,7 @@ const RealCanDoSection = () => {
       trackEvent('OpenUrl', {
         moduleId: 'vote_selection_2025_new',
         type: 'Button',
-        page: { page_id: '60850', page_level: 1 }
+        page: { page_id: '60850' }
       });
 
       if (isZhihuApp && isHybridAvailable) {

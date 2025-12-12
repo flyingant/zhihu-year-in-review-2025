@@ -151,7 +151,7 @@ const VoteTenQuestions = () => {
     trackEvent('', {
       moduleId: 'annual_report_publish_pin_2025',
       type: 'Button',
-      page: { page_id: '60850', page_level: 1 }
+      page: { page_id: '60850' }
     });
 
     setIsGeneratingPoster(true);

@@ -38,7 +38,7 @@ const FolderSection = () => {
   useEffect(() => {
     if (moduleInView) {
       // 埋点4
-      trackShow({ moduleId: 'quote_module_2025', type: 'Block', page: { page_id: '60850', page_level: 1 } });
+      trackShow({ moduleId: 'quote_module_2025', type: 'Block', page: { page_id: '60850' } });
     }
   }, [moduleInView]);
 
@@ -71,7 +71,6 @@ const FolderSection = () => {
         type: 'Image',
         page: {
           page_id: '60850',
-          page_level: 1,
         }
       }, {
         config_map: {
@@ -101,7 +100,6 @@ const FolderSection = () => {
         type: 'Button',
         page: {
           page_id: '60850',
-          page_level: 1,
         }
       }, {
         config_map: {
@@ -115,7 +113,6 @@ const FolderSection = () => {
           type: 'Image',
           page: {
             page_id: '60850',
-            page_level: 1,
           }
         }, {
           config_map: {

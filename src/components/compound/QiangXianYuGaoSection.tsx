@@ -15,7 +15,7 @@ const QiangXianYuGaoSection = () => {
   useEffect(() => {
     if (moduleInView) {
       // 埋点12
-      trackShow({ moduleId: 'annual_preview_2025', type: 'Block', page: { page_id: '60850', page_level: 1 } });
+      trackShow({ moduleId: 'annual_preview_2025', type: 'Block', page: { page_id: '60850' } });
     }
   }, [moduleInView]);
 

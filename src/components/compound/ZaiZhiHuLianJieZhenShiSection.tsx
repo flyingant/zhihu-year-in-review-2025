@@ -35,7 +35,7 @@ const ZaiZhiHuLianJieZhenShiSection = () => {
 
     if (inView && !hasTrackedModule.current) {
       //  埋点17
-      trackShow({ moduleId: 'carousel_subvenue_2025', type: 'Block', page: { page_id: '60850', page_level: 1 } });
+      trackShow({ moduleId: 'carousel_subvenue_2025', type: 'Block', page: { page_id: '60850' } });
       hasTrackedModule.current = true;
     }
   }, [inView, trackShow]);
@@ -76,7 +76,7 @@ const ZaiZhiHuLianJieZhenShiSection = () => {
       moduleId: 'carousel_subvenue_image_2025',
       type: 'Block',
       moduleIndex: item.originalIndex,
-      page: { page_id: '60850', page_level: 1 }
+      page: { page_id: '60850' }
     });
 
     // Call completeTask API and reload campaign data
@@ -135,7 +135,7 @@ const ZaiZhiHuLianJieZhenShiSection = () => {
     trackShow({
       moduleId: 'carousel_subvenue_image_2025',
       type: 'Block',
-      page: { page_id: '60850', page_level: 1 }
+      page: { page_id: '60850' }
     }, {
       link: {
         url: jumpUrl

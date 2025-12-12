@@ -33,7 +33,6 @@ const KVSection = ({ variant = 'phase1' }: KVSectionProps) => {
         type: 'Block',
         page: {
           page_id: '60850',
-          page_level: 1,
         }
       });
     }

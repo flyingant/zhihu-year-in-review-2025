@@ -22,7 +22,7 @@ const YearlyReportSection = () => {
       trackShow({
         moduleId: 'annual_report_2025',
         type: 'Block',
-        page: { page_id: '60850', page_level: 1 }
+        page: { page_id: '60850' }
       });
     }
   }, [inView, trackShow]);
@@ -35,7 +35,7 @@ const YearlyReportSection = () => {
     trackEvent('OpenUrl', {
       moduleId: 'annual_report_2025',
       type: 'Block',
-      page: { page_id: '60850', page_level: 1 }
+      page: { page_id: '60850' }
     });
   };
 
@@ -44,7 +44,7 @@ const YearlyReportSection = () => {
     trackEvent('', {
       moduleId: 'annual_report_discussion_2025',
       type: 'Button',
-      page: { page_id: '60850', page_level: 1 }
+      page: { page_id: '60850' }
     });
   };
 

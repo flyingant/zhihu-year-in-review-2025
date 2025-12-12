@@ -57,7 +57,7 @@ const MiniComputerSection = () => {
   useEffect(() => {
     if (moduleInView) {
       // 埋点8
-      trackShow({ moduleId: 'share_moment_2025', type: 'Block', page: { page_id: '60850', page_level: 1 } });
+      trackShow({ moduleId: 'share_moment_2025', type: 'Block', page: { page_id: '60850' } });
     }
   }, [moduleInView]);
 
@@ -113,7 +113,6 @@ const MiniComputerSection = () => {
       type: 'Button',
       page: {
         page_id: '60850',
-        page_level: 1,
       }
     });
 
@@ -311,7 +310,6 @@ const MiniComputerSection = () => {
       content: { type: 'Pin' },
       page: {
         page_id: '60850',
-        page_level: 1,
       }
     });
 
@@ -335,7 +333,6 @@ const MiniComputerSection = () => {
       type: 'Button',
       page: {
         page_id: '60850',
-        page_level: 1,
       }
     });
 

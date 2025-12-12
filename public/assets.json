@@ -1903,6 +1903,38 @@
         "alt": "P25 Right"
       }
     },
+    "p26": {
+      "liukanshan": {
+        "url": "/assets/2025_2_report_p26_liukanshan.png",
+        "width": 148,
+        "height": 246,
+        "alt": "P26 Liukanshan"
+      },
+      "pinkPixel": {
+        "url": "/assets/2025_2_report_p26_pink_pixel.png",
+        "width": 87,
+        "height": 24,
+        "alt": "P26 pink"
+      },
+      "rainbow": {
+        "url": "/assets/2025_2_report_p26_rainbow.png",
+        "width": 375,
+        "height": 811,
+        "alt": "P26 rainbow"
+      },
+      "redPixel1": {
+        "url": "/assets/2025_2_report_p26_red_pixel_1.png",
+        "width": 58,
+        "height": 25,
+        "alt": "P26 red pixel 1"
+      },
+      "redPixel2": {
+        "url": "/assets/2025_2_report_p26_red_pixel_2.png",
+        "width": 88,
+        "height": 15,
+        "alt": "P26 red pixel 2"
+      }
+    },
     "loading": {
       "url": "/assets/2025_2_report_loading.gif",
       "width": 300,

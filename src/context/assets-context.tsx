@@ -377,6 +377,13 @@ export interface AssetsData {
       middle: AssetMetadata;
       right: AssetMetadata;
     };
+    p26: {
+      liukanshan: AssetMetadata;
+      pinkPixel: AssetMetadata;
+      rainbow: AssetMetadata;
+      redPixel1: AssetMetadata;
+      redPixel2: AssetMetadata;
+    };
     loading: AssetMetadata;
     loadingBar: AssetMetadata;
     index: {

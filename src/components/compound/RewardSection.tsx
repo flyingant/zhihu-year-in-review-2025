@@ -111,7 +111,6 @@ const RewardSection = ({ onShowAddressForm }: RewardSectionProps = {}) => {
       type: 'Button',
       page: {
         page_id: '60850',
-        page_level: 1,
       }
     }, {
       config_map: {
@@ -307,7 +306,6 @@ const RewardSection = ({ onShowAddressForm }: RewardSectionProps = {}) => {
       type: 'Button',
       page: {
         page_id: '60850',
-        page_level: 1,
       }
     });
     if (assets?.urls?.taskPointRedeemBase && assets?.urls?.taskPointRedeemHistory) {
@@ -334,7 +332,6 @@ const RewardSection = ({ onShowAddressForm }: RewardSectionProps = {}) => {
       type: 'Button',
       page: {
         page_id: '60850',
-        page_level: 1,
       }
     });
     if (assets?.urls?.taskPointRedeemBase && assets?.urls?.taskPointRedeemDetails) {

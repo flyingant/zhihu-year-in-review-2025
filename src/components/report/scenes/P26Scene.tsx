@@ -97,6 +97,7 @@ export default function P26Scene({ onNext, sceneName }: PageProps) {
           className="object-contain absolute top-[410px] left-[108px] right-0 pointer-events-none select-none -z-10"
         />
       </div>
+      {/* content */}
       <div className="absolute z-0 top-[114px] left-[40px] right-[72px] leading-relaxed">
         <div className="pb-[30px]">
           <div className="mb-[8px]">

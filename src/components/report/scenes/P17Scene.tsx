@@ -5,6 +5,7 @@ import { colorClass, typographyClass } from "@/hooks/useSceneTheme";
 import BaseScene from "./BaseScene";
 import { useAssets } from "@/context/assets-context";
 import Image from "next/image";
+import { motion } from "framer-motion";
 
 interface PageProps {
   onNext?: () => void;
@@ -108,41 +109,71 @@ export default function P17Scene({ onNext, sceneName }: PageProps) {
           height={mix17.height}
           className="object-contain absolute top-[575px] right-0 pointer-events-none select-none z-1"
         />
-        <Image
-          src={pointer1.url}
-          alt={pointer1.alt}
-          width={pointer1.width}
-          height={pointer1.height}
-          className="object-contain absolute top-[103px] left-[49px] pointer-events-none select-none z-1"
-        />
-        <Image
-          src={pointer2.url}
-          alt={pointer2.alt}
-          width={pointer2.width}
-          height={pointer2.height}
-          className="object-contain absolute top-[117px] left-[251px] pointer-events-none select-none z-1"
-        />
-        <Image
-          src={pointer3.url}
-          alt={pointer3.alt}
-          width={pointer3.width}
-          height={pointer3.height}
-          className="object-contain absolute top-[520px] left-[292px] pointer-events-none select-none z-1"
-        />
-        <Image
-          src={pointer4.url}
-          alt={pointer4.alt}
-          width={pointer4.width}
-          height={pointer4.height}
-          className="object-contain absolute top-[688px] left-[259px] pointer-events-none select-none z-1"
-        />
-        <Image
-          src={pointer5.url}
-          alt={pointer5.alt}
-          width={pointer5.width}
-          height={pointer5.height}
-          className="object-contain absolute top-[531px] left-[41px] pointer-events-none select-none z-1"
-        />
+        <motion.div
+          className="relative z-10"
+          animate={{ y: [-2, 10, -2] }}
+          transition={{ repeat: Infinity, duration: 2, ease: "easeInOut" }}
+        >
+          <Image
+            src={pointer1.url}
+            alt={pointer1.alt}
+            width={pointer1.width}
+            height={pointer1.height}
+            className="object-contain absolute top-[103px] left-[49px] pointer-events-none select-none z-1"
+          />
+        </motion.div>
+        <motion.div
+          className="relative z-10"
+          animate={{ y: [-2, 10, -2] }}
+          transition={{ repeat: Infinity, duration: 2, ease: "easeInOut" }}
+        >
+          <Image
+            src={pointer2.url}
+            alt={pointer2.alt}
+            width={pointer2.width}
+            height={pointer2.height}
+            className="object-contain absolute top-[117px] left-[251px] pointer-events-none select-none z-1"
+          />
+        </motion.div>
+        <motion.div
+          className="relative z-10"
+          animate={{ y: [-2, 10, -2] }}
+          transition={{ repeat: Infinity, duration: 2, ease: "easeInOut" }}
+        >
+          <Image
+            src={pointer3.url}
+            alt={pointer3.alt}
+            width={pointer3.width}
+            height={pointer3.height}
+            className="object-contain absolute top-[520px] left-[292px] pointer-events-none select-none z-1"
+          />
+        </motion.div>
+        <motion.div
+          className="relative z-10"
+          animate={{ y: [-2, 10, -2] }}
+          transition={{ repeat: Infinity, duration: 2, ease: "easeInOut" }}
+        >
+          <Image
+            src={pointer4.url}
+            alt={pointer4.alt}
+            width={pointer4.width}
+            height={pointer4.height}
+            className="object-contain absolute top-[688px] left-[259px] pointer-events-none select-none z-1"
+          />
+        </motion.div>
+        <motion.div
+          className="relative z-10"
+          animate={{ y: [-2, 10, -2] }}
+          transition={{ repeat: Infinity, duration: 2, ease: "easeInOut" }}
+        >
+          <Image
+            src={pointer5.url}
+            alt={pointer5.alt}
+            width={pointer5.width}
+            height={pointer5.height}
+            className="object-contain absolute top-[531px] left-[41px] pointer-events-none select-none z-1"
+          />
+        </motion.div>
       </div>
       {/* content */}
       <div className="z-0 absolute top-[233px] left-[35px] right-[37px]">

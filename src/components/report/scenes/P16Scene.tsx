@@ -6,6 +6,7 @@ import BaseScene from "./BaseScene";
 import { useAssets } from "@/context/assets-context";
 import Image from "next/image";
 import FollowButton from "@/components/ui/FollowButton";
+import GlitchLayer from "../effects/GlitchLayer";
 
 interface PageProps {
   onNext?: () => void;
@@ -37,55 +38,62 @@ export default function P16Scene({ onNext, sceneName }: PageProps) {
   return (
     <BaseScene onNext={onNext} sceneName={sceneName}>
       {/* background */}
+      <GlitchLayer>
+        <div className="z-0">
+          <Image
+            src={mix16_1.url}
+            alt={mix16_1.alt}
+            width={mix16_1.width}
+            height={mix16_1.height}
+            className="object-contain absolute top-[16px] right-0 pointer-events-none select-none z-1"
+          />
+
+          <Image
+            src={blue16.url}
+            alt={blue16.alt}
+            width={blue16.width}
+            height={blue16.height}
+            className="object-contain absolute top-[298px] left-0 pointer-events-none select-none z-0"
+          />
+          <Image
+            src={blue15.url}
+            alt={blue15.alt}
+            width={blue15.width}
+            height={blue15.height}
+            className="object-contain rotate-90 absolute top-[112px] right-[78px] pointer-events-none select-none z-0"
+          />
+          <Image
+            src={blue15.url}
+            alt={blue15.alt}
+            width={blue15.width}
+            height={blue15.height}
+            className="object-contain rotate-90 absolute top-[753px] left-[72px] pointer-events-none select-none z-0"
+          />
+          <Image
+            src={mix15_1.url}
+            alt={mix15_1.alt}
+            width={mix15_1.width}
+            height={mix15_1.height}
+            className="object-contain absolute top-[79px] left-0 pointer-events-none select-none z-1"
+          />
+          <Image
+            src={mix16_2.url}
+            alt={mix16_2.alt}
+            width={mix16_2.width}
+            height={mix16_2.height}
+            className="object-contain absolute top-[689px] right-0 pointer-events-none select-none z-1"
+          />
+        </div>
+      </GlitchLayer>
+
+      {/* main image */}
       <div className="z-0">
-        <Image
-          src={mix16_1.url}
-          alt={mix16_1.alt}
-          width={mix16_1.width}
-          height={mix16_1.height}
-          className="object-contain absolute top-[16px] right-0 pointer-events-none select-none z-1"
-        />
         <Image
           src={thumbUp.url}
           alt={thumbUp.alt}
           width={thumbUp.width}
           height={thumbUp.height}
           className="w-full absolute top-[127px] left-0 pointer-events-none select-none z-0"
-        />
-        <Image
-          src={blue16.url}
-          alt={blue16.alt}
-          width={blue16.width}
-          height={blue16.height}
-          className="object-contain absolute top-[298px] left-0 pointer-events-none select-none z-0"
-        />
-        <Image
-          src={blue15.url}
-          alt={blue15.alt}
-          width={blue15.width}
-          height={blue15.height}
-          className="object-contain rotate-90 absolute top-[112px] right-[78px] pointer-events-none select-none z-0"
-        />
-        <Image
-          src={blue15.url}
-          alt={blue15.alt}
-          width={blue15.width}
-          height={blue15.height}
-          className="object-contain rotate-90 absolute top-[753px] left-[72px] pointer-events-none select-none z-0"
-        />
-        <Image
-          src={mix15_1.url}
-          alt={mix15_1.alt}
-          width={mix15_1.width}
-          height={mix15_1.height}
-          className="object-contain absolute top-[79px] left-0 pointer-events-none select-none z-1"
-        />
-        <Image
-          src={mix16_2.url}
-          alt={mix16_2.alt}
-          width={mix16_2.width}
-          height={mix16_2.height}
-          className="object-contain absolute top-[689px] right-0 pointer-events-none select-none z-1"
         />
       </div>
       {/* content */}
@@ -141,41 +149,41 @@ export default function P16Scene({ onNext, sceneName }: PageProps) {
         </div>
 
         <div className="text-sm">
-          <div className="mb-[10px]">
+          <div className="">
             看看
             <br />
             <span
               className={`${colorClass("blue")} ${typographyClass(
                 "subtitle"
-              )} px-[2px] flex items-center`}
+              )} px-[2px] mb-[15px] mt-[10px] flex items-center`}
             >
               @
               {String(
                 interestMemberName1 ?? "consume_interest_member_name_top1"
               )}
-              <FollowButton disabled />
+              <FollowButton className="ml-[7px]" disabled />
             </span>
             <span
               className={`${colorClass("blue")} ${typographyClass(
                 "subtitle"
-              )} px-[2px] flex items-center`}
+              )} px-[2px] mb-[15px] flex items-center`}
             >
               @
               {String(
                 interestMemberName2 ?? "consume_interest_member_name_top2"
               )}
-              <FollowButton />
+              <FollowButton className="ml-[7px]" />
             </span>
             <span
               className={`${colorClass("blue")} ${typographyClass(
                 "subtitle"
-              )} px-[2px] flex items-center`}
+              )} px-[2px] mb-[15px] flex items-center`}
             >
               @
               {String(
                 interestMemberName3 ?? "consume_interest_member_name_top3"
               )}
-              <FollowButton />
+              <FollowButton className="ml-[7px]" />
             </span>
           </div>
           <div>或许也能给你一丝启发</div>

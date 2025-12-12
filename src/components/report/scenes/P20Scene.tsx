@@ -5,6 +5,7 @@ import { colorClass, typographyClass } from "@/hooks/useSceneTheme";
 import BaseScene from "./BaseScene";
 import { useAssets } from "@/context/assets-context";
 import Image from "next/image";
+import GlitchLayer from "../effects/GlitchLayer";
 
 interface PageProps {
   onNext?: () => void;
@@ -53,56 +54,62 @@ export default function P20Scene({ onNext, sceneName }: PageProps) {
   return (
     <BaseScene onNext={onNext} sceneName={sceneName}>
       {/* background */}
+      <GlitchLayer>
+        <div className="z-0">
+          <Image
+            src={blue15.url}
+            alt={blue15.alt}
+            width={blue15.width}
+            height={blue15.height}
+            className="object-contain rotate-90 absolute top-[58px] left-[27px] w-[35px] h-[35px] pointer-events-none select-none z-0"
+          />
+          <Image
+            src={blue16.url}
+            alt={blue16.alt}
+            width={blue16.width}
+            height={blue16.height}
+            className="object-contain absolute top-[310px] right-[60px] w-[27px] h-[27px] pointer-events-none select-none z-0"
+          />
+          <Image
+            src={blue15.url}
+            alt={blue15.alt}
+            width={blue15.width}
+            height={blue15.height}
+            className="object-contain absolute top-[742px] right-[66px] w-[34px] h-[34px] pointer-events-none select-none z-0"
+          />
+          <Image
+            src={mix15_1.url}
+            alt={mix15_1.alt}
+            width={mix15_1.width}
+            height={mix15_1.height}
+            className="object-contain absolute top-[250px] left-0 w-[124px] h-[30px] pointer-events-none select-none z-0"
+          />
+          <Image
+            src={mix16_1.url}
+            alt={mix16_1.alt}
+            width={mix16_1.width}
+            height={mix16_1.height}
+            className="object-contain absolute top-[268px] left-[18px] w-[88px] h-[24px] pointer-events-none select-none z-1"
+          />
+
+          <Image
+            src={mix20.url}
+            alt={mix20.alt}
+            width={mix20.width}
+            height={mix20.height}
+            className="object-contain absolute top-[618px] right-0 pointer-events-none select-none z-1"
+          />
+        </div>
+      </GlitchLayer>
+
+      {/* main images */}
       <div className="z-0">
         <Image
           src={main.url}
           alt={main.alt}
           width={main.width}
           height={main.height}
-          className="object-contain absolute top-[228px] right-0 pointer-events-none select-none z-0"
-        />
-        <Image
-          src={blue15.url}
-          alt={blue15.alt}
-          width={blue15.width}
-          height={blue15.height}
-          className="object-contain rotate-90 absolute top-[58px] left-[27px] w-[35px] h-[35px] pointer-events-none select-none z-0"
-        />
-        <Image
-          src={blue16.url}
-          alt={blue16.alt}
-          width={blue16.width}
-          height={blue16.height}
-          className="object-contain absolute top-[310px] right-[60px] w-[27px] h-[27px] pointer-events-none select-none z-0"
-        />
-        <Image
-          src={blue15.url}
-          alt={blue15.alt}
-          width={blue15.width}
-          height={blue15.height}
-          className="object-contain absolute top-[742px] right-[66px] w-[34px] h-[34px] pointer-events-none select-none z-0"
-        />
-        <Image
-          src={mix15_1.url}
-          alt={mix15_1.alt}
-          width={mix15_1.width}
-          height={mix15_1.height}
-          className="object-contain absolute top-[250px] left-0 w-[124px] h-[30px] pointer-events-none select-none z-0"
-        />
-        <Image
-          src={mix16_1.url}
-          alt={mix16_1.alt}
-          width={mix16_1.width}
-          height={mix16_1.height}
-          className="object-contain absolute top-[268px] left-[18px] w-[88px] h-[24px] pointer-events-none select-none z-1"
-        />
-
-        <Image
-          src={mix20.url}
-          alt={mix20.alt}
-          width={mix20.width}
-          height={mix20.height}
-          className="object-contain absolute top-[618px] right-0 pointer-events-none select-none z-1"
+          className="object-contain absolute top-[228px] right-0 pointer-events-none select-none z-20"
         />
       </div>
 

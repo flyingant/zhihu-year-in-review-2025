@@ -6,6 +6,7 @@ import { colorClass, typographyClass } from "@/hooks/useSceneTheme";
 import { useAssets } from "@/context/assets-context";
 import BaseScene from "./BaseScene";
 import ZhihuLogo from "@/components/ui/ZhihuLogo";
+import GlitchLayer from "../effects/GlitchLayer";
 
 interface PageProps {
   onNext?: () => void;
@@ -35,14 +36,57 @@ export default function P15Scene({ onNext, sceneName }: PageProps) {
 
   return (
     <BaseScene onNext={onNext} sceneName={sceneName}>
+      {/* background */}
+      <GlitchLayer>
+        <div className="z-0">
+          <Image
+            src={blue15.url}
+            alt={blue15.alt}
+            width={blue15.width}
+            height={blue15.height}
+            className="object-contain absolute top-[74px] left-0 pointer-events-none select-none z-0"
+          />
+
+          <Image
+            src={blue15.url}
+            alt={blue15.alt}
+            width={blue15.width}
+            height={blue15.height}
+            className="object-contain rotate-90 absolute top-[234px] right-[21px] pointer-events-none select-none z-0"
+          />
+          <Image
+            src={blue15.url}
+            alt={blue15.alt}
+            width={blue15.width}
+            height={blue15.height}
+            className="object-contain rotate-90 absolute top-[682px] left-[10px] pointer-events-none select-none z-0"
+          />
+
+          <Image
+            src={mix15_1.url}
+            alt={mix15_1.alt}
+            width={mix15_1.width}
+            height={mix15_1.height}
+            className="object-contain absolute top-[470px] right-[19px] pointer-events-none select-none z-1"
+          />
+          <Image
+            src={mix15_2.url}
+            alt={mix15_2.alt}
+            width={mix15_2.width}
+            height={mix15_2.height}
+            className="object-contain absolute top-[486px] right-0 pointer-events-none select-none z-1"
+          />
+          <Image
+            src={mix15.url}
+            alt={mix15.alt}
+            width={mix15.width}
+            height={mix15.height}
+            className="object-contain absolute top-[689px] right-0 pointer-events-none select-none z-1"
+          />
+        </div>
+      </GlitchLayer>
+      {/* main picture */}
       <div className="z-0">
-        <Image
-          src={blue15.url}
-          alt={blue15.alt}
-          width={blue15.width}
-          height={blue15.height}
-          className="object-contain absolute top-[74px] left-0 pointer-events-none select-none z-0"
-        />
         <Image
           src={ladder.url}
           alt={ladder.alt}
@@ -50,44 +94,8 @@ export default function P15Scene({ onNext, sceneName }: PageProps) {
           height={ladder.height}
           className="object-contain absolute top-[155px] left-0 right-0 pointer-events-none select-none z-0 w-full"
         />
-        <Image
-          src={blue15.url}
-          alt={blue15.alt}
-          width={blue15.width}
-          height={blue15.height}
-          className="object-contain rotate-90 absolute top-[234px] right-[21px] pointer-events-none select-none z-0"
-        />
-        <Image
-          src={blue15.url}
-          alt={blue15.alt}
-          width={blue15.width}
-          height={blue15.height}
-          className="object-contain rotate-90 absolute top-[682px] left-[10px] pointer-events-none select-none z-0"
-        />
-
-        <Image
-          src={mix15_1.url}
-          alt={mix15_1.alt}
-          width={mix15_1.width}
-          height={mix15_1.height}
-          className="object-contain absolute top-[470px] right-[19px] pointer-events-none select-none z-1"
-        />
-        <Image
-          src={mix15_2.url}
-          alt={mix15_2.alt}
-          width={mix15_2.width}
-          height={mix15_2.height}
-          className="object-contain absolute top-[486px] right-0 pointer-events-none select-none z-1"
-        />
-        <Image
-          src={mix15.url}
-          alt={mix15.alt}
-          width={mix15.width}
-          height={mix15.height}
-          className="object-contain absolute top-[689px] right-0 pointer-events-none select-none z-1"
-        />
       </div>
-
+      {/* content */}
       <div className=" z-0 pt-[113px]">
         <span
           className={

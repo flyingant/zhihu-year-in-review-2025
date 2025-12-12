@@ -5,6 +5,7 @@ import { colorClass, typographyClass } from "@/hooks/useSceneTheme";
 import BaseScene from "./BaseScene";
 import { useAssets } from "@/context/assets-context";
 import Image from "next/image";
+import GlitchLayer from "../effects/GlitchLayer";
 
 interface PageProps {
   onNext?: () => void;
@@ -43,6 +44,60 @@ export default function P18Scene({ onNext, sceneName }: PageProps) {
   return (
     <BaseScene onNext={onNext} sceneName={sceneName}>
       {/* background */}
+      <GlitchLayer>
+        <div className="z-0">
+          <Image
+            src={mix16_1.url}
+            alt={mix16_1.alt}
+            width={mix16_1.width}
+            height={mix16_1.height}
+            className="object-contain absolute top-[583px] left-[91px] w-[88px] h-[24px] pointer-events-none select-none z-1"
+          />
+          <Image
+            src={blue16.url}
+            alt={blue16.alt}
+            width={blue16.width}
+            height={blue16.height}
+            className="object-contain absolute top-[34px] left-[300px] w-[27px] h-[27px] pointer-events-none select-none z-0"
+          />
+          <Image
+            src={blue15.url}
+            alt={blue15.alt}
+            width={blue15.width}
+            height={blue15.height}
+            className="object-contain rotate-90 absolute top-[181px] right-[11px] w-[35px] h-[35px] pointer-events-none select-none z-0"
+          />
+          <Image
+            src={blue15.url}
+            alt={blue15.alt}
+            width={blue15.width}
+            height={blue15.height}
+            className="object-contain rotate-90 absolute top-[753px] left-[72px] pointer-events-none select-none z-0"
+          />
+          <Image
+            src={mix15_1.url}
+            alt={mix15_1.alt}
+            width={mix15_1.width}
+            height={mix15_1.height}
+            className="object-contain absolute top-[557px] -left-[2px] w-[124px] h-[30px] pointer-events-none select-none z-1"
+          />
+          <Image
+            src={mix15_2.url}
+            alt={mix15_2.alt}
+            width={mix15_2.width}
+            height={mix15_2.height}
+            className="object-contain absolute top-[163px] -left-[2px] w-[117px] h-[26px] pointer-events-none select-none z-1"
+          />
+          <Image
+            src={mix16_2.url}
+            alt={mix16_2.alt}
+            width={mix16_2.width}
+            height={mix16_2.height}
+            className="object-contain absolute top-[741px] left-[225px] w-[139px] h-[70px] pointer-events-none select-none z-1"
+          />
+        </div>
+      </GlitchLayer>
+      {/* main images */}
       <div className="z-0">
         <Image
           src={main.url}
@@ -50,55 +105,6 @@ export default function P18Scene({ onNext, sceneName }: PageProps) {
           width={main.width}
           height={main.height}
           className="object-contain absolute top-[290px] left-0 pointer-events-none select-none z-1"
-        />
-        <Image
-          src={mix16_1.url}
-          alt={mix16_1.alt}
-          width={mix16_1.width}
-          height={mix16_1.height}
-          className="object-contain absolute top-[583px] left-[91px] w-[88px] h-[24px] pointer-events-none select-none z-1"
-        />
-        <Image
-          src={blue16.url}
-          alt={blue16.alt}
-          width={blue16.width}
-          height={blue16.height}
-          className="object-contain absolute top-[34px] left-[300px] w-[27px] h-[27px] pointer-events-none select-none z-0"
-        />
-        <Image
-          src={blue15.url}
-          alt={blue15.alt}
-          width={blue15.width}
-          height={blue15.height}
-          className="object-contain rotate-90 absolute top-[181px] right-[11px] w-[35px] h-[35px] pointer-events-none select-none z-0"
-        />
-        <Image
-          src={blue15.url}
-          alt={blue15.alt}
-          width={blue15.width}
-          height={blue15.height}
-          className="object-contain rotate-90 absolute top-[753px] left-[72px] pointer-events-none select-none z-0"
-        />
-        <Image
-          src={mix15_1.url}
-          alt={mix15_1.alt}
-          width={mix15_1.width}
-          height={mix15_1.height}
-          className="object-contain absolute top-[557px] -left-[2px] w-[124px] h-[30px] pointer-events-none select-none z-1"
-        />
-        <Image
-          src={mix15_2.url}
-          alt={mix15_2.alt}
-          width={mix15_2.width}
-          height={mix15_2.height}
-          className="object-contain absolute top-[163px] -left-[2px] w-[117px] h-[26px] pointer-events-none select-none z-1"
-        />
-        <Image
-          src={mix16_2.url}
-          alt={mix16_2.alt}
-          width={mix16_2.width}
-          height={mix16_2.height}
-          className="object-contain absolute top-[741px] left-[225px] w-[139px] h-[70px] pointer-events-none select-none z-1"
         />
       </div>
       {/* content */}

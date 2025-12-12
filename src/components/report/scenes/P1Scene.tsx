@@ -4,6 +4,7 @@ import { useState, useEffect, useRef } from "react";
 import Image from "next/image";
 import { useAssets } from '@/context/assets-context';
 import BaseScene from "./BaseScene";
+import GlitchLayer from "@/components/report/effects/GlitchLayer";
 
 interface PageProps {
   onNext?: () => void;
@@ -44,6 +45,12 @@ export default function P1Scene({ onNext, sceneName }: PageProps) {
   if (!assets) return null;
 
   const p1Assets = assets.report.p1;
+  const reportBgAsset = assets.report.bg;
+  const mixAsset = reportBgAsset.mix0_1;
+  const blue2Asset = reportBgAsset.blue2;
+  const mix1Asset = reportBgAsset.mix1;
+  const mix2Asset = reportBgAsset.mix2;
+
   const bgAsset = p1Assets.bg;
   const topAsset = p1Assets.top;
   const middleAsset = p1Assets.middle;
@@ -52,6 +59,48 @@ export default function P1Scene({ onNext, sceneName }: PageProps) {
   
   return (
     <BaseScene onNext={onNext} sceneName={sceneName}>
+      <GlitchLayer className="z-[50]">
+        <Image 
+          src={mixAsset.url} 
+          alt="{mixAsset.alt}" 
+          width={mixAsset.width} 
+          height={mixAsset.height} 
+          className="object-contain absolute pointer-events-none select-none z-1"
+          style={{ top: '28px', left: '-30px' }} 
+        />
+        <Image 
+          src={blue2Asset.url} 
+          alt="{blue2Asset.alt}" 
+          width={blue2Asset.width} 
+          height={blue2Asset.height} 
+          className="object-contain absolute pointer-events-none select-none z-1"
+          style={{ top: '210px', right: '39px' }} 
+        />
+        <Image 
+          src={mix2Asset.url} 
+          alt="{mix2Asset.alt}" 
+          width={mix2Asset.width} 
+          height={mix2Asset.height} 
+          className="object-contain absolute pointer-events-none select-none z-1"
+          style={{ top: '295px', left: '0px' }} 
+        />
+        <Image 
+          src={mix1Asset.url} 
+          alt="{mix1Asset.alt}" 
+          width={mix1Asset.width} 
+          height={mix1Asset.height} 
+          className="object-contain absolute pointer-events-none select-none z-1"
+          style={{ bottom: '155px', right: '-30px' }} 
+        />
+        <Image 
+          src={blue2Asset.url} 
+          alt="{blue2Asset.alt}" 
+          width={blue2Asset.width} 
+          height={blue2Asset.height} 
+          className="object-contain absolute pointer-events-none select-none z-1"
+          style={{ bottom: '45px', left: '45px' }} 
+        />
+      </GlitchLayer>
       <div ref={containerRef} className="relative w-full h-full overflow-hidden" style={{ perspective: '1000px' }}>
         <p className="absolute z-30 text-center text-xl w-full" style={{ top: '106px' }}>这一年，<br/>是什么在驱动你的创作？</p>
         <p 

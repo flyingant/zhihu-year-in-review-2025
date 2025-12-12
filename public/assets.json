@@ -1141,6 +1141,12 @@
         "width": 375,
         "height": 812,
         "alt": "Introduction Step 2 Video"
+      },
+      "step3": {
+        "url": "/assets/2025_2_report_intro_step3.mp4",
+        "width": 375,
+        "height": 812,
+        "alt": "Introduction Step 3 Video"
       }
     },
     "bg": {

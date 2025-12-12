@@ -205,6 +205,7 @@ export interface AssetsData {
     intro: {
       step1: AssetMetadata;
       step2: AssetMetadata;
+      step3: AssetMetadata;
     };
     bg: {
       blue0_1: AssetMetadata;

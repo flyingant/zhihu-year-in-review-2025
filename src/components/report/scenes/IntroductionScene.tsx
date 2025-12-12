@@ -12,44 +12,121 @@ interface IntroductionSceneProps {
 
 export default function IntroductionScene({ onNext, sceneName }: IntroductionSceneProps) {
   const { assets } = useAssets();
-  const [currentStep, setCurrentStep] = useState<'step1' | 'step2'>('step1');
+  const [currentStep, setCurrentStep] = useState<'step1' | 'step2' | 'step3'>('step1');
   const videoRef = useRef<HTMLVideoElement>(null);
+  
+  // Compute video source based on current step
+  const videoSrc = assets?.report?.intro
+    ? currentStep === 'step1'
+      ? assets.report.intro.step1.url
+      : currentStep === 'step2'
+      ? assets.report.intro.step2.url
+      : assets.report.intro.step3.url
+    : '';
+
+  // Preload step2 and step3 videos
+  useEffect(() => {
+    if (!assets?.report?.intro) return;
+
+    // Preload step2 video
+    const step2Video = document.createElement('video');
+    step2Video.src = assets.report.intro.step2.url;
+    step2Video.preload = 'auto';
+    step2Video.load();
+
+    // Preload step3 video
+    const step3Video = document.createElement('video');
+    step3Video.src = assets.report.intro.step3.url;
+    step3Video.preload = 'auto';
+    step3Video.load();
+
+    return () => {
+      step2Video.src = '';
+      step3Video.src = '';
+    };
+  }, [assets?.report?.intro]);
 
   // Handle video end event
   const handleVideoEnd = () => {
     if (currentStep === 'step1') {
-      // Video 1 ended, button is already displayed for user to proceed
+      // Video 1 ended, automatically start step2 and loop it
+      if (!assets?.report?.intro || !videoRef.current) return;
+      
+      const video = videoRef.current;
+      
+      // Wait for video to be ready before switching to avoid blink
+      const handleCanPlayThrough = () => {
+        video.removeEventListener('canplaythrough', handleCanPlayThrough);
+        setCurrentStep('step2');
+        video.loop = true; // Enable looping for step2
+        video.muted = false; // Enable sound for step2
+        video.play().catch((error) => {
+          console.error('Error playing video 2:', error);
+        });
+      };
+
+      video.pause();
+      video.currentTime = 0;
+      
+      const source = video.querySelector('source');
+      if (source) {
+        source.src = assets.report.intro.step2.url;
+      }
+      
+      video.load();
+      
+      // Wait for video to be ready before switching
+      if (video.readyState >= 3) {
+        // Video is already ready (canplaythrough)
+        handleCanPlayThrough();
+      } else {
+        video.addEventListener('canplaythrough', handleCanPlayThrough, { once: true });
+      }
     } else if (currentStep === 'step2') {
-      // After step2, go to next page
+      // step2 is looping, so this shouldn't normally fire, but if it does, just replay
+      // The loop attribute should handle this automatically
+    } else if (currentStep === 'step3') {
+      // After step3, go to next page
       onNext();
     }
   };
 
-  // Play step2 video when button is clicked
+  // Play step3 video when button is clicked (stops step2 loop)
   const handleButtonClick = () => {
-    if (!assets?.report?.intro || !videoRef.current) return;
+    if (!assets?.report?.intro || !videoRef.current || currentStep !== 'step2') return;
     
-    // Switch to step2 video
-    setCurrentStep('step2');
-    
-    // Change video source and play
     const video = videoRef.current;
+    
+    // Wait for video to be ready before switching to avoid blink
+    const handleCanPlayThrough = () => {
+      video.removeEventListener('canplaythrough', handleCanPlayThrough);
+      setCurrentStep('step3');
+      video.loop = false; // Disable looping for step3
+      video.muted = false; // Keep sound enabled for step3
+      video.play().catch((error) => {
+        console.error('Error playing video 3:', error);
+      });
+    };
+
     video.pause();
     video.currentTime = 0;
     
     // Update source
     const source = video.querySelector('source');
     if (source) {
-      source.src = assets.report.intro.step2.url;
+      source.src = assets.report.intro.step3.url;
     }
     
-    // Load and play the new video
+    // Load and wait for video to be ready
     video.load();
-    video.muted = false; // Enable sound for step2 (user-initiated)
     
-    video.play().catch((error) => {
-      console.error('Error playing video 2:', error);
-    });
+    // Wait for video to be ready before switching
+    if (video.readyState >= 3) {
+      // Video is already ready (canplaythrough)
+      handleCanPlayThrough();
+    } else {
+      video.addEventListener('canplaythrough', handleCanPlayThrough, { once: true });
+    }
   };
 
   // Auto-play step1 video when component mounts
@@ -84,7 +161,7 @@ export default function IntroductionScene({ onNext, sceneName }: IntroductionSce
       contentClassName="p-0"
     >
       <div className="relative w-full h-full overflow-hidden bg-black">
-        {/* Single video element that plays both videos step by step */}
+        {/* Single video element that plays all videos step by step */}
         {assets?.report?.intro && (
           <video
             ref={videoRef}
@@ -92,6 +169,7 @@ export default function IntroductionScene({ onNext, sceneName }: IntroductionSce
             playsInline
             autoPlay
             muted={currentStep === 'step1'}
+            loop={currentStep === 'step2'}
             preload="auto"
             onLoadedData={() => {
               // Ensure video plays when loaded
@@ -102,26 +180,25 @@ export default function IntroductionScene({ onNext, sceneName }: IntroductionSce
               }
             }}
             onEnded={handleVideoEnd}
+            style={{ background: 'transparent' }}
           >
             <source
-              src={
-                currentStep === 'step1'
-                  ? assets.report.intro.step1.url
-                  : assets.report.intro.step2.url
-              }
+              src={videoSrc}
               type="video/mp4"
             />
             Your browser does not support the video tag.
           </video>
         )}
 
-        {/* Button to proceed to step2 */}
-        <button
-          onClick={handleButtonClick}
-          className="absolute bottom-10 left-1/2 -translate-x-1/2 z-20 px-6 py-3 bg-white/90 hover:bg-white text-black font-bold rounded-lg transition-all duration-200 shadow-lg"
-        >
-          继续
-        </button>
+        {/* Button to proceed to step3 (only show during step2 loop) */}
+        {currentStep === 'step2' && (
+          <button
+            onClick={handleButtonClick}
+            className="absolute bottom-10 left-1/2 -translate-x-1/2 z-20 px-6 py-3 bg-white/90 hover:bg-white text-black font-bold rounded-lg transition-all duration-200 shadow-lg"
+          >
+            继续
+          </button>
+        )}
       </div>
     </BaseScene>
   );

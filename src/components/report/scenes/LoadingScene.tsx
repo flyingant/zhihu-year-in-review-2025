@@ -56,25 +56,34 @@ export default function LoadingScene({ onNext, sceneName }: LoadingSceneProps) {
       <GlitchLayer intensity='heavy'>
         {/* 顺序从上到下 */}
         <Image src={blue1Asset.url} alt="{blue1Asset.alt}" width={blue1Asset.width} height={blue1Asset.height} 
-          className="object-contain absolute top-[99px] right-[32px] pointer-events-none select-none z-1" />
+          className="object-contain absolute pointer-events-none select-none z-1" style={{top: '99px', right: '32px'}} />
         <Image src={mix1Asset.url} alt="{mix1Asset.alt}" width={mix1Asset.width} height={mix1Asset.height} 
-          className="object-contain absolute top-[130px] left-[83px] pointer-events-none select-none z-1" />
+          className="object-contain absolute pointer-events-none select-none z-1" 
+          style={{ top: '130px', left: '83px' }} />
         <Image src={mix2Asset.url} alt="{mix2Asset.alt}" width={mix2Asset.width} height={mix2Asset.height} 
-          className="object-contain absolute top-[153px] right-[112px] pointer-events-none select-none z-1" />
+          className="object-contain absolute pointer-events-none select-none z-1" 
+          style={{ top: '153px', right: '112px' }} />
         <Image src={blue2Asset.url} alt="{blue2Asset.alt}" width={blue2Asset.width} height={blue2Asset.height} 
-          className="object-contain absolute top-[253px] right-[93px] pointer-events-none select-none z-1" />
+          className="object-contain absolute pointer-events-none select-none z-1" 
+          style={{ top: '253px', right: '93px' }} />
         <Image src={blue3Asset.url} alt="{blue3Asset.alt}" width={blue3Asset.width} height={blue3Asset.height} 
-          className="object-contain absolute top-[306px] left-[144px] pointer-events-none select-none z-1" />
+          className="object-contain absolute pointer-events-none select-none z-1" 
+          style={{ top: '306px', left: '144px' }} />
         <Image src={mix3Asset.url} alt="{mix3Asset.alt}" width={mix3Asset.width} height={mix3Asset.height} 
-          className="object-contain absolute top-[362px] right-[97px] pointer-events-none select-none z-1" />
+          className="object-contain absolute pointer-events-none select-none z-1" 
+          style={{ top: '362px', right: '97px' }} />
         <Image src={mix4Asset.url} alt="{mix4Asset.alt}" width={mix4Asset.width} height={mix4Asset.height} 
-          className="object-contain absolute bottom-[262px] right-[0px] pointer-events-none select-none z-1" />
+          className="object-contain absolute pointer-events-none select-none z-1" 
+          style={{ bottom: '262px', right: '0px' }} />
         <Image src={mix5Asset.url} alt="{mix5Asset.alt}" width={mix5Asset.width} height={mix5Asset.height} 
-          className="object-contain absolute bottom-[128px] left-[28px] pointer-events-none select-none z-1" />
+          className="object-contain absolute pointer-events-none select-none z-1" 
+          style={{ bottom: '128px', left: '28px' }} />
         <Image src={greenAsset.url} alt="{greenAsset.alt}" width={greenAsset.width} height={greenAsset.height} 
-          className="object-contain absolute bottom-[134px] left-[7px] pointer-events-none select-none z-1" />
+          className="object-contain absolute pointer-events-none select-none z-1" 
+          style={{ bottom: '134px', left: '7px' }} />
         <Image src={blue4Asset.url} alt="{blue4Asset.alt}" width={blue4Asset.width} height={blue4Asset.height} 
-          className="object-contain absolute bottom-[44px] right-[41px] pointer-events-none select-none z-1" />
+          className="object-contain absolute pointer-events-none select-none z-1" 
+          style={{ bottom: '44px', right: '41px' }} />
       </GlitchLayer>
       <div className='w-full h-full'>
         {/* <PixelGlitchOverlay /> */}

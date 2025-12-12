@@ -1,0 +1,605 @@
+// src/api/report.ts
+import request from '../lib/request';
+
+// ============================================================================
+// User Report Data Interface
+// ============================================================================
+// This interface represents the complete user annual report data structure
+// returned from the /campaigns/v2/2025/summary/profile endpoint
+export interface UserReportData {
+  // Basic activity fields
+  publish_question_cnt?: number;
+  question_answer_comment_cnt?: number;
+  billboard_question_cnt?: number;
+  billboard_question_token?: string;
+  
+  // Answer related fields
+  answer_cnt?: number;
+  answer_upvote_cnt?: number;
+  answer_comment_cnt?: number;
+  answer_share_cnt?: number;
+  answer_collect_cnt?: number;
+  answer_thanks_cnt?: number;
+  answer_most_upvote_cnt?: number;
+  answer_most_upvote_id?: number;
+  answer_most_upvote_title?: string;
+  answer_most_upvote_url?: string;
+  answer_most_comment_cnt?: number;
+  answer_most_comment_id?: number;
+  answer_most_comment_title?: string;
+  answer_most_comment_url?: string;
+  
+  // Article related fields
+  article_cnt?: number;
+  article_upvote_cnt?: number;
+  article_comment_cnt?: number;
+  article_share_cnt?: number;
+  article_collect_cnt?: number;
+  article_thanks_cnt?: number;
+  article_most_upvote_cnt?: number;
+  article_most_upvote_id?: number;
+  article_most_upvote_title?: string;
+  article_most_upvote_url?: string;
+  article_most_comment_cnt?: number;
+  article_most_comment_id?: number;
+  article_most_comment_title?: string;
+  article_most_comment_url?: string;
+  
+  // Idea/Pin related fields
+  pin_cnt?: number;
+  pin_upvote_cnt?: number;
+  pin_comment_cnt?: number;
+  pin_share_cnt?: number;
+  pin_collect_cnt?: number;
+  pin_thanks_cnt?: number;
+  pin_most_upvote_cnt?: number;
+  pin_most_upvote_id?: number;
+  pin_most_upvote_title?: string;
+  pin_most_upvote_url?: string;
+  pin_most_comment_cnt?: number;
+  pin_most_comment_id?: number;
+  pin_most_comment_title?: string;
+  pin_most_comment_url?: string;
+  
+  // Video related fields
+  video_cnt?: number;
+  video_upvote_cnt?: number;
+  video_comment_cnt?: number;
+  video_share_cnt?: number;
+  video_collect_cnt?: number;
+  video_thanks_cnt?: number;
+  video_most_upvote_cnt?: number;
+  video_most_upvote_id?: number;
+  video_most_upvote_title?: string;
+  video_most_upvote_url?: string;
+  video_most_comment_cnt?: number;
+  video_most_comment_id?: number;
+  video_most_comment_title?: string;
+  video_most_comment_url?: string;
+  
+  // Question related fields
+  question_cnt?: number;
+  question_follower_cnt?: number;
+  question_answer_cnt?: number;
+  question_most_follower_cnt?: number;
+  question_most_follower_id?: number;
+  question_most_follower_title?: string;
+  question_most_follower_url?: string;
+  question_most_answer_cnt?: number;
+  question_most_answer_id?: number;
+  question_most_answer_title?: string;
+  question_most_answer_url?: string;
+  
+  // Topic related fields
+  topic_follow_cnt?: number;
+  topic_most_follow_id?: number;
+  topic_most_follow_name?: string;
+  topic_most_follow_url?: string;
+  
+  // User follow related fields
+  user_follow_cnt?: number;
+  user_follower_cnt?: number;
+  user_follow_most_upvote_id?: number;
+  user_follow_most_upvote_name?: string;
+  user_follow_most_upvote_url?: string;
+  user_follow_most_upvote_upvote_cnt?: number;
+  user_follower_most_upvote_id?: number;
+  user_follower_most_upvote_name?: string;
+  user_follower_most_upvote_url?: string;
+  user_follower_most_upvote_upvote_cnt?: number;
+  
+  // Collection related fields
+  collection_cnt?: number;
+  collection_follower_cnt?: number;
+  collection_most_follower_id?: number;
+  collection_most_follower_name?: string;
+  collection_most_follower_url?: string;
+  
+  // Column related fields
+  column_cnt?: number;
+  column_follower_cnt?: number;
+  column_article_cnt?: number;
+  column_most_follower_id?: number;
+  column_most_follower_name?: string;
+  column_most_follower_url?: string;
+  column_most_article_id?: number;
+  column_most_article_name?: string;
+  column_most_article_url?: string;
+  column_most_article_cnt?: number;
+  
+  // Live related fields
+  live_cnt?: number;
+  live_audience_cnt?: number;
+  live_most_audience_id?: number;
+  live_most_audience_title?: string;
+  live_most_audience_url?: string;
+  
+  // Club/Community related fields
+  club_admin_top1_id?: number;
+  club_admin_top1_name?: string;
+  club_admin_top1_member_cnt?: number;
+  club_admin_top1_content_cnt?: number;
+  club_admin_top2_id?: number;
+  club_admin_top2_name?: string;
+  club_admin_top2_member_cnt?: number;
+  club_admin_top2_content_cnt?: number;
+  club_admin_pin_cnt?: number;
+  club_admin_interaction_cnt?: number;
+  
+  // Active club fields
+  club_active_list_id_top1?: number;
+  club_active_list_name_top1?: string;
+  club_active_list_id_top2?: number;
+  club_active_list_name_top2?: string;
+  club_active_list_id_top3?: number;
+  club_active_list_name_top3?: string;
+  
+  // Interest club fields
+  club_interest_list_id_top1?: number;
+  club_interest_list_name_top1?: string;
+  club_interest_list_id_top2?: number;
+  club_interest_list_name_top2?: string;
+  club_interest_list_id_top3?: number;
+  club_interest_list_name_top3?: string;
+  club_friend_interest_id?: number;
+  club_friend_interest_name?: string;
+  
+  // Paid content (Salt Select) related fields
+  paid_content_cnt?: number;
+  total_word_cnt?: number;
+  label_name_top1?: string;
+  label_name_top2?: string;
+  label_name_top3?: string;
+  most_favorite_author_name?: string;
+  most_favorite_author_num?: number;
+  
+  // Creator related fields
+  write_story_num_sum?: number;
+  write_story_most_popular_name?: string;
+  total_upvote_num?: number;
+  short_story_influence_list?: string;
+  annual_author?: string;
+  awarded_copy?: string;
+  
+  // P5: Short content creation fields
+  publish_comment_cnt?: number;
+  hot_comment_content?: string;
+  hot_comment_uv?: number;
+  publish_pin_cnt?: number;
+  hot_pin_title?: string;
+  hot_pin_uv?: number;
+  emoji_name?: string;
+  emoji_cnt?: number;
+  comment_discuss_member_name?: string;
+  comment_discuss_cnt?: number;
+  
+  // P6: Content summary fields
+  content_total_word_cnt?: number;
+  publish_total_day_cnt?: number;
+  publish_max_month?: number;
+  publish_most_word_date?: string;
+  publish_most_word_cnt?: number;
+  
+  // P7: Content feedback fields
+  content_pv_cnt?: number;
+  content_upvote_cnt?: number;
+  content_collect_cnt?: number;
+  content_comment_cnt?: number;
+  content_share_cnt?: number;
+  roundtable_cnt?: number;
+  recommended_cnt?: number;
+  
+  // P8: Honor/achievement fields
+  zhishi_cnt?: number;
+  biz_list_num?: number;
+  best_answer_topic?: string;
+  is_navigator?: number;
+  navigator_upvote_content_cnt?: number;
+  
+  // Additional fields that might exist
+  [key: string]: unknown;
+}
+
+// ============================================================================
+// 1. User Follow Status API
+// ============================================================================
+/**
+ * Response interface for user follow status
+ */
+export interface FollowStatusResponse {
+  is_followed: boolean; // Whether the user is already following the target user
+}
+
+/**
+ * 用户关注状态接口
+ * Query the follow status of the current user for a specific target user
+ * 
+ * @param memberToken - User identifier token for the target user
+ * @returns Promise<FollowStatusResponse> - Follow status information
+ * 
+ * @example
+ * const status = await getFollowStatus('abc123');
+ * if (status.is_followed) {
+ *   console.log('Already following this user');
+ * }
+ */
+export const getFollowStatus = (memberToken: string) => {
+  return request<FollowStatusResponse>({
+    url: '/campaigns/v2/2025/follow/status',
+    method: 'GET',
+    params: {
+      member_token: memberToken,
+    },
+  });
+};
+
+// ============================================================================
+// 2. User Follow Action API
+// ============================================================================
+/**
+ * Request parameters for following a user
+ */
+export interface FollowUserRequest {
+  member_token: string; // User identifier token for the target user to follow
+}
+
+/**
+ * 用户关注操作接口
+ * Follow a specific user
+ * 
+ * @param params - Follow request parameters containing member_token
+ * @returns Promise<null> - Success response (no data returned)
+ * 
+ * @example
+ * await followUser({ member_token: 'abc123' });
+ */
+export const followUser = (params: FollowUserRequest) => {
+  return request<null>({
+    url: '/campaigns/v2/2025/follow',
+    method: 'POST',
+    data: params,
+  });
+};
+
+// ============================================================================
+// 3. User Unfollow Action API
+// ============================================================================
+/**
+ * Request parameters for unfollowing a user
+ */
+export interface UnfollowUserRequest {
+  member_token: string; // User identifier token for the target user to unfollow
+}
+
+/**
+ * 用户取消关注操作接口
+ * Unfollow a specific user
+ * 
+ * @param params - Unfollow request parameters containing member_token
+ * @returns Promise<null> - Success response (no data returned)
+ * 
+ * @example
+ * await unfollowUser({ member_token: 'abc123' });
+ */
+export const unfollowUser = (params: UnfollowUserRequest) => {
+  return request<null>({
+    url: '/campaigns/v2/2025/unfollow',
+    method: 'POST',
+    data: params,
+  });
+};
+
+// ============================================================================
+// 4. User Quiz Answer API
+// ============================================================================
+/**
+ * Request parameters for submitting a quiz answer
+ */
+export interface QuizAnswerRequest {
+  question_id: number; // Question ID/number
+  answer: string; // User's answer (e.g., "A", "B", etc.)
+}
+
+/**
+ * Response interface for quiz answer submission
+ */
+export interface QuizAnswerResponse {
+  result: string; // Quiz result or prompt message (e.g., "答题成功,您的性格类型是...")
+}
+
+/**
+ * 用户答题接口
+ * Submit user's answer to a quiz question
+ * 
+ * @param params - Quiz answer request parameters
+ * @returns Promise<QuizAnswerResponse> - Quiz result or prompt message
+ * 
+ * @example
+ * const result = await submitQuizAnswer({
+ *   question_id: 1,
+ *   answer: 'A'
+ * });
+ * console.log(result.result); // "答题成功,您的性格类型是..."
+ */
+export const submitQuizAnswer = (params: QuizAnswerRequest) => {
+  return request<QuizAnswerResponse>({
+    url: '/campaigns/v2/2025/quiz/answer',
+    method: 'POST',
+    data: params,
+  });
+};
+
+// ============================================================================
+// 5. Summary Poster Generation API
+// ============================================================================
+/**
+ * Request parameters for generating a summary poster
+ */
+export interface GenerateSummaryPosterRequest {
+  text: string; // User's summary text input (e.g., "我真的 XXX 了")
+}
+
+/**
+ * Response interface for summary poster generation
+ */
+export interface GenerateSummaryPosterResponse {
+  poster_id: number; // Unique poster identifier ID
+  poster_url: string; // Poster image access URL (CDN address)
+}
+
+/**
+ * 个人总结海报生成接口
+ * Generate a personal summary poster based on user's input text
+ * Note: This is an asynchronous operation, client should show loading indicator
+ * 
+ * @param params - Poster generation request parameters
+ * @returns Promise<GenerateSummaryPosterResponse> - Generated poster information
+ * 
+ * @example
+ * const poster = await generateSummaryPoster({
+ *   text: '我真的 XXX 了'
+ * });
+ * console.log(poster.poster_url); // "https://pic.zhihu.com/posters/2025/summary_123456.jpg"
+ */
+export const generateSummaryPoster = (params: GenerateSummaryPosterRequest) => {
+  return request<GenerateSummaryPosterResponse>({
+    url: '/campaigns/v2/2025/summary_poster/generate',
+    method: 'POST',
+    data: params,
+  });
+};
+
+// ============================================================================
+// 6. Summary Poster Publish Pin API
+// ============================================================================
+/**
+ * Request parameters for publishing a summary poster as a pin
+ */
+export interface PublishSummaryPosterRequest {
+  poster_id: number; // Unique poster identifier ID (from generateSummaryPoster)
+}
+
+/**
+ * 个人总结海报发想法接口
+ * Publish the generated summary poster as a pin (想法)
+ * 
+ * @param params - Publish request parameters containing poster_id
+ * @returns Promise<null> - Success response (no data returned)
+ * 
+ * @example
+ * // First generate the poster
+ * const poster = await generateSummaryPoster({ text: '我真的 XXX 了' });
+ * // Then publish it as a pin
+ * await publishSummaryPoster({ poster_id: poster.poster_id });
+ */
+export const publishSummaryPoster = (params: PublishSummaryPosterRequest) => {
+  return request<null>({
+    url: '/campaigns/v2/2025/summary_poster/publish_pin',
+    method: 'POST',
+    data: params,
+  });
+};
+
+// ============================================================================
+// 7. Personal Image Option API
+// ============================================================================
+/**
+ * Response interface for personal image option information
+ */
+export interface PersonalImageOptionResponse {
+  correct_option: string; // The correct personal image option (e.g., "真诚友善的知友")
+  poster_id: number; // Poster ID, used for subsequent vote association
+}
+
+/**
+ * 获取用户个人形象选择信息接口
+ * Get user's personal image option information
+ * 
+ * @param posterId - Poster ID
+ * @returns Promise<PersonalImageOptionResponse> - Personal image option information
+ * 
+ * @example
+ * const option = await getPersonalImageOption(123);
+ * console.log(option.correct_option); // "真诚友善的知友"
+ */
+export const getPersonalImageOption = (posterId: number) => {
+  return request<PersonalImageOptionResponse>({
+    url: '/campaigns/v2/2025/personal_image_option',
+    method: 'GET',
+    params: {
+      poster_id: posterId,
+    },
+  });
+};
+
+// ============================================================================
+// 8. Set Vote Option API
+// ============================================================================
+/**
+ * Request parameters for setting vote options
+ */
+export interface SetVoteOptionRequest {
+  poster_id: number; // Poster ID for vote association
+  publish_pin?: boolean; // Whether to publish as a pin (optional, default: false)
+  custom_options?: string[]; // User-defined custom vote options list (optional)
+}
+
+/**
+ * 设置投票选项接口
+ * Set vote options for a generated poster
+ * Supports optional publishing as a pin and submitting custom vote options
+ * 
+ * @param params - Vote option request parameters
+ * @returns Promise<null> - Success response (no data returned)
+ * 
+ * @example
+ * await setVoteOption({
+ *   poster_id: 1234,
+ *   publish_pin: true,
+ *   custom_options: ['选项1', '选项2']
+ * });
+ */
+export const setVoteOption = (params: SetVoteOptionRequest) => {
+  return request<null>({
+    url: '/campaigns/v2/2025/vote/option',
+    method: 'POST',
+    data: params,
+  });
+};
+
+// ============================================================================
+// 9. Get Vote Info API
+// ============================================================================
+/**
+ * Vote option information
+ */
+export interface VoteOptionInfo {
+  option_id: number; // Vote option ID
+  option_text: string; // Vote option text
+  vote_count?: number; // Number of votes for this option (if available)
+}
+
+/**
+ * Response interface for vote information
+ */
+export interface VoteInfoResponse {
+  poster_id: number; // Poster ID
+  vote_id: number; // Vote ID
+  vote_title: string; // Vote title
+  options: VoteOptionInfo[]; // List of vote options
+  total_votes?: number; // Total number of votes (if available)
+  user_voted?: boolean; // Whether the current user has voted (if available)
+  user_vote_option_id?: number; // User's voted option ID (if available)
+}
+
+/**
+ * 获取投票信息接口
+ * Get vote information for a specific poster
+ * 
+ * @param posterId - Poster ID
+ * @returns Promise<VoteInfoResponse> - Vote information including options and statistics
+ * 
+ * @example
+ * const voteInfo = await getVoteInfo(1234);
+ * console.log(voteInfo.vote_title);
+ * voteInfo.options.forEach(option => {
+ *   console.log(`${option.option_text}: ${option.vote_count} votes`);
+ * });
+ */
+export const getVoteInfo = (posterId: number) => {
+  return request<VoteInfoResponse>({
+    url: '/campaigns/v2/2025/vote/info',
+    method: 'GET',
+    params: {
+      poster_id: posterId,
+    },
+  });
+};
+
+// ============================================================================
+// 10. Submit Vote API
+// ============================================================================
+/**
+ * Request parameters for submitting a vote
+ */
+export interface SubmitVoteRequest {
+  poster_id: number; // Poster ID
+  option_id: number; // Selected vote option ID
+}
+
+/**
+ * Response interface for vote submission
+ */
+export interface SubmitVoteResponse {
+  success: boolean; // Whether the vote was successfully submitted
+  vote_count?: number; // Updated vote count for the selected option (if available)
+  total_votes?: number; // Updated total vote count (if available)
+}
+
+/**
+ * 投票提交接口
+ * Submit a vote for a specific poster
+ * 
+ * @param params - Vote submission request parameters
+ * @returns Promise<SubmitVoteResponse> - Vote submission result
+ * 
+ * @example
+ * const result = await submitVote({
+ *   poster_id: 1234,
+ *   option_id: 1
+ * });
+ * if (result.success) {
+ *   console.log('Vote submitted successfully');
+ * }
+ */
+export const submitVote = (params: SubmitVoteRequest) => {
+  return request<SubmitVoteResponse>({
+    url: '/campaigns/v2/2025/vote/submit',
+    method: 'POST',
+    data: params,
+  });
+};
+
+// ============================================================================
+// 11. User Annual Summary Profile API
+// ============================================================================
+/**
+ * 用户个人年终总结信息接口
+ * Get user's annual summary report data
+ * This endpoint returns comprehensive user activity data for the year
+ * Note: Data is sourced from data warehouse and updated daily
+ * 
+ * @returns Promise<UserReportData> - Complete user annual report data
+ * 
+ * @example
+ * const reportData = await getUserReportData();
+ * console.log(`Published ${reportData.answer_cnt} answers`);
+ * console.log(`Most upvoted answer: ${reportData.answer_most_upvote_title}`);
+ */
+export const getUserReportData = () => {
+  return request<UserReportData>({
+    url: '/campaigns/v2/2025/summary/profile',
+    method: 'GET',
+  });
+};
+

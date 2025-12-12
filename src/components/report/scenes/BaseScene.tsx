@@ -163,13 +163,20 @@ export default function BaseScene({
         const baseHeight = 812;
         const maxScale = 1.5;
 
-        // Calculate scale based on width and height separately
+        // Calculate scale based on both width and height
+        // Use the minimum to ensure content fits within screen while maintaining 375:812 aspect ratio
+        // CSS transform: scale() scales uniformly, preserving the aspect ratio automatically
         const widthScale = screenWidth / baseWidth;
         const heightScale = screenHeight / baseHeight;
-
-        // Use the minimum to maintain aspect ratio and fit both dimensions
         const newScale = Math.min(widthScale, heightScale, maxScale);
-        setScale(newScale);
+        
+        // Only update if scale actually changed (prevents unnecessary re-renders)
+        setScale((prevScale) => {
+          // Round to 3 decimal places to avoid floating point precision issues
+          const roundedNewScale = Math.round(newScale * 1000) / 1000;
+          const roundedPrevScale = Math.round(prevScale * 1000) / 1000;
+          return roundedNewScale !== roundedPrevScale ? newScale : prevScale;
+        });
       }
     };
 

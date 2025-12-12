@@ -9,7 +9,8 @@ import {
   getAnnualQuestionList,
   generateAnnualQuestionPoster,
   getAnnualQuestionPosterInfo,
-  type AnnualQuestion
+  type AnnualQuestion,
+  type AnnualQuestionPosterInfo
 } from '@/api/campaign';
 import { isZhihuApp } from '@/lib/zhihu-detection';
 import { useZhihuHybrid } from '@/hooks/useZhihuHybrid';
@@ -74,6 +75,8 @@ const VoteTenQuestions = () => {
   const [isGeneratingPoster, setIsGeneratingPoster] = useState(false);
   const [posterUrl, setPosterUrl] = useState<string>('');
   const [showPosterModal, setShowPosterModal] = useState(false);
+  const [posterInfo, setPosterInfo] = useState<AnnualQuestionPosterInfo | null>(null);
+  const [isLoadingPosterInfo, setIsLoadingPosterInfo] = useState(true);
 
   // Map category name to topic ID
   const categoryToTopicId = useMemo(() => {
@@ -82,6 +85,25 @@ const VoteTenQuestions = () => {
       map[topic.name] = topic.id;
     });
     return map;
+  }, []);
+
+  // Fetch poster info first
+  useEffect(() => {
+    const fetchPosterInfo = async () => {
+      try {
+        setIsLoadingPosterInfo(true);
+        const info = await getAnnualQuestionPosterInfo();
+        console.log('Annual Question Poster Info:', info);
+        setPosterInfo(info);
+      } catch (error) {
+        console.error('Failed to fetch poster info:', error);
+        setPosterInfo(null);
+      } finally {
+        setIsLoadingPosterInfo(false);
+      }
+    };
+
+    fetchPosterInfo();
   }, []);
 
   // Fetch questions from API
@@ -131,6 +153,9 @@ const VoteTenQuestions = () => {
 
   if (!assets) return null;
 
+  // Check if we should show the poster instead of the original UI
+  const shouldShowPoster = posterInfo?.poster_generate_status === 1 && posterInfo?.poster_image_url;
+
   const titleAsset = assets.vote.title;
   const voteAssets = assets.vote as any;
   const listBgAsset = voteAssets.listBg;
@@ -138,105 +163,6 @@ const VoteTenQuestions = () => {
   const cancelBtnAsset = voteAssets.cancelBtn;
   const panelBgAsset = voteAssets.panelBg;
   const liukanshanAsset = assets.games.liukanshan;
-
-
-  const handleTopicClick = (id: string) => {
-    setActiveTopicId(id);
-  };
-
-  const handleToggleSelect = (question: Question) => {
-    const isSelected = selectedQuestions.some(q => q.id === question.id);
-
-    if (isSelected) {
-      setSelectedQuestions(prev => prev.filter(q => q.id !== question.id));
-    } else {
-      if (selectedQuestions.length >= 10) {
-        showToast('最多只能选择 10 个问题哦', 'info');
-        return;
-      }
-      setSelectedQuestions(prev => [...prev, question]);
-    }
-  };
-
-  const handleRemove = (id: number) => {
-    setSelectedQuestions(prev => prev.filter(q => q.id !== id));
-  };
-
-  const handleQuestionClick = (url: string) => {
-    window.open(url, '_blank');
-  };
-
-  const handleGeneratePoster = async () => {
-    if (selectedQuestions.length === 0) {
-      showToast('请至少选择一个问题', 'info');
-      return;
-    }
-
-    // phase2埋点7
-    trackEvent('', {
-      moduleId: 'annual_report_publish_pin_2025',
-      type: 'Button',
-      page: { page_id: '60850', page_level: 1 }
-    });
-
-    setIsGeneratingPoster(true);
-    try {
-      // Convert selected questions to API format
-      // to mayi 这个就是我们要传给后端的格式
-      const apiQuestions: AnnualQuestion[] = selectedQuestions.map(q => ({
-        question_text: q.title,
-        question_url: q.url,
-        category: q.category,
-      }));
-
-      const response = await generateAnnualQuestionPoster(apiQuestions);
-
-      if (response.poster_generate_status === 1) {
-        // Fetch the poster info to get the image URL
-        const posterInfo = await getAnnualQuestionPosterInfo();
-        if (posterInfo.poster_image_url) {
-          setPosterUrl(posterInfo.poster_image_url);
-          setShowPosterModal(true);
-
-          if (response.publish_pin_status === 1) {
-            showToast('海报生成并发布成功', 'success');
-          } else {
-            showToast('海报生成成功', 'success');
-          }
-        } else {
-          showToast('海报生成成功，但获取图片失败', 'warning');
-        }
-      } else {
-        showToast('海报生成失败，请稍后重试', 'error');
-      }
-    } catch (error) {
-      console.error('Failed to generate poster:', error);
-      const errorMessage = error && typeof error === 'object' && 'msg' in error
-        ? String(error.msg)
-        : '海报生成失败，请稍后重试';
-      showToast(errorMessage, 'error');
-    } finally {
-      setIsGeneratingPoster(false);
-    }
-  };
-
-  const handleSaveImage = async () => {
-    if (!posterUrl) {
-      showToast('没有可保存的图片', 'error');
-      return;
-    }
-
-    if (isZhihuApp()) {
-      try {
-        await downloadImageViaHybrid(posterUrl);
-      } catch (error) {
-        console.error('Failed to save image via zhihuHybrid:', error);
-        await downloadImageStandard(posterUrl);
-      }
-    } else {
-      await downloadImageStandard(posterUrl);
-    }
-  };
 
   const downloadImageStandard = async (imageUrl: string) => {
     try {
@@ -337,6 +263,109 @@ const VoteTenQuestions = () => {
     }
   };
 
+  const handleSavePosterImage = async (imageUrl: string) => {
+    if (isZhihuApp()) {
+      try {
+        await downloadImageViaHybrid(imageUrl);
+      } catch (error) {
+        console.error('Failed to save image via zhihuHybrid:', error);
+        await downloadImageStandard(imageUrl);
+      }
+    } else {
+      await downloadImageStandard(imageUrl);
+    }
+  };
+
+  const handleTopicClick = (id: string) => {
+    setActiveTopicId(id);
+  };
+
+  const handleToggleSelect = (question: Question) => {
+    const isSelected = selectedQuestions.some(q => q.id === question.id);
+
+    if (isSelected) {
+      setSelectedQuestions(prev => prev.filter(q => q.id !== question.id));
+    } else {
+      if (selectedQuestions.length >= 10) {
+        showToast('最多只能选择 10 个问题哦', 'info');
+        return;
+      }
+      setSelectedQuestions(prev => [...prev, question]);
+    }
+  };
+
+  const handleRemove = (id: number) => {
+    setSelectedQuestions(prev => prev.filter(q => q.id !== id));
+  };
+
+  const handleQuestionClick = (url: string) => {
+    window.open(url, '_blank');
+  };
+
+  const handleGeneratePoster = async () => {
+    if (selectedQuestions.length === 0) {
+      showToast('请至少选择一个问题', 'info');
+      return;
+    }
+
+    // phase2埋点7
+    trackEvent('', {
+      moduleId: 'annual_report_publish_pin_2025',
+      type: 'Button',
+      page: { page_id: '60850', page_level: 1 }
+    });
+
+    setIsGeneratingPoster(true);
+    try {
+      // Convert selected questions to API format
+      // to mayi 这个就是我们要传给后端的格式
+      const apiQuestions: AnnualQuestion[] = selectedQuestions.map(q => ({
+        question_text: q.title,
+        question_url: q.url,
+        category: q.category,
+      }));
+
+      const response = await generateAnnualQuestionPoster(apiQuestions);
+
+      if (response.poster_generate_status === 1) {
+        // Fetch the poster info to get the image URL
+        const newPosterInfo = await getAnnualQuestionPosterInfo();
+        setPosterInfo(newPosterInfo);
+        if (newPosterInfo.poster_image_url) {
+          setPosterUrl(newPosterInfo.poster_image_url);
+          setShowPosterModal(true);
+
+          if (response.publish_pin_status === 1) {
+            showToast('海报生成并发布成功', 'success');
+          } else {
+            showToast('海报生成成功', 'success');
+          }
+        } else {
+          showToast('海报生成成功，但获取图片失败', 'warning');
+        }
+      } else {
+        showToast('海报生成失败，请稍后重试', 'error');
+      }
+    } catch (error) {
+      console.error('Failed to generate poster:', error);
+      const errorMessage = error && typeof error === 'object' && 'msg' in error
+        ? String(error.msg)
+        : '海报生成失败，请稍后重试';
+      showToast(errorMessage, 'error');
+    } finally {
+      setIsGeneratingPoster(false);
+    }
+  };
+
+  const handleSaveImage = async () => {
+    if (!posterUrl) {
+      showToast('没有可保存的图片', 'error');
+      return;
+    }
+
+    await handleSavePosterImage(posterUrl);
+  };
+
   const handleClosePosterModal = () => {
     setShowPosterModal(false);
     setPosterUrl('');
@@ -372,6 +401,51 @@ const VoteTenQuestions = () => {
     );
   };
 
+
+  // If poster is available, show only the poster image
+  if (isLoadingPosterInfo) {
+    return (
+      <div className="relative w-full flex flex-col items-center pb-10">
+        <div className="text-center text-gray-400 py-10">加载中...</div>
+      </div>
+    );
+  }
+
+  if (shouldShowPoster && posterInfo?.poster_image_url) {
+    return (
+      <div className="relative w-full flex flex-col items-center pb-10">
+        <div className="relative w-full flex flex-col items-center mt-4">
+          <div className="relative w-full">
+            <Image
+              src={posterInfo.poster_image_url}
+              alt="Generated poster"
+              width={343}
+              height={600}
+              className="w-full h-auto object-contain"
+              unoptimized
+            />
+            <div className="absolute bottom-0 left-0 right-0 bg-white flex gap-4 w-full px-2 py-2" style={{ height: '13%' }}>
+              <div
+                onClick={() => handleSavePosterImage(posterInfo.poster_image_url)}
+                className="flex justify-center items-center w-full cursor-pointer"
+              >
+                {assets.games?.saveImage && (
+                  <Image
+                    src={assets.games.saveImage.url}
+                    alt={assets.games.saveImage.alt}
+                    width={assets.games.saveImage.width / 5}
+                    height={assets.games.saveImage.height / 5}
+                    className="object-contain"
+                    unoptimized
+                  />
+                )}
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="relative w-full flex flex-col items-center pb-10">

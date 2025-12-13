@@ -12,6 +12,11 @@ interface PageProps {
   sceneName?: string;
 }
 
+const formatNumber = (num: number | string | null | undefined) => {
+  if (num === null || num === undefined) return '0';
+  return Number(num).toLocaleString('en-US');
+};
+
 export default function P10Scene({ onNext, sceneName }: PageProps) {
   const { reportData } = useUserReportData();
   const { assets } = useAssets();
@@ -32,8 +37,10 @@ export default function P10Scene({ onNext, sceneName }: PageProps) {
     typeof value === "number" ? value : null;
 
   // Map context data to component variables according to P10 spec
-  const articleCount = toNumberOrNull(reportData?.consume_article_cnt);
-  const pinCount = toNumberOrNull(reportData?.consume_pin_cnt);
+  const questionCount = formatNumber(toNumberOrNull(reportData?.consume_question_cnt));
+  const answerCount = formatNumber(toNumberOrNull(reportData?.consume_answer_cnt));
+  const articleCount = formatNumber(toNumberOrNull(reportData?.consume_article_cnt));
+  const pinCount = formatNumber(toNumberOrNull(reportData?.consume_pin_cnt));
   const wordCount = toNumberOrNull(reportData?.consume_word_cnt);
 
   // Calculate equivalent books
@@ -91,82 +98,106 @@ export default function P10Scene({ onNext, sceneName }: PageProps) {
       </GlitchLayer>
 
       <div 
-        className={typographyClass('title') + ' leading-relaxed text-center'}
-        style={{ paddingTop: '120px', paddingBottom: '24px' }}
+        className={'text-center'}
+        style={{ paddingTop: '120px', paddingBottom: '24px', fontSize: '22px' }}
       >
         你总共浏览了
       </div>
 
       <div>
         {/* Group 1: 文章数 */}
-        <div className="relative" style={{ height: '127px', marginBottom: '10px' }}>
+        <div hidden={!questionCount}
+          className="relative"  style={{ width: '223px', height: '127px', marginLeft: 'auto', marginRight: '24px' }}>
           <Image 
             src={group1Asset.url} 
             alt={group1Asset.alt} 
             width={group1Asset.width} 
             height={group1Asset.height} 
             className="object-contain absolute pointer-events-none select-none z-1"
-            style={{ right: '24px' }}
           />
           <div 
-            className={`${colorClass('pink')} ${typographyClass('subtitle')} absolute z-2`}
-            style={{ top: '40px', right: '24px', paddingLeft: '2px', paddingRight: '2px' }}
+            className="absolute flex items-center justify-center"
+            style={{ 
+              top: '50%',
+              right: '30%',
+              transform: 'translate(-50%, -50%)',
+            }}
           >
-            {String(articleCount ?? 'consume_article_cnt')}
+             <span className="text-r-pink font-bold pixel-font" style={{ fontSize: '34px', textShadow: '3px 3px 0px #000000' }}>
+               {questionCount}
+             </span>
           </div>
         </div>
 
         {/* Group 2: 想法数 (这里使用了 pinCount) */}
-        <div className="relative" style={{ height: '127px', marginBottom: '10px', top: '-50px' }}>
+        <div hidden={!answerCount}
+          className="relative" style={{ width: '223px', height: '127px', marginRight: 'auto', marginLeft: '24px', marginTop: '-40px' }}>
           <Image 
             src={group2Asset.url} 
             alt={group2Asset.alt} 
             width={group2Asset.width} 
             height={group2Asset.height} 
             className="object-contain absolute pointer-events-none select-none z-1"
-            style={{ left: '24px' }}
           />
           <div 
-            className={`${colorClass('pink')} ${typographyClass('subtitle')} absolute z-2`}
-            style={{ top: '40px', left: '24px', paddingLeft: '2px', paddingRight: '2px' }}
+            className="absolute flex items-center justify-center"
+            style={{ 
+              top: '50%', 
+              left: '46%', 
+              transform: 'translate(-50%, -50%)',
+            }}
           >
-            {String(pinCount ?? 'consume_pin_cnt')}
+             <span className="text-r-fern font-bold pixel-font" style={{ fontSize: '34px', textShadow: '3px 3px 0px #000000' }}>
+               {answerCount}
+             </span>
           </div>
         </div>
 
         {/* Group 3: 总字数 (这里使用了 wordCount) */}
-        <div className="relative" style={{ height: '127px', marginBottom: '10px', top: '-100px' }}>
+        <div hidden={!articleCount}
+          className="relative" style={{ width: '223px', height: '127px', marginLeft: 'auto', marginRight: '40px', marginTop: '-40px' }}>
           <Image 
             src={group3Asset.url} 
             alt={group3Asset.alt} 
             width={group3Asset.width} 
             height={group3Asset.height} 
             className="object-contain absolute pointer-events-none select-none z-1"
-            style={{ right: '40px' }}
           />
           <div 
-            className={`${colorClass('pink')} ${typographyClass('subtitle')} absolute z-2`}
-            style={{ top: '40px', right: '40px', paddingLeft: '2px', paddingRight: '2px' }}
+            className="absolute flex items-center justify-center"
+            style={{ 
+              top: '50%', 
+              right: '30%',
+              transform: 'translate(-50%, -50%)',
+            }}
           >
-            {String(wordCount ?? 'consume_word_cnt')}
+             <span className="text-r-green font-bold pixel-font" style={{ fontSize: '34px', textShadow: '3px 3px 0px #000000' }}>
+               {articleCount}
+             </span>
           </div>
         </div>
 
         {/* Group 4: 其他数据 (这里暂时重复使用 articleCount，根据需求修改) */}
-        <div className="relative" style={{ height: '127px', marginBottom: '10px', top: '-150px' }}>
+        <div hidden={!pinCount}
+          className="relative" style={{ width: '223px', height: '127px', marginLeft: 'auto', marginRight: 'auto', marginTop: '-40px' }}>
           <Image 
             src={group4Asset.url} 
             alt={group4Asset.alt} 
             width={group4Asset.width} 
             height={group4Asset.height} 
             className="object-contain absolute pointer-events-none select-none z-1"
-            style={{ left: '87px' }}
           />
           <div 
-            className={`${colorClass('pink')} ${typographyClass('subtitle')} absolute z-2`}
-            style={{ top: '40px', left: '87px', paddingLeft: '2px', paddingRight: '2px' }}
+            className="absolute flex items-center justify-center"
+            style={{ 
+              top: '50%', 
+              left: '46%', 
+              transform: 'translate(-50%, -50%)',
+            }}
           >
-            {String(articleCount ?? 'consume_article_cnt')}
+            <span className="text-r-yellow font-bold pixel-font" style={{ fontSize: '34px', textShadow: '3px 3px 0px #000000' }}>
+              {pinCount}
+            </span>
           </div>
         </div>
       </div>
@@ -174,7 +205,7 @@ export default function P10Scene({ onNext, sceneName }: PageProps) {
       {/* 总计阅读字数 / 等效书本 */}
       <div 
         className="flex flex-col items-center justify-center"
-        style={{ paddingTop: '20px', paddingBottom: '20px', marginTop: '-150px' }} // 上面用了 top: -150px，这里加个 marginTop 抵消视觉空白
+        style={{ paddingTop: '210px', paddingBottom: '20px', marginTop: '-150px' }}
       >
         <Image 
           src={wordsAsset.url} 
@@ -187,8 +218,8 @@ export default function P10Scene({ onNext, sceneName }: PageProps) {
         <div>
           相当于读完 
           <span 
-            className={`${colorClass('pink')} ${typographyClass('subtitle')}`}
-            style={{ paddingLeft: '2px', paddingRight: '2px' }}
+            className="text-r-yellow"
+            style={{ paddingLeft: '2px', paddingRight: '2px', fontSize: '18px' }}
           >
             {equivalentBooks}
           </span> 

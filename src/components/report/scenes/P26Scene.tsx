@@ -20,7 +20,7 @@ export default function P26Scene({ onNext, sceneName }: PageProps) {
 
   const { liukanshan, pinkPixel, rainbow, redPixel1, redPixel2 } =
     assets.report.p26;
-  const { mix22_1, mix22_4, mix22_5 } = assets.report.bg;
+  const { mix22_4, mix22_5 } = assets.report.bg;
 
   // Map context data to component variables according to P26 spec (特殊-故事会员/作者)
   const writeStoryNumSum = reportData?.write_story_num_sum ?? null;
@@ -108,48 +108,38 @@ export default function P26Scene({ onNext, sceneName }: PageProps) {
       {/* content */}
       <div
         className="absolute z-0 leading-relaxed"
-        style={{ top: "114px", left: "40px", right: "72px" }}
+        style={{ fontSize: 14, top: "114px", left: "40px", right: "72px" }}
       >
-        <div className="pb-[30px]">
+        <div className="z-0">
           <div className="mb-[8px]">
             今年,你创作
-            <span
-              className={`${colorClass("pink")} ${typographyClass(
-                "subtitle"
-              )} px-[2px]`}
-            >
+            <span className={`text-r-pink px-[7px]`} style={{ fontSize: 24 }}>
               {String(writeStoryNumSum ?? "write_story_num_sum")}
-            </span>{" "}
+            </span>
             篇故事，
             <br />
-            把想象的灵光化成了情节与篇章
+            把想象的灵光化成了情节与篇章。
           </div>
         </div>
 
-        <div className="pb-[30px]">
-          <div className="mb-[10px]">
-            有{" "}
-            <span
-              className={`${colorClass("fern")} ${typographyClass(
-                "subtitle"
-              )} px-[2px]`}
-            >
+        <div className="z-0 my-[38px]">
+          <div>
+            有
+            <span className={`text-r-green px-[7px]`} style={{ fontSize: 24 }}>
               {String(totalUpvoteNum ?? "total_upvote_num")}
-            </span>{" "}
+            </span>
             位读者喜欢你的故事，
           </div>
           <div>
-            其中,《
-            <span
-              className={`${colorClass("blue")} ${typographyClass(
-                "subtitle"
-              )} px-[2px]`}
-            >
+            其中，
+            <span className={`text-r-blue px-[7px]`} style={{ fontSize: 24 }}>
+              《
               {String(
                 writeStoryMostPopularName ?? "write_story_most_popular_name"
               )}
+              》
             </span>
-            》最受大家的欢迎。
+            最受大家的欢迎。
           </div>
         </div>
 
@@ -158,31 +148,18 @@ export default function P26Scene({ onNext, sceneName }: PageProps) {
           <div className="space-y-[20px] text-sm">
             <div>
               你的作品
-              <span
-                className={`${colorClass("green")} ${typographyClass(
-                  "subtitle"
-                )} px-[2px]`}
-              >
+              <span className={`text-r-pink px-[2px]`}>
+                《
                 {String(
                   shortStoryInfluenceList ?? "short_story_influence_list"
                 )}
+                》
               </span>
             </div>
+            <div>{String(annualAuthor ?? "annual_author")}</div>
             <div>
-              <span
-                className={`${colorClass("pink")} ${typographyClass(
-                  "subtitle"
-                )} px-[2px]`}
-              >
-                {String(annualAuthor ?? "annual_author")}
-              </span>
-            </div>
-            <div>
-              <span
-                className={`${colorClass("blue")} ${typographyClass(
-                  "subtitle"
-                )} px-[2px]`}
-              >
+              你荣获
+              <span className={`text-r-blue px-[2px]`} style={{ fontSize: 20 }}>
                 {String(awardedCopy ?? "awarded_copy")}
               </span>
             </div>

@@ -371,6 +371,8 @@ export interface AssetsData {
       middle: AssetMetadata;
       top: AssetMetadata;
       liukanshan: AssetMetadata;
+      optionA: AssetMetadata;
+      optionB: AssetMetadata;
     };
     p22: {
       liukanshan: AssetMetadata;

@@ -49,7 +49,7 @@ export default function P25Scene({ onNext, sceneName }: PageProps) {
           width={mix22_5.width}
           height={mix22_5.height}
           className="object-contain absolute pointer-events-none select-none z-1"
-          style={{ top: "308px", left: "278px" }}
+          style={{ top: "278px", left: "308px" }}
         />
         <Image
           src={mix22_5.url}
@@ -75,8 +75,6 @@ export default function P25Scene({ onNext, sceneName }: PageProps) {
           alt="{top.alt}"
           width={top.width}
           height={top.height}
-          className="object-contain absolute pointer-events-none select-none -z-10"
-          style={{ top: "0", left: "0", right: "0" }}
         />
         <Image
           src={liukanshan.url}
@@ -111,93 +109,87 @@ export default function P25Scene({ onNext, sceneName }: PageProps) {
           style={{ top: "422px", left: "281px", right: "0" }}
         />
       </div>
-      <div className="pt-[185px] text-center z-0">
-        <div className="pb-[30px]">
+      <div className="z-0">
+        <div
+          className="absolute pb-[30px]"
+          style={{ top: "185px", left: "40px", right: "0" }}
+        >
           <div className="mb-[10px]">
-            2025年,作为尊贵的盐选会员,
+            2025年，作为尊贵的盐选会员,
             <br />
-            你解锁了{" "}
-            <span
-              className={`${colorClass("pink")} ${typographyClass(
-                "subtitle"
-              )} px-[2px]`}
-            >
+            你解锁了
+            <span className={`text-r-pink px-[7px]`} style={{ fontSize: 24 }}>
               {String(paidContentCount ?? "paid_content_cnt")}
-            </span>{" "}
-            篇盐言故事,共{" "}
-            <span
-              className={`${colorClass("blue")} ${typographyClass(
-                "subtitle"
-              )} px-[2px]`}
-            >
+            </span>
+            篇盐言故事,共
+            <span className={`text-r-purple px-[7px]`} style={{ fontSize: 24 }}>
               {String(totalWordCount ?? "total_word_cnt")}
-            </span>{" "}
+            </span>
             字
           </div>
         </div>
 
-        <div className="">
-          <div className="mb-[10px]">
-            <div>是最打动你的故事元素</div>
-            <div className="absolute" style={{ top: "353px", left: "146px" }}>
-              「
-              <span
-                className={`${colorClass("green")} ${typographyClass(
-                  "subtitle"
-                )} px-[2px]`}
-              >
-                {String(labelName1 ?? "label_name_top1")}
-              </span>
-              」
-            </div>
-            <div className="absolute" style={{ top: "395px", left: "45px" }}>
-              「
-              <span
-                className={`${colorClass("green")} ${typographyClass(
-                  "subtitle"
-                )} px-[2px]`}
-              >
-                {String(labelName2 ?? "label_name_top2")}
-              </span>
-              」
-            </div>
-            <div className="absolute" style={{ top: "395px", left: "247px" }}>
-              「
-              <span
-                className={`${colorClass("green")} ${typographyClass(
-                  "subtitle"
-                )} px-[2px]`}
-              >
-                {String(labelName3 ?? "label_name_top3")}
-              </span>
-              」
-            </div>
+        {/* Top Books */}
+        <div className="z-0">
+          <div
+            style={{
+              position: "absolute",
+              top: "315px",
+              left: "50%",
+              transform: "translateX(-50%)",
+            }}
+          >
+            是最打动你的故事元素是
+          </div>
+          <div
+            className="absolute"
+            style={{ fontSize: 17, top: "353px", left: "146px" }}
+          >
+            <span className={`text-r-green px-[2px]`}>
+              「{String(labelName1 ?? "label_name_top1")} 」
+            </span>
+          </div>
+          <div
+            className="absolute"
+            style={{ fontSize: 17, top: "395px", left: "45px" }}
+          >
+            <span className={`text-r-blue px-[2px]`}>
+              「{String(labelName2 ?? "label_name_top2")} 」
+            </span>
+          </div>
+          <div
+            className="absolute"
+            style={{ fontSize: 17, top: "395px", left: "247px" }}
+          >
+            <span className={`text-r-green px-[2px]`}>
+              「{String(labelName3 ?? "label_name_top3")} 」
+            </span>
           </div>
         </div>
 
         <div
           className="absolute text-start"
-          style={{ top: "657px", left: "57px", right: "77px" }}
+          style={{
+            fontSize: "14px",
+            top: "657px",
+            left: "40px",
+            right: "77px",
+          }}
         >
           <div className="mb-[10px]">
-            你阅读最多的作者是{" "}
-            <span
-              className={`${colorClass("fern")} ${typographyClass(
-                "subtitle"
-              )} px-[2px]`}
-            >
+            你阅读最多的作者是
+            <span className="text-r-fern px-[2px]">
               @{String(mostFavoriteAuthorName ?? "most_favorite_author_name")}
-            </span>{" "}
+            </span>
             <br />
-            TA的{" "}
+            TA的
             <span
-              className={`${colorClass("pink")} ${typographyClass(
-                "subtitle"
-              )} px-[2px]`}
+              className="text-r-yellow px-[7px]"
+              style={{ fontSize: "18px" }}
             >
               {String(mostFavoriteAuthorNum ?? "most_favorite_author_num")}
-            </span>{" "}
-            篇故事,陪你度过了不少时光
+            </span>
+            篇故事，陪你度过了不少时光
           </div>
         </div>
       </div>

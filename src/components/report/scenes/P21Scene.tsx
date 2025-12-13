@@ -4,7 +4,6 @@ import { useState, useEffect, useRef } from "react";
 import Image from "next/image";
 import { useAssets } from "@/context/assets-context";
 import BaseScene from "./BaseScene";
-import { colorClass, typographyClass } from "@/lib/scene-theme";
 
 interface PageProps {
   onNext?: () => void;
@@ -48,6 +47,8 @@ export default function P21Scene({ onNext, sceneName }: PageProps) {
   const topAsset = p21Assets.top;
   const middleAsset = p21Assets.middle;
   const liukanshanAsset = p21Assets.liukanshan;
+  const optionAAsset = p21Assets.optionA;
+  const optionBAsset = p21Assets.optionB;
 
   const { mix21_1, mix21_2, mix21_3, mix21_4 } = assets.report.bg;
 
@@ -143,37 +144,32 @@ export default function P21Scene({ onNext, sceneName }: PageProps) {
           className="absolute inset-0 w-full h-full opacity-0 cursor-none z-30"
           style={{ pointerEvents: "auto" }}
         />
+        {/* Options */}
+        <Image
+          src={optionAAsset.url}
+          alt={optionAAsset.alt}
+          width={optionAAsset.width}
+          height={optionAAsset.height}
+          className="absolute z-20"
+          style={{ top: "625px", left: "23px" }}
+        />
+        <Image
+          src={optionBAsset.url}
+          alt={optionBAsset.alt}
+          width={optionBAsset.width}
+          height={optionBAsset.height}
+          className="absolute z-20"
+          style={{ top: "286px", left: "230px" }}
+        />
         {/* content **/}
         <div className="z-0">
           <div
-            className={`${colorClass("yellow")} ${typographyClass(
-              "title"
-            )} absolute z-20 text-center leading-relaxed`}
-            style={{ top: "114px", left: "70px", right: "70px" }}
+            className={`absolute z-20 text-center leading-relaxed`}
+            style={{ fontSize: 24, top: "114px", left: "70px", right: "70px" }}
           >
             这一年，
             <br />
             你如何与世界过招？
-          </div>
-          <div
-            className={`${colorClass("yellow")} ${typographyClass(
-              "title"
-            )} absolute z-20 text-center leading-relaxed`}
-            style={{ top: "625px", left: "23px" }}
-          >
-            A. 寻着光
-            <br />
-            探索未知
-          </div>{" "}
-          <div
-            className={`${colorClass("yellow")} ${typographyClass(
-              "title"
-            )} absolute z-20 text-center leading-relaxed`}
-            style={{ top: "286px", left: "230px" }}
-          >
-            B.跟着图
-            <br />
-            奔向目标
           </div>
         </div>
       </div>

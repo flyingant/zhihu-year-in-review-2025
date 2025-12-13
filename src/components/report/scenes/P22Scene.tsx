@@ -1,7 +1,6 @@
 "use client";
 
 import { useUserReportData } from "@/context/user-report-data-context";
-import { colorClass, typographyClass } from "@/hooks/useSceneTheme";
 import BaseScene from "./BaseScene";
 import GlitchLayer from "@/components/report/effects/GlitchLayer";
 import { useAssets } from "@/context/assets-context";
@@ -124,54 +123,43 @@ export default function P22Scene({ onNext, sceneName }: PageProps) {
       </div>
       {/* content */}
       <div className="z-0 relative">
-        <div className="absolute" style={{ top: "116px", left: "41px" }}>
+        <div
+          className="absolute leading-[41px]"
+          style={{ fontSize: 22, top: "116px", left: "41px" }}
+        >
           当你关注时代时，
           <br />
           你也正成为时代的一部分
         </div>
         {/* Billboard browsing */}
-        <div className="absolute" style={{ top: "216px", left: "41px" }}>
-          <div className="mb-[10px]">
-            你今年驻扎热榜{" "}
-            <span
-              className={`${colorClass("pink")} ${typographyClass(
-                "subtitle"
-              )} px-[2px]`}
-            >
+        <div className="absolute" style={{ top: "248px", left: "41px" }}>
+          <p className="mb-[14px]">
+            你今，年驻扎热榜
+            <span className={`text-r-pink px-[7px]`} style={{ fontSize: 24 }}>
               {String(consumeBillboardDays ?? "consume_billboard_days")}
-            </span>{" "}
+            </span>
             天,
-            <br />
-            浏览了{" "}
-            <span
-              className={`${colorClass("blue")} ${typographyClass(
-                "subtitle"
-              )} px-[2px]`}
-            >
+          </p>
+          <p className="mb-[14px]">
+            浏览了
+            <span className={`text-r-fern px-[7px]`} style={{ fontSize: 24 }}>
               {String(
                 consumeBillboardContentCount ?? "consume_billboard_content_cnt"
               )}
-            </span>{" "}
+            </span>
             条热榜内容
-          </div>
-        </div>
-
-        {/* Upvoted content on billboard */}
-        <div className="absolute" style={{ top: "316px", left: "41px" }}>
-          <div className="mb-[10px]">
-            你的赞同, 助推{" "}
-            <span
-              className={`${colorClass("fern")} ${typographyClass(
-                "subtitle"
-              )} px-[2px]`}
-            >
+          </p>
+          {/* Upvoted content on billboard */}
+          <p className="mb-[14px]">
+            你的赞同, 助推
+            <span className={`text-r-fern px-[7px]`} style={{ fontSize: 24 }}>
               {String(
                 upvoteZhihuBillboardContentCount ??
                   "upvote_zhihu_billboard_content_cnt"
               )}
-            </span>{" "}
+            </span>
             篇内容登上了知乎热榜
-          </div>
+          </p>
         </div>
       </div>
     </BaseScene>

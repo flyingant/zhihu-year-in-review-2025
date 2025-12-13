@@ -1,7 +1,6 @@
 "use client";
 
 import { useUserReportData } from "@/context/user-report-data-context";
-import { colorClass, typographyClass } from "@/hooks/useSceneTheme";
 import BaseScene from "./BaseScene";
 import GlitchLayer from "@/components/report/effects/GlitchLayer";
 import { useAssets } from "@/context/assets-context";
@@ -78,10 +77,10 @@ export default function P23Scene({ onNext, sceneName }: PageProps) {
       {/* content */}
       <div className="z-0">
         <div
-          className={typographyClass("title") + " leading-relaxed absolute"}
-          style={{ top: "116px", left: "41px" }}
+          className="leading-relaxed absolute"
+          style={{ fontSize: 22, top: "116px", left: "41px" }}
         >
-          你的判断,
+          你的判断，
           <br />
           构成了内容世界里的
           <br />
@@ -90,29 +89,30 @@ export default function P23Scene({ onNext, sceneName }: PageProps) {
 
         <div className="absolute" style={{ top: "274px", left: "41px" }}>
           <div className="mb-[10px]">
-            2025年,你在@答主评审团的测评中探寻了{" "}
-            <span
-              className={`${colorClass("pink")} ${typographyClass(
-                "subtitle"
-              )} px-[2px]`}
-            >
+            2025 年，你在
+            <span className="text-r-purple px-[7px]">@答主评审团</span>
+            的测评中
+            <br />
+            探寻了
+            <span className={`text-r-fern px-[7px]`} style={{ fontSize: 24 }}>
               {String(reviewAnswerCount ?? "review_answer_cnt")}
-            </span>{" "}
+            </span>
             次
           </div>
         </div>
 
         <div className="absolute" style={{ top: "371px", left: "41px" }}>
           <div className="mb-[10px]">
-            其中关于{" "}
-            <span
-              className={`${colorClass("blue")} ${typographyClass(
-                "subtitle"
-              )} px-[2px]`}
-            >
+            其中关于
+            <span className={`text-r-green px-[7px]`} style={{ fontSize: 20 }}>
               {String(reviewAnswerProductName ?? "review_answer_product_name")}
-            </span>{" "}
-            的测评,你用互动表达了对内容「真」的认可
+            </span>
+            的测评
+            <br />
+            你用互动表达了对内容
+            <span className="text-r-pink px-[7px]" style={{ fontSize: 20 }}>
+              「真」的认可
+            </span>
           </div>
         </div>
       </div>

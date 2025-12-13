@@ -1863,6 +1863,18 @@
         "width": 185,
         "height": 235,
         "alt": "P21 Liukanshan"
+      },
+      "optionA": {
+        "url": "/assets/2025_2_report_p21_option_a.png",
+        "width": 107,
+        "height": 44,
+        "alt": "P21 Option A"
+      },
+      "optionB": {
+        "url": "/assets/2025_2_report_p21_option_b.png",
+        "width": 107,
+        "height": 44,
+        "alt": "P21 Option B"
       }
     },
     "p22": {

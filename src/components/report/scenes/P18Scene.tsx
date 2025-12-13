@@ -1,7 +1,7 @@
 "use client";
 
 import { useUserReportData } from "@/context/user-report-data-context";
-import { colorClass, typographyClass } from "@/hooks/useSceneTheme";
+import { typographyClass } from "@/hooks/useSceneTheme";
 import BaseScene from "./BaseScene";
 import { useAssets } from "@/context/assets-context";
 import Image from "next/image";
@@ -148,7 +148,7 @@ export default function P18Scene({ onNext, sceneName }: PageProps) {
       {/* content */}
       <div className="z-0">
         <div
-          className={typographyClass("subtitle") + " leading-relaxed absolute"}
+          className={"text-xl leading-relaxed absolute"}
           style={{ left: "30px", top: "121px" }}
         >
           感谢有你,圈子一直在发光
@@ -158,11 +158,7 @@ export default function P18Scene({ onNext, sceneName }: PageProps) {
           className={typographyClass("body") + " absolute text-center"}
           style={{ width: "321px", left: "17px", top: "233px" }}
         >
-          <span
-            className={`${colorClass("blue")} ${typographyClass(
-              "subtitle"
-            )} px-[2px]`}
-          >
+          <span className={`text-r-blue text-lg px-[7px]`}>
             「{String(clubAdminTop1Name ?? "club_admin_top1_name")} 」
           </span>
           圈
@@ -174,11 +170,7 @@ export default function P18Scene({ onNext, sceneName }: PageProps) {
           className={typographyClass("body") + " absolute"}
           style={{ right: "14px", top: "290px" }}
         >
-          <span
-            className={`${colorClass("green")} ${typographyClass(
-              "subtitle"
-            )} px-[2px]`}
-          >
+          <span className={`text-r-green text-lg px-[2px]`}>
             {String(clubAdminTop1MemberCount ?? "clubAdminTop1MemberCount")}
           </span>
           <br />
@@ -189,11 +181,7 @@ export default function P18Scene({ onNext, sceneName }: PageProps) {
           className={typographyClass("body") + " absolute text-right"}
           style={{ left: "27px", top: "483px", width: "66px" }}
         >
-          <span
-            className={`${colorClass("yellow")} ${typographyClass(
-              "subtitle"
-            )} px-[2px]`}
-          >
+          <span className={`text-r-yellow text-lg px-[2px]`}>
             {String(clubAdminTop1MemberCount ?? "clubAdminTop1MemberCount")}
           </span>
           <br />
@@ -204,155 +192,22 @@ export default function P18Scene({ onNext, sceneName }: PageProps) {
           className={typographyClass("body") + " absolute"}
           style={{ left: "30px", top: "631px" }}
         >
-          作为引路人,你在圈内发言{" "}
-          <span
-            className={`${colorClass("pink")} ${typographyClass(
-              "title"
-            )} px-[2px]`}
-          >
+          作为引路人,你在圈内发言
+          <span className={`text-r-pink text-2xl px-[7px]`}>
             {String(clubAdminTop2PinCount ?? "club_admin_top2_pin_cnt")}
-          </span>{" "}
+          </span>
           次 <br />
           <span>
-            与{" "}
-            <span
-              className={`${colorClass("green")} ${typographyClass(
-                "subtitle"
-              )} px-[2px]`}
-            >
+            与
+            <span className={`text-r-green text-lg px-[7px]`}>
               {String(
                 clubAdminTop2InteractionCount ??
                   "club_admin_top2_interaction_cnt"
               )}
-            </span>{" "}
+            </span>
             位圈友交换了想法
           </span>
         </div>
-
-        {/* <div className="pb-[30px]">
-          <div className="mb-[10px]">
-            2025年,{" "}
-            <span
-              className={`${colorClass("pink")} ${typographyClass(
-                "subtitle"
-              )} px-[2px]`}
-            >
-              {String(clubAdminTop1MemberCount ?? "club_admin_top1_member_cnt")}
-            </span>{" "}
-            位圈友在你的带领下相聚
-          </div>
-          <div>
-            共同创造了{" "}
-            <span
-              className={`${colorClass("fern")} ${typographyClass(
-                "subtitle"
-              )} px-[2px]`}
-            >
-              {String(
-                clubAdminTop1ContentCount ?? "club_admin_top1_content_cnt"
-              )}
-            </span>{" "}
-            条真实、滚烫的讨论
-          </div>
-        </div> */}
-
-        {/* <div className="pb-[30px]">
-          <div className="mb-[10px]">
-            作为引路人,你在圈内发言{" "}
-            <span
-              className={`${colorClass("green")} ${typographyClass(
-                "subtitle"
-              )} px-[2px]`}
-            >
-              {String(clubAdminTop1PinCount ?? "club_admin_top1_pin_cnt")}
-            </span>{" "}
-            次
-          </div>
-          <div>
-            与{" "}
-            <span
-              className={`${colorClass("blue")} ${typographyClass(
-                "subtitle"
-              )} px-[2px]`}
-            >
-              {String(
-                clubAdminTop1InteractionCount ??
-                  "club_admin_top1_interaction_cnt"
-              )}
-            </span>{" "}
-            位圈友交换了想法
-          </div>
-        </div> */}
-
-        {/* 第二个圈子 */}
-        {/* <div className="pt-[40px] pb-[20px]">
-          <div className="mb-[10px]">
-            「
-            <span
-              className={`${colorClass("blue")} ${typographyClass(
-                "subtitle"
-              )} px-[2px]`}
-            >
-              {String(clubAdminTop2Name ?? "club_admin_top2_name")}
-            </span>
-            」圈的主理人,你好
-          </div>
-          <div className="pb-[20px]">
-            <div className="mb-[10px]">
-              2025年,{" "}
-              <span
-                className={`${colorClass("pink")} ${typographyClass(
-                  "subtitle"
-                )} px-[2px]`}
-              >
-                {String(
-                  clubAdminTop2MemberCount ?? "club_admin_top2_member_cnt"
-                )}
-              </span>{" "}
-              位圈友在你的带领下相聚
-            </div>
-            <div>
-              共同创造了{" "}
-              <span
-                className={`${colorClass("fern")} ${typographyClass(
-                  "subtitle"
-                )} px-[2px]`}
-              >
-                {String(
-                  clubAdminTop2ContentCount ?? "club_admin_top2_content_cnt"
-                )}
-              </span>{" "}
-              条真实、滚烫的讨论
-            </div>
-          </div>
-          <div>
-            <div className="mb-[10px]">
-              作为引路人,你在圈内发言{" "}
-              <span
-                className={`${colorClass("green")} ${typographyClass(
-                  "subtitle"
-                )} px-[2px]`}
-              >
-                {String(clubAdminTop2PinCount ?? "club_admin_top2_pin_cnt")}
-              </span>{" "}
-              次
-            </div>
-            <div>
-              与{" "}
-              <span
-                className={`${colorClass("blue")} ${typographyClass(
-                  "subtitle"
-                )} px-[2px]`}
-              >
-                {String(
-                  clubAdminTop2InteractionCount ??
-                    "club_admin_top2_interaction_cnt"
-                )}
-              </span>{" "}
-              位圈友交换了想法
-            </div>
-          </div>
-        </div> */}
       </div>
     </BaseScene>
   );

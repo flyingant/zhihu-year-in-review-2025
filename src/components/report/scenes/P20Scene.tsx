@@ -138,132 +138,140 @@ export default function P20Scene({ onNext, sceneName }: PageProps) {
 
       {/* content */}
       <div className="z-0">
-        {/* Night Club Publish */}
-        <div
-          className="absolute"
-          style={{ top: "170px", left: "34px", right: "19px" }}
-        >
-          <div className="leading-[29px]">
-            你在圈子里「扩列」了
-            <span
-              className={`${colorClass("blue")} ${typographyClass(
-                "subtitle"
-              )} px-[2px]`}
-            >
-              {String(nightClubPinClubName ?? "night_club_pin_club_name")}
-            </span>
-            位好友
-            <br />
-            希望新的一年，你能遇见更多同频的人
+        <div className="first hidden">
+          {/* Night Club Publish */}
+          <div
+            className="absolute"
+            style={{
+              fontSize: "14px",
+              top: "170px",
+              left: "34px",
+              right: "19px",
+            }}
+          >
+            <div className="leading-[29px]">
+              你在圈子里「扩列」了
+              <span className="text-r-blue text-[18px] px-[7px]">
+                {String(nightClubPinClubName ?? "night_club_pin_club_name")}
+              </span>
+              位好友
+              <br />
+              希望新的一年，你能遇见更多同频的人
+            </div>
           </div>
-        </div>
-        {/* Most Favorite Spots */}
-        <div className="z-30 absolute top-[300px] left-[34px] right-[34px]">
-          <span>
-            「{String(clubActiveListName1 ?? "club_active_list_name_top1")}」
-          </span>
-          <span>
-            「{String(clubActiveListName2 ?? "club_active_list_name_top2")}」
-          </span>
-          <span>
-            「{String(clubActiveListName3 ?? "club_active_list_name_top3")}」
-          </span>
-          是你今年最爱的「精神据点」
-        </div>
-
-        {/* Most Interacted Club Members */}
-        <div
-          className="absolute"
-          style={{ top: "578px", left: "34px", right: "34px" }}
-        >
-          <div className="flex flex-col leading-[34px]">
-            与你互动最多的圈友是：
-            <span
-              className={`${colorClass("yellow")} ${typographyClass(
-                "subtitle"
-              )} px-[2px]`}
-            >
-              @
-              {String(
-                mostInteractionMemberName1 ??
-                  "most_interaction_club_member_name_top1"
-              )}
-            </span>
-            <span
-              className={`${colorClass("yellow")} ${typographyClass(
-                "subtitle"
-              )} px-[2px]`}
-            >
-              @
-              {String(
-                mostInteractionMemberName2 ??
-                  "most_interaction_club_member_name_top2"
-              )}
-            </span>
-            <span
-              className={`${colorClass("yellow")} ${typographyClass(
-                "subtitle"
-              )} px-[2px]`}
-            >
-              @
-              {String(
-                mostInteractionMemberName3 ??
-                  "most_interaction_club_member_name_top3"
-              )}
-            </span>
-          </div>
-          <div className="flex items-center gap-1">
-            要不要
-            <ActionsButton type="message" onClick={() => {}} />
-            {/* <ActionsButton type="join" onClick={() => {}} /> */}
-            {/* <ActionsButton type="joined" onClick={() => {}} /> */}
-            送他们一个大拇指？
-          </div>
-        </div>
-
-        {/* Recommended Clubs */}
-        <div
-          className="absolute z-30"
-          style={{ top: "378px", left: "34px", right: "34px" }}
-        >
-          <div className="flex flex-col leading-[34px]">
-            <span
-              className={`${colorClass("yellow")} ${typographyClass(
-                "subtitle"
-              )} px-[2px]`}
-            >
-              {String(
-                mostInteractionMemberName1 ??
-                  "most_interaction_club_member_name_top1"
-              )}
+          {/* Most Interacted Club Members */}
+          <div
+            className="absolute"
+            style={{ fontSize: 14, top: "578px", left: "34px", right: "34px" }}
+          >
+            <div className="flex flex-col leading-[34px]">
+              <span>与你互动最多的圈友是：</span>
+              <span
+                className="text-r-yellow text-[18px] px-[2px]"
+                style={{ fontSize: 18 }}
+              >
+                @
+                {String(
+                  mostInteractionMemberName1 ??
+                    "most_interaction_club_member_name_top1"
+                )}
+              </span>
+              <span
+                className="text-r-yellow text-[18px] px-[2px]"
+                style={{ fontSize: 18 }}
+              >
+                @
+                {String(
+                  mostInteractionMemberName2 ??
+                    "most_interaction_club_member_name_top2"
+                )}
+              </span>
+              <span
+                className="text-r-yellow text-[18px] px-[2px]"
+                style={{ fontSize: 18 }}
+              >
+                @
+                {String(
+                  mostInteractionMemberName3 ??
+                    "most_interaction_club_member_name_top3"
+                )}
+              </span>
+            </div>
+            <div className="flex items-center gap-1">
+              要不要
               <ActionsButton type="message" onClick={() => {}} />
-            </span>
-            <span
-              className={`${colorClass("yellow")} ${typographyClass(
-                "subtitle"
-              )} px-[2px]`}
-            >
-              {String(
-                mostInteractionMemberName2 ??
-                  "most_interaction_club_member_name_top2"
-              )}
-              <ActionsButton type="join" onClick={() => {}} />
-            </span>
-            <span
-              className={`${colorClass("yellow")} ${typographyClass(
-                "subtitle"
-              )} px-[2px]`}
-            >
-              {String(
-                mostInteractionMemberName3 ??
-                  "most_interaction_club_member_name_top3"
-              )}
-              <ActionsButton type="joined" onClick={() => {}} />
-            </span>
+              {/* <ActionsButton type="join" onClick={() => {}} /> */}
+              {/* <ActionsButton type="joined" onClick={() => {}} /> */}
+              送他们一个感谢？
+            </div>
           </div>
-          <div className="flex items-center gap-1">
-            或许会是你的下一站 <br />
-            点击加入一起开启新年新旅程吧
+        </div>
+        <div className="second">
+          {/* Most Favorite Spots */}
+          <div
+            className="z-30 absolute"
+            style={{
+              fontSize: "14px",
+              top: "145px",
+              left: "34px",
+              right: "34px",
+            }}
+          >
+            <span className="text-r-pink">
+              「{String(clubActiveListName1 ?? "club_active_list_name_top1")}」
+            </span>
+            <span className="text-r-pink">
+              「{String(clubActiveListName2 ?? "club_active_list_name_top2")}」
+            </span>
+            <span className="text-r-pink">
+              「{String(clubActiveListName3 ?? "club_active_list_name_top3")}」
+            </span>
+            <p>是你今年最爱的精神据点</p>
+          </div>
+          {/* Recommended Clubs */}
+          <div
+            className="absolute z-30"
+            style={{ fontSize: 14, top: "583px", left: "34px", right: "34px" }}
+          >
+            <div className="flex flex-col gap-3 leading-[34px]">
+              <span className="flex items-center text-r-green text-[18px] px-[2px]">
+                {String(
+                  mostInteractionMemberName1 ??
+                    "most_interaction_club_member_name_top1"
+                )}
+                <ActionsButton
+                  className="ml-[7px]"
+                  type="join"
+                  onClick={() => {}}
+                />
+              </span>
+              <span className="flex items-center text-r-green text-[18px] px-[2px]">
+                {String(
+                  mostInteractionMemberName2 ??
+                    "most_interaction_club_member_name_top2"
+                )}
+                <ActionsButton
+                  className="ml-[7px]"
+                  type="join"
+                  onClick={() => {}}
+                />
+              </span>
+              <span className="flex items-center text-r-green text-[18px] px-[2px]">
+                {String(
+                  mostInteractionMemberName3 ??
+                    "most_interaction_club_member_name_top3"
+                )}
+                <ActionsButton
+                  className="ml-[7px]"
+                  type="joined"
+                  onClick={() => {}}
+                />
+              </span>
+            </div>
+            <div className="flex items-center gap-1 mt-3">
+              或许会是你的下一站 <br />
+              点击加入一起开启新年新旅程吧
+            </div>
           </div>
         </div>
       </div>

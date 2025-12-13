@@ -197,67 +197,46 @@ export default function P17Scene({ onNext, sceneName }: PageProps) {
       >
         <div className="">
           <div className="mb-[10px]">
-            你和{" "}
-            <span
-              className={`${colorClass("pink")} ${typographyClass(
-                "title"
-              )} px-[2px]`}
-            >
+            你和
+            <span className={`text-2xl text-r-pink px-[7px]`}>
               {String(followQuestionFriend ?? "follow_question_friend")}
-            </span>{" "}
-            位好友共同关注着一个问题:
+            </span>
+            位好友共同关注着一个问题
           </div>
           <div className="mb-[43px]">
-            「
-            <span
-              className={`text-[${colorClass("green")}] ${typographyClass(
-                "subtitle"
-              )} px-[2px]`}
-            >
+            <span className={`text-lg text-r-green px-[2px]`}>
+              「
               {String(
                 followQuestionFriendQuestionTitle ??
                   "follow_question_friend_question_title"
               )}
+              」
             </span>
-            」
           </div>
         </div>
 
-        <div className="pb-[30px]">
+        <div className="">
           <div className={typographyClass("body") + " mb-[10px]"}>
-            你赞同了{" "}
-            <span
-              className={`${colorClass("yellow")} ${typographyClass(
-                "subtitle"
-              )} px-[2px]`}
-            >
+            你赞同了
+            <span className={`text-lg text-r-yellow px-[7px]`}>
               @
               {String(
                 upvoteHotAnswerMemberName ?? "upvote_hot_answer_member_name"
               )}
-            </span>{" "}
+            </span>
             在
-            <span
-              className={`${colorClass("blue")} ${typographyClass(
-                "subtitle"
-              )} px-[2px]`}
-            >
+            <br />
+            <span className={`text-lg text-r-blue px-[2px]`}>
               「{String(upvoteHotAnswerTitle ?? "upvote_hot_answer_title")}」
             </span>
-            <span
-              className={`${colorClass("blue")} ${typographyClass("body")}`}
-            >
+            <span className={`text-normal text-r-blue px-[2px]`}>
               问题下的回答
             </span>
           </div>
           <div className="text-sm">
-            <span
-              className={`${colorClass("purple")} ${typographyClass(
-                "subtitle"
-              )} px-[2px]`}
-            >
+            <span className={`text-2xl text-r-purple pr-[7px]`}>
               {String(upvoteHotAnswerUserCount ?? "upvote_hot_answer_user_cnt")}
-            </span>{" "}
+            </span>
             位知友也在此和你对上了频率
           </div>
         </div>

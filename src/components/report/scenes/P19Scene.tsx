@@ -1,7 +1,6 @@
 "use client";
 
 import { useUserReportData } from "@/context/user-report-data-context";
-import { colorClass, typographyClass } from "@/hooks/useSceneTheme";
 import BaseScene from "./BaseScene";
 import { useAssets } from "@/context/assets-context";
 import Image from "next/image";
@@ -174,89 +173,65 @@ export default function P19Scene({ onNext, sceneName }: PageProps) {
       </div>
 
       {/* content */}
-      <div className="z-0">
+      <div className="z-0" style={{ fontSize: "14px" }}>
         <div
-          className={typographyClass("body") + " absolute"}
-          style={{ top: "184px", left: "36px" }}
+          className="absolute"
+          style={{ fontSize: "14px", top: "184px", left: "36px" }}
         >
-          <span className={`${typographyClass("subtitle")} px-[2px]`}>
+          <span className="pr-[7px]" style={{ fontSize: "18px" }}>
             2025
           </span>
-          年 , 你加入了{" "}
-          <span
-            className={`${colorClass("pink")} ${typographyClass(
-              "title"
-            )} px-[2px]`}
-          >
+          年 , 你加入了
+          <span className="text-r-pink px-[7px]" style={{ fontSize: "24px" }}>
             {String(joinClubCount ?? "join_club_cnt")}
-          </span>{" "}
-          个圈子 <br />
-          对同好社交的热情超过了{" "}
-          <span
-            className={`${colorClass("green")} ${typographyClass(
-              "subtitle"
-            )} px-[2px]`}
-          >
-            {String(joinClubPercentage ?? "join_club_percentage")}
           </span>
-          % 的知友
+          个圈子 <br />
+          <p className="mt-5">对同好社交的热情超过了</p>
+          <span className="text-r-green pr-[7px]">
+            {String(joinClubPercentage ?? "join_club_percentage")}%
+          </span>
+          的知友
         </div>
         <div className="absolute" style={{ top: "360px", left: "141px" }}>
           <div className="mb-[10px]">
             你在
             <span
-              className={`${colorClass("purple")} ${typographyClass(
-                "subtitle"
-              )} px-[2px]`}
+              className="text-r-purple px-[7px]"
+              style={{ fontSize: "16px" }}
             >
               「{String(consumeMostClubName ?? "consume_most_club_name")}」
             </span>
-            停留最久，驻足{" "}
-            <span
-              className={`${colorClass("blue")} ${typographyClass(
-                "subtitle"
-              )} px-[2px]`}
-            >
+            <br />
+            停留最久，驻足
+            <span className="text-r-blue px-[7px]" style={{ fontSize: "18px" }}>
               {String(consumeMostClubPv ?? "consume_most_club_pv")}
-            </span>{" "}
+            </span>
             次
           </div>
         </div>
         <div className="absolute z-2" style={{ top: "540px", left: "17px" }}>
-          <div className={typographyClass("body")}>
+          <div>
             在
-            <span
-              className={`${colorClass("blue")} ${typographyClass(
-                "subtitle"
-              )} px-[2px]`}
-            >
+            <span className="text-r-yellow px-[7px]">
               「
               {String(interactiveMostClubName ?? "interactive_most_club_name")}
               」
             </span>
             圈 <br />
             你留下了
-            <span
-              className={`${colorClass("green")} ${typographyClass(
-                "subtitle"
-              )} px-[2px]`}
-            >
+            <span className="text-r-green text-[18px] px-[7px]">
               {String(
                 interactiveMostClubCommentCount ??
                   "interactive_most_club_comment_cnt"
               )}
-            </span>{" "}
+            </span>
             条讨论 <br />
-            <span
-              className={`${colorClass("pink")} ${typographyClass(
-                "subtitle"
-              )} px-[2px]`}
-            >
+            <span className="text-r-pink text-[18px] pr-[7px]">
               {String(
                 interactiveMostClubUpvoteCount ??
                   "interactive_most_club_upvote_cnt"
               )}
-            </span>{" "}
+            </span>
             个赞同
           </div>
         </div>

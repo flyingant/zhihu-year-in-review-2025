@@ -38,7 +38,7 @@ export default function P4Scene({ onNext, sceneName }: PageProps) {
   // Map context data to component variables according to P4 spec
   const questionTitle = toStringOrFallback(reportData?.answer_most_upvote_question_title, 'answer_most_upvote_question_title');
   const upvoteCount = toNumberOrFallback(reportData?.answer_most_upvote_cnt, 'answer_most_upvote_cnt');
-  const thousandUpvoteAnswers = toNumberOrFallback(reportData?.answer_lk_upvote_cnt, 'answer_lk_upvote_cnt');
+  const thousandUpvoteAnswers = toNumberOrFallback(reportData?.answer_1k_upvote_cnt, 'answer_lk_upvote_cnt');
 
   return (
     <BaseScene onNext={onNext} sceneName={sceneName}>
@@ -113,33 +113,38 @@ export default function P4Scene({ onNext, sceneName }: PageProps) {
         />
       </div>
       
-      <div style={{ paddingLeft: '34px', paddingRight: '34px', paddingTop: '120px' }}>
+      <div className="text-[14px]" style={{ paddingLeft: '34px', paddingRight: '34px', paddingTop: '120px' }}>
         <div className={typographyClass('title')}>
           这一年，你依旧好奇
         </div>
-        <div className={typographyClass('title') + ' leading-relaxed'}>
-          你在「
-          <span 
-            className={`${colorClass('blue')} ${typographyClass('subtitle')}`}
-            style={{ paddingLeft: '2px', paddingRight: '2px' }}
-          >
-            {questionTitle}
-          </span>
-          」问题下的回答,被
-          <span 
-            className={`${colorClass('pink', 'font-bold')} ${typographyClass('subtitle')}`}
-            style={{ paddingLeft: '2px', paddingRight: '2px' }}
-          >
-            {upvoteCount}
-          </span> 
-          次赞同点亮,那是一次真实地被看见
+        <div className="" style={{ paddingTop: '46px', paddingBottom: '8px' }} hidden={questionTitle === '' || +upvoteCount < 100}>
+          <div  style={{ paddingBottom: '2px' }}>
+             你在
+            <span 
+              className={`text-r-pink leading-[32px] ${typographyClass('subtitle')}`}
+              style={{ paddingLeft: '6px', paddingRight: '6px' }}
+            >
+              「{questionTitle}」
+            </span>
+            问题下的回答
+          </div>
+          <div hidden={upvoteCount === 0}>
+            被
+            <span 
+              className={`text-r-fern ${typographyClass('subtitle')}`}
+              style={{ paddingLeft: '6px', paddingRight: '6px' }}
+            >
+              {upvoteCount}
+            </span> 
+            次赞同点亮,那是一次真实地被看见
+          </div>
         </div>
 
-        <div style={{ paddingTop: '60px', paddingBottom: '20px' }}>
-          这一年,你还迎来了 
+        <div style={{ paddingTop: '20px', paddingBottom: '20px' }} hidden={thousandUpvoteAnswers === 0}>
+          这一年, 你还迎来了 
           <span 
-            className={`${colorClass('fern', 'font-bold')} ${typographyClass('highlight')}`}
-            style={{ paddingLeft: '2px', paddingRight: '2px' }}
+            className={`text-r-purple ${typographyClass('highlight')}`}
+            style={{ paddingLeft: '6px', paddingRight: '6px' }}
           >
             {thousandUpvoteAnswers}
           </span> 

@@ -106,11 +106,11 @@ export default function P10Scene({ onNext, sceneName }: PageProps) {
             width={group1Asset.width} 
             height={group1Asset.height} 
             className="object-contain absolute pointer-events-none select-none z-1"
-            style={{ right: '14px' }}
+            style={{ right: '24px' }}
           />
           <div 
             className={`${colorClass('pink')} ${typographyClass('subtitle')} absolute z-2`}
-            style={{ top: '40px', right: '14px', paddingLeft: '2px', paddingRight: '2px' }}
+            style={{ top: '40px', right: '24px', paddingLeft: '2px', paddingRight: '2px' }}
           >
             {String(articleCount ?? 'consume_article_cnt')}
           </div>
@@ -124,11 +124,11 @@ export default function P10Scene({ onNext, sceneName }: PageProps) {
             width={group2Asset.width} 
             height={group2Asset.height} 
             className="object-contain absolute pointer-events-none select-none z-1"
-            style={{ left: '14px' }}
+            style={{ left: '24px' }}
           />
           <div 
             className={`${colorClass('pink')} ${typographyClass('subtitle')} absolute z-2`}
-            style={{ top: '40px', left: '14px', paddingLeft: '2px', paddingRight: '2px' }}
+            style={{ top: '40px', left: '24px', paddingLeft: '2px', paddingRight: '2px' }}
           >
             {String(pinCount ?? 'consume_pin_cnt')}
           </div>
@@ -142,11 +142,11 @@ export default function P10Scene({ onNext, sceneName }: PageProps) {
             width={group3Asset.width} 
             height={group3Asset.height} 
             className="object-contain absolute pointer-events-none select-none z-1"
-            style={{ right: '30px' }}
+            style={{ right: '40px' }}
           />
           <div 
             className={`${colorClass('pink')} ${typographyClass('subtitle')} absolute z-2`}
-            style={{ top: '40px', right: '30px', paddingLeft: '2px', paddingRight: '2px' }}
+            style={{ top: '40px', right: '40px', paddingLeft: '2px', paddingRight: '2px' }}
           >
             {String(wordCount ?? 'consume_word_cnt')}
           </div>

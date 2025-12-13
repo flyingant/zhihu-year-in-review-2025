@@ -4,6 +4,7 @@ import { useState, useEffect, useRef } from "react";
 import Image from "next/image";
 import { useAssets } from '@/context/assets-context';
 import BaseScene from "./BaseScene";
+import GlitchLayer from "@/components/report/effects/GlitchLayer";
 
 interface PageProps {
   onNext?: () => void;
@@ -44,6 +45,9 @@ export default function P9Scene({ onNext, sceneName }: PageProps) {
 
   const p9Assets = assets.report.p9;
   const bgAsset = p9Assets.bg;
+  const pixelBgAsset = assets.report.bg;
+  const blue1Asset = pixelBgAsset.blue1;
+  const mix3Asset = pixelBgAsset.mix3;
   const topAsset = p9Assets.top;
   const middleAsset = p9Assets.middle;
   const liukanshanAsset = p9Assets.liukanshan;
@@ -51,6 +55,40 @@ export default function P9Scene({ onNext, sceneName }: PageProps) {
   
   return (
     <BaseScene onNext={onNext} sceneName={sceneName}>
+    <GlitchLayer className="z-[40]">
+        <Image 
+          src={blue1Asset.url} 
+          alt="" 
+          width={blue1Asset.width} 
+          height={blue1Asset.height} 
+          className="object-contain absolute pointer-events-none select-none z-1"
+          style={{ 
+            top: '72px', 
+            left: '40px', 
+            transform: 'scale(0.8) rotate(180deg)'
+          }}
+        />
+        <Image 
+          src={mix3Asset.url} 
+          alt={mix3Asset.alt} 
+          width={mix3Asset.width} 
+          height={mix3Asset.height} 
+          className="object-contain absolute pointer-events-none select-none z-1"
+          style={{ top: '359px', left: '0px', transform: 'rotate(180deg) scaleY(-1)' }}
+        />
+        <Image 
+          src={blue1Asset.url} 
+          alt="" 
+          width={blue1Asset.width} 
+          height={blue1Asset.height} 
+          className="object-contain absolute pointer-events-none select-none z-1"
+          style={{ 
+            bottom: '144px', 
+            right: '0px', 
+            transform: 'rotate(180deg)' 
+          }}
+        />
+      </GlitchLayer> 
       <div ref={containerRef} className="relative w-full h-full overflow-hidden">
         {/* Background layer - static */}
         <Image 

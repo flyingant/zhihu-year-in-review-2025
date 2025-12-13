@@ -5,23 +5,12 @@ import BaseScene from "./BaseScene";
 import Image from "next/image";
 import { useAssets } from "@/context/assets-context";
 import GlitchLayer from "@/components/report/effects/GlitchLayer";
+import { formatDate } from "@/utils/common";
 
 interface PageProps {
   onNext?: () => void;
   sceneName?: string;
 }
-
-const formatDate = (dateStr: string | undefined | null) => {
-  if (!dateStr) return '';
-
-  const parts = dateStr.split('-');
-
-  if (parts.length === 3) {
-    return `${parts[1]}月 ${parts[2]}日`;
-  }
-
-  return dateStr;
-};
 
 export default function P13Scene({ onNext, sceneName }: PageProps) {
   const { reportData } = useUserReportData();

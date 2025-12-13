@@ -6,19 +6,8 @@ import BaseScene from "./BaseScene";
 import Image from "next/image";
 import { useAssets } from "@/context/assets-context";
 import GlitchLayer from "@/components/report/effects/GlitchLayer";
+import { formatDate } from "@/utils/common";
 
-
-const formatDate = (dateStr: string | undefined | null) => {
-  if (!dateStr) return '';
-  
-  const parts = dateStr.split('-');
-  
-  if (parts.length === 3) {
-    return `${parts[1]}月 ${parts[2]}日`;
-  }
-  
-  return dateStr;
-};
 
 interface PageProps {
   onNext?: () => void;
@@ -37,7 +26,7 @@ export default function P6Scene({ onNext, sceneName }: PageProps) {
   const mix1Asset = bgAsset.mix1;
   const mix2Asset = bgAsset.mix2;
   const liukanshanAsset = assets.report.p6.liukanshan;
-  
+
   // Map context data to component variables according to P6 spec
   const totalWords = reportData?.content_total_word_cnt ?? 0;
   const creationDays = reportData?.publish_total_day_cnt ?? 0;
@@ -50,43 +39,43 @@ export default function P6Scene({ onNext, sceneName }: PageProps) {
     <BaseScene onNext={onNext} sceneName={sceneName}>
       <GlitchLayer>
         {/* 顺序从上到下 */}
-        <Image 
-          src={blue1Asset.url} 
-          alt={blue1Asset.alt} 
-          width={blue1Asset.width} 
-          height={blue1Asset.height} 
+        <Image
+          src={blue1Asset.url}
+          alt={blue1Asset.alt}
+          width={blue1Asset.width}
+          height={blue1Asset.height}
           className="object-contain absolute pointer-events-none select-none z-1"
           style={{ top: '20px', right: '36px' }}
         />
-        <Image 
-          src={mix2Asset.url} 
-          alt={mix2Asset.alt} 
-          width={mix2Asset.width} 
-          height={mix2Asset.height} 
+        <Image
+          src={mix2Asset.url}
+          alt={mix2Asset.alt}
+          width={mix2Asset.width}
+          height={mix2Asset.height}
           className="object-contain absolute pointer-events-none select-none z-1"
           style={{ top: '152px', left: '0px' }}
         />
-        <Image 
-          src={blue2Asset.url} 
-          alt={blue2Asset.alt} 
-          width={blue2Asset.width} 
-          height={blue2Asset.height} 
+        <Image
+          src={blue2Asset.url}
+          alt={blue2Asset.alt}
+          width={blue2Asset.width}
+          height={blue2Asset.height}
           className="object-contain absolute pointer-events-none select-none z-1"
           style={{ bottom: '194px', right: '74px' }}
         />
-        <Image 
-          src={green1Asset.url} 
-          alt={green1Asset.alt} 
-          width={green1Asset.width} 
-          height={green1Asset.height} 
+        <Image
+          src={green1Asset.url}
+          alt={green1Asset.alt}
+          width={green1Asset.width}
+          height={green1Asset.height}
           className="object-contain absolute pointer-events-none select-none z-1"
           style={{ bottom: '0%', left: '0px' }}
         />
-        <Image 
-          src={mix1Asset.url} 
-          alt={mix1Asset.alt} 
-          width={mix1Asset.width} 
-          height={mix1Asset.height} 
+        <Image
+          src={mix1Asset.url}
+          alt={mix1Asset.alt}
+          width={mix1Asset.width}
+          height={mix1Asset.height}
           className="object-contain absolute pointer-events-none select-none z-1"
           style={{ bottom: '0%', right: '0px' }}
         />
@@ -100,51 +89,51 @@ export default function P6Scene({ onNext, sceneName }: PageProps) {
         {/* 总字数 */}
         <div hidden={!totalWords}
           style={{ marginBottom: '10px', lineHeight: '32px', paddingLeft: '34px', paddingRight: '34px', }}>
-          你在知乎写下了 
-          <span 
+          你在知乎写下了
+          <span
             className={`text-r-pink`}
             style={{ paddingLeft: '6px', paddingRight: '6px', fontSize: '24px' }}
           >
             {totalWords}
-          </span> 
+          </span>
           个字
         </div>
 
         {/* 创作天数 */}
         <div style={{ marginBottom: '30px', paddingLeft: '34px', paddingRight: '34px', }}>
-          足以拼成 
-          <span 
+          足以拼成
+          <span
             className={`text-r-fern`}
             style={{ paddingLeft: '4px', paddingRight: '4px', fontSize: '24px' }}
           >
             {creationDays}
-          </span> 
+          </span>
           本
-          <span 
+          <span
             className={`text-r-fern`}
             style={{ paddingLeft: '4px', paddingRight: '4px', fontSize: '24px' }}
           >
             {creationDays}
-          </span> 
+          </span>
         </div>
 
         <div className="z-0 flex ">
-          <Image 
-            src={liukanshanAsset.url} 
-            alt={liukanshanAsset.alt} 
-            width={liukanshanAsset.width} 
-            height={liukanshanAsset.height} 
+          <Image
+            src={liukanshanAsset.url}
+            alt={liukanshanAsset.alt}
+            width={liukanshanAsset.width}
+            height={liukanshanAsset.height}
             className="object-contain pointer-events-none select-none z-1 relative"
           />
           <div className="text-center" style={{ paddingTop: '20px' }}>
             <div >
-              在 
-              <span 
+              在
+              <span
                 className={`text-r-blue`}
                 style={{ paddingLeft: '4px', paddingRight: '4px', fontSize: '44px' }}
               >
                 {creationDays}
-              </span> 
+              </span>
               天里
             </div>
             <div style={{ paddingTop: '8px' }}>
@@ -157,12 +146,12 @@ export default function P6Scene({ onNext, sceneName }: PageProps) {
         <div hidden={!mostProductiveMonth || creationDays < 5}
           style={{ paddingBottom: '8px', paddingTop: '70px', paddingLeft: '34px', paddingRight: '34px', }}>
           <div style={{ marginBottom: '6px' }}>
-            <span 
+            <span
               className={`text-r-blue`}
               style={{ paddingRight: '4px', fontSize: '18px' }}
             >
               {mostProductiveMonth}
-            </span> 
+            </span>
             月是你的灵感高峰
           </div>
         </div>
@@ -170,23 +159,23 @@ export default function P6Scene({ onNext, sceneName }: PageProps) {
         {/* 文思泉涌的一天 */}
         <div style={{ paddingLeft: '34px', paddingRight: '34px', }} hidden={!dayWordCount || dayWordCount < 30}>
           <div style={{ marginBottom: '6px' }}>
-            <span 
+            <span
               className={`text-r-yellow`}
               style={{ paddingRight: '5px', fontSize: '18px' }}
             >
               {mostProductiveDate}
-            </span> 
-            ，你写下了今年最多的 
-            <span 
+            </span>
+            ，你写下了今年最多的
+            <span
               className={`text-r-fern`}
               style={{ paddingLeft: '6px', paddingRight: '6px', fontSize: '18px' }}
             >
               {dayWordCount}
-            </span> 
+            </span>
             字
           </div>
         </div>
-      </div> 
+      </div>
     </BaseScene>
   );
 }

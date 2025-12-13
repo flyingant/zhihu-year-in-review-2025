@@ -95,7 +95,7 @@ export default function P11Scene({ onNext, sceneName }: PageProps) {
       {/* 浏览最多的领域 */}
       <div
         className="flex items-center justify-center relative"
-        style={{ paddingBottom: '30px' }}
+        style={{ paddingBottom: '30px', fontSize: '14px' }}
       >
         {/* 1. 文件夹背景大图 */}
         <div className="relative">
@@ -161,7 +161,8 @@ export default function P11Scene({ onNext, sceneName }: PageProps) {
         </div>
       </div>
 
-      <div className="flex items-center justify-center relative" style={{ paddingBottom: '20px' }}>
+      <div hidden={displayAddList.length === 0 && displayReduceList.length === 0}
+        className="flex items-center justify-center relative" style={{ paddingBottom: '20px' }}>
         <Image
           src={tableAsset.url}
           alt={tableAsset.alt}

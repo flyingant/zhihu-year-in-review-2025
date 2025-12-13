@@ -7,6 +7,19 @@ import Image from "next/image";
 import { useAssets } from "@/context/assets-context";
 import GlitchLayer from "@/components/report/effects/GlitchLayer";
 
+
+const formatDate = (dateStr: string | undefined | null) => {
+  if (!dateStr) return '';
+  
+  const parts = dateStr.split('-');
+  
+  if (parts.length === 3) {
+    return `${parts[1]}月 ${parts[2]}日`;
+  }
+  
+  return dateStr;
+};
+
 interface PageProps {
   onNext?: () => void;
   sceneName?: string;
@@ -26,10 +39,10 @@ export default function P6Scene({ onNext, sceneName }: PageProps) {
   const liukanshanAsset = assets.report.p6.liukanshan;
   
   // Map context data to component variables according to P6 spec
-  const totalWords = reportData?.content_total_word_cnt ?? null;
-  const creationDays = reportData?.publish_total_day_cnt ?? null;
+  const totalWords = reportData?.content_total_word_cnt ?? 0;
+  const creationDays = reportData?.publish_total_day_cnt ?? 0;
   const mostProductiveMonth = reportData?.publish_max_month ?? null;
-  const mostProductiveDate = reportData?.publish_most_word_date ?? null;
+  const mostProductiveDate = formatDate(reportData?.publish_most_word_date ?? null);
   const dayWordCount = reportData?.publish_most_word_cnt ?? null;
   // Note: equivalentBook calculation is frontend logic based on totalWords
 
@@ -79,94 +92,96 @@ export default function P6Scene({ onNext, sceneName }: PageProps) {
         />
       </GlitchLayer>
 
-      <div style={{ paddingLeft: '34px', paddingRight: '34px', paddingTop: '120px' }}>
-        <div className={typographyClass('title')} style={{ marginBottom: '40px' }}>
+      <div className="text-[14px]" style={{ paddingTop: '120px' }}>
+        <div className={typographyClass('title')} style={{ marginBottom: '40px', textAlign: 'center' }}>
           这一年，你真心分享
         </div>
 
         {/* 总字数 */}
-        <div style={{ marginBottom: '40px', lineHeight: '32px' }}>
+        <div hidden={!totalWords}
+          style={{ marginBottom: '10px', lineHeight: '32px', paddingLeft: '34px', paddingRight: '34px', }}>
           你在知乎写下了 
           <span 
-            className={`${colorClass('pink')} ${typographyClass('highlight')}`}
-            style={{ paddingRight: '4px' }}
+            className={`text-r-pink ${typographyClass('highlight')}`}
+            style={{ paddingLeft: '6px', paddingRight: '6px' }}
           >
-            {totalWords ?? 'content_total_word_cnt'}
+            {totalWords}
           </span> 
           个字
         </div>
 
         {/* 创作天数 */}
-        <div style={{ marginBottom: '30px' }}>
+        <div style={{ marginBottom: '30px', paddingLeft: '34px', paddingRight: '34px', }}>
           足以拼成 
           <span 
-            className={`${colorClass('fern')} ${typographyClass('highlight')}`}
+            className={`text-r-fern ${typographyClass('highlight')}`}
             style={{ paddingLeft: '4px', paddingRight: '4px' }}
           >
-            {creationDays ?? 'publish_total_day_cnt'}
+            {creationDays}
           </span> 
           本
           <span 
-            className={`${colorClass('fern')} ${typographyClass('highlight')}`}
+            className={`text-r-fern ${typographyClass('highlight')}`}
             style={{ paddingLeft: '4px', paddingRight: '4px' }}
           >
-            {creationDays ?? 'publish_total_day_cnt'}
+            {creationDays}
           </span> 
         </div>
 
-        <div className="z-0 flex items-center" style={{ width: '153px', marginLeft: '-34px' }}>
+        <div className="z-0 flex ">
           <Image 
             src={liukanshanAsset.url} 
             alt={liukanshanAsset.alt} 
             width={liukanshanAsset.width} 
             height={liukanshanAsset.height} 
-            className="object-contain pointer-events-none select-none z-1" 
+            className="object-contain pointer-events-none select-none z-1 relative"
           />
-          <div>
-            <div>
+          <div className="text-center" style={{ paddingTop: '20px' }}>
+            <div >
               在 
               <span 
-                className={`${colorClass('fern')} ${typographyClass('highlight')}`}
+                className={`text-r-blue text-[44px]`}
                 style={{ paddingLeft: '4px', paddingRight: '4px' }}
               >
-                {creationDays ?? 'publish_total_day_cnt'}
+                {creationDays}
               </span> 
               天里
             </div>
-            <div>
+            <div style={{ paddingTop: '8px' }}>
               你都勇敢表达、留下印记
             </div>
           </div>
         </div>
 
         {/* 最高产月份 */}
-        <div style={{ paddingBottom: '30px' }}>
+        <div hidden={!mostProductiveMonth || creationDays < 5}
+          style={{ paddingBottom: '8px', paddingTop: '70px', paddingLeft: '34px', paddingRight: '34px', }}>
           <div style={{ marginBottom: '6px' }}>
             <span 
-              className={`${colorClass('pink')} ${typographyClass('subtitle')}`}
-              style={{ paddingRight: '2px' }}
+              className={`text-r-blue text-[19px]`}
+              style={{ paddingRight: '4px' }}
             >
-              {mostProductiveMonth ?? 'publish_max_month'}
+              {mostProductiveMonth}
             </span> 
             月是你的灵感高峰
           </div>
         </div>
 
         {/* 文思泉涌的一天 */}
-        <div style={{ paddingBottom: '60px' }}>
+        <div style={{ paddingLeft: '34px', paddingRight: '34px', }} hidden={!dayWordCount || dayWordCount < 30}>
           <div style={{ marginBottom: '6px' }}>
             <span 
-              className={`${colorClass('blue')} ${typographyClass('subtitle')}`}
+              className={`text-r-yellow text-[19px]`}
               style={{ paddingRight: '5px' }}
             >
-              {mostProductiveDate ?? 'publish_most_word_date'}
+              {mostProductiveDate}
             </span> 
-            日，你写下了今年最多的 
+            ，你写下了今年最多的 
             <span 
-              className={`${colorClass('blue')} ${typographyClass('subtitle')}`}
-              style={{ paddingLeft: '2px', paddingRight: '2px' }}
+              className={`text-r-fern text-[19px]`}
+              style={{ paddingLeft: '6px', paddingRight: '6px' }}
             >
-              {dayWordCount ?? 'publish_most_word_cnt'}
+              {dayWordCount}
             </span> 
             字
           </div>

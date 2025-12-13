@@ -91,7 +91,7 @@ export default function P2Scene({ onNext, sceneName }: PageProps) {
           alt={blueBallAsset.alt} 
           width={blueBallAsset.width} 
           height={blueBallAsset.height} 
-          className="object-contain absolute pointer-events-none select-none z-1" 
+          className="object-contain absolute pointer-events-none select-none z-1 animate-float" 
           style={{ bottom: '212px', right: '74px' }}
         />
         <Image 

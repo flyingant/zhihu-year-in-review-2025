@@ -144,8 +144,8 @@ export default function P26Scene({ onNext, sceneName }: PageProps) {
         </div>
 
         {/* 荣誉榜单 - 可滑动 */}
-        <div className="pb-[30px] max-h-[400px] overflow-y-auto">
-          <div className="space-y-[20px] text-sm">
+        <div className="max-h-[400px] overflow-y-auto">
+          <div className="space-y-[20px]">
             <div>
               你的作品
               <span className={`text-r-pink px-[2px]`}>

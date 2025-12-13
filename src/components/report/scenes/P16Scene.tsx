@@ -5,7 +5,7 @@ import { colorClass, typographyClass } from "@/hooks/useSceneTheme";
 import BaseScene from "./BaseScene";
 import { useAssets } from "@/context/assets-context";
 import Image from "next/image";
-import FollowButton from "@/components/ui/FollowButton";
+import ActionsButton from "@/components/ui/ActionsButton";
 import GlitchLayer from "../effects/GlitchLayer";
 
 interface PageProps {
@@ -167,7 +167,7 @@ export default function P16Scene({ onNext, sceneName }: PageProps) {
               {String(
                 interestMemberName1 ?? "consume_interest_member_name_top1"
               )}
-              <FollowButton className="ml-[7px]" disabled />
+              <ActionsButton className="ml-[7px]" type="subscribed" disabled />
             </span>
             <span
               className={`${colorClass("blue")} ${typographyClass(
@@ -178,7 +178,7 @@ export default function P16Scene({ onNext, sceneName }: PageProps) {
               {String(
                 interestMemberName2 ?? "consume_interest_member_name_top2"
               )}
-              <FollowButton className="ml-[7px]" />
+              <ActionsButton className="ml-[7px]" type="subscribe" />
             </span>
             <span
               className={`${colorClass("blue")} ${typographyClass(
@@ -189,7 +189,7 @@ export default function P16Scene({ onNext, sceneName }: PageProps) {
               {String(
                 interestMemberName3 ?? "consume_interest_member_name_top3"
               )}
-              <FollowButton className="ml-[7px]" />
+              <ActionsButton className="ml-[7px]" type="subscribe" />
             </span>
           </div>
           <div>或许也能给你一丝启发</div>

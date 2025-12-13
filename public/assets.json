@@ -1875,6 +1875,24 @@
         "width": 375,
         "height": 514,
         "alt": "P22 Back"
+      },
+      "message": {
+        "url": "/assets/2025_2_report_p22_message.png",
+        "width": 41,
+        "height": 17,
+        "alt": "P22 Message"
+      },
+      "join": {
+        "url": "/assets/2025_2_report_p22_join.png",
+        "width": 41,
+        "height": 17,
+        "alt": "P22 Join"
+      },
+      "joined": {
+        "url": "/assets/2025_2_report_p22_joined.png",
+        "width": 41,
+        "height": 17,
+        "alt": "P22 Joined"
       }
     },
     "p23": {

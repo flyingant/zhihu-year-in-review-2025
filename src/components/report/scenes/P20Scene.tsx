@@ -6,6 +6,7 @@ import BaseScene from "./BaseScene";
 import { useAssets } from "@/context/assets-context";
 import Image from "next/image";
 import GlitchLayer from "../effects/GlitchLayer";
+import ActionsButton from "@/components/ui/ActionsButton";
 
 interface PageProps {
   onNext?: () => void;
@@ -199,7 +200,13 @@ export default function P20Scene({ onNext, sceneName }: PageProps) {
               )}
             </span>
           </div>
-          <div>要不要送他们一个大拇指？</div>
+          <div className="flex items-center gap-1">
+            要不要
+            <ActionsButton type="message" onClick={() => {}} />
+            {/* <ActionsButton type="join" onClick={() => {}} /> */}
+            {/* <ActionsButton type="joined" onClick={() => {}} /> */}
+            送他们一个大拇指？
+          </div>
         </div>
       </div>
     </BaseScene>

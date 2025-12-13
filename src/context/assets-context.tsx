@@ -375,6 +375,9 @@ export interface AssetsData {
       liukanshan: AssetMetadata;
       front: AssetMetadata;
       back: AssetMetadata;
+      message: AssetMetadata;
+      join: AssetMetadata;
+      joined: AssetMetadata;
     };
     p23: {
       review: AssetMetadata;

@@ -93,7 +93,7 @@ export default function P6Scene({ onNext, sceneName }: PageProps) {
       </GlitchLayer>
 
       <div className="text-[14px]" style={{ paddingTop: '120px' }}>
-        <div className={typographyClass('title')} style={{ marginBottom: '40px', textAlign: 'center' }}>
+        <div className={typographyClass('title')} style={{ marginBottom: '40px', paddingLeft: '34px' }}>
           这一年，你真心分享
         </div>
 

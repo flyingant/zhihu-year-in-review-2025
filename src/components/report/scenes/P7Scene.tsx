@@ -64,73 +64,74 @@ export default function P7Scene({ onNext, sceneName }: PageProps) {
         />
       </GlitchLayer>
 
-      <div style={{ paddingLeft: '34px', paddingRight: '34px', paddingTop: '120px' }}>
+      <div className="text-[14px]" style={{ paddingLeft: '34px', paddingRight: '34px', paddingTop: '120px' }}>
         <div className={typographyClass('title')} style={{ marginBottom: '40px' }}>
           这一年，你真心分享
         </div>
 
-        <div style={{ fontSize: '16px', lineHeight: '32px', marginBottom: '20px', display: 'flex' }}>
-          {/* Bubble 图片作为左侧装饰或者容器 */}
-          <div style={{ marginRight: '10px', flexShrink: 0 }}>
+        <div style={{ lineHeight: '32px', marginBottom: '20px', display: 'flex', alignItems: 'center' }}>
+          <div style={{ marginRight: '12px' }}>
              <Image 
               src={blueBubbleAsset.url} 
               alt={blueBubbleAsset.alt} 
               width={blueBubbleAsset.width} 
               height={blueBubbleAsset.height} 
-              className="object-contain pointer-events-none select-none z-1 opacity-0 origin-bottom-left animate-pop-dialog" 
+              className="object-contain pointer-events-none select-none z-1 opacity-0 origin-bottom-left animate-pop-dialog relative"
+              style={{ left: '-10px', paddingBottom: '10px' }} 
             />
           </div>
           
           <div>
-            <div>你的内容收获了</div>
-            <div>
+            <div className="text-center">你的内容收获了</div>
+            <div hidden={!readCount}>
               <span 
-                className={`${colorClass('blue')}`} 
+                className="text-r-pink" 
                 style={{ fontSize: '20px', paddingLeft: '4px', paddingRight: '4px' }}
               >
-                {readCount ?? 'content_pv_cnt'}
+                {readCount }
               </span> 
               次阅读
             </div>
-            <div>
+            <div hidden={!upvoteCount}>
               <span 
-                className={`${colorClass('fern')}`} 
+                className="text-r-fern" 
                 style={{ fontSize: '20px', paddingRight: '4px' }}
               >
-                {upvoteCount ?? 'content_upvote_cnt'}
+                {upvoteCount }
               </span> 
               个赞同
             </div>
-            <div>
+            <div hidden={!collectCount}>
               <span 
-                className={`${colorClass('pink')}`} 
+                className="text-r-blue" 
                 style={{ fontSize: '20px', paddingRight: '4px' }}
               >
-                {collectCount ?? 'content_collect_cnt'}
+                {collectCount }
               </span> 
               次收藏
             </div>
-            <div>
+            <div hidden={!commentCount}>
               <span 
-                className={`${colorClass('blue')}`} 
+                className="text-r-purple" 
                 style={{ fontSize: '20px', paddingRight: '4px' }}
               >
-                {commentCount ?? 'content_comment_cnt'}
+                {commentCount }
               </span> 
               条评论
             </div>
-            <div>
+            <div hidden={!shareCount}>
               <span 
-                className={`${colorClass('fern')}`} 
+                className="text-r-yellow" 
                 style={{ fontSize: '20px', paddingRight: '4px' }}
               >
-                {shareCount ?? 'content_share_cnt'}
+                {shareCount }
               </span> 
               次分享
             </div>
-            <div>这些回声，将你的声音推向更远的地方</div>
+            
           </div>
         </div>
+        <div style={{ paddingLeft: '40px' }}>这些回声，将你的声音推向更远的地方</div>
 
         {/* 刘看山图片 */}
         <div className="flex justify-between" style={{ margin: '20px 0' }}>
@@ -162,24 +163,24 @@ export default function P7Scene({ onNext, sceneName }: PageProps) {
           />
         </div>
 
-        <div style={{ fontSize: '15px', lineHeight: '28px' }}>
-          <div>
+        <div style={{ fontSize: '14px', lineHeight: '28px', top: '-40px' }} className="relative" hidden={!roundTableCount && !editorPickCount}>
+          <div hidden={!roundTableCount}>
             你走进了 
             <span 
-              className={`${colorClass('blue')}`} 
-              style={{ fontSize: '20px', paddingLeft: '2px', paddingRight: '2px' }}
+              className="text-r-blue"
+              style={{ fontSize: '20px', paddingLeft: '6px', paddingRight: '6px' }}
             >
-              {roundTableCount ?? 'roundtable_cnt'}
+              {roundTableCount}
             </span> 
             个圆桌讨论
           </div>
-          <div>
+          <div hidden={!editorPickCount}>
             有 
             <span 
-              className={`${colorClass('pink')}`} 
-              style={{ fontSize: '20px', paddingLeft: '2px', paddingRight: '2px' }}
+              className="text-r-yellow" 
+              style={{ fontSize: '20px', paddingLeft: '6px', paddingRight: '6px' }}
             >
-              {editorPickCount ?? 'recommended_cnt'}
+              {editorPickCount}
             </span> 
             篇内容被「编辑推荐」
           </div>

@@ -206,6 +206,8 @@ export interface AssetsData {
       step1: AssetMetadata;
       step2: AssetMetadata;
       step3: AssetMetadata;
+      title: AssetMetadata;
+      button: AssetMetadata;
     };
     bg: {
       blue0_1: AssetMetadata;
@@ -224,6 +226,8 @@ export interface AssetsData {
       mix0_3: AssetMetadata;
       mix0_4: AssetMetadata;
       mix0_5: AssetMetadata;
+      mixintro_1: AssetMetadata;
+      mixintro_2: AssetMetadata;
       mix1: AssetMetadata;
       mix2: AssetMetadata;
       mix3: AssetMetadata;

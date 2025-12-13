@@ -4,6 +4,8 @@
 import { useState, useRef, useEffect } from 'react';
 import BaseScene from './BaseScene';
 import { useAssets } from '@/context/assets-context';
+import Image from "next/image";
+import GlitchLayer from "@/components/report/effects/GlitchLayer";
 
 interface IntroductionSceneProps {
   onNext: () => void;
@@ -152,6 +154,25 @@ export default function IntroductionScene({ onNext, sceneName }: IntroductionSce
     };
   }, [assets?.report?.intro]);
 
+  if (!assets) return null;
+
+  const bgAsset = assets.report.bg;
+  const blue1Asset = assets.report.bg.blue0_1;
+  const blue2Asset = assets.report.bg.blue0_2;
+  const blue3Asset = assets.report.bg.blue0_3;
+  const blue4Asset = assets.report.bg.blue0_4;
+  const greenAsset = assets.report.bg.green0;
+  const mix1Asset = assets.report.bg.mix0_1;
+  const mix2Asset = assets.report.bg.mix0_2;
+  const mix3Asset = assets.report.bg.mix0_3;
+  const mix4Asset = assets.report.bg.mix0_4;
+  const mix5Asset = assets.report.bg.mix0_5;
+  const mixintro_1Asset = assets.report.bg.mixintro_1;
+  const mixintro_2Asset = assets.report.bg.mixintro_2;
+
+  const introTitleAsset = assets.report.intro.title;
+  const introButtonAsset = assets.report.intro.button;
+
   return (
     <BaseScene 
       onNext={onNext} 
@@ -160,6 +181,40 @@ export default function IntroductionScene({ onNext, sceneName }: IntroductionSce
       containerClassName="w-full max-w-none"
       contentClassName="p-0"
     >
+      <GlitchLayer intensity='heavy' className='z-[50]'>
+        {/* 顺序从上到下 */}
+        <Image src={mix2Asset.url} alt="{mix2Asset.alt}" width={mix2Asset.width} height={mix2Asset.height} 
+          className="object-contain absolute pointer-events-none select-none z-1" 
+          style={{ top: '90px', right: '0px' }} />
+        <Image src={mix1Asset.url} alt="{mix1Asset.alt}" width={mix1Asset.width} height={mix1Asset.height} 
+          className="object-contain absolute pointer-events-none select-none z-1" 
+          style={{ top: '188px', right: '16px' }} />
+        <Image src={blue2Asset.url} alt="{blue2Asset.alt}" width={blue2Asset.width} height={blue2Asset.height} 
+          className="object-contain absolute pointer-events-none select-none z-1" 
+          style={{ top: '253px', right: '93px' }} />
+        <Image src={mix3Asset.url} alt="{mix3Asset.alt}" width={mix3Asset.width} height={mix3Asset.height} 
+          className="object-contain absolute pointer-events-none select-none z-1" 
+          style={{ top: '213px', right: '3px' }} />
+        <Image src={blue3Asset.url} alt="{blue3Asset.alt}" width={blue3Asset.width} height={blue3Asset.height} 
+          className="object-contain absolute pointer-events-none select-none z-1" 
+          style={{ top: '306px', left: '144px' }} />
+        <Image src={mixintro_1Asset.url} alt="{mixintro_1Asset.alt}" width={mixintro_1Asset.width} height={mixintro_1Asset.height} 
+          className="object-contain absolute pointer-events-none select-none z-1" 
+          style={{ top: '323px', right: '0px' }} />
+        <Image src={mix5Asset.url} alt="{mix5Asset.alt}" width={mix5Asset.width} height={mix5Asset.height} 
+          className="object-contain absolute pointer-events-none select-none z-1" 
+          style={{ bottom: '283px', right: '70px' }} />     
+        <Image src={mixintro_2Asset.url} alt="{mixintro_2Asset.alt}" width={mixintro_2Asset.width} height={mixintro_2Asset.height} 
+          className="object-contain absolute pointer-events-none select-none z-1" 
+          style={{ bottom: '147px', right: '0px' }} />
+         <Image src={greenAsset.url} alt="{greenAsset.alt}" width={greenAsset.width} height={greenAsset.height} 
+          className="object-contain absolute pointer-events-none select-none z-1 scale-75" 
+          style={{ bottom: '14px', right: '-15px' }} />
+      </GlitchLayer>
+      <div className='z-[50] absolute inset-0'>
+        <Image src={introTitleAsset.url} alt="{introTitleAsset.alt}" width={introTitleAsset.width} height={introTitleAsset.height} 
+          className="object-contain absolute pointer-events-none select-none z-1" style={{top: '100px', left: '50%', transform: 'translateX(-50%)'}} />
+      </div>
       <div className="relative w-full h-full overflow-hidden bg-black">
         {/* Single video element that plays all videos step by step */}
         {assets?.report?.intro && (
@@ -192,12 +247,8 @@ export default function IntroductionScene({ onNext, sceneName }: IntroductionSce
 
         {/* Button to proceed to step3 (only show during step2 loop) */}
         {currentStep === 'step2' && (
-          <button
-            onClick={handleButtonClick}
-            className="absolute bottom-10 left-1/2 -translate-x-1/2 z-20 px-6 py-3 bg-white/90 hover:bg-white text-black font-bold rounded-lg transition-all duration-200 shadow-lg"
-          >
-            继续
-          </button>
+          <Image onClick={handleButtonClick} src={introButtonAsset.url} alt="{introButtonAsset.alt}" width={introButtonAsset.width} height={introButtonAsset.height} 
+            className="animate-wiggle-x object-contain absolute select-none z-50" style={{bottom: '86px', left: '58px'}} />
         )}
       </div>
     </BaseScene>

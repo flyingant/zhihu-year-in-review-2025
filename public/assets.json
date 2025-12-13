@@ -1147,6 +1147,18 @@
         "width": 375,
         "height": 812,
         "alt": "Introduction Step 3 Video"
+      },
+      "title": {
+        "url": "/assets/2025_2_report_intro_title.png",
+        "width": 120,
+        "height": 305,
+        "alt": "Intro title"
+      },
+      "button": {
+        "url": "/assets/2025_2_report_intro_button.png",
+        "width": 230,
+        "height": 43,
+        "alt": "Intro button"
       }
     },
     "bg": {
@@ -1245,6 +1257,18 @@
         "width": 138,
         "height": 70,
         "alt": "混合色块0_5"
+      },
+      "mixintro_1": {
+        "url": "/assets/2025_2_report_bg_mixintro_1.png",
+        "width": 90,
+        "height": 30,
+        "alt": "混合色块intro_1"
+      },
+      "mixintro_2": {
+        "url": "/assets/2025_2_report_bg_mixintro_2.png",
+        "width": 100,
+        "height": 66,
+        "alt": "混合色块intro_2"
       },
       "mix1": {
         "url": "/assets/2025_2_report_bg_mix_1.png",

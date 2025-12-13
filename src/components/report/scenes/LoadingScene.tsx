@@ -87,7 +87,7 @@ export default function LoadingScene({ onNext, sceneName }: LoadingSceneProps) {
       </GlitchLayer>
       <div className='w-full h-full'>
         {/* <PixelGlitchOverlay /> */}
-        <div className="relative z-20 flex flex-col items-center justify-center h-full space-y-8">
+        <div className="relative z-20 flex flex-col items-center justify-center h-full">
           <div className="relative">
             <Image
               src={loadingAsset.url}
@@ -95,6 +95,7 @@ export default function LoadingScene({ onNext, sceneName }: LoadingSceneProps) {
               width={loadingAsset.width / 4}
               height={loadingAsset.height / 4}
               className="relative z-10"
+              style={{ paddingBottom: '15px' }}
               unoptimized
             />
           </div>

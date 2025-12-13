@@ -32,10 +32,10 @@ export default function P5Scene({ onNext, sceneName }: PageProps) {
   // Map context data to component variables according to P5 spec
   const commentCount = reportData?.publish_comment_cnt ?? null;
   const hotCommentContent = reportData?.hot_comment_content ?? null;
-  const hotCommentLikes = reportData?.hot_comment_uv ?? null;
+  const hotCommentLikes = reportData?.hot_comment_uv ?? 0;
   const pinCount = reportData?.publish_pin_cnt ?? null;
   const hotPinTitle = reportData?.hot_pin_title ?? null;
-  // const hotPinLikes = reportData?.hot_pin_uv ?? null; // Not used in JSX, commented out
+  const hotPinLikes = reportData?.hot_pin_uv ?? 0; // Not used in JSX, commented out
   // const emojiName = reportData?.emoji_name ?? null; // Not used in JSX, commented out
   // const emojiCount = reportData?.emoji_cnt ?? null; // Not used in JSX, commented out
   // const discussMemberName = reportData?.comment_discuss_member_name ?? null; // Not used in JSX, commented out
@@ -114,61 +114,66 @@ export default function P5Scene({ onNext, sceneName }: PageProps) {
         />
       </div>
 
-      <div style={{ paddingLeft: '34px', paddingRight: '34px', paddingTop: '120px' }}>
-        <div className={typographyClass('title')} style={{ marginBottom: '60px' }}>
+      <div className="text-[14px]" style={{ paddingLeft: '34px', paddingRight: '34px', paddingTop: '120px' }}>
+        <div className={typographyClass('title')} style={{ marginBottom: '46px' }}>
           这一年，你真心分享
         </div>
 
         {/* 评论统计 */}
-        <div style={{ marginBottom: '20px' }}>
+        <div style={{ marginBottom: '40px' }} hidden={!commentCount}>
           你留下了 
           <span 
-            className={`${colorClass('green')} ${typographyClass('subtitle')}`}
-            style={{ paddingLeft: '2px', paddingRight: '2px' }}
+            className={`text-r-pink text-[19px]`}
+            style={{ paddingLeft: '6px', paddingRight: '6px' }}
           >
-            {commentCount ?? 'publish_comment_cnt'}
+            {commentCount}
           </span> 
           条评论
           
           {/* 最热评论 */}
-          <div style={{ marginTop: '10px' }}>
-            最热一条「
-            <span 
-              className={`${colorClass('pink')} ${typographyClass('subtitle')}`}
-              style={{ paddingLeft: '2px', paddingRight: '2px' }}
-            >
-              {hotCommentContent ?? 'hot_comment_content'}
-            </span>
-            」，收获了 
-            <span 
-              className={`${colorClass('pink')} ${typographyClass('highlight')}`}
-              style={{ paddingLeft: '5px', paddingRight: '5px' }}
-            >
-              {hotCommentLikes ?? 'hot_comment_uv'}
-            </span> 
-            人的点赞
+          <div style={{ marginTop: '10px' }} hidden={!hotCommentContent || hotCommentLikes < 10 || !hotCommentLikes}>
+            <div>
+              最热一条
+              <span 
+                className={`text-r-yellow text-[19px]`}
+                style={{ paddingLeft: '2px', paddingRight: '2px' }}
+              >
+                「{hotCommentContent}」
+              </span>
+            </div>
+            
+            <div>
+              收获了 
+              <span 
+                className={`text-r-purple ${typographyClass('highlight')}`}
+                style={{ paddingLeft: '6px', paddingRight: '6px' }}
+              >
+                {hotCommentLikes}
+              </span> 
+              人的点赞
+            </div>
+             
           </div>
         </div>
 
         {/* 想法统计 */}
-        <div style={{ marginBottom: '20px' }}>
-          你发布了 
+        <div style={{ marginBottom: '20px' }} hidden={!pinCount}>
+          你发布了
           <span 
-            className={`${colorClass('blue')} ${typographyClass('subtitle')}`}
-            style={{ paddingLeft: '2px', paddingRight: '2px' }}
+            className={`text-r-pink text-[19px]`}
+            style={{ paddingLeft: '6px', paddingRight: '6px' }}
           >
-            {pinCount ?? 'publish_pin_cnt'}
+            {pinCount}
           </span> 
           条想法
-          <div style={{ marginTop: '10px' }}>
-            其中「
+          <div className="leading-[32px]" style={{ marginTop: '10px' }} hidden={!hotPinTitle || hotPinLikes < 10 || !hotPinLikes}>
+            其中
             <span 
-              className={`${colorClass('pink')} ${typographyClass('subtitle')}`}
+              className={`text-r-green text-[19px]`}
               style={{ paddingLeft: '2px', paddingRight: '2px' }}
             >
-              {hotPinTitle ?? 'hot_pin_title'}
+              「{hotPinTitle}」
             </span>
-            」
             <div>折射出最多共鸣</div>
           </div>
         </div>

@@ -104,7 +104,7 @@ export default function P2Scene({ onNext, sceneName }: PageProps) {
         />
       </div>
 
-      <div style={{ paddingLeft: '34px', paddingRight: '34px', paddingTop: '120px' }}>
+      <div className="text-[14px]" style={{ paddingLeft: '34px', paddingRight: '34px', paddingTop: '120px' }}>
         <div className={typographyClass('title')}>
           这一年，你依旧好奇
         </div>

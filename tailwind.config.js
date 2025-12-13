@@ -41,6 +41,15 @@ module.exports = {
           '0%, 100%': { transform: 'translateX(0)' },
           '50%': { transform: 'translateX(6px)' },
         },
+        'pop-sparkle': {
+          '0%': { transform: 'scale(0)', opacity: '0' },
+          '70%': { transform: 'scale(1.05)', opacity: '1' },
+          '100%': { transform: 'scale(1)', opacity: '1' },
+        },
+        'slide-in-right-fade': {
+          '0%': { opacity: '0', transform: 'translateX(50px)' }, 
+          '100%': { opacity: '1', transform: 'translateX(0)' },
+        },
         contentShow: {
           '0%': { opacity: '0', transform: 'scale(0.9)' },
           '100%': { opacity: '1', transform: 'scale(1)' },
@@ -66,6 +75,8 @@ module.exports = {
         marquee: 'marquee linear infinite',
         'slide-in': 'slide-in 8s ease-out forwards',
         'wiggle-x': 'wiggle-x 1.5s ease-in-out infinite',
+        'pop-sparkle': 'pop-sparkle 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275) 0.2s forwards',
+        'slide-in-right': 'slide-in-right-fade 1.5s cubic-bezier(0.16, 1, 0.3, 1) forwards',
         contentShow: 'contentShow 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards',
         'slide-up': 'slide-up 0.3s ease-out forwards',
         'float-path': 'float-path 15s linear infinite',

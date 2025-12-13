@@ -67,11 +67,11 @@ export default function P8Scene({ onNext, sceneName }: PageProps) {
         </div>
         <div className="relative pt-[50px] pl-[140px]">
           <Image src={sparkleAsset.url} alt="{sparkleAsset.alt}" width={sparkleAsset.width} height={sparkleAsset.height} 
-            className="object-contain absolute top-[10px] left-[90px] pointer-events-none select-none z-1" />
+            className="opacity-0 animate-pop-sparkle object-contain absolute top-[10px] left-[90px] pointer-events-none select-none z-1" />
           <Image src={liukanshanAsset.url} alt="{liukanshanAsset.alt}" width={liukanshanAsset.width} height={liukanshanAsset.height} 
             className="object-contain relative pointer-events-none select-none z-10" />
         </div>
-        <div className="flex">
+        <div className="flex opacity-0 animate-slide-in-right" style={{ animationDelay: '0.5s' }}>
           <div className="leading-[26px] mt-[8px]">
             你成为了航海家，用航海家赞同发现和助力了 <span className={`${colorClass('blue')} text-[20px] px-[4px]`}>{navigatorContentCount ?? 'navigator_upvote_content_cnt'}</span> 篇好内容
           </div>

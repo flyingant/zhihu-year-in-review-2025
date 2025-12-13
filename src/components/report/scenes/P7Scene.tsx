@@ -7,7 +7,6 @@ import Image from "next/image";
 import { useAssets } from "@/context/assets-context";
 import GlitchLayer from "@/components/report/effects/GlitchLayer";
 
-
 interface PageProps {
   onNext?: () => void;
   sceneName?: string;
@@ -37,66 +36,134 @@ export default function P7Scene({ onNext, sceneName }: PageProps) {
   return (
     <BaseScene onNext={onNext} sceneName={sceneName}>
       <GlitchLayer>
-        <Image src={blue1Asset.url} alt="{blue1Asset.alt}" width={blue1Asset.width} height={blue1Asset.height} 
-          className="object-contain absolute top-[20px] right-[36px] pointer-events-none select-none z-1" />
-        <Image src={mix2Asset.url} alt="{mix2Asset.alt}" width={mix2Asset.width} height={mix2Asset.height} 
-          className="object-contain absolute top-[152px] left-[0px] pointer-events-none select-none z-1" />
-        <Image src={mix5Asset.url} alt="{mix5Asset.alt}" width={mix5Asset.width} height={mix5Asset.height} 
-          className="object-contain absolute bottom-[20] right-[74px] pointer-events-none select-none z-1" />
+        <Image 
+          src={blue1Asset.url} 
+          alt={blue1Asset.alt} 
+          width={blue1Asset.width} 
+          height={blue1Asset.height} 
+          className="object-contain absolute pointer-events-none select-none z-1"
+          style={{ top: '20px', right: '36px' }}
+        />
+        <Image 
+          src={mix2Asset.url} 
+          alt={mix2Asset.alt} 
+          width={mix2Asset.width} 
+          height={mix2Asset.height} 
+          className="object-contain absolute pointer-events-none select-none z-1"
+          style={{ top: '152px', left: '0px' }}
+        />
+        <Image 
+          src={mix5Asset.url} 
+          alt={mix5Asset.alt} 
+          width={mix5Asset.width} 
+          height={mix5Asset.height} 
+          className="object-contain absolute pointer-events-none select-none z-1"
+          style={{ bottom: '20px', right: '74px' }}
+        />
       </GlitchLayer>
-      <div className="px-[34px] pt-[120px] ">
-        <div className={typographyClass('title') + ' mb-[40px]'}>
+
+      <div style={{ paddingLeft: '34px', paddingRight: '34px', paddingTop: '120px' }}>
+        <div className={typographyClass('title')} style={{ marginBottom: '40px' }}>
           这一年，你真心分享
         </div>
 
-        <div className="text-[16px] leading-[32px] mb-[20px] flex">
-          <Image 
-            src={bubbleAsset.url} 
-            alt={bubbleAsset.alt} 
-            width={bubbleAsset.width} 
-            height={bubbleAsset.height} 
-            className="object-contain pointer-events-none select-none z-1" 
-          />
+        <div style={{ fontSize: '16px', lineHeight: '32px', marginBottom: '20px', display: 'flex' }}>
+          {/* Bubble 图片作为左侧装饰或者容器 */}
+          <div style={{ marginRight: '10px', flexShrink: 0 }}>
+             <Image 
+              src={bubbleAsset.url} 
+              alt={bubbleAsset.alt} 
+              width={bubbleAsset.width} 
+              height={bubbleAsset.height} 
+              className="object-contain pointer-events-none select-none z-1" 
+            />
+          </div>
+          
           <div>
+            <div>你的内容收获了</div>
             <div>
-              你的内容收获了
+              <span 
+                className={`${colorClass('blue')}`} 
+                style={{ fontSize: '20px', paddingLeft: '4px', paddingRight: '4px' }}
+              >
+                {readCount ?? 'content_pv_cnt'}
+              </span> 
+              次阅读
             </div>
             <div>
-              <span className={`${colorClass('blue')} text-[20px] px-[4px]`}>{readCount ?? 'content_pv_cnt'}</span> 次阅读
+              <span 
+                className={`${colorClass('fern')}`} 
+                style={{ fontSize: '20px', paddingRight: '4px' }}
+              >
+                {upvoteCount ?? 'content_upvote_cnt'}
+              </span> 
+              个赞同
             </div>
             <div>
-              <span className={`${colorClass('fern')} text-[20px] pr-[4px]`}>{upvoteCount ?? 'content_upvote_cnt'}</span> 个赞同
+              <span 
+                className={`${colorClass('pink')}`} 
+                style={{ fontSize: '20px', paddingRight: '4px' }}
+              >
+                {collectCount ?? 'content_collect_cnt'}
+              </span> 
+              次收藏
             </div>
             <div>
-              <span className={`${colorClass('pink')} text-[20px] pr-[4px]`}>{collectCount ?? 'content_collect_cnt'}</span> 次收藏
+              <span 
+                className={`${colorClass('blue')}`} 
+                style={{ fontSize: '20px', paddingRight: '4px' }}
+              >
+                {commentCount ?? 'content_comment_cnt'}
+              </span> 
+              条评论
             </div>
             <div>
-              <span className={`${colorClass('blue')} text-[20px] pr-[4px]`}>{commentCount ?? 'content_comment_cnt'}</span> 条评论
-            </div>
-            <div>
-              <span className={`${colorClass('fern')} text-[20px] pr-[4px]`}>{shareCount ?? 'content_share_cnt'}</span> 次分享
+              <span 
+                className={`${colorClass('fern')}`} 
+                style={{ fontSize: '20px', paddingRight: '4px' }}
+              >
+                {shareCount ?? 'content_share_cnt'}
+              </span> 
+              次分享
             </div>
             <div>这些回声，将你的声音推向更远的地方</div>
           </div>
-          
         </div>
-        <Image 
-            src={liukanshanAsset.url} 
-            alt={liukanshanAsset.alt} 
-            width={liukanshanAsset.width} 
-            height={liukanshanAsset.height} 
-            className="object-contain pointer-events-none select-none z-1" 
-          />
-        <div className="text-[15px] leading-[28px]">
+
+        {/* 刘看山图片 */}
+        <div style={{ margin: '20px 0' }}>
+            <Image 
+              src={liukanshanAsset.url} 
+              alt={liukanshanAsset.alt} 
+              width={liukanshanAsset.width} 
+              height={liukanshanAsset.height} 
+              className="object-contain pointer-events-none select-none z-1" 
+            />
+        </div>
+
+        <div style={{ fontSize: '15px', lineHeight: '28px' }}>
           <div>
-            你走进了 <span className={`${colorClass('blue')} text-[20px] px-[2px]`}>{roundTableCount ?? 'roundtable_cnt'}</span> 个圆桌讨论
+            你走进了 
+            <span 
+              className={`${colorClass('blue')}`} 
+              style={{ fontSize: '20px', paddingLeft: '2px', paddingRight: '2px' }}
+            >
+              {roundTableCount ?? 'roundtable_cnt'}
+            </span> 
+            个圆桌讨论
           </div>
           <div>
-            有 <span className={`${colorClass('pink')} text-[20px] px-[2px]`}>{editorPickCount ?? 'recommended_cnt'}</span> 篇内容被「编辑推荐」
+            有 
+            <span 
+              className={`${colorClass('pink')}`} 
+              style={{ fontSize: '20px', paddingLeft: '2px', paddingRight: '2px' }}
+            >
+              {editorPickCount ?? 'recommended_cnt'}
+            </span> 
+            篇内容被「编辑推荐」
           </div>
         </div>
       </div>
-
     </BaseScene>
   );
 }

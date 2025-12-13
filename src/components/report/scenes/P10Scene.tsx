@@ -28,17 +28,15 @@ export default function P10Scene({ onNext, sceneName }: PageProps) {
   const group4Asset = assets.report.p10.group4;
   const wordsAsset = assets.report.p10.words;
 
-  
   const toNumberOrNull = (value: unknown): number | null =>
     typeof value === "number" ? value : null;
 
-  // Map context data to component variables according to P10 spec (消费-基础数据)
+  // Map context data to component variables according to P10 spec
   const articleCount = toNumberOrNull(reportData?.consume_article_cnt);
   const pinCount = toNumberOrNull(reportData?.consume_pin_cnt);
   const wordCount = toNumberOrNull(reportData?.consume_word_cnt);
-  // Note: equivalentBook calculation is frontend logic based on wordCount
 
-  // Calculate equivalent books (assuming ~200,000 words per book)
+  // Calculate equivalent books
   const calculateEquivalentBooks = (words: number | null): number => {
     if (!words || words === 0) return 0;
     return Math.round(words / 200000);
@@ -50,52 +48,153 @@ export default function P10Scene({ onNext, sceneName }: PageProps) {
     <BaseScene onNext={onNext} sceneName={sceneName}>
       <GlitchLayer>
         {/* 顺序从上到下 */}
-        <Image src={mix7Asset.url} alt="{mix7Asset.alt}" width={mix7Asset.width} height={mix7Asset.height} 
-          className="object-contain absolute top-[40px] right-[0px] pointer-events-none select-none z-1" />
-        <Image src={blue10Asset.url} alt="{blue10Asset.alt}" width={blue10Asset.width} height={blue10Asset.height} 
-          className="object-contain absolute  top-[152px] left-[27px] pointer-events-none select-none z-1" />
-        <Image src={mix8Asset.url} alt="{mix8Asset.alt}" width={mix8Asset.width} height={mix8Asset.height} 
-          className="object-contain absolute bottom-[308px] left-[0px] pointer-events-none select-none z-1" />
-        <Image src={blue10Asset.url} alt="{blue10Asset.alt}" width={blue10Asset.width} height={blue10Asset.height} 
-          className="object-contain absolute bottom-[220px] right-[21px] pointer-events-none select-none z-1" />
-        <Image src={mix9Asset.url} alt="{mix9Asset.alt}" width={mix9Asset.width} height={mix9Asset.height} 
-          className="object-contain absolute bottom-[0] right-[6px] pointer-events-none select-none z-1" />
+        <Image 
+          src={mix7Asset.url} 
+          alt={mix7Asset.alt} 
+          width={mix7Asset.width} 
+          height={mix7Asset.height} 
+          className="object-contain absolute pointer-events-none select-none z-1"
+          style={{ top: '40px', right: '0px' }}
+        />
+        <Image 
+          src={blue10Asset.url} 
+          alt={blue10Asset.alt} 
+          width={blue10Asset.width} 
+          height={blue10Asset.height} 
+          className="object-contain absolute pointer-events-none select-none z-1"
+          style={{ top: '152px', left: '27px' }}
+        />
+        <Image 
+          src={mix8Asset.url} 
+          alt={mix8Asset.alt} 
+          width={mix8Asset.width} 
+          height={mix8Asset.height} 
+          className="object-contain absolute pointer-events-none select-none z-1"
+          style={{ bottom: '308px', left: '0px' }}
+        />
+        <Image 
+          src={blue10Asset.url} 
+          alt={blue10Asset.alt} 
+          width={blue10Asset.width} 
+          height={blue10Asset.height} 
+          className="object-contain absolute pointer-events-none select-none z-1"
+          style={{ bottom: '220px', right: '21px' }}
+        />
+        <Image 
+          src={mix9Asset.url} 
+          alt={mix9Asset.alt} 
+          width={mix9Asset.width} 
+          height={mix9Asset.height} 
+          className="object-contain absolute pointer-events-none select-none z-1"
+          style={{ bottom: '0px', right: '6px' }}
+        />
       </GlitchLayer>
-      <div className={typographyClass('title') + ' leading-relaxed text-center pb-[24px] pt-[120px]'}>
+
+      <div 
+        className={typographyClass('title') + ' leading-relaxed text-center'}
+        style={{ paddingTop: '120px', paddingBottom: '24px' }}
+      >
         你总共浏览了
       </div>
-      <div className="">
-        <div className="mb-[10px] relative h-[127px]">
-          <Image src={group1Asset.url} alt="{group1Asset.alt}" width={group1Asset.width} height={group1Asset.height} 
-            className="object-contain absolute right-[14px] pointer-events-none select-none z-1" />
-          <div className={`${colorClass('pink')} ${typographyClass('subtitle')} px-[2px] absolute top-[40px] right-[14px] z-2`}>{String(articleCount ?? 'consume_article_cnt')}</div>
+
+      <div>
+        {/* Group 1: 文章数 */}
+        <div className="relative" style={{ height: '127px', marginBottom: '10px' }}>
+          <Image 
+            src={group1Asset.url} 
+            alt={group1Asset.alt} 
+            width={group1Asset.width} 
+            height={group1Asset.height} 
+            className="object-contain absolute pointer-events-none select-none z-1"
+            style={{ right: '14px' }}
+          />
+          <div 
+            className={`${colorClass('pink')} ${typographyClass('subtitle')} absolute z-2`}
+            style={{ top: '40px', right: '14px', paddingLeft: '2px', paddingRight: '2px' }}
+          >
+            {String(articleCount ?? 'consume_article_cnt')}
+          </div>
         </div>
-        <div className="mb-[10px] relative h-[127px] -top-[50px]">
-          <Image src={group2Asset.url} alt="{group2Asset.alt}" width={group2Asset.width} height={group2Asset.height} 
-            className="object-contain absolute left-[14px] pointer-events-none select-none z-1" />
-          <div className={`${colorClass('pink')} ${typographyClass('subtitle')} px-[2px] absolute top-[40px] left-[14px] z-2`}>{String(articleCount ?? 'consume_article_cnt')}</div>
+
+        {/* Group 2: 想法数 (这里使用了 pinCount) */}
+        <div className="relative" style={{ height: '127px', marginBottom: '10px', top: '-50px' }}>
+          <Image 
+            src={group2Asset.url} 
+            alt={group2Asset.alt} 
+            width={group2Asset.width} 
+            height={group2Asset.height} 
+            className="object-contain absolute pointer-events-none select-none z-1"
+            style={{ left: '14px' }}
+          />
+          <div 
+            className={`${colorClass('pink')} ${typographyClass('subtitle')} absolute z-2`}
+            style={{ top: '40px', left: '14px', paddingLeft: '2px', paddingRight: '2px' }}
+          >
+            {String(pinCount ?? 'consume_pin_cnt')}
+          </div>
         </div>
-        <div className="mb-[10px] relative h-[127px] -top-[100px]">
-          <Image src={group3Asset.url} alt="{group3Asset.alt}" width={group3Asset.width} height={group3Asset.height} 
-            className="object-contain absolute right-[30px] pointer-events-none select-none z-1" />
-          <div className={`${colorClass('pink')} ${typographyClass('subtitle')} px-[2px] absolute top-[40px] right-[30px] z-2`}>{String(articleCount ?? 'consume_article_cnt')}</div>
+
+        {/* Group 3: 总字数 (这里使用了 wordCount) */}
+        <div className="relative" style={{ height: '127px', marginBottom: '10px', top: '-100px' }}>
+          <Image 
+            src={group3Asset.url} 
+            alt={group3Asset.alt} 
+            width={group3Asset.width} 
+            height={group3Asset.height} 
+            className="object-contain absolute pointer-events-none select-none z-1"
+            style={{ right: '30px' }}
+          />
+          <div 
+            className={`${colorClass('pink')} ${typographyClass('subtitle')} absolute z-2`}
+            style={{ top: '40px', right: '30px', paddingLeft: '2px', paddingRight: '2px' }}
+          >
+            {String(wordCount ?? 'consume_word_cnt')}
+          </div>
         </div>
-        <div className="mb-[10px] relative -top-[150px]">
-          <Image src={group4Asset.url} alt="{group4Asset.alt}" width={group4Asset.width} height={group4Asset.height} 
-            className="object-contain absolute left-[87px] pointer-events-none select-none z-1" />
-          <div className={`${colorClass('pink')} ${typographyClass('subtitle')} px-[2px] absolute top-[40px] left-[87px] z-2`}>{String(articleCount ?? 'consume_article_cnt')}</div>
+
+        {/* Group 4: 其他数据 (这里暂时重复使用 articleCount，根据需求修改) */}
+        <div className="relative" style={{ height: '127px', marginBottom: '10px', top: '-150px' }}>
+          <Image 
+            src={group4Asset.url} 
+            alt={group4Asset.alt} 
+            width={group4Asset.width} 
+            height={group4Asset.height} 
+            className="object-contain absolute pointer-events-none select-none z-1"
+            style={{ left: '87px' }}
+          />
+          <div 
+            className={`${colorClass('pink')} ${typographyClass('subtitle')} absolute z-2`}
+            style={{ top: '40px', left: '87px', paddingLeft: '2px', paddingRight: '2px' }}
+          >
+            {String(articleCount ?? 'consume_article_cnt')}
+          </div>
         </div>
       </div>
 
-      {/* 总计阅读字数 */}
-      <div className="pt-[20px] pb-[20px] flex flex-col items-center justify-center">
-        <Image src={wordsAsset.url} alt="{wordsAsset.alt}" width={wordsAsset.width} height={wordsAsset.height} 
-          className="object-contain pointer-events-none select-none z-1 pb-[20px]" />
+      {/* 总计阅读字数 / 等效书本 */}
+      <div 
+        className="flex flex-col items-center justify-center"
+        style={{ paddingTop: '20px', paddingBottom: '20px', marginTop: '-150px' }} // 上面用了 top: -150px，这里加个 marginTop 抵消视觉空白
+      >
+        <Image 
+          src={wordsAsset.url} 
+          alt={wordsAsset.alt} 
+          width={wordsAsset.width} 
+          height={wordsAsset.height} 
+          className="object-contain pointer-events-none select-none z-1"
+          style={{ marginBottom: '20px' }}
+        />
         <div>
-          相当于读完 <span className={`${colorClass('pink')} ${typographyClass('subtitle')} px-[2px]`}>{equivalentBooks}</span> 本书
+          相当于读完 
+          <span 
+            className={`${colorClass('pink')} ${typographyClass('subtitle')}`}
+            style={{ paddingLeft: '2px', paddingRight: '2px' }}
+          >
+            {equivalentBooks}
+          </span> 
+          本书
         </div>
       </div>
     </BaseScene>
   );
 }
-

@@ -29,10 +29,9 @@ export default function P8Scene({ onNext, sceneName }: PageProps) {
   // Map context data to component variables according to P8 spec
   const zhiTrendRankCount = reportData?.zhishi_cnt ?? null;
   const influenceRankCount = reportData?.biz_list_num ?? null;
-  const bestAnswerTopic = reportData?.best_answer_topic ?? null; // Note: Not used in original JSX, assuming firstAnswerTitle was intended or specific logic needed
-  const isNavigator = reportData?.is_navigator ?? null;
+  const bestAnswerTopic = reportData?.best_answer_topic ?? []; 
+  const isNavigator = reportData?.is_navigator ?? 0;
   const navigatorContentCount = reportData?.navigator_upvote_content_cnt ?? null;
-  const firstAnswerTitle = reportData?.first_answer_question_title ?? null;
 
   return (
     <BaseScene onNext={onNext} sceneName={sceneName}>
@@ -72,35 +71,35 @@ export default function P8Scene({ onNext, sceneName }: PageProps) {
           这一年，你荣登榜首
         </div>
 
-        <div>
+        <div hidden={!zhiTrendRankCount}>
           你登上了 
           <span 
-            className={`${colorClass('blue')}`}
-            style={{ fontSize: '20px', paddingRight: '4px' }}
+            className="text-r-pink"
+            style={{ fontSize: '20px', paddingRight: '6px', paddingLeft: '6px'}}
           >
-            {zhiTrendRankCount ?? 'zhishi_cnt'}
+            {zhiTrendRankCount}
           </span> 
           次知势榜
         </div>
-        
-        <div>
+      
+        <div hidden={!influenceRankCount}>
           上榜知乎答主商业影响力榜 
           <span 
-            className={`${colorClass('fern')}`}
-            style={{ fontSize: '20px', paddingRight: '4px' }}
+            className="text-r-purple"
+            style={{ fontSize: '20px', paddingRight: '6px', paddingLeft: '6px' }}
           >
-            {influenceRankCount ?? 'biz_list_num'}
+            {influenceRankCount}
           </span> 
           次
         </div>
 
-        <div style={{ lineHeight: '40px' }}>
+        <div style={{ lineHeight: '40px' }} hidden={!bestAnswerTopic.length}>
           在
           <span 
-            className={`${colorClass('fern')} text-[16px]`}
+            className={`text-r-blue text-[16px]`}
             style={{ marginLeft: '4px', marginRight: '4px' }}
           >
-            「{String(firstAnswerTitle ?? 'first_answer_question_title')}」
+            「{bestAnswerTopic[0]}」
           </span>
           话题下成为优秀答主
         </div>
@@ -125,32 +124,45 @@ export default function P8Scene({ onNext, sceneName }: PageProps) {
         </div>
 
         {/* 航海家区域 - 从右侧滑入动画 */}
-        <div 
-          className="opacity-0 animate-slide-in-right" 
-          style={{ 
-            animationDelay: '0.5s', 
-            display: 'flex',
-            marginTop: '0px' // 这里原代码没有 mt，如果需要间距可以添加
-          }}
-        >
-          <div style={{ lineHeight: '26px', marginTop: '8px' }}>
-            你成为了航海家，用航海家赞同发现和助力了 
-            <span 
-              className={`${colorClass('blue')}`}
-              style={{ fontSize: '20px', paddingLeft: '4px', paddingRight: '4px' }}
-            >
-              {navigatorContentCount ?? 'navigator_upvote_content_cnt'}
-            </span> 
-            篇好内容
+        <div hidden={isNavigator === 0}>
+          <div 
+            className="opacity-0 animate-slide-in-right" 
+            style={{ 
+              animationDelay: '0.5s', 
+              display: 'flex',
+            }}
+          >
+            <div style={{ lineHeight: '26px', marginTop: '8px' }}>
+              <div>
+                你成为了 
+                <span 
+                  className="text-r-blue"
+                  style={{  paddingLeft: '4px', paddingRight: '4px' }}
+                >航海家</span>
+              </div>
+              
+              <div hidden={!navigatorContentCount}>
+                用航海家赞同发现和助力了 
+                <span 
+                  className="text-r-green"
+                  style={{ fontSize: '20px', paddingLeft: '4px', paddingRight: '4px' }}
+                >
+                  {navigatorContentCount}
+                </span> 
+                篇好内容
+                </div>
+              
+            </div>
+            <Image 
+              src={shipAsset.url} 
+              alt={shipAsset.alt} 
+              width={shipAsset.width} 
+              height={shipAsset.height} 
+              className="object-contain pointer-events-none select-none z-1" 
+            />
           </div>
-          <Image 
-            src={shipAsset.url} 
-            alt={shipAsset.alt} 
-            width={shipAsset.width} 
-            height={shipAsset.height} 
-            className="object-contain pointer-events-none select-none z-1" 
-          />
         </div>
+        
       </div>
     </BaseScene>
   );

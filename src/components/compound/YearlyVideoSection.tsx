@@ -8,6 +8,8 @@ import { useElementCenter } from '@/hooks/useElementCenter';
 import { getVideoDetails, VideoDetailResponse, extractVideoPlayUrl, extractVideoQualityUrls } from '@/api/video';
 import { useZA } from '@/hooks/useZA';
 import { useUserData } from '@/context/user-data-context';
+import { useZhihuHybrid } from '@/hooks/useZhihuHybrid';
+import { useZhihuApp } from '@/hooks/useZhihuApp';
 
 const generateRandomId = () => {
   return Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15);
@@ -20,6 +22,8 @@ const YearlyVideoSection = () => {
   const playerContainerRef = useRef<HTMLDivElement>(null);
   const { trackShow, trackEvent } = useZA();
   const playIdentifierRef = useRef<string>("");
+  const { isAvailable: isHybridAvailable, openURL } = useZhihuHybrid();
+  const isZhihuApp = useZhihuApp();
 
   const { ref: setRefs, isCenter: showIcon, inView } = useElementCenter({
     triggerOnce: true,
@@ -248,7 +252,7 @@ const YearlyVideoSection = () => {
     return cleanup;
   }, [videoUrl, lightUpMomentAndRefresh, trackEvent]);
 
-  const handleDiscuss = () => {
+  const handleDiscuss = async () => {
     trackEvent('OpenUrl', {
       moduleId: 'annual_video_discussion',
       type: 'Button',
@@ -256,7 +260,23 @@ const YearlyVideoSection = () => {
         type: 'Answer',
         token: videoId
       }
-    })
+    });
+
+    // Redirect to yearlyVideoRedirectionURL if available
+    const redirectUrl = assets?.urls?.yearlyVideoRedirectionURL;
+    if (redirectUrl) {
+      // Use zhihuHybrid if in zhihu app, otherwise use window.location.href
+      if (isZhihuApp && isHybridAvailable) {
+        try {
+          await openURL(redirectUrl);
+        } catch (error) {
+          console.error('Failed to open URL via zhihuHybrid, falling back to window.location.href:', error);
+          window.location.href = redirectUrl;
+        }
+      } else {
+        window.location.href = redirectUrl;
+      }
+    }
   };
 
 
@@ -326,7 +346,7 @@ const YearlyVideoSection = () => {
           </div>
           {/* Video element with slide-up/slide-down animation */}
           <div
-            className={`absolute top-[14%] -right-[2%] w-[72px] z-0 transition-transform duration-500 ease-out ${showIcon
+            className={`absolute top-[14%] right-[2%] w-[72px] z-0 transition-transform duration-500 ease-out ${showIcon
               ? 'translate-y-0 opacity-100'
               : 'translate-y-full'
               }`}
@@ -358,7 +378,7 @@ const YearlyVideoSection = () => {
           </div>
           {/* // 右下角按钮遮罩 */}
           <div
-            className="absolute bottom-[4%] right-[5%] w-[32%] h-[12%] z-30 cursor-pointer"
+            className="absolute bottom-[7%] right-[7%] w-[32%] h-[12%] z-30 cursor-pointer"
             onClick={() => handleDiscuss()}
           >
           </div>

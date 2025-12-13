@@ -143,13 +143,12 @@ const NianZhongXiaoWenSection = () => {
 
   return (
     <div ref={moduleRef} className="relative w-full flex flex-col items-center">
-      <div className="relative w-full pl-[16px]">
-
+      <div className="relative w-full">
         <div
           ref={playerContainerRef}
           className="absolute overflow-hidden rounded-[4px] z-10"
           style={{
-            top: '36%',
+            top: '30%',
             left: '9%',
             width: '82%',
             height: '58%',
@@ -184,7 +183,7 @@ const NianZhongXiaoWenSection = () => {
           alt={bgAsset.alt}
           width={bgAsset.width}
           height={bgAsset.height}
-          className="w-full h-auto object-contain z-0 relative"
+          className="w-full h-auto object-contain z-20 relative"
           priority
         />
 

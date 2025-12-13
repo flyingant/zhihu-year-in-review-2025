@@ -6,11 +6,15 @@ import { useAssets } from '@/context/assets-context';
 import { useElementCenter } from '@/hooks/useElementCenter';
 import { useZA } from '@/hooks/useZA';
 import { useUserData } from '@/context/user-data-context';
+import { useZhihuHybrid } from '@/hooks/useZhihuHybrid';
+import { useZhihuApp } from '@/hooks/useZhihuApp';
 
 const YearlyReportSection = () => {
   const { assets } = useAssets();
   const { userData, lightUpMomentAndRefresh } = useUserData();
   const { trackShow, trackEvent } = useZA();
+  const { isAvailable: isHybridAvailable, openURL } = useZhihuHybrid();
+  const isZhihuApp = useZhihuApp();
 
   const { ref: setRefs, isCenter: showIcon, inView } = useElementCenter({
     triggerOnce: true,
@@ -41,13 +45,29 @@ const YearlyReportSection = () => {
     });
   };
 
-  const handleDiscussClick = () => {
+  const handleDiscussClick = async () => {
     // phase2埋点6
     trackEvent('', {
       moduleId: 'annual_report_discussion_2025',
       type: 'Button',
       page: { page_id: '60850' }
     });
+
+    // Redirect to yearlyReportRedirectionURL if available
+    const redirectUrl = assets?.urls?.yearlyReportRedirectionURL;
+    if (redirectUrl) {
+      // Use zhihuHybrid if in zhihu app, otherwise use window.location.href
+      if (isZhihuApp && isHybridAvailable) {
+        try {
+          await openURL(redirectUrl);
+        } catch (error) {
+          console.error('Failed to open URL via zhihuHybrid, falling back to window.location.href:', error);
+          window.location.href = redirectUrl;
+        }
+      } else {
+        window.location.href = redirectUrl;
+      }
+    }
   };
 
   const reportBg = assets.yearly.reportBg;
@@ -112,7 +132,7 @@ const YearlyReportSection = () => {
           )}
         </div>
         <div
-          className="absolute bottom-[8%] left-[8%] w-[32%] h-[16%] z-30 cursor-pointer"
+          className="absolute bottom-[7%] left-[7%] w-[32%] h-[16%] z-50 cursor-pointer"
           onClick={handleDiscussClick}
         >
         </div>

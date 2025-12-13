@@ -13,7 +13,7 @@ interface PageProps {
 }
 
 export default function P14Scene({ onNext, sceneName }: PageProps) {
-  const [maskPosition, setMaskPosition] = useState(-50);
+  const [maskPosition, setMaskPosition] = useState(300);
   const { assets } = useAssets();
   const containerRef = useRef<HTMLDivElement>(null);
 
@@ -31,7 +31,7 @@ export default function P14Scene({ onNext, sceneName }: PageProps) {
       const delta = e.deltaY > 0 ? 10 : -10; // Scroll down increases, up decreases
       setMaskPosition(prev => {
         const newValue = prev + delta;
-        return Math.max(-600, Math.min(0, newValue)); // Clamp between min and max
+        return Math.max(300, Math.min(0, newValue)); // Clamp between min and max
       });
     };
 
@@ -139,9 +139,10 @@ export default function P14Scene({ onNext, sceneName }: PageProps) {
             WebkitMaskImage: `url("${middleAsset.url}")`,
             maskSize: 'auto 100%',
             maskRepeat: 'no-repeat',
-            maskPosition: `${maskPosition}px center`,
+            maskPosition: `center ${maskPosition}px`,
+            WebkitMaskPosition: `center ${maskPosition}px`,
             maskMode: 'alpha'
-          }}
+          } as React.CSSProperties}
         >
         <Image 
           src={topAsset.url} 
@@ -154,8 +155,8 @@ export default function P14Scene({ onNext, sceneName }: PageProps) {
         {/* Invisible range input for touch/mobile support */}
         <input
           type="range"
-          min="-600"
-          max="0"
+          min="0"
+          max="800"
           value={maskPosition}
           onChange={handleRangeChange}
           className="absolute inset-0 w-full h-full opacity-0 cursor-none z-30"

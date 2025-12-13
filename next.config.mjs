@@ -28,6 +28,10 @@ const nextConfig = {
           source: "/api/:path*",
           destination: "https://api.zhihu.com/api/:path*",
         },
+        {
+          source: "/zvideos/:path*",
+          destination: "https://api.zhihu.com/zvideos/:path*",
+        }
       ];
     }
     return [];

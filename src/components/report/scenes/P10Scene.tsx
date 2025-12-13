@@ -119,8 +119,8 @@ export default function P10Scene({ onNext, sceneName }: PageProps) {
             className="absolute flex items-center justify-center"
             style={{ 
               top: '50%',
-              right: '30%',
-              transform: 'translate(-50%, -50%)',
+              right: '50%',
+              transform: 'translate(50%, -50%)',
             }}
           >
              <span className="text-r-pink font-bold pixel-font" style={{ fontSize: '34px', textShadow: '3px 3px 0px #000000' }}>
@@ -167,8 +167,8 @@ export default function P10Scene({ onNext, sceneName }: PageProps) {
             className="absolute flex items-center justify-center"
             style={{ 
               top: '50%', 
-              right: '30%',
-              transform: 'translate(-50%, -50%)',
+              right: '50%',
+              transform: 'translate(50%, -50%)',
             }}
           >
              <span className="text-r-green font-bold pixel-font" style={{ fontSize: '34px', textShadow: '3px 3px 0px #000000' }}>

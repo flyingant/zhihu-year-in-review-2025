@@ -993,72 +993,64 @@
       "height": 310,
       "alt": "背景框"
     },
-    "items": [
-      {
-        "id": "video",
-        "name": "年度视频",
-        "clear": {
-          "url": "/assets/2025_2_fourgrid_video_clear@3x.png",
-          "width": 73,
-          "height": 106,
-          "alt": "年度视频-亮"
-        },
-        "blur": {
-          "url": "/assets/2025_2_fourgrid_video_blur@3x.png",
-          "width": 73,
-          "height": 106,
-          "alt": "年度视频-暗"
-        }
+    "save": {
+      "url": "/assets/2025_2_fourgrid_save@3x.png",
+      "width": 1680,
+      "height": 300,
+      "alt": "保存图片"
+    },
+    "preview": {
+      "annual_video": {
+        "url": "/assets/2025_2_fourgrid_annual_video_preview.png",
+        "width": 441,
+        "height": 639,
+        "alt": "年度视频-预览"
       },
-      {
-        "id": "report",
-        "name": "个人报告",
-        "clear": {
-          "url": "/assets/2025_2_fourgrid_report_clear@3x.png",
-          "width": 73,
-          "height": 106,
-          "alt": "个人报告-亮"
-        },
-        "blur": {
-          "url": "/assets/2025_2_fourgrid_report_blur@3x.png",
-          "width": 73,
-          "height": 106,
-          "alt": "个人报告-暗"
-        }
+      "annual_report": {
+        "url": "/assets/2025_2_fourgrid_annual_report_preview.png",
+        "width": 441,
+        "height": 639,
+        "alt": "个人报告-预览"
       },
-      {
-        "id": "questions",
-        "name": "年度十问",
-        "clear": {
-          "url": "/assets/2025_2_fourgrid_questions_clear@3x.png",
-          "width": 73,
-          "height": 106,
-          "alt": "年度十问-亮"
-        },
-        "blur": {
-          "url": "/assets/2025_2_fourgrid_questions_blur@3x.png",
-          "width": 73,
-          "height": 106,
-          "alt": "年度十问-暗"
-        }
+      "annual_question": {
+        "url": "/assets/2025_2_fourgrid_annual_question_preview.png",
+        "width": 441,
+        "height": 639,
+        "alt": "年度十问-预览"
       },
-      {
-        "id": "cando",
-        "name": "这些真的可以",
-        "clear": {
-          "url": "/assets/2025_2_fourgrid_cando_clear@3x.png",
-          "width": 73,
-          "height": 106,
-          "alt": "这些真的可以-亮"
-        },
-        "blur": {
-          "url": "/assets/2025_2_fourgrid_cando_blur@3x.png",
-          "width": 73,
-          "height": 106,
-          "alt": "这些真的可以-暗"
-        }
+      "really_can": {
+        "url": "/assets/2025_2_fourgrid_really_can_preview.png",
+        "width": 441,
+        "height": 639,
+        "alt": "这些真的可以-预览"
       }
-    ]
+    },
+    "download": {
+      "annual_video": {
+        "url": "/assets/2025_2_fourgrid_annual_video_download.png",
+        "width": 750,
+        "height": 1334,
+        "alt": "年度视频-下载"
+      },
+      "annual_report": {
+        "url": "/assets/2025_2_fourgrid_annual_report_download.png",
+        "width": 750,
+        "height": 1334,
+        "alt": "个人报告-下载"
+      },
+      "annual_question": {
+        "url": "/assets/2025_2_fourgrid_annual_question_download.png",
+        "width": 750,
+        "height": 1334,
+        "alt": "年度十问-下载"
+      },
+      "really_can": {
+        "url": "/assets/2025_2_fourgrid_really_can_download.png",
+        "width": 750,
+        "height": 1334,
+        "alt": "这些真的可以-下载"
+      }
+    }
   },
   "nianZhongXiaoWen": {
     "bg": {

@@ -127,12 +127,19 @@ export interface AssetsData {
   };
   fourGrid: {
     bg: AssetMetadata;
-    items: {
-      id: string;
-      name: string;
-      clear: AssetMetadata;
-      blur: AssetMetadata;
-    }[];
+    save: AssetMetadata;
+    preview: {
+      annual_video: AssetMetadata;
+      annual_report: AssetMetadata;
+      annual_question: AssetMetadata;
+      really_can: AssetMetadata;
+    };
+    download: {
+      annual_video: AssetMetadata;
+      annual_report: AssetMetadata;
+      annual_question: AssetMetadata;
+      really_can: AssetMetadata;
+    };
   };
   vote: {
     title: AssetMetadata;

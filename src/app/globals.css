@@ -97,3 +97,16 @@ body {
   left: -2px;
   text-shadow: -1px 0 blue;
 }
+
+/* Mosaic effect for pixelated blur */
+.mosaic-effect {
+  filter: blur(3px) contrast(1.5) brightness(0.8);
+  image-rendering: pixelated;
+  image-rendering: -moz-crisp-edges;
+  image-rendering: crisp-edges;
+}
+
+.mosaic-overlay {
+  mix-blend-mode: overlay;
+  opacity: 0.6;
+}

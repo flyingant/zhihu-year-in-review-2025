@@ -1,10 +1,11 @@
 "use client";
 
-import React, { useState, useRef } from 'react';
+import React, { useState } from 'react';
 import Image from 'next/image';
 import { useAssets } from '@/context/assets-context';
 import { useElementCenter } from '@/hooks/useElementCenter';
 import { useZA } from '@/hooks/useZA';
+import { useUserData } from '@/context/user-data-context';
 
 const MASK_POSITIONS = [
   { top: '16.5%', left: '6%', width: '43%', height: '12%' },  // 左1
@@ -21,22 +22,33 @@ const MASK_POSITIONS = [
 
 const TenQuestionsSection = () => {
   const { assets } = useAssets();
+  const { userData, lightUpMomentAndRefresh } = useUserData();
   const { ref: setRefs, isCenter: showIcon } = useElementCenter({ threshold: 0.5 });
 
   const { trackShow, trackEvent } = useZA();
 
-  const [showClearImage, setShowClearImage] = useState(false);
+  // Removed local showClearImage usage now that images rely solely on API data
 
   if (!assets) return null;
 
   const bgAsset = assets.yearly?.questionBg;
-  const blurAsset = assets.yearly?.questionBlurImage;
-  const clearAsset = assets.yearly?.questionClearImage;
   const liukanshanAsset = assets.yearly.liukanshanWaving;
   const urlAsset = assets.urls.yearlyQuestions;
 
+  // Get annual_question status from API
+  const annualQuestionStatus = userData?.momentLightList?.find(
+    (item) => item.position === 'annual_question'
+  );
+
+  // Get the image URL to display based on status
+  const displayedImageUrl = annualQuestionStatus
+    ? (annualQuestionStatus.light_status === 1
+        ? annualQuestionStatus.light_image_url
+        : annualQuestionStatus.un_light_image_url)
+    : undefined;
+
   const handleQuestionClick = (url: string, index: number) => {
-    setShowClearImage(true);
+    lightUpMomentAndRefresh('annual_question');
 
     // trackEvent('OpenUrl', {
     //   moduleId: 'ten_questions_2025',
@@ -63,7 +75,7 @@ const TenQuestionsSection = () => {
             />
           )}
           <div
-            className={`absolute top-[5.3%] right-[1%] w-[72px] z-0 transition-transform duration-700 ease-out ${showIcon ? 'translate-y-0 opacity-100' : 'translate-y-[100%]'
+            className={`absolute top-[5.3%] right-[1%] w-[72px] z-0 transition-transform duration-700 ease-out ${showIcon ? 'translate-y-0 opacity-100' : 'translate-y-full opacity-0'
               }`}
           >
             <video
@@ -91,20 +103,18 @@ const TenQuestionsSection = () => {
             />
           ))}
 
-          <div className="absolute bottom-[2.5%] left-[11.5%] w-[112px] h-[44px] z-50">
-            {/* 模糊图 */}
-            <div className={`absolute inset-0 w-full h-full transition-opacity duration-500 ${showClearImage ? 'opacity-0' : 'opacity-100'}`}>
-              {blurAsset && (
-                <Image src={blurAsset.url} fill className="object-contain" alt="blur" />
-              )}
-            </div>
-
-            {/* 清晰图 */}
-            <div className={`absolute inset-0 w-full h-full transition-opacity duration-500 ${showClearImage ? 'opacity-100' : 'opacity-0'}`}>
-              {clearAsset && (
-                <Image src={clearAsset.url} fill className="object-contain" alt="clear" />
-              )}
-            </div>
+          <div className="absolute bottom-[2.5%] left-[18%] w-[65px] h-[50px] z-50">
+            {displayedImageUrl && (
+              <div className="absolute inset-0 w-full h-full">
+                <Image 
+                  key={displayedImageUrl}
+                  src={displayedImageUrl} 
+                  fill 
+                  className="object-contain transition-opacity duration-500 ease-in-out" 
+                  alt={annualQuestionStatus?.light_status === 1 ? "annual question clear" : "annual question blur"} 
+                />
+              </div>
+            )}
           </div>
 
         </div>

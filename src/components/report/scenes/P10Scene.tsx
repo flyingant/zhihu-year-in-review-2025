@@ -3,6 +3,9 @@
 import { useUserReportData } from "@/context/user-report-data-context";
 import { colorClass, typographyClass } from "@/hooks/useSceneTheme";
 import BaseScene from "./BaseScene";
+import Image from "next/image";
+import { useAssets } from "@/context/assets-context";
+import GlitchLayer from "@/components/report/effects/GlitchLayer";
 
 interface PageProps {
   onNext?: () => void;
@@ -11,6 +14,20 @@ interface PageProps {
 
 export default function P10Scene({ onNext, sceneName }: PageProps) {
   const { reportData } = useUserReportData();
+  const { assets } = useAssets();
+  if (!assets) return null;
+
+  const bgAsset = assets.report.bg;
+  const blue10Asset = bgAsset.blue10;
+  const mix9Asset = bgAsset.mix9;
+  const mix7Asset = bgAsset.mix7;
+  const mix8Asset = bgAsset.mix8;
+  const group1Asset = assets.report.p10.group1;
+  const group2Asset = assets.report.p10.group2;
+  const group3Asset = assets.report.p10.group3;
+  const group4Asset = assets.report.p10.group4;
+  const wordsAsset = assets.report.p10.words;
+
   
   const toNumberOrNull = (value: unknown): number | null =>
     typeof value === "number" ? value : null;
@@ -31,24 +48,49 @@ export default function P10Scene({ onNext, sceneName }: PageProps) {
 
   return (
     <BaseScene onNext={onNext} sceneName={sceneName}>
-      <div className={typographyClass('title') + ' leading-relaxed'}>
-        消费-基础数据
+      <GlitchLayer>
+        {/* 顺序从上到下 */}
+        <Image src={mix7Asset.url} alt="{mix7Asset.alt}" width={mix7Asset.width} height={mix7Asset.height} 
+          className="object-contain absolute top-[40px] right-[0px] pointer-events-none select-none z-1" />
+        <Image src={blue10Asset.url} alt="{blue10Asset.alt}" width={blue10Asset.width} height={blue10Asset.height} 
+          className="object-contain absolute  top-[152px] left-[27px] pointer-events-none select-none z-1" />
+        <Image src={mix8Asset.url} alt="{mix8Asset.alt}" width={mix8Asset.width} height={mix8Asset.height} 
+          className="object-contain absolute bottom-[308px] left-[0px] pointer-events-none select-none z-1" />
+        <Image src={blue10Asset.url} alt="{blue10Asset.alt}" width={blue10Asset.width} height={blue10Asset.height} 
+          className="object-contain absolute bottom-[220px] right-[21px] pointer-events-none select-none z-1" />
+        <Image src={mix9Asset.url} alt="{mix9Asset.alt}" width={mix9Asset.width} height={mix9Asset.height} 
+          className="object-contain absolute bottom-[0] right-[6px] pointer-events-none select-none z-1" />
+      </GlitchLayer>
+      <div className={typographyClass('title') + ' leading-relaxed text-center pb-[24px] pt-[120px]'}>
+        你总共浏览了
       </div>
-
-      <div className="pt-[60px] pb-[20px]">
-        <div className="mb-[10px]">
-          <span className={`${colorClass('blue')} ${typographyClass('subtitle')} px-[2px]`}>{String(articleCount ?? 'consume_article_cnt')}</span> 篇文章
+      <div className="">
+        <div className="mb-[10px] relative h-[127px]">
+          <Image src={group1Asset.url} alt="{group1Asset.alt}" width={group1Asset.width} height={group1Asset.height} 
+            className="object-contain absolute right-[14px] pointer-events-none select-none z-1" />
+          <div className={`${colorClass('pink')} ${typographyClass('subtitle')} px-[2px] absolute top-[40px] right-[14px] z-2`}>{String(articleCount ?? 'consume_article_cnt')}</div>
         </div>
-        <div className="mb-[10px]">
-          <span className={`${colorClass('pink')} ${typographyClass('subtitle')} px-[2px]`}>{String(pinCount ?? 'consume_pin_cnt')}</span> 条想法
+        <div className="mb-[10px] relative h-[127px] -top-[50px]">
+          <Image src={group2Asset.url} alt="{group2Asset.alt}" width={group2Asset.width} height={group2Asset.height} 
+            className="object-contain absolute left-[14px] pointer-events-none select-none z-1" />
+          <div className={`${colorClass('pink')} ${typographyClass('subtitle')} px-[2px] absolute top-[40px] left-[14px] z-2`}>{String(articleCount ?? 'consume_article_cnt')}</div>
+        </div>
+        <div className="mb-[10px] relative h-[127px] -top-[100px]">
+          <Image src={group3Asset.url} alt="{group3Asset.alt}" width={group3Asset.width} height={group3Asset.height} 
+            className="object-contain absolute right-[30px] pointer-events-none select-none z-1" />
+          <div className={`${colorClass('pink')} ${typographyClass('subtitle')} px-[2px] absolute top-[40px] right-[30px] z-2`}>{String(articleCount ?? 'consume_article_cnt')}</div>
+        </div>
+        <div className="mb-[10px] relative -top-[150px]">
+          <Image src={group4Asset.url} alt="{group4Asset.alt}" width={group4Asset.width} height={group4Asset.height} 
+            className="object-contain absolute left-[87px] pointer-events-none select-none z-1" />
+          <div className={`${colorClass('pink')} ${typographyClass('subtitle')} px-[2px] absolute top-[40px] left-[87px] z-2`}>{String(articleCount ?? 'consume_article_cnt')}</div>
         </div>
       </div>
 
       {/* 总计阅读字数 */}
-      <div className="pt-[40px] pb-[20px]">
-        <div className="mb-[10px]">
-          总计阅读 <span className={`${colorClass('fern')} ${typographyClass('highlight')} px-[4px]`}>{String(wordCount ?? 'consume_word_cnt')}</span> 个字
-        </div>
+      <div className="pt-[20px] pb-[20px] flex flex-col items-center justify-center">
+        <Image src={wordsAsset.url} alt="{wordsAsset.alt}" width={wordsAsset.width} height={wordsAsset.height} 
+          className="object-contain pointer-events-none select-none z-1 pb-[20px]" />
         <div>
           相当于读完 <span className={`${colorClass('pink')} ${typographyClass('subtitle')} px-[2px]`}>{equivalentBooks}</span> 本书
         </div>

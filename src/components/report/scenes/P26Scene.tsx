@@ -3,6 +3,9 @@
 import { useUserReportData } from "@/context/user-report-data-context";
 import { colorClass, typographyClass } from "@/hooks/useSceneTheme";
 import BaseScene from "./BaseScene";
+import GlitchLayer from "@/components/report/effects/GlitchLayer";
+import { useAssets } from "@/context/assets-context";
+import Image from "next/image";
 
 interface PageProps {
   onNext?: () => void;
@@ -11,51 +14,170 @@ interface PageProps {
 
 export default function P26Scene({ onNext, sceneName }: PageProps) {
   const { reportData } = useUserReportData();
-  
+  const { assets } = useAssets();
+
+  if (!assets) return null;
+
+  const { liukanshan, pinkPixel, rainbow, redPixel1, redPixel2 } =
+    assets.report.p26;
+  const { mix22_1, mix22_4, mix22_5 } = assets.report.bg;
+
   // Map context data to component variables according to P26 spec (特殊-故事会员/作者)
   const writeStoryNumSum = reportData?.write_story_num_sum ?? null;
   const totalUpvoteNum = reportData?.total_upvote_num ?? null;
-  const writeStoryMostPopularName = reportData?.write_story_most_popular_name ?? null;
-  const shortStoryInfluenceList = reportData?.short_story_influence_list ?? null;
+  const writeStoryMostPopularName =
+    reportData?.write_story_most_popular_name ?? null;
+  const shortStoryInfluenceList =
+    reportData?.short_story_influence_list ?? null;
   const annualAuthor = reportData?.annual_author ?? null;
   const awardedCopy = reportData?.awarded_copy ?? null;
 
   return (
     <BaseScene onNext={onNext} sceneName={sceneName}>
-      <div className={typographyClass('title') + ' leading-relaxed'}>
-        情节之下,是心意织成的篇章
+      {/* pixel block */}
+      <GlitchLayer>
+        {/* 顺序从上到下 */}
+        <Image
+          src={mix22_5.url}
+          alt="{mix22_5.alt}"
+          width={mix22_5.width}
+          height={mix22_5.height}
+          className="object-contain absolute top-[30px] left-[65px] pointer-events-none select-none z-1"
+        />
+        <Image
+          src={redPixel2.url}
+          alt="{redPixel2.alt}"
+          width={redPixel2.width}
+          height={redPixel2.height}
+          className="object-contain absolute top-[101px] right-[14px] pointer-events-none select-none z-1"
+        />
+        <Image
+          src={pinkPixel.url}
+          alt="{pinkPixel.alt}"
+          width={pinkPixel.width}
+          height={pinkPixel.height}
+          className="object-contain absolute top-[558px] left-[22px] pointer-events-none select-none z-1"
+        />
+        <Image
+          src={mix22_5.url}
+          alt="{mix22_5.alt}"
+          width={mix22_5.width}
+          height={mix22_5.height}
+          className="object-contain absolute top-[605px] left-[25px] pointer-events-none select-none z-1"
+        />
+        <Image
+          src={redPixel1.url}
+          alt="{redPixel1.alt}"
+          width={redPixel1.width}
+          height={redPixel1.height}
+          className="object-contain absolute top-[680px] left-0 pointer-events-none select-none z-1"
+        />
+        <Image
+          src={mix22_4.url}
+          alt="{mix22_4.alt}"
+          width={mix22_4.width}
+          height={mix22_4.height}
+          className="object-contain absolute top-[631px] right-0 pointer-events-none select-none z-1"
+        />
+      </GlitchLayer>
+      {/* images */}
+      <div className="z-0">
+        <Image
+          src={rainbow.url}
+          alt="{rainbow.alt}"
+          width={rainbow.width}
+          height={rainbow.height}
+          className="object-contain absolute top-0 left-0 right-0 pointer-events-none select-none -z-10"
+        />
+        <Image
+          src={liukanshan.url}
+          alt="{liukanshan.alt}"
+          width={liukanshan.width}
+          height={liukanshan.height}
+          className="object-contain absolute top-[410px] left-[108px] right-0 pointer-events-none select-none -z-10"
+        />
       </div>
-
-      <div className="pt-[60px] pb-[30px]">
-        <div className="mb-[10px]">
-          今年,你创作了 <span className={`${colorClass('pink')} ${typographyClass('subtitle')} px-[2px]`}>{String(writeStoryNumSum ?? 'write_story_num_sum')}</span> 篇故事把想象的灵光化成了情节与篇章
+      {/* content */}
+      <div className="absolute z-0 top-[114px] left-[40px] right-[72px] leading-relaxed">
+        <div className="pb-[30px]">
+          <div className="mb-[8px]">
+            今年,你创作
+            <span
+              className={`${colorClass("pink")} ${typographyClass(
+                "subtitle"
+              )} px-[2px]`}
+            >
+              {String(writeStoryNumSum ?? "write_story_num_sum")}
+            </span>{" "}
+            篇故事，
+            <br />
+            把想象的灵光化成了情节与篇章
+          </div>
         </div>
-      </div>
 
-      <div className="pb-[30px]">
-        <div className="mb-[10px]">
-          有 <span className={`${colorClass('fern')} ${typographyClass('subtitle')} px-[2px]`}>{String(totalUpvoteNum ?? 'total_upvote_num')}</span> 位读者喜欢你的故事
-        </div>
-        <div>
-          其中,《<span className={`${colorClass('blue')} ${typographyClass('subtitle')} px-[2px]`}>{String(writeStoryMostPopularName ?? 'write_story_most_popular_name')}</span>》最受大家的欢迎
-        </div>
-      </div>
-
-      {/* 荣誉榜单 - 可滑动 */}
-      <div className="pb-[30px] max-h-[400px] overflow-y-auto">
-        <div className="space-y-[20px] text-sm">
-          <div>
-            <span className={`${colorClass('green')} ${typographyClass('subtitle')} px-[2px]`}>{String(shortStoryInfluenceList ?? 'short_story_influence_list')}</span>
+        <div className="pb-[30px]">
+          <div className="mb-[10px]">
+            有{" "}
+            <span
+              className={`${colorClass("fern")} ${typographyClass(
+                "subtitle"
+              )} px-[2px]`}
+            >
+              {String(totalUpvoteNum ?? "total_upvote_num")}
+            </span>{" "}
+            位读者喜欢你的故事，
           </div>
           <div>
-            <span className={`${colorClass('pink')} ${typographyClass('subtitle')} px-[2px]`}>{String(annualAuthor ?? 'annual_author')}</span>
+            其中,《
+            <span
+              className={`${colorClass("blue")} ${typographyClass(
+                "subtitle"
+              )} px-[2px]`}
+            >
+              {String(
+                writeStoryMostPopularName ?? "write_story_most_popular_name"
+              )}
+            </span>
+            》最受大家的欢迎。
           </div>
-          <div>
-            <span className={`${colorClass('blue')} ${typographyClass('subtitle')} px-[2px]`}>{String(awardedCopy ?? 'awarded_copy')}</span>
+        </div>
+
+        {/* 荣誉榜单 - 可滑动 */}
+        <div className="pb-[30px] max-h-[400px] overflow-y-auto">
+          <div className="space-y-[20px] text-sm">
+            <div>
+              你的作品
+              <span
+                className={`${colorClass("green")} ${typographyClass(
+                  "subtitle"
+                )} px-[2px]`}
+              >
+                {String(
+                  shortStoryInfluenceList ?? "short_story_influence_list"
+                )}
+              </span>
+            </div>
+            <div>
+              <span
+                className={`${colorClass("pink")} ${typographyClass(
+                  "subtitle"
+                )} px-[2px]`}
+              >
+                {String(annualAuthor ?? "annual_author")}
+              </span>
+            </div>
+            <div>
+              <span
+                className={`${colorClass("blue")} ${typographyClass(
+                  "subtitle"
+                )} px-[2px]`}
+              >
+                {String(awardedCopy ?? "awarded_copy")}
+              </span>
+            </div>
           </div>
         </div>
       </div>
     </BaseScene>
   );
 }
-

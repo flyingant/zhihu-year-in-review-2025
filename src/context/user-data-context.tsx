@@ -3,6 +3,7 @@
 import { createContext, useContext, useState, useEffect, useCallback, ReactNode } from "react";
 import { useAuth } from "./auth-context";
 import request from "@/lib/request";
+import { getMomentLightList, MomentLightItem, lightUpMoment, MomentPosition } from "@/api/campaign";
 
 export interface MasterConfigItem {
   image_url: string;
@@ -18,6 +19,7 @@ interface UserData {
   address?: unknown;
   pointsTask?: unknown;
   masterConfig?: MasterConfig;
+  momentLightList?: MomentLightItem[];
 }
 
 interface UserDataContextType {
@@ -26,6 +28,7 @@ interface UserDataContextType {
   error: string | null;
   fetchUserData: () => Promise<void>;
   clearError: () => void;
+  lightUpMomentAndRefresh: (position: MomentPosition) => Promise<void>;
 }
 
 const UserDataContext = createContext<UserDataContextType | undefined>(undefined);
@@ -71,6 +74,18 @@ export function UserDataProvider({ children }: { children: ReactNode }) {
         ...prev,
         address: addressData,
       }));
+
+      // Fetch moment light list
+      try {
+        const momentLightListData = await getMomentLightList();
+        setUserData((prev) => ({
+          ...prev,
+          momentLightList: momentLightListData.list,
+        }));
+      } catch (err: unknown) {
+        console.error("Error fetching moment light list:", err);
+        // Don't set error for moment light list as it's not critical
+      }
     } catch (err: unknown) {
       console.error("Error fetching user data:", err);
       const errorMessage =
@@ -94,6 +109,7 @@ export function UserDataProvider({ children }: { children: ReactNode }) {
       // Clear user-specific data when user logs out, but keep master config
       setUserData((prev) => ({
         masterConfig: prev?.masterConfig,
+        momentLightList: undefined,
       }));
       setError(null);
     }
@@ -103,6 +119,28 @@ export function UserDataProvider({ children }: { children: ReactNode }) {
     setError(null);
   }, []);
 
+  // Light up a moment and refresh the moment light list
+  const lightUpMomentAndRefresh = useCallback(async (position: MomentPosition) => {
+    if (!isAuthenticated) {
+      return;
+    }
+
+    try {
+      // Call the API to light up the moment
+      await lightUpMoment(position);
+      
+      // Refresh the moment light list to get updated status
+      const momentLightListData = await getMomentLightList();
+      setUserData((prev) => ({
+        ...prev,
+        momentLightList: momentLightListData.list,
+      }));
+    } catch (err: unknown) {
+      console.error(`Error lighting up moment for position ${position}:`, err);
+      // Don't throw error, just log it
+    }
+  }, [isAuthenticated]);
+
   return (
     <UserDataContext.Provider
       value={{
@@ -111,6 +149,7 @@ export function UserDataProvider({ children }: { children: ReactNode }) {
         error,
         fetchUserData,
         clearError,
+        lightUpMomentAndRefresh,
       }}
     >
       {children}

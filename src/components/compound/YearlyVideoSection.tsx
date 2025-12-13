@@ -9,14 +9,13 @@ import { getVideoDetails, VideoDetailResponse, extractVideoPlayUrl, extractVideo
 import { useZA } from '@/hooks/useZA';
 import { useUserData } from '@/context/user-data-context';
 
-const VIDEO_ID = "1855624605156438016";
-
 const generateRandomId = () => {
   return Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15);
 };
 
 const YearlyVideoSection = () => {
   const { assets } = useAssets();
+  const videoId = assets?.urls?.yearlyVideoID || '';
   const { userData, lightUpMomentAndRefresh } = useUserData();
   const playerContainerRef = useRef<HTMLDivElement>(null);
   const { trackShow, trackEvent } = useZA();
@@ -55,7 +54,7 @@ const YearlyVideoSection = () => {
   } : null);
 
   useEffect(() => {
-    if (inView && videoDetails) {
+    if (inView && videoDetails && videoId) {
       const durationMs = (videoDetails.video?.duration || 0) * 1000;
 
       trackShow({
@@ -63,27 +62,29 @@ const YearlyVideoSection = () => {
         type: 'Video',
         content: {
           type: 'Zvideo',
-          token: VIDEO_ID,
+          token: videoId,
         }
       }, {
         media_info: {
           video_info: {
-            video_id: VIDEO_ID
+            video_id: videoId
           },
           duration: durationMs
         }
       });
     }
 
-  }, [inView, videoDetails, trackShow]);
+  }, [inView, videoDetails, trackShow, videoId]);
 
   // Fetch video details on component mount
   useEffect(() => {
+    if (!videoId) return;
+
     const fetchVideoDetails = async () => {
       try {
         setIsLoading(true);
         setError(null);
-        const details = await getVideoDetails(VIDEO_ID);
+        const details = await getVideoDetails(videoId);
         setVideoDetails(details);
 
         // Extract video URL from response using helper function
@@ -91,23 +92,21 @@ const YearlyVideoSection = () => {
         if (url) {
           setVideoUrl(url);
         } else {
-          // Fallback to assets if API doesn't provide URL
-          setVideoUrl(assets?.urls?.yearlyVideo || '');
+          // No fallback - video URL must come from API
+          setVideoUrl('');
         }
       } catch (err) {
         console.error('Failed to fetch video details:', err);
         setError('Failed to load video');
-        // Fallback to assets video URL on error
-        setVideoUrl(assets?.urls?.yearlyVideo || '');
+        // No fallback - video URL must come from API
+        setVideoUrl('');
       } finally {
         setIsLoading(false);
       }
     };
 
-    if (assets) {
-      fetchVideoDetails();
-    }
-  }, [assets]);
+    fetchVideoDetails();
+  }, [assets, videoId]);
 
   // Handle viewport visibility for auto-play/pause
   useEffect(() => {
@@ -160,7 +159,7 @@ const YearlyVideoSection = () => {
           video_quality: 'UNKNOWN',
           play_event_identifier: playIdentifierRef.current || generateRandomId(),
           video_info: {
-            video_id: VIDEO_ID,
+            video_id: videoId,
             sound_rate: 1,
           }
         }
@@ -195,7 +194,7 @@ const YearlyVideoSection = () => {
         video_quality: currentQuality.toUpperCase(),
         play_event_identifier: playIdentifierRef.current,
         video_info: {
-          video_id: VIDEO_ID,
+          video_id: videoId,
           sound_rate: String(videoEl.playbackRate),
         }
       }
@@ -255,7 +254,7 @@ const YearlyVideoSection = () => {
       type: 'Button',
       content: {
         type: 'Answer',
-        token: VIDEO_ID
+        token: videoId
       }
     })
   };
@@ -279,7 +278,7 @@ const YearlyVideoSection = () => {
     : undefined;
 
   return (
-    <div ref={setRefs} className="relative w-full flex flex-col items-center px-[16px] py-10">
+    <div ref={setRefs} className="relative w-full flex flex-col items-center">
       <div className="relative w-full flex flex-col items-center">
         <div className="relative w-full flex items-center justify-center">
           <div
@@ -315,7 +314,7 @@ const YearlyVideoSection = () => {
               </div>
             )}
           </div>
-          <div className="relative z-10 pointer-events-none">
+          <div className="relative z-30 pointer-events-none">
             <Image
               src={videoBg.url}
               alt={videoBg.alt}
@@ -343,7 +342,7 @@ const YearlyVideoSection = () => {
             </video>
           </div>
           <div
-            className="absolute bottom-[3%] left-[9%] w-[65px] h-[50px] z-20"
+            className="absolute bottom-[7%] left-[13%] w-[65px] h-[50px] z-40"
           >
             {displayedImageUrl && (
               <div className="relative w-full h-full">

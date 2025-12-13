@@ -428,10 +428,6 @@ export interface AssetsData {
     miniComputerQuestion: string;
     /** 小电脑问题App内跳转URL - 当用户不在App内时，点击输入区域跳转到此URL */
     miniComputerQuestionInAppRedirectionURL: string;
-    /** 年度视频链接 - 跳转到年度视频活动页面 */
-    yearlyVideo: string;
-    /** 年终小问链接 - 跳转到年终小问视频活动页面 */
-    nianZhongXiaoWenVideo: string;
     /** 积分兑换基础URL - 用于构建积分兑换相关页面的完整URL */
     taskPointRedeemBase: string;
     /** 积分兑换历史记录URL后缀 - 与taskPointRedeemBase组合使用 */
@@ -448,6 +444,14 @@ export interface AssetsData {
     inAppRedirectionURL: string;
     /** 年度问题链接数组 - 跳转到年度问题页面 */
     yearlyQuestions: string[];
+    /** 年度视频ID - 用于获取年度视频详情 */
+    yearlyVideoID: string;
+    /** 年度视频跳转URL - 跳转到年度视频相关页面 */
+    yearlyVideoRedirectionURL: string;
+    /** 年度报告跳转URL - 跳转到年度报告页面 */
+    yearlyReportRedirectionURL: string;
+    /** 年终小问视频ID - 用于获取年终小问视频详情 */
+    nianZhongXiaoWenVideoID: string;
   };
   /**
    * 活动配置设置

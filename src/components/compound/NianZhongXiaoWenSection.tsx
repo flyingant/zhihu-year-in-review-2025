@@ -7,10 +7,9 @@ import { useAssets } from '@/context/assets-context';
 import { useInView } from 'react-intersection-observer';
 import { getVideoDetails, VideoDetailResponse, extractVideoPlayUrl, extractVideoQualityUrls } from '@/api/video';
 
-const VIDEO_ID = "1855624605156438016";
-
 const NianZhongXiaoWenSection = () => {
   const { assets } = useAssets();
+  const videoId = assets?.urls?.nianZhongXiaoWenVideoID || '';
   const playerContainerRef = useRef<HTMLDivElement>(null);
   const [isPlaying, setIsPlaying] = useState(false);
   const [videoDetails, setVideoDetails] = useState<VideoDetailResponse | null>(null);
@@ -49,11 +48,13 @@ const NianZhongXiaoWenSection = () => {
 
   // Fetch video details on component mount
   useEffect(() => {
+    if (!videoId) return;
+
     const fetchVideoDetails = async () => {
       try {
         setIsLoading(true);
         setError(null);
-        const details = await getVideoDetails(VIDEO_ID);
+        const details = await getVideoDetails(videoId);
         setVideoDetails(details);
         
         // Extract video URL from response using helper function
@@ -61,23 +62,21 @@ const NianZhongXiaoWenSection = () => {
         if (url) {
           setVideoUrl(url);
         } else {
-          // Fallback to assets if API doesn't provide URL
-          setVideoUrl(assets?.urls?.nianZhongXiaoWenVideo || '');
+          // No fallback - video URL must come from API
+          setVideoUrl('');
         }
       } catch (err) {
         console.error('Failed to fetch video details:', err);
         setError('Failed to load video');
-        // Fallback to assets video URL on error
-        setVideoUrl(assets?.urls?.nianZhongXiaoWenVideo || '');
+        // No fallback - video URL must come from API
+        setVideoUrl('');
       } finally {
         setIsLoading(false);
       }
     };
 
-    if (assets) {
-      fetchVideoDetails();
-    }
-  }, [assets]);
+    fetchVideoDetails();
+  }, [assets, videoId]);
 
   // Listen for play events from Griffith player
   useEffect(() => {

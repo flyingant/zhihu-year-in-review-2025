@@ -545,8 +545,8 @@
   "yearly": {
     "videoBg": {
       "url": "/assets/yearly_video_bg.png",
-      "width": 686,
-      "height": 760,
+      "width": 1125,
+      "height": 1211,
       "alt": "年度视频背景"
     },
     "videoBlurImage": {
@@ -1074,8 +1074,6 @@
     "sidebarCampaignRules": "https://www.zhihu.com/parker/campaign/1976720513247250310?zh_hide_nav_bar=true",
     "miniComputerQuestion": "https://www.zhihu.com/question/1974440788541793545",
     "miniComputerQuestionInAppRedirectionURL": "https://oia.zhihu.com/hybrid?zh_url=https%3A%2F%2Fevent.zhihu.com%2Fzhihu2025%2F%3FdirectTo%3Dcomputer",
-    "yearlyVideo": "https://vdn6.vzuu.com/HD/eea57b52-d290-11e8-9582-0242ac112a16.mp4?pkey=AAV4XZNv_HB8MseOF3o7WqqhYhTHrP3l9FvaRUYAlmuN5LnzCB9kvWNUkxOqoBQiKy_mYerrh9ycVCQV0D-Pqv7r&bu=1513c7c2&c=avc.0.0&expiration=1764659884&f=mp4&pu=da4bec50&v=ks6&pp=ChMxNDAxNjIzODY1NzM5NTc5MzkyGGMiC2ZlZWRfY2hvaWNlMhMxMzY5MDA1NjA4NTk5OTA0MjU3PXu830Q%3D&pf=Web&pt=zhihu",
-    "nianZhongXiaoWenVideo": "https://vdn6.vzuu.com/HD/eea57b52-d290-11e8-9582-0242ac112a16.mp4?pkey=AAV4XZNv_HB8MseOF3o7WqqhYhTHrP3l9FvaRUYAlmuN5LnzCB9kvWNUkxOqoBQiKy_mYerrh9ycVCQV0D-Pqv7r&bu=1513c7c2&c=avc.0.0&expiration=1764659884&f=mp4&pu=da4bec50&v=ks6&pp=ChMxNDAxNjIzODY1NzM5NTc5MzkyGGMiC2ZlZWRfY2hvaWNlMhMxMzY5MDA1NjA4NTk5OTA0MjU3PXu830Q%3D&pf=Web&pt=zhihu",
     "taskPointRedeemBase": "https://www.zhihu.com/parker/campaign/point-redeem",
     "taskPointRedeemHistory": "?zh_nav_left=back&zh_forcehybrid=1",
     "taskPointRedeemDetails": "?type=taskPoints",
@@ -1094,7 +1092,11 @@
       "https://www.zhihu.com/question/1974440788541793545",
       "https://www.zhihu.com/question/1974440788541793545",
       "https://www.zhihu.com/question/19744407885417935450"
-    ]
+    ],
+    "yearlyVideoID": "1855624605156438016",
+    "yearlyVideoRedirectionURL": "",
+    "yearlyReportRedirectionURL": "https://oia.zhihu.com/hybrid?zh_url=https%3A%2F%2Fevent.zhihu.com%2F2025%2F",
+    "nianZhongXiaoWenVideoID": "1855624605156438016"
   },
   "campaign": {
     "activityId": 330154,

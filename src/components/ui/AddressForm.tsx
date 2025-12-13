@@ -73,10 +73,10 @@ export default function AddressForm({ redeemParams, onClose }: AddressFormProps 
 
   useEffect(() => {
     //埋点29
-    trackPageShow({ page: { page_id: '60851', page_level: 2 } });
+    trackPageShow({ page: { page_id: '60851' } });
     return () => {
       //埋点30
-      trackPageDisappear({ page: { page_id: '60851', page_level: 2 } });
+      trackPageDisappear({ page: { page_id: '60851' } });
     };
   }, [fromRedeem, trackPageShow, trackPageDisappear]);
 
@@ -360,7 +360,7 @@ export default function AddressForm({ redeemParams, onClose }: AddressFormProps 
         trackEvent('', {
           moduleId: 'kanshan_address_button_2025',
           type: 'Button',
-          page: { page_id: '60851', page_level: 2 }
+          page: { page_id: '60851' }
         });
 
         // 根据API文档，stock_occupy_id 是兑换时接口返回的字段，必须传递

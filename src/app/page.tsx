@@ -57,16 +57,22 @@ function HomeContent() {
   useEffect(() => {
     // 埋点2
     if (isReady) {
-      trackPageShow({ page: { page_id: '60850', page_level: 1 } });
+      trackPageShow({ page: { page_id: '60850' } });
     }
     return () => {
       // 埋点3
-      trackPageDisappear({ page: { page_id: '60850', page_level: 1 } });
+      trackPageDisappear({ page: { page_id: '60850' } });
     };
   }, [isReady, trackPageShow, trackPageDisappear]);
 
   // Show navigation bar when entering page in Zhihu App
   useEffect(() => {
+    // Skip if in_app_home_tab is in searchParams
+    const inAppHomeTab = searchParams.get('in_app_home_tab');
+    if (inAppHomeTab) {
+      return;
+    }
+
     if (isZhihuApp && typeof window !== 'undefined' && window.zhihuHybrid && typeof window.zhihuHybrid === 'function') {
       try {
         // Type assertion for zhihuHybrid new API pattern
@@ -82,7 +88,7 @@ function HomeContent() {
         console.warn('Failed to show navigation bar via zhihuHybrid:', error);
       }
     }
-  }, [isZhihuApp]);
+  }, [isZhihuApp, searchParams]);
 
   // Handle directTo search parameter for scrolling
   useEffect(() => {

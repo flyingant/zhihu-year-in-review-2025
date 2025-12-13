@@ -20,7 +20,7 @@ const ZheXieZhenDeKeYiSection = () => {
   useEffect(() => {
     if (moduleInView) {
       // 埋点13
-      trackShow({ moduleId: 'vote_ranking_2025', type: 'Block', page: { page_id: '60850', page_level: 1 } });
+      trackShow({ moduleId: 'vote_ranking_2025', type: 'Block', page: { page_id: '60850' } });
     }
   }, [moduleInView, trackShow]);
 
@@ -42,7 +42,7 @@ const ZheXieZhenDeKeYiSection = () => {
       trackEvent('OpenUrl', {
         moduleId: 'vote_selection_2025',
         type: 'Button',
-        page: { page_id: '60850', page_level: 1 }
+        page: { page_id: '60850' }
       });
 
       // Use zhihuHybrid if in zhihu app, otherwise use window.location.href

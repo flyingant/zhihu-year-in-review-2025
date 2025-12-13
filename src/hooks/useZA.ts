@@ -15,7 +15,6 @@ declare global {
 type ZAElementLocation = {
   page?: {
     page_id: string;
-    page_level: number;
   };
   moduleId?: string;
   moduleIndex?: number;

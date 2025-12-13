@@ -24,7 +24,7 @@ const TaskSection = () => {
   useEffect(() => {
     if (moduleInView) {
       // 埋点20
-      trackShow({ moduleId: 'liukanshan_points_store_2025', type: 'Block', page: { page_id: '60850', page_level: 1 } });
+      trackShow({ moduleId: 'liukanshan_points_store_2025', type: 'Block', page: { page_id: '60850' } });
     }
   }, [moduleInView, trackShow]);
 
@@ -96,7 +96,7 @@ const TaskSection = () => {
     trackEvent('', {
       moduleId: 'task_module_2025',
       type: 'Button',
-      page: { page_id: '60850', page_level: 1 }
+      page: { page_id: '60850' }
     }, {
       config_map: {
         task_id: String(task.id)

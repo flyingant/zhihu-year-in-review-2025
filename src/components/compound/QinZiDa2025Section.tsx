@@ -26,7 +26,7 @@ const QinZiDaItem = ({ item, index }: ItemProps) => {
   useEffect(() => {
     if (inView) {
       //埋点15
-      trackShow({ moduleId: 'personal_answer_block_2025', type: 'Button', page: { page_id: '60850', page_level: 1 } });
+      trackShow({ moduleId: 'personal_answer_block_2025', type: 'Button', page: { page_id: '60850' } });
     }
   }, [inView, trackShow, index]);
 
@@ -38,7 +38,6 @@ const QinZiDaItem = ({ item, index }: ItemProps) => {
       moduleIndex: index,
       page: {
         page_id: '60850',
-        page_level: 1,
       }
     });
 

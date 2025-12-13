@@ -157,12 +157,26 @@ export default function P20Scene({ onNext, sceneName }: PageProps) {
             希望新的一年，你能遇见更多同频的人
           </div>
         </div>
+        {/* Most Favorite Spots */}
+        <div className="z-30 absolute top-[300px] left-[34px] right-[34px]">
+          <span>
+            「{String(clubActiveListName1 ?? "club_active_list_name_top1")}」
+          </span>
+          <span>
+            「{String(clubActiveListName2 ?? "club_active_list_name_top2")}」
+          </span>
+          <span>
+            「{String(clubActiveListName3 ?? "club_active_list_name_top3")}」
+          </span>
+          是你今年最爱的「精神据点」
+        </div>
+
         {/* Most Interacted Club Members */}
         <div
           className="absolute"
           style={{ top: "578px", left: "34px", right: "34px" }}
         >
-          <div className="leading-[34px]">
+          <div className="flex flex-col leading-[34px]">
             与你互动最多的圈友是：
             <span
               className={`${colorClass("yellow")} ${typographyClass(
@@ -175,7 +189,6 @@ export default function P20Scene({ onNext, sceneName }: PageProps) {
                   "most_interaction_club_member_name_top1"
               )}
             </span>
-            、
             <span
               className={`${colorClass("yellow")} ${typographyClass(
                 "subtitle"
@@ -187,7 +200,6 @@ export default function P20Scene({ onNext, sceneName }: PageProps) {
                   "most_interaction_club_member_name_top2"
               )}
             </span>
-            、
             <span
               className={`${colorClass("yellow")} ${typographyClass(
                 "subtitle"
@@ -206,6 +218,52 @@ export default function P20Scene({ onNext, sceneName }: PageProps) {
             {/* <ActionsButton type="join" onClick={() => {}} /> */}
             {/* <ActionsButton type="joined" onClick={() => {}} /> */}
             送他们一个大拇指？
+          </div>
+        </div>
+
+        {/* Recommended Clubs */}
+        <div
+          className="absolute z-30"
+          style={{ top: "378px", left: "34px", right: "34px" }}
+        >
+          <div className="flex flex-col leading-[34px]">
+            <span
+              className={`${colorClass("yellow")} ${typographyClass(
+                "subtitle"
+              )} px-[2px]`}
+            >
+              {String(
+                mostInteractionMemberName1 ??
+                  "most_interaction_club_member_name_top1"
+              )}
+              <ActionsButton type="message" onClick={() => {}} />
+            </span>
+            <span
+              className={`${colorClass("yellow")} ${typographyClass(
+                "subtitle"
+              )} px-[2px]`}
+            >
+              {String(
+                mostInteractionMemberName2 ??
+                  "most_interaction_club_member_name_top2"
+              )}
+              <ActionsButton type="join" onClick={() => {}} />
+            </span>
+            <span
+              className={`${colorClass("yellow")} ${typographyClass(
+                "subtitle"
+              )} px-[2px]`}
+            >
+              {String(
+                mostInteractionMemberName3 ??
+                  "most_interaction_club_member_name_top3"
+              )}
+              <ActionsButton type="joined" onClick={() => {}} />
+            </span>
+          </div>
+          <div className="flex items-center gap-1">
+            或许会是你的下一站 <br />
+            点击加入一起开启新年新旅程吧
           </div>
         </div>
       </div>

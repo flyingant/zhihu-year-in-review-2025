@@ -53,11 +53,11 @@ function HomeContent() {
   useEffect(() => {
     // 埋点2
     if (isReady) {
-      trackPageShow({ page: { page_id: '60850', page_level: 1 } });
+      trackPageShow({ page: { page_id: '60850' } });
     }
     return () => {
       // 埋点3
-      trackPageDisappear({ page: { page_id: '60850', page_level: 1 } });
+      trackPageDisappear({ page: { page_id: '60850' } });
     };
   }, [isReady, trackPageShow, trackPageDisappear]);
 

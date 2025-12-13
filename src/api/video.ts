@@ -1,6 +1,5 @@
 // src/api/video.ts
 import { videoRequest } from '../lib/request';
-import videoExample from './videoExample.json';
 
 // Video detail response interface
 // Based on actual Zhihu video API response structure
@@ -130,13 +129,6 @@ export function extractVideoQualityUrls(details: VideoDetailResponse): {
  * @returns Promise with video details
  */
 export const getVideoDetails = async (videoId: string): Promise<VideoDetailResponse> => {
-  const isDevelopment = process.env.NODE_ENV === 'development';
-  
-  if (isDevelopment) {
-    // Return example response in development
-    return Promise.resolve(videoExample as VideoDetailResponse);
-  }
-  
   // Make actual API call in production
   return videoRequest<VideoDetailResponse>({
     url: `/${videoId}`,

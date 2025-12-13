@@ -59,14 +59,46 @@ export default function P14Scene({ onNext, sceneName }: PageProps) {
     <BaseScene onNext={onNext} sceneName={sceneName}>
       <div ref={containerRef} className="relative w-full h-full overflow-hidden" style={{ perspective: '1000px' }}>
         <GlitchLayer className="z-[40]">
-          <Image src={mix3Asset.url} alt="{mix3Asset.alt}" width={mix3Asset.width} height={mix3Asset.height} 
-            className="object-contain absolute top-[80px] right-[-40px]" />
-          <Image src={blue10Asset.url} alt="" width={blue10Asset.width} height={blue10Asset.height} 
-            className="object-contain absolute top-[137px] left-[14px] scale-[0.8] rotate-180" />
-          <Image src={mix14Asset.url} alt="" width={mix14Asset.width} height={mix14Asset.height} 
-            className="object-contain absolute bottom-[105px] left-[0px]" />
-          <Image src={blue10Asset.url} alt="" width={blue10Asset.width} height={blue10Asset.height} 
-            className="object-contain absolute bottom-[47px] right-[12px] rotate-180" />
+          <Image 
+            src={mix3Asset.url} 
+            alt={mix3Asset.alt} 
+            width={mix3Asset.width} 
+            height={mix3Asset.height} 
+            className="object-contain absolute pointer-events-none select-none z-1"
+            style={{ top: '80px', right: '-40px' }}
+          />
+          <Image 
+            src={blue10Asset.url} 
+            alt="" 
+            width={blue10Asset.width} 
+            height={blue10Asset.height} 
+            className="object-contain absolute pointer-events-none select-none z-1"
+            style={{ 
+              top: '137px', 
+              left: '14px', 
+              transform: 'scale(0.8) rotate(180deg)'
+            }}
+          />
+          <Image 
+            src={mix14Asset.url} 
+            alt="" 
+            width={mix14Asset.width} 
+            height={mix14Asset.height} 
+            className="object-contain absolute pointer-events-none select-none z-1"
+            style={{ bottom: '105px', left: '0px' }}
+          />
+          <Image 
+            src={blue10Asset.url} 
+            alt="" 
+            width={blue10Asset.width} 
+            height={blue10Asset.height} 
+            className="object-contain absolute pointer-events-none select-none z-1"
+            style={{ 
+              bottom: '47px', 
+              right: '12px', 
+              transform: 'rotate(180deg)' 
+            }}
+          />
         </GlitchLayer> 
         <p className="absolute z-30 text-center text-xl w-full" style={{ top: '106px' }}>
           当你赞同时，<br/>你在回应什么？

@@ -2,7 +2,9 @@
 import { motion, AnimatePresence } from "framer-motion";
 import Image from "next/image";
 import { useState } from "react";
+import { colorClass } from "@/hooks/useSceneTheme";
 import BaseScene from "./BaseScene";
+import { useUserReportData } from "@/context/user-report-data-context";
 import { useAssets } from "@/context/assets-context";
 
 interface IndexSceneProps {
@@ -11,15 +13,46 @@ interface IndexSceneProps {
 }
 
 type ActiveView = "topLeft" | "topRight" | "bottomLeft" | "bottomRight" | null;
+interface MirrorContentProps {
+  userName?: string;
+  registerDate?: string;
+  registerDays?: number;
+}
+
+const MirrorContent = ({ 
+  userName = "刘看山", 
+  registerDate = "2020年09月09日", 
+  registerDays = 1245,
+}: MirrorContentProps) => (
+  <div className="flex flex-col justify-center text-left pointer-events-none select-none w-full h-full">
+    <div className="text-xl font-bold text-[#121212] mb-4">
+      @{userName}
+    </div>
+    <div className="text-sm text-gray-600 leading-relaxed mb-4 font-medium">
+      你说，时间是真实的吗？
+    </div>
+    <div className="text-sm text-[#121212] font-bold">
+      从 <span className={colorClass('pink')}>{registerDate}</span> 开始
+    </div>
+    <div className="text-sm text-[#121212] font-bold mt-1">
+      我们一起走过了 <span className={`${colorClass('fern')} text-lg`}>{registerDays}</span> 天真实的时间
+    </div>
+  </div>
+);
 
 export default function IndexScene({ onNext, sceneName }: IndexSceneProps) {
   const { assets } = useAssets();
+  const { reportData } = useUserReportData();
   const [activeView, setActiveView] = useState<ActiveView>(null);
   const [expandingView, setExpandingView] = useState<ActiveView>(null);
 
   if (!assets) return null;
 
   const indexAssets = assets.report.index;
+
+  const userName = (reportData?.user_name as string | undefined) || "刘看山";
+  const registerDate = (reportData?.register_date_str as string | undefined) || "2020年09月09日";
+  const registerDays = (reportData?.register_days as number | undefined) || 1245;
 
   const handleCornerClick = (view: ActiveView) => {
     // Start expansion animation
@@ -90,11 +123,55 @@ export default function IndexScene({ onNext, sceneName }: IndexSceneProps) {
     }
   };
 
+  const getMirrorStyle = (view: ActiveView) => {
+    switch (view) {
+      case "topLeft":
+        return {
+          container: { 
+            top: "-20%", left: "8%", right: "10%", bottom: "25%" 
+          },
+          style: { transform: "rotate(10deg) skewX(10deg) skewY(10deg)" },
+          zhiLinkPos: { bottom: "13%", right: "40px" }
+        };
+      case "topRight":
+        return {
+          container: { 
+            top: "-30%", left: "35%", right: "-20%", bottom: "25%" 
+          },
+          style: { transform: "rotate(10deg) skewX(0deg) skewY(-20deg)" },
+          zhiLinkPos: { bottom: "13%", left: "40px" }
+        };
+      case "bottomLeft":
+        return {
+          container: { 
+            top: "-20%", left: "10%", right: "10%", bottom: "20%" 
+          },
+          style: { transform: "rotate(0deg) skewX(0deg) skewY(8deg)" },
+          zhiLinkPos: { bottom: "13%", right: "40px" }
+        };
+      case "bottomRight":
+        return {
+          container: { 
+            top: "-30%", left: "10%", right: "10%", bottom: "20%" 
+          },
+          style: { transform: "rotate(0deg) skewX(30deg) skewY(-10deg)" },
+          zhiLinkPos: { bottom: "14%", right: "10px" }
+        };
+      default:
+        return { container: {}, style: {} };
+    }
+  };
   const expandingAsset = getCornerAsset(expandingView);
 
   return (
     <BaseScene onNext={onNext} sceneName={sceneName}>
       <div className="relative w-full h-full overflow-hidden">
+        <div 
+          className="absolute text-[24px] text-[#121212] tracking-[0.2em] [writing-mode:vertical-lr]"
+          style={{ top: "85px", left: "50%", transform: "translateX(-50%)" }}
+        >
+          选择一个方向
+        </div>
         {/* Initial view - stays visible during expansion to avoid blink */}
         {!activeView && (
           <motion.div
@@ -246,6 +323,26 @@ export default function IndexScene({ onNext, sceneName }: IndexSceneProps) {
                   priority
                 />
               )}
+              <div 
+                className="absolute flex items-center justify-center"
+                style={getMirrorStyle(activeView).container}
+              >
+                <div style={getMirrorStyle(activeView).style} className="w-full h-full">
+                  <MirrorContent 
+                    userName={userName}
+                    registerDate={registerDate}
+                    registerDays={registerDays}
+                  />
+                </div>
+              </div>
+              <div 
+                className="absolute mt-8 flex items-center text-sm font-bold text-[#121212] cursor-pointer w-fit"
+                style={{ ...getMirrorStyle(activeView).style, ...getMirrorStyle(activeView).zhiLinkPos } } 
+              >
+                <span className="mr-2">&gt;</span>
+                <span className="underline underline-offset-4">查看自己的 ZhiLink</span>
+                <span className="ml-2">&lt;</span>
+              </div>
             </motion.div>
           )}
         </AnimatePresence>

@@ -100,7 +100,7 @@ export default function P2Scene({ onNext, sceneName }: PageProps) {
           width={liukanshanAsset.width} 
           height={liukanshanAsset.height} 
           className="object-contain absolute pointer-events-none select-none z-1" 
-          style={{ bottom: '40px', right: '55px' }}
+          style={{ bottom: '31px', right: '55px' }}
         />
       </div>
 

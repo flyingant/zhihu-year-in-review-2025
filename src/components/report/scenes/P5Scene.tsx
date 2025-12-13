@@ -101,8 +101,8 @@ export default function P5Scene({ onNext, sceneName }: PageProps) {
           alt={hiAsset.alt} 
           width={hiAsset.width} 
           height={hiAsset.height} 
-          className="object-contain absolute pointer-events-none select-none z-1"
-          style={{ bottom: '203px', left: '126px' }}
+          className="opacity-0 animate-pop-bubble object-contain absolute pointer-events-none select-none z-1"
+          style={{ bottom: '203px', left: '126px', animationDelay: '1.5s', transformOrigin: 'bottom left' }}
         />
         <Image 
           src={liukanshanAsset.url} 

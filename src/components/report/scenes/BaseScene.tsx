@@ -196,7 +196,6 @@ export default function BaseScene({
       className="relative z-30 w-full h-full bg-transparent flex items-center justify-center"
       style={{
         ...styles,
-        overflow: "hidden",
       }}
     >
       <div

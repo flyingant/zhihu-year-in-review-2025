@@ -113,16 +113,16 @@ export default function P4Scene({ onNext, sceneName }: PageProps) {
         />
       </div>
       
-      <div className="text-[14px]" style={{ paddingLeft: '34px', paddingRight: '34px', paddingTop: '120px' }}>
-        <div className={typographyClass('title')}>
+      <div style={{ paddingLeft: '34px', paddingRight: '34px', paddingTop: '120px', fontSize: '14px' }}>
+        <div style={{ fontSize: '22px' }}>
           这一年，你依旧好奇
         </div>
         <div className="" style={{ paddingTop: '46px', paddingBottom: '8px' }} hidden={questionTitle === '' || +upvoteCount < 100}>
           <div  style={{ paddingBottom: '2px' }}>
              你在
             <span 
-              className={`text-r-pink leading-[32px] ${typographyClass('subtitle')}`}
-              style={{ paddingLeft: '6px', paddingRight: '6px' }}
+              className={`text-r-pink leading-[32px]`}
+              style={{ paddingLeft: '6px', paddingRight: '6px', fontSize: '18px' }}
             >
               「{questionTitle}」
             </span>
@@ -131,8 +131,8 @@ export default function P4Scene({ onNext, sceneName }: PageProps) {
           <div hidden={upvoteCount === 0}>
             被
             <span 
-              className={`text-r-fern ${typographyClass('subtitle')}`}
-              style={{ paddingLeft: '6px', paddingRight: '6px' }}
+              className={`text-r-fern`}
+              style={{ paddingLeft: '6px', paddingRight: '6px', fontSize: '18px' }}
             >
               {upvoteCount}
             </span> 
@@ -143,8 +143,8 @@ export default function P4Scene({ onNext, sceneName }: PageProps) {
         <div style={{ paddingTop: '20px', paddingBottom: '20px' }} hidden={thousandUpvoteAnswers === 0}>
           这一年, 你还迎来了 
           <span 
-            className={`text-r-purple ${typographyClass('highlight')}`}
-            style={{ paddingLeft: '6px', paddingRight: '6px' }}
+            className={`text-r-purple`}
+            style={{ paddingLeft: '6px', paddingRight: '6px', fontSize: '24px' }}
           >
             {thousandUpvoteAnswers}
           </span> 

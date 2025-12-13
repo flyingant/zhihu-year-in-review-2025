@@ -113,8 +113,8 @@ export default function P3Scene({ onNext, sceneName }: PageProps) {
         />
       </div>
 
-      <div className="text-[14px]" style={{ paddingLeft: '34px', paddingRight: '34px', paddingTop: '120px' }}>
-        <div className={typographyClass('title')}>
+      <div style={{ paddingLeft: '34px', paddingRight: '34px', paddingTop: '120px', fontSize: '14px' }}>
+        <div style={{ fontSize: '22px' }}>
           这一年，你依旧好奇
         </div>
 
@@ -122,16 +122,16 @@ export default function P3Scene({ onNext, sceneName }: PageProps) {
           你写下了 
           <span 
             hidden={!answerCount}
-            className={`text-r-fern text-[19px]`}
-            style={{ paddingLeft: '2px', paddingRight: '2px' }}
+            className={`text-r-fern`}
+            style={{ paddingLeft: '2px', paddingRight: '2px', fontSize: '18px' }}
           >
             { answerCount }  
           </span>
           <span hidden={!answerCount}>个回答 <span hidden={!articleCount}>、</span></span>
           <span 
             hidden={!articleCount}
-            className={`text-r-pink text-[19px]`}
-            style={{ paddingLeft: '2px', paddingRight: '2px' }}
+            className={`text-r-pink`}
+            style={{ paddingLeft: '2px', paddingRight: '2px', fontSize: '18px' }}
           >
             { articleCount }
           </span> 
@@ -146,24 +146,24 @@ export default function P3Scene({ onNext, sceneName }: PageProps) {
         <div style={{ paddingBottom: '46px' }} hidden={!topDomain1 && !topDomain2 && !topDomain3}>
           <span 
             hidden={!topDomain1}
-            className={`text-r-blue text-[19px]`}
-            style={{ paddingRight: '5px' }}
+            className={`text-r-blue`}
+            style={{ paddingRight: '5px' , fontSize: '18px' }}
           >
             { topDomain1 }
           </span>
           <span hidden={!topDomain1 || !topDomain2}>、</span>
           <span 
             hidden={!topDomain2}
-            className={`text-r-blue text-[19px]`}
-            style={{ paddingLeft: '5px', paddingRight: '5px' }}
+            className={`text-r-blue`}
+            style={{ paddingLeft: '5px', paddingRight: '5px', fontSize: '18px' }}
           >
             { topDomain2 }
           </span>
           <span hidden={!topDomain2 || !topDomain3}>、</span>
           <span 
             hidden={!topDomain3}
-            className={`text-r-blue text-[19px]`}
-            style={{ paddingLeft: '5px', paddingRight: '5px' }}
+            className={`text-r-blue`}
+            style={{ paddingLeft: '5px', paddingRight: '5px', fontSize: '18px' }}
           >
             { topDomain3 }
           </span>
@@ -174,8 +174,8 @@ export default function P3Scene({ onNext, sceneName }: PageProps) {
         <div style={{ marginBottom: '4px' }} hidden={!firstAnswerDate && !firstAnswerTitle}>
           还记得吗？ 
           <span 
-            className={`text-r-green text-[19px]`}
-            style={{ paddingLeft: '5px' }}
+            className={`text-r-green`}
+            style={{ paddingLeft: '5px', fontSize: '18px' }}
           >
             { firstAnswerDate }
           </span>
@@ -183,8 +183,8 @@ export default function P3Scene({ onNext, sceneName }: PageProps) {
         <div className="leading-[36px]">
           你在，
           <span 
-            className={`text-r-fern text-[19px]`}
-            style={{ marginLeft: '4px', marginRight: '4px' }}
+            className={`text-r-fern`}
+            style={{ marginLeft: '4px', marginRight: '4px', fontSize: '18px' }}
           >
             「{ firstAnswerTitle }」
           </span>

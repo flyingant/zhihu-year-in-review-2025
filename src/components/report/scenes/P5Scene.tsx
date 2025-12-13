@@ -114,8 +114,8 @@ export default function P5Scene({ onNext, sceneName }: PageProps) {
         />
       </div>
 
-      <div className="text-[14px]" style={{ paddingLeft: '34px', paddingRight: '34px', paddingTop: '120px' }}>
-        <div className={typographyClass('title')} style={{ marginBottom: '46px' }}>
+      <div style={{ paddingLeft: '34px', paddingRight: '34px', paddingTop: '120px', fontSize: '14px' }}>
+        <div style={{ fontSize: '22px', marginBottom: '46px' }}>
           这一年，你真心分享
         </div>
 
@@ -123,8 +123,8 @@ export default function P5Scene({ onNext, sceneName }: PageProps) {
         <div style={{ marginBottom: '40px' }} hidden={!commentCount}>
           你留下了 
           <span 
-            className={`text-r-pink text-[19px]`}
-            style={{ paddingLeft: '6px', paddingRight: '6px' }}
+            className={`text-r-pink`}
+            style={{ paddingLeft: '6px', paddingRight: '6px', fontSize: '18px' }}
           >
             {commentCount}
           </span> 
@@ -135,8 +135,8 @@ export default function P5Scene({ onNext, sceneName }: PageProps) {
             <div>
               最热一条
               <span 
-                className={`text-r-yellow text-[19px]`}
-                style={{ paddingLeft: '2px', paddingRight: '2px' }}
+                className={`text-r-yellow`}
+                style={{ paddingLeft: '2px', paddingRight: '2px', fontSize: '18px' }}
               >
                 「{hotCommentContent}」
               </span>
@@ -145,8 +145,8 @@ export default function P5Scene({ onNext, sceneName }: PageProps) {
             <div>
               收获了 
               <span 
-                className={`text-r-purple ${typographyClass('highlight')}`}
-                style={{ paddingLeft: '6px', paddingRight: '6px' }}
+                className={`text-r-purple`}
+                style={{ paddingLeft: '6px', paddingRight: '6px', fontSize: '24px' }}
               >
                 {hotCommentLikes}
               </span> 
@@ -160,8 +160,8 @@ export default function P5Scene({ onNext, sceneName }: PageProps) {
         <div style={{ marginBottom: '20px' }} hidden={!pinCount}>
           你发布了
           <span 
-            className={`text-r-pink text-[19px]`}
-            style={{ paddingLeft: '6px', paddingRight: '6px' }}
+            className={`text-r-pink`}
+            style={{ paddingLeft: '6px', paddingRight: '6px', fontSize: '18px' }}
           >
             {pinCount}
           </span> 
@@ -169,8 +169,8 @@ export default function P5Scene({ onNext, sceneName }: PageProps) {
           <div className="leading-[32px]" style={{ marginTop: '10px' }} hidden={!hotPinTitle || hotPinLikes < 10 || !hotPinLikes}>
             其中
             <span 
-              className={`text-r-green text-[19px]`}
-              style={{ paddingLeft: '2px', paddingRight: '2px' }}
+              className={`text-r-green`}
+              style={{ paddingLeft: '2px', paddingRight: '2px', fontSize: '18px' }}
             >
               「{hotPinTitle}」
             </span>

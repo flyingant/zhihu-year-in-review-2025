@@ -104,8 +104,8 @@ export default function P2Scene({ onNext, sceneName }: PageProps) {
         />
       </div>
 
-      <div className="text-[14px]" style={{ paddingLeft: '34px', paddingRight: '34px', paddingTop: '120px' }}>
-        <div className={typographyClass('title')}>
+      <div style={{ paddingLeft: '34px', paddingRight: '34px', paddingTop: '120px', fontSize: '14px' }}>
+        <div style={{ fontSize: '22px' }}>
           这一年，你依旧好奇
         </div>
         
@@ -122,8 +122,8 @@ export default function P2Scene({ onNext, sceneName }: PageProps) {
 
         <div hidden={!answerCount}>
           <span 
-            className={`${typographyClass('highlight')} text-r-fern`}
-            style={{ paddingRight: '5px' }}
+            className={`text-r-fern`}
+            style={{ paddingRight: '5px', fontSize: '18px' }}
           >
             { answerCount }
           </span>
@@ -134,8 +134,8 @@ export default function P2Scene({ onNext, sceneName }: PageProps) {
           <p style={{ paddingBottom: '12px' }}>
             你的好奇伸向 
             <span 
-              className={`text-r-blue font-bold text-[19px]`}
-              style={{ paddingLeft: '5px', paddingRight: '5px' }}
+              className={`text-r-blue font-bold`}
+              style={{ paddingLeft: '5px', paddingRight: '5px', fontSize: '18px' }}
             >
               { domainCount }
             </span> 
@@ -144,8 +144,8 @@ export default function P2Scene({ onNext, sceneName }: PageProps) {
           <p className="flex items-center">
             其中，
             <span 
-              className={`text-r-green text-[19px]`}
-              style={{ paddingRight: '5px' }}
+              className={`text-r-green`}
+              style={{ paddingRight: '5px', fontSize: '18px' }}
             >
               { topDomain }
             </span> 

@@ -64,8 +64,8 @@ export default function P7Scene({ onNext, sceneName }: PageProps) {
         />
       </GlitchLayer>
 
-      <div className="text-[14px]" style={{ paddingLeft: '34px', paddingRight: '34px', paddingTop: '120px' }}>
-        <div className={typographyClass('title')} style={{ marginBottom: '40px' }}>
+      <div style={{ paddingLeft: '34px', paddingRight: '34px', paddingTop: '120px', fontSize: '14px' }}>
+        <div style={{ marginBottom: '40px', fontSize: '22px' }}>
           这一年，你真心分享
         </div>
 
@@ -86,7 +86,7 @@ export default function P7Scene({ onNext, sceneName }: PageProps) {
             <div hidden={!readCount}>
               <span 
                 className="text-r-pink" 
-                style={{ fontSize: '20px', paddingLeft: '4px', paddingRight: '4px' }}
+                style={{ fontSize: '18px', paddingLeft: '4px', paddingRight: '4px' }}
               >
                 {readCount }
               </span> 
@@ -95,7 +95,7 @@ export default function P7Scene({ onNext, sceneName }: PageProps) {
             <div hidden={!upvoteCount}>
               <span 
                 className="text-r-fern" 
-                style={{ fontSize: '20px', paddingRight: '4px' }}
+                style={{ fontSize: '18px', paddingRight: '4px' }}
               >
                 {upvoteCount }
               </span> 
@@ -104,7 +104,7 @@ export default function P7Scene({ onNext, sceneName }: PageProps) {
             <div hidden={!collectCount}>
               <span 
                 className="text-r-blue" 
-                style={{ fontSize: '20px', paddingRight: '4px' }}
+                style={{ fontSize: '18px', paddingRight: '4px' }}
               >
                 {collectCount }
               </span> 
@@ -113,7 +113,7 @@ export default function P7Scene({ onNext, sceneName }: PageProps) {
             <div hidden={!commentCount}>
               <span 
                 className="text-r-purple" 
-                style={{ fontSize: '20px', paddingRight: '4px' }}
+                style={{ fontSize: '18px', paddingRight: '4px' }}
               >
                 {commentCount }
               </span> 
@@ -122,7 +122,7 @@ export default function P7Scene({ onNext, sceneName }: PageProps) {
             <div hidden={!shareCount}>
               <span 
                 className="text-r-yellow" 
-                style={{ fontSize: '20px', paddingRight: '4px' }}
+                style={{ fontSize: '18px', paddingRight: '4px' }}
               >
                 {shareCount }
               </span> 
@@ -168,7 +168,7 @@ export default function P7Scene({ onNext, sceneName }: PageProps) {
             你走进了 
             <span 
               className="text-r-blue"
-              style={{ fontSize: '20px', paddingLeft: '6px', paddingRight: '6px' }}
+              style={{ fontSize: '18px', paddingLeft: '6px', paddingRight: '6px' }}
             >
               {roundTableCount}
             </span> 
@@ -178,7 +178,7 @@ export default function P7Scene({ onNext, sceneName }: PageProps) {
             有 
             <span 
               className="text-r-yellow" 
-              style={{ fontSize: '20px', paddingLeft: '6px', paddingRight: '6px' }}
+              style={{ fontSize: '18px', paddingLeft: '6px', paddingRight: '6px' }}
             >
               {editorPickCount}
             </span> 

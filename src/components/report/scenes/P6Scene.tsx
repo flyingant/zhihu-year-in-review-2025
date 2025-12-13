@@ -92,8 +92,8 @@ export default function P6Scene({ onNext, sceneName }: PageProps) {
         />
       </GlitchLayer>
 
-      <div className="text-[14px]" style={{ paddingTop: '120px' }}>
-        <div className={typographyClass('title')} style={{ marginBottom: '40px', paddingLeft: '34px' }}>
+      <div style={{ paddingTop: '120px', fontSize: '14px' }}>
+        <div style={{ fontSize: '22px', marginBottom: '40px', paddingLeft: '34px' }}>
           这一年，你真心分享
         </div>
 
@@ -102,8 +102,8 @@ export default function P6Scene({ onNext, sceneName }: PageProps) {
           style={{ marginBottom: '10px', lineHeight: '32px', paddingLeft: '34px', paddingRight: '34px', }}>
           你在知乎写下了 
           <span 
-            className={`text-r-pink ${typographyClass('highlight')}`}
-            style={{ paddingLeft: '6px', paddingRight: '6px' }}
+            className={`text-r-pink`}
+            style={{ paddingLeft: '6px', paddingRight: '6px', fontSize: '24px' }}
           >
             {totalWords}
           </span> 
@@ -114,15 +114,15 @@ export default function P6Scene({ onNext, sceneName }: PageProps) {
         <div style={{ marginBottom: '30px', paddingLeft: '34px', paddingRight: '34px', }}>
           足以拼成 
           <span 
-            className={`text-r-fern ${typographyClass('highlight')}`}
-            style={{ paddingLeft: '4px', paddingRight: '4px' }}
+            className={`text-r-fern`}
+            style={{ paddingLeft: '4px', paddingRight: '4px', fontSize: '24px' }}
           >
             {creationDays}
           </span> 
           本
           <span 
-            className={`text-r-fern ${typographyClass('highlight')}`}
-            style={{ paddingLeft: '4px', paddingRight: '4px' }}
+            className={`text-r-fern`}
+            style={{ paddingLeft: '4px', paddingRight: '4px', fontSize: '24px' }}
           >
             {creationDays}
           </span> 
@@ -140,8 +140,8 @@ export default function P6Scene({ onNext, sceneName }: PageProps) {
             <div >
               在 
               <span 
-                className={`text-r-blue text-[44px]`}
-                style={{ paddingLeft: '4px', paddingRight: '4px' }}
+                className={`text-r-blue`}
+                style={{ paddingLeft: '4px', paddingRight: '4px', fontSize: '44px' }}
               >
                 {creationDays}
               </span> 
@@ -158,8 +158,8 @@ export default function P6Scene({ onNext, sceneName }: PageProps) {
           style={{ paddingBottom: '8px', paddingTop: '70px', paddingLeft: '34px', paddingRight: '34px', }}>
           <div style={{ marginBottom: '6px' }}>
             <span 
-              className={`text-r-blue text-[19px]`}
-              style={{ paddingRight: '4px' }}
+              className={`text-r-blue`}
+              style={{ paddingRight: '4px', fontSize: '18px' }}
             >
               {mostProductiveMonth}
             </span> 
@@ -171,15 +171,15 @@ export default function P6Scene({ onNext, sceneName }: PageProps) {
         <div style={{ paddingLeft: '34px', paddingRight: '34px', }} hidden={!dayWordCount || dayWordCount < 30}>
           <div style={{ marginBottom: '6px' }}>
             <span 
-              className={`text-r-yellow text-[19px]`}
-              style={{ paddingRight: '5px' }}
+              className={`text-r-yellow`}
+              style={{ paddingRight: '5px', fontSize: '18px' }}
             >
               {mostProductiveDate}
             </span> 
             ，你写下了今年最多的 
             <span 
-              className={`text-r-fern text-[19px]`}
-              style={{ paddingLeft: '6px', paddingRight: '6px' }}
+              className={`text-r-fern`}
+              style={{ paddingLeft: '6px', paddingRight: '6px', fontSize: '18px' }}
             >
               {dayWordCount}
             </span> 

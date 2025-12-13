@@ -65,8 +65,7 @@ export default function P8Scene({ onNext, sceneName }: PageProps) {
 
       <div style={{ paddingLeft: '34px', paddingRight: '34px', paddingTop: '120px' }}>
         <div 
-          className={typographyClass('highlight')} 
-          style={{ lineHeight: '1.4', marginBottom: '68px' }}
+          style={{ lineHeight: '1.4', marginBottom: '68px', fontSize: '22px' }}
         >
           这一年，你荣登榜首
         </div>
@@ -75,7 +74,7 @@ export default function P8Scene({ onNext, sceneName }: PageProps) {
           你登上了 
           <span 
             className="text-r-pink"
-            style={{ fontSize: '20px', paddingRight: '6px', paddingLeft: '6px'}}
+            style={{ fontSize: '18px', paddingRight: '6px', paddingLeft: '6px'}}
           >
             {zhiTrendRankCount}
           </span> 
@@ -86,7 +85,7 @@ export default function P8Scene({ onNext, sceneName }: PageProps) {
           上榜知乎答主商业影响力榜 
           <span 
             className="text-r-purple"
-            style={{ fontSize: '20px', paddingRight: '6px', paddingLeft: '6px' }}
+            style={{ fontSize: '18px', paddingRight: '6px', paddingLeft: '6px' }}
           >
             {influenceRankCount}
           </span> 
@@ -96,8 +95,8 @@ export default function P8Scene({ onNext, sceneName }: PageProps) {
         <div style={{ lineHeight: '40px' }} hidden={!bestAnswerTopic.length}>
           在
           <span 
-            className={`text-r-blue text-[16px]`}
-            style={{ marginLeft: '4px', marginRight: '4px' }}
+            className={`text-r-blue`}
+            style={{ marginLeft: '4px', marginRight: '4px', fontSize: '18px' }}
           >
             「{bestAnswerTopic[0]}」
           </span>
@@ -145,7 +144,7 @@ export default function P8Scene({ onNext, sceneName }: PageProps) {
                 用航海家赞同发现和助力了 
                 <span 
                   className="text-r-green"
-                  style={{ fontSize: '20px', paddingLeft: '4px', paddingRight: '4px' }}
+                  style={{ fontSize: '18px', paddingLeft: '4px', paddingRight: '4px' }}
                 >
                   {navigatorContentCount}
                 </span> 

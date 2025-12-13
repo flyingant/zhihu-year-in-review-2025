@@ -45,7 +45,8 @@ export default function P16Scene({ onNext, sceneName }: PageProps) {
             alt={mix16_1.alt}
             width={mix16_1.width}
             height={mix16_1.height}
-            className="object-contain absolute top-[16px] right-0 pointer-events-none select-none z-1"
+            className="object-contain absolute pointer-events-none select-none z-1"
+            style={{ top: "16px", right: "0" }}
           />
 
           <Image
@@ -53,35 +54,40 @@ export default function P16Scene({ onNext, sceneName }: PageProps) {
             alt={blue16.alt}
             width={blue16.width}
             height={blue16.height}
-            className="object-contain absolute top-[298px] left-0 pointer-events-none select-none z-0"
+            className="object-contain absolute pointer-events-none select-none z-0"
+            style={{ top: "298px", left: "0" }}
           />
           <Image
             src={blue15.url}
             alt={blue15.alt}
             width={blue15.width}
             height={blue15.height}
-            className="object-contain rotate-90 absolute top-[112px] right-[78px] pointer-events-none select-none z-0"
+            className="object-contain rotate-90 absolute pointer-events-none select-none z-0"
+            style={{ top: "112px", right: "78px" }}
           />
           <Image
             src={blue15.url}
             alt={blue15.alt}
             width={blue15.width}
             height={blue15.height}
-            className="object-contain rotate-90 absolute top-[753px] left-[72px] pointer-events-none select-none z-0"
+            className="object-contain rotate-90 absolute pointer-events-none select-none z-0"
+            style={{ top: "753px", left: "72px" }}
           />
           <Image
             src={mix15_1.url}
             alt={mix15_1.alt}
             width={mix15_1.width}
             height={mix15_1.height}
-            className="object-contain absolute top-[79px] left-0 pointer-events-none select-none z-1"
+            className="object-contain absolute pointer-events-none select-none z-1"
+            style={{ top: "79px", left: "0" }}
           />
           <Image
             src={mix16_2.url}
             alt={mix16_2.alt}
             width={mix16_2.width}
             height={mix16_2.height}
-            className="object-contain absolute top-[689px] right-0 pointer-events-none select-none z-1"
+            className="object-contain absolute pointer-events-none select-none z-1"
+            style={{ top: "689px", right: "0" }}
           />
         </div>
       </GlitchLayer>
@@ -93,14 +99,14 @@ export default function P16Scene({ onNext, sceneName }: PageProps) {
           alt={thumbUp.alt}
           width={thumbUp.width}
           height={thumbUp.height}
-          className="w-full absolute top-[127px] left-0 pointer-events-none select-none z-0"
+          className="w-full absolute pointer-events-none select-none z-0"
+          style={{ top: "127px", left: "0" }}
         />
       </div>
       {/* content */}
       <div
-        className={
-          typographyClass("body") + "  absolute z-0 top-[381px] left-[35px]"
-        }
+        className={typographyClass("body") + " absolute z-0"}
+        style={{ top: "381px", left: "35px" }}
       >
         <div className="leading-relaxed">
           今年,你点亮了{" "}

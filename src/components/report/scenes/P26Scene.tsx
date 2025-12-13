@@ -42,42 +42,48 @@ export default function P26Scene({ onNext, sceneName }: PageProps) {
           alt="{mix22_5.alt}"
           width={mix22_5.width}
           height={mix22_5.height}
-          className="object-contain absolute top-[30px] left-[65px] pointer-events-none select-none z-1"
+          className="object-contain absolute pointer-events-none select-none z-1"
+          style={{ top: "30px", left: "65px" }}
         />
         <Image
           src={redPixel2.url}
           alt="{redPixel2.alt}"
           width={redPixel2.width}
           height={redPixel2.height}
-          className="object-contain absolute top-[101px] right-[14px] pointer-events-none select-none z-1"
+          className="object-contain absolute pointer-events-none select-none z-1"
+          style={{ top: "101px", right: "14px" }}
         />
         <Image
           src={pinkPixel.url}
           alt="{pinkPixel.alt}"
           width={pinkPixel.width}
           height={pinkPixel.height}
-          className="object-contain absolute top-[558px] left-[22px] pointer-events-none select-none z-1"
+          className="object-contain absolute pointer-events-none select-none z-1"
+          style={{ top: "558px", left: "22px" }}
         />
         <Image
           src={mix22_5.url}
           alt="{mix22_5.alt}"
           width={mix22_5.width}
           height={mix22_5.height}
-          className="object-contain absolute top-[605px] left-[25px] pointer-events-none select-none z-1"
+          className="object-contain absolute pointer-events-none select-none z-1"
+          style={{ top: "605px", left: "25px" }}
         />
         <Image
           src={redPixel1.url}
           alt="{redPixel1.alt}"
           width={redPixel1.width}
           height={redPixel1.height}
-          className="object-contain absolute top-[680px] left-0 pointer-events-none select-none z-1"
+          className="object-contain absolute pointer-events-none select-none z-1"
+          style={{ top: "680px", left: "0" }}
         />
         <Image
           src={mix22_4.url}
           alt="{mix22_4.alt}"
           width={mix22_4.width}
           height={mix22_4.height}
-          className="object-contain absolute top-[631px] right-0 pointer-events-none select-none z-1"
+          className="object-contain absolute pointer-events-none select-none z-1"
+          style={{ top: "631px", right: "0" }}
         />
       </GlitchLayer>
       {/* images */}
@@ -87,18 +93,23 @@ export default function P26Scene({ onNext, sceneName }: PageProps) {
           alt="{rainbow.alt}"
           width={rainbow.width}
           height={rainbow.height}
-          className="object-contain absolute top-0 left-0 right-0 pointer-events-none select-none -z-10"
+          className="object-contain absolute pointer-events-none select-none -z-10"
+          style={{ top: "0", left: "0", right: "0" }}
         />
         <Image
           src={liukanshan.url}
           alt="{liukanshan.alt}"
           width={liukanshan.width}
           height={liukanshan.height}
-          className="object-contain absolute top-[410px] left-[108px] right-0 pointer-events-none select-none -z-10"
+          className="object-contain absolute pointer-events-none select-none -z-10"
+          style={{ top: "410px", left: "108px", right: "0" }}
         />
       </div>
       {/* content */}
-      <div className="absolute z-0 top-[114px] left-[40px] right-[72px] leading-relaxed">
+      <div
+        className="absolute z-0 leading-relaxed"
+        style={{ top: "114px", left: "40px", right: "72px" }}
+      >
         <div className="pb-[30px]">
           <div className="mb-[8px]">
             今年,你创作

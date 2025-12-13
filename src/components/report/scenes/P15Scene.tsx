@@ -5,7 +5,6 @@ import { useUserReportData } from "@/context/user-report-data-context";
 import { colorClass, typographyClass } from "@/hooks/useSceneTheme";
 import { useAssets } from "@/context/assets-context";
 import BaseScene from "./BaseScene";
-import ZhihuLogo from "@/components/ui/ZhihuLogo";
 import GlitchLayer from "../effects/GlitchLayer";
 
 interface PageProps {
@@ -44,7 +43,8 @@ export default function P15Scene({ onNext, sceneName }: PageProps) {
             alt={blue15.alt}
             width={blue15.width}
             height={blue15.height}
-            className="object-contain absolute top-[74px] left-0 pointer-events-none select-none z-0"
+            className="object-contain absolute pointer-events-none select-none z-0"
+            style={{ top: "74px", left: "0" }}
           />
 
           <Image
@@ -52,14 +52,16 @@ export default function P15Scene({ onNext, sceneName }: PageProps) {
             alt={blue15.alt}
             width={blue15.width}
             height={blue15.height}
-            className="object-contain rotate-90 absolute top-[234px] right-[21px] pointer-events-none select-none z-0"
+            className="object-contain rotate-90 absolute pointer-events-none select-none z-0"
+            style={{ top: "234px", right: "21px" }}
           />
           <Image
             src={blue15.url}
             alt={blue15.alt}
             width={blue15.width}
             height={blue15.height}
-            className="object-contain rotate-90 absolute top-[682px] left-[10px] pointer-events-none select-none z-0"
+            className="object-contain rotate-90 absolute pointer-events-none select-none z-0"
+            style={{ top: "682px", left: "10px" }}
           />
 
           <Image
@@ -67,21 +69,24 @@ export default function P15Scene({ onNext, sceneName }: PageProps) {
             alt={mix15_1.alt}
             width={mix15_1.width}
             height={mix15_1.height}
-            className="object-contain absolute top-[470px] right-[19px] pointer-events-none select-none z-1"
+            className="object-contain absolute pointer-events-none select-none z-1"
+            style={{ top: "470px", right: "19px" }}
           />
           <Image
             src={mix15_2.url}
             alt={mix15_2.alt}
             width={mix15_2.width}
             height={mix15_2.height}
-            className="object-contain absolute top-[486px] right-0 pointer-events-none select-none z-1"
+            className="object-contain absolute pointer-events-none select-none z-1"
+            style={{ top: "486px", right: "0" }}
           />
           <Image
             src={mix15.url}
             alt={mix15.alt}
             width={mix15.width}
             height={mix15.height}
-            className="object-contain absolute top-[689px] right-0 pointer-events-none select-none z-1"
+            className="object-contain absolute pointer-events-none select-none z-1"
+            style={{ top: "689px", right: "0" }}
           />
         </div>
       </GlitchLayer>
@@ -92,20 +97,20 @@ export default function P15Scene({ onNext, sceneName }: PageProps) {
           alt={ladder.alt}
           width={ladder.width}
           height={ladder.height}
-          className="object-contain absolute top-[155px] left-0 right-0 pointer-events-none select-none z-0 w-full"
+          className="object-contain absolute pointer-events-none select-none z-0 w-full"
+          style={{ top: "155px", left: "0", right: "0" }}
         />
       </div>
       {/* content */}
-      <div className=" z-0 pt-[113px]">
+      <div className="z-0" style={{ paddingTop: "113px" }}>
         <span
-          className={
-            typographyClass("title") + " absolute leading-relaxed left-[32px]"
-          }
+          className={typographyClass("title") + " absolute leading-relaxed"}
+          style={{ left: "32px" }}
         >
           真实的连接, 从点滴开启
         </span>
 
-        <div className="absolute left-[120px] top-[172px]">
+        <div className="absolute" style={{ left: "120px", top: "172px" }}>
           <div className="flex items-center gap-1">
             <span
               className={`${colorClass("pink")} ${typographyClass("subtitle")}`}
@@ -125,7 +130,7 @@ export default function P15Scene({ onNext, sceneName }: PageProps) {
           位知友选择关注你
         </div>
 
-        <div className="absolute top-[330px] left-[19px]">
+        <div className="absolute" style={{ top: "330px", left: "19px" }}>
           <div className="">
             最懂你的是{" "}
             <span
@@ -161,7 +166,10 @@ export default function P15Scene({ onNext, sceneName }: PageProps) {
           </div>
         </div>
 
-        <div className="absolute top-[566px] left-[114px] right-[20px]">
+        <div
+          className="absolute"
+          style={{ top: "566px", left: "114px", right: "20px" }}
+        >
           <div className="mb-[10px] wrap-break-word">
             <span
               className={`${colorClass("green")} ${typographyClass(

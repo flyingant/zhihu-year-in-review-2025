@@ -61,35 +61,55 @@ export default function P20Scene({ onNext, sceneName }: PageProps) {
             alt={blue15.alt}
             width={blue15.width}
             height={blue15.height}
-            className="object-contain rotate-90 absolute top-[58px] left-[27px] w-[35px] h-[35px] pointer-events-none select-none z-0"
+            className="object-contain rotate-90 absolute pointer-events-none select-none z-0"
+            style={{ top: "58px", left: "27px", width: "35px", height: "35px" }}
           />
           <Image
             src={blue16.url}
             alt={blue16.alt}
             width={blue16.width}
             height={blue16.height}
-            className="object-contain absolute top-[310px] right-[60px] w-[27px] h-[27px] pointer-events-none select-none z-0"
+            className="object-contain absolute pointer-events-none select-none z-0"
+            style={{
+              top: "310px",
+              right: "60px",
+              width: "27px",
+              height: "27px",
+            }}
           />
           <Image
             src={blue15.url}
             alt={blue15.alt}
             width={blue15.width}
             height={blue15.height}
-            className="object-contain absolute top-[742px] right-[66px] w-[34px] h-[34px] pointer-events-none select-none z-0"
+            className="object-contain absolute pointer-events-none select-none z-0"
+            style={{
+              top: "742px",
+              right: "66px",
+              width: "34px",
+              height: "34px",
+            }}
           />
           <Image
             src={mix15_1.url}
             alt={mix15_1.alt}
             width={mix15_1.width}
             height={mix15_1.height}
-            className="object-contain absolute top-[250px] left-0 w-[124px] h-[30px] pointer-events-none select-none z-0"
+            className="object-contain absolute pointer-events-none select-none z-0"
+            style={{ top: "250px", left: "0", width: "124px", height: "30px" }}
           />
           <Image
             src={mix16_1.url}
             alt={mix16_1.alt}
             width={mix16_1.width}
             height={mix16_1.height}
-            className="object-contain absolute top-[268px] left-[18px] w-[88px] h-[24px] pointer-events-none select-none z-1"
+            className="object-contain absolute pointer-events-none select-none z-1"
+            style={{
+              top: "268px",
+              left: "18px",
+              width: "88px",
+              height: "24px",
+            }}
           />
 
           <Image
@@ -97,7 +117,8 @@ export default function P20Scene({ onNext, sceneName }: PageProps) {
             alt={mix20.alt}
             width={mix20.width}
             height={mix20.height}
-            className="object-contain absolute top-[618px] right-0 pointer-events-none select-none z-1"
+            className="object-contain absolute pointer-events-none select-none z-1"
+            style={{ top: "618px", right: "0" }}
           />
         </div>
       </GlitchLayer>
@@ -109,14 +130,18 @@ export default function P20Scene({ onNext, sceneName }: PageProps) {
           alt={main.alt}
           width={main.width}
           height={main.height}
-          className="object-contain absolute top-[228px] right-0 pointer-events-none select-none z-20"
+          className="object-contain absolute pointer-events-none select-none z-20"
+          style={{ top: "228px", right: "0" }}
         />
       </div>
 
       {/* content */}
       <div className="z-0">
         {/* Night Club Publish */}
-        <div className="absolute top-[170px] left-[34px] right-[19px]">
+        <div
+          className="absolute"
+          style={{ top: "170px", left: "34px", right: "19px" }}
+        >
           <div className="leading-[29px]">
             你在圈子里「扩列」了
             <span
@@ -132,7 +157,10 @@ export default function P20Scene({ onNext, sceneName }: PageProps) {
           </div>
         </div>
         {/* Most Interacted Club Members */}
-        <div className="absolute top-[578px] left-[34px] right-[34px]">
+        <div
+          className="absolute"
+          style={{ top: "578px", left: "34px", right: "34px" }}
+        >
           <div className="leading-[34px]">
             与你互动最多的圈友是：
             <span

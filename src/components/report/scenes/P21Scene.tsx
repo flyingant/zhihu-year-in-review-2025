@@ -64,28 +64,32 @@ export default function P21Scene({ onNext, sceneName }: PageProps) {
             alt="{mix21_1.alt}"
             width={mix21_1.width}
             height={mix21_1.height}
-            className="object-contain absolute top-[222px] left-[304px] pointer-events-none select-none z-1"
+            className="object-contain absolute pointer-events-none select-none z-1"
+            style={{ top: "222px", left: "304px" }}
           />
           <Image
             src={mix21_2.url}
             alt="{mix21_2.alt}"
             width={mix21_2.width}
             height={mix21_2.height}
-            className="object-contain absolute top-[351px] left-[236px] pointer-events-none select-none z-1"
+            className="object-contain absolute pointer-events-none select-none z-1"
+            style={{ top: "351px", left: "236px" }}
           />
           <Image
             src={mix21_3.url}
             alt="{mix21_3.alt}"
             width={mix21_3.width}
             height={mix21_3.height}
-            className="object-contain absolute top-[711px] left-0 pointer-events-none select-none z-1"
+            className="object-contain absolute pointer-events-none select-none z-1"
+            style={{ top: "711px", left: "0" }}
           />
           <Image
             src={mix21_4.url}
             alt="{mix21_4.alt}"
             width={mix21_4.width}
             height={mix21_4.height}
-            className="object-contain absolute top-[492px] left-[30px] pointer-events-none select-none z-1"
+            className="object-contain absolute pointer-events-none select-none z-1"
+            style={{ top: "492px", left: "30px" }}
           />
         </div>
         {/* Background layer - static */}
@@ -144,7 +148,8 @@ export default function P21Scene({ onNext, sceneName }: PageProps) {
           <div
             className={`${colorClass("yellow")} ${typographyClass(
               "title"
-            )} absolute top-[114px] left-[70px] right-[70px] z-20 text-center leading-relaxed`}
+            )} absolute z-20 text-center leading-relaxed`}
+            style={{ top: "114px", left: "70px", right: "70px" }}
           >
             这一年，
             <br />
@@ -153,7 +158,8 @@ export default function P21Scene({ onNext, sceneName }: PageProps) {
           <div
             className={`${colorClass("yellow")} ${typographyClass(
               "title"
-            )} absolute top-[625px] left-[23px] z-20 text-center leading-relaxed`}
+            )} absolute z-20 text-center leading-relaxed`}
+            style={{ top: "625px", left: "23px" }}
           >
             A. 寻着光
             <br />
@@ -162,7 +168,8 @@ export default function P21Scene({ onNext, sceneName }: PageProps) {
           <div
             className={`${colorClass("yellow")} ${typographyClass(
               "title"
-            )} absolute top-[286px] left-[230px] z-20 text-center leading-relaxed`}
+            )} absolute z-20 text-center leading-relaxed`}
+            style={{ top: "286px", left: "230px" }}
           >
             B.跟着图
             <br />

@@ -169,7 +169,7 @@ export default function BaseScene({
         const widthScale = screenWidth / baseWidth;
         const heightScale = screenHeight / baseHeight;
         const newScale = Math.min(widthScale, heightScale, maxScale);
-        
+
         // Only update if scale actually changed (prevents unnecessary re-renders)
         setScale((prevScale) => {
           // Round to 3 decimal places to avoid floating point precision issues

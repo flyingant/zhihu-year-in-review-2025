@@ -51,49 +51,86 @@ export default function P18Scene({ onNext, sceneName }: PageProps) {
             alt={mix16_1.alt}
             width={mix16_1.width}
             height={mix16_1.height}
-            className="object-contain absolute top-[583px] left-[91px] w-[88px] h-[24px] pointer-events-none select-none z-1"
+            className="object-contain absolute pointer-events-none select-none z-1"
+            style={{
+              top: "583px",
+              left: "91px",
+              width: "88px",
+              height: "24px",
+            }}
           />
           <Image
             src={blue16.url}
             alt={blue16.alt}
             width={blue16.width}
             height={blue16.height}
-            className="object-contain absolute top-[34px] left-[300px] w-[27px] h-[27px] pointer-events-none select-none z-0"
+            className="object-contain absolute pointer-events-none select-none z-0"
+            style={{
+              top: "34px",
+              left: "300px",
+              width: "27px",
+              height: "27px",
+            }}
           />
           <Image
             src={blue15.url}
             alt={blue15.alt}
             width={blue15.width}
             height={blue15.height}
-            className="object-contain rotate-90 absolute top-[181px] right-[11px] w-[35px] h-[35px] pointer-events-none select-none z-0"
+            className="object-contain rotate-90 absolute pointer-events-none select-none z-0"
+            style={{
+              top: "181px",
+              right: "11px",
+              width: "35px",
+              height: "35px",
+            }}
           />
           <Image
             src={blue15.url}
             alt={blue15.alt}
             width={blue15.width}
             height={blue15.height}
-            className="object-contain rotate-90 absolute top-[753px] left-[72px] pointer-events-none select-none z-0"
+            className="object-contain rotate-90 absolute pointer-events-none select-none z-0"
+            style={{ top: "753px", left: "72px" }}
           />
           <Image
             src={mix15_1.url}
             alt={mix15_1.alt}
             width={mix15_1.width}
             height={mix15_1.height}
-            className="object-contain absolute top-[557px] -left-[2px] w-[124px] h-[30px] pointer-events-none select-none z-1"
+            className="object-contain absolute pointer-events-none select-none z-1"
+            style={{
+              top: "557px",
+              left: "-2px",
+              width: "124px",
+              height: "30px",
+            }}
           />
           <Image
             src={mix15_2.url}
             alt={mix15_2.alt}
             width={mix15_2.width}
             height={mix15_2.height}
-            className="object-contain absolute top-[163px] -left-[2px] w-[117px] h-[26px] pointer-events-none select-none z-1"
+            className="object-contain absolute pointer-events-none select-none z-1"
+            style={{
+              top: "163px",
+              left: "-2px",
+              width: "117px",
+              height: "26px",
+            }}
           />
           <Image
             src={mix16_2.url}
             alt={mix16_2.alt}
             width={mix16_2.width}
             height={mix16_2.height}
-            className="object-contain absolute top-[741px] left-[225px] w-[139px] h-[70px] pointer-events-none select-none z-1"
+            className="object-contain absolute pointer-events-none select-none z-1"
+            style={{
+              top: "741px",
+              left: "225px",
+              width: "139px",
+              height: "70px",
+            }}
           />
         </div>
       </GlitchLayer>
@@ -104,25 +141,22 @@ export default function P18Scene({ onNext, sceneName }: PageProps) {
           alt={main.alt}
           width={main.width}
           height={main.height}
-          className="object-contain absolute top-[290px] left-0 pointer-events-none select-none z-1"
+          className="object-contain absolute pointer-events-none select-none z-1"
+          style={{ top: "290px", left: "0" }}
         />
       </div>
       {/* content */}
       <div className="z-0">
         <div
-          className={
-            typographyClass("subtitle") +
-            " leading-relaxed absolute left-[30px] top-[121px]"
-          }
+          className={typographyClass("subtitle") + " leading-relaxed absolute"}
+          style={{ left: "30px", top: "121px" }}
         >
           感谢有你,圈子一直在发光
         </div>
 
         <div
-          className={
-            typographyClass("body") +
-            " absolute w-[321px] text-center left-[17px] top-[233px]"
-          }
+          className={typographyClass("body") + " absolute text-center"}
+          style={{ width: "321px", left: "17px", top: "233px" }}
         >
           <span
             className={`${colorClass("blue")} ${typographyClass(
@@ -137,9 +171,8 @@ export default function P18Scene({ onNext, sceneName }: PageProps) {
         </div>
 
         <div
-          className={
-            typographyClass("body") + " absolute right-[14px] top-[290px]"
-          }
+          className={typographyClass("body") + " absolute"}
+          style={{ right: "14px", top: "290px" }}
         >
           <span
             className={`${colorClass("green")} ${typographyClass(
@@ -153,10 +186,8 @@ export default function P18Scene({ onNext, sceneName }: PageProps) {
         </div>
 
         <div
-          className={
-            typographyClass("body") +
-            " absolute left-[27px] top-[483px] w-[66px] text-right"
-          }
+          className={typographyClass("body") + " absolute text-right"}
+          style={{ left: "27px", top: "483px", width: "66px" }}
         >
           <span
             className={`${colorClass("yellow")} ${typographyClass(
@@ -170,9 +201,8 @@ export default function P18Scene({ onNext, sceneName }: PageProps) {
         </div>
 
         <div
-          className={
-            typographyClass("body") + " absolute left-[30px] top-[631px]"
-          }
+          className={typographyClass("body") + " absolute"}
+          style={{ left: "30px", top: "631px" }}
         >
           作为引路人,你在圈内发言{" "}
           <span

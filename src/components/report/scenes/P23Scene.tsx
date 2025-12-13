@@ -36,28 +36,32 @@ export default function P23Scene({ onNext, sceneName }: PageProps) {
           alt="{mix22_1.alt}"
           width={mix22_1.width}
           height={mix22_1.height}
-          className="object-contain absolute top-[23px] left-0 pointer-events-none select-none z-1"
+          className="object-contain absolute pointer-events-none select-none z-1"
+          style={{ top: "23px", left: "0" }}
         />
         <Image
           src={mix22_4.url}
           alt="{mix22_4.alt}"
           width={mix22_4.width}
           height={mix22_4.height}
-          className="object-contain absolute top-[758px] right-0 pointer-events-none select-none z-1"
+          className="object-contain absolute pointer-events-none select-none z-1"
+          style={{ top: "758px", right: "0" }}
         />
         <Image
           src={mix22_5.url}
           alt="{mix22_5.alt}"
           width={mix22_5.width}
           height={mix22_5.height}
-          className="object-contain absolute top-[208px] left-[316px] pointer-events-none select-none z-1"
+          className="object-contain absolute pointer-events-none select-none z-1"
+          style={{ top: "208px", left: "316px" }}
         />
         <Image
           src={mix22_5.url}
           alt="{mix22_5.alt}"
           width={mix22_5.width}
           height={mix22_5.height}
-          className="object-contain absolute top-[752px] left-[44px] pointer-events-none select-none z-1"
+          className="object-contain absolute pointer-events-none select-none z-1"
+          style={{ top: "752px", left: "44px" }}
         />
       </GlitchLayer>
       {/* images */}
@@ -67,16 +71,15 @@ export default function P23Scene({ onNext, sceneName }: PageProps) {
           alt="{review.alt}"
           width={review.width}
           height={review.height}
-          className="object-contain absolute top-[456px] left-0 pointer-events-none select-none -z-10"
+          className="object-contain absolute pointer-events-none select-none -z-10"
+          style={{ top: "456px", left: "0" }}
         />
       </div>
       {/* content */}
       <div className="z-0">
         <div
-          className={
-            typographyClass("title") +
-            " leading-relaxed absolute top-[116px] left-[41px]"
-          }
+          className={typographyClass("title") + " leading-relaxed absolute"}
+          style={{ top: "116px", left: "41px" }}
         >
           你的判断,
           <br />
@@ -85,7 +88,7 @@ export default function P23Scene({ onNext, sceneName }: PageProps) {
           那一份「真」
         </div>
 
-        <div className="absolute top-[274px] left-[41px]">
+        <div className="absolute" style={{ top: "274px", left: "41px" }}>
           <div className="mb-[10px]">
             2025年,你在@答主评审团的测评中探寻了{" "}
             <span
@@ -99,7 +102,7 @@ export default function P23Scene({ onNext, sceneName }: PageProps) {
           </div>
         </div>
 
-        <div className="absolute top-[371px] left-[41px]">
+        <div className="absolute" style={{ top: "371px", left: "41px" }}>
           <div className="mb-[10px]">
             其中关于{" "}
             <span

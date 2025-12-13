@@ -51,42 +51,48 @@ export default function P22Scene({ onNext, sceneName }: PageProps) {
           alt="{mix22_1.alt}"
           width={mix22_1.width}
           height={mix22_1.height}
-          className="object-contain absolute top-[23px] left-0 pointer-events-none select-none z-1"
+          className="object-contain absolute pointer-events-none select-none z-1"
+          style={{ top: "23px", left: "0" }}
         />
         <Image
           src={mix22_2.url}
           alt="{mix22_2.alt}"
           width={mix22_2.width}
           height={mix22_2.height}
-          className="object-contain absolute top-[93px] right-0 pointer-events-none select-none z-1"
+          className="object-contain absolute pointer-events-none select-none z-1"
+          style={{ top: "93px", right: "0" }}
         />
         <Image
           src={mix22_3.url}
           alt="{mix22_3.alt}"
           width={mix22_3.width}
           height={mix22_3.height}
-          className="object-contain absolute top-[388px] left-0 pointer-events-none select-none z-1"
+          className="object-contain absolute pointer-events-none select-none z-1"
+          style={{ top: "388px", left: "0" }}
         />
         <Image
           src={mix22_4.url}
           alt="{mix22_4.alt}"
           width={mix22_4.width}
           height={mix22_4.height}
-          className="object-contain absolute top-[758px] right-0 pointer-events-none select-none z-1"
+          className="object-contain absolute pointer-events-none select-none z-1"
+          style={{ top: "758px", right: "0" }}
         />
         <Image
           src={mix22_5.url}
           alt="{mix22_5.alt}"
           width={mix22_5.width}
           height={mix22_5.height}
-          className="object-contain absolute top-[208px] left-[316px] pointer-events-none select-none z-1"
+          className="object-contain absolute pointer-events-none select-none z-1"
+          style={{ top: "208px", left: "316px" }}
         />
         <Image
           src={mix22_5.url}
           alt="{mix22_5.alt}"
           width={mix22_5.width}
           height={mix22_5.height}
-          className="object-contain absolute top-[752px] left-[44px] pointer-events-none select-none z-1"
+          className="object-contain absolute pointer-events-none select-none z-1"
+          style={{ top: "752px", left: "44px" }}
         />
       </GlitchLayer>
       {/* images */}
@@ -96,32 +102,35 @@ export default function P22Scene({ onNext, sceneName }: PageProps) {
           alt="{front.alt}"
           width={front.width}
           height={front.height}
-          className="object-contain absolute top-[386px] right-0 left-0 pointer-events-none select-none z-20"
+          className="object-contain absolute pointer-events-none select-none z-20"
+          style={{ top: "386px", right: "0", left: "0" }}
         />
         <Image
           src={back.url}
           alt="{back.alt}"
           width={back.width}
           height={back.height}
-          className="object-contain absolute top-[212px] right-0 pointer-events-none select-none z-1"
+          className="object-contain absolute pointer-events-none select-none z-1"
+          style={{ top: "212px", right: "0" }}
         />
         <Image
           src={liukanshan.url}
           alt="{liukanshan.alt}"
           width={liukanshan.width}
           height={liukanshan.height}
-          className="object-contain absolute top-[563px] left-[135px] pointer-events-none select-none z-1"
+          className="object-contain absolute pointer-events-none select-none z-1"
+          style={{ top: "563px", left: "135px" }}
         />
       </div>
       {/* content */}
       <div className="z-0 relative">
-        <div className="absolute top-[116px] left-[41px]">
+        <div className="absolute" style={{ top: "116px", left: "41px" }}>
           当你关注时代时，
           <br />
           你也正成为时代的一部分
         </div>
         {/* Billboard browsing */}
-        <div className="absolute top-[216px] left-[41px]">
+        <div className="absolute" style={{ top: "216px", left: "41px" }}>
           <div className="mb-[10px]">
             你今年驻扎热榜{" "}
             <span
@@ -148,7 +157,7 @@ export default function P22Scene({ onNext, sceneName }: PageProps) {
         </div>
 
         {/* Upvoted content on billboard */}
-        <div className="absolute top-[316px] left-[41px]">
+        <div className="absolute" style={{ top: "316px", left: "41px" }}>
           <div className="mb-[10px]">
             你的赞同, 助推{" "}
             <span

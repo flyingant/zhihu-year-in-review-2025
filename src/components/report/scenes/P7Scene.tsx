@@ -22,7 +22,9 @@ export default function P7Scene({ onNext, sceneName }: PageProps) {
   const mix5Asset = bgAsset.mix5;
   const mix2Asset = bgAsset.mix2;
   const liukanshanAsset = assets.report.p7.liukanshan;
-  const bubbleAsset = assets.report.p7.bubble;
+  const blueBubbleAsset = assets.report.p7.blueBubble;
+  const redBubbleAsset = assets.report.p7.redBubble;
+  const yellowBubbleAsset = assets.report.p7.yellowBubble;
   
   // Map context data to component variables according to P7 spec
   const readCount = reportData?.content_pv_cnt ?? null;
@@ -71,11 +73,11 @@ export default function P7Scene({ onNext, sceneName }: PageProps) {
           {/* Bubble 图片作为左侧装饰或者容器 */}
           <div style={{ marginRight: '10px', flexShrink: 0 }}>
              <Image 
-              src={bubbleAsset.url} 
-              alt={bubbleAsset.alt} 
-              width={bubbleAsset.width} 
-              height={bubbleAsset.height} 
-              className="object-contain pointer-events-none select-none z-1" 
+              src={blueBubbleAsset.url} 
+              alt={blueBubbleAsset.alt} 
+              width={blueBubbleAsset.width} 
+              height={blueBubbleAsset.height} 
+              className="object-contain pointer-events-none select-none z-1 opacity-0 origin-bottom-left animate-pop-dialog" 
             />
           </div>
           
@@ -131,14 +133,33 @@ export default function P7Scene({ onNext, sceneName }: PageProps) {
         </div>
 
         {/* 刘看山图片 */}
-        <div style={{ margin: '20px 0' }}>
+        <div className="flex justify-between" style={{ margin: '20px 0' }}>
+          <div>
             <Image 
-              src={liukanshanAsset.url} 
-              alt={liukanshanAsset.alt} 
-              width={liukanshanAsset.width} 
-              height={liukanshanAsset.height} 
-              className="object-contain pointer-events-none select-none z-1" 
+              src={yellowBubbleAsset.url} 
+              alt={yellowBubbleAsset.alt} 
+              width={yellowBubbleAsset.width} 
+              height={yellowBubbleAsset.height} 
+              className="relative object-contain pointer-events-none select-none z-1 opacity-0 origin-bottom-left animate-pop-dialog" 
+              style={{ left: '38px' }}
             />
+            <Image 
+              src={redBubbleAsset.url} 
+              alt={redBubbleAsset.alt} 
+              width={redBubbleAsset.width} 
+              height={redBubbleAsset.height} 
+              className="relative object-contain pointer-events-none select-none z-1 opacity-0 origin-bottom-left animate-pop-dialog" 
+              style={{ left: '-12px', bottom: '-20px' }}
+            />
+          </div>
+          <Image 
+            src={liukanshanAsset.url} 
+            alt={liukanshanAsset.alt} 
+            width={liukanshanAsset.width} 
+            height={liukanshanAsset.height} 
+            className="relative object-contain pointer-events-none select-none z-1" 
+            style={{ right: '-20px' }}
+          />
         </div>
 
         <div style={{ fontSize: '15px', lineHeight: '28px' }}>

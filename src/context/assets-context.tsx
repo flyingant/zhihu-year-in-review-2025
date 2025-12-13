@@ -283,7 +283,9 @@ export interface AssetsData {
     };
     p7: {
       liukanshan: AssetMetadata;
-      bubble: AssetMetadata;
+      blueBubble: AssetMetadata;
+      redBubble: AssetMetadata;
+      yellowBubble: AssetMetadata;
     };
     p8: {
       liukanshan: AssetMetadata;

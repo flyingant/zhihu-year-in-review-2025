@@ -1526,15 +1526,27 @@
     "p7": {
       "liukanshan": {
         "url": "/assets/2025_2_report_p7_liukanshan.png",
-        "width": 334,
-        "height": 201,
+        "width": 184,
+        "height": 196,
         "alt": "liukanshan"
       },
-      "bubble": {
-        "url": "/assets/2025_2_report_p7_bubble.png",
+      "blueBubble": {
+        "url": "/assets/2025_2_report_p7_blue_bubble.png",
         "width": 81,
         "height": 79,
-        "alt": "bubble"
+        "alt": "blueBubble"
+      },
+      "redBubble": {
+        "url": "/assets/2025_2_report_p7_red_bubble.png",
+        "width": 71,
+        "height": 69,
+        "alt": "redBubble"
+      },
+      "yellowBubble": {
+        "url": "/assets/2025_2_report_p7_yellow_bubble.png",
+        "width": 71,
+        "height": 69,
+        "alt": "yellowBubble"
       }
     },
     "p8": {

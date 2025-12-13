@@ -108,47 +108,31 @@ export default function P16Scene({ onNext, sceneName }: PageProps) {
         className={typographyClass("body") + " absolute z-0"}
         style={{ top: "381px", left: "35px" }}
       >
-        <div className="leading-relaxed">
-          今年,你点亮了{" "}
-          <span
-            className={`${colorClass("pink")} ${typographyClass(
-              "subtitle"
-            )} px-[2px]`}
-          >
+        <div className="leading-relaxed mb-[12px]">
+          今年,你点亮了
+          <span className={`text-xl text-r-pink px-[7px]`}>
             {String(sendUpvoteCount ?? "send_upvote_cnt")}
-          </span>{" "}
+          </span>
           次赞同
         </div>
 
-        <div className="pt-[21px] pb-[42px]">每次都是直达心灵的触动</div>
+        <div className="mb-[42px]">每次都是直达心灵的触动</div>
 
-        <div className="pb-[20px]">
-          你最长停在{" "}
-          <span
-            className={`${colorClass("yellow")} ${typographyClass(
-              "subtitle"
-            )} px-[2px]`}
-          >
+        <div className="mb-[12px]">
+          你最长停在
+          <span className={`text-normal text-r-yellow px-[7px]`}>
             @{String(consumeMemberName ?? "consume_member_name")}
           </span>
         </div>
 
-        <div className="pb-[42px]">
+        <div className="pb-[40px]">
           <div className="">
-            最多的{" "}
-            <span
-              className={`${colorClass("fern")} ${typographyClass(
-                "title"
-              )} px-[2px]`}
-            >
+            最多的
+            <span className={`text-2xl text-r-green px-[7px]`}>
               {String(sendMostUpvoteCount ?? "send_most_upvote_cnt")}
-            </span>{" "}
-            个赞同, 给了{" "}
-            <span
-              className={`${colorClass("yellow")} ${typographyClass(
-                "subtitle"
-              )} px-[2px]`}
-            >
+            </span>
+            个赞同, 给了
+            <span className={`text-normal text-r-yellow px-[7px]`}>
               @{String(sendMostUpvoteMemberName ?? "sote_member_name")}
             </span>
           </div>
@@ -159,9 +143,9 @@ export default function P16Scene({ onNext, sceneName }: PageProps) {
             看看
             <br />
             <span
-              className={`${colorClass("blue")} ${typographyClass(
+              className={`text-r-blue ${typographyClass(
                 "subtitle"
-              )} px-[2px] mb-[15px] mt-[10px] flex items-center`}
+              )} px-[2px] mb-[12px] mt-[10px] flex items-center`}
             >
               @
               {String(
@@ -170,9 +154,9 @@ export default function P16Scene({ onNext, sceneName }: PageProps) {
               <ActionsButton className="ml-[7px]" type="subscribed" disabled />
             </span>
             <span
-              className={`${colorClass("blue")} ${typographyClass(
+              className={`text-r-blue ${typographyClass(
                 "subtitle"
-              )} px-[2px] mb-[15px] flex items-center`}
+              )} px-[2px] mb-[12px] flex items-center`}
             >
               @
               {String(
@@ -181,9 +165,9 @@ export default function P16Scene({ onNext, sceneName }: PageProps) {
               <ActionsButton className="ml-[7px]" type="subscribe" />
             </span>
             <span
-              className={`${colorClass("blue")} ${typographyClass(
+              className={`text-r-blue ${typographyClass(
                 "subtitle"
-              )} px-[2px] mb-[15px] flex items-center`}
+              )} px-[2px] mb-[12px] flex items-center`}
             >
               @
               {String(

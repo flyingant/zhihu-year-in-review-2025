@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import { useUserReportData } from "@/context/user-report-data-context";
-import { colorClass, typographyClass } from "@/hooks/useSceneTheme";
+import { typographyClass } from "@/hooks/useSceneTheme";
 import { useAssets } from "@/context/assets-context";
 import BaseScene from "./BaseScene";
 import GlitchLayer from "../effects/GlitchLayer";
@@ -19,7 +19,7 @@ export default function P15Scene({ onNext, sceneName }: PageProps) {
   if (!assets) return null;
 
   const { blue15, mix15, mix15_1, mix15_2 } = assets.report.bg;
-  const { ladder } = assets.report.p15;
+  const { ladder, year } = assets.report.p15;
 
   // Map context data to component variables according to P15 spec (社交-关注我的)
   const newFollowCount = reportData?.new_follow_cnt ?? null;
@@ -104,7 +104,7 @@ export default function P15Scene({ onNext, sceneName }: PageProps) {
       {/* content */}
       <div className="z-0" style={{ paddingTop: "113px" }}>
         <span
-          className={typographyClass("title") + " absolute leading-relaxed"}
+          className={"text-xl absolute leading-relaxed"}
           style={{ left: "32px" }}
         >
           真实的连接, 从点滴开启
@@ -112,53 +112,42 @@ export default function P15Scene({ onNext, sceneName }: PageProps) {
 
         <div className="absolute" style={{ left: "120px", top: "172px" }}>
           <div className="flex items-center gap-1">
-            <span
-              className={`${colorClass("pink")} ${typographyClass("subtitle")}`}
-            >
-              2025{" "}
-            </span>
+            <Image
+              src={year.url}
+              alt={year.alt}
+              width={year.width}
+              height={year.height}
+              className="mr-[7px] object-contain  pointer-events-none select-none z-0"
+            />
             年
           </div>
           有
-          <span
-            className={`${colorClass("green")} ${typographyClass(
-              "title"
-            )} px-[2px]`}
-          >
+          <span className={`text-2xl mx-[6px] text-r-green`}>
             {String(newFollowCount ?? "new_follow_cnt")}
-          </span>{" "}
+          </span>
           位知友选择关注你
         </div>
 
-        <div className="absolute" style={{ top: "330px", left: "19px" }}>
+        <div
+          className="absolute leading-relaxed"
+          style={{ top: "330px", left: "19px" }}
+        >
           <div className="">
-            最懂你的是{" "}
-            <span
-              className={`${colorClass("yellow")} ${typographyClass(
-                "subtitle"
-              )} px-[2px]`}
-            >
+            最懂你的是
+            <span className={`text-lg px-[6px] text-r-yellow`}>
               @{String(mostUpvoteMemberName ?? "most_upvote_member_name")}
             </span>
           </div>
           <div>
-            TA用{" "}
-            <span
-              className={`${colorClass("fern")} ${typographyClass(
-                "subtitle"
-              )} px-[2px]`}
-            >
+            TA用
+            <span className={`text-xl px-[6px] text-r-fern`}>
               {String(mostUpvoteMemberUpvote ?? "most_upvote_member_upvote")}
-            </span>{" "}
+            </span>
             个赞同回应你的表达
           </div>
           <div>
             和你互动最多的，是
-            <span
-              className={`${colorClass("pink")} ${typographyClass(
-                "subtitle"
-              )} px-[2px]`}
-            >
+            <span className={`text-lg px-[6px] text-r-pink ml-[10px]`}>
               {String(
                 interactionMostMemberName ?? "interaction_most_member_name"
               )}
@@ -171,47 +160,34 @@ export default function P15Scene({ onNext, sceneName }: PageProps) {
           style={{ top: "566px", left: "114px", right: "20px" }}
         >
           <div className="mb-[10px] wrap-break-word">
-            <span
-              className={`${colorClass("green")} ${typographyClass(
-                "subtitle"
-              )} px-[2px]`}
-            >
+            <span className={`text-lg px-[6px] text-r-green`}>
               {String(thanksInvitationDate ?? "thanks_invitation_date")}
             </span>
-            你在{" "}
-            <span
-              className={`${colorClass("blue")} ${typographyClass(
-                "subtitle"
-              )} px-[2px]`}
-            >
+            你在
+            <span className={`text-lg px-[6px] text-r-blue`}>
               @
               {String(
                 thanksInvitationMemberName ?? "thanks_invitation_member_name"
               )}
             </span>
-            <span
-              className={`${colorClass("yellow")} ${typographyClass(
-                "subtitle"
-              )} px-[2px] wrap-break-word`}
-            >
+            <br />
+            <span className={`text-lg px-[2px] text-r-yellow`}>
+              「
               {String(
                 thanksInvitationQuestionTitle ?? "thanks_invitation_question"
               )}
+              」
             </span>
           </div>
           <div>
-            回应了{" "}
-            <span
-              className={`${colorClass("purple")} ${typographyClass(
-                "subtitle"
-              )} px-[2px]`}
-            >
+            回应了
+            <span className={`text-lg px-[2px] text-r-purple`}>
               @
               {String(
                 thanksInvitationMemberName ?? "thanks_invitation_member_name"
               )}
-            </span>{" "}
-            的热情, <br />
+            </span>
+            的热情 <br />
             写下今年的第一个「谢邀」
           </div>
         </div>

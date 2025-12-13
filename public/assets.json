@@ -1725,6 +1725,12 @@
         "width": 375,
         "height": 568,
         "alt": "ladder"
+      },
+      "year": {
+        "url": "/assets/2025_2_report_p15_year.png",
+        "width": 40,
+        "height": 18,
+        "alt": "year"
       }
     },
     "p16": {

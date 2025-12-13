@@ -21,7 +21,7 @@ module.exports = {
         'r-fern': '#00C2A9',
         'r-green': '#4BAD39',
         'r-purple': '#BD66CD',
-        'r-yellow': '#FFD700',
+        'r-yellow': '#FFAE00',
       },
       fontFamily: {
         sans: ['var(--font-geist-sans)', 'Arial', 'Helvetica', 'sans-serif'],

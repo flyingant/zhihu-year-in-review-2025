@@ -333,6 +333,7 @@ export interface AssetsData {
     };
     p15: {
       ladder: AssetMetadata;
+      year: AssetMetadata;
     };
     p14: {
       bg: AssetMetadata;

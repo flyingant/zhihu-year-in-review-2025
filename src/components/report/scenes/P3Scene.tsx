@@ -40,61 +40,134 @@ export default function P3Scene({ onNext, sceneName }: PageProps) {
     <BaseScene onNext={onNext} sceneName={sceneName}>
       <GlitchLayer>
         {/* 顺序从上到下 */}
-        <Image src={blue2Asset.url} alt="{blue2Asset.alt}" width={blue2Asset.width} height={blue2Asset.height} 
-          className="object-contain absolute top-[45px] left-[-8px] pointer-events-none select-none z-1" />
-        <Image src={mix3Asset.url} alt="{mix3Asset.alt}" width={mix3Asset.width} height={mix3Asset.height} 
-          className="object-contain absolute top-[152px] right-[0px] pointer-events-none select-none z-1" />
-        <Image src={mix4Asset.url} alt="{mix4Asset.alt}" width={mix4Asset.width} height={mix4Asset.height} 
-          className="object-contain absolute top-[319px] left-[0px] pointer-events-none select-none z-1" />
-        <Image src={blue1Asset.url} alt="{blue1Asset.alt}" width={blue1Asset.width} height={blue1Asset.height} 
-          className="object-contain absolute bottom-[267px] right-[56px] pointer-events-none select-none z-1" />
-        <Image src={mix5Asset.url} alt="{mix5Asset.alt}" width={mix5Asset.width} height={mix5Asset.height} 
-          className="object-contain absolute bottom-[22px] right-[88px] pointer-events-none select-none z-1" />
+        <Image 
+          src={blue2Asset.url} 
+          alt={blue2Asset.alt} 
+          width={blue2Asset.width} 
+          height={blue2Asset.height} 
+          className="object-contain absolute pointer-events-none select-none z-1"
+          style={{ top: '45px', left: '-8px' }}
+        />
+        <Image 
+          src={mix3Asset.url} 
+          alt={mix3Asset.alt} 
+          width={mix3Asset.width} 
+          height={mix3Asset.height} 
+          className="object-contain absolute pointer-events-none select-none z-1"
+          style={{ top: '152px', right: '0px' }}
+        />
+        <Image 
+          src={mix4Asset.url} 
+          alt={mix4Asset.alt} 
+          width={mix4Asset.width} 
+          height={mix4Asset.height} 
+          className="object-contain absolute pointer-events-none select-none z-1"
+          style={{ top: '319px', left: '0px' }}
+        />
+        <Image 
+          src={blue1Asset.url} 
+          alt={blue1Asset.alt} 
+          width={blue1Asset.width} 
+          height={blue1Asset.height} 
+          className="object-contain absolute pointer-events-none select-none z-1"
+          style={{ bottom: '267px', right: '56px' }}
+        />
+        <Image 
+          src={mix5Asset.url} 
+          alt={mix5Asset.alt} 
+          width={mix5Asset.width} 
+          height={mix5Asset.height} 
+          className="object-contain absolute pointer-events-none select-none z-1"
+          style={{ bottom: '22px', right: '88px' }}
+        />
       </GlitchLayer>
+
       <div className="z-0">
         <Image 
           src={liukanshanAsset.url} 
           alt={liukanshanAsset.alt} 
           width={liukanshanAsset.width} 
           height={liukanshanAsset.height} 
-          className="object-contain absolute bottom-[85px] left-[12%]  pointer-events-none select-none z-1" 
+          className="object-contain absolute pointer-events-none select-none z-1"
+          style={{ bottom: '85px', left: '12%' }}
         />
         <Image 
           src={jiangtaiAsset.url} 
           alt={jiangtaiAsset.alt} 
           width={jiangtaiAsset.width} 
           height={jiangtaiAsset.height} 
-          className="object-contain absolute bottom-[47px] left-[7%] pointer-events-none select-none z-1" 
+          className="object-contain absolute pointer-events-none select-none z-1"
+          style={{ bottom: '47px', left: '7%' }}
         />
       </div>
-      <div className="px-[34px] pt-[120px]">
+
+      <div style={{ paddingLeft: '34px', paddingRight: '34px', paddingTop: '120px' }}>
         <div className={typographyClass('title')}>
           这一年，你依旧好奇
         </div>
 
-        <div className="pt-[60px] pb-[20px]">
-          你写下了 <span className={`${colorClass('fern')} ${typographyClass('subtitle')} px-[2px]`}>{String(answerCount ?? 'publish_answer_cnt')}</span> 个回答、
-          <span className={`${colorClass('pink')} ${typographyClass('subtitle')} px-[2px]`}>{String(articleCount ?? 'publish_article_cnt')}</span> 篇文章。
+        <div style={{ paddingTop: '60px', paddingBottom: '20px' }}>
+          你写下了 
+          <span 
+            className={`${colorClass('fern')} ${typographyClass('subtitle')}`}
+            style={{ paddingLeft: '2px', paddingRight: '2px' }}
+          >
+            {String(answerCount ?? 'publish_answer_cnt')}
+          </span> 
+          个回答、
+          <span 
+            className={`${colorClass('pink')} ${typographyClass('subtitle')}`}
+            style={{ paddingLeft: '2px', paddingRight: '2px' }}
+          >
+            {String(articleCount ?? 'publish_article_cnt')}
+          </span> 
+          篇文章。
         </div>
-        <div className="pb-[23px]">
+        <div style={{ paddingBottom: '23px' }}>
           给这个世界一些答案。
         </div>
 
         {/* 深耕领域 */}
-        <div className="pb-[58px]">
-          <span className={`${colorClass('blue')} ${typographyClass('subtitle')} pr-[5px]`}>{String(topDomain1 ?? 'publish_max_domin_top1')}</span>
-          、<span className={`${colorClass('blue')} ${typographyClass('subtitle')} px-[5px]`}>{String(topDomain2 ?? 'publish_max_domin_top2')}</span>
-          、<span className={`${colorClass('blue')} ${typographyClass('subtitle')} px-[5px]`}>{String(topDomain3 ?? 'publish_max_domin_top3')}</span>
+        <div style={{ paddingBottom: '58px' }}>
+          <span 
+            className={`${colorClass('blue')} ${typographyClass('subtitle')}`}
+            style={{ paddingRight: '5px' }}
+          >
+            {String(topDomain1 ?? 'publish_max_domin_top1')}
+          </span>
+          、
+          <span 
+            className={`${colorClass('blue')} ${typographyClass('subtitle')}`}
+            style={{ paddingLeft: '5px', paddingRight: '5px' }}
+          >
+            {String(topDomain2 ?? 'publish_max_domin_top2')}
+          </span>
+          、
+          <span 
+            className={`${colorClass('blue')} ${typographyClass('subtitle')}`}
+            style={{ paddingLeft: '5px', paddingRight: '5px' }}
+          >
+            {String(topDomain3 ?? 'publish_max_domin_top3')}
+          </span>
           是你耕耘最深的方向。
         </div>
 
         {/* 第一条回答 */}
-        <div className="mb-[14px]">
-          还记得吗？ <span className={`${colorClass('green')} ${typographyClass('subtitle')} pl-[5px]`}>{String(firstAnswerDate ?? 'first_answer_date')}</span>
+        <div style={{ marginBottom: '14px' }}>
+          还记得吗？ 
+          <span 
+            className={`${colorClass('green')} ${typographyClass('subtitle')}`}
+            style={{ paddingLeft: '5px' }}
+          >
+            {String(firstAnswerDate ?? 'first_answer_date')}
+          </span>
         </div>
         <div className="leading-[40px]">
           你在，
-          <span className={`${colorClass('fern')} text-[16px] mx-[4px]`}>
+          <span 
+            className={`${colorClass('fern')} text-[16px]`}
+            style={{ marginLeft: '4px', marginRight: '4px' }}
+          >
             「{String(firstAnswerTitle ?? 'first_answer_question_title')}」
           </span>
           里写下了今年第一条回答。

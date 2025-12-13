@@ -1,7 +1,7 @@
 "use client";
 import Image from "next/image";
 import { useUserReportData } from "@/context/user-report-data-context";
-import { colorClass, typographyClass } from "@/hooks/useSceneTheme";
+import { typographyClass } from "@/hooks/useSceneTheme";
 import { useAssets } from '@/context/assets-context';
 import BaseScene from "./BaseScene";
 import GlitchLayer from "@/components/report/effects/GlitchLayer";
@@ -30,10 +30,10 @@ export default function P2Scene({ onNext, sceneName }: PageProps) {
   const yellowBallAsset = p2Assets.yellowBall;
   
   // Map context data to component variables according to P2 spec
-  const questionCount = reportData?.publish_question_cnt ?? null;
-  const answerCount = reportData?.question_answer_comment_cnt ?? null;
-  const domainCount = reportData?.publish_domain_cnt ?? null;
-  const topDomain = reportData?.publish_domain_name ?? null;
+  const questionCount = (reportData?.publish_question_cnt ?? null) as number | null;
+  const answerCount = (reportData?.question_answer_comment_cnt ?? null) as number | null;
+  const domainCount = (reportData?.publish_domain_cnt ?? null) as number | null;
+  const topDomain = (reportData?.publish_domain_name ?? null) as string | null;
   
   return (
     <BaseScene onNext={onNext} sceneName={sceneName}>
@@ -54,7 +54,7 @@ export default function P2Scene({ onNext, sceneName }: PageProps) {
           width={mix2Asset.width} 
           height={mix2Asset.height} 
           className="object-contain absolute pointer-events-none select-none z-1"
-          style={{ top: '31px', left: '0px' }}
+          style={{ top: '152px', left: '0px' }}
         />
         {/* 中间左侧蓝色马赛克 */}
         <Image 
@@ -105,49 +105,49 @@ export default function P2Scene({ onNext, sceneName }: PageProps) {
       </div>
 
       <div style={{ paddingLeft: '34px', paddingRight: '34px', paddingTop: '120px' }}>
-        <div className={typographyClass('title') + ' leading-relaxed'}>
+        <div className={typographyClass('title')}>
           这一年，你依旧好奇
         </div>
         
-        <div style={{ paddingTop: '60px', paddingBottom: '14px' }}>
+        <div hidden={!questionCount} style={{ paddingTop: '60px', paddingBottom: '2px' }} className="text-[14px]">
           你向世界发出 
           <span 
-            className={`${colorClass('pink', 'font-bold')} ${typographyClass('subtitle')}`}
+            className="text-r-pink text-[19px]"
             style={{ paddingLeft: '5px', paddingRight: '5px' }}
           >
-            {questionCount ?? 'publish_question_cnt'}
+            { questionCount }
           </span> 
           次提问
         </div>
 
-        <div className="">
+        <div hidden={!answerCount}>
           <span 
-            className={`${typographyClass('highlight')} ${colorClass('fern')} font-bold`}
+            className={`${typographyClass('highlight')} text-r-fern`}
             style={{ paddingRight: '5px' }}
           >
-            {answerCount ?? 'question_answer_comment_cnt'}
+            { answerCount }
           </span>
-          <p className="mt-2">条回答和评论让这些好奇有了回声</p>
+          <span>条回答和评论让这些好奇有了回声</span>
         </div>
 
-        <div className="relative" style={{ paddingTop: '43px' }}>
+        <div className="relative" style={{ paddingTop: '30px' }} hidden={!domainCount}>
           <p style={{ paddingBottom: '12px' }}>
             你的好奇伸向 
             <span 
-              className={`${colorClass('blue', 'font-bold')} ${typographyClass('subtitle')}`}
+              className={`text-r-blue font-bold text-[19px]`}
               style={{ paddingLeft: '5px', paddingRight: '5px' }}
             >
-              {String(domainCount ?? 'publish_domain_cnt')}
+              { domainCount }
             </span> 
             个领域
           </p>
           <p className="flex items-center">
             其中，
             <span 
-              className={`${colorClass('green')} ${typographyClass('subtitle')} font-bold`}
+              className={`text-r-green text-[19px]`}
               style={{ paddingRight: '5px' }}
             >
-              {String(topDomain ?? 'publish_domain_name')}
+              { topDomain }
             </span> 
             领域让你反复追问
           </p>

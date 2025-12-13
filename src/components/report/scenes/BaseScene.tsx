@@ -193,7 +193,7 @@ export default function BaseScene({
 
   return (
     <div
-      className="relative z-30 w-full h-full bg-transparent flex items-center justify-center"
+      className="relative z-30 w-full h-full bg-transparent flex items-center justify-center text-[#000]"
       style={{
         ...styles,
       }}

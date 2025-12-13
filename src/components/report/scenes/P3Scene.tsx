@@ -1,11 +1,23 @@
 "use client";
 
 import { useUserReportData } from "@/context/user-report-data-context";
-import { colorClass, typographyClass } from "@/hooks/useSceneTheme";
+import { typographyClass } from "@/hooks/useSceneTheme";
 import BaseScene from "./BaseScene";
 import Image from "next/image";
 import { useAssets } from "@/context/assets-context";
 import GlitchLayer from "@/components/report/effects/GlitchLayer";
+
+const formatDate = (dateStr: string | undefined | null) => {
+  if (!dateStr) return '';
+  
+  const parts = dateStr.split('-');
+  
+  if (parts.length === 3) {
+    return `${parts[1]}月 ${parts[2]}日`;
+  }
+  
+  return dateStr;
+};
 
 interface PageProps {
   onNext?: () => void;
@@ -28,13 +40,13 @@ export default function P3Scene({ onNext, sceneName }: PageProps) {
   const jiangtaiAsset = assets.report.p3.jiangtai;
   
   // Map context data to component variables according to P3 spec
-  const answerCount = reportData?.publish_answer_cnt ?? null;
-  const articleCount = reportData?.publish_article_cnt ?? null;
-  const topDomain1 = reportData?.publish_max_domin_top1 ?? null;
-  const topDomain2 = reportData?.publish_max_domin_top2 ?? null;
-  const topDomain3 = reportData?.publish_max_domin_top3 ?? null;
-  const firstAnswerDate = reportData?.first_answer_date ?? null;
-  const firstAnswerTitle = reportData?.first_answer_question_title ?? null;
+  const answerCount = (reportData?.publish_answer_cnt ?? null) as number | null;
+  const articleCount = (reportData?.publish_article_cnt ?? null) as number | null;
+  const topDomain1 = (reportData?.publish_max_domin_top1 ?? null) as number | null;
+  const topDomain2 = (reportData?.publish_max_domin_top2 ?? null) as number | null;
+  const topDomain3 = (reportData?.publish_max_domin_top3 ?? null) as number | null;
+  const firstAnswerDate = formatDate((reportData?.first_answer_date ?? null) as string | null);
+  const firstAnswerTitle = (reportData?.first_answer_question_title ?? null) as string | null;
 
   return (
     <BaseScene onNext={onNext} sceneName={sceneName}>
@@ -101,74 +113,80 @@ export default function P3Scene({ onNext, sceneName }: PageProps) {
         />
       </div>
 
-      <div style={{ paddingLeft: '34px', paddingRight: '34px', paddingTop: '120px' }}>
+      <div className="text-[14px]" style={{ paddingLeft: '34px', paddingRight: '34px', paddingTop: '120px' }}>
         <div className={typographyClass('title')}>
           这一年，你依旧好奇
         </div>
 
-        <div style={{ paddingTop: '60px', paddingBottom: '20px' }}>
+        <div style={{ paddingTop: '46px', paddingBottom: '8px' }} hidden={!answerCount && !articleCount}>
           你写下了 
           <span 
-            className={`${colorClass('fern')} ${typographyClass('subtitle')}`}
+            hidden={!answerCount}
+            className={`text-r-fern text-[19px]`}
             style={{ paddingLeft: '2px', paddingRight: '2px' }}
           >
-            {String(answerCount ?? 'publish_answer_cnt')}
-          </span> 
-          个回答、
+            { answerCount }  
+          </span>
+          <span hidden={!answerCount}>个回答 <span hidden={!articleCount}>、</span></span>
           <span 
-            className={`${colorClass('pink')} ${typographyClass('subtitle')}`}
+            hidden={!articleCount}
+            className={`text-r-pink text-[19px]`}
             style={{ paddingLeft: '2px', paddingRight: '2px' }}
           >
-            {String(articleCount ?? 'publish_article_cnt')}
+            { articleCount }
           </span> 
-          篇文章。
+          <span hidden={!articleCount}> 篇文章。</span>
+          
         </div>
         <div style={{ paddingBottom: '23px' }}>
-          给这个世界一些答案。
+          给这个世界一些答案
         </div>
 
         {/* 深耕领域 */}
-        <div style={{ paddingBottom: '58px' }}>
+        <div style={{ paddingBottom: '46px' }} hidden={!topDomain1 && !topDomain2 && !topDomain3}>
           <span 
-            className={`${colorClass('blue')} ${typographyClass('subtitle')}`}
+            hidden={!topDomain1}
+            className={`text-r-blue text-[19px]`}
             style={{ paddingRight: '5px' }}
           >
-            {String(topDomain1 ?? 'publish_max_domin_top1')}
+            { topDomain1 }
           </span>
-          、
+          <span hidden={!topDomain1 || !topDomain2}>、</span>
           <span 
-            className={`${colorClass('blue')} ${typographyClass('subtitle')}`}
+            hidden={!topDomain2}
+            className={`text-r-blue text-[19px]`}
             style={{ paddingLeft: '5px', paddingRight: '5px' }}
           >
-            {String(topDomain2 ?? 'publish_max_domin_top2')}
+            { topDomain2 }
           </span>
-          、
+          <span hidden={!topDomain2 || !topDomain3}>、</span>
           <span 
-            className={`${colorClass('blue')} ${typographyClass('subtitle')}`}
+            hidden={!topDomain3}
+            className={`text-r-blue text-[19px]`}
             style={{ paddingLeft: '5px', paddingRight: '5px' }}
           >
-            {String(topDomain3 ?? 'publish_max_domin_top3')}
+            { topDomain3 }
           </span>
           是你耕耘最深的方向。
         </div>
 
         {/* 第一条回答 */}
-        <div style={{ marginBottom: '14px' }}>
+        <div style={{ marginBottom: '4px' }} hidden={!firstAnswerDate && !firstAnswerTitle}>
           还记得吗？ 
           <span 
-            className={`${colorClass('green')} ${typographyClass('subtitle')}`}
+            className={`text-r-green text-[19px]`}
             style={{ paddingLeft: '5px' }}
           >
-            {String(firstAnswerDate ?? 'first_answer_date')}
+            { firstAnswerDate }
           </span>
         </div>
-        <div className="leading-[40px]">
+        <div className="leading-[36px]">
           你在，
           <span 
-            className={`${colorClass('fern')} text-[16px]`}
+            className={`text-r-fern text-[19px]`}
             style={{ marginLeft: '4px', marginRight: '4px' }}
           >
-            「{String(firstAnswerTitle ?? 'first_answer_question_title')}」
+            「{ firstAnswerTitle }」
           </span>
           里写下了今年第一条回答。
         </div>

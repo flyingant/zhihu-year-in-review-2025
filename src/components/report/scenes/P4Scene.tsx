@@ -100,8 +100,8 @@ export default function P4Scene({ onNext, sceneName }: PageProps) {
           alt={liukanshanAsset.alt} 
           width={liukanshanAsset.width} 
           height={liukanshanAsset.height} 
-          className="object-contain absolute pointer-events-none select-none z-1"
-          style={{ bottom: '85px', left: '12%' }}
+          className="object-contain absolute pointer-events-none select-none z-1 animate-jump-steps"
+          style={{ bottom: '48px', left: '-20px' }}
         />
         <Image 
           src={jiangtaiAsset.url} 
@@ -109,7 +109,7 @@ export default function P4Scene({ onNext, sceneName }: PageProps) {
           width={jiangtaiAsset.width} 
           height={jiangtaiAsset.height} 
           className="object-contain absolute pointer-events-none select-none z-1"
-          style={{ bottom: '47px', left: '7%' }}
+          style={{ bottom: '48px', left: '27px' }}
         />
       </div>
       

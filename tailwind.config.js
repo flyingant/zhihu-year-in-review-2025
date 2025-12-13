@@ -50,6 +50,16 @@ module.exports = {
           '0%': { opacity: '0', transform: 'translateX(50px)' }, 
           '100%': { opacity: '1', transform: 'translateX(0)' },
         },
+        'jump-steps': {
+          '0%': { transform: 'translate(-10px, 0)' },
+          '20%': { transform: 'translate(0px, -30px)' }, // 第一跳最高点
+          '40%': { transform: 'translate(10px, -15px)' }, // 落在第一阶
+          
+          '50%': { transform: 'translate(10px, -15px)' },
+
+          '70%': { transform: 'translate(45px, -48px)' }, // 第二跳最高点
+          '100%': { transform: 'translate(60px, -35px)' }, // 落在讲台上
+        },
         contentShow: {
           '0%': { opacity: '0', transform: 'scale(0.9)' },
           '100%': { opacity: '1', transform: 'scale(1)' },
@@ -76,6 +86,7 @@ module.exports = {
         'slide-in': 'slide-in 8s ease-out forwards',
         'wiggle-x': 'wiggle-x 1.5s ease-in-out infinite',
         'pop-sparkle': 'pop-sparkle 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275) 0.2s forwards',
+        'jump-steps': 'jump-steps 2s ease-in-out forwards',
         'slide-in-right': 'slide-in-right-fade 1.5s cubic-bezier(0.16, 1, 0.3, 1) forwards',
         contentShow: 'contentShow 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards',
         'slide-up': 'slide-up 0.3s ease-out forwards',

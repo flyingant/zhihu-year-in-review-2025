@@ -49,7 +49,7 @@ export default function P19Scene({ onNext, sceneName }: PageProps) {
             alt={mix16_1.alt}
             width={mix16_1.width}
             height={mix16_1.height}
-            className="object-contain absolute pointer-events-none select-none z-1"
+            className="object-contain absolute pointer-events-none select-none z-10"
             style={{
               top: "131px",
               right: "1px",
@@ -99,7 +99,7 @@ export default function P19Scene({ onNext, sceneName }: PageProps) {
             className="object-contain absolute pointer-events-none select-none z-0"
             style={{
               top: "112px",
-              right: "24px",
+              left: "264px",
               width: "124px",
               height: "30px",
             }}
@@ -109,7 +109,7 @@ export default function P19Scene({ onNext, sceneName }: PageProps) {
             alt={mix15_2.alt}
             width={mix15_2.width}
             height={mix15_2.height}
-            className="object-contain absolute pointer-events-none select-none z-1"
+            className="object-contain absolute pointer-events-none select-none z-0"
             style={{
               top: "459px",
               right: "-4px",
@@ -146,14 +146,17 @@ export default function P19Scene({ onNext, sceneName }: PageProps) {
           className="object-contain absolute pointer-events-none select-none z-1"
           style={{ top: "80px", left: "1px" }}
         />
-        <Image
-          src={tiffany.url}
-          alt={tiffany.alt}
-          width={tiffany.width}
-          height={tiffany.height}
-          className="object-contain absolute pointer-events-none select-none z-1"
-          style={{ top: "542px", left: "0" }}
-        />
+        <div className="relative" style={{ width: tiffany.width }}>
+          <Image
+            src={tiffany.url}
+            alt={tiffany.alt}
+            width={tiffany.width}
+            height={tiffany.height}
+            className="absolute pointer-events-none select-none z-1"
+            style={{ top: "542px", left: "0" }}
+          />
+        </div>
+
         <Image
           src={yellow.url}
           alt={yellow.alt}

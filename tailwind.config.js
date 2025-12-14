@@ -121,7 +121,7 @@ module.exports = {
           '0%': { opacity: '0', transform: 'scale(0.5)' },
           '50%': { opacity: '1', transform: 'scale(1.2)' },
           '100%': { opacity: '0', transform: 'scale(1.5)' },
-        }
+        },
       },
       animation: {
         marquee: 'marquee linear infinite',

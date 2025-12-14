@@ -16,8 +16,6 @@ const NianZhongXiaoWenSection = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
-  const hasStartedPlayingRef = useRef(false);
-
   // const { trackShow, trackEvent } = useZA();
   const { ref: moduleRef, inView } = useInView({ triggerOnce: true });
 
@@ -79,40 +77,17 @@ const NianZhongXiaoWenSection = () => {
     fetchVideoDetails();
   }, [assets, videoId]);
 
-  // Handle viewport visibility for auto-play/pause
+  // Handle viewport visibility for pause when leaving viewport
   useEffect(() => {
     if (!playerContainerRef.current || !videoUrl) return;
 
-    // Find the video element inside Griffith player (with retry logic)
-    const findVideoElement = (retries = 10): HTMLVideoElement | null => {
-      const element = playerContainerRef.current?.querySelector('video') as HTMLVideoElement | null;
-      if (element || retries === 0) return element;
-      // Retry after a short delay if element not found
-      return null;
+    // Find the video element inside Griffith player
+    const findVideoElement = (): HTMLVideoElement | null => {
+      return playerContainerRef.current?.querySelector('video') as HTMLVideoElement | null;
     };
 
-    if (inView && !hasStartedPlayingRef.current) {
-      // 延迟 1s 播放，并等待 Griffith 渲染完成
-      const timer = setTimeout(() => {
-        let attempts = 0;
-        const tryPlay = () => {
-          const videoElement = findVideoElement();
-          if (videoElement) {
-            // 大多数浏览器要求静音才能自动播放，或者需要用户交互
-            // 这里尝试播放，如果失败（被浏览器拦截）则捕获错误
-            videoElement.play().catch(() => {
-              // 自动播放失败是正常的，静默处理
-            });
-            hasStartedPlayingRef.current = true;
-          } else if (attempts < 10) {
-            attempts++;
-            setTimeout(tryPlay, 100);
-          }
-        };
-        tryPlay();
-      }, 1000);
-      return () => clearTimeout(timer);
-    } else if (!inView) {
+    // Only pause when leaving viewport (no auto-play)
+    if (!inView) {
       // 离开视口暂停
       const videoElement = findVideoElement();
       if (videoElement) {

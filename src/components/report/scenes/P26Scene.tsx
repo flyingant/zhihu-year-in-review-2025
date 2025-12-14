@@ -109,7 +109,7 @@ export default function P26Scene({ onNext, sceneName }: PageProps) {
         className="absolute z-0 leading-relaxed"
         style={{ fontSize: 14, top: "114px", left: "40px", right: "72px" }}
       >
-        {writeStoryNumSum && (
+        {writeStoryNumSum > 0 && (
           <div className="z-0">
             <div className="mb-[8px]">
               今年,你创作
@@ -123,7 +123,7 @@ export default function P26Scene({ onNext, sceneName }: PageProps) {
           </div>
         )}
 
-        {totalUpvoteNum && (
+        {totalUpvoteNum > 0 && (
           <div className="z-0 my-[38px]">
             <div>
               有
@@ -152,23 +152,32 @@ export default function P26Scene({ onNext, sceneName }: PageProps) {
         {/* 荣誉榜单 - 可滑动 */}
         <div className="max-h-[400px] overflow-y-auto">
           <div className="space-y-[20px]">
-            <div>
-              你的作品
-              <span className={`text-r-pink px-[2px]`}>
-                《
-                {String(
-                  shortStoryInfluenceList ?? "short_story_influence_list"
-                )}
-                》
-              </span>
-            </div>
-            <div>{String(annualAuthor ?? "annual_author")}</div>
-            <div>
-              你荣获
-              <span className={`text-r-blue px-[2px]`} style={{ fontSize: 20 }}>
-                {String(awardedCopy ?? "awarded_copy")}
-              </span>
-            </div>
+            {shortStoryInfluenceList && (
+              <div>
+                你的作品
+                <span className={`text-r-pink px-[2px]`}>
+                  《
+                  {String(
+                    shortStoryInfluenceList ?? "short_story_influence_list"
+                  )}
+                  》
+                </span>
+              </div>
+            )}
+            {annualAuthor && (
+              <div>{String(annualAuthor ?? "annual_author")}</div>
+            )}
+            {awardedCopy && (
+              <div>
+                你荣获
+                <span
+                  className={`text-r-blue px-[2px]`}
+                  style={{ fontSize: 20 }}
+                >
+                  {String(awardedCopy ?? "awarded_copy")}
+                </span>
+              </div>
+            )}
           </div>
         </div>
       </div>

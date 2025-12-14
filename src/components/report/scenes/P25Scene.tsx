@@ -113,7 +113,7 @@ export default function P25Scene({ onNext, sceneName }: PageProps) {
           className="absolute pb-[30px]"
           style={{ top: "185px", left: "40px", right: "0" }}
         >
-          {paidContentCount && totalWordCount && (
+          {(paidContentCount ?? 0) > 0 && (totalWordCount ?? 0) > 0 && (
             <div className="mb-[10px]">
               2025年，作为尊贵的盐选会员,
               <br />

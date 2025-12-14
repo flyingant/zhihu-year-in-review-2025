@@ -169,7 +169,7 @@ export default function P3Scene({ onNext, sceneName }: PageProps) {
             {firstAnswerDate}
           </span>
         </div>
-        <div className="leading-[36px]">
+        <div style={{ lineHeight: '36px' }}>
           你在，
           <span
             className={`text-r-fern`}

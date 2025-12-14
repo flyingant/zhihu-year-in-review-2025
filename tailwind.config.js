@@ -71,8 +71,8 @@ module.exports = {
 
           '50%': { transform: 'translate(10px, -15px)' },
 
-          '70%': { transform: 'translate(45px, -48px)' }, // 第二跳最高点
-          '100%': { transform: 'translate(60px, -35px)' }, // 落在讲台上
+          '70%': { transform: 'translate(45Px, -48Px)' }, // 第二跳最高点
+          '100%': { transform: 'translate(60Px, -35Px)' }, // 落在讲台上 用大写P是不想让tailwind转换
         },
         contentShow: {
           '0%': { opacity: '0', transform: 'scale(0.9)' },

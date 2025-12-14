@@ -123,7 +123,7 @@ export default function P2BillboardScene({ onNext, sceneName }: PageProps) {
         </div>
         <div
           className="absolute pointer-events-none select-none z-10"
-          style={{ bottom: '212px', right: '74px', width: blueBallAsset?.width, height: blueBallAsset?.height }}
+          style={{ bottom: hasHit ? '204px' : '222px', right: hasHit ? '19px' : '74px', width: hasHit ? yellowBallAsset?.width : blueBallAsset?.width, height: hasHit ? yellowBallAsset?.height : blueBallAsset?.height }}
         >
           {/* 1. 蓝色球 (没顶到时显示，顶到后隐藏) */}
           <div
@@ -132,7 +132,8 @@ export default function P2BillboardScene({ onNext, sceneName }: PageProps) {
             <Image
               src={blueBallAsset.url}
               alt="Blue Ball"
-              fill
+              width={blueBallAsset.width}
+              height={blueBallAsset.height}
               className="object-contain"
             />
           </div>
@@ -144,18 +145,12 @@ export default function P2BillboardScene({ onNext, sceneName }: PageProps) {
             <Image
               src={yellowBallAsset.url}
               alt="Yellow Ball"
-              fill
+              width={yellowBallAsset.width}
+              height={yellowBallAsset.height}
               className="object-contain"
             />
           </div>
 
-          {/* 3. 闪光特效 (使用 Tailwind 配置的 animate-flash-scale) */}
-          {hasHit && (
-            <div
-              className="absolute inset-0 -z-10 bg-yellow-300 rounded-full blur-xl animate-flash-scale"
-              style={{ transformOrigin: 'center' }}
-            />
-          )}
         </div>
 
         {/* === 刘看山 (使用 Tailwind 配置的 animate-jump-hit) === */}

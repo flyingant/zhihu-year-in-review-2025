@@ -43,8 +43,8 @@ const TenQuestionsSection = () => {
   // Get the image URL to display based on status
   const displayedImageUrl = annualQuestionStatus
     ? (annualQuestionStatus.light_status === 1
-        ? annualQuestionStatus.light_image_url
-        : annualQuestionStatus.un_light_image_url)
+      ? annualQuestionStatus.light_image_url
+      : annualQuestionStatus.un_light_image_url)
     : undefined;
 
   const handleQuestionClick = (url: string, index: number) => {
@@ -103,15 +103,15 @@ const TenQuestionsSection = () => {
             />
           ))}
 
-          <div className="absolute bottom-[2.5%] left-[18%] w-[65px] h-[50px] z-50">
+          <div className="absolute bottom-[-1%] left-[16%] w-[95px] h-[75px] z-50">
             {displayedImageUrl && (
               <div className="absolute inset-0 w-full h-full">
-                <Image 
+                <Image
                   key={displayedImageUrl}
-                  src={displayedImageUrl} 
-                  fill 
-                  className="object-contain transition-opacity duration-500 ease-in-out" 
-                  alt={annualQuestionStatus?.light_status === 1 ? "annual question clear" : "annual question blur"} 
+                  src={displayedImageUrl}
+                  fill
+                  className="object-contain transition-opacity duration-500 ease-in-out"
+                  alt={annualQuestionStatus?.light_status === 1 ? "annual question clear" : "annual question blur"}
                 />
               </div>
             )}

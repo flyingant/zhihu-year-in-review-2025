@@ -7,6 +7,7 @@ import Image from "next/image";
 import { useAssets } from "@/context/assets-context";
 import GlitchLayer from "@/components/report/effects/GlitchLayer";
 import { formatDate } from "@/utils/common";
+import TimeDonutChart from "@/components/report/effects/TimeDonutChart";
 
 interface PageProps {
   onNext?: () => void;
@@ -27,22 +28,18 @@ export default function P12Scene({ onNext, sceneName }: PageProps) {
   const sunAsset = assets.report.p12.sun;
   const moonAsset = assets.report.p12.moon;
   const barAsset = assets.report.p12.bar;
-  const clockAsset = assets.report.p12.clock;
-
-  // 看起来不像是百分比
-  const formatPercentage = (value: number | undefined): string => {
-    if (value === undefined || value === null) return '0%';
-    return `${Math.ceil(value)}%`;
-  };
 
   // Map context data to component variables according to P12 spec (消费-峰值数据)
-  const earlyMorningHours = formatPercentage(reportData?.early_morning_hours as number | undefined) ?? 0;
-  const morningHours = formatPercentage(reportData?.morning_hours as number | undefined) ?? 0;
-  const forenoonHours = formatPercentage(reportData?.forenoon_hours as number | undefined) ?? 0;
-  const noonHours = formatPercentage(reportData?.noon_hours as number | undefined) ?? 0;
-  const afternoonHours = formatPercentage(reportData?.afternoon_hours as number | undefined) ?? 0;
-  const eveningHours = formatPercentage(reportData?.evening_hours as number | undefined) ?? 0;
-  const nightHours = formatPercentage(reportData?.night_hours as number | undefined) ?? 0;
+  const hours = {
+    earlyMorning: Number(reportData?.early_morning_hours || 0),
+    morning: Number(reportData?.morning_hours || 0),
+    forenoon: Number(reportData?.forenoon_hours || 0),
+    noon: Number(reportData?.noon_hours || 0),
+    afternoon: Number(reportData?.afternoon_hours || 0),
+    evening: Number(reportData?.evening_hours || 0),
+    night: Number(reportData?.night_hours || 0),
+  };
+
   const browseLastDate = formatDate(reportData?.zhihu_browse_last_date as string | undefined) ?? null;
   const browseLastTime = (reportData?.zhihu_browse_last_date_hour as string | undefined) ?? null;
   const browseLastCategory = (reportData?.zhihu_browse_last_content_domain as string | undefined) ?? null;
@@ -82,67 +79,29 @@ export default function P12Scene({ onNext, sceneName }: PageProps) {
         <div style={{ fontSize: '22px' }}>
           <div>当下的专注，便是最真的你 </div>
         </div>
-        <div style={{ marginBottom: '16px', marginTop: '12px' }}>
+        <div style={{ marginTop: '12px' }}>
           今年,你在不同时段留下自己的阅读足迹
         </div>
       </div>
-
-      <div className="relative z-10 flex justify-center" style={{ marginBottom: '16px' }}>
+      <div className="relative z-10 flex justify-center" style={{ marginBottom: '30px' }}>
         <Image src={moonAsset.url} alt="moon" width={moonAsset.width} height={moonAsset.height} className="object-contain" />
       </div>
+      <div className="relative w-full flex items-center justify-center" style={{ height: '300px' }}>
+        <TimeDonutChart data={hours} />
 
-      <div className="relative w-full flex items-center justify-center" style={{ height: '280px' }}>
-        <Image src={clockAsset.url} alt="clock" fill className="object-contain" />
-
-        {/* 中间的刘看山 */}
-        <div className="absolute inset-0 flex items-center justify-center">
-          <Image src={liukanshanAsset.url} alt="liukanshan" width={liukanshanAsset.width} height={liukanshanAsset.height} className="object-contain scale-90" />
-        </div>
-
-        {/* 0-5点 (右侧大块粉色) */}
-        <div className="absolute text-right leading-tight" style={{ right: '10px', top: '20%' }}>
-          <div className="text-xs font-bold">0-5 点</div>
-          <div className="text-xl font-black">{earlyMorningHours}</div>
-        </div>
-
-        {/* 5-8点 (右下粉色) */}
-        <div className="absolute text-right leading-tight" style={{ right: '20px', bottom: '15%' }}>
-          <div className="text-xs font-bold">5-8 点</div>
-          <div className="text-xs">{morningHours}</div>
-        </div>
-
-        {/* 8-11点 (右下蓝色) */}
-        <div className="absolute text-center leading-tight" style={{ right: '70px', bottom: '-10px' }}>
-          <div className="text-xs font-bold">8-11 点</div>
-          <div className="text-xs">{forenoonHours}</div>
-        </div>
-
-        {/* 11-13点 (底部青色) */}
-        <div className="absolute text-center leading-tight" style={{ left: '160px', bottom: '-30px' }}>
-          <div className="text-xs font-bold">11-13 点</div>
-          <div className="text-xs">{noonHours}</div>
-        </div>
-
-        {/* 13-17点 (左下绿色) */}
-        <div className="absolute text-left leading-tight" style={{ left: '40px', bottom: '0%' }}>
-          <div className="text-xs font-bold">13-17 点</div>
-          <div className="text-xs">{afternoonHours}</div>
-        </div>
-
-        {/* 17-19点 (左侧黄色) */}
-        <div className="absolute text-left leading-tight" style={{ left: '10px', top: '40%' }}>
-          <div className="text-xs font-bold">17-19 点</div>
-          <div className="text-xs">{eveningHours}</div>
-        </div>
-
-        {/* 19-24点 (左上橙色) */}
-        <div className="absolute text-left leading-tight" style={{ left: '40px', top: '5%' }}>
-          <div className="text-xs font-bold">19-24 点</div>
-          <div className="text-xs">{nightHours}</div>
+        <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
+          <Image
+            src={liukanshanAsset.url}
+            alt="liukanshan"
+            width={liukanshanAsset.width}
+            height={liukanshanAsset.height}
+            className="object-contain"
+            style={{ marginBottom: '10px' }}
+          />
         </div>
       </div>
 
-      <div className="relative z-10 w-full flex justify-center">
+      <div className="relative z-10 flex justify-center" style={{ margin: '0 auto', width: '320px' }}>
         <Image src={barAsset.url} alt="bar" width={barAsset.width} height={barAsset.height} className="w-full object-contain" />
       </div>
 

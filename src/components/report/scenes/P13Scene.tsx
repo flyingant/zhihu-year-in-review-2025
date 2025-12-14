@@ -26,7 +26,6 @@ export default function P13Scene({ onNext, sceneName }: PageProps) {
 
   // Map context data to component variables according to P13 spec
   // Note: P13 spec details to be confirmed, using placeholder structure
-  // 字段是错误的，只是为了先完成结构 (保留你的注释)
   const zhihuBrowseMostDate = (reportData?.zhihu_browse_most_date as string | undefined) ?? '';
   const zhihuBrowseMostDateDuration = (reportData?.zhihu_browse_most_date_duration as number | undefined) ?? 0;
   const consumeMostAnswerTitle = (reportData?.consume_most_answer_title as string | undefined) ?? '';

@@ -11,11 +11,12 @@ const NianZhongXiaoWenSection = () => {
   const { assets } = useAssets();
   const videoId = assets?.urls?.nianZhongXiaoWenVideoID || '';
   const playerContainerRef = useRef<HTMLDivElement>(null);
-  const [isPlaying, setIsPlaying] = useState(false);
   const [videoDetails, setVideoDetails] = useState<VideoDetailResponse | null>(null);
   const [videoUrl, setVideoUrl] = useState<string>('');
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+
+  const hasStartedPlayingRef = useRef(false);
 
   // const { trackShow, trackEvent } = useZA();
   const { ref: moduleRef, inView } = useInView({ triggerOnce: true });
@@ -78,6 +79,48 @@ const NianZhongXiaoWenSection = () => {
     fetchVideoDetails();
   }, [assets, videoId]);
 
+  // Handle viewport visibility for auto-play/pause
+  useEffect(() => {
+    if (!playerContainerRef.current || !videoUrl) return;
+
+    // Find the video element inside Griffith player (with retry logic)
+    const findVideoElement = (retries = 10): HTMLVideoElement | null => {
+      const element = playerContainerRef.current?.querySelector('video') as HTMLVideoElement | null;
+      if (element || retries === 0) return element;
+      // Retry after a short delay if element not found
+      return null;
+    };
+
+    if (inView && !hasStartedPlayingRef.current) {
+      // 延迟 1s 播放，并等待 Griffith 渲染完成
+      const timer = setTimeout(() => {
+        let attempts = 0;
+        const tryPlay = () => {
+          const videoElement = findVideoElement();
+          if (videoElement) {
+            // 大多数浏览器要求静音才能自动播放，或者需要用户交互
+            // 这里尝试播放，如果失败（被浏览器拦截）则捕获错误
+            videoElement.play().catch(() => {
+              // 自动播放失败是正常的，静默处理
+            });
+            hasStartedPlayingRef.current = true;
+          } else if (attempts < 10) {
+            attempts++;
+            setTimeout(tryPlay, 100);
+          }
+        };
+        tryPlay();
+      }, 1000);
+      return () => clearTimeout(timer);
+    } else if (!inView) {
+      // 离开视口暂停
+      const videoElement = findVideoElement();
+      if (videoElement) {
+        videoElement.pause();
+      }
+    }
+  }, [inView, videoUrl]);
+
   // Listen for play events from Griffith player
   useEffect(() => {
     if (!playerContainerRef.current || !videoUrl) return;
@@ -89,25 +132,27 @@ const NianZhongXiaoWenSection = () => {
       videoElement = playerContainerRef.current?.querySelector('video') as HTMLVideoElement | null;
       if (videoElement) {
         const handlePlay = () => {
-          setIsPlaying(true);
+          // Ensure video is visible when playing
+          videoElement?.style.setProperty('opacity', '1');
+          // Hide any poster/overlay elements
+          const posterElements = playerContainerRef.current?.querySelectorAll('[class*="poster"], [class*="overlay"]');
+          posterElements?.forEach((el) => {
+            (el as HTMLElement).style.display = 'none';
+          });
+          // trackEvent('Play', { moduleId: 'nianzhong_video_2025', type: 'Button' });
         };
-
         const handlePause = () => {
-          setIsPlaying(false);
-        };
-
-        const handleEnded = () => {
-          setIsPlaying(false);
+          // trackEvent('Pause', { moduleId: 'nianzhong_video_2025', type: 'Button' });
         };
 
         videoElement.addEventListener('play', handlePlay);
         videoElement.addEventListener('pause', handlePause);
-        videoElement.addEventListener('ended', handleEnded);
+        videoElement.addEventListener('playing', handlePlay); // Also handle 'playing' event
         
         return () => {
           videoElement?.removeEventListener('play', handlePlay);
           videoElement?.removeEventListener('pause', handlePause);
-          videoElement?.removeEventListener('ended', handleEnded);
+          videoElement?.removeEventListener('playing', handlePlay);
         };
       } else if (attempts < 20) {
         attempts++;
@@ -120,22 +165,62 @@ const NianZhongXiaoWenSection = () => {
     return cleanup;
   }, [videoUrl]);
 
-  const togglePlay = () => {
-    if (!playerContainerRef.current) return;
+  // Handle click on player container to ensure video plays and hide poster
+  useEffect(() => {
+    if (!playerContainerRef.current || !videoUrl) return;
 
+    const hidePosterAndOverlay = () => {
+      // Hide poster and overlay elements
+      const posterElements = playerContainerRef.current?.querySelectorAll(
+        '.griffith-poster, [class*="poster"], [class*="overlay"]'
+      );
+      posterElements?.forEach((el) => {
+        (el as HTMLElement).style.display = 'none';
+      });
+      
+      // Ensure video is visible
+      const videoElement = playerContainerRef.current?.querySelector('video') as HTMLVideoElement | null;
+      if (videoElement) {
+        videoElement.style.opacity = '1';
+      }
+    };
+
+    const handleContainerClick = () => {
+      // Find the video element
+      const videoElement = playerContainerRef.current?.querySelector('video') as HTMLVideoElement | null;
+      if (videoElement && videoElement.paused) {
+        // If video is paused, try to play it
+        videoElement.play().catch((err) => {
+          console.error('Failed to play video on click:', err);
+        });
+      }
+      // Hide poster/overlay when clicked
+      setTimeout(hidePosterAndOverlay, 100);
+    };
+
+    const container = playerContainerRef.current;
+    container.addEventListener('click', handleContainerClick);
+    
+    // Also hide poster when video starts playing
     const videoElement = playerContainerRef.current.querySelector('video') as HTMLVideoElement | null;
     if (videoElement) {
-      if (videoElement.paused) {
-        videoElement.play();
-        setIsPlaying(true);
-        // 埋点：点击播放
-        // trackEvent('Click', { moduleId: 'annual_video_play_2025', type: 'Button' });
-      } else {
-        videoElement.pause();
-        setIsPlaying(false);
-      }
+      const handlePlaying = () => {
+        hidePosterAndOverlay();
+      };
+      videoElement.addEventListener('playing', handlePlaying);
+      videoElement.addEventListener('play', handlePlaying);
+      
+      return () => {
+        container.removeEventListener('click', handleContainerClick);
+        videoElement.removeEventListener('playing', handlePlaying);
+        videoElement.removeEventListener('play', handlePlaying);
+      };
     }
-  };
+    
+    return () => {
+      container.removeEventListener('click', handleContainerClick);
+    };
+  }, [videoUrl]);
 
   if (!assets) return null;
 
@@ -146,13 +231,12 @@ const NianZhongXiaoWenSection = () => {
       <div className="relative w-full">
         <div
           ref={playerContainerRef}
-          className="absolute overflow-hidden rounded-[4px] z-10"
+          className="absolute overflow-hidden rounded-[4px] z-20 bg-black"
           style={{
             top: '30%',
             left: '9%',
             width: '82%',
             height: '58%',
-            // background: 'red', // 调试用：打开红色背景来对齐位置
           }}
         >
           {isLoading ? (
@@ -164,7 +248,7 @@ const NianZhongXiaoWenSection = () => {
               <span>{error}</span>
             </div>
           ) : playerSources ? (
-            <div className="w-full h-full [&>div]:w-full [&>div]:h-full [&_video]:w-full [&_video]:h-full [&_video]:object-cover">
+            <div className="w-full h-full [&>div]:w-full [&>div]:h-full [&_video]:w-full [&_video]:h-full [&_video]:object-cover [&_video]:opacity-100">
               {/* @ts-expect-error - Griffith Player type compatibility with React 19 */}
               <Player
                 sources={playerSources}
@@ -178,14 +262,16 @@ const NianZhongXiaoWenSection = () => {
             </div>
           )}
         </div>
-        <Image
-          src={bgAsset.url}
-          alt={bgAsset.alt}
-          width={bgAsset.width}
-          height={bgAsset.height}
-          className="w-full h-auto object-contain z-20 relative"
-          priority
-        />
+        <div className="relative z-30 pointer-events-none">
+          <Image
+            src={bgAsset.url}
+            alt={bgAsset.alt}
+            width={bgAsset.width}
+            height={bgAsset.height}
+            className="w-full h-auto object-contain"
+            priority
+          />
+        </div>
 
       </div>
     </div>

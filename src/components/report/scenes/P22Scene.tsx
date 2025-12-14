@@ -124,7 +124,7 @@ export default function P22Scene({ onNext, sceneName }: PageProps) {
       {/* content */}
       <div className="z-0 relative">
         <div
-          className="absolute leading-[41px]"
+          className="absolute"
           style={{ fontSize: 22, top: "116px", left: "41px" }}
         >
           当你关注时代时，
@@ -132,15 +132,18 @@ export default function P22Scene({ onNext, sceneName }: PageProps) {
           你也正成为时代的一部分
         </div>
         {/* Billboard browsing */}
-        <div className="absolute" style={{ top: "248px", left: "41px" }}>
-          <p className="mb-[14px]">
+        <div
+          className="absolute"
+          style={{ top: "248px", left: "41px", fontSize: 14 }}
+        >
+          <p>
             你今，年驻扎热榜
-            <span className={`text-r-pink px-[7px]`} style={{ fontSize: 24 }}>
+            <span className={`text-r-fern px-[7px]`} style={{ fontSize: 24 }}>
               {String(consumeBillboardDays ?? "consume_billboard_days")}
             </span>
             天,
           </p>
-          <p className="mb-[14px]">
+          <p>
             浏览了
             <span className={`text-r-fern px-[7px]`} style={{ fontSize: 24 }}>
               {String(
@@ -150,7 +153,7 @@ export default function P22Scene({ onNext, sceneName }: PageProps) {
             条热榜内容
           </p>
           {/* Upvoted content on billboard */}
-          <p className="mb-[14px]">
+          <p>
             你的赞同, 助推
             <span className={`text-r-fern px-[7px]`} style={{ fontSize: 24 }}>
               {String(

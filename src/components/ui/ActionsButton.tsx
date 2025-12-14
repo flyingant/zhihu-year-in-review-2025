@@ -17,6 +17,7 @@ interface ActionsButtonProps {
   onClick?: () => void;
   className?: string;
   disabled?: boolean;
+  style?: React.CSSProperties;
 }
 
 const ActionsButton: React.FC<ActionsButtonProps> = ({
@@ -24,6 +25,7 @@ const ActionsButton: React.FC<ActionsButtonProps> = ({
   onClick,
   className = "",
   disabled = false,
+  style,
 }) => {
   const { assets } = useAssets();
 
@@ -56,6 +58,7 @@ const ActionsButton: React.FC<ActionsButtonProps> = ({
     <button
       disabled={disabled}
       onClick={onClick}
+      style={style}
       className={`
         inline-flex items-center justify-center
         transition-all duration-200

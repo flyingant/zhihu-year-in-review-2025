@@ -193,18 +193,18 @@ export default function P17Scene({ onNext, sceneName }: PageProps) {
       {/* content */}
       <div
         className="z-0 absolute"
-        style={{ top: "233px", left: "35px", right: "37px" }}
+        style={{ fontSize: 14, top: "233px", left: "35px", right: "37px" }}
       >
         <div className="">
-          <div className="mb-[10px]">
+          <div style={{ marginBottom: "10px" }}>
             你和
-            <span className={`text-2xl text-r-pink px-[7px]`}>
+            <span className={`text-r-pink px-[7px]`} style={{ fontSize: 24 }}>
               {String(followQuestionFriend ?? "follow_question_friend")}
             </span>
             位好友共同关注着一个问题
           </div>
-          <div className="mb-[43px]">
-            <span className={`text-lg text-r-green px-[2px]`}>
+          <div style={{ marginBottom: "43px" }}>
+            <span className={`text-r-green px-[2px]`} style={{ fontSize: 17 }}>
               「
               {String(
                 followQuestionFriendQuestionTitle ??
@@ -215,10 +215,10 @@ export default function P17Scene({ onNext, sceneName }: PageProps) {
           </div>
         </div>
 
-        <div className="">
-          <div className={typographyClass("body") + " mb-[10px]"}>
+        <div className="z-0">
+          <div style={{ fontSize: 14, marginBottom: "10px" }}>
             你赞同了
-            <span className={`text-lg text-r-yellow px-[7px]`}>
+            <span className={`text-r-yellow px-[7px]`} style={{ fontSize: 17 }}>
               @
               {String(
                 upvoteHotAnswerMemberName ?? "upvote_hot_answer_member_name"
@@ -226,15 +226,17 @@ export default function P17Scene({ onNext, sceneName }: PageProps) {
             </span>
             在
             <br />
-            <span className={`text-lg text-r-blue px-[2px]`}>
-              「{String(upvoteHotAnswerTitle ?? "upvote_hot_answer_title")}」
-            </span>
-            <span className={`text-normal text-r-blue px-[2px]`}>
-              问题下的回答
-            </span>
+            <p style={{ marginTop: "5px" }}>
+              <span className={`text-r-blue px-[2px]`} style={{ fontSize: 17 }}>
+                「{String(upvoteHotAnswerTitle ?? "upvote_hot_answer_title")}」
+              </span>
+              <span className={`text-r-blue px-[2px]`} style={{ fontSize: 13 }}>
+                问题下的回答
+              </span>
+            </p>
           </div>
-          <div className="text-sm">
-            <span className={`text-2xl text-r-purple pr-[7px]`}>
+          <div style={{ fontSize: 13 }}>
+            <span className={`text-r-purple pr-[7px]`} style={{ fontSize: 24 }}>
               {String(upvoteHotAnswerUserCount ?? "upvote_hot_answer_user_cnt")}
             </span>
             位知友也在此和你对上了频率

@@ -1,7 +1,6 @@
 "use client";
 
 import { useUserReportData } from "@/context/user-report-data-context";
-import { colorClass, typographyClass } from "@/hooks/useSceneTheme";
 import BaseScene from "./BaseScene";
 import { useAssets } from "@/context/assets-context";
 import Image from "next/image";
@@ -105,77 +104,99 @@ export default function P16Scene({ onNext, sceneName }: PageProps) {
       </div>
       {/* content */}
       <div
-        className={typographyClass("body") + " absolute z-0"}
-        style={{ top: "381px", left: "35px" }}
+        style={{
+          position: "absolute",
+          zIndex: 0,
+          fontSize: 14,
+          top: "371px",
+          left: "35px",
+        }}
       >
-        <div className="leading-relaxed mb-[12px]">
+        <div className="leading-relaxed" style={{ marginBottom: "12px" }}>
           今年,你点亮了
-          <span className={`text-xl text-r-pink px-[7px]`}>
+          <span
+            className={`text-r-pink`}
+            style={{ fontSize: 18, paddingLeft: "7px", paddingRight: "7px" }}
+          >
             {String(sendUpvoteCount ?? "send_upvote_cnt")}
           </span>
           次赞同
         </div>
 
-        <div className="mb-[42px]">每次都是直达心灵的触动</div>
+        <div style={{ marginBottom: "42px" }}>每次都是直达心灵的触动</div>
 
-        <div className="mb-[12px]">
+        <div style={{ marginBottom: "12px" }}>
           你最长停在
-          <span className={`text-normal text-r-yellow px-[7px]`}>
+          <span
+            className={`text-r-yellow`}
+            style={{ fontSize: 14, paddingLeft: "7px", paddingRight: "7px" }}
+          >
             @{String(consumeMemberName ?? "consume_member_name")}
           </span>
         </div>
 
-        <div className="pb-[40px]">
+        <div style={{ paddingBottom: "40px" }}>
           <div className="">
             最多的
-            <span className={`text-2xl text-r-green px-[7px]`}>
+            <span
+              className={`text-r-fern`}
+              style={{ fontSize: 24, paddingLeft: "7px", paddingRight: "7px" }}
+            >
               {String(sendMostUpvoteCount ?? "send_most_upvote_cnt")}
             </span>
             个赞同, 给了
-            <span className={`text-normal text-r-yellow px-[7px]`}>
+            <span
+              className={`text-r-yellow`}
+              style={{ fontSize: 14, paddingLeft: "7px", paddingRight: "7px" }}
+            >
               @{String(sendMostUpvoteMemberName ?? "sote_member_name")}
             </span>
           </div>
         </div>
 
-        <div className="text-sm">
-          <div className="">
-            看看
-            <br />
-            <span
-              className={`text-r-blue ${typographyClass(
-                "subtitle"
-              )} px-[2px] mb-[12px] mt-[10px] flex items-center`}
-            >
-              @
-              {String(
-                interestMemberName1 ?? "consume_interest_member_name_top1"
-              )}
-              <ActionsButton className="ml-[7px]" type="subscribed" disabled />
-            </span>
-            <span
-              className={`text-r-blue ${typographyClass(
-                "subtitle"
-              )} px-[2px] mb-[12px] flex items-center`}
-            >
-              @
-              {String(
-                interestMemberName2 ?? "consume_interest_member_name_top2"
-              )}
-              <ActionsButton className="ml-[7px]" type="subscribe" />
-            </span>
-            <span
-              className={`text-r-blue ${typographyClass(
-                "subtitle"
-              )} px-[2px] mb-[12px] flex items-center`}
-            >
-              @
-              {String(
-                interestMemberName3 ?? "consume_interest_member_name_top3"
-              )}
-              <ActionsButton className="ml-[7px]" type="subscribe" />
-            </span>
-          </div>
+        <div style={{ fontSize: 14 }}>
+          <span>看看</span>
+          <span
+            className={`text-r-blue flex items-center`}
+            style={{
+              paddingLeft: "2px",
+              paddingRight: "2px",
+              marginBottom: "8px",
+              marginTop: "10px",
+            }}
+          >
+            @
+            {String(interestMemberName1 ?? "consume_interest_member_name_top1")}
+            <ActionsButton
+              style={{ marginLeft: "7px" }}
+              type="subscribed"
+              disabled
+            />
+          </span>
+          <span
+            className={`text-r-blue flex items-center`}
+            style={{
+              paddingLeft: "2px",
+              paddingRight: "2px",
+              marginBottom: "8px",
+            }}
+          >
+            @
+            {String(interestMemberName2 ?? "consume_interest_member_name_top2")}
+            <ActionsButton style={{ marginLeft: "7px" }} type="subscribe" />
+          </span>
+          <span
+            className={`text-r-blue flex items-center`}
+            style={{
+              paddingLeft: "2px",
+              paddingRight: "2px",
+              marginBottom: "8px",
+            }}
+          >
+            @
+            {String(interestMemberName3 ?? "consume_interest_member_name_top3")}
+            <ActionsButton style={{ marginLeft: "7px" }} type="subscribe" />
+          </span>
           <div>或许也能给你一丝启发</div>
         </div>
       </div>

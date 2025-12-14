@@ -1,11 +1,10 @@
-"use client";
-
 import { useUserReportData } from "@/context/user-report-data-context";
 import BaseScene from "./BaseScene";
 import { useAssets } from "@/context/assets-context";
 import Image from "next/image";
 import ActionsButton from "@/components/ui/ActionsButton";
 import GlitchLayer from "../effects/GlitchLayer";
+import { useFollow } from "@/hooks/useFollow";
 
 interface PageProps {
   onNext?: () => void;
@@ -15,6 +14,20 @@ interface PageProps {
 export default function P16Scene({ onNext, sceneName }: PageProps) {
   const { reportData } = useUserReportData();
   const { assets } = useAssets();
+
+  const consumeInterestMemberTokenTop1 =
+    reportData?.consume_interest_member_token_top1 as string | undefined;
+  const consumeInterestMemberTokenTop2 =
+    reportData?.consume_interest_member_token_top2 as string | undefined;
+  const consumeInterestMemberTokenTop3 =
+    reportData?.consume_interest_member_token_top3 as string | undefined;
+
+  const { isFollowed: isTop1Followed, toggleFollow: toggleFollowTop1 } =
+    useFollow(consumeInterestMemberTokenTop1);
+  const { isFollowed: isTop2Followed, toggleFollow: toggleFollowTop2 } =
+    useFollow(consumeInterestMemberTokenTop2);
+  const { isFollowed: isTop3Followed, toggleFollow: toggleFollowTop3 } =
+    useFollow(consumeInterestMemberTokenTop3);
 
   if (!assets) return null;
 
@@ -192,8 +205,8 @@ export default function P16Scene({ onNext, sceneName }: PageProps) {
             {String(interestMemberName1 ?? "consume_interest_member_name_top1")}
             <ActionsButton
               style={{ marginLeft: "7px" }}
-              type="subscribed"
-              disabled
+              type={isTop1Followed ? "subscribed" : "subscribe"}
+              onClick={toggleFollowTop1}
             />
           </span>
           <span
@@ -208,7 +221,11 @@ export default function P16Scene({ onNext, sceneName }: PageProps) {
           >
             @
             {String(interestMemberName2 ?? "consume_interest_member_name_top2")}
-            <ActionsButton style={{ marginLeft: "7px" }} type="subscribe" />
+            <ActionsButton
+              style={{ marginLeft: "7px" }}
+              type={isTop2Followed ? "subscribed" : "subscribe"}
+              onClick={toggleFollowTop2}
+            />
           </span>
           <span
             className={`text-r-blue flex items-center ${
@@ -222,7 +239,11 @@ export default function P16Scene({ onNext, sceneName }: PageProps) {
           >
             @
             {String(interestMemberName3 ?? "consume_interest_member_name_top3")}
-            <ActionsButton style={{ marginLeft: "7px" }} type="subscribe" />
+            <ActionsButton
+              style={{ marginLeft: "7px" }}
+              type={isTop3Followed ? "subscribed" : "subscribe"}
+              onClick={toggleFollowTop3}
+            />
           </span>
           <div>或许也能给你一丝启发</div>
         </div>

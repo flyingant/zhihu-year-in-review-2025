@@ -284,6 +284,7 @@ export interface AssetsData {
       liukanshan: AssetMetadata;
       yellowMirror: AssetMetadata;
       hi: AssetMetadata;
+      "3dHi": AssetMetadata;
     };
     p6: {
       liukanshan: AssetMetadata;

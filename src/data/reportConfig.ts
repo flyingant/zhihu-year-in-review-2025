@@ -7,6 +7,7 @@ import P2BillboardScene from '@/components/report/scenes/P2BillboardScene';
 import P3Scene from '@/components/report/scenes/P3Scene';
 import P4Scene from '@/components/report/scenes/P4Scene';
 import P5Scene from '@/components/report/scenes/P5Scene';
+import P5EmojiScene from '@/components/report/scenes/P5EmojiScene';
 import P6Scene from '@/components/report/scenes/P6Scene';
 import P7Scene from '@/components/report/scenes/P7Scene';
 import P8Scene from '@/components/report/scenes/P8Scene';
@@ -81,6 +82,11 @@ export const SCENES: Record<string, SceneConfig> = {
   'p5': {
     id: 'p5',
     component: P5Scene,
+    next: 'p5Emoji',
+  },
+  'p5Emoji': {
+    id: 'p5Emoji',
+    component: P5EmojiScene,
     next: 'p6',
   },
   'p6': {

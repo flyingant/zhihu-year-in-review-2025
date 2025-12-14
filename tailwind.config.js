@@ -94,6 +94,16 @@ module.exports = {
           '0%, 100%': { opacity: '1' },
           '50%': { opacity: '0.4' },
         },
+        'pop-in-out': {
+          '0%': { opacity: '1', transform: 'scale(1)' },
+          '100%': { opacity: '0', transform: 'scale(0)' },
+        },
+        // 3D Hi：弹性弹出
+        'pop-in-elastic': {
+          '0%': { opacity: '0', transform: 'scale(0)' },
+          '60%': { opacity: '1', transform: 'scale(1.1)' },
+          '100%': { opacity: '1', transform: 'scale(1)' },
+        },
         // 1. 刘看山顶球：上跳后回落
         'jump-hit': {
           '0%': { transform: 'translateY(0)' },
@@ -131,6 +141,8 @@ module.exports = {
         'jump-hit': 'jump-hit 0.8s cubic-bezier(0.4, 0, 0.2, 1) forwards',
         'ball-bump': 'ball-bump 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards',
         'flash-scale': 'flash-scale 0.6s ease-out forwards',
+        'mirror-vanish': 'pop-in-out 1s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards',
+        '3d-pop': 'pop-in-elastic 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards',
       },
     },
   },

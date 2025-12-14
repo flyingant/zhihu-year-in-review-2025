@@ -3,6 +3,7 @@ import IntroductionScene from '@/components/report/scenes/IntroductionScene';
 import IndexScene from '@/components/report/scenes/IndexScene';
 import P1Scene from '@/components/report/scenes/P1Scene';
 import P2Scene from '@/components/report/scenes/P2Scene';
+import P2BillboardScene from '@/components/report/scenes/P2BillboardScene';
 import P3Scene from '@/components/report/scenes/P3Scene';
 import P4Scene from '@/components/report/scenes/P4Scene';
 import P5Scene from '@/components/report/scenes/P5Scene';
@@ -60,6 +61,11 @@ export const SCENES: Record<string, SceneConfig> = {
   'p2': {
     id: 'p2',
     component: P2Scene,
+    next: 'p2Billboard',
+  },
+  'p2Billboard': {
+    id: 'p2Billboard',
+    component: P2BillboardScene,
     next: 'p3',
   },
   'p3': {

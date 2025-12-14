@@ -73,8 +73,6 @@ const VoteTenQuestions = () => {
   const [questions, setQuestions] = useState<Question[]>([]);
   const [isLoadingQuestions, setIsLoadingQuestions] = useState(true);
   const [isGeneratingPoster, setIsGeneratingPoster] = useState(false);
-  const [posterUrl, setPosterUrl] = useState<string>('');
-  const [showPosterModal, setShowPosterModal] = useState(false);
   const [posterInfo, setPosterInfo] = useState<AnnualQuestionPosterInfo | null>(null);
   const [isLoadingPosterInfo, setIsLoadingPosterInfo] = useState(true);
 
@@ -152,6 +150,8 @@ const VoteTenQuestions = () => {
   const loadingText = useLoadingDots("海报生成中", 400, isGeneratingPoster);
 
   if (!assets) return null;
+
+  const fourGridAssets = assets.fourGrid;
 
   // Check if we should show the poster instead of the original UI
   const shouldShowPoster = posterInfo?.poster_generate_status === 1 && posterInfo?.poster_image_url;
@@ -331,17 +331,11 @@ const VoteTenQuestions = () => {
         // Fetch the poster info to get the image URL
         const newPosterInfo = await getAnnualQuestionPosterInfo();
         setPosterInfo(newPosterInfo);
-        if (newPosterInfo.poster_image_url) {
-          setPosterUrl(newPosterInfo.poster_image_url);
-          setShowPosterModal(true);
 
-          if (response.publish_pin_status === 1) {
-            showToast('海报生成并发布成功', 'success');
-          } else {
-            showToast('海报生成成功', 'success');
-          }
+        if (response.publish_pin_status === 1) {
+          showToast('海报生成并发布成功', 'success');
         } else {
-          showToast('海报生成成功，但获取图片失败', 'warning');
+          showToast('海报生成成功', 'success');
         }
       } else {
         showToast('海报生成失败，请稍后重试', 'error');
@@ -357,19 +351,6 @@ const VoteTenQuestions = () => {
     }
   };
 
-  const handleSaveImage = async () => {
-    if (!posterUrl) {
-      showToast('没有可保存的图片', 'error');
-      return;
-    }
-
-    await handleSavePosterImage(posterUrl);
-  };
-
-  const handleClosePosterModal = () => {
-    setShowPosterModal(false);
-    setPosterUrl('');
-  };
 
   const topRowTopics = TOPICS.slice(0, 7);
   const bottomRowTopics = TOPICS.slice(7);
@@ -429,12 +410,12 @@ const VoteTenQuestions = () => {
                 onClick={() => handleSavePosterImage(posterInfo.poster_image_url)}
                 className="flex justify-center items-center w-full cursor-pointer"
               >
-                {assets.games?.saveImage && (
+                {fourGridAssets.save && (
                   <Image
-                    src={assets.games.saveImage.url}
-                    alt={assets.games.saveImage.alt}
-                    width={assets.games.saveImage.width / 5}
-                    height={assets.games.saveImage.height / 5}
+                    src={fourGridAssets.save.url}
+                    alt={fourGridAssets.save.alt}
+                    width={fourGridAssets.save.width / 6}
+                    height={fourGridAssets.save.height / 6}
                     className="object-contain"
                     unoptimized
                   />
@@ -621,59 +602,6 @@ const VoteTenQuestions = () => {
           </div>
           <div className="mt-4 text-cyan-400 text-xl font-bold tracking-widest h-[30px]">
             {loadingText}
-          </div>
-        </div>
-      )}
-      {/* 海报展示弹框 */}
-      {showPosterModal && posterUrl && (
-        <div className="fixed z-[9999] inset-0 h-screen flex flex-col items-center justify-center bg-black/80 animate-overlayShow">
-          <div className="relative flex flex-col items-center gap-4 animate-contentShow max-w-[260px]">
-            {/* Close button */}
-            <button
-              onClick={handleClosePosterModal}
-              className="absolute -top-10 right-0 w-8 h-8 flex items-center justify-center text-white hover:opacity-70 transition-opacity z-30"
-              aria-label="Close"
-            >
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                className="h-6 w-6"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-                strokeWidth={2}
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  d="M6 18L18 6M6 6l12 12"
-                />
-              </svg>
-            </button>
-            <Image
-              src={posterUrl}
-              alt="Generated poster"
-              width={260}
-              height={400}
-              className="w-full h-auto object-contain"
-              unoptimized
-            />
-            <div className="flex gap-4 w-full px-2">
-              <div
-                onClick={handleSaveImage}
-                className="flex-1 cursor-pointer active:opacity-50"
-              >
-                {assets.games?.saveImage && (
-                  <Image
-                    src={assets.games.saveImage.url}
-                    alt={assets.games.saveImage.alt}
-                    width={assets.games.saveImage.width}
-                    height={assets.games.saveImage.height}
-                    className="w-full h-auto object-contain"
-                    unoptimized
-                  />
-                )}
-              </div>
-            </div>
           </div>
         </div>
       )}

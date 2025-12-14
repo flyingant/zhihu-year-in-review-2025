@@ -78,6 +78,10 @@ module.exports = {
           '0%': { opacity: '0', transform: 'scale(0.9)' },
           '100%': { opacity: '1', transform: 'scale(1)' },
         },
+        overlayShow: {
+          '0%': { opacity: '0' },
+          '100%': { opacity: '1' },
+        },
         blink: {
           '0%, 100%': { opacity: '1' },
           '50%': { opacity: '0' },
@@ -134,6 +138,7 @@ module.exports = {
         'pop-bubble': 'pop-bubble 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards',
         'slide-in-right': 'slide-in-right-fade 1.5s cubic-bezier(0.16, 1, 0.3, 1) forwards',
         contentShow: 'contentShow 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards',
+        overlayShow: 'overlayShow 0.2s ease-out forwards',
         'slide-up': 'slide-up 0.3s ease-out forwards',
         'float-path': 'float-path 15s linear infinite',
         'glitch-light': 'glitch 3s infinite',

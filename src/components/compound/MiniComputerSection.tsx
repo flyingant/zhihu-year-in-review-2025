@@ -11,6 +11,7 @@ import { useInView } from 'react-intersection-observer';
 import { useZhihuHybrid } from '@/hooks/useZhihuHybrid';
 import { useZhihuApp } from '@/hooks/useZhihuApp';
 import { useMobile } from '@/hooks/useMobile';
+import { useAuth } from '@/context/auth-context';
 
 // Type declaration for Zhihu Hybrid SDK (new API pattern)
 // Based on tech specs: window.zhihuHybrid('base/downloadImage').dispatch(params: Params): PromiseObservable<Result>
@@ -50,6 +51,7 @@ const MiniComputerSection = () => {
   const { downloadImage: downloadImageViaHybrid, isAvailable: isHybridAvailable, openURL } = useZhihuHybrid();
   const isInZhihuApp = useZhihuApp();
   const isMobile = useMobile();
+  const { isAuthenticated, login } = useAuth();
 
   const loadingText = useLoadingDots("海报生成中", 400, status === 'loading');
   const HASHTAG = " #2025到底什么是真的";
@@ -361,6 +363,14 @@ const MiniComputerSection = () => {
     }
   };
 
+  // 处理未认证用户点击输入区域 - 跳转到登录页
+  const handleAuthOverlayClick = (e: React.MouseEvent) => {
+    e.preventDefault();
+    e.stopPropagation();
+    const signinBase = assets?.urls?.signinBase;
+    login(signinBase);
+  };
+
   return (
     <div ref={moduleRef} className="relative flex flex-col pt-7 -mb-[20px] overflow-hidden">
       <div className="relative w-full flex justify-center pr-[16px] -mb-[24px]">
@@ -383,6 +393,19 @@ const MiniComputerSection = () => {
             onClick={handleOverlayClick}
             onMouseDown={handleOverlayClick}
             className="absolute inset-0 z-[60] cursor-pointer"
+            style={{
+              backgroundColor: 'rgba(0,0,0,0.01)',
+              pointerEvents: 'auto',
+              minHeight: '100%'
+            }}
+          />
+        )}
+        {/* 未认证用户透明遮罩层 */}
+        {!isAuthenticated && (
+          <div
+            onClick={handleAuthOverlayClick}
+            onMouseDown={handleAuthOverlayClick}
+            className="absolute inset-0 z-[70] cursor-pointer"
             style={{
               backgroundColor: 'rgba(0,0,0,0.01)',
               pointerEvents: 'auto',

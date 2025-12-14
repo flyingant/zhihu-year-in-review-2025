@@ -13,12 +13,12 @@ import H5Logo from "../components/ui/H5Logo";
 import TaskSection from "../components/compound/TaskSection";
 import RewardSection from "../components/compound/RewardSection";
 import ZaiZhiHuLianJieZhenShiSection from "../components/compound/ZaiZhiHuLianJieZhenShiSection";
-import SidebarLiuKanshan from "../components/ui/SidebarLiuKanshan";
 import AddressForm from "../components/ui/AddressForm";
 import { useAssets } from '@/context/assets-context';
 import { useEffect, useState } from 'react';
 import { useZA } from '@/hooks/useZA';
 import { useZhihuApp } from '@/hooks/useZhihuApp';
+import { useAuth } from '@/context/auth-context';
 import YearlyReportSection from "@/components/compound/YearlyReportSection";
 import YearlyQuestionSection from "@/components/compound/YearlyQuestionSection";
 import YearlyVideoSection from "@/components/compound/YearlyVideoSection";
@@ -43,10 +43,17 @@ function HomeContent() {
   const requireAddress = searchParams.get("addressrequired");
   const directTo = searchParams.get("directTo");
   const { assets, isLoading: isLoadingAssets, error: assetsError, fetchAssets } = useAssets();
+  const { isAuthenticated, login } = useAuth();
   
   // State for managing address form visibility (non-redirect flow)
   const [showAddressForm, setShowAddressForm] = useState(false);
   const [redeemParams, setRedeemParams] = useState<RedeemParams | null>(null);
+
+  // Handler to redirect to login page
+  const handleLoginClick = () => {
+    const signinBase = assets?.urls?.signinBase;
+    login(signinBase);
+  };
 
   const handleReload = () => {
     if (typeof window !== "undefined") {
@@ -253,7 +260,7 @@ function HomeContent() {
 
   return (
     <div className="min-h-screen bg-white">
-      <AuthWrapper>
+      <AuthWrapper requireAuth={false}>
         <main className="w-full mx-auto relative" style={{ maxWidth: '640px' }} >
 
           {/* Logo */}
@@ -270,8 +277,6 @@ function HomeContent() {
               priority
             />
           </div>
-          {/* 刘看山对话框 */}
-          {/* <SidebarLiuKanshan /> */}
 
            {/* KV 部分 */}
            <SectionLayout topOffset={0} id="kv-section">
@@ -290,17 +295,39 @@ function HomeContent() {
             <YearlyQuestionSection />
           </SectionLayout>
 
-          <SectionLayout topOffset={0} id="vote-ten-questions-section">
-            <VoteTenQuestions />
-          </SectionLayout>
+          { isAuthenticated ?(
+            <SectionLayout topOffset={0} id="vote-ten-questions-section">
+              <VoteTenQuestions />
+            </SectionLayout>
+          ) : (
+            <SectionLayout topOffset={0} id="vote-ten-questions-section">
+              <div 
+                onClick={handleLoginClick}
+                className="cursor-pointer text-center py-8 px-4 text-gray-600 hover:text-gray-900 transition-colors"
+              >
+                Require Login
+              </div>
+            </SectionLayout>
+          )}
 
           <SectionLayout topOffset={0} id="zhe-xie-zhen-de-ke-yi-section">
             <ZheXieZhenDeKeYiSection2 />
           </SectionLayout>
 
-          <SectionLayout topOffset={0} id="four-grid-section">
-            <FourGridSection />
-          </SectionLayout>
+          { isAuthenticated ? (
+            <SectionLayout topOffset={0} id="four-grid-section">
+              <FourGridSection />
+            </SectionLayout>
+          ) :  (
+            <SectionLayout topOffset={0} id="four-grid-section">
+              <div 
+                onClick={handleLoginClick}
+                className="cursor-pointer text-center py-8 px-4 text-gray-600 hover:text-gray-900 transition-colors"
+              >
+                Require Login
+              </div>
+            </SectionLayout>
+          )}
 
           <SectionLayout topOffset={0} id="nian-zhong-xiao-wen-section">
             <NianZhongXiaoWenSection />

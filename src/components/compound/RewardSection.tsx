@@ -10,6 +10,7 @@ import { useZA } from '@/hooks/useZA';
 import { useZhihuApp } from '@/hooks/useZhihuApp';
 import { useMobile } from '@/hooks/useMobile';
 import { useZhihuHybrid } from '@/hooks/useZhihuHybrid';
+import { useAuth } from '@/context/auth-context';
 
 const formatDate = (timestamp: number | undefined) => {
   if (!timestamp) return '--/--/--';
@@ -41,6 +42,7 @@ const RewardSection = ({ onShowAddressForm }: RewardSectionProps = {}) => {
   const isInZhihuApp = useZhihuApp();
   const isMobile = useMobile();
   const { isAvailable: isHybridAvailable, openURL } = useZhihuHybrid();
+  const { isAuthenticated, login } = useAuth();
 
   const [campaignData, setCampaignData] = useState<CampaignResponse | null>(null);
   const [isRedeemModalOpen, setIsRedeemModalOpen] = useState(false);
@@ -362,6 +364,14 @@ const RewardSection = ({ onShowAddressForm }: RewardSectionProps = {}) => {
     }
   };
 
+  // 处理未认证用户点击奖励区域 - 跳转到登录页
+  const handleAuthOverlayClick = (e: React.MouseEvent) => {
+    e.preventDefault();
+    e.stopPropagation();
+    const signinBase = assets?.urls?.signinBase;
+    login(signinBase);
+  };
+
   return (
     <div className="relative w-full pb-10 flex flex-col pt-1">
       <div
@@ -373,6 +383,19 @@ const RewardSection = ({ onShowAddressForm }: RewardSectionProps = {}) => {
           <div
             onClick={handleOverlayClick}
             className="absolute inset-0 z-[60] cursor-pointer"
+            style={{
+              backgroundColor: 'rgba(0,0,0,0.01)',
+              pointerEvents: 'auto',
+              minHeight: '100%'
+            }}
+          />
+        )}
+        {/* 未认证用户透明遮罩层 */}
+        {!isAuthenticated && (
+          <div
+            onClick={handleAuthOverlayClick}
+            onMouseDown={handleAuthOverlayClick}
+            className="absolute inset-0 z-[70] cursor-pointer"
             style={{
               backgroundColor: 'rgba(0,0,0,0.01)',
               pointerEvents: 'auto',

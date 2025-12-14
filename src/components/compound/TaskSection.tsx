@@ -9,6 +9,7 @@ import { useZA } from '@/hooks/useZA';
 import { useInView } from 'react-intersection-observer';
 import { useMobile } from '@/hooks/useMobile';
 import { useZhihuHybrid } from '@/hooks/useZhihuHybrid';
+import { useAuth } from '@/context/auth-context';
 
 const TaskSection = () => {
   const { showToast } = useToast();
@@ -20,6 +21,7 @@ const TaskSection = () => {
   const { trackShow, trackEvent } = useZA();
   const { ref: moduleRef, inView: moduleInView } = useInView({ triggerOnce: true });
   const { isAvailable: isHybridAvailable, openURL } = useZhihuHybrid();
+  const { isAuthenticated, login } = useAuth();
 
   useEffect(() => {
     if (moduleInView) {
@@ -186,6 +188,14 @@ const TaskSection = () => {
     }
   };
 
+  // 处理未认证用户点击任务区域 - 跳转到登录页
+  const handleAuthOverlayClick = (e: React.MouseEvent) => {
+    e.preventDefault();
+    e.stopPropagation();
+    const signinBase = assets?.urls?.signinBase;
+    login(signinBase);
+  };
+
   const renderTaskButton = (task: TaskItem) => {
     const isReceived = task.state.point_received;
     const btnText = task.state.desc;
@@ -223,6 +233,19 @@ const TaskSection = () => {
             onClick={handleOverlayClick}
             onMouseDown={handleOverlayClick}
             className="absolute inset-0 z-60 cursor-pointer"
+            style={{
+              backgroundColor: 'rgba(0,0,0,0.01)',
+              pointerEvents: 'auto',
+              minHeight: '100%'
+            }}
+          />
+        )}
+        {/* 未认证用户透明遮罩层 */}
+        {!isAuthenticated && (
+          <div
+            onClick={handleAuthOverlayClick}
+            onMouseDown={handleAuthOverlayClick}
+            className="absolute inset-0 z-70 cursor-pointer"
             style={{
               backgroundColor: 'rgba(0,0,0,0.01)',
               pointerEvents: 'auto',

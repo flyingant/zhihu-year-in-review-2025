@@ -12,12 +12,14 @@ interface AuthWrapperProps {
   children: ReactNode;
   showWelcomeMessage?: boolean;
   showLoadingIndicator?: boolean;
+  requireAuth?: boolean; // If false, allows page to be accessed without authentication
 }
 
 export default function AuthWrapper({
   children,
   showWelcomeMessage = true,
   showLoadingIndicator = true,
+  requireAuth = true, // Default to true to maintain existing behavior
 }: AuthWrapperProps) {
   const { isAuthLoading, isAuthenticated, profile, login } = useAuth();
   const { isLoadingData, error, fetchUserData } = useUserData();
@@ -35,14 +37,15 @@ export default function AuthWrapper({
     }
   }, []);
 
-  // Redirect to login page if not authenticated
+  // Redirect to login page if not authenticated (only if requireAuth is true)
   useEffect(() => {
     // Only redirect if:
-    // 1. Auth check is complete (!isAuthLoading)
-    // 2. User is not authenticated
-    // 3. We haven't already redirected in this session
-    // 4. Assets are loaded (or we have a fallback)
-    if (!isAuthLoading && !isAuthenticated && !hasRedirected && !hasRedirectedRef.current) {
+    // 1. Auth is required (requireAuth === true)
+    // 2. Auth check is complete (!isAuthLoading)
+    // 3. User is not authenticated
+    // 4. We haven't already redirected in this session
+    // 5. Assets are loaded (or we have a fallback)
+    if (requireAuth && !isAuthLoading && !isAuthenticated && !hasRedirected && !hasRedirectedRef.current) {
       // Wait for assets to load if available, but don't block if it's taking too long
       const signinBase = assets?.urls?.signinBase;
       
@@ -52,7 +55,7 @@ export default function AuthWrapper({
       
       login(signinBase);
     }
-  }, [isAuthLoading, isAuthenticated, login, assets, hasRedirected]);
+  }, [requireAuth, isAuthLoading, isAuthenticated, login, assets, hasRedirected]);
 
   // Show loading state while checking auth
   if (isAuthLoading && showLoadingIndicator) {

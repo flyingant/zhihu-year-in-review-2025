@@ -163,6 +163,11 @@ const FourGridSection = () => {
   };
 
   const handleSaveImage = async () => {
+    // Redirect to Zhihu App if not in app and on mobile
+    if (!isZhihuApp() && isMobile && assets?.urls?.inAppRedirectionURL) {
+      window.location.href = assets.urls.inAppRedirectionURL;
+      return;
+    }
     if (!dialogImage) {
       showToast('没有可保存的图片', 'error');
       return;

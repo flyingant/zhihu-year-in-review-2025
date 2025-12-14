@@ -14,6 +14,7 @@ import {
 } from '@/api/campaign';
 import { isZhihuApp } from '@/lib/zhihu-detection';
 import { useZhihuHybrid } from '@/hooks/useZhihuHybrid';
+import { useMobile } from '@/hooks/useMobile';
 
 const useLoadingDots = (baseText: string, speed = 300, isActive: boolean) => {
   const [dots, setDots] = useState('');
@@ -66,6 +67,7 @@ const VoteTenQuestions = () => {
   const { showToast } = useToast();
   const { downloadImage: downloadImageViaHybrid } = useZhihuHybrid();
   const { trackEvent } = useZA();
+  const isMobile = useMobile();
 
   const [activeTopicId, setActiveTopicId] = useState<string>(TOPICS[0].id);
   const [selectedQuestions, setSelectedQuestions] = useState<Question[]>([]);
@@ -264,6 +266,12 @@ const VoteTenQuestions = () => {
   };
 
   const handleSavePosterImage = async (imageUrl: string) => {
+    // Redirect to Zhihu App if not in app and on mobile
+    if (!isZhihuApp() && isMobile && assets?.urls?.inAppRedirectionURL) {
+      window.location.href = assets.urls.inAppRedirectionURL;
+      return;
+    }
+    
     if (isZhihuApp()) {
       try {
         await downloadImageViaHybrid(imageUrl);

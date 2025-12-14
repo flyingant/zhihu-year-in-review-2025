@@ -97,7 +97,13 @@ export default function IntroductionScene({ onNext, sceneName }: IntroductionSce
 
   // Play step3 video when button is clicked (stops step2 loop)
   const handleButtonClick = () => {
-    if (!assets?.report?.intro || !videoRef.current || currentStep !== 'step2' || !isAgreed) return;
+    if (!assets?.report?.intro || !videoRef.current || currentStep !== 'step2') return;
+    
+    // If not agreed, open the dialog instead
+    if (!isAgreed) {
+      setIsAgreementDialogOpen(true);
+      return;
+    }
     
     const video = videoRef.current;
     
@@ -256,7 +262,7 @@ export default function IntroductionScene({ onNext, sceneName }: IntroductionSce
               alt={introButtonAsset.alt} 
               width={introButtonAsset.width} 
               height={introButtonAsset.height} 
-              className={`object-contain select-none ${isAgreed ? 'animate-wiggle-x cursor-pointer' : 'opacity-50 cursor-not-allowed'}`}
+              className={`object-contain select-none cursor-pointer ${isAgreed ? 'animate-wiggle-x' : ''}`}
             />
             {/* Checkbox with text below the button */}
             <div className="flex items-center gap-2 mt-3" style={{width: introButtonAsset.width + 40}}>
@@ -289,7 +295,10 @@ export default function IntroductionScene({ onNext, sceneName }: IntroductionSce
         <div 
           className="fixed inset-0 z-[100] flex items-center justify-center bg-black/60 px-4 animate-overlayShow"
           style={{fontFamily: "PingFang SC"}}
-          onClick={() => setIsAgreementDialogOpen(false)}
+          onClick={() => {
+            setIsAgreementDialogOpen(false);
+            setIsAgreed(false);
+          }}
         >
           <div 
             className="bg-white w-[90vw] max-w-[400px] rounded-[16px] overflow-hidden flex flex-col animate-contentShow max-h-[85vh]"
@@ -386,7 +395,10 @@ export default function IntroductionScene({ onNext, sceneName }: IntroductionSce
             <div className="px-6 pb-6 pt-4 border-t border-gray-200">
               <div className="flex gap-3">
                 <button
-                  onClick={() => setIsAgreementDialogOpen(false)}
+                  onClick={() => {
+                    setIsAgreementDialogOpen(false);
+                    setIsAgreed(false);
+                  }}
                   className="flex-1 h-[44px] rounded-full bg-[#F2F2F2] text-[#373a40] text-[15px] font-medium active:scale-95 transition-transform"
                 >
                   取消

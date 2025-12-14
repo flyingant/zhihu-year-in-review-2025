@@ -22,7 +22,7 @@ export default function P8CheeseScene({ onNext, sceneName }: PageProps) {
   const mix2Asset = bgAsset.mix2;
   const liukanshanAsset = assets.report.p8.liukanshan;
 
-  const cheeseAwards = (reportData?.cheese_award_list || []) as string;
+  const cheeseAwards = (reportData?.cheese_award_list || '') as string;
   const studentName = (reportData?.cheese_student_name || '') as string;
   const courseCount = (reportData?.course_count || '无字段') as string;
 
@@ -50,18 +50,20 @@ export default function P8CheeseScene({ onNext, sceneName }: PageProps) {
         <div style={{ lineHeight: '1.4', marginBottom: '68px', fontSize: '22px' }}>
           这一年，你荣登榜首
         </div>
+        <div hidden={!cheeseAwards}>
+          <div style={{ paddingBottom: '10px' }}>你的商业作品获得</div>
 
-        <div style={{ paddingBottom: '10px' }}>你的商业作品获得</div>
+          <div style={{ paddingBottom: '8px' }}>
+            <span className="text-r-yellow font-bold" style={{ fontSize: '18px' }}>
+              2025 芝士奖「{cheeseAwards}」荣誉
+            </span>
+          </div>
 
-        <div style={{ paddingBottom: '8px' }}>
-          <span className="text-r-yellow font-bold" style={{ fontSize: '18px' }}>
-            2025 芝士奖「{cheeseAwards}」荣誉
-          </span>
+          <div style={{ paddingBottom: '80px' }}>
+            从洞察到价值，每一份内容都站在了更高的舞台
+          </div>
         </div>
 
-        <div style={{ paddingBottom: '80px' }}>
-          从洞察到价值，每一份内容都站在了更高的舞台
-        </div>
 
         {/* 
             ===========================================
@@ -82,7 +84,7 @@ export default function P8CheeseScene({ onNext, sceneName }: PageProps) {
             marginTop: '20px',
           }}
         >
-          <div style={{ marginBottom: '8px' }}>
+          <div style={{ marginBottom: '8px' }} hidden={!courseCount}>
             你完成「芝士商学院」
             <span className="text-r-pink mx-1" style={{ fontSize: '18px' }}>{courseCount}</span>
             期课程

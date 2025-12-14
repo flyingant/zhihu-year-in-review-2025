@@ -112,52 +112,75 @@ export default function P16Scene({ onNext, sceneName }: PageProps) {
           left: "35px",
         }}
       >
-        <div className="leading-relaxed" style={{ marginBottom: "12px" }}>
-          今年,你点亮了
-          <span
-            className={`text-r-pink`}
-            style={{ fontSize: 18, paddingLeft: "7px", paddingRight: "7px" }}
-          >
-            {String(sendUpvoteCount ?? "send_upvote_cnt")}
-          </span>
-          次赞同
-        </div>
+        {sendUpvoteCount && (
+          <>
+            <div className="leading-relaxed" style={{ marginBottom: "12px" }}>
+              今年,你点亮了
+              <span
+                className={`text-r-pink`}
+                style={{
+                  fontSize: 18,
+                  paddingLeft: "7px",
+                  paddingRight: "7px",
+                }}
+              >
+                {String(sendUpvoteCount ?? "send_upvote_cnt")}
+              </span>
+              次赞同
+            </div>
+            <div style={{ marginBottom: "42px" }}>每次都是直达心灵的触动</div>
+          </>
+        )}
 
-        <div style={{ marginBottom: "42px" }}>每次都是直达心灵的触动</div>
-
-        <div style={{ marginBottom: "12px" }}>
-          你最长停在
-          <span
-            className={`text-r-yellow`}
-            style={{ fontSize: 14, paddingLeft: "7px", paddingRight: "7px" }}
-          >
-            @{String(consumeMemberName ?? "consume_member_name")}
-          </span>
-        </div>
-
-        <div style={{ paddingBottom: "40px" }}>
-          <div className="">
-            最多的
-            <span
-              className={`text-r-fern`}
-              style={{ fontSize: 24, paddingLeft: "7px", paddingRight: "7px" }}
-            >
-              {String(sendMostUpvoteCount ?? "send_most_upvote_cnt")}
-            </span>
-            个赞同, 给了
+        {consumeMemberName && (
+          <div style={{ marginBottom: "8px" }}>
+            你最长停在
             <span
               className={`text-r-yellow`}
               style={{ fontSize: 14, paddingLeft: "7px", paddingRight: "7px" }}
             >
-              @{String(sendMostUpvoteMemberName ?? "sote_member_name")}
+              @{String(consumeMemberName ?? "consume_member_name")}
             </span>
           </div>
-        </div>
+        )}
+
+        {sendMostUpvoteCount && (
+          <>
+            <div style={{ paddingBottom: "40px" }}>
+              <div className="">
+                最多的
+                <span
+                  className={`text-r-fern`}
+                  style={{
+                    fontSize: 24,
+                    paddingLeft: "7px",
+                    paddingRight: "7px",
+                  }}
+                >
+                  {String(sendMostUpvoteCount ?? "send_most_upvote_cnt")}
+                </span>
+                个赞同, 给了
+                <span
+                  className={`text-r-yellow`}
+                  style={{
+                    fontSize: 14,
+                    paddingLeft: "7px",
+                    paddingRight: "7px",
+                  }}
+                >
+                  @{String(sendMostUpvoteMemberName ?? "sote_member_name")}
+                </span>
+              </div>
+            </div>
+          </>
+        )}
 
         <div style={{ fontSize: 14 }}>
           <span>看看</span>
           <span
-            className={`text-r-blue flex items-center`}
+            className={`text-r-blue flex items-center ${
+              interestMemberName1 ? "" : "hidden"
+            }`}
             style={{
               paddingLeft: "2px",
               paddingRight: "2px",
@@ -174,7 +197,9 @@ export default function P16Scene({ onNext, sceneName }: PageProps) {
             />
           </span>
           <span
-            className={`text-r-blue flex items-center`}
+            className={`text-r-blue flex items-center ${
+              interestMemberName2 ? "" : "hidden"
+            }`}
             style={{
               paddingLeft: "2px",
               paddingRight: "2px",
@@ -186,7 +211,9 @@ export default function P16Scene({ onNext, sceneName }: PageProps) {
             <ActionsButton style={{ marginLeft: "7px" }} type="subscribe" />
           </span>
           <span
-            className={`text-r-blue flex items-center`}
+            className={`text-r-blue flex items-center ${
+              interestMemberName3 ? "" : "hidden"
+            }`}
             style={{
               paddingLeft: "2px",
               paddingRight: "2px",

@@ -23,7 +23,10 @@ export default function P19Scene({ onNext, sceneName }: PageProps) {
 
   // Map context data to component variables according to P19 spec (社交-圈子用户)
   const joinClubCount = reportData?.join_club_cnt ?? null;
-  const joinClubPercentage = reportData?.join_club_percentage ?? null;
+  const joinClubPercentage =
+    reportData?.join_club_percentage != null
+      ? Number(reportData.join_club_percentage).toFixed(2)
+      : null;
   const consumeMostClubName = reportData?.consume_most_club_name ?? null;
   const consumeMostClubPv = reportData?.consume_most_club_pv ?? null;
   const interactiveMostClubName =
@@ -177,67 +180,89 @@ export default function P19Scene({ onNext, sceneName }: PageProps) {
 
       {/* content */}
       <div className="z-0" style={{ fontSize: "14px" }}>
-        <div
-          className="absolute"
-          style={{ fontSize: "14px", top: "184px", left: "36px" }}
-        >
-          <span className="pr-[7px]" style={{ fontSize: "18px" }}>
-            2025
-          </span>
-          年 , 你加入了
-          <span className="text-r-pink px-[7px]" style={{ fontSize: "24px" }}>
-            {String(joinClubCount ?? "join_club_cnt")}
-          </span>
-          个圈子 <br />
-          <p className="mt-5">对同好社交的热情超过了</p>
-          <span className="text-r-green pr-[7px]">
-            {String(joinClubPercentage ?? "join_club_percentage")}%
-          </span>
-          的知友
-        </div>
-        <div className="absolute" style={{ top: "360px", left: "141px" }}>
-          <div className="mb-[10px]">
-            你在
-            <span
-              className="text-r-purple px-[7px]"
-              style={{ fontSize: "16px" }}
-            >
-              「{String(consumeMostClubName ?? "consume_most_club_name")}」
+        {joinClubCount && (
+          <div
+            className="absolute"
+            style={{ fontSize: "14px", top: "184px", left: "36px" }}
+          >
+            <span className="pr-[7px]" style={{ fontSize: "18px" }}>
+              2025
             </span>
-            <br />
-            停留最久，驻足
-            <span className="text-r-blue px-[7px]" style={{ fontSize: "18px" }}>
-              {String(consumeMostClubPv ?? "consume_most_club_pv")}
+            年 , 你加入了
+            <span className="text-r-pink px-[7px]" style={{ fontSize: "24px" }}>
+              {String(joinClubCount ?? "join_club_cnt")}
             </span>
-            次
+            个圈子 <br />
+            {joinClubPercentage && (
+              <>
+                <span className="mt-5">对同好社交的热情超过了</span>
+                <span
+                  className="text-r-green"
+                  style={{
+                    fontSize: "18px",
+                    marginLeft: "7px",
+                    marginRight: "7px",
+                  }}
+                >
+                  {String(joinClubPercentage ?? "join_club_percentage")}%
+                </span>
+                的知友
+              </>
+            )}
           </div>
-        </div>
-        <div className="absolute z-2" style={{ top: "540px", left: "17px" }}>
-          <div>
-            在
-            <span className="text-r-yellow px-[7px]" style={{ fontSize: 16 }}>
-              「
-              {String(interactiveMostClubName ?? "interactive_most_club_name")}
-              」
-            </span>
-            圈 <br />
-            你留下了
-            <span className="text-r-green px-[7px]" style={{ fontSize: 18 }}>
-              {String(
-                interactiveMostClubCommentCount ??
-                  "interactive_most_club_comment_cnt"
-              )}
-            </span>
-            条讨论 <br />
-            <span className="text-r-pink pr-[7px]" style={{ fontSize: 18 }}>
-              {String(
-                interactiveMostClubUpvoteCount ??
-                  "interactive_most_club_upvote_cnt"
-              )}
-            </span>
-            个赞同
+        )}
+        {consumeMostClubPv && (
+          <div className="absolute" style={{ top: "360px", left: "141px" }}>
+            <div className="mb-[10px]">
+              你在
+              <span
+                className="text-r-purple px-[7px]"
+                style={{ fontSize: "16px" }}
+              >
+                「{String(consumeMostClubName ?? "consume_most_club_name")}」
+              </span>
+              <br />
+              停留最久，驻足
+              <span
+                className="text-r-blue px-[7px]"
+                style={{ fontSize: "18px" }}
+              >
+                {String(consumeMostClubPv ?? "consume_most_club_pv")}
+              </span>
+              次
+            </div>
           </div>
-        </div>
+        )}
+        {interactiveMostClubCommentCount && interactiveMostClubUpvoteCount && (
+          <div className="absolute z-2" style={{ top: "540px", left: "17px" }}>
+            <div>
+              在
+              <span className="text-r-yellow px-[7px]" style={{ fontSize: 16 }}>
+                「
+                {String(
+                  interactiveMostClubName ?? "interactive_most_club_name"
+                )}
+                」
+              </span>
+              圈 <br />
+              你留下了
+              <span className="text-r-green px-[7px]" style={{ fontSize: 18 }}>
+                {String(
+                  interactiveMostClubCommentCount ??
+                    "interactive_most_club_comment_cnt"
+                )}
+              </span>
+              条讨论 <br />
+              <span className="text-r-pink pr-[7px]" style={{ fontSize: 18 }}>
+                {String(
+                  interactiveMostClubUpvoteCount ??
+                    "interactive_most_club_upvote_cnt"
+                )}
+              </span>
+              个赞同
+            </div>
+          </div>
+        )}
       </div>
     </BaseScene>
   );

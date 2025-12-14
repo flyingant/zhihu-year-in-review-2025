@@ -138,7 +138,7 @@ export default function P20Scene({ onNext, sceneName }: PageProps) {
 
       {/* content */}
       <div className="z-0">
-        <div className="first hidden">
+        <div className="first">
           {/* Night Club Publish */}
           <div
             className="absolute"
@@ -149,15 +149,20 @@ export default function P20Scene({ onNext, sceneName }: PageProps) {
               right: "19px",
             }}
           >
-            <div className="leading-[29px]">
-              你在圈子里「扩列」了
-              <span className="text-r-blue px-[7px]">
-                {String(nightClubPinClubName ?? "night_club_pin_club_name")}
-              </span>
-              位好友
-              <br />
-              希望新的一年，你能遇见更多同频的人
-            </div>
+            {!clubFriendCount && (
+              <div className="leading-[29px]">
+                你在圈子里「扩列」了
+                <span
+                  className="text-r-blue px-[7px]"
+                  style={{ fontSize: "18px" }}
+                >
+                  {String(clubFriendCount ?? "club_friend_cnt")}
+                </span>
+                位好友
+                <br />
+                希望新的一年，你能遇见更多同频的人
+              </div>
+            )}
           </div>
           {/* Most Interacted Club Members */}
           <div
@@ -197,7 +202,7 @@ export default function P20Scene({ onNext, sceneName }: PageProps) {
             </div>
           </div>
         </div>
-        <div className="second">
+        <div className="spots hidden">
           {/* Most Favorite Spots */}
           <div
             className="z-30 absolute"
@@ -206,17 +211,27 @@ export default function P20Scene({ onNext, sceneName }: PageProps) {
               top: "145px",
               left: "34px",
               right: "34px",
+              lineHeight: "24px",
             }}
           >
-            <span className="text-r-pink">
-              「{String(clubActiveListName1 ?? "club_active_list_name_top1")}」
-            </span>
-            <span className="text-r-pink">
-              「{String(clubActiveListName2 ?? "club_active_list_name_top2")}」
-            </span>
-            <span className="text-r-pink">
-              「{String(clubActiveListName3 ?? "club_active_list_name_top3")}」
-            </span>
+            {clubActiveListName1 && (
+              <span className="text-r-pink">
+                「{String(clubActiveListName1 ?? "club_active_list_name_top1")}
+                」
+              </span>
+            )}
+            {clubActiveListName2 && (
+              <span className="text-r-pink">
+                「{String(clubActiveListName2 ?? "club_active_list_name_top2")}
+                」
+              </span>
+            )}
+            {clubActiveListName3 && (
+              <span className="text-r-pink">
+                「{String(clubActiveListName3 ?? "club_active_list_name_top3")}
+                」
+              </span>
+            )}
             <p>是你今年最爱的精神据点</p>
           </div>
           {/* Recommended Clubs */}
@@ -225,48 +240,54 @@ export default function P20Scene({ onNext, sceneName }: PageProps) {
             style={{ fontSize: 14, top: "583px", left: "34px", right: "34px" }}
           >
             <div className="flex flex-col gap-3 leading-[34px]">
-              <span
-                className="flex items-center text-r-green px-[2px]"
-                style={{ fontSize: 18 }}
-              >
-                {String(
-                  mostInteractionMemberName1 ??
-                    "most_interaction_club_member_name_top1"
-                )}
-                <ActionsButton
-                  className="ml-[7px]"
-                  type="join"
-                  onClick={() => {}}
-                />
-              </span>
-              <span
-                className="flex items-center text-r-green px-[2px]"
-                style={{ fontSize: 18 }}
-              >
-                {String(
-                  mostInteractionMemberName2 ??
-                    "most_interaction_club_member_name_top2"
-                )}
-                <ActionsButton
-                  className="ml-[7px]"
-                  type="join"
-                  onClick={() => {}}
-                />
-              </span>
-              <span
-                className="flex items-center text-r-green px-[2px]"
-                style={{ fontSize: 18 }}
-              >
-                {String(
-                  mostInteractionMemberName3 ??
-                    "most_interaction_club_member_name_top3"
-                )}
-                <ActionsButton
-                  className="ml-[7px]"
-                  type="joined"
-                  onClick={() => {}}
-                />
-              </span>
+              {mostInteractionMemberName1 && (
+                <span
+                  className="flex items-center text-r-green px-[2px]"
+                  style={{ fontSize: 18 }}
+                >
+                  {String(
+                    mostInteractionMemberName1 ??
+                      "most_interaction_club_member_name_top1"
+                  )}
+                  <ActionsButton
+                    className="ml-[7px]"
+                    type="join"
+                    onClick={() => {}}
+                  />
+                </span>
+              )}
+              {mostInteractionMemberName2 && (
+                <span
+                  className="flex items-center text-r-green px-[2px]"
+                  style={{ fontSize: 18 }}
+                >
+                  {String(
+                    mostInteractionMemberName2 ??
+                      "most_interaction_club_member_name_top2"
+                  )}
+                  <ActionsButton
+                    className="ml-[7px]"
+                    type="join"
+                    onClick={() => {}}
+                  />
+                </span>
+              )}
+              {mostInteractionMemberName3 && (
+                <span
+                  className="flex items-center text-r-green px-[2px]"
+                  style={{ fontSize: 18 }}
+                >
+                  {String(
+                    mostInteractionMemberName3 ??
+                      "most_interaction_club_member_name_top3"
+                  )}
+                  <ActionsButton
+                    className="ml-[7px]"
+                    type="joined"
+                    onClick={() => {}}
+                  />
+                </span>
+              )}
             </div>
             <div className="flex items-center gap-1 mt-3">
               或许会是你的下一站 <br />

@@ -5,6 +5,7 @@ import { useUserReportData } from "@/context/user-report-data-context";
 import { useAssets } from "@/context/assets-context";
 import BaseScene from "./BaseScene";
 import GlitchLayer from "../effects/GlitchLayer";
+import { format } from "date-fns";
 
 interface PageProps {
   onNext?: () => void;
@@ -26,7 +27,9 @@ export default function P15Scene({ onNext, sceneName }: PageProps) {
   const mostUpvoteMemberUpvote = reportData?.most_upvote_member_upvote ?? null;
   const interactionMostMemberName =
     reportData?.interaction_most_member_name ?? null;
-  const thanksInvitationDate = reportData?.thanks_invitation_date ?? null;
+  const thanksInvitationDate = reportData?.thanks_invitation_date
+    ? format(new Date(reportData.thanks_invitation_date), "MM 月 dd 日")
+    : null;
   const thanksInvitationQuestionTitle =
     reportData?.thanks_invitation_question_title ?? null;
   const thanksInvitationMemberName =
@@ -109,88 +112,113 @@ export default function P15Scene({ onNext, sceneName }: PageProps) {
           真实的连接, 从点滴开启
         </span>
 
-        <div className="absolute" style={{ left: "120px", top: "172px" }}>
-          <div className="flex items-center gap-1">
-            <Image
-              src={year.url}
-              alt={year.alt}
-              width={year.width}
-              height={year.height}
-              className="mr-[7px] object-contain  pointer-events-none select-none z-0"
-            />
-            年
+        {newFollowCount && (
+          <div className="absolute" style={{ left: "120px", top: "172px" }}>
+            <div className="flex items-center gap-1">
+              <Image
+                src={year.url}
+                alt={year.alt}
+                width={year.width}
+                height={year.height}
+                className="mr-[7px] object-contain  pointer-events-none select-none z-0"
+              />
+              年
+            </div>
+            有
+            <span className={`mx-[6px] text-r-fern`} style={{ fontSize: 23 }}>
+              {String(newFollowCount ?? "new_follow_cnt")}
+            </span>
+            位知友选择关注你
           </div>
-          有
-          <span className={`mx-[6px] text-r-fern`} style={{ fontSize: 23 }}>
-            {String(newFollowCount ?? "new_follow_cnt")}
-          </span>
-          位知友选择关注你
-        </div>
+        )}
 
         <div
           className="absolute leading-relaxed"
           style={{ top: "330px", left: "19px" }}
         >
-          <div className="">
-            最懂你的是
-            <span className={`px-[6px] text-r-yellow`} style={{ fontSize: 16 }}>
-              @{String(mostUpvoteMemberName ?? "most_upvote_member_name")}
-            </span>
-          </div>
-          <div>
-            TA用
-            <span className={`px-[6px] text-r-green`} style={{ fontSize: 18 }}>
-              {String(mostUpvoteMemberUpvote ?? "most_upvote_member_upvote")}
-            </span>
-            个赞同回应你的表达
-          </div>
-          <div>
-            和你互动最多的，是
-            <span className={`px-[6px] text-r-pink`} style={{ fontSize: 16 }}>
-              @
-              {String(
-                interactionMostMemberName ?? "interaction_most_member_name"
-              )}
-            </span>
-          </div>
+          {mostUpvoteMemberName && (
+            <>
+              <div className="">
+                最懂你的是
+                <span
+                  className={`px-[6px] text-r-yellow`}
+                  style={{ fontSize: 16 }}
+                >
+                  @{String(mostUpvoteMemberName ?? "most_upvote_member_name")}
+                </span>
+              </div>
+              <div>
+                TA用
+                <span
+                  className={`px-[6px] text-r-green`}
+                  style={{ fontSize: 18 }}
+                >
+                  {String(
+                    mostUpvoteMemberUpvote ?? "most_upvote_member_upvote"
+                  )}
+                </span>
+                个赞同回应你的表达
+              </div>
+            </>
+          )}
+
+          {interactionMostMemberName && (
+            <div>
+              和你互动最多的，是
+              <span className={`px-[6px] text-r-pink`} style={{ fontSize: 16 }}>
+                @
+                {String(
+                  interactionMostMemberName ?? "interaction_most_member_name"
+                )}
+              </span>
+            </div>
+          )}
         </div>
 
-        <div
-          className="absolute"
-          style={{ top: "566px", left: "114px", right: "20px" }}
-        >
-          <div className="mb-[10px] wrap-break-word">
-            <span className={`px-[6px] text-r-green`} style={{ fontSize: 18 }}>
-              {String(thanksInvitationDate ?? "thanks_invitation_date")}
-            </span>
-            你在
-            <span className={`px-[6px] text-r-blue`}>
-              @
-              {String(
-                thanksInvitationMemberName ?? "thanks_invitation_member_name"
-              )}
-            </span>
-            <br />
-            <span className={`px-[2px] text-r-yellow`} style={{ fontSize: 16 }}>
-              「
-              {String(
-                thanksInvitationQuestionTitle ?? "thanks_invitation_question"
-              )}
-              」
-            </span>
+        {thanksInvitationMemberName && (
+          <div
+            className="absolute"
+            style={{ fontSize: 13, top: "566px", left: "114px", right: "20px" }}
+          >
+            <div className="mb-[10px] wrap-break-word">
+              <span
+                className={`px-[6px] text-r-green`}
+                style={{ fontSize: 18 }}
+              >
+                {String(thanksInvitationDate ?? "thanks_invitation_date")}
+              </span>
+              你在
+              <span className={`px-[6px] text-r-blue`}>
+                @
+                {String(
+                  thanksInvitationMemberName ?? "thanks_invitation_member_name"
+                )}
+              </span>
+              <br />
+              <span
+                className={`px-[2px] text-r-yellow`}
+                style={{ fontSize: 16 }}
+              >
+                「
+                {String(
+                  thanksInvitationQuestionTitle ?? "thanks_invitation_question"
+                )}
+                」
+              </span>
+            </div>
+            <div>
+              回应了
+              <span className={`px-[2px] text-r-purple`}>
+                @
+                {String(
+                  thanksInvitationMemberName ?? "thanks_invitation_member_name"
+                )}
+              </span>
+              的热情 <br />
+              写下今年的第一个「谢邀」
+            </div>
           </div>
-          <div>
-            回应了
-            <span className={`px-[2px] text-r-purple`} style={{ fontSize: 16 }}>
-              @
-              {String(
-                thanksInvitationMemberName ?? "thanks_invitation_member_name"
-              )}
-            </span>
-            的热情 <br />
-            写下今年的第一个「谢邀」
-          </div>
-        </div>
+        )}
       </div>
     </BaseScene>
   );

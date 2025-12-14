@@ -1,7 +1,6 @@
 "use client";
 
 import { useUserReportData } from "@/context/user-report-data-context";
-import { colorClass, typographyClass } from "@/hooks/useSceneTheme";
 import BaseScene from "./BaseScene";
 import GlitchLayer from "@/components/report/effects/GlitchLayer";
 import { useAssets } from "@/context/assets-context";
@@ -114,19 +113,24 @@ export default function P25Scene({ onNext, sceneName }: PageProps) {
           className="absolute pb-[30px]"
           style={{ top: "185px", left: "40px", right: "0" }}
         >
-          <div className="mb-[10px]">
-            2025年，作为尊贵的盐选会员,
-            <br />
-            你解锁了
-            <span className={`text-r-pink px-[7px]`} style={{ fontSize: 24 }}>
-              {String(paidContentCount ?? "paid_content_cnt")}
-            </span>
-            篇盐言故事,共
-            <span className={`text-r-purple px-[7px]`} style={{ fontSize: 24 }}>
-              {String(totalWordCount ?? "total_word_cnt")}
-            </span>
-            字
-          </div>
+          {paidContentCount && totalWordCount && (
+            <div className="mb-[10px]">
+              2025年，作为尊贵的盐选会员,
+              <br />
+              你解锁了
+              <span className={`text-r-pink px-[7px]`} style={{ fontSize: 24 }}>
+                {String(paidContentCount ?? "paid_content_cnt")}
+              </span>
+              篇盐言故事,共
+              <span
+                className={`text-r-purple px-[7px]`}
+                style={{ fontSize: 24 }}
+              >
+                {String(totalWordCount ?? "total_word_cnt")}
+              </span>
+              字
+            </div>
+          )}
         </div>
 
         {/* Top Books */}
@@ -176,21 +180,23 @@ export default function P25Scene({ onNext, sceneName }: PageProps) {
             right: "77px",
           }}
         >
-          <div className="mb-[10px]">
-            你阅读最多的作者是
-            <span className="text-r-fern px-[2px]">
-              @{String(mostFavoriteAuthorName ?? "most_favorite_author_name")}
-            </span>
-            <br />
-            TA的
-            <span
-              className="text-r-yellow px-[7px]"
-              style={{ fontSize: "18px" }}
-            >
-              {String(mostFavoriteAuthorNum ?? "most_favorite_author_num")}
-            </span>
-            篇故事，陪你度过了不少时光
-          </div>
+          {mostFavoriteAuthorName && (
+            <div className="mb-[10px]">
+              你阅读最多的作者是
+              <span className="text-r-fern px-[2px]">
+                @{String(mostFavoriteAuthorName ?? "most_favorite_author_name")}
+              </span>
+              <br />
+              TA的
+              <span
+                className="text-r-yellow px-[7px]"
+                style={{ fontSize: "18px" }}
+              >
+                {String(mostFavoriteAuthorNum ?? "most_favorite_author_num")}
+              </span>
+              篇故事，陪你度过了不少时光
+            </div>
+          )}
         </div>
       </div>
     </BaseScene>

@@ -216,6 +216,46 @@ export interface UserReportData {
   is_navigator?: number;
   navigator_upvote_content_cnt?: number;
   
+  // P15: Social/Follow related fields
+  new_follow_cnt?: number;
+  most_upvote_member_name?: string;
+  most_upvote_member_upvote?: number;
+  interaction_most_member_name?: string;
+  thanks_invitation_date?: string | number;
+  thanks_invitation_question_title?: string;
+  thanks_invitation_member_name?: string;
+  
+  // P17: Social interaction content
+  follow_question_friend?: number;
+  follow_question_friend_question_title?: string;
+  upvote_hot_answer_member_name?: string;
+  upvote_hot_answer_title?: string;
+  upvote_hot_answer_upvote_cnt?: number;
+  upvote_hot_answer_user_cnt?: number;
+
+  // P19: Club/Community participation
+  join_club_cnt?: number;
+  join_club_percentage?: number;
+  consume_most_club_name?: string;
+  consume_most_club_pv?: number;
+  interactive_most_club_name?: string;
+  interactive_most_club_comment_cnt?: number;
+  interactive_most_club_upvote_cnt?: number;
+  interaction_most_pin_club_name?: string;
+  interaction_most_pin_title?: string;
+  interaction_most_pin_interaction_cnt?: number;
+  
+  // P22: Billboard/Hot Events related fields
+  consume_billboard_days?: number;
+  consume_billboard_content_cnt?: number;
+  upvote_zhihu_billboard_content_cnt?: number;
+  event_month?: number;
+  event_name?: string;
+  event_upvote_cnt?: number;
+  event_member_cnt?: number;
+  event_most_hour_name?: string;
+  event_most_hour?: number;
+
   // Additional fields that might exist
   [key: string]: unknown;
 }

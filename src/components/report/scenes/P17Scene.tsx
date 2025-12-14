@@ -195,53 +195,74 @@ export default function P17Scene({ onNext, sceneName }: PageProps) {
         className="z-0 absolute"
         style={{ fontSize: 14, top: "233px", left: "35px", right: "37px" }}
       >
-        <div className="">
-          <div style={{ marginBottom: "10px" }}>
-            你和
-            <span className={`text-r-pink px-[7px]`} style={{ fontSize: 24 }}>
-              {String(followQuestionFriend ?? "follow_question_friend")}
-            </span>
-            位好友共同关注着一个问题
-          </div>
-          <div style={{ marginBottom: "43px" }}>
-            <span className={`text-r-green px-[2px]`} style={{ fontSize: 17 }}>
-              「
-              {String(
-                followQuestionFriendQuestionTitle ??
-                  "follow_question_friend_question_title"
-              )}
-              」
-            </span>
-          </div>
-        </div>
-
-        <div className="z-0">
-          <div style={{ fontSize: 14, marginBottom: "10px" }}>
-            你赞同了
-            <span className={`text-r-yellow px-[7px]`} style={{ fontSize: 17 }}>
-              @
-              {String(
-                upvoteHotAnswerMemberName ?? "upvote_hot_answer_member_name"
-              )}
-            </span>
-            在
-            <br />
-            <p style={{ marginTop: "5px" }}>
-              <span className={`text-r-blue px-[2px]`} style={{ fontSize: 17 }}>
-                「{String(upvoteHotAnswerTitle ?? "upvote_hot_answer_title")}」
+        {followQuestionFriend && followQuestionFriend >= 2 && (
+          <div className="">
+            <div style={{ marginBottom: "10px" }}>
+              你和
+              <span className={`text-r-pink px-[7px]`} style={{ fontSize: 24 }}>
+                {String(followQuestionFriend ?? "follow_question_friend")}
               </span>
-              <span className={`text-r-blue px-[2px]`} style={{ fontSize: 13 }}>
-                问题下的回答
+              位好友共同关注着一个问题
+            </div>
+            <div style={{ marginBottom: "43px" }}>
+              <span
+                className={`text-r-green px-[2px]`}
+                style={{ fontSize: 17 }}
+              >
+                「
+                {String(
+                  followQuestionFriendQuestionTitle ??
+                    "follow_question_friend_question_title"
+                )}
+                」
               </span>
-            </p>
+            </div>
           </div>
-          <div style={{ fontSize: 13 }}>
-            <span className={`text-r-purple pr-[7px]`} style={{ fontSize: 24 }}>
-              {String(upvoteHotAnswerUserCount ?? "upvote_hot_answer_user_cnt")}
-            </span>
-            位知友也在此和你对上了频率
+        )}
+        {upvoteHotAnswerUserCount && upvoteHotAnswerUserCount >= 10 && (
+          <div className="z-0">
+            <div style={{ fontSize: 14, marginBottom: "10px" }}>
+              你赞同了
+              <span
+                className={`text-r-yellow px-[7px]`}
+                style={{ fontSize: 17 }}
+              >
+                @
+                {String(
+                  upvoteHotAnswerMemberName ?? "upvote_hot_answer_member_name"
+                )}
+              </span>
+              在
+              <br />
+              <p style={{ marginTop: "5px" }}>
+                <span
+                  className={`text-r-blue px-[2px]`}
+                  style={{ fontSize: 17 }}
+                >
+                  「{String(upvoteHotAnswerTitle ?? "upvote_hot_answer_title")}
+                  」
+                </span>
+                <span
+                  className={`text-r-blue px-[2px]`}
+                  style={{ fontSize: 13 }}
+                >
+                  问题下的回答
+                </span>
+              </p>
+            </div>
+            <div style={{ fontSize: 13 }}>
+              <span
+                className={`text-r-purple pr-[7px]`}
+                style={{ fontSize: 24 }}
+              >
+                {String(
+                  upvoteHotAnswerUserCount ?? "upvote_hot_answer_user_cnt"
+                )}
+              </span>
+              位知友也在此和你对上了频率
+            </div>
           </div>
-        </div>
+        )}
       </div>
     </BaseScene>
   );

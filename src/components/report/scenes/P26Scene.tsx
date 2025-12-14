@@ -1,7 +1,6 @@
 "use client";
 
 import { useUserReportData } from "@/context/user-report-data-context";
-import { colorClass, typographyClass } from "@/hooks/useSceneTheme";
 import BaseScene from "./BaseScene";
 import GlitchLayer from "@/components/report/effects/GlitchLayer";
 import { useAssets } from "@/context/assets-context";
@@ -110,38 +109,45 @@ export default function P26Scene({ onNext, sceneName }: PageProps) {
         className="absolute z-0 leading-relaxed"
         style={{ fontSize: 14, top: "114px", left: "40px", right: "72px" }}
       >
-        <div className="z-0">
-          <div className="mb-[8px]">
-            今年,你创作
-            <span className={`text-r-pink px-[7px]`} style={{ fontSize: 24 }}>
-              {String(writeStoryNumSum ?? "write_story_num_sum")}
-            </span>
-            篇故事，
-            <br />
-            把想象的灵光化成了情节与篇章。
+        {writeStoryNumSum && (
+          <div className="z-0">
+            <div className="mb-[8px]">
+              今年,你创作
+              <span className={`text-r-pink px-[7px]`} style={{ fontSize: 24 }}>
+                {String(writeStoryNumSum ?? "write_story_num_sum")}
+              </span>
+              篇故事，
+              <br />
+              把想象的灵光化成了情节与篇章。
+            </div>
           </div>
-        </div>
+        )}
 
-        <div className="z-0 my-[38px]">
-          <div>
-            有
-            <span className={`text-r-green px-[7px]`} style={{ fontSize: 24 }}>
-              {String(totalUpvoteNum ?? "total_upvote_num")}
-            </span>
-            位读者喜欢你的故事，
+        {totalUpvoteNum && (
+          <div className="z-0 my-[38px]">
+            <div>
+              有
+              <span
+                className={`text-r-green px-[7px]`}
+                style={{ fontSize: 24 }}
+              >
+                {String(totalUpvoteNum ?? "total_upvote_num")}
+              </span>
+              位读者喜欢你的故事，
+            </div>
+            <div>
+              其中，
+              <span className={`text-r-blue px-[7px]`} style={{ fontSize: 24 }}>
+                《
+                {String(
+                  writeStoryMostPopularName ?? "write_story_most_popular_name"
+                )}
+                》
+              </span>
+              最受大家的欢迎。
+            </div>
           </div>
-          <div>
-            其中，
-            <span className={`text-r-blue px-[7px]`} style={{ fontSize: 24 }}>
-              《
-              {String(
-                writeStoryMostPopularName ?? "write_story_most_popular_name"
-              )}
-              》
-            </span>
-            最受大家的欢迎。
-          </div>
-        </div>
+        )}
 
         {/* 荣誉榜单 - 可滑动 */}
         <div className="max-h-[400px] overflow-y-auto">

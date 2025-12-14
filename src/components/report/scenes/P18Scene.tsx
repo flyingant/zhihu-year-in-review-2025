@@ -41,8 +41,16 @@ export default function P18Scene({ onNext, sceneName }: PageProps) {
   const clubAdminTop2InteractionCount =
     reportData?.club_admin_top2_interaction_cnt ?? null;
 
+  const clubAdminPinCount = reportData?.club_admin_pin_cnt ?? null;
+  const clubAdminInteractionCount =
+    reportData?.club_admin_interaction_cnt ?? null;
+
   return (
-    <BaseScene onNext={onNext} sceneName={sceneName}>
+    <BaseScene
+      onNext={onNext}
+      sceneName={sceneName}
+      className={`${clubAdminTop1Name ? "" : "hidden"}`}
+    >
       {/* background */}
       <GlitchLayer>
         <div className="z-0">
@@ -188,15 +196,14 @@ export default function P18Scene({ onNext, sceneName }: PageProps) {
         <div className={" absolute"} style={{ left: "30px", top: "631px" }}>
           作为引路人,你在圈内发言
           <span className={`text-r-pink px-[7px]`} style={{ fontSize: 24 }}>
-            {String(clubAdminTop2PinCount ?? "club_admin_top2_pin_cnt")}
+            {String(clubAdminPinCount ?? "club_admin_pin_cnt")}
           </span>
           次 <br />
           <span>
             与
             <span className={`text-r-fern px-[7px]`} style={{ fontSize: 18 }}>
               {String(
-                clubAdminTop2InteractionCount ??
-                  "club_admin_top2_interaction_cnt"
+                clubAdminInteractionCount ?? "club_admin_interaction_cnt"
               )}
             </span>
             位圈友交换了想法

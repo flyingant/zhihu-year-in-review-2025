@@ -25,6 +25,11 @@ export default function P23Scene({ onNext, sceneName }: PageProps) {
   const reviewAnswerProductName =
     reportData?.review_answer_product_name ?? null;
 
+  if (!reviewAnswerCount) {
+    console.log("redirect to next page");
+    return null;
+  }
+
   return (
     <BaseScene onNext={onNext} sceneName={sceneName}>
       {/* pixel block */}

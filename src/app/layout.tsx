@@ -6,7 +6,6 @@ import { AssetsProvider } from "@/context/assets-context";
 import { ErrorBoundary } from "@/components/layout/ErrorBoundary";
 import ErrorHandlingInit from "@/components/layout/ErrorHandlingInit";
 import ZhihuHybridScript from "@/components/layout/ZhihuHybridScript";
-import AppRedirectButton from "@/components/layout/AppRedirectButton";
 import "./globals.css";
 
 export const metadata: Metadata = {
@@ -49,8 +48,6 @@ export default function RootLayout({
               <AssetsProvider>
                 <ToastProvider>
                   {children}
-                  {/* Fixed bottom button for mobile users not in Zhihu App */}
-                  <AppRedirectButton />
                 </ToastProvider>
               </AssetsProvider>
             </UserDataProvider>

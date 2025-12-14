@@ -27,6 +27,7 @@ import ZheXieZhenDeKeYiSection2 from "@/components/compound/ZheXieZhenDeKeYiSect
 import FourGridSection from "@/components/compound/FourGridSection";
 import NianZhongXiaoWenSection from "@/components/compound/NianZhongXiaoWenSection";
 import RealMoment from "@/components/compound/RealMoment";
+import AppRedirectButton from "@/components/layout/AppRedirectButton";
 
 interface RedeemParams {
   rewardId: string;
@@ -370,6 +371,8 @@ function HomeContent() {
             <HomeBottomBg />
           </SectionLayout>
         </main>
+        {/* Fixed bottom button for mobile users not in Zhihu App */}
+        <AppRedirectButton />
       </AuthWrapper>
     </div>
   );

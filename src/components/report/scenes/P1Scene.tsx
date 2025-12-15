@@ -5,6 +5,7 @@ import { motion } from "framer-motion";
 import Image from "next/image";
 import { useAssets } from '@/context/assets-context';
 import { useUserReportData } from '@/context/user-report-data-context';
+import { submitQuizAnswer } from '@/api/report';
 import BaseScene from "./BaseScene";
 import GlitchLayer from "@/components/report/effects/GlitchLayer";
 
@@ -44,8 +45,18 @@ export default function P1Scene({ onNext, sceneName }: PageProps) {
     };
   }, []);
 
-  const handleSelect = (choice: "A" | "B") => {
+  const handleSelect = async (choice: "A" | "B") => {
     setUserChoice("p1", choice);
+    // call API to record the choice
+    try {
+      await submitQuizAnswer({
+        question_id: 1,
+        answer: choice,
+      });
+    } catch (error) {
+      console.error("Failed to submit quiz answer:", error);
+      // Continue to next scene even if API call fails
+    }
     onNext?.();
   };
 

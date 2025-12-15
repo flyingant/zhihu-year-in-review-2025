@@ -32,6 +32,7 @@ import P25Scene from '@/components/report/scenes/P25Scene';
 import P26Scene from '@/components/report/scenes/P26Scene';
 import P27Scene from '@/components/report/scenes/P27Scene';
 import P28Scene from '@/components/report/scenes/P28Scene';
+import P29Scene from '@/components/report/scenes/P29Scene';
 import EndingScene from '@/components/report/scenes/EndingScene';
 
 export type SceneConfig = {
@@ -210,6 +211,11 @@ export const SCENES: Record<string, SceneConfig> = {
   'p28': {
     id: 'p28',
     component: P28Scene,
+    next: 'p29',
+  },
+  'p29': {
+    id: 'p29',
+    component: P29Scene,
     next: 'ending',
   },
   'ending': {

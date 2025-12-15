@@ -6,6 +6,7 @@ import { useAssets } from "@/context/assets-context";
 import { useUserReportData } from '@/context/user-report-data-context';
 import BaseScene from "./BaseScene";
 import { motion } from "framer-motion";
+import { submitQuizAnswer } from "@/api/report";
 
 interface PageProps {
   onNext?: () => void;
@@ -43,8 +44,18 @@ export default function P21Scene({ onNext, sceneName }: PageProps) {
     };
   }, []);
 
-  const handleSelect = (choice: "A" | "B") => {
+  const handleSelect = async (choice: "A" | "B") => {
+    // call API to record the choice
+    try {
+      await submitQuizAnswer({
+        question_id: 4,
+        answer: choice,
+      });
+    } catch (error) {
+      console.error("Failed to submit quiz answer:", error);
     setUserChoice("p21", choice);
+      // Continue to next scene even if API call fails
+    }
     onNext?.();
   };
 

@@ -7,6 +7,7 @@ import { useAssets } from '@/context/assets-context';
 import { useUserReportData } from '@/context/user-report-data-context';
 import BaseScene from "./BaseScene";
 import GlitchLayer from "@/components/report/effects/GlitchLayer";
+import { submitQuizAnswer } from "@/api/report";
 
 interface PageProps {
   onNext?: () => void;
@@ -44,8 +45,18 @@ export default function P9Scene({ onNext, sceneName }: PageProps) {
     };
   }, []);
 
-  const handleSelect = (choice: "A" | "B") => {
+  const handleSelect = async (choice: "A" | "B") => {
     setUserChoice("p9", choice);
+    // call API to record the choice
+    try {
+      await submitQuizAnswer({
+        question_id: 2,
+        answer: choice,
+      });
+    } catch (error) {
+      console.error("Failed to submit quiz answer:", error);
+      // Continue to next scene even if API call fails
+    }
     onNext?.();
   };
 

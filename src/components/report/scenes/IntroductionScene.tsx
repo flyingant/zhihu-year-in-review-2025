@@ -223,7 +223,7 @@ export default function IntroductionScene({ onNext, sceneName }: IntroductionSce
         <Image src={introTitleAsset.url} alt="{introTitleAsset.alt}" width={introTitleAsset.width} height={introTitleAsset.height} 
           className="object-contain absolute pointer-events-none select-none z-1" style={{top: '100px', left: '50%', transform: 'translateX(-50%)'}} />
       </div>
-      <div className="relative w-full h-full overflow-hidden bg-black">
+      <div className="relative w-full h-full overflow-hidden bg-transparent">
         {/* Single video element that plays all videos step by step */}
         {assets?.report?.intro && (
           <video
@@ -255,7 +255,7 @@ export default function IntroductionScene({ onNext, sceneName }: IntroductionSce
 
         {/* Button to proceed to step3 (only show during step2 loop) */}
         {currentStep === 'step2' && (
-          <div className="absolute z-50" style={{bottom: '86px', left: '58px'}}>
+          <div className="absolute z-50" style={{bottom: '44px', left: '43px'}}>
             <Image 
               onClick={handleButtonClick} 
               src={introButtonAsset.url} 
@@ -275,7 +275,8 @@ export default function IntroductionScene({ onNext, sceneName }: IntroductionSce
               />
               <label 
                 htmlFor="data-agreement" 
-                className="text-black text-xs cursor-pointer leading-tight"
+                className="text-black text-xs font-normal cursor-pointer leading-tight"
+                style={{fontWeight: '100'}}
                 onClick={(e) => {
                   e.stopPropagation();
                   // Open dialog instead of toggling checkbox directly
@@ -285,7 +286,7 @@ export default function IntroductionScene({ onNext, sceneName }: IntroductionSce
                 同意访问数据查看你的「2025真实源文件」
               </label>
             </div>
-            <p className="text-black mt-3 text-center" style={{fontSize: '10px'}}>数据截止至2025年12月21日</p>
+            <p className="text-black font-normal mt-3 text-center" style={{fontSize: '10px', fontWeight: '100'}}>数据截止至2025年12月21日</p>
           </div>
         )}
       </div>

@@ -82,9 +82,23 @@ const YearlyReportSection = () => {
       type: 'Button',
       page: { page_id: '60850' }
     });
-
- 
+    // Redirect to yearlyReportRedirectionURL if available
+    const redirectUrl = assets?.urls?.yearlyReportDiscussRedirectionURL;
+    if (redirectUrl) {
+      // Use zhihuHybrid if in zhihu app, otherwise use window.location.href
+      if (isZhihuApp && isHybridAvailable) {
+        try {
+          await openURL(redirectUrl);
+        } catch (error) {
+          console.error('Failed to open URL via zhihuHybrid, falling back to window.location.href:', error);
+          window.location.href = redirectUrl;
+        }
+      } else {
+        window.location.href = redirectUrl;
+      }
+    }
   };
+ 
 
   const reportBg = assets.yearly.reportBg;
   const liukanshanLookup = assets.yearly.liukanshanLookup;

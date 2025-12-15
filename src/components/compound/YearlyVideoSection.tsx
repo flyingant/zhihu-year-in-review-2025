@@ -308,8 +308,8 @@ const YearlyVideoSection = () => {
       }
     });
 
-    // Redirect to yearlyVideoRedirectionURL if available
-    const redirectUrl = assets?.urls?.yearlyVideoRedirectionURL;
+    // Redirect to yearlyVideoDiscussRedirectionURL if available
+    const redirectUrl = assets?.urls?.yearlyVideoDiscussRedirectionURL;
     if (redirectUrl) {
       // Use zhihuHybrid if in zhihu app, otherwise use window.location.href
       if (isZhihuApp && isHybridAvailable) {

@@ -451,10 +451,12 @@ export interface AssetsData {
     yearlyQuestions: string[];
     /** 年度视频ID - 用于获取年度视频详情 */
     yearlyVideoID: string;
-    /** 年度视频跳转URL - 跳转到年度视频相关页面 */
-    yearlyVideoRedirectionURL: string;
+    /** 年度视频讨论跳转URL - 跳转到年度视频讨论页面 */
+    yearlyVideoDiscussRedirectionURL: string;
     /** 年度报告跳转URL - 跳转到年度报告页面 */
     yearlyReportRedirectionURL: string;
+    /** 年度报告讨论跳转URL - 跳转到年度报告讨论页面 */
+    yearlyReportDiscussRedirectionURL: string;
     /** 年终小问视频ID - 用于获取年终小问视频详情 */
     nianZhongXiaoWenVideoID: string;
   };

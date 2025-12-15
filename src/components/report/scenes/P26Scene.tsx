@@ -109,7 +109,7 @@ export default function P26Scene({ onNext, sceneName }: PageProps) {
         className="absolute z-0 leading-relaxed"
         style={{ fontSize: 14, top: "114px", left: "40px", right: "72px" }}
       >
-        {writeStoryNumSum > 0 && (
+        {writeStoryNumSum !== null && writeStoryNumSum > 0 && (
           <div className="z-0">
             <div className="mb-[8px]">
               今年,你创作
@@ -123,7 +123,7 @@ export default function P26Scene({ onNext, sceneName }: PageProps) {
           </div>
         )}
 
-        {totalUpvoteNum > 0 && (
+        {totalUpvoteNum !== null && totalUpvoteNum > 0 && (
           <div className="z-0 my-[38px]">
             <div>
               有

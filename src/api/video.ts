@@ -23,6 +23,7 @@ export interface VideoDetailResponse {
   title?: string;
   description?: string;
   image_url?: string;
+  image_cover?: string | null;
   // Video object contains playlist with quality levels
   video?: {
     video_id?: string;
@@ -30,6 +31,12 @@ export interface VideoDetailResponse {
     height?: number;
     duration?: number;
     thumbnail?: string;
+    begin_frame?: {
+      FHD?: string;
+      HD?: string;
+      SD?: string;
+      [key: string]: unknown;
+    };
     playlist?: {
       fhd?: VideoQuality;
       hd?: VideoQuality;
@@ -119,6 +126,42 @@ export function extractVideoQualityUrls(details: VideoDetailResponse): {
   }
   
   return result;
+}
+
+/**
+ * Extract video cover image from API response
+ * Handles multiple possible cover image locations in order of preference
+ */
+export function extractVideoCoverImage(details: VideoDetailResponse): string | null {
+  // Primary cover image field
+  if (details.image_url && typeof details.image_url === 'string') {
+    return details.image_url;
+  }
+  
+  // Alternative cover image field
+  if (details.image_cover && typeof details.image_cover === 'string') {
+    return details.image_cover;
+  }
+  
+  // Video thumbnail
+  if (details.video?.thumbnail && typeof details.video.thumbnail === 'string') {
+    return details.video.thumbnail;
+  }
+  
+  // Video begin frame (prefer higher quality first)
+  if (details.video?.begin_frame) {
+    if (details.video.begin_frame.FHD && typeof details.video.begin_frame.FHD === 'string') {
+      return details.video.begin_frame.FHD;
+    }
+    if (details.video.begin_frame.HD && typeof details.video.begin_frame.HD === 'string') {
+      return details.video.begin_frame.HD;
+    }
+    if (details.video.begin_frame.SD && typeof details.video.begin_frame.SD === 'string') {
+      return details.video.begin_frame.SD;
+    }
+  }
+  
+  return null;
 }
 
 /**

@@ -5,7 +5,7 @@ import Image from 'next/image';
 import Player from 'griffith';
 import { useAssets } from '@/context/assets-context';
 import { useInView } from 'react-intersection-observer';
-import { getVideoDetails, VideoDetailResponse, extractVideoPlayUrl, extractVideoQualityUrls } from '@/api/video';
+import { getVideoDetails, VideoDetailResponse, extractVideoPlayUrl, extractVideoQualityUrls, extractVideoCoverImage } from '@/api/video';
 
 const NianZhongXiaoWenSection = () => {
   const { assets } = useAssets();
@@ -26,23 +26,27 @@ const NianZhongXiaoWenSection = () => {
     }
   }, [inView]);
 
+  // Extract cover image from video details
+  const coverImage = videoDetails ? extractVideoCoverImage(videoDetails) : null;
+
   // Prepare sources for Griffith Player with quality-specific URLs if available
   const playerSources = videoDetails ? (() => {
     const qualityUrls = extractVideoQualityUrls(videoDetails);
+    const posterUrl = coverImage;
     if (qualityUrls.hd || qualityUrls.sd) {
       return {
-        ...(qualityUrls.hd && { hd: { play_url: qualityUrls.hd } }),
-        ...(qualityUrls.sd && { sd: { play_url: qualityUrls.sd } }),
+        ...(qualityUrls.hd && { hd: { play_url: qualityUrls.hd, poster: posterUrl } }),
+        ...(qualityUrls.sd && { sd: { play_url: qualityUrls.sd, poster: posterUrl } }),
       };
     }
     // Fallback to single URL if no quality-specific URLs
     return videoUrl ? {
-      hd: { play_url: videoUrl },
-      sd: { play_url: videoUrl },
+      hd: { play_url: videoUrl, poster: posterUrl },
+      sd: { play_url: videoUrl, poster: posterUrl },
     } : null;
   })() : (videoUrl ? {
-    hd: { play_url: videoUrl },
-    sd: { play_url: videoUrl },
+    hd: { play_url: videoUrl, poster: coverImage },
+    sd: { play_url: videoUrl, poster: coverImage },
   } : null);
 
   // Fetch video details on component mount
@@ -107,13 +111,6 @@ const NianZhongXiaoWenSection = () => {
       videoElement = playerContainerRef.current?.querySelector('video') as HTMLVideoElement | null;
       if (videoElement) {
         const handlePlay = () => {
-          // Ensure video is visible when playing
-          videoElement?.style.setProperty('opacity', '1');
-          // Hide any poster/overlay elements
-          const posterElements = playerContainerRef.current?.querySelectorAll('[class*="poster"], [class*="overlay"]');
-          posterElements?.forEach((el) => {
-            (el as HTMLElement).style.display = 'none';
-          });
           // trackEvent('Play', { moduleId: 'nianzhong_video_2025', type: 'Button' });
         };
         const handlePause = () => {
@@ -140,62 +137,54 @@ const NianZhongXiaoWenSection = () => {
     return cleanup;
   }, [videoUrl]);
 
-  // Handle click on player container to ensure video plays and hide poster
+
+  // Set video poster attribute and hide Griffith Player's built-in play button
   useEffect(() => {
-    if (!playerContainerRef.current || !videoUrl) return;
+    if (!playerContainerRef.current || !playerSources) return;
 
-    const hidePosterAndOverlay = () => {
-      // Hide poster and overlay elements
-      const posterElements = playerContainerRef.current?.querySelectorAll(
-        '.griffith-poster, [class*="poster"], [class*="overlay"]'
+    const setPosterAndHidePlayButton = () => {
+      // Set poster attribute directly on video element
+      const videoElement = playerContainerRef.current?.querySelector('video') as HTMLVideoElement | null;
+      if (videoElement && coverImage) {
+        videoElement.poster = coverImage;
+      }
+
+      // Find and hide Griffith Player's play button
+      const playButtons = playerContainerRef.current?.querySelectorAll(
+        '[class*="play-button"], [class*="PlayButton"], [class*="playButton"], button[class*="play"], [aria-label*="play" i], [aria-label*="Play" i]'
       );
-      posterElements?.forEach((el) => {
-        (el as HTMLElement).style.display = 'none';
+      playButtons?.forEach((button) => {
+        const element = button as HTMLElement;
+        // Only hide if it's not our custom play button
+        if (!element.closest('.z-20')) {
+          element.style.display = 'none';
+        }
       });
-      
-      // Ensure video is visible
-      const videoElement = playerContainerRef.current?.querySelector('video') as HTMLVideoElement | null;
-      if (videoElement) {
-        videoElement.style.opacity = '1';
-      }
+
+      // Also hide any poster overlay play buttons
+      const posterPlayButtons = playerContainerRef.current?.querySelectorAll(
+        '.griffith-poster button, [class*="poster"] button, [class*="overlay"] button'
+      );
+      posterPlayButtons?.forEach((button) => {
+        const element = button as HTMLElement;
+        if (!element.closest('.z-20')) {
+          element.style.display = 'none';
+        }
+      });
     };
 
-    const handleContainerClick = () => {
-      // Find the video element
-      const videoElement = playerContainerRef.current?.querySelector('video') as HTMLVideoElement | null;
-      if (videoElement && videoElement.paused) {
-        // If video is paused, try to play it
-        videoElement.play().catch((err) => {
-          console.error('Failed to play video on click:', err);
-        });
-      }
-      // Hide poster/overlay when clicked
-      setTimeout(hidePosterAndOverlay, 100);
-    };
+    // Try to set poster and hide button immediately
+    setPosterAndHidePlayButton();
 
-    const container = playerContainerRef.current;
-    container.addEventListener('click', handleContainerClick);
-    
-    // Also hide poster when video starts playing
-    const videoElement = playerContainerRef.current.querySelector('video') as HTMLVideoElement | null;
-    if (videoElement) {
-      const handlePlaying = () => {
-        hidePosterAndOverlay();
-      };
-      videoElement.addEventListener('playing', handlePlaying);
-      videoElement.addEventListener('play', handlePlaying);
-      
-      return () => {
-        container.removeEventListener('click', handleContainerClick);
-        videoElement.removeEventListener('playing', handlePlaying);
-        videoElement.removeEventListener('play', handlePlaying);
-      };
-    }
-    
+    // Also try after a short delay to catch dynamically rendered elements
+    const timeoutId = setTimeout(setPosterAndHidePlayButton, 100);
+    const intervalId = setInterval(setPosterAndHidePlayButton, 500);
+
     return () => {
-      container.removeEventListener('click', handleContainerClick);
+      clearTimeout(timeoutId);
+      clearInterval(intervalId);
     };
-  }, [videoUrl]);
+  }, [playerSources, coverImage]);
 
   if (!assets) return null;
 
@@ -223,12 +212,13 @@ const NianZhongXiaoWenSection = () => {
               <span>{error}</span>
             </div>
           ) : playerSources ? (
-            <div className="w-full h-full [&>div]:w-full [&>div]:h-full [&_video]:w-full [&_video]:h-full [&_video]:object-cover [&_video]:opacity-100">
+            <div className="w-full h-full relative [&>div]:w-full [&>div]:h-full [&_video]:w-full [&_video]:h-full [&_video]:object-cover [&_video]:opacity-100">
               {/* @ts-expect-error - Griffith Player type compatibility with React 19 */}
               <Player
                 sources={playerSources}
                 id="nianzhong-video-player"
                 defaultQuality="hd"
+                cover={coverImage || undefined}
               />
             </div>
           ) : (

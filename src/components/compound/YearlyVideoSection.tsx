@@ -5,7 +5,7 @@ import Image from 'next/image';
 import Player from 'griffith';
 import { useAssets } from '@/context/assets-context';
 import { useElementCenter } from '@/hooks/useElementCenter';
-import { getVideoDetails, VideoDetailResponse, extractVideoPlayUrl, extractVideoQualityUrls } from '@/api/video';
+import { getVideoDetails, VideoDetailResponse, extractVideoPlayUrl, extractVideoQualityUrls, extractVideoCoverImage } from '@/api/video';
 import { useZA } from '@/hooks/useZA';
 import { useUserData } from '@/context/user-data-context';
 import { useZhihuHybrid } from '@/hooks/useZhihuHybrid';
@@ -37,27 +37,33 @@ const YearlyVideoSection = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
+  // Extract cover image from video details
+  const coverImage = useMemo(() => {
+    return videoDetails ? extractVideoCoverImage(videoDetails) : null;
+  }, [videoDetails]);
+
   // Prepare sources for Griffith Player with quality-specific URLs if available
   const playerSources = useMemo(() => {
     if (videoDetails) {
       const qualityUrls = extractVideoQualityUrls(videoDetails);
+      const posterUrl = coverImage;
       if (qualityUrls.hd || qualityUrls.sd) {
         return {
-          ...(qualityUrls.hd && { hd: { play_url: qualityUrls.hd } }),
-          ...(qualityUrls.sd && { sd: { play_url: qualityUrls.sd } }),
+          ...(qualityUrls.hd && { hd: { play_url: qualityUrls.hd, poster: posterUrl } }),
+          ...(qualityUrls.sd && { sd: { play_url: qualityUrls.sd, poster: posterUrl } }),
         };
       }
       // Fallback to single URL if no quality-specific URLs
       return videoUrl ? {
-        hd: { play_url: videoUrl },
-        sd: { play_url: videoUrl },
+        hd: { play_url: videoUrl, poster: posterUrl },
+        sd: { play_url: videoUrl, poster: posterUrl },
       } : null;
     }
     return videoUrl ? {
-      hd: { play_url: videoUrl },
-      sd: { play_url: videoUrl },
+      hd: { play_url: videoUrl, poster: coverImage },
+      sd: { play_url: videoUrl, poster: coverImage },
     } : null;
-  }, [videoDetails, videoUrl]);
+  }, [videoDetails, videoUrl, coverImage]);
 
   useEffect(() => {
     if (inView && videoDetails && videoId) {
@@ -242,7 +248,55 @@ const YearlyVideoSection = () => {
 
     const cleanup = findAndAttachListener();
     return cleanup;
-  }, [videoUrl, lightUpMomentAndRefresh, trackEvent, assets, getPlayEventExtra]);
+  }, [videoUrl, lightUpMomentAndRefresh, trackEvent, assets, getPlayEventExtra, coverImage]);
+
+  // Set video poster attribute and hide Griffith Player's built-in play button
+  useEffect(() => {
+    if (!playerContainerRef.current || !playerSources) return;
+
+    const setPosterAndHidePlayButton = () => {
+      // Set poster attribute directly on video element
+      const videoElement = playerContainerRef.current?.querySelector('video') as HTMLVideoElement | null;
+      if (videoElement && coverImage) {
+        videoElement.poster = coverImage;
+      }
+
+      // Find and hide Griffith Player's play button
+      const playButtons = playerContainerRef.current?.querySelectorAll(
+        '[class*="play-button"], [class*="PlayButton"], [class*="playButton"], button[class*="play"], [aria-label*="play" i], [aria-label*="Play" i]'
+      );
+      playButtons?.forEach((button) => {
+        const element = button as HTMLElement;
+        // Only hide if it's not our custom play button
+        if (!element.closest('.z-20')) {
+          element.style.display = 'none';
+        }
+      });
+
+      // Also hide any poster overlay play buttons
+      const posterPlayButtons = playerContainerRef.current?.querySelectorAll(
+        '.griffith-poster button, [class*="poster"] button, [class*="overlay"] button'
+      );
+      posterPlayButtons?.forEach((button) => {
+        const element = button as HTMLElement;
+        if (!element.closest('.z-20')) {
+          element.style.display = 'none';
+        }
+      });
+    };
+
+    // Try to set poster and hide button immediately
+    setPosterAndHidePlayButton();
+
+    // Also try after a short delay to catch dynamically rendered elements
+    const timeoutId = setTimeout(setPosterAndHidePlayButton, 100);
+    const intervalId = setInterval(setPosterAndHidePlayButton, 500);
+
+    return () => {
+      clearTimeout(timeoutId);
+      clearInterval(intervalId);
+    };
+  }, [playerSources, coverImage]);
 
   const handleDiscuss = async () => {
     trackEvent('OpenUrl', {
@@ -312,12 +366,13 @@ const YearlyVideoSection = () => {
                 <span>{error}</span>
               </div>
             ) : playerSources ? (
-              <div className="w-full h-full [&>div]:w-full [&>div]:h-full [&_video]:w-full [&_video]:h-full [&_video]:object-cover">
+              <div className="w-full h-full relative [&>div]:w-full [&>div]:h-full [&_video]:w-full [&_video]:h-full [&_video]:object-cover">
                 {/* @ts-expect-error - Griffith Player type compatibility with React 19 */}
                 <Player
                   sources={playerSources}
                   id="yearly-video-player"
                   defaultQuality="hd"
+                  cover={coverImage || undefined}
                 />
               </div>
             ) : (

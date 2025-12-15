@@ -127,7 +127,7 @@ export default function P3Scene({ onNext, sceneName }: PageProps) {
           <span hidden={!articleCount}> 篇文章。</span>
 
         </div>
-        <div style={{ paddingBottom: '23px' }}>
+        <div hidden={!answerCount} style={{ paddingBottom: '23px' }}>
           给这个世界一些答案
         </div>
 

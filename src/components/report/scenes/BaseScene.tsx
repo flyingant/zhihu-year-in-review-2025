@@ -5,6 +5,7 @@ import Image from "next/image";
 import { useSceneThemeStyles } from "@/hooks/useSceneTheme";
 import { SCENES } from "@/data/reportConfig";
 import { useAssets } from "@/context/assets-context";
+import { motion } from "framer-motion";
 
 interface BaseSceneProps {
   children: ReactNode;
@@ -14,6 +15,7 @@ interface BaseSceneProps {
   contentClassName?: string;
   sceneName?: string;
   defaultLogo?: boolean;
+  showBottomNextButton?: boolean;
 }
 
 /**
@@ -146,6 +148,7 @@ export default function BaseScene({
   onNext,
   sceneName,
   defaultLogo = true,
+  showBottomNextButton = true,
 }: BaseSceneProps) {
   const { assets } = useAssets();
   const styles = useSceneThemeStyles();
@@ -236,6 +239,34 @@ export default function BaseScene({
             </div>
           ) : null}
           {children}
+          {onNext && showBottomNextButton && (
+            <motion.button
+              onClick={(e) => {
+                e.stopPropagation();
+                onNext();
+              }}
+              className="absolute left-0 right-0 bottom-6 z-60 mx-auto px-5 py-2 rounded-full bg-black/80 text-white text-sm font-semibold shadow-lg flex items-center justify-center w-fit"
+              aria-label="Next"
+              animate={{ y: [0, -6, 0], scale: [1, 1.05, 1] }}
+              transition={{ repeat: Infinity, duration: 1.8, ease: "easeInOut" }}
+            >
+              <svg
+                width="28"
+                height="20"
+                viewBox="0 0 36 24"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M4 6L18 18L32 6"
+                  stroke="white"
+                  strokeWidth="2.2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                />
+              </svg>
+            </motion.button>
+          )}
         </div>
       </div>
     </div>

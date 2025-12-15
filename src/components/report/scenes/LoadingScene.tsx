@@ -60,6 +60,7 @@ export default function LoadingScene({ onNext, sceneName }: LoadingSceneProps) {
     <BaseScene 
       onNext={onNext} 
       sceneName={sceneName}
+      showBottomNextButton={false}
     >
       <GlitchLayer intensity='heavy'>
         {/* 顺序从上到下 */}

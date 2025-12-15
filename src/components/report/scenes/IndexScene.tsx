@@ -187,7 +187,11 @@ export default function IndexScene({ onNext, sceneName }: IndexSceneProps) {
   const expandingAsset = getCornerAsset(expandingView);
 
   return (
-    <BaseScene onNext={onNext} sceneName={sceneName}>
+    <BaseScene
+      onNext={onNext}
+      sceneName={sceneName}
+      showBottomNextButton={!!activeView}
+    >
       <div className="relative w-full h-full overflow-hidden">
         <div
           className="absolute text-[24px] text-[#121212] tracking-[0.2em] [writing-mode:vertical-lr]"

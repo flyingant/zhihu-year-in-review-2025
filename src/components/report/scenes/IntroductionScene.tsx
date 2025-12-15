@@ -188,6 +188,7 @@ export default function IntroductionScene({ onNext, sceneName }: IntroductionSce
       className="pt-0"
       containerClassName="w-full max-w-none"
       contentClassName="p-0"
+      showBottomNextButton={false}
     >
       <GlitchLayer intensity='heavy' className='z-[50]'>
         {/* 顺序从上到下 */}

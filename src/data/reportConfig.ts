@@ -35,10 +35,17 @@ import P28Scene from '@/components/report/scenes/P28Scene';
 import P29Scene from '@/components/report/scenes/P29Scene';
 import EndingScene from '@/components/report/scenes/EndingScene';
 
+import { UserReportData } from '@/api/report';
+
 export type SceneConfig = {
   id: string;
   component: React.ComponentType<any>;
   next?: string | ((choice?: string) => string);
+  /**
+   * Optional function to determine if this scene should be skipped based on report data.
+   * If true, the scene manager will automatically proceed to the next scene.
+   */
+  shouldSkip?: (data: UserReportData | null) => boolean;
   prepareProps?: (data: Record<string, unknown>) => Record<string, unknown>;
 }
 
@@ -67,6 +74,7 @@ export const SCENES: Record<string, SceneConfig> = {
     id: 'p2',
     component: P2Scene,
     next: 'p2Billboard',
+    shouldSkip: (data) => !data?.publish_question_cnt,
   },
   'p2Billboard': {
     id: 'p2Billboard',
@@ -162,6 +170,7 @@ export const SCENES: Record<string, SceneConfig> = {
     id: 'p18',
     component: P18Scene,
     next: 'p19',
+    shouldSkip: (data) => !data?.club_admin_top1_name,
   },
   'p19': {
     id: 'p19',
@@ -187,6 +196,7 @@ export const SCENES: Record<string, SceneConfig> = {
     id: 'p23',
     component: P23Scene,
     next: 'p24',
+    shouldSkip: (data) => !data?.review_answer_cnt,
   },
   'p24': {
     id: 'p24',

@@ -27,9 +27,6 @@ export default function P15Scene({ onNext, sceneName }: PageProps) {
   const mostUpvoteMemberUpvote = reportData?.most_upvote_member_upvote ?? null;
   const interactionMostMemberName =
     reportData?.interaction_most_member_name ?? null;
-  const thanksInvitationDate = reportData?.thanks_invitation_date
-    ? format(new Date(reportData.thanks_invitation_date), "MM 月 dd 日")
-    : null;
   const { thanksInvitationMonth, thanksInvitationDay } =
     reportData?.thanks_invitation_date
       ? {

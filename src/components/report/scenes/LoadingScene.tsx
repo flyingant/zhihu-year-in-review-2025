@@ -30,12 +30,20 @@ export default function LoadingScene({ onNext, sceneName }: LoadingSceneProps) {
     return () => clearInterval(timer);
   }, [onNext]);
 
+  // 进度完成后进入下一页
+  useEffect(() => {
+    if (progress < 100) return;
+    const timeoutId = setTimeout(() => {
+      onNext();
+    }, 500);
+    return () => clearTimeout(timeoutId);
+  }, [progress, onNext]);
+
   if (!assets) return null;
 
   const loadingAsset = assets.report.loading;
   const loadingBarAsset = assets.report.loadingBar;
 
-  const bgAsset = assets.report.bg;
   const blue1Asset = assets.report.bg.blue0_1;
   const blue2Asset = assets.report.bg.blue0_2;
   const blue3Asset = assets.report.bg.blue0_3;
@@ -50,7 +58,7 @@ export default function LoadingScene({ onNext, sceneName }: LoadingSceneProps) {
 
   return (
     <BaseScene 
-      onNext={undefined} 
+      onNext={onNext} 
       sceneName={sceneName}
     >
       <GlitchLayer intensity='heavy'>
@@ -104,15 +112,17 @@ export default function LoadingScene({ onNext, sceneName }: LoadingSceneProps) {
           <div className="relative w-64 h-6">
             {/* Progress fill - behind the background */}
             <motion.div
-              className="absolute inset-0 h-full bg-cyan-400"
+              className="absolute inset-0 h-ful"
               initial={{ width: 0 }}
-              animate={{ width: `${progress}%` }}
-              style={{ zIndex: 1 }}
+              animate={{ width: `${progress - 2}%` }}
+              style={{ zIndex: 1, backgroundColor: '#34C2FD', left: '3px' }}
             />
             {/* Background image - on top */}
             <div
               className="absolute inset-0"
               style={{
+                height: '25px',
+                top: '-1px',
                 backgroundImage: `url(${loadingBarAsset.url})`,
                 backgroundSize: '100% 100%',
                 backgroundPosition: 'center',
@@ -122,7 +132,7 @@ export default function LoadingScene({ onNext, sceneName }: LoadingSceneProps) {
               }}
             />
           </div>
-          <p className="font-mono font-bold tracking-widest text-black">LOADING... {progress}%</p>
+          <p className="font-bold tracking-widest text-black">LOADING... {progress}%</p>
         </div>
       </div>
     </BaseScene>

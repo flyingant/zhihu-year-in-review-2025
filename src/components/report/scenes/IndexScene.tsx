@@ -5,7 +5,7 @@ import { useState } from "react";
 import BaseScene from "./BaseScene";
 import { useUserReportData } from "@/context/user-report-data-context";
 import { useAssets } from "@/context/assets-context";
-import { formatFullDate } from "@/utils/common";
+import { formatDateWithoutText } from "@/utils/common";
 
 
 interface IndexSceneProps {
@@ -16,15 +16,21 @@ interface IndexSceneProps {
 type ActiveView = "topLeft" | "topRight" | "bottomLeft" | "bottomRight" | null;
 interface MirrorContentProps {
   userName?: string;
-  registerDate?: string;
+  year?: string;
+  month?: string;
+  day?: string;
   registerDays?: number;
 }
 
 const MirrorContent = ({
   userName,
-  registerDate,
   registerDays,
+  year,
+  month,
+  day,
+  
 }: MirrorContentProps) => (
+  
   <div className="flex flex-col justify-center text-left pointer-events-none select-none w-full h-full" style={{ fontSize: '14px' }}>
     <div style={{ fontSize: '22px', paddingBottom: '8px' }}>
       @{userName}
@@ -33,7 +39,11 @@ const MirrorContent = ({
       你说，时间是真实的吗？
     </div>
     <div>
-      从 <span className="text-r-pink">{registerDate}</span> 开始
+      从 
+      <span className="text-r-pink" style={{ padding: '0px 3px' }}>{year}</span>年
+      <span className="text-r-pink" style={{ padding: '0px 3px' }}>{month}</span>月
+      <span className="text-r-pink" style={{ padding: '0px 3px' }}>{day}</span>日
+      开始
     </div>
     <div>
       我们一起走过了 <span className="text-r-yellow" style={{ fontSize: '18px' }}>{registerDays}</span> 天真实的时间
@@ -52,7 +62,7 @@ export default function IndexScene({ onNext, sceneName }: IndexSceneProps) {
   const indexAssets = assets.report.index;
 
   const userName = (reportData?.username as string | undefined);
-  const registerDate = formatFullDate(reportData?.register_date as string | undefined);
+  const { year, month, day } = formatDateWithoutText(reportData?.register_date as string | undefined);
   const registerDays = (reportData?.register_days as number | undefined);
 
   const handleCornerClick = (view: ActiveView) => {
@@ -368,7 +378,9 @@ export default function IndexScene({ onNext, sceneName }: IndexSceneProps) {
                 <div style={getMirrorStyle(activeView).style} className="w-full h-full">
                   <MirrorContent
                     userName={userName}
-                    registerDate={registerDate}
+                    year={year}
+                    month={month}
+                    day={day}
                     registerDays={registerDays}
                   />
                 </div>

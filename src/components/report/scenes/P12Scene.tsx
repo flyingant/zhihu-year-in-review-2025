@@ -1,12 +1,11 @@
 "use client";
 
 import { useUserReportData } from "@/context/user-report-data-context";
-import { colorClass, typographyClass } from "@/hooks/useSceneTheme";
 import BaseScene from "./BaseScene";
 import Image from "next/image";
 import { useAssets } from "@/context/assets-context";
 import GlitchLayer from "@/components/report/effects/GlitchLayer";
-import { formatDate } from "@/utils/common";
+import { formatDateWithoutText } from "@/utils/common";
 import TimeDonutChart from "@/components/report/effects/TimeDonutChart";
 
 interface PageProps {
@@ -40,7 +39,7 @@ export default function P12Scene({ onNext, sceneName }: PageProps) {
     night: Number(reportData?.night_hours || 0),
   };
 
-  const browseLastDate = formatDate(reportData?.zhihu_browse_last_date as string | undefined) ?? null;
+  const { month, day } = formatDateWithoutText(reportData?.zhihu_browse_last_date as string | undefined) ?? null;
   const browseLastTime = (reportData?.zhihu_browse_last_date_hour as string | undefined) ?? null;
   const browseLastCategory = (reportData?.zhihu_browse_last_content_domain as string | undefined) ?? null;
 
@@ -107,7 +106,9 @@ export default function P12Scene({ onNext, sceneName }: PageProps) {
 
       <div className="relative z-10 text-center text-sm font-medium leading-relaxed" style={{ marginTop: '24px' }}>
         <p className="flex items-center justify-center flex-wrap gap-1">
-          <span className="text-r-yellow" style={{ fontSize: '18px' }}>{browseLastDate}{browseLastTime}</span>
+          <span className="text-r-yellow" style={{ fontSize: '18px' }}>{month}</span>月
+          <span className="text-r-yellow" style={{ fontSize: '18px' }}>{month}</span>日
+          <span className="text-r-yellow" style={{ fontSize: '18px' }}>{browseLastTime}</span>
           <span>点，你仍在看</span>
           <span className="text-r-fern" style={{ fontSize: '18px' }}>{browseLastCategory}</span>
           <span>领域的内容</span>

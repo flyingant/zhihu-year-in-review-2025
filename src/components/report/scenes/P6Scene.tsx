@@ -6,7 +6,7 @@ import BaseScene from "./BaseScene";
 import Image from "next/image";
 import { useAssets } from "@/context/assets-context";
 import GlitchLayer from "@/components/report/effects/GlitchLayer";
-import { formatDate } from "@/utils/common";
+import { formatDateWithoutText } from "@/utils/common";
 
 
 interface PageProps {
@@ -31,7 +31,7 @@ export default function P6Scene({ onNext, sceneName }: PageProps) {
   const totalWords = reportData?.content_total_word_cnt ?? 0;
   const creationDays = reportData?.publish_total_day_cnt ?? 0;
   const mostProductiveMonth = reportData?.publish_max_month ?? null;
-  const mostProductiveDate = formatDate(reportData?.publish_most_word_date ?? null);
+  const { month, day } = formatDateWithoutText(reportData?.publish_most_word_date ?? null);
   const dayWordCount = reportData?.publish_most_word_cnt ?? null;
   // Note: equivalentBook calculation is frontend logic based on totalWords
 
@@ -159,12 +159,8 @@ export default function P6Scene({ onNext, sceneName }: PageProps) {
         {/* 文思泉涌的一天 */}
         <div style={{ paddingLeft: '34px', paddingRight: '34px', }} hidden={!dayWordCount || dayWordCount < 30}>
           <div style={{ marginBottom: '6px' }}>
-            <span
-              className={`text-r-yellow`}
-              style={{ paddingRight: '5px', fontSize: '18px' }}
-            >
-              {mostProductiveDate}
-            </span>
+            <span className={`text-r-yellow`} style={{ paddingRight: '5px', fontSize: '18px' }}>{month}</span>月
+            <span className={`text-r-yellow`} style={{ paddingRight: '5px', fontSize: '18px', paddingLeft: '4px' }}>{day}</span>日
             ，你写下了今年最多的
             <span
               className={`text-r-fern`}

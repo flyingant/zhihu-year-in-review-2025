@@ -5,7 +5,7 @@ import BaseScene from "./BaseScene";
 import Image from "next/image";
 import { useAssets } from "@/context/assets-context";
 import GlitchLayer from "@/components/report/effects/GlitchLayer";
-import { formatDate } from "@/utils/common";
+import { formatDateWithoutText } from "@/utils/common";
 
 interface PageProps {
   onNext?: () => void;
@@ -27,6 +27,7 @@ export default function P13Scene({ onNext, sceneName }: PageProps) {
   // Map context data to component variables according to P13 spec
   // Note: P13 spec details to be confirmed, using placeholder structure
   const zhihuBrowseMostDate = (reportData?.zhihu_browse_most_date as string | undefined) ?? '';
+  const { month, day } = formatDateWithoutText(zhihuBrowseMostDate);
   const zhihuBrowseMostDateDuration = (reportData?.zhihu_browse_most_date_duration as number | undefined) ?? 0;
   const consumeMostAnswerTitle = (reportData?.consume_most_answer_title as string | undefined) ?? '';
   const consumeMostAnswerPvCnt = (reportData?.consume_most_answer_pv_cnt as number | undefined) ?? 0;
@@ -84,13 +85,9 @@ export default function P13Scene({ onNext, sceneName }: PageProps) {
         </div>
 
         <div style={{ paddingBottom: '10px', paddingTop: '30px' }} hidden={!zhihuBrowseMostDate || !zhihuBrowseMostDateDuration || zhihuBrowseMostDateDuration < 5}>
-          <div style={{ marginBottom: '6px' }}>
-            <span
-              className="text-r-yellow"
-              style={{ fontSize: '18px' }}
-            >
-              {zhihuBrowseMostDate ? formatDate(zhihuBrowseMostDate) : ''}
-            </span>
+          <div style={{ marginBottom: '6px' }} hidden={!zhihuBrowseMostDate || !zhihuBrowseMostDateDuration || zhihuBrowseMostDateDuration < 5}>
+            <span className="text-r-yellow" style={{ fontSize: '18px' }}>{ month}</span> 月
+            <span className="text-r-yellow" style={{ fontSize: '18px', paddingLeft: "2px" }}> { day}</span> 日
             ，你在知乎停留了最长的
             <span
               className="text-r-fern"

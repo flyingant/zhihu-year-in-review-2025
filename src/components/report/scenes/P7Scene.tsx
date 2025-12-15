@@ -81,7 +81,7 @@ export default function P7Scene({ onNext, sceneName }: PageProps) {
             />
           </div>
           
-          <div>
+          <div className="text-center">
             <div className="text-center">你的内容收获了</div>
             <div hidden={!readCount}>
               <span 

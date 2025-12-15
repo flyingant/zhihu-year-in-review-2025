@@ -35,7 +35,6 @@ export default function P11Scene({ onNext, sceneName }: PageProps) {
   const categoryHours = (reportData?.browse_most_category_hour as number) ?? 0;
   const addCategoryList = (reportData?.add_category_list as string[]) ?? [];
   const reduceCategoryList = (reportData?.reduce_category_list as string[]) ?? [];
-
   const displayAddList = addCategoryList.slice(0, 3);
   const displayReduceList = reduceCategoryList.slice(0, 3);
 
@@ -190,9 +189,9 @@ export default function P11Scene({ onNext, sceneName }: PageProps) {
                 key={index}
                 className="text-r-yellow mb-[2px] absolute"
                 style={{
-                  textAlign: 'center',
+                  textAlign: 'right',
                   fontSize: '14px',
-                  top: `${(index) * 24 - 20}px`,
+                  top: `${(index) * 22 - 18}px`,
                   right: `${(index) * 80 + 40}px`,
                   width: '120px'
                 }}
@@ -211,8 +210,8 @@ export default function P11Scene({ onNext, sceneName }: PageProps) {
                   className="text-r-green mb-[2px] absolute"
                   style={{
                     fontSize: '14px',
-                    textAlign: 'center',
-                    bottom: `${(index) * 24 + 10}px`,
+                    textAlign: 'left',
+                    bottom: `${(index) * 22 + 12}px`,
                     left: `${(index) * 80 + 40}px`,
                     width: '120px'
                   }}

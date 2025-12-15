@@ -86,15 +86,8 @@ export default function P5EmojiScene({ onNext, sceneName }: PageProps) {
         </div>
 
         <div style={{ marginBottom: '10px' }} hidden={!emojiName || !emojiCount}>
-          <div style={{ marginBottom: '10px' }}>
-            你的年度表情是
-            <span
-              className={`text-r-blue`}
-              style={{ paddingLeft: '2px', paddingRight: '2px', fontSize: '18px' }}
-            >
-              {/* {emojiName} */}
-              「无接口字段」
-            </span>
+          <div style={{ marginBottom: '10px' }} className="flex items-center flex-wrap">
+            你的年度表情是 <Image src={emojiName} alt="" width={50} height={50} style={{ padding: '0 4px' }}/>
             ，共出现了
             <span
               className={`text-r-yellow`}
@@ -107,7 +100,7 @@ export default function P5EmojiScene({ onNext, sceneName }: PageProps) {
           <div>
 
           </div>
-          <Image src={emojiName} alt="" width={107} height={107} />
+          
         </div>
 
         <div style={{ marginBottom: '20px', lineHeight: '32px' }}

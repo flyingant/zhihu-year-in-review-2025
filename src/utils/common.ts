@@ -21,3 +21,24 @@ export const formatFullDate = (dateStr: string | undefined | null) => {
 
   return dateStr;
 };
+
+export interface DateParts {
+  year: string;
+  month: string;
+  day: string;
+}
+export const formatDateWithoutText = (dateStr: string | undefined | null): DateParts => {
+  if (!dateStr) return { year: '', month: '', day: '' };
+
+  const parts = dateStr.split('-');
+  if (parts.length === 3) {
+    return {
+      year: parts[0],
+      month: parts[1],
+      day: parts[2]
+    };
+  }
+
+  return { year: '', month: '', day: '' };
+};
+

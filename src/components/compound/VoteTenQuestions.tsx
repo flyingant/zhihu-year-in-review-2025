@@ -38,19 +38,19 @@ const useLoadingDots = (baseText: string, speed = 300, isActive: boolean) => {
 };
 
 const TOPICS = [
-  { id: 'science', name: '科学工程', color: '#33E6F8' },
-  { id: 'travel', name: '旅行', color: '#9DFF7F' },
-  { id: 'fitness', name: '运动健身', color: '#C2F654' },
-  { id: 'parenting', name: '母婴亲子', color: '#FFE655' },
-  { id: 'emotion', name: '心理情感', color: '#FFC46B' },
-  { id: 'movie', name: '影视娱乐', color: '#FF7E6B' },
-  { id: 'fashion', name: '时尚', color: '#FF7EAB' },
-  { id: 'career', name: '职场', color: '#FF9EE6' },
-  { id: 'game', name: '动漫游戏', color: '#D58DF9' },
-  { id: 'home', name: '家居家电', color: '#90D7FF' },
-  { id: 'tech', name: '科技', color: '#7E9FFF' },
-  { id: 'edu', name: '教育', color: '#55E6D7' },
-  { id: 'sports', name: '体育竞技', color: '#85FF99' },
+  { id: 'techDigital', name: '科技数码', color: '#68E1FD' },
+  { id: 'scienceHealth', name: '科学健康', color: '#8EFFA4' },
+  { id: 'militaryPolitics', name: '军政经济', color: '#C8F667' }, 
+  { id: 'humanities', name: '人文', color: '#FFEB55' },
+  { id: 'entertainment', name: '影音娱乐', color: '#FFB84F' },
+  { id: 'sports', name: '体育竞技', color: '#FF8A72' },
+  { id: 'game', name: '游戏电竞', color: '#6B90FF' },
+  { id: 'carHome', name: '汽车家居', color: '#55F8CE' },
+  { id: 'career', name: '职场', color: '#F6A8FF' },
+  { id: 'psychology', name: '心理学', color: '#56E9FF' },
+  { id: 'education', name: '教育', color: '#A5FF93' },
+  { id: 'lifestyle', name: '泛生活', color: '#FF6EA9' },
+  { id: 'parenting', name: '母婴亲子', color: '#FF97D6' },
 ];
 
 // 类型定义
@@ -360,8 +360,8 @@ const VoteTenQuestions = () => {
   };
 
 
-  const topRowTopics = TOPICS.slice(0, 7);
-  const bottomRowTopics = TOPICS.slice(7);
+  const topRowTopics = TOPICS.slice(0, 6);
+  const bottomRowTopics = TOPICS.slice(6);
   const renderTab = (topic: typeof TOPICS[0]) => {
     const isActive = activeTopicId === topic.id;
     const tabImg = isActive

@@ -647,212 +647,160 @@
       "height": 1160,
       "alt": "面板背景"
     },
-    "science": {
+    "techDigital": {
       "select": {
-        "url": "/assets/vote_science_select@3x.png",
+        "url": "/assets/vote_techDigital_select@3x.png",
         "width": 686,
         "height": 113,
-        "alt": "science select"
+        "alt": "techDigital select"
       },
       "unselect": {
-        "url": "/assets/vote_science_unselect@3x.png",
+        "url": "/assets/vote_techDigital_unselect@3x.png",
         "width": 686,
         "height": 113,
-        "alt": "science unselect"
+        "alt": "techDigital unselect"
       },
       "categorySelect": {
-        "url": "/assets/vote_science_category_select@3x.png",
+        "url": "/assets/vote_techDigital_category_select@3x.png",
         "width": 127,
         "height": 53,
-        "alt": "science category"
+        "alt": "techDigital category"
       },
       "categoryUnselect": {
-        "url": "/assets/vote_science_category_unselect@3x.png",
+        "url": "/assets/vote_techDigital_category_unselect@3x.png",
         "width": 122,
         "height": 48,
-        "alt": "science category"
+        "alt": "techDigital category"
       }
     },
-    "travel": {
+    "scienceHealth": {
       "select": {
-        "url": "/assets/vote_travel_select@3x.png",
+        "url": "/assets/vote_scienceHealth_select@3x.png",
         "width": 686,
         "height": 113,
-        "alt": "travel select"
+        "alt": "techDigital select"
       },
       "unselect": {
-        "url": "/assets/vote_travel_unselect@3x.png",
+        "url": "/assets/vote_scienceHealth_unselect@3x.png",
         "width": 686,
         "height": 113,
-        "alt": "travel unselect"
+        "alt": "techDigital unselect"
       },
       "categorySelect": {
-        "url": "/assets/vote_travel_category_select@3x.png",
+        "url": "/assets/vote_scienceHealth_category_select@3x.png",
         "width": 127,
         "height": 53,
-        "alt": "travel category"
+        "alt": "techDigital category"
       },
       "categoryUnselect": {
-        "url": "/assets/vote_travel_category_unselect@3x.png",
+        "url": "/assets/vote_scienceHealth_category_unselect@3x.png",
         "width": 122,
         "height": 48,
-        "alt": "travel category"
+        "alt": "techDigital category"
       }
     },
-    "fitness": {
+    "militaryPolitics": {
       "select": {
-        "url": "/assets/vote_fitness_select@3x.png",
+        "url": "/assets/vote_militaryPolitics_select@3x.png",
         "width": 686,
         "height": 113,
-        "alt": "fitness select"
+        "alt": "militaryPolitics select"
       },
       "unselect": {
-        "url": "/assets/vote_fitness_unselect@3x.png",
+        "url": "/assets/vote_militaryPolitics_unselect@3x.png",
         "width": 686,
         "height": 113,
-        "alt": "fitness unselect"
+        "alt": "militaryPolitics unselect"
       },
       "categorySelect": {
-        "url": "/assets/vote_fitness_category_select@3x.png",
+        "url": "/assets/vote_militaryPolitics_category_select@3x.png",
         "width": 127,
         "height": 53,
-        "alt": "fitness category"
+        "alt": "militaryPolitics category"
       },
       "categoryUnselect": {
-        "url": "/assets/vote_fitness_category_unselect@3x.png",
+        "url": "/assets/vote_militaryPolitics_category_unselect@3x.png",
         "width": 122,
         "height": 48,
-        "alt": "fitness category"
+        "alt": "militaryPolitics category"
       }
     },
-    "parenting": {
+    "humanities": {
       "select": {
-        "url": "/assets/vote_parenting_select@3x.png",
+        "url": "/assets/vote_humanities_select@3x.png",
         "width": 686,
         "height": 113,
-        "alt": "parenting select"
+        "alt": "humanities select"
       },
       "unselect": {
-        "url": "/assets/vote_parenting_unselect@3x.png",
+        "url": "/assets/vote_humanities_unselect@3x.png",
         "width": 686,
         "height": 113,
-        "alt": "parenting unselect"
+        "alt": "humanities unselect"
       },
       "categorySelect": {
-        "url": "/assets/vote_parenting_category_select@3x.png",
+        "url": "/assets/vote_humanities_category_select@3x.png",
         "width": 122,
         "height": 48,
-        "alt": "parenting category"
+        "alt": "humanities category"
       },
       "categoryUnselect": {
-        "url": "/assets/vote_parenting_category_unselect@3x.png",
+        "url": "/assets/vote_humanities_category_unselect@3x.png",
         "width": 122,
         "height": 48,
-        "alt": "parenting category"
+        "alt": "humanities category"
       }
     },
-    "emotion": {
+    "entertainment": {
       "select": {
-        "url": "/assets/vote_emotion_select@3x.png",
+        "url": "/assets/vote_entertainment_select@3x.png",
         "width": 686,
         "height": 113,
-        "alt": "emotion select"
+        "alt": "entertainment select"
       },
       "unselect": {
-        "url": "/assets/vote_emotion_unselect@3x.png",
+        "url": "/assets/vote_entertainment_unselect@3x.png",
         "width": 686,
         "height": 113,
-        "alt": "emotion unselect"
+        "alt": "entertainment unselect"
       },
       "categorySelect": {
-        "url": "/assets/vote_emotion_category_select@3x.png",
+        "url": "/assets/vote_entertainment_category_select@3x.png",
         "width": 122,
         "height": 48,
-        "alt": "emotion category"
+        "alt": "entertainment category"
       },
       "categoryUnselect": {
-        "url": "/assets/vote_emotion_category_unselect@3x.png",
+        "url": "/assets/vote_entertainment_category_unselect@3x.png",
         "width": 122,
         "height": 48,
-        "alt": "emotion category"
+        "alt": "entertainment category"
       }
     },
-    "movie": {
+    "sports": {
       "select": {
-        "url": "/assets/vote_movie_select@3x.png",
+        "url": "/assets/vote_sports_select@3x.png",
         "width": 686,
         "height": 113,
-        "alt": "movie select"
+        "alt": "sports select"
       },
       "unselect": {
-        "url": "/assets/vote_movie_unselect@3x.png",
+        "url": "/assets/vote_sports_unselect@3x.png",
         "width": 686,
         "height": 113,
-        "alt": "movie unselect"
+        "alt": "sports unselect"
       },
       "categorySelect": {
-        "url": "/assets/vote_movie_category_select@3x.png",
+        "url": "/assets/vote_sports_category_select@3x.png",
         "width": 122,
         "height": 48,
-        "alt": "movie category"
+        "alt": "sports category"
       },
       "categoryUnselect": {
-        "url": "/assets/vote_movie_category_unselect@3x.png",
+        "url": "/assets/vote_sports_category_unselect@3x.png",
         "width": 122,
         "height": 48,
-        "alt": "movie category"
-      }
-    },
-    "fashion": {
-      "select": {
-        "url": "/assets/vote_fashion_select@3x.png",
-        "width": 686,
-        "height": 113,
-        "alt": "fashion select"
-      },
-      "unselect": {
-        "url": "/assets/vote_fashion_unselect@3x.png",
-        "width": 686,
-        "height": 113,
-        "alt": "fashion unselect"
-      },
-      "categorySelect": {
-        "url": "/assets/vote_fashion_category_select@3x.png",
-        "width": 122,
-        "height": 48,
-        "alt": "fashion category"
-      },
-      "categoryUnselect": {
-        "url": "/assets/vote_fashion_category_unselect@3x.png",
-        "width": 122,
-        "height": 48,
-        "alt": "fashion category"
-      }
-    },
-    "career": {
-      "select": {
-        "url": "/assets/vote_career_select@3x.png",
-        "width": 686,
-        "height": 113,
-        "alt": "career select"
-      },
-      "unselect": {
-        "url": "/assets/vote_career_unselect@3x.png",
-        "width": 686,
-        "height": 113,
-        "alt": "career unselect"
-      },
-      "categorySelect": {
-        "url": "/assets/vote_career_category_select@3x.png",
-        "width": 122,
-        "height": 48,
-        "alt": "career category"
-      },
-      "categoryUnselect": {
-        "url": "/assets/vote_career_category_unselect@3x.png",
-        "width": 122,
-        "height": 48,
-        "alt": "career category"
+        "alt": "sports category"
       }
     },
     "game": {
@@ -881,108 +829,160 @@
         "alt": "game category"
       }
     },
-    "home": {
+    "carHome": {
       "select": {
-        "url": "/assets/vote_home_select@3x.png",
+        "url": "/assets/vote_carHome_select@3x.png",
         "width": 686,
         "height": 113,
-        "alt": "home select"
+        "alt": "carHome select"
       },
       "unselect": {
-        "url": "/assets/vote_home_unselect@3x.png",
+        "url": "/assets/vote_carHome_unselect@3x.png",
         "width": 686,
         "height": 113,
-        "alt": "home unselect"
+        "alt": "carHome unselect"
       },
       "categorySelect": {
-        "url": "/assets/vote_home_category_select@3x.png",
+        "url": "/assets/vote_carHome_category_select@3x.png",
         "width": 122,
         "height": 48,
-        "alt": "home category"
+        "alt": "carHome category"
       },
       "categoryUnselect": {
-        "url": "/assets/vote_home_category_unselect@3x.png",
+        "url": "/assets/vote_carHome_category_unselect@3x.png",
         "width": 122,
         "height": 48,
-        "alt": "home category"
+        "alt": "carHome category"
       }
     },
-    "tech": {
+    "career": {
       "select": {
-        "url": "/assets/vote_tech_select@3x.png",
+        "url": "/assets/vote_career_select@3x.png",
         "width": 686,
         "height": 113,
-        "alt": "tech select"
+        "alt": "career select"
       },
       "unselect": {
-        "url": "/assets/vote_tech_unselect@3x.png",
+        "url": "/assets/vote_career_unselect@3x.png",
         "width": 686,
         "height": 113,
-        "alt": "tech unselect"
+        "alt": "career unselect"
       },
       "categorySelect": {
-        "url": "/assets/vote_tech_category_select@3x.png",
+        "url": "/assets/vote_career_category_select@3x.png",
         "width": 122,
         "height": 48,
-        "alt": "tech category"
+        "alt": "career category"
       },
       "categoryUnselect": {
-        "url": "/assets/vote_tech_category_unselect@3x.png",
+        "url": "/assets/vote_career_category_unselect@3x.png",
         "width": 122,
         "height": 48,
-        "alt": "tech category"
+        "alt": "career category"
       }
     },
-    "edu": {
+    "psychology": {
       "select": {
-        "url": "/assets/vote_edu_select@3x.png",
+        "url": "/assets/vote_psychology_select@3x.png",
         "width": 686,
         "height": 113,
-        "alt": "edu select"
+        "alt": "psychology select"
       },
       "unselect": {
-        "url": "/assets/vote_edu_unselect@3x.png",
+        "url": "/assets/vote_psychology_unselect@3x.png",
         "width": 686,
         "height": 113,
-        "alt": "edu unselect"
+        "alt": "psychology unselect"
       },
       "categorySelect": {
-        "url": "/assets/vote_edu_category_select@3x.png",
+        "url": "/assets/vote_psychology_category_select@3x.png",
         "width": 122,
         "height": 48,
-        "alt": "edu category"
+        "alt": "psychology category"
       },
       "categoryUnselect": {
-        "url": "/assets/vote_edu_category_unselect@3x.png",
+        "url": "/assets/vote_psychology_category_unselect@3x.png",
         "width": 122,
         "height": 48,
-        "alt": "edu category"
+        "alt": "psychology category"
       }
     },
-    "sports": {
+    "education": {
       "select": {
-        "url": "/assets/vote_sports_select@3x.png",
+        "url": "/assets/vote_education_select@3x.png",
         "width": 686,
         "height": 113,
-        "alt": "sports select"
+        "alt": "education select"
       },
       "unselect": {
-        "url": "/assets/vote_sports_unselect@3x.png",
+        "url": "/assets/vote_education_unselect@3x.png",
         "width": 686,
         "height": 113,
-        "alt": "sports unselect"
+        "alt": "education unselect"
       },
       "categorySelect": {
-        "url": "/assets/vote_sports_category_select@3x.png",
+        "url": "/assets/vote_education_category_select@3x.png",
         "width": 122,
         "height": 48,
-        "alt": "sports category"
+        "alt": "education category"
       },
       "categoryUnselect": {
-        "url": "/assets/vote_sports_category_unselect@3x.png",
+        "url": "/assets/vote_education_category_unselect@3x.png",
         "width": 122,
         "height": 48,
-        "alt": "sports category"
+        "alt": "education category"
+      }
+    },
+    "lifestyle": {
+      "select": {
+        "url": "/assets/vote_lifestyle_select@3x.png",
+        "width": 686,
+        "height": 113,
+        "alt": "lifestyle select"
+      },
+      "unselect": {
+        "url": "/assets/vote_lifestyle_unselect@3x.png",
+        "width": 686,
+        "height": 113,
+        "alt": "lifestyle unselect"
+      },
+      "categorySelect": {
+        "url": "/assets/vote_lifestyle_category_select@3x.png",
+        "width": 122,
+        "height": 48,
+        "alt": "lifestyle category"
+      },
+      "categoryUnselect": {
+        "url": "/assets/vote_lifestyle_category_unselect@3x.png",
+        "width": 122,
+        "height": 48,
+        "alt": "lifestyle category"
+      }
+    },
+    "parenting": {
+      "select": {
+        "url": "/assets/vote_parenting_select@3x.png",
+        "width": 686,
+        "height": 113,
+        "alt": "parenting select"
+      },
+      "unselect": {
+        "url": "/assets/vote_parenting_unselect@3x.png",
+        "width": 686,
+        "height": 113,
+        "alt": "parenting unselect"
+      },
+      "categorySelect": {
+        "url": "/assets/vote_parenting_category_select@3x.png",
+        "width": 122,
+        "height": 48,
+        "alt": "parenting category"
+      },
+      "categoryUnselect": {
+        "url": "/assets/vote_parenting_category_unselect@3x.png",
+        "width": 122,
+        "height": 48,
+        "alt": "parenting category"
       }
     }
   },

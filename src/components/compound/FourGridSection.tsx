@@ -59,7 +59,55 @@ const FourGridSection = () => {
   const handleImageClick = (item: MomentLightItem, imageUrl: string, imageAlt: string) => {
     
     const downloadAsset = downloadAssets[item.position];
-    if (!downloadAsset) return;
+    if (!downloadAsset) {
+      switch (item.position) {
+        case 'annual_video': {
+          // 滚动到 "2025年度视频" 部分
+          const targetSection = document.getElementById('2025-yearly-video-section');
+          if (targetSection) {
+            targetSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          } else {
+            console.warn('未找到目标区域: zhexie-zhende-keyi-section');
+            showToast('请稍后再试', 'info');
+          }
+          break;
+        }
+        case 'annual_report': {
+          // 滚动到 "2025年度报告" 部分
+          const targetSection = document.getElementById('2025-yearly-report-section');
+          if (targetSection) {
+            targetSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          } else {
+            console.warn('未找到目标区域: 2025年度报告');
+            showToast('请稍后再试', 'info');
+          }
+          break;
+        }
+        case 'annual_question': {
+          // 滚动到 "2025年度十问" 部分
+          const targetSection = document.getElementById('2025-yearly-ten-questions-section');
+          if (targetSection) {
+            targetSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          } else {
+            console.warn('未找到目标区域: 2025年度十问');
+            showToast('请稍后再试', 'info');
+          }
+          break;
+        }
+        case 'really_can': {
+          // 滚动到 "这些真的可以" 部分
+          const targetSection = document.getElementById('zhexie-zhende-keyi-section');
+          if (targetSection) {
+            targetSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          } else {
+            console.warn('未找到目标区域: zhexie-zhende-keyi-section');
+            showToast('请稍后再试', 'info');
+          }
+          break;
+        }
+      }
+      return;
+    }
 
     setDialogImage({
       url: imageUrl,

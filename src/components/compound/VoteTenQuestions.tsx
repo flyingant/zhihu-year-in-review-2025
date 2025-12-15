@@ -543,13 +543,13 @@ const VoteTenQuestions = () => {
         </div>
       </div>
       {isModalOpen && (
-        <div className="fixed inset-0 z-[100] flex flex-col justify-end">
+        <div className="fixed inset-0 z-[100] flex flex-col justify-end" style={{ maxWidth: '640px', margin: '0 auto' }}>
           <div
             className="absolute inset-0 bg-black/60 animate-overlayShow"
             onClick={() => setIsModalOpen(false)}
           ></div>
-          <div className="relative w-full animate-slide-up h-[80vh] flex flex-col z-10 overflow-hidden">
-            <div className="absolute top-0 left-0 w-full h-[1160px] z-0">
+          <div className="relative w-full animate-slide-up h-[80vh] flex flex-col z-10 overflow-hidden" >
+            <div className="absolute top-0 left-0 w-full h-[1160px] z-0 bg-white">
               <Image
                 src={panelBgAsset.url}
                 alt={panelBgAsset.alt}
@@ -558,7 +558,7 @@ const VoteTenQuestions = () => {
                 className="object-fill"
               />
             </div>
-            <div className="relative z-10 flex flex-col w-full h-full pt-[20px] px-[24px] pb-[32px]">
+            <div className="relative z-10 flex flex-col h-full pt-[20px] px-[24px] pb-[32px]">
               <div className="text-center text-base font-bold mb-4 relative pixel-font">
                 已选问题 {selectedQuestions.length} 个
                 <div

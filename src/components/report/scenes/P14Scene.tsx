@@ -130,7 +130,7 @@ export default function P14Scene({ onNext, sceneName }: PageProps) {
           animate={floatPulse}
           transition={floatPulseTransition}
         >
-          <span style={{ display: 'inline-block' }}>
+          <span style={{ display: 'inline-block', color: '#FE8BC5' }}>
             A.一种被&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;理解的感觉
           </span>
         </motion.p>
@@ -140,7 +140,7 @@ export default function P14Scene({ onNext, sceneName }: PageProps) {
           animate={floatPulseB}
           transition={floatPulseTransitionB}
         >
-          <span style={{ display: 'inline-block',transform: 'rotate(-2deg) skewX(15deg) skewY(15deg)', transformStyle: 'preserve-3d' }}>
+          <span style={{ display: 'inline-block',transform: 'rotate(-2deg) skewX(15deg) skewY(15deg)', transformStyle: 'preserve-3d', color: '#A49FFE' }}>
             B.一句说得对的道理
           </span>
         </motion.p>

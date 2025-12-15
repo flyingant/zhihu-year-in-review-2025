@@ -119,7 +119,7 @@ export default function P9Scene({ onNext, sceneName }: PageProps) {
           animate={floatPulse}
           transition={floatPulseTransition}
         >
-          <span style={{ display: 'inline-block' }}>
+          <span style={{ display: 'inline-block', color: '#2AAE9D' }}>
           A.思考与哲理的启发 
           </span>
         </motion.p>
@@ -129,7 +129,7 @@ export default function P9Scene({ onNext, sceneName }: PageProps) {
           animate={floatPulseB}
           transition={floatPulseTransitionB}
         >
-          <span style={{ display: 'inline-block' }}>
+          <span style={{ display: 'inline-block', color: '#F47246' }}>
           B.知识与经验的输入 
           </span>
         </motion.p>

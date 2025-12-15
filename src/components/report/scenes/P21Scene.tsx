@@ -4,6 +4,7 @@ import { useState, useEffect, useRef } from "react";
 import Image from "next/image";
 import { useAssets } from "@/context/assets-context";
 import BaseScene from "./BaseScene";
+import { motion } from "framer-motion";
 
 interface PageProps {
   onNext?: () => void;
@@ -47,10 +48,28 @@ export default function P21Scene({ onNext, sceneName }: PageProps) {
   const topAsset = p21Assets.top;
   const middleAsset = p21Assets.middle;
   const liukanshanAsset = p21Assets.liukanshan;
-  const optionAAsset = p21Assets.optionA;
-  const optionBAsset = p21Assets.optionB;
-
   const { mix21_1, mix21_2, mix21_3, mix21_4 } = assets.report.bg;
+
+  const isMaskPastThreshold = maskPosition < -20;
+  const isMaskAboveThreshold = maskPosition > 0;
+  const floatPulse = isMaskPastThreshold ? { scale: [1, 1.06, 1] } : { scale: 1 };
+  const floatPulseTransition = isMaskPastThreshold
+    ? {
+        repeat: Infinity,
+        repeatType: "reverse" as const,
+        duration: 1.2,
+        ease: "easeInOut" as const,
+      }
+    : undefined;
+  const floatPulseB = isMaskAboveThreshold ? { scale: [1, 1.06, 1] } : { scale: 1 };
+  const floatPulseTransitionB = isMaskAboveThreshold
+    ? {
+        repeat: Infinity,
+        repeatType: "reverse" as const,
+        duration: 1.2,
+        ease: "easeInOut" as const,
+      }
+    : undefined;
 
   return (
     <BaseScene onNext={onNext} sceneName={sceneName}>
@@ -145,22 +164,27 @@ export default function P21Scene({ onNext, sceneName }: PageProps) {
           style={{ pointerEvents: "auto" }}
         />
         {/* Options */}
-        <Image
-          src={optionAAsset.url}
-          alt={optionAAsset.alt}
-          width={optionAAsset.width}
-          height={optionAAsset.height}
-          className="absolute z-20"
+        <motion.p
+          className="absolute z-20 text-xl "
           style={{ top: "625px", left: "23px" }}
-        />
-        <Image
-          src={optionBAsset.url}
-          alt={optionBAsset.alt}
-          width={optionBAsset.width}
-          height={optionBAsset.height}
-          className="absolute z-20"
+          animate={floatPulse}
+          transition={floatPulseTransition}
+        >
+          <span style={{ display: 'inline-block', width: '90px', color: '#7D4617' }}>
+            A. 寻着光探索未知
+          </span>
+          
+        </motion.p>
+        <motion.p
+          className="absolute z-20 text-xl"
           style={{ top: "286px", left: "230px" }}
-        />
+          animate={floatPulseB}
+          transition={floatPulseTransitionB}
+        >
+          <span style={{ display: 'inline-block', width: '84px', color: '#2F8C07' }}>
+            B. 跟着图奔向目标
+          </span>
+        </motion.p>
         {/* content **/}
         <div className="z-0">
           <div

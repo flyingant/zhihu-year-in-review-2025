@@ -10,6 +10,7 @@ import { motion } from "framer-motion";
 interface BaseSceneProps {
   children: ReactNode;
   onNext?: () => void;
+  onNavigateToScene?: (sceneId: string) => void;
   className?: string;
   containerClassName?: string;
   contentClassName?: string;
@@ -24,9 +25,11 @@ interface BaseSceneProps {
 function DebugPanel({
   sceneName,
   onNext,
+  onNavigateToScene,
 }: {
   sceneName?: string;
   onNext?: () => void;
+  onNavigateToScene?: (sceneId: string) => void;
 }) {
   // Only show in development
   const isDev = process.env.NODE_ENV === "development";
@@ -64,20 +67,16 @@ function DebugPanel({
 
   const handleSceneSelect = (e: React.MouseEvent, sceneId: string) => {
     e.stopPropagation();
-    if (typeof window !== "undefined") {
-      // Update hash using history API
-      // Ensure trailing slash for consistency with Next.js trailingSlash: true config
-      let pathname = window.location.pathname;
-      if (pathname !== "/" && !pathname.endsWith("/")) {
-        pathname = `${pathname}/`;
-      }
-      const newUrl = `${pathname}#${sceneId}`;
+    if (onNavigateToScene) {
+      // Use the navigation function if provided (no reload needed)
+      onNavigateToScene(sceneId);
+    } else if (typeof window !== "undefined") {
+      // Fallback: Update URL parameter and reload (only if navigation function not available)
+      const searchParams = new URLSearchParams(window.location.search);
+      searchParams.set('scene', sceneId);
+      const newUrl = `${window.location.pathname}?${searchParams.toString()}`;
       window.history.replaceState(null, "", newUrl);
-      // Manually trigger hashchange event for SceneManager to pick up
-      // Using a custom event since HashChangeEvent constructor may not be available
-      const hashChangeEvent = new Event("hashchange", { bubbles: true });
-      window.dispatchEvent(hashChangeEvent);
-      setIsDropdownOpen(false);
+      window.location.reload();
     }
   };
 
@@ -146,6 +145,7 @@ function DebugPanel({
 export default function BaseScene({
   children,
   onNext,
+  onNavigateToScene,
   sceneName,
   defaultLogo = true,
   showBottomNextButton = true,
@@ -212,7 +212,7 @@ export default function BaseScene({
           transformOrigin: "center center",
         }}
       >
-        <DebugPanel sceneName={sceneName} onNext={onNext} />
+        <DebugPanel sceneName={sceneName} onNext={onNext} onNavigateToScene={onNavigateToScene} />
         <div className={`relative z-40 w-full h-full`}>
           {logoAsset ? (
             <div

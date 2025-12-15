@@ -984,6 +984,18 @@
         "height": 48,
         "alt": "parenting category"
       }
+    },
+    "save": {
+      "url": "/assets/2025_2_vote_ten_save.png",
+      "width": 1029,
+      "height": 150,
+      "alt": "保存"
+    },
+    "saveBottom": {
+      "url": "/assets/2025_2_vote_ten_save_bottom.png",
+      "width": 1121,
+      "height": 193,
+      "alt": "保存底部"
     }
   },
   "fourGrid": {

@@ -147,6 +147,8 @@ export interface AssetsData {
     btnBg: AssetMetadata;
     cancelBtn: AssetMetadata;
     panelBg: AssetMetadata;
+    save: AssetMetadata;
+    saveBottom: AssetMetadata;
     science: {
       select: AssetMetadata;
       unselect: AssetMetadata;

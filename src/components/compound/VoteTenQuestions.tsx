@@ -153,8 +153,6 @@ const VoteTenQuestions = () => {
 
   if (!assets) return null;
 
-  const fourGridAssets = assets.fourGrid;
-
   // Check if we should show the poster instead of the original UI
   const shouldShowPoster = posterInfo?.poster_generate_status === 1 && posterInfo?.poster_image_url;
 
@@ -413,22 +411,34 @@ const VoteTenQuestions = () => {
               className="w-full h-auto object-contain"
               unoptimized
             />
-            <div className="absolute bottom-0 left-0 right-0 bg-white flex gap-4 w-full px-2 py-2" style={{ height: '13%' }}>
+            <div className="absolute bottom-0 left-0 right-0 bg-white flex flex-col gap-2 w-full px-2 py-2">
               <div
                 onClick={() => handleSavePosterImage(posterInfo.poster_image_url)}
                 className="flex justify-center items-center w-full cursor-pointer"
               >
-                {fourGridAssets.save && (
+                {assets.vote.save && (
                   <Image
-                    src={fourGridAssets.save.url}
-                    alt={fourGridAssets.save.alt}
-                    width={fourGridAssets.save.width / 6}
-                    height={fourGridAssets.save.height / 6}
+                    src={assets.vote.save.url}
+                    alt={assets.vote.save.alt}
+                    width={assets.vote.save.width}
+                    height={assets.vote.save.height}
                     className="object-contain"
                     unoptimized
                   />
                 )}
               </div>
+              {assets.vote.saveBottom && (
+                <div className="flex justify-center items-center w-full">
+                  <Image
+                    src={assets.vote.saveBottom.url}
+                    alt={assets.vote.saveBottom.alt}
+                    width={assets.vote.saveBottom.width}
+                    height={assets.vote.saveBottom.height}
+                    className="object-contain"
+                    unoptimized
+                  />
+                </div>
+              )}
             </div>
           </div>
         </div>

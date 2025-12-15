@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect, useRef } from "react";
+import { motion } from "framer-motion";
 import Image from "next/image";
 import { useAssets } from '@/context/assets-context';
 import BaseScene from "./BaseScene";
@@ -56,6 +57,31 @@ export default function P1Scene({ onNext, sceneName }: PageProps) {
   const middleAsset = p1Assets.middle;
   const liukanshanReadingAsset = p1Assets.liukanshanReading;
 
+  const isMaskPastThreshold = maskPosition < -300;
+  const isMaskAboveThreshold = maskPosition > -300;
+  const floatPulse = isMaskPastThreshold
+    ? { scale: [1, 1.06, 1] }
+    : { scale: 1 };
+  const floatPulseTransition = isMaskPastThreshold
+    ? {
+        repeat: Infinity,
+        repeatType: "reverse" as const,
+        duration: 1.2,
+        ease: "easeInOut" as const,
+      }
+    : undefined;
+  const floatPulseB = isMaskAboveThreshold
+    ? { scale: [1, 1.06, 1] }
+    : { scale: 1 };
+  const floatPulseTransitionB = isMaskAboveThreshold
+    ? {
+        repeat: Infinity,
+        repeatType: "reverse" as const,
+        duration: 1.2,
+        ease: "easeInOut" as const,
+      }
+    : undefined;
+
   
   return (
     <BaseScene onNext={onNext} sceneName={sceneName}>
@@ -103,18 +129,26 @@ export default function P1Scene({ onNext, sceneName }: PageProps) {
       </GlitchLayer>
       <div ref={containerRef} className="relative w-full h-full overflow-hidden">
         <p className="absolute z-30 text-center text-xl w-full" style={{ top: '106px' }}>这一年，<br/>是什么在驱动你的创作？</p>
-        <p 
-          className="absolute z-30 text-center text-sm" 
-          style={{ width: '121px', top: '192px', left: '43px', transform: 'skew(-25deg) rotate(16deg) translateZ(20px)', transformStyle: 'preserve-3d' }}
+        <motion.p 
+          className="absolute z-30 text-center text-xl text-r-yellow" 
+          style={{ width: '188px', top: '229px', left: '22px' }}
+          animate={floatPulse}
+          transition={floatPulseTransition}
         >
-          A.来自世界的目光和他人交流
-        </p>
-        <p 
-          className="absolute z-30 text-center text-xl" 
-          style={{ width: '160px', bottom: '11px', right: '43px', transform: 'skew(25deg) rotate(-11deg) translateZ(-27px)', transformStyle: 'preserve-3d' }}
+          <span style={{ display: 'inline-block', transform: 'rotate(14deg) skewX(10deg) skewY(10deg)', transformStyle: 'preserve-3d' }}>
+            A.来自世界的目光和他人交流
+          </span>
+        </motion.p>
+        <motion.p 
+          className="absolute z-30 text-center text-xl text-r-blue" 
+          style={{ width: '163px', bottom: '89px', right: '33px' }}
+          animate={floatPulseB}
+          transition={floatPulseTransitionB}
         >
-          B.来自内心的回声与自己对话
-        </p>
+          <span style={{ display: 'inline-block', transform: 'rotate(-25deg) skewX(15deg) skewY(15deg)', transformStyle: 'preserve-3d' }}>
+            B.来自内心的回声与自己对话
+          </span>
+        </motion.p>
          {/* Background layer - static */}
         <Image 
           src={bgAsset.url} 

@@ -13,7 +13,7 @@ interface PageProps {
 
 export default function P9Scene({ onNext, sceneName }: PageProps) {
   const { assets } = useAssets();
-  const [maskPosition, setMaskPosition] = useState(-50);
+  const [maskPosition, setMaskPosition] = useState(-190);
   const containerRef = useRef<HTMLDivElement>(null);
 
   const handleRangeChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -131,7 +131,7 @@ export default function P9Scene({ onNext, sceneName }: PageProps) {
         {/* Invisible range input for touch/mobile support */}
         <input
           type="range"
-          min="-600"
+          min="-375"
           max="0"
           value={maskPosition}
           onChange={handleRangeChange}

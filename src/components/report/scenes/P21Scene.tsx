@@ -12,7 +12,7 @@ interface PageProps {
 
 export default function P21Scene({ onNext, sceneName }: PageProps) {
   const { assets } = useAssets();
-  const [maskPosition, setMaskPosition] = useState(-50);
+  const [maskPosition, setMaskPosition] = useState(-21);
   const containerRef = useRef<HTMLDivElement>(null);
 
   const handleRangeChange = (e: React.ChangeEvent<HTMLInputElement>) => {

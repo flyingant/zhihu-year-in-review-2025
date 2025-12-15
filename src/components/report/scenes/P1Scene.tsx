@@ -13,7 +13,7 @@ interface PageProps {
 
 export default function P1Scene({ onNext, sceneName }: PageProps) {
   const { assets } = useAssets();
-  const [maskPosition, setMaskPosition] = useState(-50);
+  const [maskPosition, setMaskPosition] = useState(-75);
   const containerRef = useRef<HTMLDivElement>(null);
 
   const handleRangeChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -59,7 +59,7 @@ export default function P1Scene({ onNext, sceneName }: PageProps) {
   
   return (
     <BaseScene onNext={onNext} sceneName={sceneName}>
-      <GlitchLayer className="z-[50]">
+      <GlitchLayer className="z-[40]">
         <Image 
           src={mixAsset.url} 
           alt="{mixAsset.alt}" 
@@ -101,7 +101,7 @@ export default function P1Scene({ onNext, sceneName }: PageProps) {
           style={{ bottom: '45px', left: '45px' }} 
         />
       </GlitchLayer>
-      <div ref={containerRef} className="relative w-full h-full overflow-hidden" style={{ perspective: '1000px' }}>
+      <div ref={containerRef} className="relative w-full h-full overflow-hidden">
         <p className="absolute z-30 text-center text-xl w-full" style={{ top: '106px' }}>这一年，<br/>是什么在驱动你的创作？</p>
         <p 
           className="absolute z-30 text-center text-sm" 
@@ -160,7 +160,7 @@ export default function P1Scene({ onNext, sceneName }: PageProps) {
           max="0"
           value={maskPosition}
           onChange={handleRangeChange}
-          className="absolute inset-0 w-full h-full opacity-0 cursor-none z-50"
+          className="absolute inset-0 w-full h-full opacity-0 cursor-none z-[60]"
           style={{ pointerEvents: 'auto' }}
         />
       </div>

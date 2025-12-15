@@ -3,7 +3,6 @@
 import Image from "next/image";
 import { useState, useEffect, useRef } from "react";
 import { useAssets } from '@/context/assets-context';
-import { colorClass, typographyClass } from "@/hooks/useSceneTheme";
 import BaseScene from "./BaseScene";
 import GlitchLayer from "@/components/report/effects/GlitchLayer";
 
@@ -13,7 +12,7 @@ interface PageProps {
 }
 
 export default function P14Scene({ onNext, sceneName }: PageProps) {
-  const [maskPosition, setMaskPosition] = useState(300);
+  const [maskPosition, setMaskPosition] = useState(460);
   const { assets } = useAssets();
   const containerRef = useRef<HTMLDivElement>(null);
 
@@ -156,7 +155,7 @@ export default function P14Scene({ onNext, sceneName }: PageProps) {
         <input
           type="range"
           min="0"
-          max="800"
+          max="760"
           value={maskPosition}
           onChange={handleRangeChange}
           className="absolute inset-0 w-full h-full opacity-0 cursor-none z-50"

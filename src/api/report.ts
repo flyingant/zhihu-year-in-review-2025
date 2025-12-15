@@ -629,6 +629,7 @@ export const submitVote = (params: SubmitVoteRequest) => {
  * This endpoint returns comprehensive user activity data for the year
  * Note: Data is sourced from data warehouse and updated daily
  * 
+ * @param params - Optional query params (e.g., test_member_id for testing)
  * @returns Promise<UserReportData> - Complete user annual report data
  * 
  * @example
@@ -636,9 +637,15 @@ export const submitVote = (params: SubmitVoteRequest) => {
  * console.log(`Published ${reportData.answer_cnt} answers`);
  * console.log(`Most upvoted answer: ${reportData.answer_most_upvote_title}`);
  */
-export const getUserReportData = () => {
+export const getUserReportData = (params?: { test_member_id?: string }) => {
+  const baseUrl = '/campaigns/v2/2025/summary/profile';
+  const url =
+    params?.test_member_id
+      ? `${baseUrl}?test_member_id=${encodeURIComponent(params.test_member_id)}`
+      : baseUrl;
+
   return request<UserReportData>({
-    url: '/campaigns/v2/2025/summary/profile',
+    url,
     method: 'GET',
   });
 };

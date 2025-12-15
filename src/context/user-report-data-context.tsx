@@ -1,6 +1,7 @@
 "use client";
 
 import { createContext, useContext, useState, useEffect, useCallback, ReactNode } from "react";
+import { useSearchParams } from "next/navigation";
 import { useAuth } from "./auth-context";
 import { getUserReportData, type UserReportData } from "@/api/report";
 
@@ -19,6 +20,7 @@ const UserReportDataContext = createContext<UserReportDataContextType | undefine
 
 export function UserReportDataProvider({ children }: { children: ReactNode }) {
   const { isAuthenticated, isAuthLoading } = useAuth();
+  const searchParams = useSearchParams();
   const [reportData, setReportData] = useState<UserReportData | null>(null);
   const [isLoadingReport, setIsLoadingReport] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -31,7 +33,10 @@ export function UserReportDataProvider({ children }: { children: ReactNode }) {
     setIsLoadingReport(true);
     setError(null);
     try {
-      const data = await getUserReportData();
+      const testMemberId = searchParams?.get("test_member_id") || undefined;
+      const data = await getUserReportData(
+        testMemberId ? { test_member_id: testMemberId } : undefined
+      );
       setReportData(data);
     } catch (err: unknown) {
       console.error("Error fetching user report data:", err);
@@ -41,7 +46,7 @@ export function UserReportDataProvider({ children }: { children: ReactNode }) {
     } finally {
       setIsLoadingReport(false);
     }
-  }, [isAuthenticated]);
+  }, [isAuthenticated, searchParams]);
 
   // Automatically fetch report data when authenticated
   useEffect(() => {

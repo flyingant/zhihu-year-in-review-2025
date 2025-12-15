@@ -233,36 +233,46 @@ export default function P19Scene({ onNext, sceneName }: PageProps) {
             </div>
           </div>
         )}
-        {interactiveMostClubCommentCount && interactiveMostClubUpvoteCount && (
-          <div className="absolute z-2" style={{ top: "540px", left: "17px" }}>
-            <div>
-              在
-              <span className="text-r-yellow px-[7px]" style={{ fontSize: 16 }}>
-                「
-                {String(
-                  interactiveMostClubName ?? "interactive_most_club_name"
-                )}
-                」
-              </span>
-              圈 <br />
-              你留下了
-              <span className="text-r-green px-[7px]" style={{ fontSize: 18 }}>
-                {String(
-                  interactiveMostClubCommentCount ??
-                    "interactive_most_club_comment_cnt"
-                )}
-              </span>
-              条讨论 <br />
-              <span className="text-r-pink pr-[7px]" style={{ fontSize: 18 }}>
-                {String(
-                  interactiveMostClubUpvoteCount ??
-                    "interactive_most_club_upvote_cnt"
-                )}
-              </span>
-              个赞同
+        {!!interactiveMostClubCommentCount &&
+          !!interactiveMostClubUpvoteCount && (
+            <div
+              className="absolute z-2"
+              style={{ top: "540px", left: "17px" }}
+            >
+              <div>
+                在
+                <span
+                  className="text-r-yellow"
+                  style={{ padding: "0 4px", fontSize: 16 }}
+                >
+                  「
+                  {String(
+                    interactiveMostClubName ?? "interactive_most_club_name"
+                  )}
+                  」
+                </span>
+                圈 <br />
+                你留下了
+                <span
+                  className="text-r-green"
+                  style={{ padding: "0 4px", fontSize: 18 }}
+                >
+                  {String(
+                    interactiveMostClubCommentCount ??
+                      "interactive_most_club_comment_cnt"
+                  )}
+                </span>
+                条讨论 <br />
+                <span className="text-r-pink pr-[7px]" style={{ fontSize: 18 }}>
+                  {String(
+                    interactiveMostClubUpvoteCount ??
+                      "interactive_most_club_upvote_cnt"
+                  )}
+                </span>
+                个赞同
+              </div>
             </div>
-          </div>
-        )}
+          )}
       </div>
     </BaseScene>
   );

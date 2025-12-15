@@ -113,7 +113,7 @@ export default function P25Scene({ onNext, sceneName }: PageProps) {
           className="absolute pb-[30px]"
           style={{ top: "185px", left: "40px", right: "0" }}
         >
-          {(paidContentCount ?? 0) > 0 && (totalWordCount ?? 0) > 0 && (
+          {!!paidContentCount && !!totalWordCount && (
             <div className="mb-[10px]">
               2025年，作为尊贵的盐选会员,
               <br />
@@ -134,7 +134,7 @@ export default function P25Scene({ onNext, sceneName }: PageProps) {
         </div>
 
         {/* Top Books */}
-        <div className="z-0">
+        <div className="z-0" style={{ fontSize: 13 }}>
           <div
             style={{
               position: "absolute",
@@ -145,30 +145,36 @@ export default function P25Scene({ onNext, sceneName }: PageProps) {
           >
             是最打动你的故事元素是
           </div>
-          <div
-            className="absolute"
-            style={{ fontSize: 17, top: "353px", left: "146px" }}
-          >
-            <span className={`text-r-green px-[2px]`}>
-              「{String(labelName1 ?? "label_name_top1")} 」
-            </span>
-          </div>
-          <div
-            className="absolute"
-            style={{ fontSize: 17, top: "395px", left: "45px" }}
-          >
-            <span className={`text-r-blue px-[2px]`}>
-              「{String(labelName2 ?? "label_name_top2")} 」
-            </span>
-          </div>
-          <div
-            className="absolute"
-            style={{ fontSize: 17, top: "395px", left: "247px" }}
-          >
-            <span className={`text-r-green px-[2px]`}>
-              「{String(labelName3 ?? "label_name_top3")} 」
-            </span>
-          </div>
+          {!!labelName1 && (
+            <div
+              className="absolute"
+              style={{ fontSize: 17, top: "353px", left: "146px" }}
+            >
+              <span className={`text-r-green px-[2px]`}>
+                「{String(labelName1 ?? "label_name_top1")} 」
+              </span>
+            </div>
+          )}
+          {!!labelName2 && (
+            <div
+              className="absolute"
+              style={{ fontSize: 17, top: "395px", left: "45px" }}
+            >
+              <span className={`text-r-blue px-[2px]`}>
+                「{String(labelName2 ?? "label_name_top2")} 」
+              </span>
+            </div>
+          )}
+          {!!labelName3 && (
+            <div
+              className="absolute"
+              style={{ fontSize: 17, top: "395px", left: "247px" }}
+            >
+              <span className={`text-r-green px-[2px]`}>
+                「{String(labelName3 ?? "label_name_top3")} 」
+              </span>
+            </div>
+          )}
         </div>
 
         <div
@@ -180,7 +186,7 @@ export default function P25Scene({ onNext, sceneName }: PageProps) {
             right: "77px",
           }}
         >
-          {mostFavoriteAuthorName && (
+          {!!mostFavoriteAuthorName && (
             <div className="mb-[10px]">
               你阅读最多的作者是
               <span className="text-r-fern px-[2px]">

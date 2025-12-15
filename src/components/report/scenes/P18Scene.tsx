@@ -1,7 +1,6 @@
 "use client";
 
 import { useUserReportData } from "@/context/user-report-data-context";
-import { typographyClass } from "@/hooks/useSceneTheme";
 import BaseScene from "./BaseScene";
 import { useAssets } from "@/context/assets-context";
 import Image from "next/image";
@@ -154,7 +153,7 @@ export default function P18Scene({ onNext, sceneName }: PageProps) {
         />
       </div>
       {/* content */}
-      <div className="z-0" style={{ fontSize: 14 }}>
+      <div className="z-0 tracking-wide" style={{ fontSize: 14 }}>
         <div
           className={"text-xl leading-relaxed absolute"}
           style={{ left: "30px", top: "121px" }}
@@ -162,53 +161,61 @@ export default function P18Scene({ onNext, sceneName }: PageProps) {
           感谢有你,圈子一直在发光
         </div>
 
-        <div
-          className={" absolute text-center"}
-          style={{ width: "321px", left: "17px", top: "233px" }}
-        >
-          <span className={`text-r-blue px-[7px]`} style={{ fontSize: 20 }}>
-            「{String(clubAdminTop1Name ?? "club_admin_top1_name")} 」
-          </span>
-          圈
-          <br />
-          的主理人,你好
-        </div>
-
-        <div className={" absolute"} style={{ right: "14px", top: "290px" }}>
-          <span className={`text-r-green px-[2px]`} style={{ fontSize: 18 }}>
-            {String(clubAdminTop1MemberCount ?? "clubAdminTop1MemberCount")}
-          </span>
-          <br />
-          位圈友
-        </div>
-
-        <div
-          className={" absolute text-right"}
-          style={{ left: "27px", top: "483px", width: "66px" }}
-        >
-          <span className={`text-r-yellow px-[2px]`} style={{ fontSize: 18 }}>
-            {String(clubAdminTop1MemberCount ?? "clubAdminTop1MemberCount")}
-          </span>
-          <br />
-          条讨论
-        </div>
-
-        <div className={" absolute"} style={{ left: "30px", top: "631px" }}>
-          作为引路人,你在圈内发言
-          <span className={`text-r-pink px-[7px]`} style={{ fontSize: 24 }}>
-            {String(clubAdminPinCount ?? "club_admin_pin_cnt")}
-          </span>
-          次 <br />
-          <span>
-            与
-            <span className={`text-r-fern px-[7px]`} style={{ fontSize: 18 }}>
-              {String(
-                clubAdminInteractionCount ?? "club_admin_interaction_cnt"
-              )}
+        {clubAdminTop1Name && (
+          <div
+            className={"absolute text-center"}
+            style={{ width: "321px", left: "17px", top: "233px" }}
+          >
+            <span className={`text-r-blue px-[7px]`} style={{ fontSize: 20 }}>
+              「{String(clubAdminTop1Name ?? "club_admin_top1_name")} 」
             </span>
-            位圈友交换了想法
-          </span>
-        </div>
+            圈
+            <br />
+            的主理人,你好
+          </div>
+        )}
+
+        {!!clubAdminTop1MemberCount && (
+          <div className={" absolute"} style={{ right: "14px", top: "290px" }}>
+            <span className={`text-r-green px-[2px]`} style={{ fontSize: 18 }}>
+              {String(clubAdminTop1MemberCount ?? "clubAdminTop1MemberCount")}
+            </span>
+            <br />
+            位圈友
+          </div>
+        )}
+
+        {!!clubAdminTop1MemberCount && (
+          <div
+            className={" absolute text-right"}
+            style={{ left: "27px", top: "483px", width: "66px" }}
+          >
+            <span className={`text-r-yellow px-[2px]`} style={{ fontSize: 18 }}>
+              {String(clubAdminTop1MemberCount ?? "clubAdminTop1MemberCount")}
+            </span>
+            <br />
+            条讨论
+          </div>
+        )}
+
+        {!!clubAdminPinCount && (
+          <div className={" absolute"} style={{ left: "30px", top: "631px" }}>
+            作为引路人,你在圈内发言
+            <span className={`text-r-pink px-[7px]`} style={{ fontSize: 24 }}>
+              {String(clubAdminPinCount ?? "club_admin_pin_cnt")}
+            </span>
+            次 <br />
+            <span>
+              与
+              <span className={`text-r-fern px-[7px]`} style={{ fontSize: 18 }}>
+                {String(
+                  clubAdminInteractionCount ?? "club_admin_interaction_cnt"
+                )}
+              </span>
+              位圈友交换了想法
+            </span>
+          </div>
+        )}
       </div>
     </BaseScene>
   );

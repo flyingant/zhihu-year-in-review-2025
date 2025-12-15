@@ -244,6 +244,15 @@ export interface UserReportData {
   interaction_most_pin_club_name?: string;
   interaction_most_pin_title?: string;
   interaction_most_pin_interaction_cnt?: number;
+
+  // P20
+  most_interaction_club_member_avatar_top1?: string;
+  most_interaction_club_member_avatar_top2?: string;
+  most_interaction_club_member_avatar_top3?: string;
+  club_interest_list_avatar_top1?: string;
+  club_interest_list_avatar_top2?: string;
+  club_interest_list_avatar_top3?: string;
+  
   
   // P22: Billboard/Hot Events related fields
   consume_billboard_days?: number;
@@ -255,6 +264,18 @@ export interface UserReportData {
   event_member_cnt?: number;
   event_most_hour_name?: string;
   event_most_hour?: number;
+
+  // P24: Movie/Film related fields
+  movie_like_cnt?: number;
+  movie_like_name_top1?: string;
+  movie_like_rate_top1?: number | string;
+  movie_like_url_top1?: string;
+  movie_like_name_top2?: string;
+  movie_like_rate_top2?: number | string;
+  movie_like_url_top2?: string;
+  movie_like_name_top3?: string;
+  movie_like_rate_top3?: number | string;
+  movie_like_url_top3?: string;
 
   // Additional fields that might exist
   [key: string]: unknown;

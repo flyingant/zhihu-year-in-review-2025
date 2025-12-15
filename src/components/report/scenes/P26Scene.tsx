@@ -109,7 +109,7 @@ export default function P26Scene({ onNext, sceneName }: PageProps) {
         className="absolute z-0 leading-relaxed"
         style={{ fontSize: 14, top: "114px", left: "40px", right: "72px" }}
       >
-        {writeStoryNumSum !== null && writeStoryNumSum > 0 && (
+        {!!writeStoryNumSum && (
           <div className="z-0">
             <div className="mb-[8px]">
               今年,你创作
@@ -123,7 +123,7 @@ export default function P26Scene({ onNext, sceneName }: PageProps) {
           </div>
         )}
 
-        {totalUpvoteNum !== null && totalUpvoteNum > 0 && (
+        {!!totalUpvoteNum && (
           <div className="z-0 my-[38px]">
             <div>
               有
@@ -164,10 +164,10 @@ export default function P26Scene({ onNext, sceneName }: PageProps) {
                 </span>
               </div>
             )}
-            {annualAuthor && (
+            {!!annualAuthor && (
               <div>{String(annualAuthor ?? "annual_author")}</div>
             )}
-            {awardedCopy && (
+            {!!awardedCopy && (
               <div>
                 你荣获
                 <span

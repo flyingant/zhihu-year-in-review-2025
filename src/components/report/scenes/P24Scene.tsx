@@ -1,7 +1,6 @@
 "use client";
 
 import { useUserReportData } from "@/context/user-report-data-context";
-import { colorClass, typographyClass } from "@/hooks/useSceneTheme";
 import BaseScene from "./BaseScene";
 import GlitchLayer from "@/components/report/effects/GlitchLayer";
 import { useAssets } from "@/context/assets-context";
@@ -11,6 +10,51 @@ interface PageProps {
   onNext?: () => void;
   sceneName?: string;
 }
+
+const MovieLikeItem = ({
+  name,
+  url,
+  rate,
+  fallbackName,
+  fallbackUrl,
+  fallbackRate,
+  className,
+  style,
+}: {
+  name: unknown;
+  url: unknown;
+  rate: unknown;
+  fallbackName?: string;
+  fallbackUrl?: string;
+  fallbackRate?: string;
+  className?: string;
+  style?: React.CSSProperties;
+}) => {
+  return (
+    <div
+      className={`absolute flex flex-col items-center text-center ${
+        className || ""
+      }`}
+      style={style}
+    >
+      <Image
+        src={String(url ?? fallbackUrl)}
+        alt={String(name ?? fallbackName)}
+        className="object-cover bg-slate-100"
+        width={104}
+        height={156}
+      />
+      <div
+        className="w-full whitespace-normal"
+        style={{ fontSize: 13, marginTop: 12 }}
+      >
+        <span>《{String(name ?? fallbackName)}》</span>
+        <br />
+        <span>{String(rate ?? fallbackRate)}% 知友推荐</span>
+      </div>
+    </div>
+  );
+};
 
 export default function P24Scene({ onNext, sceneName }: PageProps) {
   const { reportData } = useUserReportData();
@@ -25,17 +69,35 @@ export default function P24Scene({ onNext, sceneName }: PageProps) {
   const movieLikeCount = reportData?.movie_like_cnt ?? null;
 
   // Top 3 movies
-  const movieLikeName1 = reportData?.movie_like_name_top1 ?? null;
-  const movieLikeRate1 = reportData?.movie_like_rate_top1 ?? null;
-  const movieLikeUrl1 = reportData?.movie_like_url_top1 ?? null;
-
-  const movieLikeName2 = reportData?.movie_like_name_top2 ?? null;
-  const movieLikeRate2 = reportData?.movie_like_rate_top2 ?? null;
-  const movieLikeUrl2 = reportData?.movie_like_url_top2 ?? null;
-
-  const movieLikeName3 = reportData?.movie_like_name_top3 ?? null;
-  const movieLikeRate3 = reportData?.movie_like_rate_top3 ?? null;
-  const movieLikeUrl3 = reportData?.movie_like_url_top3 ?? null;
+  const movieLikeList = [
+    {
+      name: reportData?.movie_like_name_top1,
+      rate: reportData?.movie_like_rate_top1,
+      url: reportData?.movie_like_url_top1,
+      fallbackName: "movie_like_name_top1",
+      fallbackUrl: "movie_like_url_top1",
+      fallbackRate: "movie_like_rate_top1",
+      style: { top: "280px", left: "6px", width: "137px" },
+    },
+    {
+      name: reportData?.movie_like_name_top2,
+      rate: reportData?.movie_like_rate_top2,
+      url: reportData?.movie_like_url_top2,
+      fallbackName: "movie_like_name_top2",
+      fallbackUrl: "movie_like_url_top2",
+      fallbackRate: "movie_like_rate_top2",
+      style: { top: "332px", left: "123px", width: "137px" },
+    },
+    {
+      name: reportData?.movie_like_name_top3,
+      rate: reportData?.movie_like_rate_top3,
+      url: reportData?.movie_like_url_top3,
+      fallbackName: "movie_like_name_top3",
+      fallbackUrl: "movie_like_url_top3",
+      fallbackRate: "movie_like_rate_top3",
+      style: { top: "280px", left: "240px", width: "137px" },
+    },
+  ];
 
   return (
     <BaseScene onNext={onNext} sceneName={sceneName}>
@@ -96,11 +158,19 @@ export default function P24Scene({ onNext, sceneName }: PageProps) {
       </div>
       {/* content */}
       {movieLikeCount && (
-        <div className="absolute z-0" style={{ top: 125, left: 75 }}>
+        <div
+          className="absolute z-0 w-full tracking-wide"
+          style={{
+            fontSize: 13,
+            top: 125,
+            left: "50%",
+            transform: "translateX(-50%)",
+          }}
+        >
           <div className="text-center">
             <div className="">
               你参与了
-              <span className="text-r-pink px-[7px]" style={{ fontSize: 24 }}>
+              <span className="text-r-pink px-[7px]" style={{ fontSize: 20 }}>
                 {String(movieLikeCount ?? "movie_like_cnt")}
               </span>
               次作品评价
@@ -110,79 +180,33 @@ export default function P24Scene({ onNext, sceneName }: PageProps) {
               <br />
             </div>
             <div className="text-center">
-              你<span className="text-r-fern">的年度影视作品</span>是
+              你的<span className="text-r-fern">年度影视作品</span>是
             </div>
           </div>
         </div>
       )}
       {/* top films */}
-      {movieLikeName1 && movieLikeName2 && movieLikeName3 && (
-        <div className="z-0 w-full">
-          <div
-            className="absolute flex flex-col items-center text-center"
-            style={{ top: "280px", left: "6px", width: "137px" }}
-          >
-            <Image
-              src={String(movieLikeUrl1 ?? "movie_like_url_top1")}
-              alt={String(movieLikeName1 ?? "movie_like_name_top1")}
-              className="object-cover bg-slate-100"
-              width={104}
-              height={156}
-            />
-            <div className="w-full whitespace-normal" style={{ fontSize: 13 }}>
-              <span>
-                《{String(movieLikeName1 ?? "movie_like_name_top1")}》
-              </span>
-              <br />
-              <span>
-                {String(movieLikeRate1 ?? "movie_like_rate_top1")}% 知友推荐
-              </span>
-            </div>
+      {!!movieLikeList[0].name &&
+        !!movieLikeList[1].name &&
+        !!movieLikeList[2].name && (
+          <div className="z-0 w-full tracking-wide" style={{ fontSize: 13 }}>
+            {movieLikeList.map(
+              (item, index) =>
+                item.name && (
+                  <MovieLikeItem
+                    key={index}
+                    name={item.name}
+                    url={item.url}
+                    rate={item.rate}
+                    fallbackName={item.fallbackName}
+                    fallbackUrl={item.fallbackUrl}
+                    fallbackRate={item.fallbackRate}
+                    style={item.style}
+                  />
+                )
+            )}
           </div>
-          <div
-            className="absolute flex flex-col items-center text-center"
-            style={{ top: "332px", left: "123px", width: "137px" }}
-          >
-            <Image
-              src={String(movieLikeUrl2 ?? "movie_like_url_top2")}
-              alt={String(movieLikeName2 ?? "movie_like_name_top2")}
-              className="object-cover bg-slate-100"
-              width={104}
-              height={156}
-            />
-            <div className="w-full whitespace-normal" style={{ fontSize: 13 }}>
-              <span>
-                《{String(movieLikeName2 ?? "movie_like_name_top2")}》
-              </span>
-              <br />
-              <span>
-                {String(movieLikeRate2 ?? "movie_like_rate_top2")}% 知友推荐
-              </span>
-            </div>
-          </div>
-          <div
-            className="absolute flex flex-col items-center text-center"
-            style={{ top: "280px", left: "240px", width: "137px" }}
-          >
-            <Image
-              src={String(movieLikeUrl3 ?? "movie_like_url_top3")}
-              alt={String(movieLikeName3 ?? "movie_like_name_top3")}
-              className="object-cover bg-slate-100"
-              width={104}
-              height={156}
-            />
-            <div className="w-full whitespace-normal" style={{ fontSize: 13 }}>
-              <span>
-                《{String(movieLikeName3 ?? "movie_like_name_top3")} 》
-              </span>
-              <br />
-              <span>
-                {String(movieLikeRate3 ?? "movie_like_rate_top3")}% 知友推荐
-              </span>
-            </div>
-          </div>
-        </div>
-      )}
+        )}
     </BaseScene>
   );
 }

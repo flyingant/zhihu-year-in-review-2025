@@ -25,10 +25,10 @@ export default function P23Scene({ onNext, sceneName }: PageProps) {
   const reviewAnswerProductName =
     reportData?.review_answer_product_name ?? null;
 
-  if (!reviewAnswerCount) {
-    console.log("redirect to next page");
-    return null;
-  }
+  // if (!reviewAnswerCount) {
+  //   console.log("redirect to next page");
+  //   return null;
+  // }
 
   return (
     <BaseScene onNext={onNext} sceneName={sceneName}>
@@ -80,7 +80,7 @@ export default function P23Scene({ onNext, sceneName }: PageProps) {
         />
       </div>
       {/* content */}
-      <div className="z-0">
+      <div className="z-0 tracking-wide" style={{ fontSize: 13 }}>
         <div
           className="leading-relaxed absolute"
           style={{ fontSize: 22, top: "116px", left: "41px" }}
@@ -109,13 +109,13 @@ export default function P23Scene({ onNext, sceneName }: PageProps) {
         <div className="absolute" style={{ top: "371px", left: "41px" }}>
           <div className="mb-[10px]">
             其中关于
-            <span className={`text-r-green px-[7px]`} style={{ fontSize: 20 }}>
+            <span className={`text-r-green px-[7px]`} style={{ fontSize: 16 }}>
               {String(reviewAnswerProductName ?? "review_answer_product_name")}
             </span>
             的测评
             <br />
             你用互动表达了对内容
-            <span className="text-r-pink px-[7px]" style={{ fontSize: 20 }}>
+            <span className="text-r-pink px-[7px]" style={{ fontSize: 16 }}>
               「真」的认可
             </span>
           </div>

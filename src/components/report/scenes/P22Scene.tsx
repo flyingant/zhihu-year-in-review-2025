@@ -122,7 +122,7 @@ export default function P22Scene({ onNext, sceneName }: PageProps) {
         />
       </div>
       {/* content */}
-      <div className="z-0 relative">
+      <div className="z-0 relative tracking-wide" style={{ fontSize: 14 }}>
         <div
           className="absolute"
           style={{ fontSize: 22, top: "116px", left: "41px" }}
@@ -136,7 +136,7 @@ export default function P22Scene({ onNext, sceneName }: PageProps) {
           className="absolute"
           style={{ top: "248px", left: "41px", fontSize: 14 }}
         >
-          {consumeBillboardDays && consumeBillboardDays >= 5 && (
+          {!!consumeBillboardDays && consumeBillboardDays >= 5 && (
             <>
               <p>
                 你今，年驻扎热榜
@@ -164,7 +164,7 @@ export default function P22Scene({ onNext, sceneName }: PageProps) {
             </>
           )}
           {/* Upvoted content on billboard */}
-          {upvoteZhihuBillboardContentCount && (
+          {!!upvoteZhihuBillboardContentCount && (
             <p>
               你的赞同, 助推
               <span className={`text-r-fern px-[7px]`} style={{ fontSize: 24 }}>

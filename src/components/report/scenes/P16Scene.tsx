@@ -117,6 +117,7 @@ export default function P16Scene({ onNext, sceneName }: PageProps) {
       </div>
       {/* content */}
       <div
+        className="tracking-wide"
         style={{
           position: "absolute",
           zIndex: 0,
@@ -125,7 +126,7 @@ export default function P16Scene({ onNext, sceneName }: PageProps) {
           left: "35px",
         }}
       >
-        {sendUpvoteCount && (
+        {!!sendUpvoteCount && (
           <>
             <div className="leading-relaxed" style={{ marginBottom: "12px" }}>
               今年,你点亮了
@@ -145,7 +146,7 @@ export default function P16Scene({ onNext, sceneName }: PageProps) {
           </>
         )}
 
-        {consumeMemberName && (
+        {!!consumeMemberName && (
           <div style={{ marginBottom: "8px" }}>
             你最长停在
             <span
@@ -157,7 +158,7 @@ export default function P16Scene({ onNext, sceneName }: PageProps) {
           </div>
         )}
 
-        {sendMostUpvoteCount && (
+        {!!sendMostUpvoteCount && (
           <>
             <div style={{ paddingBottom: "40px" }}>
               <div className="">

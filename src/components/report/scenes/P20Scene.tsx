@@ -1,7 +1,6 @@
 "use client";
 
 import { useUserReportData } from "@/context/user-report-data-context";
-import { colorClass, typographyClass } from "@/hooks/useSceneTheme";
 import BaseScene from "./BaseScene";
 import { useAssets } from "@/context/assets-context";
 import Image from "next/image";
@@ -12,6 +11,82 @@ interface PageProps {
   onNext?: () => void;
   sceneName?: string;
 }
+
+const InteractionMemberItem = ({
+  name,
+  avatar,
+  fallbackName,
+  className,
+}: {
+  name: unknown;
+  avatar?: string | null;
+  fallbackName?: string;
+  className?: string;
+}) => {
+  return (
+    <div className="flex items-center gap-1">
+      <Image
+        src={avatar ?? ""}
+        alt={String(name ?? "")}
+        width={32}
+        height={32}
+        className={`object-contain bg-slate-100 ${className || ""}`}
+        style={{
+          width: "32px",
+          height: "32px",
+          borderRadius: "50%",
+        }}
+      />
+      <span className="text-r-yellow px-[2px]" style={{ fontSize: 18 }}>
+        @{String(name ?? fallbackName)}
+      </span>
+    </div>
+  );
+};
+
+const ClubInterestItem = ({
+  name,
+  avatar,
+  fallbackName,
+  type = "join",
+  onClick,
+}: {
+  name: unknown;
+  avatar?: string | null;
+  fallbackName?: string;
+  type?: "join" | "joined";
+  onClick?: () => void;
+}) => {
+  return (
+    <span
+      className="flex items-center text-r-green px-[2px]"
+      style={{ fontSize: 18 }}
+    >
+      <div className="flex items-center gap-1">
+        <Image
+          src={avatar ?? ""}
+          alt={String(name ?? "")}
+          width={32}
+          height={32}
+          className={`object-contain bg-slate-100`}
+          style={{
+            width: "32px",
+            height: "32px",
+            borderRadius: "50%",
+          }}
+        />
+        <span className="text-r-yellow px-[2px]" style={{ fontSize: 14 }}>
+          @{String(name ?? fallbackName)}
+        </span>
+      </div>
+      <ActionsButton
+        className="ml-[7px]"
+        type={type}
+        onClick={onClick || (() => {})}
+      />
+    </span>
+  );
+};
 
 export default function P20Scene({ onNext, sceneName }: PageProps) {
   const { reportData } = useUserReportData();
@@ -38,6 +113,20 @@ export default function P20Scene({ onNext, sceneName }: PageProps) {
     reportData?.most_interaction_club_member_name_top2 ?? null;
   const mostInteractionMemberName3 =
     reportData?.most_interaction_club_member_name_top3 ?? null;
+
+  const mostInteractionMemberAvatar1 =
+    reportData?.most_interaction_club_member_avatar_top1 ?? null;
+  const mostInteractionMemberAvatar2 =
+    reportData?.most_interaction_club_member_avatar_top2 ?? null;
+  const mostInteractionMemberAvatar3 =
+    reportData?.most_interaction_club_member_avatar_top3 ?? null;
+
+  const clubInterestListAvatar1 =
+    reportData?.club_interest_list_avatar_top1 ?? null;
+  const clubInterestListAvatar2 =
+    reportData?.club_interest_list_avatar_top2 ?? null;
+  const clubInterestListAvatar3 =
+    reportData?.club_interest_list_avatar_top3 ?? null;
 
   // Most Active Clubs / "Spiritual Strongholds"
   const clubActiveListName1 = reportData?.club_active_list_name_top1 ?? null;
@@ -137,19 +226,19 @@ export default function P20Scene({ onNext, sceneName }: PageProps) {
       </div>
 
       {/* content */}
-      <div className="z-0">
-        <div className="first">
+      <div className="z-0 tracking-wide">
+        <div className="first hidden">
           {/* Night Club Publish */}
           <div
             className="absolute"
             style={{
               fontSize: "14px",
-              top: "170px",
+              top: "160px",
               left: "34px",
               right: "19px",
             }}
           >
-            {!clubFriendCount && (
+            {!!clubFriendCount && (
               <div className="leading-[29px]">
                 你在圈子里「扩列」了
                 <span
@@ -171,29 +260,33 @@ export default function P20Scene({ onNext, sceneName }: PageProps) {
           >
             <div className="flex flex-col leading-[34px]">
               <span>与你互动最多的圈友是：</span>
-              <span className="text-r-yellow px-[2px]" style={{ fontSize: 18 }}>
-                @
-                {String(
-                  mostInteractionMemberName1 ??
-                    "most_interaction_club_member_name_top1"
-                )}
-              </span>
-              <span className="text-r-yellow px-[2px]" style={{ fontSize: 18 }}>
-                @
-                {String(
-                  mostInteractionMemberName2 ??
-                    "most_interaction_club_member_name_top2"
-                )}
-              </span>
-              <span className="text-r-yellow px-[2px]" style={{ fontSize: 18 }}>
-                @
-                {String(
-                  mostInteractionMemberName3 ??
-                    "most_interaction_club_member_name_top3"
-                )}
-              </span>
+
+              {mostInteractionMemberName1 && (
+                <InteractionMemberItem
+                  name={mostInteractionMemberName1}
+                  avatar={mostInteractionMemberAvatar1}
+                  fallbackName="most_interaction_club_member_name_top1"
+                />
+              )}
+              {mostInteractionMemberName2 && (
+                <InteractionMemberItem
+                  name={mostInteractionMemberName2}
+                  avatar={mostInteractionMemberAvatar2}
+                  fallbackName="most_interaction_club_member_name_top2"
+                />
+              )}
+              {mostInteractionMemberName3 && (
+                <InteractionMemberItem
+                  name={mostInteractionMemberName3}
+                  avatar={mostInteractionMemberAvatar3}
+                  fallbackName="most_interaction_club_member_name_top3"
+                />
+              )}
             </div>
-            <div className="flex items-center gap-1">
+            <div
+              className="flex items-center gap-1"
+              style={{ marginTop: "8px" }}
+            >
               要不要
               <ActionsButton type="message" onClick={() => {}} />
               {/* <ActionsButton type="join" onClick={() => {}} /> */}
@@ -202,7 +295,7 @@ export default function P20Scene({ onNext, sceneName }: PageProps) {
             </div>
           </div>
         </div>
-        <div className="spots hidden">
+        <div className="spots">
           {/* Most Favorite Spots */}
           <div
             className="z-30 absolute"
@@ -240,56 +333,32 @@ export default function P20Scene({ onNext, sceneName }: PageProps) {
             style={{ fontSize: 14, top: "583px", left: "34px", right: "34px" }}
           >
             <div className="flex flex-col gap-3 leading-[34px]">
-              {mostInteractionMemberName1 && (
-                <span
-                  className="flex items-center text-r-green px-[2px]"
-                  style={{ fontSize: 18 }}
-                >
-                  {String(
-                    mostInteractionMemberName1 ??
-                      "most_interaction_club_member_name_top1"
-                  )}
-                  <ActionsButton
-                    className="ml-[7px]"
-                    type="join"
-                    onClick={() => {}}
-                  />
-                </span>
-              )}
-              {mostInteractionMemberName2 && (
-                <span
-                  className="flex items-center text-r-green px-[2px]"
-                  style={{ fontSize: 18 }}
-                >
-                  {String(
-                    mostInteractionMemberName2 ??
-                      "most_interaction_club_member_name_top2"
-                  )}
-                  <ActionsButton
-                    className="ml-[7px]"
-                    type="join"
-                    onClick={() => {}}
-                  />
-                </span>
-              )}
-              {mostInteractionMemberName3 && (
-                <span
-                  className="flex items-center text-r-green px-[2px]"
-                  style={{ fontSize: 18 }}
-                >
-                  {String(
-                    mostInteractionMemberName3 ??
-                      "most_interaction_club_member_name_top3"
-                  )}
-                  <ActionsButton
-                    className="ml-[7px]"
-                    type="joined"
-                    onClick={() => {}}
-                  />
-                </span>
-              )}
+              <ClubInterestItem
+                name={clubInterestListName1}
+                avatar={clubInterestListAvatar1}
+                fallbackName="club_interest_list_name_top1"
+                type="join"
+                onClick={() => {}}
+              />
+              <ClubInterestItem
+                name={clubInterestListName2}
+                avatar={clubInterestListAvatar2}
+                fallbackName="club_interest_list_name_top2"
+                type="join"
+                onClick={() => {}}
+              />
+              <ClubInterestItem
+                name={clubInterestListName3}
+                avatar={clubInterestListAvatar3}
+                fallbackName="club_interest_list_name_top3"
+                type="joined"
+                onClick={() => {}}
+              />
             </div>
-            <div className="flex items-center gap-1 mt-3">
+            <div
+              className="flex items-center gap-1"
+              style={{ marginTop: "8px" }}
+            >
               或许会是你的下一站 <br />
               点击加入一起开启新年新旅程吧
             </div>

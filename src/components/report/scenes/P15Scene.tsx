@@ -30,6 +30,22 @@ export default function P15Scene({ onNext, sceneName }: PageProps) {
   const thanksInvitationDate = reportData?.thanks_invitation_date
     ? format(new Date(reportData.thanks_invitation_date), "MM 月 dd 日")
     : null;
+  const { thanksInvitationMonth, thanksInvitationDay } =
+    reportData?.thanks_invitation_date
+      ? {
+          thanksInvitationMonth: format(
+            new Date(reportData.thanks_invitation_date),
+            "MM"
+          ),
+          thanksInvitationDay: format(
+            new Date(reportData.thanks_invitation_date),
+            "dd"
+          ),
+        }
+      : {
+          thanksInvitationMonth: null,
+          thanksInvitationDay: null,
+        };
   const thanksInvitationQuestionTitle =
     reportData?.thanks_invitation_question_title ?? null;
   const thanksInvitationMemberName =
@@ -104,7 +120,10 @@ export default function P15Scene({ onNext, sceneName }: PageProps) {
         />
       </div>
       {/* content */}
-      <div className="z-0" style={{ paddingTop: "113px" }}>
+      <div
+        className="z-0 tracking-wide"
+        style={{ fontSize: 13, paddingTop: "113px" }}
+      >
         <span
           className={"text-xl absolute leading-relaxed"}
           style={{ left: "32px" }}
@@ -112,7 +131,7 @@ export default function P15Scene({ onNext, sceneName }: PageProps) {
           真实的连接, 从点滴开启
         </span>
 
-        {newFollowCount && (
+        {!!newFollowCount && (
           <div className="absolute" style={{ left: "120px", top: "172px" }}>
             <div className="flex items-center gap-1">
               <Image
@@ -136,7 +155,7 @@ export default function P15Scene({ onNext, sceneName }: PageProps) {
           className="absolute leading-relaxed"
           style={{ top: "330px", left: "19px" }}
         >
-          {mostUpvoteMemberName && (
+          {!!mostUpvoteMemberName && (
             <>
               <div className="">
                 最懂你的是
@@ -162,7 +181,7 @@ export default function P15Scene({ onNext, sceneName }: PageProps) {
             </>
           )}
 
-          {interactionMostMemberName && (
+          {!!interactionMostMemberName && (
             <div>
               和你互动最多的，是
               <span className={`px-[6px] text-r-pink`} style={{ fontSize: 16 }}>
@@ -175,19 +194,20 @@ export default function P15Scene({ onNext, sceneName }: PageProps) {
           )}
         </div>
 
-        {thanksInvitationMemberName && (
+        {!!thanksInvitationMemberName && (
           <div
             className="absolute"
             style={{ fontSize: 13, top: "566px", left: "114px", right: "20px" }}
           >
-            <div className="mb-[10px] wrap-break-word">
-              <span
-                className={`px-[6px] text-r-green`}
-                style={{ fontSize: 18 }}
-              >
-                {String(thanksInvitationDate ?? "thanks_invitation_date")}
+            <div className="mb-[14px] text-r-green wrap-break-word">
+              <span style={{ fontSize: 17, margin: "0 2px" }}>
+                {String(thanksInvitationMonth ?? "thanksInvitationMonth")}
               </span>
-              你在
+              月
+              <span style={{ fontSize: 17, margin: "0 4px" }}>
+                {String(thanksInvitationDay ?? "thanksInvitationDay")}
+              </span>
+              日<span className="text-black mx-1">你在</span>
               <span className={`px-[6px] text-r-blue`}>
                 @
                 {String(
@@ -195,10 +215,7 @@ export default function P15Scene({ onNext, sceneName }: PageProps) {
                 )}
               </span>
               <br />
-              <span
-                className={`px-[2px] text-r-yellow`}
-                style={{ fontSize: 16 }}
-              >
+              <span className={`text-r-yellow`} style={{ fontSize: 16 }}>
                 「
                 {String(
                   thanksInvitationQuestionTitle ?? "thanks_invitation_question"
@@ -208,7 +225,7 @@ export default function P15Scene({ onNext, sceneName }: PageProps) {
             </div>
             <div>
               回应了
-              <span className={`px-[2px] text-r-purple`}>
+              <span className={`px-[4px] text-r-purple`}>
                 @
                 {String(
                   thanksInvitationMemberName ?? "thanks_invitation_member_name"

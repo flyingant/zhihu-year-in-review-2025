@@ -1,7 +1,6 @@
 "use client";
 
 import { useUserReportData } from "@/context/user-report-data-context";
-import { colorClass, typographyClass } from "@/hooks/useSceneTheme";
 import BaseScene from "./BaseScene";
 import { useAssets } from "@/context/assets-context";
 import Image from "next/image";
@@ -192,22 +191,22 @@ export default function P17Scene({ onNext, sceneName }: PageProps) {
       </div>
       {/* content */}
       <div
-        className="z-0 absolute"
-        style={{ fontSize: 14, top: "233px", left: "35px", right: "37px" }}
+        className="absolute z-0 tracking-wide"
+        style={{ fontSize: 14, top: "223px", left: "35px", right: "37px" }}
       >
-        {followQuestionFriend && followQuestionFriend >= 2 && (
+        {!!followQuestionFriend && followQuestionFriend >= 2 && (
           <div className="">
-            <div style={{ marginBottom: "10px" }}>
+            <div style={{ marginBottom: "6px" }}>
               你和
               <span className={`text-r-pink px-[7px]`} style={{ fontSize: 24 }}>
                 {String(followQuestionFriend ?? "follow_question_friend")}
               </span>
               位好友共同关注着一个问题
             </div>
-            <div style={{ marginBottom: "43px" }}>
+            <div style={{ marginBottom: "30px" }}>
               <span
-                className={`text-r-green px-[2px]`}
-                style={{ fontSize: 17 }}
+                className={`text-r-green`}
+                style={{ fontSize: 17, lineHeight: "34px" }}
               >
                 「
                 {String(
@@ -219,9 +218,9 @@ export default function P17Scene({ onNext, sceneName }: PageProps) {
             </div>
           </div>
         )}
-        {upvoteHotAnswerUserCount && upvoteHotAnswerUserCount >= 10 && (
+        {!!upvoteHotAnswerUserCount && upvoteHotAnswerUserCount >= 10 && (
           <div className="z-0">
-            <div style={{ fontSize: 14, marginBottom: "10px" }}>
+            <div style={{ fontSize: 14, marginBottom: "0px" }}>
               你赞同了
               <span
                 className={`text-r-yellow px-[7px]`}
@@ -236,15 +235,15 @@ export default function P17Scene({ onNext, sceneName }: PageProps) {
               <br />
               <p style={{ marginTop: "5px" }}>
                 <span
-                  className={`text-r-blue px-[2px]`}
-                  style={{ fontSize: 17 }}
+                  className={`text-r-blue`}
+                  style={{ fontSize: 17, lineHeight: "34px" }}
                 >
                   「{String(upvoteHotAnswerTitle ?? "upvote_hot_answer_title")}
                   」
                 </span>
                 <span
                   className={`text-r-blue px-[2px]`}
-                  style={{ fontSize: 13 }}
+                  style={{ fontSize: 13, lineHeight: "34px" }}
                 >
                   问题下的回答
                 </span>

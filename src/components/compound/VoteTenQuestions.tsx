@@ -40,16 +40,16 @@ const useLoadingDots = (baseText: string, speed = 300, isActive: boolean) => {
 const TOPICS = [
   { id: 'techDigital', name: '科技数码', color: '#68E1FD' },
   { id: 'scienceHealth', name: '科学健康', color: '#8EFFA4' },
-  { id: 'militaryPolitics', name: '军政经济', color: '#C8F667' }, 
+  { id: 'militaryPolitics', name: '社会经济', color: '#C8F667' }, 
   { id: 'humanities', name: '人文', color: '#FFEB55' },
   { id: 'entertainment', name: '影音娱乐', color: '#FFB84F' },
   { id: 'sports', name: '体育竞技', color: '#FF8A72' },
   { id: 'game', name: '游戏电竞', color: '#6B90FF' },
-  { id: 'carHome', name: '汽车家居', color: '#55F8CE' },
+  { id: 'carHome', name: '汽车', color: '#55F8CE' },
   { id: 'career', name: '职场', color: '#F6A8FF' },
   { id: 'psychology', name: '心理学', color: '#56E9FF' },
   { id: 'education', name: '教育', color: '#A5FF93' },
-  { id: 'lifestyle', name: '泛生活', color: '#FF6EA9' },
+  { id: 'lifestyle', name: '趣生活', color: '#FF6EA9' },
   { id: 'parenting', name: '母婴亲子', color: '#FF97D6' },
 ];
 

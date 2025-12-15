@@ -8,24 +8,15 @@ import { useZA } from '@/hooks/useZA';
 import { useInView } from 'react-intersection-observer';
 
 
-const MOMENTS = [
-  "手写信和桂花酒。", "春天，我亲眼看见种子发芽。", "朋友记住了我不喜欢吃香菜。", "深夜下班，同事递来的糖。", "第一次在此刻看到了极光。",
-  "风天，和朋友勇闯游乐园。", "夏夜小雨，开心地踩水。", "在异乡出差，吃到童年的味道。", "随手拍的树，被设成了壁纸。", "猫咪第一次主动蹭了我的手。",
-  "帮奶奶修好了收音机。", "耳机里正好播到最爱的那首歌。", "在这个路口，等到了绿灯。", "做了一顿不算翻车的晚饭。", "收到了一束没有署名的花。",
-  "通宵改的方案，客户说一次过。", "地铁上有人给老人让座。", "久未联系的老友突然打来电话。", "发现了一家超好吃的苍蝇馆子。", "周末睡到自然醒，阳光刚好。",
-  "在旧书里翻到一张老照片。", "下班路上看到了粉色的晚霞。", "虽然淋了雨，但看见了彩虹。", "被陌生人夸奖今天的穿搭。", "学会了一项新技能。",
-  "把购物车里的东西都清空了。", "父母身体健康，吃嘛嘛香。", "坚持运动了一个月。", "在知乎看到了一个很棒的回答。", "此刻，心情很平静。"
-];
-
 const ROWS_COUNT = 6;
-const ITEMS_PER_ROW = 5;
-const CHAR_SPACING_PERCENT = 0.8;
+const ITEMS_PER_ROW = 17;
+const CHAR_SPACING_PERCENT = 0.3;
 
 // 左右跨度（距离中心点的距离）
-const PATH_SPREAD_FROM_CENTER = 1000;
+const PATH_SPREAD_FROM_CENTER = 2500;
 // 垂直高度配置，网页坐标值是相反的，y越大，位置越靠下
-const PATH_BASE_Y = 500; // 起点和终点的 Y 坐标 (下落的位置)
-const PATH_PEAK_Y = -200;  // 中间顶点的 Y 坐标 (拱起的位置)
+const PATH_BASE_Y = 2000; // 起点和终点的 Y 坐标 (下落的位置)
+const PATH_PEAK_Y = -1700;  // 中间顶点的 Y 坐标 (拱起的位置)
 
 /**
  * 根据容器宽度生成对称的贝塞尔曲线路径
@@ -194,14 +185,15 @@ export default function CurveMarquee() {
   if (!assets) return null;
 
   const bgAsset = assets.realMoment.bg;
+  const contentAsset = assets.realMoment.content;
 
   const rows = Array.from({ length: ROWS_COUNT }, (_, i) => {
     const start = i * ITEMS_PER_ROW;
     const end = start + ITEMS_PER_ROW;
-    if (end > MOMENTS.length) {
-      return MOMENTS.slice(start).concat(MOMENTS.slice(0, end - MOMENTS.length));
+    if (end > contentAsset.length) {
+      return contentAsset.slice(start).concat(contentAsset.slice(0, end - contentAsset.length));
     }
-    return MOMENTS.slice(start, end);
+    return contentAsset.slice(start, end);
   });
 
   spansRef.current = [];
@@ -219,9 +211,9 @@ export default function CurveMarquee() {
           priority
         />
       </div>
-      <div className={`relative w-full h-full ${isMobile ? '-mt-[25px]' : 'mt-[30px]'}`}>
+      <div className={`relative w-full h-full ${isMobile ? '-mt-[10px]' : 'mt-[30px]'}`}>
         {rows.map((rowItems, rowIndex) => {
-          const gap = isMobile ? 50 : 80;
+          const gap = isMobile ? 58 : 80;
           const rowTop = rowIndex * gap;
           const spacingStr = "　　　　　";
           const rowFullText = rowItems.join(spacingStr) + spacingStr;

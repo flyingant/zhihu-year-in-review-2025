@@ -207,6 +207,7 @@ export interface AssetsData {
   };
   realMoment: {
     bg: AssetMetadata;
+    content: [];
   };
   report: {
     intro: {

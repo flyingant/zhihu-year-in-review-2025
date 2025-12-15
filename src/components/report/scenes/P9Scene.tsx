@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect, useRef } from "react";
+import { motion } from "framer-motion";
 import Image from "next/image";
 import { useAssets } from '@/context/assets-context';
 import BaseScene from "./BaseScene";
@@ -52,6 +53,27 @@ export default function P9Scene({ onNext, sceneName }: PageProps) {
   const middleAsset = p9Assets.middle;
   const liukanshanAsset = p9Assets.liukanshan;
 
+  const isMaskPastThreshold = maskPosition < -190;
+  const isMaskAboveThreshold = maskPosition > -190;
+  const floatPulse = isMaskPastThreshold ? { scale: [1, 1.06, 1] } : { scale: 1 };
+  const floatPulseTransition = isMaskPastThreshold
+    ? {
+        repeat: Infinity,
+        repeatType: "reverse" as const,
+        duration: 1.2,
+        ease: "easeInOut" as const,
+      }
+    : undefined;
+  const floatPulseB = isMaskAboveThreshold ? { scale: [1, 1.06, 1] } : { scale: 1 };
+  const floatPulseTransitionB = isMaskAboveThreshold
+    ? {
+        repeat: Infinity,
+        repeatType: "reverse" as const,
+        duration: 1.2,
+        ease: "easeInOut" as const,
+      }
+    : undefined;
+
   
   return (
     <BaseScene onNext={onNext} sceneName={sceneName}>
@@ -90,6 +112,28 @@ export default function P9Scene({ onNext, sceneName }: PageProps) {
         />
       </GlitchLayer> 
       <div ref={containerRef} className="relative w-full h-full overflow-hidden">
+        <p className="absolute z-30 text-center text-xl w-full" style={{ top: '106px' }}>回望这一年，<br/>哪一份收获更「真」？</p>
+        <motion.p 
+          className="absolute z-30 text-center text-xl text-r-yellow" 
+          style={{ width: '188px', bottom: '146px', left: '22px' }}
+          animate={floatPulse}
+          transition={floatPulseTransition}
+        >
+          <span style={{ display: 'inline-block' }}>
+          A.思考与哲理的启发 
+          </span>
+        </motion.p>
+        <motion.p 
+          className="absolute z-30 text-center text-xl text-r-blue" 
+          style={{ width: '163px', bottom: '79px', right: '33px' }}
+          animate={floatPulseB}
+          transition={floatPulseTransitionB}
+        >
+          <span style={{ display: 'inline-block' }}>
+          B.知识与经验的输入 
+          </span>
+        </motion.p>
+
         {/* Background layer - static */}
         <Image 
           src={bgAsset.url} 
@@ -99,7 +143,7 @@ export default function P9Scene({ onNext, sceneName }: PageProps) {
           className="relative z-10 w-auto h-full pointer-events-none select-none" 
         />
         {/* Liukanshan character */}
-        <div className="absolute inset-0 z-50 pointer-events-none" style={{ top: '56%', left: '19%' }}>
+        <div className="absolute inset-0 z-50 pointer-events-none" style={{ top: '49%', left: '26%' }}>
           <Image 
             src={liukanshanAsset.url} 
             alt={liukanshanAsset.alt} 

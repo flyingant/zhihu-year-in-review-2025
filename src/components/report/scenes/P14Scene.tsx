@@ -2,6 +2,7 @@
 
 import Image from "next/image";
 import { useState, useEffect, useRef } from "react";
+import { motion } from "framer-motion";
 import { useAssets } from '@/context/assets-context';
 import BaseScene from "./BaseScene";
 import GlitchLayer from "@/components/report/effects/GlitchLayer";
@@ -53,6 +54,27 @@ export default function P14Scene({ onNext, sceneName }: PageProps) {
   const mix3Asset = reportBg.mix3;
   const mix14Asset = reportBg.mix14;
 
+  const isMaskPastThreshold = maskPosition < 460;
+  const isMaskAboveThreshold = maskPosition > 460;
+  const floatPulse = isMaskPastThreshold ? { scale: [1, 1.06, 1] } : { scale: 1 };
+  const floatPulseTransition = isMaskPastThreshold
+    ? {
+        repeat: Infinity,
+        repeatType: "reverse" as const,
+        duration: 1.2,
+        ease: "easeInOut" as const,
+      }
+    : undefined;
+  const floatPulseB = isMaskAboveThreshold ? { scale: [1, 1.06, 1] } : { scale: 1 };
+  const floatPulseTransitionB = isMaskAboveThreshold
+    ? {
+        repeat: Infinity,
+        repeatType: "reverse" as const,
+        duration: 1.2,
+        ease: "easeInOut" as const,
+      }
+    : undefined;
+
 
   return (
     <BaseScene onNext={onNext} sceneName={sceneName}>
@@ -99,29 +121,29 @@ export default function P14Scene({ onNext, sceneName }: PageProps) {
             }}
           />
         </GlitchLayer> 
-        <p className="absolute z-30 text-center text-xl w-full pointer-events-none" style={{ top: '106px' }}>
-          当你赞同时，<br/>你在回应什么？
+        <p className="absolute z-30 text-center text-xl w-full" style={{ top: '106px' }}>
+          当你赞同时<br/>你在回应什么？
         </p>
-        <p 
-          className="absolute z-30 text-center text-sm font-bold text-[#FF8992] whitespace-nowrap pointer-events-none" 
-          style={{ 
-              top: '260px', 
-              left: '23%', 
-          }}
+        <motion.p 
+          className="absolute z-30 text-center text-xl text-r-yellow" 
+          style={{ width: '280px', top: '260px', left: '55px' }}
+          animate={floatPulse}
+          transition={floatPulseTransition}
         >
-          A. 一种被<span className="ml-20">理解的感觉</span> 
-        </p>
-        <p 
-          className="absolute z-30 text-center text-sm font-bold text-[#7E9FFF] whitespace-nowrap pointer-events-none" 
-          style={{ 
-              bottom: '160px', 
-              right: '15%', 
-              transform: 'skewY(15deg) rotate(5deg) perspective(500px) rotateX(20deg)',
-              transformOrigin: 'center'
-          }}
+          <span style={{ display: 'inline-block' }}>
+            A.一种被&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;理解的感觉
+          </span>
+        </motion.p>
+        <motion.p 
+          className="absolute z-30 text-center text-xl text-r-blue" 
+          style={{ width: '180px', bottom: '150px', right: '33px' }}
+          animate={floatPulseB}
+          transition={floatPulseTransitionB}
         >
-          B. 一句说得对的道理
-        </p>
+          <span style={{ display: 'inline-block',transform: 'rotate(-2deg) skewX(15deg) skewY(15deg)', transformStyle: 'preserve-3d' }}>
+            B.一句说得对的道理
+          </span>
+        </motion.p>
 
         <Image 
           src={bgAsset.url} 
@@ -161,7 +183,7 @@ export default function P14Scene({ onNext, sceneName }: PageProps) {
           className="absolute inset-0 w-full h-full opacity-0 cursor-none z-50"
           style={{ 
             pointerEvents: 'auto',
-            transform: 'rotate(-90deg)',
+            transform: 'rotate(90deg)',
             transformOrigin: 'center',
             position: 'absolute',
             left: '50%',

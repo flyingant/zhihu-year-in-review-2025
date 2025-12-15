@@ -169,6 +169,21 @@ export default function IndexScene({ onNext, sceneName }: IndexSceneProps) {
         return { container: {}, style: {} };
     }
   };
+
+  const getExpandTranslation = (view: ActiveView) => {
+    switch (view) {
+      case "topLeft":
+        return { x: 140, y: 100 };
+      case "topRight":
+        return { x: -140, y: 100 };
+      case "bottomLeft":
+        return { x: 140, y: -100 };
+      case "bottomRight":
+        return { x: -140, y: -100 };
+      default:
+        return { x: 0, y: 0 };
+    }
+  };
   const expandingAsset = getCornerAsset(expandingView);
 
   return (
@@ -296,9 +311,12 @@ export default function IndexScene({ onNext, sceneName }: IndexSceneProps) {
               }}
               initial={{
                 scale: 1,
+                x: 0,
+                y: 0,
               }}
               animate={{
                 scale: 3,
+                ...getExpandTranslation(expandingView),
               }}
               transition={{
                 duration: 2.0,

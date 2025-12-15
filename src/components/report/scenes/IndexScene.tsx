@@ -72,6 +72,13 @@ export default function IndexScene({ onNext, sceneName }: IndexSceneProps) {
     setActiveView(null);
   };
 
+  const floatTransition = (delay = 0, duration = 2) => ({
+    repeat: Infinity,
+    duration: duration,
+    ease: "easeInOut" as const,
+    delay,
+  });
+
   // Get background image based on active view
   const getBackgroundAsset = () => {
     if (!activeView) return null;
@@ -184,6 +191,8 @@ export default function IndexScene({ onNext, sceneName }: IndexSceneProps) {
             <motion.div
               className="absolute top-0 left-0 z-10 cursor-pointer"
               style={{ top: "5%", left: "0" }}
+              animate={{ x: [0, -8, 0], y: [0, -8, 0] }}
+              transition={floatTransition(0, 3)}
               whileHover={{ scale: 1.1 }}
               whileTap={{ scale: 0.95 }}
               onClick={() => handleCornerClick("topLeft")}
@@ -201,6 +210,8 @@ export default function IndexScene({ onNext, sceneName }: IndexSceneProps) {
             <motion.div
               className="absolute top-0 right-0 z-10 cursor-pointer"
               style={{ top: "2%", right: "0" }}
+              animate={{ x: [0, 8, 0], y: [0, -8, 0] }}
+              transition={floatTransition(0.2, 3)}
               whileHover={{ scale: 1.1 }}
               whileTap={{ scale: 0.95 }}
               onClick={() => handleCornerClick("topRight")}
@@ -218,6 +229,8 @@ export default function IndexScene({ onNext, sceneName }: IndexSceneProps) {
             <motion.div
               className="absolute bottom-0 left-0 z-10 cursor-pointer"
               style={{ bottom: "13%", left: "0" }}
+              animate={{ x: [0, -8, 0], y: [0, 8, 0] }}
+              transition={floatTransition(0.4, 6)}
               whileHover={{ scale: 1.1 }}
               whileTap={{ scale: 0.95 }}
               onClick={() => handleCornerClick("bottomLeft")}
@@ -235,6 +248,8 @@ export default function IndexScene({ onNext, sceneName }: IndexSceneProps) {
             <motion.div
               className="absolute bottom-0 right-0 z-10 cursor-pointer"
               style={{ bottom: "6%", right: "5px" }}
+              animate={{ x: [0, 8, 0], y: [0, -4, 0] }}
+              transition={floatTransition(0.6, 5)}
               whileHover={{ scale: 1.1 }}
               whileTap={{ scale: 0.95 }}
               onClick={() => handleCornerClick("bottomRight")}

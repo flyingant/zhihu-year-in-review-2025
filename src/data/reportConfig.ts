@@ -30,6 +30,8 @@ import P23Scene from '@/components/report/scenes/P23Scene';
 import P24Scene from '@/components/report/scenes/P24Scene';
 import P25Scene from '@/components/report/scenes/P25Scene';
 import P26Scene from '@/components/report/scenes/P26Scene';
+import P27Scene from '@/components/report/scenes/P27Scene';
+import P28Scene from '@/components/report/scenes/P28Scene';
 import EndingScene from '@/components/report/scenes/EndingScene';
 
 export type SceneConfig = {
@@ -198,6 +200,16 @@ export const SCENES: Record<string, SceneConfig> = {
   'p26': {
     id: 'p26',
     component: P26Scene,
+    next: 'p27',
+  },
+  'p27': {
+    id: 'p27',
+    component: P27Scene,
+    next: 'p28',
+  },
+  'p28': {
+    id: 'p28',
+    component: P28Scene,
     next: 'ending',
   },
   'ending': {

@@ -86,7 +86,7 @@ export default function P8CheeseScene({ onNext, sceneName }: PageProps) {
         >
           <div style={{ marginBottom: '8px' }} hidden={!courseCount}>
             你完成「芝士商学院」
-            <span className="text-r-pink mx-1" style={{ fontSize: '18px' }}>{courseCount}</span>
+            <span className="text-r-pink mx-1" style={{ fontSize: '18px' }}>2</span>
             期课程
           </div>
 

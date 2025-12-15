@@ -4,6 +4,7 @@ import { useState, useEffect, useRef } from "react";
 import { motion } from "framer-motion";
 import Image from "next/image";
 import { useAssets } from '@/context/assets-context';
+import { useUserReportData } from '@/context/user-report-data-context';
 import BaseScene from "./BaseScene";
 import GlitchLayer from "@/components/report/effects/GlitchLayer";
 
@@ -14,6 +15,7 @@ interface PageProps {
 
 export default function P9Scene({ onNext, sceneName }: PageProps) {
   const { assets } = useAssets();
+  const { setUserChoice } = useUserReportData();
   const [maskPosition, setMaskPosition] = useState(-190);
   const containerRef = useRef<HTMLDivElement>(null);
 
@@ -41,6 +43,11 @@ export default function P9Scene({ onNext, sceneName }: PageProps) {
       container.removeEventListener('wheel', handleWheel);
     };
   }, []);
+
+  const handleSelect = (choice: "A" | "B") => {
+    setUserChoice("p9", choice);
+    onNext?.();
+  };
 
   if (!assets) return null;
 
@@ -114,20 +121,26 @@ export default function P9Scene({ onNext, sceneName }: PageProps) {
       <div ref={containerRef} className="relative w-full h-full overflow-hidden">
         <p className="absolute z-30 text-center text-xl w-full" style={{ top: '106px' }}>回望这一年，<br/>哪一份收获更「真」？</p>
         <motion.p 
-          className="absolute z-30 text-center text-xl text-r-yellow" 
-          style={{ width: '188px', bottom: '146px', left: '22px' }}
+          className="absolute z-[70] text-center text-xl text-r-yellow cursor-pointer" 
+          style={{ width: '188px', bottom: '146px', left: '22px', pointerEvents: 'auto' }}
           animate={floatPulse}
           transition={floatPulseTransition}
+          onClick={() => handleSelect("A")}
+          role="button"
+          tabIndex={0}
         >
           <span style={{ display: 'inline-block', color: '#2AAE9D' }}>
           A.思考与哲理的启发 
           </span>
         </motion.p>
         <motion.p 
-          className="absolute z-30 text-center text-xl text-r-blue" 
-          style={{ width: '163px', bottom: '79px', right: '33px' }}
+          className="absolute z-[70] text-center text-xl text-r-blue cursor-pointer" 
+          style={{ width: '163px', bottom: '79px', right: '33px', pointerEvents: 'auto' }}
           animate={floatPulseB}
           transition={floatPulseTransitionB}
+          onClick={() => handleSelect("B")}
+          role="button"
+          tabIndex={0}
         >
           <span style={{ display: 'inline-block', color: '#F47246' }}>
           B.知识与经验的输入 

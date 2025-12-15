@@ -4,6 +4,7 @@ import { useState, useEffect, useRef } from "react";
 import { motion } from "framer-motion";
 import Image from "next/image";
 import { useAssets } from '@/context/assets-context';
+import { useUserReportData } from '@/context/user-report-data-context';
 import BaseScene from "./BaseScene";
 import GlitchLayer from "@/components/report/effects/GlitchLayer";
 
@@ -14,6 +15,7 @@ interface PageProps {
 
 export default function P1Scene({ onNext, sceneName }: PageProps) {
   const { assets } = useAssets();
+  const { setUserChoice } = useUserReportData();
   const [maskPosition, setMaskPosition] = useState(-75);
   const containerRef = useRef<HTMLDivElement>(null);
 
@@ -41,6 +43,11 @@ export default function P1Scene({ onNext, sceneName }: PageProps) {
       container.removeEventListener('wheel', handleWheel);
     };
   }, []);
+
+  const handleSelect = (choice: "A" | "B") => {
+    setUserChoice("p1", choice);
+    onNext?.();
+  };
 
 
   if (!assets) return null;
@@ -84,7 +91,7 @@ export default function P1Scene({ onNext, sceneName }: PageProps) {
 
   
   return (
-    <BaseScene onNext={onNext} sceneName={sceneName}>
+    <BaseScene onNext={onNext} sceneName={sceneName} showBottomNextButton={false}>
       <GlitchLayer className="z-[40]">
         <Image 
           src={mixAsset.url} 
@@ -130,20 +137,26 @@ export default function P1Scene({ onNext, sceneName }: PageProps) {
       <div ref={containerRef} className="relative w-full h-full overflow-hidden">
         <p className="absolute z-30 text-center text-xl w-full" style={{ top: '106px' }}>这一年，<br/>是什么在驱动你的创作？</p>
         <motion.p 
-          className="absolute z-30 text-center text-xl text-r-yellow" 
-          style={{ width: '188px', top: '229px', left: '22px' }}
+          className="absolute z-[70] text-center text-xl text-r-yellow cursor-pointer" 
+          style={{ width: '188px', top: '229px', left: '22px', pointerEvents: 'auto' }}
           animate={floatPulse}
           transition={floatPulseTransition}
+          onClick={() => handleSelect("A")}
+          role="button"
+          tabIndex={0}
         >
           <span style={{ display: 'inline-block', transform: 'rotate(14deg) skewX(10deg) skewY(10deg)', transformStyle: 'preserve-3d' }}>
             A.来自世界的目光和他人交流
           </span>
         </motion.p>
         <motion.p 
-          className="absolute z-30 text-center text-xl text-r-blue" 
-          style={{ width: '163px', bottom: '89px', right: '33px' }}
+          className="absolute z-[70] text-center text-xl text-r-blue cursor-pointer" 
+          style={{ width: '163px', bottom: '89px', right: '33px', pointerEvents: 'auto' }}
           animate={floatPulseB}
           transition={floatPulseTransitionB}
+          onClick={() => handleSelect("B")}
+          role="button"
+          tabIndex={0}
         >
           <span style={{ display: 'inline-block', transform: 'rotate(-25deg) skewX(15deg) skewY(15deg)', transformStyle: 'preserve-3d' }}>
             B.来自内心的回声与自己对话

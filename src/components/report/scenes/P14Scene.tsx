@@ -4,6 +4,7 @@ import Image from "next/image";
 import { useState, useEffect, useRef } from "react";
 import { motion } from "framer-motion";
 import { useAssets } from '@/context/assets-context';
+import { useUserReportData } from '@/context/user-report-data-context';
 import BaseScene from "./BaseScene";
 import GlitchLayer from "@/components/report/effects/GlitchLayer";
 
@@ -15,6 +16,7 @@ interface PageProps {
 export default function P14Scene({ onNext, sceneName }: PageProps) {
   const [maskPosition, setMaskPosition] = useState(460);
   const { assets } = useAssets();
+  const { setUserChoice } = useUserReportData();
   const containerRef = useRef<HTMLDivElement>(null);
 
   const handleRangeChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -41,6 +43,11 @@ export default function P14Scene({ onNext, sceneName }: PageProps) {
       container.removeEventListener('wheel', handleWheel);
     };
   }, []);
+
+  const handleSelect = (choice: "A" | "B") => {
+    setUserChoice("p14", choice);
+    onNext?.();
+  };
  
   if (!assets) return null;
 
@@ -125,20 +132,26 @@ export default function P14Scene({ onNext, sceneName }: PageProps) {
           当你赞同时<br/>你在回应什么？
         </p>
         <motion.p 
-          className="absolute z-30 text-center text-xl text-r-yellow" 
-          style={{ width: '280px', top: '260px', left: '55px' }}
+          className="absolute z-[70] text-center text-xl text-r-yellow cursor-pointer" 
+          style={{ width: '280px', top: '260px', left: '55px', pointerEvents: 'auto' }}
           animate={floatPulse}
           transition={floatPulseTransition}
+          onClick={() => handleSelect("A")}
+          role="button"
+          tabIndex={0}
         >
           <span style={{ display: 'inline-block', color: '#FE8BC5' }}>
             A.一种被&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;理解的感觉
           </span>
         </motion.p>
         <motion.p 
-          className="absolute z-30 text-center text-xl text-r-blue" 
-          style={{ width: '180px', bottom: '150px', right: '33px' }}
+          className="absolute z-[70] text-center text-xl text-r-blue cursor-pointer" 
+          style={{ width: '180px', bottom: '150px', right: '33px', pointerEvents: 'auto' }}
           animate={floatPulseB}
           transition={floatPulseTransitionB}
+          onClick={() => handleSelect("B")}
+          role="button"
+          tabIndex={0}
         >
           <span style={{ display: 'inline-block',transform: 'rotate(-2deg) skewX(15deg) skewY(15deg)', transformStyle: 'preserve-3d', color: '#A49FFE' }}>
             B.一句说得对的道理

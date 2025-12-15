@@ -14,6 +14,9 @@ interface UserReportDataContextType {
   error: string | null;
   fetchReportData: () => Promise<void>;
   clearError: () => void;
+  userChoices: Record<string, string>;
+  setUserChoice: (sceneName: string, choice: string) => void;
+  getUserChoice: (sceneName: string) => string | undefined;
 }
 
 const UserReportDataContext = createContext<UserReportDataContextType | undefined>(undefined);
@@ -24,6 +27,7 @@ export function UserReportDataProvider({ children }: { children: ReactNode }) {
   const [reportData, setReportData] = useState<UserReportData | null>(null);
   const [isLoadingReport, setIsLoadingReport] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [userChoices, setUserChoicesState] = useState<Record<string, string>>({});
 
   const fetchReportData = useCallback(async () => {
     if (!isAuthenticated) {
@@ -56,12 +60,36 @@ export function UserReportDataProvider({ children }: { children: ReactNode }) {
       // Clear report data when user logs out
       setReportData(null);
       setError(null);
+      setUserChoicesState({});
     }
   }, [isAuthenticated, isAuthLoading, fetchReportData]);
 
   const clearError = useCallback(() => {
     setError(null);
   }, []);
+
+  const setUserChoice = useCallback((sceneName: string, choice: string) => {
+    setUserChoicesState((prev) => {
+      const updated = {
+        ...prev,
+        [sceneName]: choice,
+      };
+      console.log('Setting choice:', sceneName, '=', choice, 'Updated choices:', updated);
+      return updated;
+    });
+  }, []);
+
+  const getUserChoice = useCallback(
+    (sceneName: string) => {
+      return userChoices[sceneName];
+    },
+    [userChoices]
+  );
+
+  // Debug: Log userChoices whenever it changes
+  useEffect(() => {
+    console.log('userChoices updated:', userChoices);
+  }, [userChoices]);
 
   return (
     <UserReportDataContext.Provider
@@ -71,6 +99,9 @@ export function UserReportDataProvider({ children }: { children: ReactNode }) {
         error,
         fetchReportData,
         clearError,
+        userChoices,
+        setUserChoice,
+        getUserChoice,
       }}
     >
       {children}

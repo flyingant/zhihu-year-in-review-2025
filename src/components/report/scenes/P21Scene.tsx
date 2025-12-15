@@ -3,6 +3,7 @@
 import { useState, useEffect, useRef } from "react";
 import Image from "next/image";
 import { useAssets } from "@/context/assets-context";
+import { useUserReportData } from '@/context/user-report-data-context';
 import BaseScene from "./BaseScene";
 import { motion } from "framer-motion";
 
@@ -13,6 +14,7 @@ interface PageProps {
 
 export default function P21Scene({ onNext, sceneName }: PageProps) {
   const { assets } = useAssets();
+  const { setUserChoice } = useUserReportData();
   const [maskPosition, setMaskPosition] = useState(-21);
   const containerRef = useRef<HTMLDivElement>(null);
 
@@ -40,6 +42,11 @@ export default function P21Scene({ onNext, sceneName }: PageProps) {
       container.removeEventListener("wheel", handleWheel);
     };
   }, []);
+
+  const handleSelect = (choice: "A" | "B") => {
+    setUserChoice("p21", choice);
+    onNext?.();
+  };
 
   if (!assets) return null;
 
@@ -165,10 +172,13 @@ export default function P21Scene({ onNext, sceneName }: PageProps) {
         />
         {/* Options */}
         <motion.p
-          className="absolute z-20 text-xl "
-          style={{ top: "625px", left: "23px" }}
+          className="absolute z-[70] text-xl cursor-pointer"
+          style={{ top: "625px", left: "23px", pointerEvents: 'auto' }}
           animate={floatPulse}
           transition={floatPulseTransition}
+          onClick={() => handleSelect("A")}
+          role="button"
+          tabIndex={0}
         >
           <span style={{ display: 'inline-block', width: '90px', color: '#7D4617' }}>
             A. 寻着光探索未知
@@ -176,10 +186,13 @@ export default function P21Scene({ onNext, sceneName }: PageProps) {
           
         </motion.p>
         <motion.p
-          className="absolute z-20 text-xl"
-          style={{ top: "286px", left: "230px" }}
+          className="absolute z-[70] text-xl cursor-pointer"
+          style={{ top: "286px", left: "230px", pointerEvents: 'auto' }}
           animate={floatPulseB}
           transition={floatPulseTransitionB}
+          onClick={() => handleSelect("B")}
+          role="button"
+          tabIndex={0}
         >
           <span style={{ display: 'inline-block', width: '84px', color: '#2F8C07' }}>
             B. 跟着图奔向目标

@@ -256,7 +256,7 @@ export default function IntroductionScene({ onNext, sceneName }: IntroductionSce
 
         {/* Button to proceed to step3 (only show during step2 loop) */}
         {currentStep === 'step2' && (
-          <div className="absolute z-50" style={{bottom: '44px', left: '43px'}}>
+          <div className="absolute z-50" style={{bottom: '44px', left: '63px'}}>
             <Image 
               onClick={handleButtonClick} 
               src={introButtonAsset.url} 

@@ -135,7 +135,7 @@ export default function P9Scene({ onNext, sceneName }: PageProps) {
           max="0"
           value={maskPosition}
           onChange={handleRangeChange}
-          className="absolute inset-0 w-full h-full opacity-0 cursor-none z-30"
+          className="absolute inset-0 w-full h-full opacity-0 cursor-none z-50"
           style={{ pointerEvents: 'auto' }}
         />
       </div>

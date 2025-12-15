@@ -100,11 +100,11 @@ export default function P14Scene({ onNext, sceneName }: PageProps) {
             }}
           />
         </GlitchLayer> 
-        <p className="absolute z-30 text-center text-xl w-full" style={{ top: '106px' }}>
+        <p className="absolute z-30 text-center text-xl w-full pointer-events-none" style={{ top: '106px' }}>
           当你赞同时，<br/>你在回应什么？
         </p>
         <p 
-          className="absolute z-30 text-center text-sm font-bold text-[#FF8992] whitespace-nowrap" 
+          className="absolute z-30 text-center text-sm font-bold text-[#FF8992] whitespace-nowrap pointer-events-none" 
           style={{ 
               top: '260px', 
               left: '23%', 
@@ -113,7 +113,7 @@ export default function P14Scene({ onNext, sceneName }: PageProps) {
           A. 一种被<span className="ml-20">理解的感觉</span> 
         </p>
         <p 
-          className="absolute z-30 text-center text-sm font-bold text-[#7E9FFF] whitespace-nowrap" 
+          className="absolute z-30 text-center text-sm font-bold text-[#7E9FFF] whitespace-nowrap pointer-events-none" 
           style={{ 
               bottom: '160px', 
               right: '15%', 
@@ -152,15 +152,26 @@ export default function P14Scene({ onNext, sceneName }: PageProps) {
           className="w-full h-full pointer-events-none select-none" 
         />
         </div>
-        {/* Invisible range input for touch/mobile support */}
+        {/* Invisible range input for touch/mobile support - vertical orientation */}
         <input
           type="range"
           min="0"
           max="800"
           value={maskPosition}
           onChange={handleRangeChange}
-          className="absolute inset-0 w-full h-full opacity-0 cursor-none z-30"
-          style={{ pointerEvents: 'auto' }}
+          className="absolute inset-0 w-full h-full opacity-0 cursor-none z-50"
+          style={{ 
+            pointerEvents: 'auto',
+            transform: 'rotate(-90deg)',
+            transformOrigin: 'center',
+            position: 'absolute',
+            left: '50%',
+            top: '50%',
+            width: '100vh',
+            height: '100vw',
+            marginLeft: '-50vh',
+            marginTop: '-50vw'
+          }}
         />
       </div>
     </BaseScene>

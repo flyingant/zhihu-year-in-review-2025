@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useRef, useEffect, useState } from 'react';
+import React, { useRef, useEffect, useState, useCallback, useMemo } from 'react';
 import Image from 'next/image';
 import Player from 'griffith';
 import { useAssets } from '@/context/assets-context';
@@ -10,6 +10,7 @@ import { useZA } from '@/hooks/useZA';
 import { useUserData } from '@/context/user-data-context';
 import { useZhihuHybrid } from '@/hooks/useZhihuHybrid';
 import { useZhihuApp } from '@/hooks/useZhihuApp';
+import { completeTask, getCampaignInfo } from '@/api/campaign';
 
 const generateRandomId = () => {
   return Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15);
@@ -37,23 +38,26 @@ const YearlyVideoSection = () => {
   const [error, setError] = useState<string | null>(null);
 
   // Prepare sources for Griffith Player with quality-specific URLs if available
-  const playerSources = videoDetails ? (() => {
-    const qualityUrls = extractVideoQualityUrls(videoDetails);
-    if (qualityUrls.hd || qualityUrls.sd) {
-      return {
-        ...(qualityUrls.hd && { hd: { play_url: qualityUrls.hd } }),
-        ...(qualityUrls.sd && { sd: { play_url: qualityUrls.sd } }),
-      };
+  const playerSources = useMemo(() => {
+    if (videoDetails) {
+      const qualityUrls = extractVideoQualityUrls(videoDetails);
+      if (qualityUrls.hd || qualityUrls.sd) {
+        return {
+          ...(qualityUrls.hd && { hd: { play_url: qualityUrls.hd } }),
+          ...(qualityUrls.sd && { sd: { play_url: qualityUrls.sd } }),
+        };
+      }
+      // Fallback to single URL if no quality-specific URLs
+      return videoUrl ? {
+        hd: { play_url: videoUrl },
+        sd: { play_url: videoUrl },
+      } : null;
     }
-    // Fallback to single URL if no quality-specific URLs
     return videoUrl ? {
       hd: { play_url: videoUrl },
       sd: { play_url: videoUrl },
     } : null;
-  })() : (videoUrl ? {
-    hd: { play_url: videoUrl },
-    sd: { play_url: videoUrl },
-  } : null);
+  }, [videoDetails, videoUrl]);
 
   useEffect(() => {
     if (inView && videoDetails && videoId) {
@@ -129,7 +133,7 @@ const YearlyVideoSection = () => {
     }
   }, [inView, videoUrl]);
 
-  const getPlayEventExtra = (videoEl: HTMLVideoElement | null) => {
+  const getPlayEventExtra = useCallback((videoEl: HTMLVideoElement | null) => {
     if (!videoEl) {
       return {
         media_info: {
@@ -178,7 +182,7 @@ const YearlyVideoSection = () => {
         }
       }
     };
-  };
+  }, [videoDetails, videoId, playerSources]);
 
 
   // Listen for play events from Griffith player
@@ -200,6 +204,19 @@ const YearlyVideoSection = () => {
               type: 'Zvideo',
             }
           }, getPlayEventExtra(videoElement));
+
+          // Call completeTask API and reload campaign data
+          if (assets?.campaign) {
+            completeTask(assets.campaign.completeTaskIds.BROWSE_2025_YEARLY_VIDEO)
+              .then(() => {
+                // Reload campaign data after successfully completing the task
+                return getCampaignInfo(assets.campaign.activityId);
+              })
+              .catch((error) => {
+                console.error('Error completing task BROWSE_2025_YEARLY_VIDEO or reloading campaign data:', error);
+                // Silently fail - this is just tracking, don't block user flow
+              });
+          }
         };
         const handlePause = () => {
           trackEvent('Pause', {
@@ -225,7 +242,7 @@ const YearlyVideoSection = () => {
 
     const cleanup = findAndAttachListener();
     return cleanup;
-  }, [videoUrl, lightUpMomentAndRefresh, trackEvent]);
+  }, [videoUrl, lightUpMomentAndRefresh, trackEvent, assets, getPlayEventExtra]);
 
   const handleDiscuss = async () => {
     trackEvent('OpenUrl', {

@@ -284,15 +284,15 @@ function HomeContent() {
             <KVSection variant="phase2" />
           </SectionLayout>
 
-          <SectionLayout topOffset={-45} id="yearly-video-section">
+          <SectionLayout topOffset={-45} id="2025-yearly-video-section">
             <YearlyVideoSection />
           </SectionLayout>
 
-          <SectionLayout topOffset={0} id="yearly-report-section">
+          <SectionLayout topOffset={0} id="2025-yearly-report-section">
             <YearlyReportSection />
           </SectionLayout>
 
-          <SectionLayout topOffset={0} id="yearly-questions-section">
+          <SectionLayout topOffset={0} id="2025-yearly-ten-questions-section">
             <YearlyQuestionSection />
           </SectionLayout>
 
@@ -311,16 +311,16 @@ function HomeContent() {
             </SectionLayout>
           )}
 
-          <SectionLayout topOffset={0} id="zhe-xie-zhen-de-ke-yi-section">
+          <SectionLayout topOffset={0} id="zhexie-zhende-keyi-section">
             <ZheXieZhenDeKeYiSection2 />
           </SectionLayout>
 
           { isAuthenticated ? (
-            <SectionLayout topOffset={0} id="four-grid-section">
+            <SectionLayout topOffset={0} id="collect-four-grid-element-section">
               <FourGridSection />
             </SectionLayout>
           ) :  (
-            <SectionLayout topOffset={0} id="four-grid-section">
+            <SectionLayout topOffset={0} id="collect-four-grid-element-section">
               <div 
                 onClick={handleLoginClick}
                 className="cursor-pointer text-center py-8 px-4 text-gray-600 hover:text-gray-900 transition-colors"

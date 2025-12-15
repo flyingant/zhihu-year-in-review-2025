@@ -488,6 +488,14 @@ export interface AssetsData {
       CLICK_LKS_GIFT: number;
       /** 点击刘看山礼品发布按钮的任务ID */
       CLICK_LKS_GIFT_PUBLISH: number;
+      /** 浏览2025年度视频的任务ID */
+      BROWSE_2025_YEARLY_VIDEO: number;
+      /** 浏览2025年度报告的任务ID */
+      BROWSE_2025_YEARLY_REPORT: number;
+      /** 浏览2025年度十个问题的任务ID */
+      BROWSE_2025_YEARLY_TEN_QUESTIONS: number;
+      /** 收集四宫格元素的任务ID */
+      COLLECT_FOUR_GRID_ELEMENT: number;
     };
     /**
      * 兑换记录按钮覆盖层的位置设置

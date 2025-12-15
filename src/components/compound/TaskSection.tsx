@@ -149,7 +149,7 @@ const TaskSection = () => {
           targetSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
         } else {
           console.warn('未找到目标区域: zaizhihu-lianjie-zhenshi-section');
-          showToast('页面加载中，请稍后再试', 'info');
+          showToast('请稍后再试', 'info');
         }
         break;
       }
@@ -160,7 +160,7 @@ const TaskSection = () => {
           targetSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
         } else {
           console.warn('未找到目标区域: zhexie-zhende-keyi-section');
-          showToast('页面加载中，请稍后再试', 'info');
+          showToast('请稍后再试', 'info');
         }
         break;
       }
@@ -170,9 +170,53 @@ const TaskSection = () => {
         window.dispatchEvent(animateEvent);
         break;
       }
+      case assets.campaign.completeTaskIds.BROWSE_2025_YEARLY_VIDEO: {
+        // 滚动到 "2025年度视频" 部分
+        const targetSection = document.getElementById('2025-yearly-video-section');
+        if (targetSection) {
+          targetSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        } else {
+          console.warn('未找到目标区域: 2025年度视频');
+          showToast('请稍后再试', 'info');
+        }
+        break;
+      }
+      case assets.campaign.completeTaskIds.BROWSE_2025_YEARLY_REPORT: {
+        // 滚动到 "2025年度报告" 部分
+        const targetSection = document.getElementById('2025-yearly-report-section');
+        if (targetSection) {
+          targetSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        } else {
+          console.warn('未找到目标区域: 2025年度报告');
+          showToast('请稍后再试', 'info');
+        }
+        break;
+      }
+      case assets.campaign.completeTaskIds.BROWSE_2025_YEARLY_TEN_QUESTIONS: {
+        // 滚动到 "2025年度十问" 部分
+        const targetSection = document.getElementById('2025-yearly-ten-questions-section');
+        if (targetSection) {
+          targetSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        } else {
+          console.warn('未找到目标区域: 2025年度十问');
+          showToast('请稍后再试', 'info');
+        }
+        break;
+      }
+      case assets.campaign.completeTaskIds.COLLECT_FOUR_GRID_ELEMENT: {
+        // 滚动到 "收集四宫格元素" 部分
+        const targetSection = document.getElementById('collect-four-grid-element-section');
+        if (targetSection) {
+          targetSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        } else {
+          console.warn('未找到目标区域: 收集四宫格元素');
+          showToast('请稍后再试', 'info');
+        }
+        break;
+      }
       default:
         console.log(`未处理的任务ID: ${taskId}`);
-        showToast(`任务 ${taskId} 的处理逻辑待实现`, 'info');
+        showToast(`请稍后再试 ${taskId}`, 'info');
     }
   };
 

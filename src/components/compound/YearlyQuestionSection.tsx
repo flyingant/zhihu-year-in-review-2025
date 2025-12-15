@@ -6,6 +6,9 @@ import { useAssets } from '@/context/assets-context';
 import { useElementCenter } from '@/hooks/useElementCenter';
 import { useZA } from '@/hooks/useZA';
 import { useUserData } from '@/context/user-data-context';
+import { completeTask, getCampaignInfo } from '@/api/campaign';
+import { useZhihuHybrid } from '@/hooks/useZhihuHybrid';
+import { useZhihuApp } from '@/hooks/useZhihuApp';
 
 const MASK_POSITIONS = [
   { top: '16.5%', left: '6%', width: '43%', height: '12%' },  // 左1
@@ -26,6 +29,8 @@ const TenQuestionsSection = () => {
   const { ref: setRefs, isCenter: showIcon } = useElementCenter({ threshold: 0.5 });
 
   const { trackShow, trackEvent } = useZA();
+  const { isAvailable: isHybridAvailable, openURL } = useZhihuHybrid();
+  const isZhihuApp = useZhihuApp();
 
   // Removed local showClearImage usage now that images rely solely on API data
 
@@ -47,7 +52,7 @@ const TenQuestionsSection = () => {
       : annualQuestionStatus.un_light_image_url)
     : undefined;
 
-  const handleQuestionClick = (url: string, index: number) => {
+  const handleQuestionClick = async (url: string, index: number) => {
     lightUpMomentAndRefresh('annual_question');
 
     // trackEvent('OpenUrl', {
@@ -56,7 +61,30 @@ const TenQuestionsSection = () => {
     //   moduleIndex: index
     // });
 
-    window.location.assign(url);
+    // Call completeTask API and reload campaign data
+    if (assets?.campaign) {
+      completeTask(assets.campaign.completeTaskIds.BROWSE_2025_YEARLY_TEN_QUESTIONS)
+        .then(() => {
+          // Reload campaign data after successfully completing the task
+          return getCampaignInfo(assets.campaign.activityId);
+        })
+        .catch((error) => {
+          console.error('Error completing task BROWSE_2025_YEARLY_TEN_QUESTIONS or reloading campaign data:', error);
+          // Silently fail - this is just tracking, don't block user flow
+        });
+    }
+
+    // Use zhihuHybrid if in zhihu app, otherwise use window.location.href
+    if (isZhihuApp && isHybridAvailable) {
+      try {
+        await openURL(url);
+      } catch (error) {
+        console.error('Failed to open URL via zhihuHybrid, falling back to window.location.href:', error);
+        window.location.href = url;
+      }
+    } else {
+      window.location.href = url;
+    }
   };
 
 

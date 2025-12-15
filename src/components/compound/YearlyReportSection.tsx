@@ -8,6 +8,7 @@ import { useZA } from '@/hooks/useZA';
 import { useUserData } from '@/context/user-data-context';
 import { useZhihuHybrid } from '@/hooks/useZhihuHybrid';
 import { useZhihuApp } from '@/hooks/useZhihuApp';
+import { completeTask, getCampaignInfo } from '@/api/campaign';
 
 const YearlyReportSection = () => {
   const { assets } = useAssets();
@@ -35,7 +36,7 @@ const YearlyReportSection = () => {
 
   if (!assets) return null;
 
-  const handleReportClick = () => {
+  const handleReportClick = async () => {
     lightUpMomentAndRefresh('annual_report');
     // phase2埋点5
     trackEvent('OpenUrl', {
@@ -43,15 +44,19 @@ const YearlyReportSection = () => {
       type: 'Block',
       page: { page_id: '60850' }
     });
-  };
 
-  const handleDiscussClick = async () => {
-    // phase2埋点6
-    trackEvent('', {
-      moduleId: 'annual_report_discussion_2025',
-      type: 'Button',
-      page: { page_id: '60850' }
-    });
+    // Call completeTask API and reload campaign data
+    if (assets?.campaign) {
+      completeTask(assets.campaign.completeTaskIds.BROWSE_2025_YEARLY_REPORT)
+        .then(() => {
+          // Reload campaign data after successfully completing the task
+          return getCampaignInfo(assets.campaign.activityId);
+        })
+        .catch((error) => {
+          console.error('Error completing task BROWSE_2025_YEARLY_REPORT or reloading campaign data:', error);
+          // Silently fail - this is just tracking, don't block user flow
+        });
+    }
 
     // Redirect to yearlyReportRedirectionURL if available
     const redirectUrl = assets?.urls?.yearlyReportRedirectionURL;
@@ -68,6 +73,17 @@ const YearlyReportSection = () => {
         window.location.href = redirectUrl;
       }
     }
+  };
+
+  const handleDiscussClick = async () => {
+    // phase2埋点6
+    trackEvent('', {
+      moduleId: 'annual_report_discussion_2025',
+      type: 'Button',
+      page: { page_id: '60850' }
+    });
+
+ 
   };
 
   const reportBg = assets.yearly.reportBg;

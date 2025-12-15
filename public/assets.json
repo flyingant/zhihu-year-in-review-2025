@@ -1213,21 +1213,30 @@
     "nianZhongXiaoWenVideoID": "1855624605156438016"
   },
   "campaign": {
-    "activityId": 330154,
+    "activityId": 300230,
     "showTaskIds": [
-      270750,
-      330364,
-      270751,
-      390377,
-      390378,
-      300558
+      330392,
+      330393,
+      360387,
+      330394,
+      390404,
+      360382,
+      360383,
+      360384,
+      270780,
+      390402,
+      360385
     ],
     "completeTaskIds": {
-      "BROWSE_ZHEXIEZHENDEKEYI": 330364,
-      "BROWSE_FENHUICHANG": 270751,
-      "BROWSE_LKS_SECTION": 300558,
-      "CLICK_LKS_GIFT": 390379,
-      "CLICK_LKS_GIFT_PUBLISH": 999999
+      "BROWSE_ZHEXIEZHENDEKEYI": 360383,
+      "BROWSE_FENHUICHANG": 360384,
+      "BROWSE_LKS_SECTION": 999999,
+      "CLICK_LKS_GIFT": 999999,
+      "CLICK_LKS_GIFT_PUBLISH": 999999,
+      "BROWSE_2025_YEARLY_VIDEO": 330392,
+      "BROWSE_2025_YEARLY_REPORT": 330393,
+      "BROWSE_2025_YEARLY_TEN_QUESTIONS": 360387,
+      "COLLECT_FOUR_GRID_ELEMENT": 390404
     },
     "recordBtnPosition": {
       "top": "2%",

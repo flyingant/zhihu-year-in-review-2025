@@ -60,7 +60,9 @@ export default function P21Scene({ onNext, sceneName }: PageProps) {
       // Convert touch movement to mask position change
       // Moving down (positive deltaY) should increase mask position (move right)
       // Moving up (negative deltaY) should decrease mask position (move left)
-      const delta = deltaY > 0 ? 10 : -10;
+      // Use actual deltaY for smoother, proportional movement
+      // Scale factor of 1.0 means 1px touch = 1px mask movement
+      const delta = deltaY;
       
       setMaskPosition((prev) => {
         const newValue = prev + delta;

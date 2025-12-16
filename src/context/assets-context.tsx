@@ -126,6 +126,7 @@ export interface AssetsData {
     questionClearImage: AssetMetadata;
   };
   fourGrid: {
+    blur: AssetMetadata;
     bg: AssetMetadata;
     save: AssetMetadata;
     preview: {

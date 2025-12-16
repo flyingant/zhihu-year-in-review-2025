@@ -999,6 +999,12 @@
     }
   },
   "fourGrid": {
+    "blur": {
+      "url": "/assets/2025_2_fourgrid_bg_blur@3x.png",
+      "width": 750,
+      "height": 619,
+      "alt": "模糊背景"
+    },
     "bg": {
       "url": "/assets/2025_2_fourgrid_bg@3x.png",
       "width": 375,

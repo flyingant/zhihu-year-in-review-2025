@@ -36,9 +36,9 @@ export default function P4Scene({ onNext, sceneName }: PageProps) {
     typeof value === "number" ? value : fallback;
 
   // Map context data to component variables according to P4 spec
-  const questionTitle = toStringOrFallback(reportData?.answer_most_upvote_question_title, 'answer_most_upvote_question_title');
-  const upvoteCount = toNumberOrFallback(reportData?.answer_most_upvote_cnt, 'answer_most_upvote_cnt');
-  const thousandUpvoteAnswers = toNumberOrFallback(reportData?.answer_1k_upvote_cnt, 'answer_lk_upvote_cnt');
+  const questionTitle = toStringOrFallback(reportData?.answer_most_upvote_question_title, '');
+  const upvoteCount = toNumberOrFallback(reportData?.answer_most_upvote_cnt, '');
+  const thousandUpvoteAnswers = toNumberOrFallback(reportData?.answer_1k_upvote_cnt, '');
 
   return (
     <BaseScene onNext={onNext} sceneName={sceneName}>
@@ -117,7 +117,7 @@ export default function P4Scene({ onNext, sceneName }: PageProps) {
         <div style={{ fontSize: '22px' }}>
           这一年，你依旧好奇
         </div>
-        <div className="" style={{ paddingTop: '46px', paddingBottom: '8px' }} hidden={questionTitle === '' || +upvoteCount >= 50}>
+        <div className="" style={{ paddingTop: '46px', paddingBottom: '8px' }} hidden={questionTitle === '' || +upvoteCount <= 50}>
           <div  style={{ paddingBottom: '2px' }}>
              你在
             <span 
@@ -136,7 +136,7 @@ export default function P4Scene({ onNext, sceneName }: PageProps) {
             >
               {upvoteCount}
             </span> 
-            次赞同点亮,那是一次真实地被看见
+            次赞同点亮，那是一次真实地被看见
           </div>
         </div>
 

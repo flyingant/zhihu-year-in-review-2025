@@ -93,6 +93,7 @@ export const SCENES: Record<string, SceneConfig> = {
     id: 'p4',
     component: P4Scene,
     next: 'p5',
+    shouldSkip: (data) => !data?.answer_most_upvote_question_title || !((data?.answer_most_upvote_cnt ?? 0) < 50),
   },
   'p5': {
     id: 'p5',

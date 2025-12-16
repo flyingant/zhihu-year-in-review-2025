@@ -15,6 +15,7 @@ import {
 import { isZhihuApp } from '@/lib/zhihu-detection';
 import { useZhihuHybrid } from '@/hooks/useZhihuHybrid';
 import { useMobile } from '@/hooks/useMobile';
+import { useAuth } from '@/context/auth-context';
 
 const useLoadingDots = (baseText: string, speed = 300, isActive: boolean) => {
   const [dots, setDots] = useState('');
@@ -68,6 +69,7 @@ const VoteTenQuestions = () => {
   const { downloadImage: downloadImageViaHybrid } = useZhihuHybrid();
   const { trackEvent } = useZA();
   const isMobile = useMobile();
+  const { isAuthenticated, login } = useAuth();
 
   const [activeTopicId, setActiveTopicId] = useState<string>(TOPICS[0].id);
   const [selectedQuestions, setSelectedQuestions] = useState<Question[]>([]);
@@ -308,6 +310,14 @@ const VoteTenQuestions = () => {
     window.open(url, '_blank');
   };
 
+  // 处理未认证用户点击输入区域 - 跳转到登录页
+  const handleAuthOverlayClick = (e: React.MouseEvent) => {
+    e.preventDefault();
+    e.stopPropagation();
+    const signinBase = assets?.urls?.signinBase;
+    login(signinBase);
+  };
+
   const handleGeneratePoster = async () => {
     if (selectedQuestions.length === 0) {
       showToast('请至少选择一个问题', 'info');
@@ -468,71 +478,86 @@ const VoteTenQuestions = () => {
       </div>
 
 
-      {/* 问题列表区 */}
-      <div className="relative w-full w-[375px] h-[382px] mt-2 ">
-        {/* 列表背景图 */}
-        <div className="absolute inset-0 z-0 left-0 right-0">
-          <Image
-            src={listBgAsset.url}
-            alt="bg"
-            fill
-            className="object-fill"
+      {/* 问题列表和按钮区域 */}
+      <div className="relative w-full">
+        {/* 未认证用户透明遮罩层 */}
+        {!isAuthenticated && (
+          <div
+            onClick={handleAuthOverlayClick}
+            onMouseDown={handleAuthOverlayClick}
+            className="absolute inset-0 z-[70] cursor-pointer"
+            style={{
+              backgroundColor: 'rgba(0,0,0,0.01)',
+              pointerEvents: 'auto',
+              minHeight: '100%'
+            }}
           />
-        </div>
-        <div
-          className="relative w-full h-[370px] overflow-y-auto my-2 hide-scrollbar">
-          <div className="pt-2 flex flex-col justify-center items-center">
-            {isLoadingQuestions ? (
-              <div className="text-center text-gray-400 py-10">加载中...</div>
-            ) : (
-              <>
-                {currentQuestions.map((q) => {
-                  const isSelected = selectedQuestions.some(sq => sq.id === q.id);
+        )}
+        {/* 问题列表区 */}
+        <div className="relative w-full w-[375px] h-[382px] mt-2 ">
+          {/* 列表背景图 */}
+          <div className="absolute inset-0 z-0 left-0 right-0">
+            <Image
+              src={listBgAsset.url}
+              alt="bg"
+              fill
+              className="object-fill"
+            />
+          </div>
+          <div
+            className="relative w-full h-[370px] overflow-y-auto my-2 hide-scrollbar">
+            <div className="pt-2 flex flex-col justify-center items-center">
+              {isLoadingQuestions ? (
+                <div className="text-center text-gray-400 py-10">加载中...</div>
+              ) : (
+                <>
+                  {currentQuestions.map((q) => {
+                    const isSelected = selectedQuestions.some(sq => sq.id === q.id);
 
-                  const bgAsset = voteAssets[activeTopicId][isSelected ? 'select' : 'unselect'];
+                    const bgAsset = voteAssets[activeTopicId][isSelected ? 'select' : 'unselect'];
 
-                  if (!bgAsset) return null;
+                    if (!bgAsset) return null;
 
-                  return (
-                    <div
-                      key={q.id}
-                      className="relative w-[343px] h-[56px] transition-transform mb-[14px]"
-                    >
-                      <div className="absolute inset-0 z-0">
-                        <Image
-                          src={bgAsset.url}
-                          alt="bg"
-                          fill
-                          className="object-fill"
-                        />
-                      </div>
-
-                      <div className="absolute inset-0 z-10 flex items-center justify-between px-4">
-                        <div
-                          className="flex-1 text-[14px] font-bold text-[#333] line-clamp-2 mr-4 cursor-pointer leading-tight"
-                          onClick={() => handleQuestionClick(q.url)}
-                        >
-                          {q.title}
+                    return (
+                      <div
+                        key={q.id}
+                        className="relative w-[343px] h-[56px] transition-transform mb-[14px]"
+                      >
+                        <div className="absolute inset-0 z-0">
+                          <Image
+                            src={bgAsset.url}
+                            alt="bg"
+                            fill
+                            className="object-fill"
+                          />
                         </div>
 
-                        <div
-                          onClick={() => handleToggleSelect(q)}
-                          className="relative w-[60px] h-[32px] flex items-center justify-center cursor-pointer"
-                        >
+                        <div className="absolute inset-0 z-10 flex items-center justify-between px-4">
+                          <div
+                            className="flex-1 text-[14px] font-bold text-[#333] line-clamp-2 mr-4 cursor-pointer leading-tight"
+                            onClick={() => handleQuestionClick(q.url)}
+                          >
+                            {q.title}
+                          </div>
+
+                          <div
+                            onClick={() => handleToggleSelect(q)}
+                            className="relative w-[60px] h-[32px] flex items-center justify-center cursor-pointer"
+                          >
+                          </div>
                         </div>
                       </div>
-                    </div>
-                  );
-                })}
-                {currentQuestions.length === 0 && (
-                  <div className="text-center text-gray-400 py-10">该话题下暂无问题</div>
-                )}
-              </>
-            )}
+                    );
+                  })}
+                  {currentQuestions.length === 0 && (
+                    <div className="text-center text-gray-400 py-10">该话题下暂无问题</div>
+                  )}
+                </>
+              )}
+            </div>
           </div>
         </div>
-      </div>
-      <div className="flex justify-between w-full px-[16px] mt-4 gap-3">
+        <div className="flex justify-between w-full px-[16px] mt-4 gap-3">
         <div
           onClick={() => setIsModalOpen(true)}
           className="relative flex-1 h-[48px] flex items-center justify-center cursor-pointer active:scale-95 transition-transform"
@@ -551,6 +576,7 @@ const VoteTenQuestions = () => {
             {isGeneratingPoster ? '生成中...' : '生成海报并发想法'}
           </span>
         </div>
+      </div>
       </div>
       {isModalOpen && (
         <div className="fixed inset-0 z-[100] flex flex-col justify-end" style={{ maxWidth: '640px', margin: '0 auto' }}>

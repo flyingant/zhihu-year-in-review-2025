@@ -296,39 +296,17 @@ function HomeContent() {
             <YearlyQuestionSection />
           </SectionLayout>
 
-          { isAuthenticated ?(
-            <SectionLayout topOffset={0} id="vote-ten-questions-section">
-              <VoteTenQuestions />
-            </SectionLayout>
-          ) : (
-            <SectionLayout topOffset={0} id="vote-ten-questions-section">
-              <div 
-                onClick={handleLoginClick}
-                className="cursor-pointer text-center py-8 px-4 text-gray-600 hover:text-gray-900 transition-colors"
-              >
-                Require Login
-              </div>
-            </SectionLayout>
-          )}
+          <SectionLayout topOffset={0} id="vote-ten-questions-section">
+            <VoteTenQuestions />
+          </SectionLayout>
 
           <SectionLayout topOffset={0} id="zhexie-zhende-keyi-section">
             <ZheXieZhenDeKeYiSection2 />
           </SectionLayout>
 
-          { isAuthenticated ? (
-            <SectionLayout topOffset={0} id="collect-four-grid-element-section">
-              <FourGridSection />
-            </SectionLayout>
-          ) :  (
-            <SectionLayout topOffset={0} id="collect-four-grid-element-section">
-              <div 
-                onClick={handleLoginClick}
-                className="cursor-pointer text-center py-8 px-4 text-gray-600 hover:text-gray-900 transition-colors"
-              >
-                Require Login
-              </div>
-            </SectionLayout>
-          )}
+          <SectionLayout topOffset={0} id="collect-four-grid-element-section">
+            <FourGridSection />
+          </SectionLayout>
 
           <SectionLayout topOffset={0} id="nian-zhong-xiao-wen-section">
             <NianZhongXiaoWenSection />

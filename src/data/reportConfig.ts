@@ -177,6 +177,7 @@ export const SCENES: Record<string, SceneConfig> = {
     id: 'p19',
     component: P19Scene,
     next: 'p20',
+    shouldSkip: (data) => !data?.join_club_cnt,
   },
   'p20': {
     id: 'p20',

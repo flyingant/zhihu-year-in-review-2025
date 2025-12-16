@@ -262,7 +262,7 @@ const FourGridSection = () => {
           </div>
 
           <div
-            className={`absolute z-10 flex top-[42%] left-[11.5%] justify-between w-[calc(100%-23%)] ${isMobile ? 'gap-[3px]' : 'gap-[9px]'}`}>
+            className={`absolute z-10 flex top-[42%] left-[11.5%] w-[calc(100%-23%)] ${isMobile ? 'gap-[3px]' : 'gap-[9px]'}`}>
             {POSITION_ORDER.map((position) => {
               const lightStatus = lightStatusMap.get(position);
               const previewAsset = previewAssets[position];
@@ -270,15 +270,12 @@ const FourGridSection = () => {
               if (!lightStatus || !previewAsset) {
                 // Use same aspect ratio for placeholder
                 const placeholderAspectRatio = 441 / 639;
-                const placeholderWidth = 70;
-                const placeholderHeight = placeholderWidth / placeholderAspectRatio;
                 return (
-                  <div key={position} className="flex">
+                  <div key={position} className="flex flex-1">
                     <div 
-                      className="relative" 
+                      className="relative w-full" 
                       style={{
-                        width: `${placeholderWidth}px`,
-                        height: `${placeholderHeight}px`,
+                        aspectRatio: placeholderAspectRatio,
                       }}
                     />
                   </div>
@@ -292,26 +289,23 @@ const FourGridSection = () => {
               // Calculate container dimensions based on image aspect ratio
               // Preview images are 441x639, so aspect ratio is 441:639
               const imageAspectRatio = previewAsset.width / previewAsset.height; // 441/639 ≈ 0.69
-              const containerWidth = 70;
-              const containerHeight = containerWidth / imageAspectRatio; // ≈ 101.4px
 
               return (
-                <div key={position} className="flex">
+                <div key={position} className="flex flex-1">
                   <div 
-                    className="relative flex items-center justify-center cursor-pointer"
+                    className="relative flex items-center justify-center cursor-pointer w-full"
                     style={{
-                      width: `${containerWidth}px`,
-                      height: `${containerHeight}px`,
+                      aspectRatio: imageAspectRatio,
                     }}
                     onClick={() => handleImageClick(lightStatus, previewAsset.url, imageAlt)}
                   >
-                    <div className="relative inline-flex items-center justify-center">
+                    <div className="relative inline-flex items-center justify-center w-full h-full">
                       <Image
                         src={previewAsset.url}
                         alt={imageAlt}
                         width={previewAsset.width}
                         height={previewAsset.height}
-                        className="object-contain"
+                        className="object-contain w-full h-full"
                       />
                       {!isCompleted && (
                         <>

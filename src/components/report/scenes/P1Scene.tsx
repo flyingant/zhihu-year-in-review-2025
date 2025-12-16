@@ -24,7 +24,7 @@ export default function P1Scene({ onNext, sceneName }: PageProps) {
     setMaskPosition(Number(e.target.value));
   };
 
-  // Handle scroll/wheel events to change mask position
+  // Handle scroll/wheel events and touch events to change mask position
   useEffect(() => {
     const container = containerRef.current;
     if (!container) return;
@@ -38,10 +38,56 @@ export default function P1Scene({ onNext, sceneName }: PageProps) {
       });
     };
 
+    // Touch event handlers for mobile devices
+    let touchStartY = 0;
+    let lastTouchY = 0;
+    let isTouching = false;
+
+    const handleTouchStart = (e: TouchEvent) => {
+      if (e.touches.length === 1) {
+        touchStartY = e.touches[0].clientY;
+        lastTouchY = touchStartY;
+        isTouching = true;
+      }
+    };
+
+    const handleTouchMove = (e: TouchEvent) => {
+      if (!isTouching || e.touches.length !== 1) return;
+      
+      e.preventDefault();
+      const currentY = e.touches[0].clientY;
+      const deltaY = currentY - lastTouchY;
+      
+      // Convert touch movement to mask position change
+      // Moving down (positive deltaY) should increase mask position (move right)
+      // Moving up (negative deltaY) should decrease mask position (move left)
+      const delta = deltaY > 0 ? 10 : -10;
+      
+      setMaskPosition(prev => {
+        const newValue = prev + delta;
+        return Math.max(-600, Math.min(0, newValue)); // Clamp between min and max
+      });
+      
+      lastTouchY = currentY;
+    };
+
+    const handleTouchEnd = () => {
+      isTouching = false;
+    };
+
+    // Add event listeners
     container.addEventListener('wheel', handleWheel, { passive: false });
+    container.addEventListener('touchstart', handleTouchStart, { passive: true });
+    container.addEventListener('touchmove', handleTouchMove, { passive: false });
+    container.addEventListener('touchend', handleTouchEnd, { passive: true });
+    container.addEventListener('touchcancel', handleTouchEnd, { passive: true });
 
     return () => {
       container.removeEventListener('wheel', handleWheel);
+      container.removeEventListener('touchstart', handleTouchStart);
+      container.removeEventListener('touchmove', handleTouchMove);
+      container.removeEventListener('touchend', handleTouchEnd);
+      container.removeEventListener('touchcancel', handleTouchEnd);
     };
   }, []);
 

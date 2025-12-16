@@ -57,9 +57,10 @@ const FourGridSection = () => {
   }
 
   const handleImageClick = (item: MomentLightItem, imageUrl: string, imageAlt: string) => {
+    const isCompleted = item.light_status === 1;
     
-    const downloadAsset = downloadAssets[item.position];
-    if (!downloadAsset) {
+    // If not completed, scroll to the corresponding section
+    if (!isCompleted) {
       switch (item.position) {
         case 'annual_video': {
           // 滚动到 "2025年度视频" 部分
@@ -67,7 +68,7 @@ const FourGridSection = () => {
           if (targetSection) {
             targetSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
           } else {
-            console.warn('未找到目标区域: zhexie-zhende-keyi-section');
+            console.warn('未找到目标区域: 2025-yearly-video-section');
             showToast('请稍后再试', 'info');
           }
           break;
@@ -78,7 +79,7 @@ const FourGridSection = () => {
           if (targetSection) {
             targetSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
           } else {
-            console.warn('未找到目标区域: 2025年度报告');
+            console.warn('未找到目标区域: 2025-yearly-report-section');
             showToast('请稍后再试', 'info');
           }
           break;
@@ -89,7 +90,7 @@ const FourGridSection = () => {
           if (targetSection) {
             targetSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
           } else {
-            console.warn('未找到目标区域: 2025年度十问');
+            console.warn('未找到目标区域: 2025-yearly-ten-questions-section');
             showToast('请稍后再试', 'info');
           }
           break;
@@ -106,6 +107,14 @@ const FourGridSection = () => {
           break;
         }
       }
+      return;
+    }
+
+    // If completed, open the dialog with download image
+    const downloadAsset = downloadAssets[item.position];
+    if (!downloadAsset) {
+      console.warn(`Download asset not found for position: ${item.position}`);
+      showToast('请稍后再试', 'info');
       return;
     }
 
@@ -279,7 +288,6 @@ const FourGridSection = () => {
               const isCompleted = lightStatus.light_status === 1;
               const name = POSITION_NAME_MAP[position];
               const imageAlt = isCompleted ? `${name}-亮` : `${name}-暗`;
-              const isClickable = isCompleted;
 
               // Calculate container dimensions based on image aspect ratio
               // Preview images are 441x639, so aspect ratio is 441:639
@@ -290,16 +298,12 @@ const FourGridSection = () => {
               return (
                 <div key={position} className="flex">
                   <div 
-                    className={`relative flex items-center justify-center ${
-                      isClickable 
-                        ? 'cursor-pointer' 
-                        : 'cursor-not-allowed'
-                    }`}
+                    className="relative flex items-center justify-center cursor-pointer"
                     style={{
                       width: `${containerWidth}px`,
                       height: `${containerHeight}px`,
                     }}
-                    onClick={isClickable ? () => handleImageClick(lightStatus, previewAsset.url, imageAlt) : undefined}
+                    onClick={() => handleImageClick(lightStatus, previewAsset.url, imageAlt)}
                   >
                     <div className="relative inline-flex items-center justify-center">
                       <Image

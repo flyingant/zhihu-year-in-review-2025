@@ -146,8 +146,8 @@ export default function TimeDonutChart({ data }: { data: TimeData }) {
       </svg>
 
       {slices.map((slice) => {
-        // 如果值 <= 0 或者 百分比 <= 1%，则不显示文字
-        if (slice.value <= 0 || slice.percent <= 0.01) return null;
+        // 如果值 <= 0 或者 百分比 < 2%，则不显示文字
+        if (slice.value <= 0 || slice.percent < 0.02) return null;
 
         const percentStyle: React.CSSProperties = slice.isMax
           ? { fontSize: '20px', fontWeight: 700 }

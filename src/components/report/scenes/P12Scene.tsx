@@ -100,11 +100,7 @@ export default function P12Scene({ onNext, sceneName }: PageProps) {
         </div>
       </div>
 
-      <div className="relative z-10 flex justify-center" style={{ margin: '0 auto', width: '320px' }}>
-        <Image src={barAsset.url} alt="bar" width={barAsset.width} height={barAsset.height} className="w-full object-contain" />
-      </div>
-
-      <div className="relative z-10 text-center text-sm font-medium leading-relaxed" style={{ marginTop: '24px' }}>
+      <div className="relative z-10 text-center text-sm font-medium leading-relaxed" style={{ paddingTop: '60px' }}>
         <p className="flex items-center justify-center flex-wrap gap-1">
           <span className="text-r-yellow" style={{ fontSize: '18px' }}>{month}</span>月
           <span className="text-r-yellow" style={{ fontSize: '18px' }}>{day}</span>日

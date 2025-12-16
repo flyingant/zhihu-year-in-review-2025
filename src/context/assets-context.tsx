@@ -421,6 +421,11 @@ export interface AssetsData {
       bgBottomLeft: AssetMetadata;
       bgBottomRight: AssetMetadata;
     };
+    audio: {
+      iconDisable: AssetMetadata;
+      iconPlaying: AssetMetadata;
+      bgAudio: AssetMetadata;
+    };
   };
   /**
    * 外部链接URL配置

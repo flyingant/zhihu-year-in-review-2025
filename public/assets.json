@@ -2204,6 +2204,26 @@
         "height": 2073,
         "alt": "Index Bottom Right Background"
       }
+    },
+    "audio": {
+      "iconDisable": {
+        "url": "/assets/2025_2_report_audio_disable.png",
+        "width": 37,
+        "height": 36,
+        "alt": "Audio Disable Icon"
+      },
+      "iconPlaying": {
+        "url": "/assets/2025_2_report_audio_playing.png",
+        "width": 36,
+        "height": 36,
+        "alt": "Audio Playing Icon"
+      },
+      "bgAudio": {
+        "url": "/assets/2025_2_report_bg_audio.mp3",
+        "width": 0,
+        "height": 0,
+        "alt": "Background Audio"
+      }
     }
   }
 }

@@ -1,7 +1,6 @@
 'use client';
 
 import { useUserReportData } from '@/context/user-report-data-context';
-import { colorClass, typographyClass } from '@/hooks/useSceneTheme';
 import BaseScene from './BaseScene';
 import Image from 'next/image';
 import { useAssets } from '@/context/assets-context';
@@ -38,6 +37,8 @@ export default function P11Scene({ onNext, sceneName }: PageProps) {
     (reportData?.reduce_category_list as string[]) ?? [];
   const displayAddList = addCategoryList.slice(0, 3);
   const displayReduceList = reduceCategoryList.slice(0, 3);
+
+  const shouldShowTable = displayAddList.length > 0 || displayReduceList.length > 0;
 
   // const addCategoryList = reportData?.add_category_list ?? null; // Not used in JSX
   // const reduceCategoryList = reportData?.reduce_category_list ?? null; // Not used in JSX
@@ -191,8 +192,8 @@ export default function P11Scene({ onNext, sceneName }: PageProps) {
         </div>
       </div>
 
+      {shouldShowTable && (
       <div
-        hidden={displayAddList.length === 0 && displayReduceList.length === 0}
         className='flex items-center justify-center relative'
         style={{ paddingBottom: '20px' }}
       >
@@ -298,6 +299,7 @@ export default function P11Scene({ onNext, sceneName }: PageProps) {
           style={{ top: '33px', right: '50px' }}
         />
       </div>
+      )}
     </BaseScene>
   );
 }

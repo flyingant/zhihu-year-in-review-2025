@@ -142,6 +142,7 @@ export const SCENES: Record<string, SceneConfig> = {
     id: 'p11',
     component: P11Scene,
     next: 'p12',
+    shouldSkip: (data) => !data?.browse_most_category_top1 && !data?.browse_most_category_top2 && !data?.browse_most_category_top3 && !(data?.add_category_list?.length && !data?.reduce_category_list?.length),
   },
   'p12': {
     id: 'p12',

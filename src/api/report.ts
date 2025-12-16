@@ -277,6 +277,13 @@ export interface UserReportData {
   movie_like_rate_top3?: number | string;
   movie_like_url_top3?: string;
 
+  // P11: Category browsing and changes
+  browse_most_category_top1?: string;
+  browse_most_category_top2?: string;
+  browse_most_category_top3?: string;
+  add_category_list?: string[];
+  reduce_category_list?: string[];
+
   // Additional fields that might exist
   [key: string]: unknown;
 }

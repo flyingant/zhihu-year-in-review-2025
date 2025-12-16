@@ -30,19 +30,19 @@ export default function P15Scene({ onNext, sceneName }: PageProps) {
   const { thanksInvitationMonth, thanksInvitationDay } =
     reportData?.thanks_invitation_date
       ? {
-          thanksInvitationMonth: format(
-            new Date(reportData.thanks_invitation_date),
-            "MM"
-          ),
-          thanksInvitationDay: format(
-            new Date(reportData.thanks_invitation_date),
-            "dd"
-          ),
-        }
+        thanksInvitationMonth: format(
+          new Date(reportData.thanks_invitation_date),
+          "MM"
+        ),
+        thanksInvitationDay: format(
+          new Date(reportData.thanks_invitation_date),
+          "dd"
+        ),
+      }
       : {
-          thanksInvitationMonth: null,
-          thanksInvitationDay: null,
-        };
+        thanksInvitationMonth: null,
+        thanksInvitationDay: null,
+      };
   const thanksInvitationQuestionTitle =
     reportData?.thanks_invitation_question_title ?? null;
   const thanksInvitationMemberName =
@@ -130,16 +130,10 @@ export default function P15Scene({ onNext, sceneName }: PageProps) {
 
         {!!newFollowCount && (
           <div className="absolute" style={{ left: "120px", top: "172px" }}>
-            <div className="flex items-center gap-1">
-              <Image
-                src={year.url}
-                alt={year.alt}
-                width={year.width}
-                height={year.height}
-                className="mr-[7px] object-contain  pointer-events-none select-none z-0"
-              />
-              年
-            </div>
+            <span className="mr-[7px]">
+              2025
+            </span>
+            <span>年</span> <br />
             有
             <span className={`mx-[6px] text-r-fern`} style={{ fontSize: 23 }}>
               {String(newFollowCount ?? "new_follow_cnt")}
@@ -173,7 +167,7 @@ export default function P15Scene({ onNext, sceneName }: PageProps) {
                     mostUpvoteMemberUpvote ?? "most_upvote_member_upvote"
                   )}
                 </span>
-                个赞同回应你的表达
+                个赞同认可你的表达
               </div>
             </>
           )}
@@ -205,7 +199,7 @@ export default function P15Scene({ onNext, sceneName }: PageProps) {
                 {String(thanksInvitationDay ?? "thanksInvitationDay")}
               </span>
               日<span className="text-black mx-1">你在</span>
-              <span className={`px-[6px] text-r-blue`}>
+              <span className={`px-[6px] text-r-blue`} style={{ fontSize: 16 }}>
                 @
                 {String(
                   thanksInvitationMemberName ?? "thanks_invitation_member_name"
@@ -222,7 +216,7 @@ export default function P15Scene({ onNext, sceneName }: PageProps) {
             </div>
             <div>
               回应了
-              <span className={`px-[4px] text-r-purple`}>
+              <span className={`px-[4px] text-r-purple`} style={{ fontSize: 16 }}>
                 @
                 {String(
                   thanksInvitationMemberName ?? "thanks_invitation_member_name"

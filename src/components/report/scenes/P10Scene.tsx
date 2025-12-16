@@ -105,14 +105,14 @@ export default function P10Scene({ onNext, sceneName }: PageProps) {
       </div>
 
       <div>
-        {/* Group 1: 文章数 */}
+        {/* Group 1: 问题 */}
         <div hidden={!questionCount}
           className="relative"  style={{ width: '223px', height: '127px', marginLeft: 'auto', marginRight: '24px' }}>
           <Image 
-            src={group1Asset.url} 
-            alt={group1Asset.alt} 
-            width={group1Asset.width} 
-            height={group1Asset.height} 
+            src={group2Asset.url} 
+            alt={group2Asset.alt} 
+            width={group2Asset.width} 
+            height={group2Asset.height} 
             className="object-contain absolute pointer-events-none select-none z-1"
           />
           <div 
@@ -124,19 +124,19 @@ export default function P10Scene({ onNext, sceneName }: PageProps) {
             }}
           >
              <span className="text-r-pink font-bold pixel-font" style={{ fontSize: '34px', textShadow: '3px 3px 0px #000000' }}>
-               {questionCount}
+               {questionCount}个
              </span>
           </div>
         </div>
 
-        {/* Group 2: 想法数 (这里使用了 pinCount) */}
+        {/* Group 2: 回答 */}
         <div hidden={!answerCount}
           className="relative" style={{ width: '223px', height: '127px', marginRight: 'auto', marginLeft: '24px', marginTop: '-40px' }}>
           <Image 
-            src={group2Asset.url} 
-            alt={group2Asset.alt} 
-            width={group2Asset.width} 
-            height={group2Asset.height} 
+            src={group1Asset.url} 
+            alt={group1Asset.alt} 
+            width={group1Asset.width} 
+            height={group1Asset.height} 
             className="object-contain absolute pointer-events-none select-none z-1"
           />
           <div 
@@ -148,12 +148,12 @@ export default function P10Scene({ onNext, sceneName }: PageProps) {
             }}
           >
              <span className="text-r-fern font-bold pixel-font" style={{ fontSize: '34px', textShadow: '3px 3px 0px #000000' }}>
-               {answerCount}
+               {answerCount}个
              </span>
           </div>
         </div>
 
-        {/* Group 3: 总字数 (这里使用了 wordCount) */}
+        {/* Group 3: 文章数 */}
         <div hidden={!articleCount}
           className="relative" style={{ width: '223px', height: '127px', marginLeft: 'auto', marginRight: '40px', marginTop: '-40px' }}>
           <Image 
@@ -172,12 +172,12 @@ export default function P10Scene({ onNext, sceneName }: PageProps) {
             }}
           >
              <span className="text-r-green font-bold pixel-font" style={{ fontSize: '34px', textShadow: '3px 3px 0px #000000' }}>
-               {articleCount}
+               {articleCount}篇
              </span>
           </div>
         </div>
 
-        {/* Group 4: 其他数据 (这里暂时重复使用 articleCount，根据需求修改) */}
+        {/* Group 4: 想法 */}
         <div hidden={!pinCount}
           className="relative" style={{ width: '223px', height: '127px', marginLeft: 'auto', marginRight: 'auto', marginTop: '-40px' }}>
           <Image 
@@ -196,7 +196,7 @@ export default function P10Scene({ onNext, sceneName }: PageProps) {
             }}
           >
             <span className="text-r-yellow font-bold pixel-font" style={{ fontSize: '34px', textShadow: '3px 3px 0px #000000' }}>
-              {pinCount}
+              {pinCount}个
             </span>
           </div>
         </div>

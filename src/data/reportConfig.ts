@@ -81,11 +81,13 @@ export const SCENES: Record<string, SceneConfig> = {
     id: 'p2Billboard',
     component: P2BillboardScene,
     next: 'p3',
+    shouldSkip: (data) => !data?.billboard_question_cnt,
   },
   'p3': {
     id: 'p3',
     component: P3Scene,
     next: 'p4',
+    shouldSkip: (data) => !data?.publish_answer_cnt,
   },
   'p4': {
     id: 'p4',
@@ -106,6 +108,7 @@ export const SCENES: Record<string, SceneConfig> = {
     id: 'p6',
     component: P6Scene,
     next: 'p7',
+    shouldSkip: (data) => !data?.content_total_word_cnt,
   },
   'p7': {
     id: 'p7',
@@ -116,11 +119,13 @@ export const SCENES: Record<string, SceneConfig> = {
     id: 'p8',
     component: P8Scene,
     next: 'p8Cheese',
+    shouldSkip: (data) => !data?.zhishi_cnt,
   },
   'p8Cheese': {
     id: 'P8Cheese',
     component: P8CheeseScene,
     next: 'p9',
+    shouldSkip: (data) => !data?.cheese_student_name && !data?.cheese_award_list,
   },
   'p9': {
     id: 'p9',

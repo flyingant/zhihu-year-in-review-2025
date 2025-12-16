@@ -204,10 +204,10 @@ export default function IndexScene({ onNext, sceneName }: IndexSceneProps) {
     >
       <div className="relative w-full h-full overflow-hidden">
         <div
-          className="absolute text-[24px] text-[#121212] tracking-[0.2em] [writing-mode:vertical-lr]"
-          style={{ top: "85px", left: "50%", transform: "translateX(-50%)" }}
+          className="absolute text-[#121212] tracking-[0.2em] [writing-mode:vertical-lr]"
+          style={{ top: "110px", left: "50%", transform: "translateX(-50%)", fontSize: "24px" }}
         >
-          选择一个方向
+          选择你的方向
         </div>
         {/* Initial view - stays visible during expansion to avoid blink */}
         {!activeView && (

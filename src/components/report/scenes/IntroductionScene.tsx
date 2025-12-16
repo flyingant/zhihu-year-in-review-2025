@@ -212,7 +212,7 @@ export default function IntroductionScene({ onNext, sceneName }: IntroductionSce
           style={{ top: '323px', right: '0px' }} />
         <Image src={mix5Asset.url} alt="{mix5Asset.alt}" width={mix5Asset.width} height={mix5Asset.height} 
           className="object-contain absolute pointer-events-none select-none z-1" 
-          style={{ bottom: '283px', right: '70px' }} />     
+          style={{ bottom: '223px', right: '60px' }} />     
         <Image src={mixintro_2Asset.url} alt="{mixintro_2Asset.alt}" width={mixintro_2Asset.width} height={mixintro_2Asset.height} 
           className="object-contain absolute pointer-events-none select-none z-1" 
           style={{ bottom: '147px', right: '0px' }} />

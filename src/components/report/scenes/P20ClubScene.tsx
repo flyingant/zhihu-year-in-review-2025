@@ -6,41 +6,54 @@ import { useAssets } from '@/context/assets-context';
 import Image from 'next/image';
 import GlitchLayer from '../effects/GlitchLayer';
 import ActionsButton from '@/components/ui/ActionsButton';
+import { truncateText } from '@/utils/common';
 
 interface PageProps {
   onNext?: () => void;
   sceneName?: string;
 }
 
-const InteractionMemberItem = ({
+const ClubInterestItem = ({
   name,
   avatar,
   fallbackName,
-  className,
+  type = 'join',
+  onClick,
 }: {
   name: unknown;
   avatar?: string | null;
   fallbackName?: string;
-  className?: string;
+  type?: 'join' | 'joined';
+  onClick?: () => void;
 }) => {
   return (
-    <div className='flex items-center gap-1'>
-      <Image
-        src={avatar ?? ''}
-        alt={String(name ?? '')}
-        width={32}
-        height={32}
-        className={`object-contain bg-slate-100 ${className || ''}`}
-        style={{
-          width: '32px',
-          height: '32px',
-          borderRadius: '50%',
-        }}
+    <span
+      className='flex items-center text-r-green px-[2px]'
+      style={{ fontSize: 18 }}
+    >
+      <div className='flex items-center gap-1'>
+        <Image
+          src={avatar ?? ''}
+          alt={String(name ?? '')}
+          width={32}
+          height={32}
+          className={`object-contain bg-slate-100`}
+          style={{
+            width: '32px',
+            height: '32px',
+            borderRadius: '50%',
+          }}
+        />
+        <span className='text-r-yellow px-[2px]' style={{ fontSize: 14 }}>
+          {String(name ?? fallbackName)}
+        </span>
+      </div>
+      <ActionsButton
+        className='ml-[7px]'
+        type={type}
+        onClick={onClick || (() => {})}
       />
-      <span className='text-r-yellow px-[2px]' style={{ fontSize: 18 }}>
-        @{String(name ?? fallbackName)}
-      </span>
-    </div>
+    </span>
   );
 };
 
@@ -183,71 +196,78 @@ export default function P20Scene({ onNext, sceneName }: PageProps) {
 
       {/* content */}
       <div className='z-0 tracking-wide'>
-        <div className='first'>
-          {/* Night Club Publish */}
+        <div className='spots'>
+          {/* Most Favorite Spots */}
           <div
-            className='absolute'
+            className='z-30 absolute'
             style={{
               fontSize: '14px',
-              top: '160px',
+              top: '145px',
               left: '34px',
-              right: '19px',
+              right: '34px',
+              lineHeight: '24px',
             }}
           >
-            {!!clubFriendCount && (
-              <div className='leading-[29px]'>
-                你在圈子里「扩列」了
-                <span
-                  className='text-r-blue px-[7px]'
-                  style={{ fontSize: '18px' }}
-                >
-                  {String(clubFriendCount ?? 'club_friend_cnt')}
-                </span>
-                位好友
-                <br />
-                希望新的一年，你能遇见更多同频的人
-              </div>
+            {clubActiveListName1 && (
+              <span className='text-r-pink'>
+                「
+                {truncateText(
+                  String(clubActiveListName1 ?? 'club_active_list_name_top1')
+                )}
+                」
+              </span>
             )}
+            {clubActiveListName2 && (
+              <span className='text-r-pink'>
+                「
+                {truncateText(
+                  String(clubActiveListName2 ?? 'club_active_list_name_top2')
+                )}
+                」
+              </span>
+            )}
+            {clubActiveListName3 && (
+              <span className='text-r-pink'>
+                「
+                {truncateText(
+                  String(clubActiveListName3 ?? 'club_active_list_name_top3')
+                )}
+                」
+              </span>
+            )}
+            <span>是你今年最爱的精神据点</span>
           </div>
-          {/* Most Interacted Club Members */}
+          {/* Recommended Clubs */}
           <div
-            className='absolute'
-            style={{ fontSize: 14, top: '578px', left: '34px', right: '34px' }}
+            className='absolute z-30'
+            style={{ fontSize: 14, top: '583px', left: '34px', right: '34px' }}
           >
-            <div className='flex flex-col leading-[34px]'>
-              <span>与你互动最多的圈友是：</span>
-
-              {mostInteractionMemberName1 && (
-                <InteractionMemberItem
-                  name={mostInteractionMemberName1}
-                  avatar={mostInteractionMemberAvatar1}
-                  fallbackName='most_interaction_club_member_name_top1'
-                />
-              )}
-              {mostInteractionMemberName2 && (
-                <InteractionMemberItem
-                  name={mostInteractionMemberName2}
-                  avatar={mostInteractionMemberAvatar2}
-                  fallbackName='most_interaction_club_member_name_top2'
-                />
-              )}
-              {mostInteractionMemberName3 && (
-                <InteractionMemberItem
-                  name={mostInteractionMemberName3}
-                  avatar={mostInteractionMemberAvatar3}
-                  fallbackName='most_interaction_club_member_name_top3'
-                />
-              )}
+            <div className='flex flex-col gap-1 leading-[34px]'>
+              <ClubInterestItem
+                name={clubInterestListName1}
+                avatar={clubInterestListAvatar1}
+                fallbackName='club_interest_list_name_top1'
+                type='join'
+                onClick={() => {}}
+              />
+              <ClubInterestItem
+                name={clubInterestListName2}
+                avatar={clubInterestListAvatar2}
+                fallbackName='club_interest_list_name_top2'
+                type='join'
+                onClick={() => {}}
+              />
+              <ClubInterestItem
+                name={clubInterestListName3}
+                avatar={clubInterestListAvatar3}
+                fallbackName='club_interest_list_name_top3'
+                type='joined'
+                onClick={() => {}}
+              />
             </div>
-            <div
-              className='flex items-center gap-1'
-              style={{ marginTop: '8px' }}
-            >
-              要不要
-              <ActionsButton type='message' onClick={() => {}} />
-              {/* <ActionsButton type="join" onClick={() => {}} /> */}
-              {/* <ActionsButton type="joined" onClick={() => {}} /> */}
-              送他们一个感谢？
+            <div className='flex flex-col gap-2' style={{ marginTop: '8px' }}>
+              <span>或许会是你的下一站</span>
+              <span>点击加入一起开启新年新旅程吧</span>
             </div>
           </div>
         </div>

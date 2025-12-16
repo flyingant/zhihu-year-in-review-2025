@@ -1,10 +1,10 @@
-"use client";
+'use client';
 
-import { useUserReportData } from "@/context/user-report-data-context";
-import BaseScene from "./BaseScene";
-import { useAssets } from "@/context/assets-context";
-import Image from "next/image";
-import GlitchLayer from "../effects/GlitchLayer";
+import { useUserReportData } from '@/context/user-report-data-context';
+import BaseScene from './BaseScene';
+import { useAssets } from '@/context/assets-context';
+import Image from 'next/image';
+import GlitchLayer from '../effects/GlitchLayer';
 
 interface PageProps {
   onNext?: () => void;
@@ -44,26 +44,28 @@ export default function P18Scene({ onNext, sceneName }: PageProps) {
   const clubAdminInteractionCount =
     reportData?.club_admin_interaction_cnt ?? null;
 
+  console.log('clubAdminTop1Name', clubAdminTop1Name);
+
   return (
     <BaseScene
       onNext={onNext}
       sceneName={sceneName}
-      className={`${clubAdminTop1Name ? "" : "hidden"}`}
+      className={`${clubAdminTop1Name ? '' : 'hidden'}`}
     >
       {/* background */}
       <GlitchLayer>
-        <div className="z-0">
+        <div className='z-0'>
           <Image
             src={mix16_1.url}
             alt={mix16_1.alt}
             width={mix16_1.width}
             height={mix16_1.height}
-            className="object-contain absolute pointer-events-none select-none z-1"
+            className='object-contain absolute pointer-events-none select-none z-1'
             style={{
-              top: "583px",
-              left: "91px",
-              width: "88px",
-              height: "24px",
+              top: '583px',
+              left: '91px',
+              width: '88px',
+              height: '24px',
             }}
           />
           <Image
@@ -71,12 +73,12 @@ export default function P18Scene({ onNext, sceneName }: PageProps) {
             alt={blue16.alt}
             width={blue16.width}
             height={blue16.height}
-            className="object-contain absolute pointer-events-none select-none z-0"
+            className='object-contain absolute pointer-events-none select-none z-0'
             style={{
-              top: "34px",
-              left: "300px",
-              width: "27px",
-              height: "27px",
+              top: '34px',
+              left: '300px',
+              width: '27px',
+              height: '27px',
             }}
           />
           <Image
@@ -84,12 +86,12 @@ export default function P18Scene({ onNext, sceneName }: PageProps) {
             alt={blue15.alt}
             width={blue15.width}
             height={blue15.height}
-            className="object-contain rotate-90 absolute pointer-events-none select-none z-0"
+            className='object-contain rotate-90 absolute pointer-events-none select-none z-0'
             style={{
-              top: "181px",
-              right: "11px",
-              width: "35px",
-              height: "35px",
+              top: '181px',
+              right: '11px',
+              width: '35px',
+              height: '35px',
             }}
           />
           <Image
@@ -97,20 +99,20 @@ export default function P18Scene({ onNext, sceneName }: PageProps) {
             alt={blue15.alt}
             width={blue15.width}
             height={blue15.height}
-            className="object-contain rotate-90 absolute pointer-events-none select-none z-0"
-            style={{ top: "753px", left: "72px" }}
+            className='object-contain rotate-90 absolute pointer-events-none select-none z-0'
+            style={{ top: '753px', left: '72px' }}
           />
           <Image
             src={mix15_1.url}
             alt={mix15_1.alt}
             width={mix15_1.width}
             height={mix15_1.height}
-            className="object-contain absolute pointer-events-none select-none z-1"
+            className='object-contain absolute pointer-events-none select-none z-1'
             style={{
-              top: "557px",
-              left: "-2px",
-              width: "124px",
-              height: "30px",
+              top: '557px',
+              left: '-2px',
+              width: '124px',
+              height: '30px',
             }}
           />
           <Image
@@ -118,12 +120,12 @@ export default function P18Scene({ onNext, sceneName }: PageProps) {
             alt={mix15_2.alt}
             width={mix15_2.width}
             height={mix15_2.height}
-            className="object-contain absolute pointer-events-none select-none z-1"
+            className='object-contain absolute pointer-events-none select-none z-1'
             style={{
-              top: "163px",
-              left: "-2px",
-              width: "117px",
-              height: "26px",
+              top: '163px',
+              left: '-2px',
+              width: '117px',
+              height: '26px',
             }}
           />
           <Image
@@ -131,43 +133,43 @@ export default function P18Scene({ onNext, sceneName }: PageProps) {
             alt={mix16_2.alt}
             width={mix16_2.width}
             height={mix16_2.height}
-            className="object-contain absolute pointer-events-none select-none z-1"
+            className='object-contain absolute pointer-events-none select-none z-1'
             style={{
-              top: "741px",
-              left: "225px",
-              width: "139px",
-              height: "70px",
+              top: '741px',
+              left: '225px',
+              width: '139px',
+              height: '70px',
             }}
           />
         </div>
       </GlitchLayer>
       {/* main images */}
-      <div className="z-0">
+      <div className='z-0'>
         <Image
           src={main.url}
           alt={main.alt}
           width={main.width}
           height={main.height}
-          className="object-contain absolute pointer-events-none select-none z-1"
-          style={{ top: "290px", left: "0" }}
+          className='object-contain absolute pointer-events-none select-none z-1'
+          style={{ top: '290px', left: '0' }}
         />
       </div>
       {/* content */}
-      <div className="z-0 tracking-wide" style={{ fontSize: 14 }}>
+      <div className='z-0 tracking-wide' style={{ fontSize: 14 }}>
         <div
-          className={"text-xl leading-relaxed absolute"}
-          style={{ left: "30px", top: "121px" }}
+          className={'text-xl leading-relaxed absolute'}
+          style={{ left: '30px', top: '121px' }}
         >
           感谢有你,圈子一直在发光
         </div>
 
         {clubAdminTop1Name && (
           <div
-            className={"absolute text-center"}
-            style={{ width: "321px", left: "17px", top: "233px" }}
+            className={'absolute text-center'}
+            style={{ width: '321px', left: '17px', top: '233px' }}
           >
             <span className={`text-r-blue px-[7px]`} style={{ fontSize: 20 }}>
-              「{String(clubAdminTop1Name ?? "club_admin_top1_name")} 」
+              「{String(clubAdminTop1Name ?? 'club_admin_top1_name')} 」
             </span>
             圈
             <br />
@@ -176,9 +178,9 @@ export default function P18Scene({ onNext, sceneName }: PageProps) {
         )}
 
         {!!clubAdminTop1MemberCount && (
-          <div className={" absolute"} style={{ right: "14px", top: "290px" }}>
+          <div className={' absolute'} style={{ right: '14px', top: '290px' }}>
             <span className={`text-r-green px-[2px]`} style={{ fontSize: 18 }}>
-              {String(clubAdminTop1MemberCount ?? "clubAdminTop1MemberCount")}
+              {String(clubAdminTop1MemberCount ?? 'clubAdminTop1MemberCount')}
             </span>
             <br />
             位圈友
@@ -187,11 +189,11 @@ export default function P18Scene({ onNext, sceneName }: PageProps) {
 
         {!!clubAdminTop1MemberCount && (
           <div
-            className={" absolute text-right"}
-            style={{ left: "27px", top: "483px", width: "66px" }}
+            className={' absolute text-right'}
+            style={{ left: '27px', top: '483px', width: '66px' }}
           >
             <span className={`text-r-yellow px-[2px]`} style={{ fontSize: 18 }}>
-              {String(clubAdminTop1MemberCount ?? "clubAdminTop1MemberCount")}
+              {String(clubAdminTop1MemberCount ?? 'clubAdminTop1MemberCount')}
             </span>
             <br />
             条讨论
@@ -199,17 +201,17 @@ export default function P18Scene({ onNext, sceneName }: PageProps) {
         )}
 
         {!!clubAdminPinCount && (
-          <div className={" absolute"} style={{ left: "30px", top: "631px" }}>
+          <div className={'absolute'} style={{ left: '30px', top: '631px' }}>
             作为引路人,你在圈内发言
             <span className={`text-r-pink px-[7px]`} style={{ fontSize: 24 }}>
-              {String(clubAdminPinCount ?? "club_admin_pin_cnt")}
+              {String(clubAdminPinCount ?? 'club_admin_pin_cnt')}
             </span>
             次 <br />
             <span>
               与
               <span className={`text-r-fern px-[7px]`} style={{ fontSize: 18 }}>
                 {String(
-                  clubAdminInteractionCount ?? "club_admin_interaction_cnt"
+                  clubAdminInteractionCount ?? 'club_admin_interaction_cnt'
                 )}
               </span>
               位圈友交换了想法

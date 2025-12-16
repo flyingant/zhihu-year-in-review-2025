@@ -42,3 +42,9 @@ export const formatDateWithoutText = (dateStr: string | undefined | null): DateP
   return { year: '', month: '', day: '' };
 };
 
+
+export const truncateText = (text: string | null | undefined, maxLength: number = 20) => {
+  if (!text) return '';
+  const str = String(text);
+  return str.length > maxLength ? str.slice(0, maxLength) + '...' : str;
+};

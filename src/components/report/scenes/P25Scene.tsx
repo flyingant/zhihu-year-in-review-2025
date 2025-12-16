@@ -1,10 +1,11 @@
-"use client";
+'use client';
 
-import { useUserReportData } from "@/context/user-report-data-context";
-import BaseScene from "./BaseScene";
-import GlitchLayer from "@/components/report/effects/GlitchLayer";
-import { useAssets } from "@/context/assets-context";
-import Image from "next/image";
+import { useUserReportData } from '@/context/user-report-data-context';
+import BaseScene from './BaseScene';
+import GlitchLayer from '@/components/report/effects/GlitchLayer';
+import { useAssets } from '@/context/assets-context';
+import Image from 'next/image';
+import { truncateText } from '@/utils/common';
 
 interface PageProps {
   onNext?: () => void;
@@ -36,97 +37,97 @@ export default function P25Scene({ onNext, sceneName }: PageProps) {
         {/* 顺序从上到下 */}
         <Image
           src={mix22_1.url}
-          alt="{mix22_1.alt}"
+          alt='{mix22_1.alt}'
           width={mix22_1.width}
           height={mix22_1.height}
-          className="object-contain absolute pointer-events-none select-none z-1"
-          style={{ top: "344px", left: "0" }}
+          className='object-contain absolute pointer-events-none select-none z-1'
+          style={{ top: '344px', left: '0' }}
         />
         <Image
           src={mix22_5.url}
-          alt="{mix22_5.alt}"
+          alt='{mix22_5.alt}'
           width={mix22_5.width}
           height={mix22_5.height}
-          className="object-contain absolute pointer-events-none select-none z-1"
-          style={{ top: "278px", left: "308px" }}
+          className='object-contain absolute pointer-events-none select-none z-1'
+          style={{ top: '278px', left: '308px' }}
         />
         <Image
           src={mix22_5.url}
-          alt="{mix22_5.alt}"
+          alt='{mix22_5.alt}'
           width={mix22_5.width}
           height={mix22_5.height}
-          className="object-contain absolute pointer-events-none select-none z-1"
-          style={{ top: "605px", left: "83px" }}
+          className='object-contain absolute pointer-events-none select-none z-1'
+          style={{ top: '605px', left: '83px' }}
         />
         <Image
           src={mix22_4.url}
-          alt="{mix22_4.alt}"
+          alt='{mix22_4.alt}'
           width={mix22_4.width}
           height={mix22_4.height}
-          className="object-contain absolute pointer-events-none select-none z-1"
-          style={{ top: "739px", right: "0" }}
+          className='object-contain absolute pointer-events-none select-none z-1'
+          style={{ top: '739px', right: '0' }}
         />
       </GlitchLayer>
       {/* images */}
-      <div className="z-0">
+      <div className='z-0'>
         <Image
           src={top.url}
-          alt="{top.alt}"
+          alt='{top.alt}'
           width={top.width}
           height={top.height}
         />
         <Image
           src={liukanshan.url}
-          alt="{liukanshan.alt}"
+          alt='{liukanshan.alt}'
           width={liukanshan.width}
           height={liukanshan.height}
-          className="object-contain absolute pointer-events-none select-none -z-10"
-          style={{ top: "424px", left: "0", right: "0" }}
+          className='object-contain absolute pointer-events-none select-none -z-10'
+          style={{ top: '424px', left: '0', right: '0' }}
         />
         <Image
           src={left.url}
-          alt="{left.alt}"
+          alt='{left.alt}'
           width={left.width}
           height={left.height}
-          className="object-contain absolute pointer-events-none select-none -z-10"
-          style={{ top: "442px", left: "80px", right: "0" }}
+          className='object-contain absolute pointer-events-none select-none -z-10'
+          style={{ top: '442px', left: '80px', right: '0' }}
         />
         <Image
           src={middle.url}
-          alt="{middle.alt}"
+          alt='{middle.alt}'
           width={middle.width}
           height={middle.height}
-          className="object-contain absolute pointer-events-none select-none -z-10"
-          style={{ top: "380px", left: "180px", right: "0" }}
+          className='object-contain absolute pointer-events-none select-none -z-10'
+          style={{ top: '380px', left: '180px', right: '0' }}
         />
         <Image
           src={right.url}
-          alt="{right.alt}"
+          alt='{right.alt}'
           width={right.width}
           height={right.height}
-          className="object-contain absolute pointer-events-none select-none -z-10"
-          style={{ top: "422px", left: "281px", right: "0" }}
+          className='object-contain absolute pointer-events-none select-none -z-10'
+          style={{ top: '422px', left: '281px', right: '0' }}
         />
       </div>
-      <div className="z-0">
+      <div className='z-0'>
         <div
-          className="absolute pb-[30px]"
-          style={{ top: "185px", left: "40px", right: "0" }}
+          className='absolute pb-[30px]'
+          style={{ top: '185px', left: '40px', right: '0' }}
         >
           {!!paidContentCount && !!totalWordCount && (
-            <div className="mb-[10px]">
+            <div className='mb-[10px]'>
               2025年，作为尊贵的盐选会员,
               <br />
               你解锁了
               <span className={`text-r-pink px-[7px]`} style={{ fontSize: 24 }}>
-                {String(paidContentCount ?? "paid_content_cnt")}
+                {String(paidContentCount ?? 'paid_content_cnt')}
               </span>
               篇盐言故事,共
               <span
                 className={`text-r-purple px-[7px]`}
                 style={{ fontSize: 24 }}
               >
-                {String(totalWordCount ?? "total_word_cnt")}
+                {String(totalWordCount ?? 'total_word_cnt')}
               </span>
               字
             </div>
@@ -134,71 +135,71 @@ export default function P25Scene({ onNext, sceneName }: PageProps) {
         </div>
 
         {/* Top Books */}
-        <div className="z-0" style={{ fontSize: 13 }}>
+        <div className='z-0' style={{ fontSize: 13 }}>
           <div
             style={{
-              position: "absolute",
-              top: "315px",
-              left: "50%",
-              transform: "translateX(-50%)",
+              position: 'absolute',
+              top: '315px',
+              left: '50%',
+              transform: 'translateX(-50%)',
             }}
           >
             是最打动你的故事元素是
           </div>
           {!!labelName1 && (
             <div
-              className="absolute"
-              style={{ fontSize: 17, top: "353px", left: "146px" }}
+              className='absolute'
+              style={{ fontSize: 17, top: '353px', left: '146px' }}
             >
               <span className={`text-r-green px-[2px]`}>
-                「{String(labelName1 ?? "label_name_top1")} 」
+                「{truncateText(String(labelName1 ?? 'label_name_top1'), 5)} 」
               </span>
             </div>
           )}
           {!!labelName2 && (
             <div
-              className="absolute"
-              style={{ fontSize: 17, top: "395px", left: "45px" }}
+              className='absolute'
+              style={{ fontSize: 17, top: '395px', left: '45px' }}
             >
               <span className={`text-r-blue px-[2px]`}>
-                「{String(labelName2 ?? "label_name_top2")} 」
+                「{truncateText(String(labelName2 ?? 'label_name_top2'), 5)} 」
               </span>
             </div>
           )}
           {!!labelName3 && (
             <div
-              className="absolute"
-              style={{ fontSize: 17, top: "395px", left: "247px" }}
+              className='absolute'
+              style={{ fontSize: 17, top: '395px', left: '247px' }}
             >
               <span className={`text-r-green px-[2px]`}>
-                「{String(labelName3 ?? "label_name_top3")} 」
+                「{truncateText(String(labelName3 ?? 'label_name_top3'), 5)} 」
               </span>
             </div>
           )}
         </div>
 
         <div
-          className="absolute text-start"
+          className='absolute text-start'
           style={{
-            fontSize: "14px",
-            top: "657px",
-            left: "40px",
-            right: "77px",
+            fontSize: '14px',
+            top: '657px',
+            left: '40px',
+            right: '77px',
           }}
         >
           {!!mostFavoriteAuthorName && (
-            <div className="mb-[10px]">
+            <div className='mb-[10px]'>
               你阅读最多的作者是
-              <span className="text-r-fern px-[2px]">
-                @{String(mostFavoriteAuthorName ?? "most_favorite_author_name")}
+              <span className='text-r-fern px-[2px]'>
+                @{String(mostFavoriteAuthorName ?? 'most_favorite_author_name')}
               </span>
               <br />
               TA的
               <span
-                className="text-r-yellow px-[7px]"
-                style={{ fontSize: "18px" }}
+                className='text-r-yellow px-[7px]'
+                style={{ fontSize: '18px' }}
               >
-                {String(mostFavoriteAuthorNum ?? "most_favorite_author_num")}
+                {String(mostFavoriteAuthorNum ?? 'most_favorite_author_num')}
               </span>
               篇故事，陪你度过了不少时光
             </div>

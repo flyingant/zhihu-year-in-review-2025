@@ -1,10 +1,10 @@
-"use client";
+'use client';
 
-import { useUserReportData } from "@/context/user-report-data-context";
-import BaseScene from "./BaseScene";
-import GlitchLayer from "@/components/report/effects/GlitchLayer";
-import { useAssets } from "@/context/assets-context";
-import Image from "next/image";
+import { useUserReportData } from '@/context/user-report-data-context';
+import BaseScene from './BaseScene';
+import GlitchLayer from '@/components/report/effects/GlitchLayer';
+import { useAssets } from '@/context/assets-context';
+import Image from 'next/image';
 
 interface PageProps {
   onNext?: () => void;
@@ -38,143 +38,150 @@ export default function P26Scene({ onNext, sceneName }: PageProps) {
         {/* 顺序从上到下 */}
         <Image
           src={mix22_5.url}
-          alt="{mix22_5.alt}"
+          alt='{mix22_5.alt}'
           width={mix22_5.width}
           height={mix22_5.height}
-          className="object-contain absolute pointer-events-none select-none z-1"
-          style={{ top: "30px", left: "65px" }}
+          className='object-contain absolute pointer-events-none select-none z-1'
+          style={{ top: '30px', left: '65px' }}
         />
         <Image
           src={redPixel2.url}
-          alt="{redPixel2.alt}"
+          alt='{redPixel2.alt}'
           width={redPixel2.width}
           height={redPixel2.height}
-          className="object-contain absolute pointer-events-none select-none z-1"
-          style={{ top: "101px", right: "14px" }}
+          className='object-contain absolute pointer-events-none select-none z-1'
+          style={{ top: '101px', right: '14px' }}
         />
         <Image
           src={pinkPixel.url}
-          alt="{pinkPixel.alt}"
+          alt='{pinkPixel.alt}'
           width={pinkPixel.width}
           height={pinkPixel.height}
-          className="object-contain absolute pointer-events-none select-none z-1"
-          style={{ top: "558px", left: "22px" }}
+          className='object-contain absolute pointer-events-none select-none z-1'
+          style={{ top: '558px', left: '22px' }}
         />
         <Image
           src={mix22_5.url}
-          alt="{mix22_5.alt}"
+          alt='{mix22_5.alt}'
           width={mix22_5.width}
           height={mix22_5.height}
-          className="object-contain absolute pointer-events-none select-none z-1"
-          style={{ top: "605px", left: "25px" }}
+          className='object-contain absolute pointer-events-none select-none z-1'
+          style={{ top: '605px', left: '25px' }}
         />
         <Image
           src={redPixel1.url}
-          alt="{redPixel1.alt}"
+          alt='{redPixel1.alt}'
           width={redPixel1.width}
           height={redPixel1.height}
-          className="object-contain absolute pointer-events-none select-none z-1"
-          style={{ top: "680px", left: "0" }}
+          className='object-contain absolute pointer-events-none select-none z-1'
+          style={{ top: '680px', left: '0' }}
         />
         <Image
           src={mix22_4.url}
-          alt="{mix22_4.alt}"
+          alt='{mix22_4.alt}'
           width={mix22_4.width}
           height={mix22_4.height}
-          className="object-contain absolute pointer-events-none select-none z-1"
-          style={{ top: "631px", right: "0" }}
+          className='object-contain absolute pointer-events-none select-none z-1'
+          style={{ top: '631px', right: '0' }}
         />
       </GlitchLayer>
       {/* images */}
-      <div className="z-0">
+      <div className='z-0'>
         <Image
           src={rainbow.url}
-          alt="{rainbow.alt}"
+          alt='{rainbow.alt}'
           width={rainbow.width}
           height={rainbow.height}
-          className="object-contain absolute pointer-events-none select-none -z-10"
-          style={{ top: "0", left: "0", right: "0" }}
+          className='object-contain absolute pointer-events-none select-none -z-10'
+          style={{ top: '0', left: '0', right: '0' }}
         />
         <Image
           src={liukanshan.url}
-          alt="{liukanshan.alt}"
+          alt='{liukanshan.alt}'
           width={liukanshan.width}
           height={liukanshan.height}
-          className="object-contain absolute pointer-events-none select-none -z-10"
-          style={{ top: "410px", left: "108px", right: "0" }}
+          className='object-contain absolute pointer-events-none select-none -z-10'
+          style={{ top: '410px', left: '108px', right: '0' }}
         />
       </div>
       {/* content */}
       <div
-        className="absolute z-0 leading-relaxed"
-        style={{ fontSize: 14, top: "114px", left: "40px", right: "72px" }}
+        className='absolute z-0 leading-relaxed'
+        style={{ fontSize: 14, top: '114px', left: '40px' }}
       >
+        <p style={{ fontSize: 22 }}>情节之下，是心意织成的篇章</p>
         {!!writeStoryNumSum && (
-          <div className="z-0">
-            <div className="mb-[8px]">
+          <div className='z-0'>
+            <div className='mb-[8px]'>
               今年,你创作
               <span className={`text-r-pink px-[7px]`} style={{ fontSize: 24 }}>
-                {String(writeStoryNumSum ?? "write_story_num_sum")}
+                {String(writeStoryNumSum ?? 'write_story_num_sum')}
               </span>
               篇故事，
               <br />
-              把想象的灵光化成了情节与篇章。
+              把想象的灵光化成了文字与篇章
             </div>
           </div>
         )}
 
         {!!totalUpvoteNum && (
-          <div className="z-0 my-[38px]">
+          <div className='z-0 my-[20px]'>
             <div>
               有
               <span
                 className={`text-r-green px-[7px]`}
                 style={{ fontSize: 24 }}
               >
-                {String(totalUpvoteNum ?? "total_upvote_num")}
+                {String(totalUpvoteNum ?? 'total_upvote_num')}
               </span>
-              位读者喜欢你的故事，
+              位读者喜欢你的故事
             </div>
             <div>
               其中，
-              <span className={`text-r-blue px-[7px]`} style={{ fontSize: 24 }}>
+              <span className={`text-r-blue pr-[4px]`} style={{ fontSize: 17 }}>
                 《
                 {String(
-                  writeStoryMostPopularName ?? "write_story_most_popular_name"
+                  writeStoryMostPopularName ?? 'write_story_most_popular_name'
                 )}
                 》
               </span>
-              最受大家的欢迎。
+              最受大家的欢迎
             </div>
           </div>
         )}
 
         {/* 荣誉榜单 - 可滑动 */}
-        <div className="max-h-[400px] overflow-y-auto">
-          <div className="space-y-[20px]">
-            {shortStoryInfluenceList && (
+        <div
+          className='max-h-[100px] overflow-y-auto'
+          style={{ marginRight: 20 }}
+        >
+          <div className=''>
+            {!!shortStoryInfluenceList && (
               <div>
                 你的作品
                 <span className={`text-r-pink px-[2px]`}>
                   《
                   {String(
-                    shortStoryInfluenceList ?? "short_story_influence_list"
+                    shortStoryInfluenceList ?? 'short_story_influence_list'
                   )}
                   》
                 </span>
               </div>
             )}
-            {!!annualAuthor && (
-              <div>{String(annualAuthor ?? "annual_author")}</div>
-            )}
+
             {!!awardedCopy && (
+              <div>
+                <span>{String(awardedCopy ?? 'awarded_copy')}</span>
+              </div>
+            )}
+            {!!annualAuthor && (
               <div>
                 你荣获
                 <span
-                  className={`text-r-blue px-[2px]`}
-                  style={{ fontSize: 20 }}
+                  className='text-r-blue'
+                  style={{ fontSize: 18, marginLeft: 4 }}
                 >
-                  {String(awardedCopy ?? "awarded_copy")}
+                  {String(annualAuthor ?? 'annual_author')}
                 </span>
               </div>
             )}

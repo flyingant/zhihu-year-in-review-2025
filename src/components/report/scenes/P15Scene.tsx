@@ -1,11 +1,12 @@
-"use client";
+'use client';
 
-import Image from "next/image";
-import { useUserReportData } from "@/context/user-report-data-context";
-import { useAssets } from "@/context/assets-context";
-import BaseScene from "./BaseScene";
-import GlitchLayer from "../effects/GlitchLayer";
-import { format } from "date-fns";
+import Image from 'next/image';
+import { useUserReportData } from '@/context/user-report-data-context';
+import { useAssets } from '@/context/assets-context';
+import BaseScene from './BaseScene';
+import GlitchLayer from '../effects/GlitchLayer';
+import { format } from 'date-fns';
+import { truncateText } from '@/utils/common';
 
 interface PageProps {
   onNext?: () => void;
@@ -30,19 +31,19 @@ export default function P15Scene({ onNext, sceneName }: PageProps) {
   const { thanksInvitationMonth, thanksInvitationDay } =
     reportData?.thanks_invitation_date
       ? {
-        thanksInvitationMonth: format(
-          new Date(reportData.thanks_invitation_date),
-          "MM"
-        ),
-        thanksInvitationDay: format(
-          new Date(reportData.thanks_invitation_date),
-          "dd"
-        ),
-      }
+          thanksInvitationMonth: format(
+            new Date(reportData.thanks_invitation_date),
+            'MM'
+          ),
+          thanksInvitationDay: format(
+            new Date(reportData.thanks_invitation_date),
+            'dd'
+          ),
+        }
       : {
-        thanksInvitationMonth: null,
-        thanksInvitationDay: null,
-      };
+          thanksInvitationMonth: null,
+          thanksInvitationDay: null,
+        };
   const thanksInvitationQuestionTitle =
     reportData?.thanks_invitation_question_title ?? null;
   const thanksInvitationMemberName =
@@ -52,14 +53,14 @@ export default function P15Scene({ onNext, sceneName }: PageProps) {
     <BaseScene onNext={onNext} sceneName={sceneName}>
       {/* background */}
       <GlitchLayer>
-        <div className="z-0">
+        <div className='z-0'>
           <Image
             src={blue15.url}
             alt={blue15.alt}
             width={blue15.width}
             height={blue15.height}
-            className="object-contain absolute pointer-events-none select-none z-0"
-            style={{ top: "74px", left: "0" }}
+            className='object-contain absolute pointer-events-none select-none z-0'
+            style={{ top: '74px', left: '0' }}
           />
 
           <Image
@@ -67,16 +68,16 @@ export default function P15Scene({ onNext, sceneName }: PageProps) {
             alt={blue15.alt}
             width={blue15.width}
             height={blue15.height}
-            className="object-contain rotate-90 absolute pointer-events-none select-none z-0"
-            style={{ top: "234px", right: "21px" }}
+            className='object-contain rotate-90 absolute pointer-events-none select-none z-0'
+            style={{ top: '234px', right: '21px' }}
           />
           <Image
             src={blue15.url}
             alt={blue15.alt}
             width={blue15.width}
             height={blue15.height}
-            className="object-contain rotate-90 absolute pointer-events-none select-none z-0"
-            style={{ top: "682px", left: "10px" }}
+            className='object-contain rotate-90 absolute pointer-events-none select-none z-0'
+            style={{ top: '682px', left: '10px' }}
           />
 
           <Image
@@ -84,77 +85,74 @@ export default function P15Scene({ onNext, sceneName }: PageProps) {
             alt={mix15_1.alt}
             width={mix15_1.width}
             height={mix15_1.height}
-            className="object-contain absolute pointer-events-none select-none z-1"
-            style={{ top: "470px", right: "19px" }}
+            className='object-contain absolute pointer-events-none select-none z-1'
+            style={{ top: '470px', right: '19px' }}
           />
           <Image
             src={mix15_2.url}
             alt={mix15_2.alt}
             width={mix15_2.width}
             height={mix15_2.height}
-            className="object-contain absolute pointer-events-none select-none z-1"
-            style={{ top: "486px", right: "0" }}
+            className='object-contain absolute pointer-events-none select-none z-1'
+            style={{ top: '486px', right: '0' }}
           />
           <Image
             src={mix15.url}
             alt={mix15.alt}
             width={mix15.width}
             height={mix15.height}
-            className="object-contain absolute pointer-events-none select-none z-1"
-            style={{ top: "689px", right: "0" }}
+            className='object-contain absolute pointer-events-none select-none z-1'
+            style={{ top: '689px', right: '0' }}
           />
         </div>
       </GlitchLayer>
       {/* main picture */}
-      <div className="z-0">
+      <div className='z-0'>
         <Image
           src={ladder.url}
           alt={ladder.alt}
           width={ladder.width}
           height={ladder.height}
-          className="object-contain absolute pointer-events-none select-none z-0 w-full"
-          style={{ top: "155px", left: "0", right: "0" }}
+          className='object-contain absolute pointer-events-none select-none z-0 w-full'
+          style={{ top: '155px', left: '0', right: '0' }}
         />
       </div>
       {/* content */}
       <div
-        className="z-0 tracking-wide"
-        style={{ fontSize: 13, paddingTop: "113px" }}
+        className='z-0 tracking-wide'
+        style={{ fontSize: 13, paddingTop: '113px' }}
       >
         <span
-          className={"text-xl absolute leading-relaxed"}
-          style={{ left: "32px" }}
+          className={'text-xl absolute leading-relaxed'}
+          style={{ left: '32px' }}
         >
           真实的连接, 从点滴开启
         </span>
 
         {!!newFollowCount && (
-          <div className="absolute" style={{ left: "120px", top: "172px" }}>
-            <span className="mr-[7px]">
-              2025
-            </span>
-            <span>年</span> <br />
-            有
+          <div className='absolute' style={{ left: '120px', top: '172px' }}>
+            <span className='mr-[7px]'>2025</span>
+            <span>年</span> <br />有
             <span className={`mx-[6px] text-r-fern`} style={{ fontSize: 23 }}>
-              {String(newFollowCount ?? "new_follow_cnt")}
+              {String(newFollowCount ?? 'new_follow_cnt')}
             </span>
             位知友选择关注你
           </div>
         )}
 
         <div
-          className="absolute leading-relaxed"
-          style={{ top: "330px", left: "19px" }}
+          className='absolute leading-relaxed'
+          style={{ top: '330px', left: '19px' }}
         >
           {!!mostUpvoteMemberName && (
             <>
-              <div className="">
+              <div className=''>
                 最懂你的是
                 <span
                   className={`px-[6px] text-r-yellow`}
                   style={{ fontSize: 16 }}
                 >
-                  @{String(mostUpvoteMemberName ?? "most_upvote_member_name")}
+                  @{String(mostUpvoteMemberName ?? 'most_upvote_member_name')}
                 </span>
               </div>
               <div>
@@ -164,7 +162,7 @@ export default function P15Scene({ onNext, sceneName }: PageProps) {
                   style={{ fontSize: 18 }}
                 >
                   {String(
-                    mostUpvoteMemberUpvote ?? "most_upvote_member_upvote"
+                    mostUpvoteMemberUpvote ?? 'most_upvote_member_upvote'
                   )}
                 </span>
                 个赞同认可你的表达
@@ -178,7 +176,7 @@ export default function P15Scene({ onNext, sceneName }: PageProps) {
               <span className={`px-[6px] text-r-pink`} style={{ fontSize: 16 }}>
                 @
                 {String(
-                  interactionMostMemberName ?? "interaction_most_member_name"
+                  interactionMostMemberName ?? 'interaction_most_member_name'
                 )}
               </span>
             </div>
@@ -187,39 +185,48 @@ export default function P15Scene({ onNext, sceneName }: PageProps) {
 
         {!!thanksInvitationMemberName && (
           <div
-            className="absolute"
-            style={{ fontSize: 13, top: "566px", left: "114px", right: "20px" }}
+            className='absolute'
+            style={{ fontSize: 13, top: '566px', left: '114px', right: '20px' }}
           >
-            <div className="mb-[14px] text-r-green wrap-break-word">
-              <span style={{ fontSize: 17, margin: "0 2px" }}>
-                {String(thanksInvitationMonth ?? "thanksInvitationMonth")}
+            <div
+              className='text-r-green wrap-break-word'
+              style={{ marginBottom: 6 }}
+            >
+              <span style={{ fontSize: 17, margin: '0 2px' }}>
+                {String(thanksInvitationMonth ?? 'thanksInvitationMonth')}
               </span>
               月
-              <span style={{ fontSize: 17, margin: "0 4px" }}>
-                {String(thanksInvitationDay ?? "thanksInvitationDay")}
+              <span style={{ fontSize: 17, margin: '0 4px' }}>
+                {String(thanksInvitationDay ?? 'thanksInvitationDay')}
               </span>
-              日<span className="text-black mx-1">你在</span>
-              <span className={`px-[6px] text-r-blue`} style={{ fontSize: 16 }}>
+              日<span className='text-black mx-1'>你在</span>
+              {/* <span className={`px-[2px] text-r-blue`} style={{ fontSize: 16 }}>
                 @
                 {String(
-                  thanksInvitationMemberName ?? "thanks_invitation_member_name"
+                  thanksInvitationMemberName ?? 'thanks_invitation_member_name'
                 )}
-              </span>
+              </span> */}
               <br />
               <span className={`text-r-yellow`} style={{ fontSize: 16 }}>
                 「
-                {String(
-                  thanksInvitationQuestionTitle ?? "thanks_invitation_question"
+                {truncateText(
+                  String(
+                    thanksInvitationQuestionTitle ??
+                      'thanks_invitation_question'
+                  )
                 )}
                 」
               </span>
             </div>
             <div>
               回应了
-              <span className={`px-[4px] text-r-purple`} style={{ fontSize: 16 }}>
+              <span
+                className={`px-[4px] text-r-purple`}
+                style={{ fontSize: 16 }}
+              >
                 @
                 {String(
-                  thanksInvitationMemberName ?? "thanks_invitation_member_name"
+                  thanksInvitationMemberName ?? 'thanks_invitation_member_name'
                 )}
               </span>
               的热情 <br />

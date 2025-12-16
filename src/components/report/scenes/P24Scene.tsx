@@ -1,10 +1,10 @@
-"use client";
+'use client';
 
-import { useUserReportData } from "@/context/user-report-data-context";
-import BaseScene from "./BaseScene";
-import GlitchLayer from "@/components/report/effects/GlitchLayer";
-import { useAssets } from "@/context/assets-context";
-import Image from "next/image";
+import { useUserReportData } from '@/context/user-report-data-context';
+import BaseScene from './BaseScene';
+import GlitchLayer from '@/components/report/effects/GlitchLayer';
+import { useAssets } from '@/context/assets-context';
+import Image from 'next/image';
 
 interface PageProps {
   onNext?: () => void;
@@ -33,19 +33,19 @@ const MovieLikeItem = ({
   return (
     <div
       className={`absolute flex flex-col items-center text-center ${
-        className || ""
+        className || ''
       }`}
       style={style}
     >
       <Image
         src={String(url ?? fallbackUrl)}
         alt={String(name ?? fallbackName)}
-        className="object-cover bg-slate-100"
+        className='object-cover bg-slate-100'
         width={104}
         height={156}
       />
       <div
-        className="w-full whitespace-normal"
+        className='w-full whitespace-normal'
         style={{ fontSize: 13, marginTop: 12 }}
       >
         <span>《{String(name ?? fallbackName)}》</span>
@@ -74,28 +74,28 @@ export default function P24Scene({ onNext, sceneName }: PageProps) {
       name: reportData?.movie_like_name_top1,
       rate: reportData?.movie_like_rate_top1,
       url: reportData?.movie_like_url_top1,
-      fallbackName: "movie_like_name_top1",
-      fallbackUrl: "movie_like_url_top1",
-      fallbackRate: "movie_like_rate_top1",
-      style: { top: "280px", left: "6px", width: "137px" },
+      fallbackName: 'movie_like_name_top1',
+      fallbackUrl: 'movie_like_url_top1',
+      fallbackRate: 'movie_like_rate_top1',
+      style: { top: '280px', left: '6px', width: '137px' },
     },
     {
       name: reportData?.movie_like_name_top2,
       rate: reportData?.movie_like_rate_top2,
       url: reportData?.movie_like_url_top2,
-      fallbackName: "movie_like_name_top2",
-      fallbackUrl: "movie_like_url_top2",
-      fallbackRate: "movie_like_rate_top2",
-      style: { top: "332px", left: "123px", width: "137px" },
+      fallbackName: 'movie_like_name_top2',
+      fallbackUrl: 'movie_like_url_top2',
+      fallbackRate: 'movie_like_rate_top2',
+      style: { top: '332px', left: '123px', width: '137px' },
     },
     {
       name: reportData?.movie_like_name_top3,
       rate: reportData?.movie_like_rate_top3,
       url: reportData?.movie_like_url_top3,
-      fallbackName: "movie_like_name_top3",
-      fallbackUrl: "movie_like_url_top3",
-      fallbackRate: "movie_like_rate_top3",
-      style: { top: "280px", left: "240px", width: "137px" },
+      fallbackName: 'movie_like_name_top3',
+      fallbackUrl: 'movie_like_url_top3',
+      fallbackRate: 'movie_like_rate_top3',
+      style: { top: '280px', left: '240px', width: '137px' },
     },
   ];
 
@@ -106,81 +106,81 @@ export default function P24Scene({ onNext, sceneName }: PageProps) {
         {/* 顺序从上到下 */}
         <Image
           src={mix22_1.url}
-          alt="{mix22_1.alt}"
+          alt='{mix22_1.alt}'
           width={mix22_1.width}
           height={mix22_1.height}
-          className="object-contain absolute pointer-events-none select-none z-1"
-          style={{ top: "87px", left: "254px" }}
+          className='object-contain absolute pointer-events-none select-none z-1'
+          style={{ top: '87px', left: '254px' }}
         />
         <Image
           src={mix22_4.url}
-          alt="{mix22_4.alt}"
+          alt='{mix22_4.alt}'
           width={mix22_4.width}
           height={mix22_4.height}
-          className="object-contain absolute pointer-events-none select-none z-1"
-          style={{ top: "578px", right: "0" }}
+          className='object-contain absolute pointer-events-none select-none z-1'
+          style={{ top: '578px', right: '0' }}
         />
         <Image
           src={mix22_5.url}
-          alt="{mix22_5.alt}"
+          alt='{mix22_5.alt}'
           width={mix22_5.width}
           height={mix22_5.height}
-          className="object-contain absolute pointer-events-none select-none z-1"
-          style={{ top: "235px", left: "51px" }}
+          className='object-contain absolute pointer-events-none select-none z-1'
+          style={{ top: '235px', left: '51px' }}
         />
         <Image
           src={mix22_5.url}
-          alt="{mix22_5.alt}"
+          alt='{mix22_5.alt}'
           width={mix22_5.width}
           height={mix22_5.height}
-          className="object-contain absolute pointer-events-none select-none z-1"
-          style={{ top: "736px", left: "24px" }}
+          className='object-contain absolute pointer-events-none select-none z-1'
+          style={{ top: '736px', left: '24px' }}
         />
       </GlitchLayer>
       {/* images */}
-      <div className="z-0">
+      <div className='z-0'>
         <Image
           src={film.url}
-          alt="{film.alt}"
+          alt='{film.alt}'
           width={film.width}
           height={film.height}
-          className="object-contain absolute pointer-events-none select-none -z-10"
-          style={{ top: "17px", left: "0", right: "0" }}
+          className='object-contain absolute pointer-events-none select-none -z-10'
+          style={{ top: '17px', left: '0', right: '0' }}
         />
         <Image
           src={liukanshan.url}
-          alt="{liukanshan.alt}"
+          alt='{liukanshan.alt}'
           width={liukanshan.width}
           height={liukanshan.height}
-          className="object-contain absolute pointer-events-none select-none -z-10"
-          style={{ top: "578px", left: "45px" }}
+          className='object-contain absolute pointer-events-none select-none -z-10'
+          style={{ top: '578px', left: '45px' }}
         />
       </div>
       {/* content */}
       {movieLikeCount && (
         <div
-          className="absolute z-0 w-full tracking-wide"
+          className='absolute z-0 w-full tracking-wide'
           style={{
             fontSize: 13,
             top: 125,
-            left: "50%",
-            transform: "translateX(-50%)",
+            left: '50%',
+            transform: 'translateX(-50%)',
           }}
         >
-          <div className="text-center">
-            <div className="">
+          <div className='text-center'>
+            <div className=''>
               你参与了
-              <span className="text-r-pink px-[7px]" style={{ fontSize: 20 }}>
-                {String(movieLikeCount ?? "movie_like_cnt")}
+              <span className='text-r-pink px-[7px]' style={{ fontSize: 20 }}>
+                {String(movieLikeCount ?? 'movie_like_cnt')}
               </span>
               次作品评价
             </div>
-            <div className="my-5">
+            <div className='my-5'>
               用自己的直觉与品味，为作品发声
               <br />
             </div>
-            <div className="text-center">
-              你的<span className="text-r-fern">年度影视作品</span>是
+            <div className='text-center'>
+              你的<span className='text-r-fern'>年度影视作品</span>是
             </div>
           </div>
         </div>
@@ -189,7 +189,7 @@ export default function P24Scene({ onNext, sceneName }: PageProps) {
       {!!movieLikeList[0].name &&
         !!movieLikeList[1].name &&
         !!movieLikeList[2].name && (
-          <div className="z-0 w-full tracking-wide" style={{ fontSize: 13 }}>
+          <div className='z-0 w-full tracking-wide' style={{ fontSize: 13 }}>
             {movieLikeList.map(
               (item, index) =>
                 item.name && (

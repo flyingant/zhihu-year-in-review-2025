@@ -1,10 +1,10 @@
-"use client";
+'use client';
 
-import { useUserReportData } from "@/context/user-report-data-context";
-import BaseScene from "./BaseScene";
-import GlitchLayer from "@/components/report/effects/GlitchLayer";
-import { useAssets } from "@/context/assets-context";
-import Image from "next/image";
+import { useUserReportData } from '@/context/user-report-data-context';
+import BaseScene from './BaseScene';
+import GlitchLayer from '@/components/report/effects/GlitchLayer';
+import { useAssets } from '@/context/assets-context';
+import Image from 'next/image';
 
 interface PageProps {
   onNext?: () => void;
@@ -47,94 +47,94 @@ export default function P22Scene({ onNext, sceneName }: PageProps) {
         {/* 顺序从上到下 */}
         <Image
           src={mix22_1.url}
-          alt="{mix22_1.alt}"
+          alt='{mix22_1.alt}'
           width={mix22_1.width}
           height={mix22_1.height}
-          className="object-contain absolute pointer-events-none select-none z-1"
-          style={{ top: "23px", left: "0" }}
+          className='object-contain absolute pointer-events-none select-none z-1'
+          style={{ top: '23px', left: '0' }}
         />
         <Image
           src={mix22_2.url}
-          alt="{mix22_2.alt}"
+          alt='{mix22_2.alt}'
           width={mix22_2.width}
           height={mix22_2.height}
-          className="object-contain absolute pointer-events-none select-none z-1"
-          style={{ top: "93px", right: "0" }}
+          className='object-contain absolute pointer-events-none select-none z-1'
+          style={{ top: '93px', right: '0' }}
         />
         <Image
           src={mix22_3.url}
-          alt="{mix22_3.alt}"
+          alt='{mix22_3.alt}'
           width={mix22_3.width}
           height={mix22_3.height}
-          className="object-contain absolute pointer-events-none select-none z-1"
-          style={{ top: "388px", left: "0" }}
+          className='object-contain absolute pointer-events-none select-none z-1'
+          style={{ top: '388px', left: '0' }}
         />
         <Image
           src={mix22_4.url}
-          alt="{mix22_4.alt}"
+          alt='{mix22_4.alt}'
           width={mix22_4.width}
           height={mix22_4.height}
-          className="object-contain absolute pointer-events-none select-none z-1"
-          style={{ top: "758px", right: "0" }}
+          className='object-contain absolute pointer-events-none select-none z-1'
+          style={{ top: '758px', right: '0' }}
         />
         <Image
           src={mix22_5.url}
-          alt="{mix22_5.alt}"
+          alt='{mix22_5.alt}'
           width={mix22_5.width}
           height={mix22_5.height}
-          className="object-contain absolute pointer-events-none select-none z-1"
-          style={{ top: "208px", left: "316px" }}
+          className='object-contain absolute pointer-events-none select-none z-1'
+          style={{ top: '208px', left: '316px' }}
         />
         <Image
           src={mix22_5.url}
-          alt="{mix22_5.alt}"
+          alt='{mix22_5.alt}'
           width={mix22_5.width}
           height={mix22_5.height}
-          className="object-contain absolute pointer-events-none select-none z-1"
-          style={{ top: "752px", left: "44px" }}
+          className='object-contain absolute pointer-events-none select-none z-1'
+          style={{ top: '752px', left: '44px' }}
         />
       </GlitchLayer>
       {/* images */}
-      <div className="z-0">
+      <div className='z-0'>
         <Image
           src={front.url}
-          alt="{front.alt}"
+          alt='{front.alt}'
           width={front.width}
           height={front.height}
-          className="object-contain absolute pointer-events-none select-none z-20"
-          style={{ top: "386px", right: "0", left: "0" }}
+          className='object-contain absolute pointer-events-none select-none z-20'
+          style={{ top: '386px', right: '0', left: '0' }}
         />
         <Image
           src={back.url}
-          alt="{back.alt}"
+          alt='{back.alt}'
           width={back.width}
           height={back.height}
-          className="object-contain absolute pointer-events-none select-none z-1"
-          style={{ top: "212px", right: "0" }}
+          className='object-contain absolute pointer-events-none select-none z-1'
+          style={{ top: '212px', right: '0' }}
         />
         <Image
           src={liukanshan.url}
-          alt="{liukanshan.alt}"
+          alt='{liukanshan.alt}'
           width={liukanshan.width}
           height={liukanshan.height}
-          className="object-contain absolute pointer-events-none select-none z-1"
-          style={{ top: "563px", left: "135px" }}
+          className='object-contain absolute pointer-events-none select-none z-1'
+          style={{ top: '563px', left: '135px' }}
         />
       </div>
       {/* content */}
-      <div className="z-0 relative tracking-wide" style={{ fontSize: 14 }}>
+      <div className='z-0 relative tracking-wide' style={{ fontSize: 14 }}>
         <div
-          className="absolute"
-          style={{ fontSize: 22, top: "116px", left: "41px" }}
+          className='absolute leading-loose'
+          style={{ fontSize: 22, top: '116px', left: '41px' }}
         >
-          当你关注时代时，
+          当你面向时代求真
           <br />
-          你也正成为时代的一部分
+          时代耶在折射你
         </div>
         {/* Billboard browsing */}
         <div
-          className="absolute"
-          style={{ top: "248px", left: "41px", fontSize: 14 }}
+          className='absolute'
+          style={{ top: '214px', left: '41px', fontSize: 14 }}
         >
           {!!consumeBillboardDays && consumeBillboardDays >= 5 && (
             <>
@@ -144,9 +144,9 @@ export default function P22Scene({ onNext, sceneName }: PageProps) {
                   className={`text-r-fern px-[7px]`}
                   style={{ fontSize: 24 }}
                 >
-                  {String(consumeBillboardDays ?? "consume_billboard_days")}
+                  {String(consumeBillboardDays ?? 'consume_billboard_days')}
                 </span>
-                天,
+                天
               </p>
               <p>
                 浏览了
@@ -156,7 +156,7 @@ export default function P22Scene({ onNext, sceneName }: PageProps) {
                 >
                   {String(
                     consumeBillboardContentCount ??
-                      "consume_billboard_content_cnt"
+                      'consume_billboard_content_cnt'
                   )}
                 </span>
                 条热榜内容
@@ -170,11 +170,28 @@ export default function P22Scene({ onNext, sceneName }: PageProps) {
               <span className={`text-r-fern px-[7px]`} style={{ fontSize: 24 }}>
                 {String(
                   upvoteZhihuBillboardContentCount ??
-                    "upvote_zhihu_billboard_content_cnt"
+                    'upvote_zhihu_billboard_content_cnt'
                 )}
               </span>
               篇内容登上了知乎热榜
             </p>
+          )}
+
+          {/* Hot events */}
+          {!!eventUpvoteCount && (
+            <div style={{ marginTop: 16 }}>
+              <p>
+                <span className='text-r-pink mr-[4px]'>{eventMonth}</span>
+                月里，你参与了
+                <span className='text-r-pink mx-[4px]'>{eventName}</span>
+                的讨论
+              </p>
+              <p>
+                收获
+                <span className='text-r-pink mx-[4px]'>{eventUpvoteCount}</span>
+                个赞同，和无数人共同记录那段集体记忆
+              </p>
+            </div>
           )}
         </div>
       </div>

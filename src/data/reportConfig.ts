@@ -24,6 +24,7 @@ import P17Scene from '@/components/report/scenes/P17Scene';
 import P18Scene from '@/components/report/scenes/P18Scene';
 import P19Scene from '@/components/report/scenes/P19Scene';
 import P20Scene from '@/components/report/scenes/P20Scene';
+import P20ClubScene from '@/components/report/scenes/P20ClubScene';
 import P21Scene from '@/components/report/scenes/P21Scene';
 import P22Scene from '@/components/report/scenes/P22Scene';
 import P23Scene from '@/components/report/scenes/P23Scene';
@@ -180,6 +181,11 @@ export const SCENES: Record<string, SceneConfig> = {
   'p20': {
     id: 'p20',
     component: P20Scene,
+    next: 'p20Club',
+  },
+  'p20Club': {
+    id: 'p20Club',
+    component: P20ClubScene,
     next: 'p21',
   },
   'p21': {
@@ -202,11 +208,13 @@ export const SCENES: Record<string, SceneConfig> = {
     id: 'p24',
     component: P24Scene,
     next: 'p25',
+    shouldSkip: (data) => !data?.movie_like_cnt,
   },
   'p25': {
     id: 'p25',
     component: P25Scene,
     next: 'p26',
+    shouldSkip: (data) => !data?.paid_content_cnt,
   },
   'p26': {
     id: 'p26',

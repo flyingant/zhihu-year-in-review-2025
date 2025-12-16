@@ -1,14 +1,41 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useSearchParams } from 'next/navigation';
 import { AnimatePresence, motion } from 'framer-motion';
 import { SCENES } from '@/data/reportConfig';
-import { useUserReportData } from '@/context/user-report-data-context';
+import {
+  useUserReportData,
+  UserReportData,
+} from '@/context/user-report-data-context';
+
+// Determine the next valid scene ID recursively, checking for skip conditions
+const getNextValidSceneId = (
+  nextId: string | null | undefined,
+  data: UserReportData | null
+): string | null => {
+  if (!nextId || !SCENES[nextId]) return null;
+
+  console.log('getNextValidSceneId', nextId, data);
+
+  const sceneConfig = SCENES[nextId];
+  if (sceneConfig.shouldSkip?.(data)) {
+    console.warn(`Skipping Scene ${nextId} based on skip condition`);
+    // Recursively check the next scene after the skipped one
+    const nextNextLogic = sceneConfig.next;
+    const nextNextId =
+      typeof nextNextLogic === 'function'
+        ? nextNextLogic() // Assumption: skipped scenes usually don't have complex choice logic for their *next* step when skipped
+        : nextNextLogic;
+    return getNextValidSceneId(nextNextId, data);
+  }
+
+  return nextId;
+};
 
 export default function SceneManager() {
   const searchParams = useSearchParams();
-  const { reportData } = useUserReportData();
+  const { reportData, isLoadingReport } = useUserReportData();
 
   // 从 URL 参数获取场景 ID（仅用于初始页面）
   const getInitialSceneId = () => {
@@ -30,43 +57,33 @@ export default function SceneManager() {
   const currentSceneId = internalSceneId;
   // 获取当前场景的配置
   const currentSceneConfig = SCENES[currentSceneId];
-  if (!currentSceneConfig)
-    return (
-      <div className='flex items-center justify-center text-center text-2xl text-white'>
-        End of Report
-      </div>
-    );
-  const Component = currentSceneConfig.component;
-  // 这里面放到时候从接口获取到的所有数据
-  const fullReportData: Record<string, unknown> = {};
-  const extraProps = currentSceneConfig.prepareProps
-    ? currentSceneConfig.prepareProps(fullReportData)
-    : {};
 
-  // Determine the next valid scene ID recursively, checking for skip conditions
-  const getNextValidSceneId = (
-    nextId: string | null | undefined,
-    data: typeof reportData
-  ): string | null => {
-    if (!nextId || !SCENES[nextId]) return null;
+  // Check if current scene should be skipped when data is loaded
+  useEffect(() => {
+    if (isLoadingReport || !reportData) return;
 
-    const sceneConfig = SCENES[nextId];
-    if (sceneConfig.shouldSkip?.(data)) {
-      console.warn(`Skipping Scene ${nextId} based on skip condition`);
-      // Recursively check the next scene after the skipped one
-      const nextNextLogic = sceneConfig.next;
-      const nextNextId =
-        typeof nextNextLogic === 'function'
-          ? nextNextLogic() // Assumption: skipped scenes usually don't have complex choice logic for their *next* step when skipped
-          : nextNextLogic;
-      return getNextValidSceneId(nextNextId, data);
+    const sceneConfig = SCENES[currentSceneId];
+    if (sceneConfig?.shouldSkip?.(reportData)) {
+      console.warn(
+        `Current scene ${currentSceneId} should be skipped based on data`
+      );
+      const nextValidId = getNextValidSceneId(currentSceneId, reportData);
+
+      if (
+        nextValidId &&
+        nextValidId !== currentSceneId &&
+        SCENES[nextValidId]
+      ) {
+        console.log(`Redirecting from ${currentSceneId} to ${nextValidId}`);
+        // eslint-disable-next-line
+        setInternalSceneId(nextValidId);
+      }
     }
-
-    return nextId;
-  };
+  }, [currentSceneId, reportData, isLoadingReport]);
 
   // 处理跳转逻辑
   const handleNext = (choice?: string) => {
+    if (!currentSceneConfig) return;
     const nextLogic = currentSceneConfig.next;
     let initialNextId: string | null = null;
 
@@ -94,6 +111,19 @@ export default function SceneManager() {
       console.log(`Navigating directly to scene: ${sceneId}`);
     }
   };
+
+  if (!currentSceneConfig)
+    return (
+      <div className='flex items-center justify-center text-center text-2xl text-white'>
+        End of Report
+      </div>
+    );
+  const Component = currentSceneConfig.component;
+  // 这里面放到时候从接口获取到的所有数据
+  const fullReportData: Record<string, unknown> = {};
+  const extraProps = currentSceneConfig.prepareProps
+    ? currentSceneConfig.prepareProps(fullReportData)
+    : {};
 
   return (
     <div className='relative w-full h-full flex justify-center items-center z-20'>

@@ -19,7 +19,7 @@ export default function P19Scene({ onNext, sceneName }: PageProps) {
 
   if (!assets) return null;
 
-  const { liukanshan, pink, tiffany, yellow, blue } = assets.report.p19;
+  const { pink, tiffany, yellow, blue, gif } = assets.report.p19;
   const { blue15, blue16, mix15_1, mix15_2, mix16_1, mix19 } = assets.report.bg;
 
   // Map context data to component variables according to P19 spec (社交-圈子用户)
@@ -134,13 +134,14 @@ export default function P19Scene({ onNext, sceneName }: PageProps) {
 
       {/* main images */}
       <div className='z-0'>
-        <Image
-          src={liukanshan.url}
-          alt={liukanshan.alt}
-          width={liukanshan.width}
-          height={liukanshan.height}
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img
+          src={gif.url}
+          alt={gif.alt}
+          width={gif.width / 4}
+          height={gif.height / 4}
           className='object-contain absolute pointer-events-none select-none z-1'
-          style={{ top: '440px', left: '0' }}
+          style={{ top: '435px', left: '87px' }}
         />
         <Image
           src={pink.url}

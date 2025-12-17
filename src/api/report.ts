@@ -539,12 +539,19 @@ export interface SetVoteOptionRequest {
 }
 
 /**
+ * Response interface for set vote option
+ */
+export interface SetVoteOptionResponse {
+  poll_id?: string; // Poll ID for the created vote
+}
+
+/**
  * 设置投票选项接口
  * Set vote options for a generated poster
  * Supports optional publishing as a pin and submitting custom vote options
  *
  * @param params - Vote option request parameters
- * @returns Promise<null> - Success response (no data returned)
+ * @returns Promise<SetVoteOptionResponse> - Success response with poll_id
  *
  * @example
  * await setVoteOption({
@@ -554,7 +561,7 @@ export interface SetVoteOptionRequest {
  * });
  */
 export const setVoteOption = (params: SetVoteOptionRequest) => {
-  return request<null>({
+  return request<SetVoteOptionResponse>({
     url: "/campaigns/v2/2025/poll/setup",
     method: "POST",
     data: params,

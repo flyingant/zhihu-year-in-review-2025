@@ -179,7 +179,14 @@ export default function P24Scene({ onNext, sceneName }: PageProps) {
               哪部作品是反射你内心的那面镜子？
               <br />
             </div>
-            <div className='text-center'>
+            <div
+              className='text-center'
+              hidden={
+                !movieLikeList[0].name ||
+                !movieLikeList[1].name ||
+                !movieLikeList[2].name
+              }
+            >
               你的<span className='text-r-fern'>年度影视作品</span>是
             </div>
           </div>

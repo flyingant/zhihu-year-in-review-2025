@@ -143,6 +143,7 @@ export default function P25Scene({ onNext, sceneName }: PageProps) {
               left: '50%',
               transform: 'translateX(-50%)',
             }}
+            hidden={!labelName1 || !labelName2 || !labelName3}
           >
             是最打动你的故事元素是
           </div>

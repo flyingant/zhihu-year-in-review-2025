@@ -92,7 +92,11 @@ export default function P23Scene({ onNext, sceneName }: PageProps) {
           那一份「真」
         </div>
 
-        <div className='absolute' style={{ top: '274px', left: '41px' }}>
+        <div
+          className='absolute'
+          style={{ top: '274px', left: '41px' }}
+          hidden={!reviewAnswerCount}
+        >
           <div className='mb-[10px]'>
             2025 年，你在
             <span className='text-r-purple px-[7px]'>@答主评审团</span>

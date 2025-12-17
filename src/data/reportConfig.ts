@@ -228,6 +228,7 @@ export const SCENES: Record<string, SceneConfig> = {
     id: 'p26',
     component: P26Scene,
     next: 'p27',
+    shouldSkip: (data) => !data?.write_story_num_sum,
   },
   'p27': {
     id: 'p27',

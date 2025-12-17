@@ -194,112 +194,112 @@ export default function P11Scene({ onNext, sceneName }: PageProps) {
       </div>
 
       {shouldShowTable && (
-      <div
-        className='flex items-center justify-center relative'
-        style={{ paddingBottom: '20px' }}
-      >
-        <Image
-          src={tableAsset.url}
-          alt={tableAsset.alt}
-          width={tableAsset.width}
-          height={tableAsset.height}
-          className='object-contain z-10'
-        />
         <div
-          className='absolute bg-white'
-          style={{
-            top: '3px',
-            left: '50%',
-            padding: '0 10px',
-            transform: 'translateX(-50%)',
-            zIndex: 100,
-            fontSize: '14px',
-            lineHeight: '1.1',
-          }}
+          className='flex items-center justify-center relative'
+          style={{ paddingBottom: '20px' }}
         >
-          2024 ~ 2025
-        </div>
-        <div
-          className='absolute z-20'
-          style={{
-            top: '27%',
-            left: '10%',
-            width: '80%',
-            height: '55%',
-          }}
-        >
+          <Image
+            src={tableAsset.url}
+            alt={tableAsset.alt}
+            width={tableAsset.width}
+            height={tableAsset.height}
+            className='object-contain z-10'
+          />
           <div
+            className='absolute bg-white'
             style={{
-              textAlign: 'right',
+              top: '3px',
+              left: '50%',
+              padding: '0 10px',
+              transform: 'translateX(-50%)',
+              zIndex: 100,
+              fontSize: '14px',
+              lineHeight: '1.1',
             }}
           >
-            <div className='mb-[2px]' style={{ fontSize: '12px' }}>
-              增加好奇
-            </div>
-            {displayAddList.map((category, index) => (
-              <div
-                key={index}
-                className='text-r-green mb-[2px] absolute text-left'
-                style={{
-                  fontSize: '17px',
-                  top: `${index * 22 - 18}px`,
-                  left: 0,
-                  width: '120px',
-                }}
-              >
-                「{category}」
-              </div>
-            ))}
+            2024 ~ 2025
           </div>
-
           <div
+            className='absolute z-20'
             style={{
-              position: 'absolute',
-              left: '0',
-              bottom: '0',
-              textAlign: 'left',
+              top: '27%',
+              left: '10%',
+              width: '80%',
+              height: '55%',
             }}
           >
-            {displayReduceList.map((category, index) => {
-              return (
+            <div
+              style={{
+                textAlign: 'right',
+              }}
+            >
+              <div className='mb-[2px]' style={{ fontSize: '12px' }}>
+                增加好奇
+              </div>
+              {displayAddList.map((category, index) => (
                 <div
                   key={index}
-                  className='text-r-yellow mb-[2px] absolute'
+                  className='text-r-blue mb-[2px] absolute text-left'
                   style={{
                     fontSize: '17px',
-                    textAlign: 'right',
-                    bottom: `${index * 22 + 12}px`,
-                    left: '180px',
+                    top: `${index * 22 - 18}px`,
+                    left: 0,
                     width: '120px',
                   }}
                 >
                   「{category}」
                 </div>
-              );
-            })}
-            <div className='mt-[2px]' style={{ fontSize: '12px' }}>
-              减少关注
+              ))}
+            </div>
+
+            <div
+              style={{
+                position: 'absolute',
+                left: '0',
+                bottom: '0',
+                textAlign: 'left',
+              }}
+            >
+              {displayReduceList.map((category, index) => {
+                return (
+                  <div
+                    key={index}
+                    className='text-r-yellow mb-[2px] absolute'
+                    style={{
+                      fontSize: '17px',
+                      textAlign: 'right',
+                      bottom: `${index * 22 + 12}px`,
+                      left: '180px',
+                      width: '120px',
+                    }}
+                  >
+                    「{category}」
+                  </div>
+                );
+              })}
+              <div className='mt-[2px]' style={{ fontSize: '12px' }}>
+                减少关注
+              </div>
             </div>
           </div>
-        </div>
 
-        <Image
-          src={greenAsset.url}
-          alt={greenAsset.alt}
-          width={greenAsset.width}
-          height={greenAsset.height}
-          className='object-contain absolute z-10'
-          style={{ left: '50px', bottom: '53px' }}
-        />
-        <Image
-          src={yellowAsset.url}
-          alt={yellowAsset.alt}
-          width={yellowAsset.width}
-          height={yellowAsset.height}
-          className='object-contain absolute z-10'
-          style={{ top: '33px', right: '50px' }}
-        />
-      </div>
+          <Image
+            src={greenAsset.url}
+            alt={greenAsset.alt}
+            width={greenAsset.width}
+            height={greenAsset.height}
+            className='object-contain absolute z-10'
+            style={{ left: '50px', bottom: '53px' }}
+          />
+          <Image
+            src={yellowAsset.url}
+            alt={yellowAsset.alt}
+            width={yellowAsset.width}
+            height={yellowAsset.height}
+            className='object-contain absolute z-10'
+            style={{ top: '33px', right: '50px' }}
+          />
+        </div>
       )}
     </BaseScene>
   );

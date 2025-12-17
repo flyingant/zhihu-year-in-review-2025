@@ -152,7 +152,7 @@ export default function P26Scene({ onNext, sceneName }: PageProps) {
 
         {/* 荣誉榜单 - 可滑动 */}
         <div
-          className='max-h-[100px] overflow-y-auto'
+
           style={{ marginRight: 20 }}
         >
           <div className=''>
@@ -165,21 +165,23 @@ export default function P26Scene({ onNext, sceneName }: PageProps) {
                     shortStoryInfluenceList ?? 'short_story_influence_list'
                   )}
                   》
-                </span>
+                </span><br />
+                <span>荣登第三届盐言故事短篇故事影响力榜</span>
               </div>
             )}
 
-            {!!awardedCopy && (
-              <div>
-                <span>{String(awardedCopy ?? 'awarded_copy')}</span>
-              </div>
-            )}
+            <div className='max-h-[40px] overflow-y-auto'>
+              {!!awardedCopy && (
+                <div>
+                  <span>{String(awardedCopy ?? 'awarded_copy')}</span>
+                </div>
+              )}
+            </div>
             {!!annualAuthor && (
               <div>
-                你荣获
                 <span
                   className='text-r-blue'
-                  style={{ fontSize: 18, marginLeft: 4 }}
+                  style={{ fontSize: 18 }}
                 >
                   {String(annualAuthor ?? 'annual_author')}
                 </span>

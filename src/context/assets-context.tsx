@@ -441,6 +441,7 @@ export interface AssetsData {
       bgBottomLeft: AssetMetadata;
       bgBottomRight: AssetMetadata;
       gif: AssetMetadata;
+      gifReverse: AssetMetadata;
     };
     top2025: AssetMetadata;
     top2026: AssetMetadata;

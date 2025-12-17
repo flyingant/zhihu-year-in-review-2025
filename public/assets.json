@@ -2342,6 +2342,12 @@
         "width": 223,
         "height": 200,
         "alt": "Index GIF Animation"
+      },
+      "gifReverse": {
+        "url": "/assets/report/index-reverse.gif",
+        "width": 223,
+        "height": 200,
+        "alt": "Index Reverse GIF Animation"
       }
     },
     "top2025": {

@@ -76,12 +76,14 @@ export default function IndexScene({ onNext, sceneName }: IndexSceneProps) {
   const [activeView, setActiveView] = useState<ActiveView>(null);
   const [expandingView, setExpandingView] = useState<ActiveView>(null);
   const [gifFirstFrame, setGifFirstFrame] = useState<string | null>(null);
+  const [gifReverseFirstFrame, setGifReverseFirstFrame] = useState<string | null>(null);
   const [showAnimatedGif, setShowAnimatedGif] = useState(false);
   const [showGif, setShowGif] = useState(true);
   const gifImageRef = useRef<HTMLImageElement | null>(null);
+  const gifReverseImageRef = useRef<HTMLImageElement | null>(null);
   const gifTimeoutRef = useRef<NodeJS.Timeout | null>(null);
 
-  // Extract first frame from GIF
+  // Extract first frame from regular GIF
   useEffect(() => {
     if (!assets?.report?.index?.gif) return;
 
@@ -107,6 +109,33 @@ export default function IndexScene({ onNext, sceneName }: IndexSceneProps) {
     img.src = assets.report.index.gif.url;
     gifImageRef.current = img;
   }, [assets?.report?.index?.gif]);
+
+  // Extract first frame from reverse GIF
+  useEffect(() => {
+    if (!assets?.report?.index?.gifReverse) return;
+
+    const img = new window.Image();
+    img.crossOrigin = 'anonymous';
+
+    img.onload = () => {
+      const canvas = document.createElement('canvas');
+      canvas.width = img.width;
+      canvas.height = img.height;
+      const ctx = canvas.getContext('2d');
+      if (ctx) {
+        ctx.drawImage(img, 0, 0);
+        const dataUrl = canvas.toDataURL('image/png');
+        setGifReverseFirstFrame(dataUrl);
+      }
+    };
+
+    img.onerror = () => {
+      console.error('Failed to load reverse GIF for first frame extraction');
+    };
+
+    img.src = assets.report.index.gifReverse.url;
+    gifReverseImageRef.current = img;
+  }, [assets?.report?.index?.gifReverse]);
 
   // Cleanup timeout on unmount
   useEffect(() => {
@@ -146,7 +175,8 @@ export default function IndexScene({ onNext, sceneName }: IndexSceneProps) {
 
   // Handle next button click - show animated GIF first, then proceed after 3 seconds
   const handleNextClick = () => {
-    if (!assets?.report?.index?.gif) {
+    const gifAsset = getGifAsset();
+    if (!gifAsset) {
       // If no GIF, proceed directly
       onNext?.();
       return;
@@ -287,6 +317,29 @@ export default function IndexScene({ onNext, sceneName }: IndexSceneProps) {
         return { x: 0, y: 0 };
     }
   };
+
+  // Get the appropriate GIF asset based on active view
+  const getGifAsset = () => {
+    if (!activeView) return null;
+    // Use reverse GIF for topRight and bottomRight
+    if (activeView === 'topRight' || activeView === 'bottomRight') {
+      return indexAssets.gifReverse;
+    }
+    // Use regular GIF for topLeft and bottomLeft
+    return indexAssets.gif;
+  };
+
+  // Get the appropriate first frame based on active view
+  const getGifFirstFrame = () => {
+    if (!activeView) return null;
+    // Use reverse GIF first frame for topRight and bottomRight
+    if (activeView === 'topRight' || activeView === 'bottomRight') {
+      return gifReverseFirstFrame;
+    }
+    // Use regular GIF first frame for topLeft and bottomLeft
+    return gifFirstFrame;
+  };
+
   const expandingAsset = getCornerAsset(expandingView);
 
   return (
@@ -469,44 +522,50 @@ export default function IndexScene({ onNext, sceneName }: IndexSceneProps) {
                   priority
                 />
               )}
-              {indexAssets.gif && showGif && (
-                <motion.div
-                  className='absolute'
-                  style={{ top: '300px', left: '100px' }}
-                  animate={{
-                    y: [-4, 8, -4],
-                    x: [-2, 2, -2],
-                  }}
-                  transition={{
-                    repeat: Infinity,
-                    duration: 3,
-                    ease: 'easeInOut',
-                  }}
-                >
-                  {showAnimatedGif ? (
-                    // eslint-disable-next-line @next/next/no-img-element
-                    <img
-                      src={indexAssets.gif.url}
-                      alt={indexAssets.gif.alt}
-                      width={indexAssets.gif.width}
-                      height={indexAssets.gif.height}
-                      className='object-cover'
-                      style={{ display: 'block' }}
-                    />
-                  ) : (
-                    gifFirstFrame && (
-                      <Image
-                        src={gifFirstFrame}
-                        alt={indexAssets.gif.alt}
-                        width={indexAssets.gif.width}
-                        height={indexAssets.gif.height}
+              {(() => {
+                const gifAsset = getGifAsset();
+                const firstFrame = getGifFirstFrame();
+                if (!gifAsset || !showGif) return null;
+
+                return (
+                  <motion.div
+                    className='absolute'
+                    style={{ top: '300px', left: '100px' }}
+                    animate={{
+                      y: [-4, 8, -4],
+                      x: [-2, 2, -2],
+                    }}
+                    transition={{
+                      repeat: Infinity,
+                      duration: 3,
+                      ease: 'easeInOut',
+                    }}
+                  >
+                    {showAnimatedGif ? (
+                      // eslint-disable-next-line @next/next/no-img-element
+                      <img
+                        src={gifAsset.url}
+                        alt={gifAsset.alt}
+                        width={gifAsset.width}
+                        height={gifAsset.height}
                         className='object-cover'
-                        priority
+                        style={{ display: 'block' }}
                       />
-                    )
-                  )}
-                </motion.div>
-              )}
+                    ) : (
+                      firstFrame && (
+                        <Image
+                          src={firstFrame}
+                          alt={gifAsset.alt}
+                          width={gifAsset.width}
+                          height={gifAsset.height}
+                          className='object-cover'
+                          priority
+                        />
+                      )
+                    )}
+                  </motion.div>
+                );
+              })()}
 
               <div
                 className='absolute flex items-center justify-center'

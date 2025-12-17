@@ -6,6 +6,7 @@ import BaseScene from "./BaseScene";
 import Image from "next/image";
 import { useAssets } from "@/context/assets-context";
 import GlitchLayer from "@/components/report/effects/GlitchLayer";
+import { truncateText } from '@/utils/common'
 
 interface PageProps {
   onNext?: () => void;
@@ -31,10 +32,10 @@ export default function P5Scene({ onNext, sceneName }: PageProps) {
   
   // Map context data to component variables according to P5 spec
   const commentCount = reportData?.publish_comment_cnt ?? null;
-  const hotCommentContent = reportData?.hot_comment_content ?? null;
+  const hotCommentContent = truncateText(reportData?.hot_comment_content ?? "", 28);
   const hotCommentLikes = reportData?.hot_comment_uv ?? 0;
   const pinCount = reportData?.publish_pin_cnt ?? null;
-  const hotPinTitle = reportData?.hot_pin_title ?? null;
+  const hotPinTitle = truncateText(reportData?.hot_pin_title ?? "", 28);
   const hotPinLikes = reportData?.hot_pin_uv ?? 0; // Not used in JSX, commented out
   // const emojiName = reportData?.emoji_name ?? null; // Not used in JSX, commented out
   // const emojiCount = reportData?.emoji_cnt ?? null; // Not used in JSX, commented out
@@ -121,7 +122,7 @@ export default function P5Scene({ onNext, sceneName }: PageProps) {
         </div>
 
         {/* 评论统计 */}
-        <div style={{ marginBottom: '40px' }} hidden={!commentCount}>
+        <div style={{ marginBottom: '30px' }} hidden={!commentCount}>
           你留下了 
           <span 
             className={`text-r-pink`}
@@ -167,7 +168,7 @@ export default function P5Scene({ onNext, sceneName }: PageProps) {
             {pinCount}
           </span> 
           条想法
-          <div className="leading-[32px]" style={{ marginTop: '10px' }} hidden={!hotPinTitle || hotPinLikes < 10 || !hotPinLikes}>
+          <div style={{ marginTop: '10px' }} hidden={!hotPinTitle || hotPinLikes < 10 || !hotPinLikes}>
             其中
             <span 
               className={`text-r-green`}
@@ -175,7 +176,7 @@ export default function P5Scene({ onNext, sceneName }: PageProps) {
             >
               「{hotPinTitle}」
             </span>
-            <div>获得了 {hotPinLikes} 次回应</div>
+            <div>获得了 <span className={`text-r-green`}>{hotPinLikes}</span> 次回应</div>
           </div>
         </div>
       </div>

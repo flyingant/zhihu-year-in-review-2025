@@ -128,12 +128,12 @@ export default function P25Scene({ onNext, sceneName }: PageProps) {
               2025年，作为尊贵的盐选会员,
               <br />
               你解锁了
-              <span className={`text-r-pink px-[7px]`} style={{ fontSize: 24 }}>
+              <span className={`text-r-pink px-[4px]`} style={{ fontSize: 24 }}>
                 {String(paidContentCount ?? 'paid_content_cnt')}
               </span>
               篇盐言故事,共
               <span
-                className={`text-r-purple px-[7px]`}
+                className={`text-r-purple px-[4px]`}
                 style={{ fontSize: 24 }}
               >
                 {String(totalWordCount ?? 'total_word_cnt')}
@@ -206,7 +206,7 @@ export default function P25Scene({ onNext, sceneName }: PageProps) {
               <br />
               TA的
               <span
-                className='text-r-yellow px-[7px]'
+                className='text-r-yellow px-[4px]'
                 style={{ fontSize: '18px' }}
               >
                 {String(mostFavoriteAuthorNum ?? 'most_favorite_author_num')}

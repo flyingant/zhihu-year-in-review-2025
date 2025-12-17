@@ -169,14 +169,14 @@ export default function P18Scene({ onNext, sceneName }: PageProps) {
           hidden={!clubAdminTop1Name && !clubAdminTop2Name}
         >
           <div
-            className={`text-r-blue px-[7px]`}
+            className={`text-r-blue px-[4px]`}
             style={{ fontSize: 20 }}
             hidden={!clubAdminTop1Name}
           >
             「{String(clubAdminTop1Name ?? 'club_admin_top1_name')} 」
           </div>
           <div
-            className={`text-r-blue px-[7px]`}
+            className={`text-r-blue px-[4px]`}
             style={{ fontSize: 20 }}
             hidden={!clubAdminTop2Name}
           >
@@ -211,13 +211,13 @@ export default function P18Scene({ onNext, sceneName }: PageProps) {
         {!!clubAdminPinCount && (
           <div className={'absolute'} style={{ left: '30px', top: '631px' }}>
             作为引路人,你在圈内发言
-            <span className={`text-r-pink px-[7px]`} style={{ fontSize: 24 }}>
+            <span className={`text-r-pink px-[4px]`} style={{ fontSize: 24 }}>
               {String(clubAdminPinCount ?? 'club_admin_pin_cnt')}
             </span>
             次 <br />
             <span hidden={!clubAdminInteractionCount}>
               与
-              <span className={`text-r-fern px-[7px]`} style={{ fontSize: 18 }}>
+              <span className={`text-r-fern px-[4px]`} style={{ fontSize: 18 }}>
                 {String(
                   clubAdminInteractionCount ?? 'club_admin_interaction_cnt'
                 )}

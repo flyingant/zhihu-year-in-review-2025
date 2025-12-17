@@ -119,6 +119,7 @@ export const SCENES: Record<string, SceneConfig> = {
     id: "p7",
     component: P7Scene,
     next: "p8",
+    shouldSkip: (data) => !data?.content_pv_cnt && !data?.roundtable_cnt,
   },
   p8: {
     id: "p8",
@@ -142,6 +143,7 @@ export const SCENES: Record<string, SceneConfig> = {
     id: "p10",
     component: P10Scene,
     next: "p11",
+    shouldSkip: (data) => !data?.consume_word_cnt
   },
   p11: {
     id: "p11",

@@ -140,7 +140,7 @@ export default function P22Scene({ onNext, sceneName }: PageProps) {
           {!!consumeBillboardDays && consumeBillboardDays >= 5 && (
             <p>
               今年，你驻扎热榜
-              <span className={`text-r-fern px-[7px]`} style={{ fontSize: 24 }}>
+              <span className={`text-r-fern px-[4px]`} style={{ fontSize: 24 }}>
                 {String(consumeBillboardDays ?? 'consume_billboard_days')}
               </span>
               天
@@ -149,7 +149,7 @@ export default function P22Scene({ onNext, sceneName }: PageProps) {
           {!!consumeBillboardContentCount && (
             <p>
               浏览了
-              <span className={`text-r-fern px-[7px]`} style={{ fontSize: 24 }}>
+              <span className={`text-r-fern px-[4px]`} style={{ fontSize: 24 }}>
                 {String(
                   consumeBillboardContentCount ??
                     'consume_billboard_content_cnt'
@@ -162,7 +162,7 @@ export default function P22Scene({ onNext, sceneName }: PageProps) {
           {!!upvoteZhihuBillboardContentCount && (
             <p>
               你的赞同, 助推
-              <span className={`text-r-fern px-[7px]`} style={{ fontSize: 24 }}>
+              <span className={`text-r-fern px-[4px]`} style={{ fontSize: 24 }}>
                 {String(
                   upvoteZhihuBillboardContentCount ??
                     'upvote_zhihu_billboard_content_cnt'

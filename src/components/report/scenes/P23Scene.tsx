@@ -108,11 +108,11 @@ export default function P23Scene({ onNext, sceneName }: PageProps) {
         >
           <div className='mb-[10px]'>
             2025 年，你在
-            <span className='text-r-purple px-[7px]'>@答主评审团</span>
+            <span className='text-r-purple px-[4px]'>@答主评审团</span>
             的测评中
             <br />
             探寻了
-            <span className={`text-r-fern px-[7px]`} style={{ fontSize: 24 }}>
+            <span className={`text-r-fern px-[4px]`} style={{ fontSize: 24 }}>
               {String(reviewAnswerCount ?? 'review_answer_cnt')}
             </span>
             次
@@ -124,7 +124,7 @@ export default function P23Scene({ onNext, sceneName }: PageProps) {
             <div className='mb-[10px]'>
               其中关于
               <span
-                className={`text-r-green px-[7px]`}
+                className={`text-r-green px-[4px]`}
                 style={{ fontSize: 16 }}
               >
                 {String(
@@ -133,7 +133,7 @@ export default function P23Scene({ onNext, sceneName }: PageProps) {
               </span>
               <br />
               你用互动表达了对评测内容
-              <span className='text-r-pink px-[7px]' style={{ fontSize: 16 }}>
+              <span className='text-r-pink px-[4px]' style={{ fontSize: 16 }}>
                 「真」的认可
               </span>
             </div>

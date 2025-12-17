@@ -17,8 +17,7 @@ export default function P26Scene({ onNext, sceneName }: PageProps) {
 
   if (!assets) return null;
 
-  const { pinkPixel, rainbow, redPixel1, redPixel2, gif } =
-    assets.report.p26;
+  const { pinkPixel, rainbow, redPixel1, redPixel2, gif } = assets.report.p26;
   const { mix22_4, mix22_5 } = assets.report.bg;
 
   // Map context data to component variables according to P26 spec (特殊-故事会员/作者)
@@ -115,7 +114,7 @@ export default function P26Scene({ onNext, sceneName }: PageProps) {
           <div className='z-0'>
             <div className='mb-[8px]'>
               今年,你创作
-              <span className={`text-r-pink px-[7px]`} style={{ fontSize: 24 }}>
+              <span className={`text-r-pink px-[4px]`} style={{ fontSize: 24 }}>
                 {String(writeStoryNumSum ?? 'write_story_num_sum')}
               </span>
               篇故事，
@@ -130,7 +129,7 @@ export default function P26Scene({ onNext, sceneName }: PageProps) {
             <div>
               有
               <span
-                className={`text-r-green px-[7px]`}
+                className={`text-r-green px-[4px]`}
                 style={{ fontSize: 24 }}
               >
                 {String(totalUpvoteNum ?? 'total_upvote_num')}

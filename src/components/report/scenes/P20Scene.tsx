@@ -211,7 +211,7 @@ export default function P20Scene({ onNext, sceneName }: PageProps) {
               <div className='leading-[29px]' hidden={!clubFriendCount}>
                 你在圈子里「扩列」了
                 <span
-                  className='text-r-blue px-[7px]'
+                  className='text-r-blue px-[4px]'
                   style={{ fontSize: '18px' }}
                 >
                   {String(clubFriendCount ?? 'club_friend_cnt')}

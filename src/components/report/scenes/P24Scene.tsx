@@ -171,7 +171,7 @@ export default function P24Scene({ onNext, sceneName }: PageProps) {
           <div className='text-center'>
             <div className=''>
               你参与了
-              <span className='text-r-pink px-[7px]' style={{ fontSize: 20 }}>
+              <span className='text-r-pink px-[4px]' style={{ fontSize: 20 }}>
                 {String(movieLikeCount ?? 'movie_like_cnt')}
               </span>
               次作品评价

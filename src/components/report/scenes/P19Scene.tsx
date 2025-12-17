@@ -191,7 +191,7 @@ export default function P19Scene({ onNext, sceneName }: PageProps) {
               2025
             </span>
             年 , 你加入了
-            <span className='text-r-pink px-[7px]' style={{ fontSize: '24px' }}>
+            <span className='text-r-pink px-[4px]' style={{ fontSize: '24px' }}>
               {String(joinClubCount ?? 'join_club_cnt')}
             </span>
             个圈子 <br />
@@ -218,7 +218,7 @@ export default function P19Scene({ onNext, sceneName }: PageProps) {
             <div className='mb-[10px]'>
               你在
               <span
-                className='text-r-purple px-[7px]'
+                className='text-r-purple px-[4px]'
                 style={{ fontSize: '16px' }}
               >
                 「

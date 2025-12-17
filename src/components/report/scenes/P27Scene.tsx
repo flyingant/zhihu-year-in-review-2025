@@ -35,14 +35,14 @@ export default function P27Scene({ onNext, sceneName }: PageProps) {
 
   const handleTop2025Click = () => {
     if (isButtonClicked) return; // Prevent multiple clicks
-    
+
     setIsButtonClicked(true);
-    
+
     // Stop the video
     if (videoRef.current) {
       videoRef.current.pause();
     }
-    
+
     // Fade out the whole scene and go to next page
     setIsSceneFading(true);
     setTimeout(() => {
@@ -54,9 +54,9 @@ export default function P27Scene({ onNext, sceneName }: PageProps) {
 
   const handleTop2026Click = () => {
     if (isButtonClicked) return; // Prevent multiple clicks
-    
+
     setIsButtonClicked(true);
-    
+
     // Switch to stop video
     if (topSpiningStopAsset?.url && videoRef.current) {
       setVideoMode("stop");
@@ -84,22 +84,54 @@ export default function P27Scene({ onNext, sceneName }: PageProps) {
 
   if (!assets) return null;
 
-  const currentVideoSrc = videoMode === "infinite" 
-    ? topSpiningInfinitAsset?.url 
-    : topSpiningStopAsset?.url;
+  const currentVideoSrc =
+    videoMode === "infinite"
+      ? topSpiningInfinitAsset?.url
+      : topSpiningStopAsset?.url;
 
   return (
-    <BaseScene onNext={onNext} sceneName={sceneName} showBottomNextButton={false}>
+    <BaseScene
+      onNext={onNext}
+      sceneName={sceneName}
+      showBottomNextButton={false}
+    >
       {/* Wrapper to fade out the whole scene */}
-      <div 
+      <div
         className="w-full h-full transition-opacity duration-1000 ease-in-out"
         style={{
           opacity: isSceneFading ? 0 : 1,
         }}
       >
+        {/* content */}
+        <div
+          className="absolute z-[110] leading-relaxed w-full"
+          style={{
+            fontSize: 14,
+            top: "114px",
+            left: "50%",
+            transform: "translateX(-50%)",
+            paddingLeft: "40px",
+            paddingRight: "40px",
+            boxSizing: "border-box",
+          }}
+        >
+          <p style={{ fontSize: 24, textAlign: "center" }}>
+            这一年，真的要过去了
+            <br />
+            时间会被打包
+            <br />
+            记忆将会存档
+            <br />
+            留下一份属于你 2025 的「真实源文件」
+            <br />
+            如果有机会，你会希望
+            <br />
+          </p>
+        </div>
+
         {/* Full width and height video container */}
         {currentVideoSrc && (
-          <div className="fixed inset-0 z-[9999] bg-white w-full h-full">
+          <div className="fixed inset-0 z-[100] bg-white w-full h-full">
             <video
               ref={videoRef}
               className="w-full h-full object-cover"
@@ -115,7 +147,7 @@ export default function P27Scene({ onNext, sceneName }: PageProps) {
         )}
 
         {/* Fixed position buttons at the bottom - always on top of video */}
-        <div className="absolute bottom-0 left-0 right-0 z-[10000] flex items-center justify-center px-4 pb-4">
+        <div className="absolute bottom-0 left-0 right-0 z-[200] flex items-center justify-center px-4 pb-4">
           {/* Left button - top2025 */}
           {top2025Asset && (
             <button
@@ -162,4 +194,3 @@ export default function P27Scene({ onNext, sceneName }: PageProps) {
     </BaseScene>
   );
 }
-

@@ -110,7 +110,7 @@ export default function P5EmojiScene({ onNext, sceneName }: PageProps) {
             className={`text-r-pink`}
             style={{ paddingLeft: '6px', paddingRight: '6px', fontSize: '18px' }}
           >
-            {discussMemberName}
+            @{discussMemberName}
           </span>
           <div>
             在评论区讨论最多

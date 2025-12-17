@@ -160,7 +160,6 @@ export default function P13Scene({ onNext, sceneName }: PageProps) {
               className='text-r-fern'
               style={{
                 fontSize: '18px',
-                marginLeft: '4px',
                 marginRight: '4px',
               }}
             >

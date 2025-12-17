@@ -40,9 +40,9 @@ const MirrorContent = ({
     </div>
     <div>
       从 
-      <span className="text-r-pink" style={{ padding: '0px 3px' }}>{year}</span>年
-      <span className="text-r-pink" style={{ padding: '0px 3px' }}>{month}</span>月
-      <span className="text-r-pink" style={{ padding: '0px 3px' }}>{day}</span>日
+      <span className="text-r-pink" style={{ padding: '0px 3px', fontSize: '18px' }}>{year}</span>年
+      <span className="text-r-pink" style={{ padding: '0px 3px', fontSize: '18px' }}>{month}</span>月
+      <span className="text-r-pink" style={{ padding: '0px 3px', fontSize: '18px' }}>{day}</span>日
       开始
     </div>
     <div>

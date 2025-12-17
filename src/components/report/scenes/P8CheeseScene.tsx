@@ -72,7 +72,7 @@ export default function P8CheeseScene({ onNext, sceneName }: PageProps) {
                 fontSize: '22px',
               }}
             >
-              这一年，你荣登榜首
+              这一路，作品为你点亮星光
             </div>
             <div hidden={!cheeseAwards}>
               <div style={{ paddingBottom: '10px' }}>你的商业作品获得</div>

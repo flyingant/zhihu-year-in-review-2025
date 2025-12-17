@@ -67,7 +67,7 @@ export default function P8Scene({ onNext, sceneName }: PageProps) {
         <div 
           style={{ lineHeight: '1.4', marginBottom: '68px', fontSize: '22px' }}
         >
-          这一年，你荣登榜首
+          这一路，作品为你点亮星光
         </div>
 
         <div hidden={!zhiTrendRankCount}>

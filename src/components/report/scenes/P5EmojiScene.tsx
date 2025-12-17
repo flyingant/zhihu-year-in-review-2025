@@ -112,16 +112,8 @@ export default function P5EmojiScene({ onNext, sceneName }: PageProps) {
           >
             {discussMemberName}
           </span>
-          在评论区
           <div>
-            交锋了
-            <span
-              className={`text-r-purple`}
-              style={{ paddingLeft: '6px', paddingRight: '6px', fontSize: '18px' }}
-            >
-              {discussCount}
-            </span>
-            轮
+            在评论区讨论最多
           </div>
           <div style={{ marginTop: '6px' }}>
             那场思维碰撞，至今回想仍有余温。

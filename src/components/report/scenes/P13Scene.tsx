@@ -165,7 +165,7 @@ export default function P13Scene({ onNext, sceneName }: PageProps) {
               {truncateText(consumeMostAnswerTitle)}
             </span>
             <div style={{ paddingTop: '8px' }}>
-              问题下的回答，你阅读了
+              问题下的回答，你阅读
               <span
                 className='text-r-pink'
                 style={{

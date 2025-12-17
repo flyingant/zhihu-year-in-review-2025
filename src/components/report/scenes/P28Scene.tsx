@@ -104,6 +104,11 @@ export default function P28Scene({ onNext, sceneName }: PageProps) {
       return;
     }
 
+    if (inputValue.trim().length > 2) {
+      showToast("最多只能输入2个字符", "error");
+      return;
+    }
+
     setIsLoading(true);
     try {
       const text = selectedFlag
@@ -278,7 +283,7 @@ export default function P28Scene({ onNext, sceneName }: PageProps) {
                 if (selectedFlag) {
                   setSelectedFlag(null);
                 }
-                setInputValue(e.target.value.slice(0, 2));
+                setInputValue(e.target.value);
               }}
             />
           </div>

@@ -221,11 +221,9 @@ export default function P19Scene({ onNext, sceneName }: PageProps) {
                 className='text-r-purple px-[4px]'
                 style={{ fontSize: '16px' }}
               >
-                「
                 {truncateText(
                   String(consumeMostClubName ?? 'consume_most_club_name')
                 )}
-                」
               </span>
               <br />
               停留最久，驻足
@@ -248,13 +246,11 @@ export default function P19Scene({ onNext, sceneName }: PageProps) {
                 className='text-r-yellow'
                 style={{ padding: '0 4px', fontSize: 16 }}
               >
-                「
                 {truncateText(
                   String(
                     interactiveMostClubName ?? 'interactive_most_club_name'
                   )
                 )}
-                」
               </span>
               圈 <br />
               你留下了

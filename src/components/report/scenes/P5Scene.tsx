@@ -170,7 +170,7 @@ export default function P5Scene({ onNext, sceneName }: PageProps) {
                   fontSize: '18px',
                 }}
               >
-                「{truncateText(hotCommentContent)}」
+                {truncateText(hotCommentContent)}
               </span>
             </div>
 

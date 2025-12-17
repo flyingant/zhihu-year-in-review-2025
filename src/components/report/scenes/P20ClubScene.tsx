@@ -222,29 +222,23 @@ export default function P20Scene({ onNext, sceneName }: PageProps) {
             >
               {!!clubActiveListName1 && (
                 <span className='text-r-pink'>
-                  「
                   {truncateText(
                     String(clubActiveListName1 ?? 'club_active_list_name_top1')
                   )}
-                  」
                 </span>
               )}
               {!!clubActiveListName2 && (
                 <span className='text-r-pink'>
-                  「
                   {truncateText(
                     String(clubActiveListName2 ?? 'club_active_list_name_top2')
                   )}
-                  」
                 </span>
               )}
               {!!clubActiveListName3 && (
                 <span className='text-r-pink'>
-                  「
                   {truncateText(
                     String(clubActiveListName3 ?? 'club_active_list_name_top3')
                   )}
-                  」
                 </span>
               )}
               <span>圈子是你今年最爱的精神据点</span>

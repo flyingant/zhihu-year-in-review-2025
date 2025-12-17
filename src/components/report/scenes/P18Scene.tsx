@@ -173,14 +173,14 @@ export default function P18Scene({ onNext, sceneName }: PageProps) {
             style={{ fontSize: 20 }}
             hidden={!clubAdminTop1Name}
           >
-            「{String(clubAdminTop1Name ?? 'club_admin_top1_name')} 」
+            {String(clubAdminTop1Name ?? 'club_admin_top1_name')}
           </div>
           <div
             className={`text-r-blue px-[4px]`}
             style={{ fontSize: 20 }}
             hidden={!clubAdminTop2Name}
           >
-            「{String(clubAdminTop2Name ?? 'club_admin_top2_name')} 」
+            {String(clubAdminTop2Name ?? 'club_admin_top2_name')}
           </div>
           <div>圈子主理人，你好！2025，你的圈子聚集</div>
         </div>

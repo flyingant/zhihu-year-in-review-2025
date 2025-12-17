@@ -219,7 +219,7 @@ export default function P5Scene({ onNext, sceneName }: PageProps) {
                 fontSize: '18px',
               }}
             >
-              「{truncateText(hotPinTitle)}」
+              {truncateText(hotPinTitle)}
             </span>
             <div>
               获得了

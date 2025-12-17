@@ -5,6 +5,7 @@ import BaseScene from "./BaseScene";
 import { useAssets } from "@/context/assets-context";
 import Image from "next/image";
 import { useState } from "react";
+import { handleSaveImage } from "@/utils/common";
 
 interface PageProps {
   onNext?: () => void;
@@ -21,6 +22,7 @@ export default function P29Scene({ onNext, sceneName }: PageProps) {
   const handleSave = () => {
     // TODO: Implement save functionality
     console.log("Save clicked");
+    handleSaveImage(summaryPoster?.poster_url || "");
   };
 
   const handleShare = () => {
@@ -39,7 +41,11 @@ export default function P29Scene({ onNext, sceneName }: PageProps) {
   };
 
   return (
-    <BaseScene onNext={onNext} sceneName={sceneName} showBottomNextButton={false}>
+    <BaseScene
+      onNext={onNext}
+      sceneName={sceneName}
+      showBottomNextButton={false}
+    >
       {/* Poster display - fullscreen */}
       {summaryPoster ? (
         <div className="absolute inset-0 z-10">
@@ -56,14 +62,24 @@ export default function P29Scene({ onNext, sceneName }: PageProps) {
       ) : (
         <div
           className="absolute z-0 leading-relaxed text-center"
-          style={{ fontSize: 14, top: "50%", left: "50%", transform: "translate(-50%, -50%)" }}
+          style={{
+            fontSize: 14,
+            top: "50%",
+            left: "50%",
+            transform: "translate(-50%, -50%)",
+          }}
         >
           暂无海报
         </div>
       )}
 
       {/* Action buttons area at the bottom */}
-      <div className="absolute bottom-0 left-0 right-0 z-20 flex flex-col items-center pb-6 px-6">
+      <div
+        className="absolute bottom-0 left-0 right-0 z-20 flex flex-col items-center pb-6 px-6"
+        style={{
+          background: summaryPoster?.bg,
+        }}
+      >
         {/* Friend Interaction button */}
         <button
           onClick={handleFriendInteraction}
@@ -91,7 +107,9 @@ export default function P29Scene({ onNext, sceneName }: PageProps) {
               strokeLinecap="round"
             />
           </svg>
-          <span className="text-[14px] font-medium text-white">好友互动：猜猜哪个才是真的我？</span>
+          <span className="text-[14px] font-medium text-white">
+            好友互动：猜猜哪个才是真的我？
+          </span>
         </button>
 
         {/* Save and Share buttons */}
@@ -217,4 +235,3 @@ export default function P29Scene({ onNext, sceneName }: PageProps) {
     </BaseScene>
   );
 }
-

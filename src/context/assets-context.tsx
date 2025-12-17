@@ -426,6 +426,12 @@ export interface AssetsData {
       iconPlaying: AssetMetadata;
       bgAudio: AssetMetadata;
     };
+
+    p28: {
+      bg: AssetMetadata;
+      titleOther: AssetMetadata;
+      titleSelf: AssetMetadata;
+    };
   };
   /**
    * 外部链接URL配置

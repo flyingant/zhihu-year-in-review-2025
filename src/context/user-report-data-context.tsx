@@ -1,9 +1,20 @@
 "use client";
 
-import { createContext, useContext, useState, useEffect, useCallback, ReactNode } from "react";
+import {
+  createContext,
+  useContext,
+  useState,
+  useEffect,
+  useCallback,
+  ReactNode,
+} from "react";
 import { useSearchParams } from "next/navigation";
 import { useAuth } from "./auth-context";
-import { getUserReportData, type UserReportData, type GenerateSummaryPosterResponse } from "@/api/report";
+import {
+  getUserReportData,
+  type UserReportData,
+  type GenerateSummaryPosterResponse,
+} from "@/api/report";
 
 // Re-export UserReportData for backward compatibility
 export type { UserReportData };
@@ -12,6 +23,8 @@ interface SummaryPosterData {
   poster_id: number;
   poster_url: string;
   text: string;
+  key: string;
+  bg: string;
 }
 
 interface UserReportDataContextType {
@@ -27,7 +40,9 @@ interface UserReportDataContextType {
   setSummaryPoster: (poster: SummaryPosterData) => void;
 }
 
-const UserReportDataContext = createContext<UserReportDataContextType | undefined>(undefined);
+const UserReportDataContext = createContext<
+  UserReportDataContextType | undefined
+>(undefined);
 
 export function UserReportDataProvider({ children }: { children: ReactNode }) {
   const { isAuthenticated, isAuthLoading } = useAuth();
@@ -35,8 +50,16 @@ export function UserReportDataProvider({ children }: { children: ReactNode }) {
   const [reportData, setReportData] = useState<UserReportData | null>(null);
   const [isLoadingReport, setIsLoadingReport] = useState(false);
   const [error, setError] = useState<string | null>(null);
-  const [userChoices, setUserChoicesState] = useState<Record<string, string>>({});
-  const [summaryPoster, setSummaryPosterState] = useState<SummaryPosterData | null>(null);
+  const [userChoices, setUserChoicesState] = useState<Record<string, string>>(
+    {}
+  );
+  // const [summaryPoster, setSummaryPosterState] =
+  //   useState<SummaryPosterData | null>(null);
+
+  const [summaryPoster, setSummaryPosterState] =
+    useState<SummaryPosterData | null>({
+      key: "love",
+    });
 
   const fetchReportData = useCallback(async () => {
     if (!isAuthenticated) {
@@ -84,7 +107,14 @@ export function UserReportDataProvider({ children }: { children: ReactNode }) {
         ...prev,
         [sceneName]: choice,
       };
-      console.log('Setting choice:', sceneName, '=', choice, 'Updated choices:', updated);
+      console.log(
+        "Setting choice:",
+        sceneName,
+        "=",
+        choice,
+        "Updated choices:",
+        updated
+      );
       return updated;
     });
   }, []);
@@ -102,7 +132,7 @@ export function UserReportDataProvider({ children }: { children: ReactNode }) {
 
   // Debug: Log userChoices whenever it changes
   useEffect(() => {
-    console.log('userChoices updated:', userChoices);
+    console.log("userChoices updated:", userChoices);
   }, [userChoices]);
 
   return (
@@ -128,8 +158,9 @@ export function UserReportDataProvider({ children }: { children: ReactNode }) {
 export function useUserReportData() {
   const context = useContext(UserReportDataContext);
   if (context === undefined) {
-    throw new Error("useUserReportData must be used within a UserReportDataProvider");
+    throw new Error(
+      "useUserReportData must be used within a UserReportDataProvider"
+    );
   }
   return context;
 }
-

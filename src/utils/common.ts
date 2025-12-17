@@ -210,3 +210,78 @@ const downloadImageStandard = async (imageUrl: string) => {
     // showToast("保存失败，请稍后重试", "error");
   }
 };
+
+export const summaryFlags = [
+  {
+    key: "cure",
+    text: "被治愈",
+    bg: "#FAF163",
+    fullText: "我真的被治愈了",
+  },
+  {
+    key: "get",
+    text: "悟",
+    bg: "#FFF59E",
+    fullText: "我真的悟到了",
+  },
+  {
+    key: "action",
+    text: "行动",
+    bg: "#FF9C4B",
+    fullText: "我真的行动了",
+  },
+  {
+    key: "release",
+    text: "释怀",
+    bg: "#BAC0E1",
+    fullText: "我真的释怀了",
+  },
+  {
+    key: "live",
+    text: "生活",
+    bg: "#A0BDE2",
+    fullText: "我真的生活了",
+  },
+  {
+    key: "love",
+    text: "爱",
+    bg: "#FFE0E4",
+    fullText: "我真的爱了",
+  },
+  {
+    key: "good",
+    text: "很棒",
+    bg: "#FFE48D",
+    fullText: "我真的很棒了",
+  },
+  {
+    key: "ai",
+    text: "AI",
+    bg: "#B6DFFE",
+    fullText: "我真的AI了",
+  },
+  {
+    key: "clam",
+    text: "清醒",
+    bg: "#B7E4F3",
+    fullText: "我真的清醒了",
+  },
+  {
+    key: "growth",
+    text: "成长",
+    bg: "#F6F6C5",
+    fullText: "我真的成长了",
+  },
+  {
+    key: "change",
+    text: "改变",
+    bg: "#ECD0CD",
+    fullText: "我真的改变了",
+  },
+  {
+    key: "zhileng",
+    text: "支棱",
+    bg: "#ED6046",
+    fullText: "我真的支棱了",
+  },
+];

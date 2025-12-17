@@ -8,8 +8,11 @@ import { useUserReportData } from "@/context/user-report-data-context";
 import { useAssets } from "@/context/assets-context";
 import Image from "next/image";
 import { useState } from "react";
-import { handleSaveImage } from "@/utils/common";
+import { summaryFlags } from "@/utils/common";
 import BaseScene from "@/components/report/scenes/BaseScene";
+import { useEffect } from "react";
+import { getVoteInfo, submitVote } from "@/api/report";
+import { useSearchParams } from "next/navigation";
 
 const tianwangFont = localFont({
   src: "../../../public/fonts/tianwangxingxiangsu.ttf",
@@ -20,31 +23,49 @@ const tianwangFont = localFont({
 function GuessPageScene() {
   const { summaryPoster } = useUserReportData();
   const { assets } = useAssets();
-  const [selectedOptionKey, setSelectedOptionKey] = useState<string | null>(
-    null
-  );
+  const [selectedOptionId, setSelectedOptionId] = useState<string | null>(null);
+  const searchParams = useSearchParams();
+  const pollId = searchParams.get("pollId");
+  const isSelfView = searchParams.get("selfView") !== undefined;
+  const [voteInfo, setVoteInfo] = useState();
+
+  const initPollData = () => {
+    if (!pollId) return;
+    getVoteInfo(pollId).then((res) => {
+      if (res.options) {
+        res.transformedOptions = res.options.map((option) => ({
+          ...option,
+          key:
+            summaryFlags.find((flag) => flag.fullText === option.option_name)
+              ?.key || "empty",
+        }));
+      }
+
+      setVoteInfo(res);
+    });
+  };
+
+  useEffect(() => {
+    initPollData();
+  }, []);
   if (!assets) return null;
   const p28Assets = assets.report.p28 || {};
   const titleOtherAsset = p28Assets.titleOther;
 
-  const options = [
-    {
-      optionName: "我真的爱了",
-      key: "love",
-    },
-    {
-      key: "action",
-      optionName: "我真的行动了",
-    },
-    {
-      key: "good",
-      optionName: "我真的很棒了",
-    },
-    {
-      key: "clam",
-      optionName: "我真的清醒了",
-    },
-  ];
+  const onSubmit = () => {
+    submitVote({
+      vote_id: pollId || "",
+      poll_id: pollId || "",
+      option_name:
+        voteInfo?.transformedOptions?.find(
+          (option) => option.option_id === selectedOptionId
+        )?.option_name || "",
+      option_id: selectedOptionId || "",
+    }).then((res) => {
+      setVoteInfo(res);
+    });
+  };
+
   return (
     <BaseScene showBottomNextButton={false}>
       <div className="relative w-full h-full overflow-hidden">
@@ -56,35 +77,154 @@ function GuessPageScene() {
           className="relative mx-auto left-0 right-0 pointer-events-none select-none"
           style={{ top: 114 }}
         />
-
+        <div
+          className="relative flex items-center justify-center text-center"
+          style={{ top: 150 }}
+        >
+          <div
+            className="text-[#fff] bg-[#34C2FD]"
+            style={{
+              borderRadius: 24,
+              padding: "4px 10px",
+              fontSize: 14,
+              alignItems: "center",
+            }}
+          >
+            @{voteInfo?.username}的 2025
+          </div>
+          <div>「真实关键词」是</div>
+        </div>
         <div className="relative" style={{ top: 131, left: 20, right: 20 }}>
-          {options.map((option) => (
+          {voteInfo?.transformedOptions?.map((option) => (
             <div
-              key={option.key}
+              className="relative"
+              key={`option-${option.key}`}
               style={{ marginTop: 30, height: 95, width: 344 }}
-              onClick={() => setSelectedOptionKey(option.key)}
+              onClick={() => {
+                if (voteInfo?.is_vote_correct !== 2) return;
+                if (isSelfView) return;
+                setSelectedOptionId(option.option_id);
+              }}
             >
               <Image
-                src={`/assets/2025-28-banner-${option.key}-${
-                  selectedOptionKey === option.key ? "active" : "grey"
+                src={`/assets/2025-28-banner-${option.key}${
+                  voteInfo?.is_vote_correct !== 2 && option.is_correct
+                    ? "-self"
+                    : ""
+                }-${
+                  voteInfo?.is_vote_correct !== 2
+                    ? option.is_correct
+                      ? "active"
+                      : "grey"
+                    : selectedOptionId === option.option_id
+                    ? "active"
+                    : "grey"
                 }.png`}
                 width={344}
                 height={95}
                 alt="banner"
               />
+              {voteInfo?.is_vote_correct !== 2 && option.is_correct === 1 && (
+                <Image
+                  src="/assets/guess-ta-option.png"
+                  width={96}
+                  height={19}
+                  alt="ta-option"
+                  className="absolute"
+                  style={{
+                    left: 70,
+                    bottom: 4,
+                  }}
+                />
+              )}
+              {voteInfo?.is_vote_correct !== 2 && option.is_voted === 1 && (
+                <Image
+                  src={`/assets/guess-your-option${
+                    voteInfo?.is_vote_correct === 1 ? "-correct" : ""
+                  }.png`}
+                  width={96}
+                  height={19}
+                  alt="ta-option"
+                  className="absolute"
+                  style={{
+                    right: 70,
+                    bottom: 4,
+                  }}
+                />
+              )}
+              {(voteInfo?.is_vote_correct !== 2 || isSelfView) && (
+                <div
+                  className="absolute right-0 bg-[#5cc0f9]"
+                  style={{
+                    padding: "6px 9px",
+                    top: -10,
+                    fontSize: 12,
+                    lineHeight: "11px",
+                    border: "1px solid #000",
+                  }}
+                >
+                  {option?.vote_num}人选择
+                </div>
+              )}
+              {(voteInfo?.is_vote_correct !== 2 || isSelfView) && (
+                <div
+                  className="absolute left-0 "
+                  style={{
+                    top: 20,
+                    left: 34,
+                    fontSize: 14,
+                  }}
+                >
+                  {option.vote_percent}
+                </div>
+              )}
             </div>
           ))}
         </div>
-        <button
-          className="absolute left-1/2 -translate-x-1/2  z-60 px-8 py-3 rounded-full bg-black text-white text-lg disabled:opacity-50 disabled:cursor-not-allowed"
-          style={{
-            width: 165,
-            bottom: 60,
-          }}
-          disabled={!selectedOptionKey}
-        >
-          确认选择
-        </button>
+        {voteInfo?.is_vote_correct === 2 && !isSelfView && (
+          <button
+            className="absolute left-1/2 -translate-x-1/2  z-60  rounded-full text-white text-lg"
+            style={{
+              width: 164,
+              bottom: 40,
+              height: 32,
+              background: selectedOptionId ? "#5cc0f9" : "#adadad",
+              border: "1px solid #000",
+            }}
+            disabled={!selectedOptionId}
+            onClick={onSubmit}
+          >
+            确认选择
+          </button>
+        )}
+        {voteInfo?.is_vote_correct !== 2 && !isSelfView && (
+          <Image
+            className="absolute left-1/2 -translate-x-1/2  z-60"
+            width={296}
+            height={21}
+            style={{ bottom: 40 }}
+            src={`/assets/guess-${
+              voteInfo?.is_vote_correct === 1
+                ? "choose-same"
+                : "choose-different"
+            }.png`}
+            alt="result"
+          />
+        )}
+
+        <div>
+          <Image
+            src={`/assets/guess-${isSelfView ? "go-again" : "go"}.png`}
+            className="absolute left-1/2 -translate-x-1/2 "
+            style={{
+              bottom: 15,
+            }}
+            width={200}
+            height={15}
+            alt="go"
+            onClick={() => {}}
+          />
+        </div>
       </div>
     </BaseScene>
   );

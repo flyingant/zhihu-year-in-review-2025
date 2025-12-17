@@ -51,7 +51,7 @@ export default function P28Scene({ onNext, sceneName }: PageProps) {
     },
     {
       key: "release",
-      text: "释放",
+      text: "释怀",
       bg: "#BAC0E1",
     },
     {
@@ -280,10 +280,10 @@ export default function P28Scene({ onNext, sceneName }: PageProps) {
               type="text"
               value={inputValue}
               onChange={(e) => {
-                if (selectedFlag) {
-                  setSelectedFlag(null);
-                }
                 setInputValue(e.target.value);
+              }}
+              onBlur={(e) => {
+                setInputValue(e.target.value.trim().slice(0, 2));
               }}
             />
           </div>

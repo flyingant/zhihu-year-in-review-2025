@@ -143,7 +143,7 @@ export const SCENES: Record<string, SceneConfig> = {
     id: "p10",
     component: P10Scene,
     next: "p11",
-    shouldSkip: (data) => !data?.consume_word_cnt
+    shouldSkip: (data) => !data?.consume_word_cnt,
   },
   p11: {
     id: "p11",
@@ -159,13 +159,17 @@ export const SCENES: Record<string, SceneConfig> = {
     id: "p12",
     component: P12Scene,
     next: "p13",
-    shouldSkip: (data) => !data?.zhihu_browse_last_date
+    shouldSkip: (data) => !data?.zhihu_browse_last_date,
   },
   p13: {
     id: "p13",
     component: P13Scene,
     next: "p14",
-    shouldSkip: (data) => !data?.zhihu_browse_most_date && (data?.zhihu_browse_most_date_duration ?? 0) < 5 && !data?.consume_most_answer_title && (data?.consume_most_answer_pv_cnt ?? 0) < 10,
+    shouldSkip: (data) =>
+      !data?.zhihu_browse_most_date &&
+      (data?.zhihu_browse_most_date_duration ?? 0) < 5 &&
+      !data?.consume_most_answer_title &&
+      (data?.consume_most_answer_pv_cnt ?? 0) < 10,
   },
   p14: {
     id: "p14",
@@ -176,44 +180,68 @@ export const SCENES: Record<string, SceneConfig> = {
     id: "p15",
     component: P15Scene,
     next: "p16",
-    shouldSkip: (data) => !data?.new_follow_cnt && !data?.most_upvote_member_name && !data?.thanks_invitation_member_name,
+    shouldSkip: (data) =>
+      !data?.new_follow_cnt &&
+      !data?.most_upvote_member_name &&
+      !data?.thanks_invitation_member_name,
   },
   p16: {
     id: "p16",
     component: P16Scene,
     next: "p17",
-    shouldSkip: (data) => !data?.send_upvote_cnt && !data?.consume_member_name && !data?.consume_interest_member_name_top1 && !data?.consume_interest_member_name_top2 && !data?.consume_interest_member_name_top3,
+    shouldSkip: (data) =>
+      !data?.send_upvote_cnt &&
+      !data?.consume_member_name &&
+      !data?.consume_interest_member_name_top1 &&
+      !data?.consume_interest_member_name_top2 &&
+      !data?.consume_interest_member_name_top3,
   },
   p17: {
     id: "p17",
     component: P17Scene,
     next: "p18",
-    shouldSkip: (data) => !data?.follow_question_friend && !data?.upvote_hot_answer_member_name,
+    shouldSkip: (data) =>
+      !data?.follow_question_friend && !data?.upvote_hot_answer_member_name,
   },
   p18: {
     id: "p18",
     component: P18Scene,
     next: "p19",
-    shouldSkip: (data) => !data?.club_admin_top1_name && !data?.club_admin_top2_name && !data?.club_admin_pin_cnt,
+    shouldSkip: (data) =>
+      !data?.club_admin_top1_name &&
+      !data?.club_admin_top2_name &&
+      !data?.club_admin_pin_cnt,
   },
   p19: {
     id: "p19",
     component: P19Scene,
     next: "p20",
-    shouldSkip: (data) => !data?.join_club_cnt && !data?.consume_most_club_name && !data?.interactive_most_club_name,
+    shouldSkip: (data) =>
+      !data?.join_club_cnt &&
+      !data?.consume_most_club_name &&
+      !data?.interactive_most_club_name,
   },
   p20: {
     id: "p20",
     component: P20Scene,
     next: "p20Club",
-    shouldSkip: (data) => !data?.club_friend_cnt && !data?.most_interaction_club_member_name_top1 && !data?.most_interaction_club_member_name_top2 && !data?.most_interaction_club_member_name_top3,
+    shouldSkip: (data) =>
+      !data?.club_friend_cnt &&
+      !data?.most_interaction_club_member_name_top1 &&
+      !data?.most_interaction_club_member_name_top2 &&
+      !data?.most_interaction_club_member_name_top3,
   },
   p20Club: {
     id: "p20Club",
     component: P20ClubScene,
     next: "p21",
-    shouldSkip: (data) => !data?.club_active_list_name_top1 && !data?.club_active_list_name_top2 && !data?.club_active_list_name_top3 && !data?.club_interest_list_name_top1 && !data?.club_interest_list_name_top2 && !data?.club_interest_list_name_top3,
-
+    shouldSkip: (data) =>
+      !data?.club_active_list_name_top1 &&
+      !data?.club_active_list_name_top2 &&
+      !data?.club_active_list_name_top3 &&
+      !data?.club_interest_list_name_top1 &&
+      !data?.club_interest_list_name_top2 &&
+      !data?.club_interest_list_name_top3,
   },
   p21: {
     id: "p21",
@@ -225,31 +253,47 @@ export const SCENES: Record<string, SceneConfig> = {
     component: P22Scene,
     next: "p23",
     shouldSkip: (data) =>
-      (!data?.consume_billboard_days || data?.consume_billboard_days < 5) && !data?.consume_billboard_content_cnt && !data?.event_name,
+      (!data?.consume_billboard_days || data?.consume_billboard_days < 5) &&
+      !data?.consume_billboard_content_cnt &&
+      !data?.event_name,
   },
   p23: {
     id: "p23",
     component: P23Scene,
     next: "p24",
-    shouldSkip: (data) => !data?.review_answer_cnt && !data?.review_answer_product_name,
+    shouldSkip: (data) =>
+      !data?.review_answer_cnt && !data?.review_answer_product_name,
   },
   p24: {
     id: "p24",
     component: P24Scene,
     next: "p25",
-    shouldSkip: (data) => !data?.movie_like_cnt && !data?.movie_like_name_top1 && !data?.movie_like_name_top2 && !data?.movie_like_name_top3,
+    shouldSkip: (data) =>
+      !data?.movie_like_cnt &&
+      !data?.movie_like_name_top1 &&
+      !data?.movie_like_name_top2 &&
+      !data?.movie_like_name_top3,
   },
   p25: {
     id: "p25",
     component: P25Scene,
     next: "p26",
-    shouldSkip: (data) => !data?.paid_content_cnt && !data?.total_word_cnt && !data?.label_name_top1 && !data?.label_name_top2 && !data?.label_name_top3 && !data?.most_favorite_author_name, 
+    shouldSkip: (data) =>
+      !data?.paid_content_cnt &&
+      !data?.total_word_cnt &&
+      !data?.label_name_top1 &&
+      !data?.label_name_top2 &&
+      !data?.label_name_top3 &&
+      !data?.most_favorite_author_name,
   },
   p26: {
     id: "p26",
     component: P26Scene,
     next: "p27",
-    shouldSkip: (data) => !data?.write_story_num_sum && !data?.total_upvote_num && !data?.write_story_most_popular_name,
+    shouldSkip: (data) =>
+      !data?.write_story_num_sum &&
+      !data?.total_upvote_num &&
+      !data?.write_story_most_popular_name,
   },
   p27: {
     id: "p27",
@@ -264,7 +308,7 @@ export const SCENES: Record<string, SceneConfig> = {
   p29: {
     id: "p29",
     component: P29Scene,
-    next: "ending",
+    next: "p30",
   },
   p30: {
     id: "30",

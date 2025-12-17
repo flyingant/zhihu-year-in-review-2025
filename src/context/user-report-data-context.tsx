@@ -23,7 +23,7 @@ interface SummaryPosterData {
   poster_id: number;
   poster_url: string;
   text: string;
-  key: string;
+  key?: string;
   bg: string;
 }
 
@@ -57,9 +57,7 @@ export function UserReportDataProvider({ children }: { children: ReactNode }) {
   //   useState<SummaryPosterData | null>(null);
 
   const [summaryPoster, setSummaryPosterState] =
-    useState<SummaryPosterData | null>({
-      key: "love",
-    });
+    useState<SummaryPosterData | null>();
 
   const fetchReportData = useCallback(async () => {
     if (!isAuthenticated) {

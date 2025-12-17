@@ -38,6 +38,7 @@ export default function P29Scene({ onNext, sceneName }: PageProps) {
   const handleFriendInteraction = () => {
     // TODO: Implement friend interaction functionality
     console.log("Friend interaction clicked");
+    onNext && onNext();
   };
 
   return (

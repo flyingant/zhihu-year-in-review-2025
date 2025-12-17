@@ -2,12 +2,12 @@
 
 import Image from "next/image";
 import { useState } from "react";
-import { useSearchParams } from "next/navigation";
 import BaseScene from "./BaseScene";
 import { useAssets } from "@/context/assets-context";
-import { generateSummaryPoster } from "@/api/report";
+import { setVoteOption } from "@/api/report";
 import { useToast } from "@/context/toast-context";
 import { useUserReportData } from "@/context/user-report-data-context";
+import { summaryFlags } from "@/utils/common";
 
 interface PageProps {
   onNext?: () => void;
@@ -17,96 +17,48 @@ interface PageProps {
 export default function P30Scene({ onNext, sceneName }: PageProps) {
   const { assets } = useAssets();
   const { showToast } = useToast();
-  const { setSummaryPoster, summaryPoster } = useUserReportData();
+  const { summaryPoster } = useUserReportData();
 
-  const [selectedFlag, setSelectedFlag] = useState<string | null>(null);
-  const isShareView = true;
   const [shareOptionKeys, setShareOptionKeys] = useState<string[]>([]);
   const [isSynced, setIsSynced] = useState(false);
 
   if (!assets) return null;
   const p28Assets = assets.report.p28 || {};
   const bgAsset = p28Assets.bg;
-  const titleSelfAsset = p28Assets.titleSelf;
   const titleOtherAsset = p28Assets.titleOther;
 
-  const flags = [
-    {
-      key: "cure",
-      text: "被治愈",
-      bg: "#FAF163",
-    },
-    {
-      key: "get",
-      text: "悟",
-      bg: "#FFF59E",
-    },
-    {
-      key: "action",
-      text: "行动",
-      bg: "#FF9C4B",
-    },
-    {
-      key: "release",
-      text: "释放",
-      bg: "#BAC0E1",
-    },
-    {
-      key: "live",
-      text: "生活",
-      bg: "#A0BDE2",
-    },
-    {
-      key: "love",
-      text: "爱",
-      bg: "#FFE0E4",
-    },
-    {
-      key: "good",
-      text: "很棒",
-      bg: "#FFE48D",
-    },
-    {
-      key: "ai",
-      text: "AI",
-      bg: "#B6DFFE",
-    },
-    {
-      key: "clam",
-      text: "清醒",
-      bg: "#B7E4F3",
-    },
-    {
-      key: "growth",
-      text: "成长",
-      bg: "#F6F6C5",
-    },
-    {
-      key: "change",
-      text: "改变",
-      bg: "#ECD0CD",
-    },
-    {
-      key: "zhileng",
-      text: "支棱",
-      bg: "#ED6046",
-    },
-  ];
-
   const handleSelect = (key: string) => {
-    if (isShareView) {
-      if (shareOptionKeys.includes(key)) {
-        setShareOptionKeys(shareOptionKeys.filter((k) => k !== key));
-      } else {
-        const newKyes = [...shareOptionKeys, key];
-        setShareOptionKeys(newKyes.slice(-3));
-      }
+    if (summaryPoster.key === key) {
+      showToast("请选择与正确答案不同的选项来迷惑");
+      return;
+    }
+
+    if (shareOptionKeys.includes(key)) {
+      setShareOptionKeys(shareOptionKeys.filter((k) => k !== key));
     } else {
-      setSelectedFlag(key);
+      const newKyes = [...shareOptionKeys, key];
+      setShareOptionKeys(newKyes.slice(-3));
     }
   };
 
-  const handleShare = () => {};
+  const handleShare = () => {
+    if (shareOptionKeys.length < 3) {
+      showToast("请任选三个选项");
+      return;
+    }
+    setVoteOption({
+      poster_id: summaryPoster.poster_id,
+      options: shareOptionKeys
+        .map((i) => summaryFlags.find((flag) => flag.key === i)?.fullText || "")
+        .filter(Boolean),
+      is_publish_pin: 0,
+    }).then((res) => {
+      console.log("share url: /guess?pollId=" + res?.poll_id);
+      console.log(
+        "self view result url: /guess?pollId=" + res?.poll_id + "&selfView=1"
+      );
+    });
+  };
 
   const handleSyncToggle = () => {
     setIsSynced(!isSynced);
@@ -130,50 +82,40 @@ export default function P30Scene({ onNext, sceneName }: PageProps) {
         />
 
         <Image
-          src={isShareView ? titleOtherAsset.url : titleSelfAsset.url}
-          alt={isShareView ? titleOtherAsset.alt : titleSelfAsset.alt}
-          width={isShareView ? titleOtherAsset.width : titleSelfAsset.width}
-          height={isShareView ? titleOtherAsset.height : titleSelfAsset.height}
+          src={titleOtherAsset.url}
+          alt={titleOtherAsset.alt}
+          width={titleOtherAsset.width}
+          height={titleOtherAsset.height}
           className="relative mx-auto left-0 right-0 pointer-events-none select-none"
           style={{ top: 114 }}
         />
-        {isShareView && (
-          <div
-            className="relative"
-            style={{ top: 131, gap: 22, left: 20, right: 20 }}
-          >
-            <Image
-              src={`/assets/2025-28-banner-${summaryPoster?.key}-active.png`}
-              width={330}
-              height={77}
-              alt="banner"
-            />
-          </div>
-        )}
-        {isShareView && (
-          <div
-            className="relative"
-            style={{ top: 141, gap: 22, left: 20, right: 20 }}
-          >
-            任选三个「迷惑好友」
-          </div>
-        )}
+        <div
+          className="relative"
+          style={{ top: 131, gap: 22, left: 20, right: 20 }}
+        >
+          <Image
+            src={`/assets/2025-28-banner-${summaryPoster?.key}-active.png`}
+            width={330}
+            height={77}
+            alt="banner"
+          />
+        </div>
+        <div
+          className="relative"
+          style={{ top: 141, gap: 22, left: 20, right: 20 }}
+        >
+          任选三个「迷惑好友」
+        </div>
 
         <div
           className="relative flex flex-wrap"
           style={{ top: 151, gap: 22, left: 20, right: 20 }}
         >
-          {flags.map((item) => (
+          {summaryFlags.map((item) => (
             <Image
               onClick={() => handleSelect(item.key)}
               src={`/assets/2025-28-flag-${item.key}-${
-                !isShareView
-                  ? selectedFlag === item.key
-                    ? "active"
-                    : "grey"
-                  : shareOptionKeys.includes(item.key)
-                  ? "active"
-                  : "grey"
+                shareOptionKeys.includes(item.key) ? "active" : "grey"
               }.png`}
               key={item.key}
               alt={item.key}

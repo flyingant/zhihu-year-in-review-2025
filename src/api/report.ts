@@ -682,3 +682,144 @@ export const getUserReportData = (params?: { test_member_id?: string }) => {
     method: "GET",
   });
 };
+
+// ============================================================================
+// 12. Circle Membership Status API
+// ============================================================================
+/**
+ * Response interface for circle membership status
+ */
+export interface CircleMembershipStatusResponse {
+  is_joined: boolean; // Whether the user has joined the circle
+  ring_id: string; // Circle ID
+}
+
+/**
+ * 查询用户加入圈子状态接口
+ * Query the membership status of the current user for a specific circle
+ * 
+ * @param ringId - Circle identifier (ring_id)
+ * @returns Promise<CircleMembershipStatusResponse> - Membership status information
+ * 
+ * @example
+ * const status = await getCircleMembershipStatus('abc123');
+ * if (status.is_joined) {
+ *   console.log('User has joined this circle');
+ * }
+ */
+export const getCircleMembershipStatus = (ringId: string) => {
+  return request<CircleMembershipStatusResponse>({
+    url: `/rings/v1/${ringId}/membership`,
+    method: 'GET',
+  });
+};
+
+// ============================================================================
+// 13. Join Circle API
+// ============================================================================
+/**
+ * Response interface for joining a circle
+ */
+export interface JoinCircleResponse {
+  message: string; // Response message (e.g., "已加入圈子")
+  success: boolean; // Whether the operation was successful
+}
+
+/**
+ * 用户加入圈子接口
+ * Join a specific circle
+ * 
+ * @param ringId - Circle identifier (ring_id)
+ * @returns Promise<JoinCircleResponse> - Join operation result
+ * 
+ * @example
+ * const result = await joinCircle('abc123');
+ * if (result.success) {
+ *   console.log(result.message); // "已加入圈子"
+ * }
+ */
+export const joinCircle = (ringId: string) => {
+  return request<JoinCircleResponse>({
+    url: `/rings/v1/${ringId}/membership`,
+    method: 'POST',
+  });
+};
+
+// ============================================================================
+// 14. Leave Circle API
+// ============================================================================
+/**
+ * Response interface for leaving a circle
+ */
+export interface LeaveCircleResponse {
+  message: string; // Response message (usually empty string)
+  success: boolean; // Whether the operation was successful
+}
+
+/**
+ * 用户退出圈子接口
+ * Leave a specific circle
+ * 
+ * @param ringId - Circle identifier (ring_id)
+ * @returns Promise<LeaveCircleResponse> - Leave operation result
+ * 
+ * @example
+ * const result = await leaveCircle('abc123');
+ * if (result.success) {
+ *   console.log('Successfully left the circle');
+ * }
+ */
+export const leaveCircle = (ringId: string) => {
+  return request<LeaveCircleResponse>({
+    url: `/rings/v1/${ringId}/membership`,
+    method: 'DELETE',
+  });
+};
+
+// ============================================================================
+// 15. Send Message API
+// ============================================================================
+/**
+ * Request parameters for sending a message
+ */
+export interface SendMessageRequest {
+  receiver_id: string; // Receiver user ID
+  text: string; // Message text content
+  content_type?: number; // Content type (default: 0)
+}
+
+/**
+ * Response interface for sending a message
+ */
+export interface SendMessageResponse {
+  success?: boolean; // Whether the operation was successful
+  message?: string; // Response message (if any)
+}
+
+/**
+ * 发送私信接口
+ * Send a private message to a user
+ * 
+ * @param params - Message request parameters containing receiver_id and text
+ * @returns Promise<SendMessageResponse> - Send operation result
+ * 
+ * @example
+ * const result = await sendMessage({
+ *   receiver_id: 'user123',
+ *   text: 'Hello!'
+ * });
+ * if (result.success) {
+ *   console.log('Message sent successfully');
+ * }
+ */
+export const sendMessage = (params: SendMessageRequest) => {
+  return request<SendMessageResponse>({
+    url: '/chat',
+    method: 'POST',
+    data: {
+      content_type: params.content_type ?? 0,
+      receiver_id: params.receiver_id,
+      text: params.text,
+    },
+  });
+};

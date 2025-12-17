@@ -112,7 +112,7 @@ export default function P3Scene({ onNext, sceneName }: PageProps) {
           <span
             hidden={!answerCount}
             className={`text-r-fern`}
-            style={{ paddingLeft: '2px', paddingRight: '2px', fontSize: '18px' }}
+            style={{ paddingLeft: '6px', paddingRight: '4px', fontSize: '18px' }}
           >
             {answerCount}
           </span>
@@ -175,7 +175,7 @@ export default function P3Scene({ onNext, sceneName }: PageProps) {
             className={`text-r-fern`}
             style={{ marginLeft: '4px', marginRight: '4px', fontSize: '18px' }}
           >
-            「{firstAnswerTitle}」
+            {firstAnswerTitle}
           </span>
           问题写下了今年第一条回答
         </div>

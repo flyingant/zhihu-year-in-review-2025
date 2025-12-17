@@ -274,7 +274,7 @@ export default function P19Scene({ onNext, sceneName }: PageProps) {
                 )}
               </span>
               个赞同 <br />
-              <span>真诚的人路同亦同心</span>
+              <span>真诚的人同路亦同心</span>
             </div>
           </div>
         )}

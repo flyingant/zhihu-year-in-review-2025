@@ -176,7 +176,7 @@ export default function P24Scene({ onNext, sceneName }: PageProps) {
               次作品评价
             </div>
             <div className='my-5'>
-              用自己的直觉与品味，为作品发声
+              哪部作品是反射你内心的那面镜子？
               <br />
             </div>
             <div className='text-center'>

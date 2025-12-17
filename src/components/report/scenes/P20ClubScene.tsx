@@ -235,7 +235,7 @@ export default function P20Scene({ onNext, sceneName }: PageProps) {
                 」
               </span>
             )}
-            <span>是你今年最爱的精神据点</span>
+            <span>圈子是你今年最爱的精神据点</span>
           </div>
           {/* Recommended Clubs */}
           <div

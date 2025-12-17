@@ -136,7 +136,7 @@ export default function P15Scene({ onNext, sceneName }: PageProps) {
             <span className={`mx-[6px] text-r-fern`} style={{ fontSize: 23 }}>
               {String(newFollowCount ?? 'new_follow_cnt')}
             </span>
-            位知友选择关注你
+            位知友关注你
           </div>
         )}
 

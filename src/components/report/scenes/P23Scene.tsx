@@ -118,9 +118,8 @@ export default function P23Scene({ onNext, sceneName }: PageProps) {
                   reviewAnswerProductName ?? 'review_answer_product_name'
                 )}
               </span>
-              的测评
               <br />
-              你用互动表达了对内容
+              你用互动表达了对评测内容
               <span className='text-r-pink px-[7px]' style={{ fontSize: 16 }}>
                 「真」的认可
               </span>

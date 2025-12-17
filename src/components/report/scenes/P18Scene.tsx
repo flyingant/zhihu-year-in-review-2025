@@ -166,16 +166,19 @@ export default function P18Scene({ onNext, sceneName }: PageProps) {
         {clubAdminTop1Name && (
           <div
             className={'absolute text-center'}
-            style={{ width: '321px', left: '17px', top: '233px' }}
+            style={{ width: '321px', left: '17px', top: '195px' }}
           >
-            <span className={`text-r-blue px-[7px]`} style={{ fontSize: 20 }}>
+            <div className={`text-r-blue px-[7px]`} style={{ fontSize: 20 }}>
               「{String(clubAdminTop1Name ?? 'club_admin_top1_name')} 」
-            </span>
-            圈
-            <br />
-            的主理人,你好
+            </div>
+            { clubAdminTop2Name &&<div className={`text-r-blue px-[7px]`} style={{ fontSize: 20 }}>
+              「{String(clubAdminTop2Name ?? 'club_admin_top2_name')} 」
+            </div> }
+            <div>圈子主理人，你好！2025，你的圈子聚集</div>
           </div>
         )}
+        
+
 
         {!!clubAdminTop1MemberCount && (
           <div className={' absolute'} style={{ right: '14px', top: '290px' }}>

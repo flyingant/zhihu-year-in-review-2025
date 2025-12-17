@@ -129,7 +129,7 @@ export default function P22Scene({ onNext, sceneName }: PageProps) {
         >
           当你面向时代求真
           <br />
-          时代耶在折射你
+          时代也在折射你
         </div>
         {/* Billboard browsing */}
         <div

@@ -148,13 +148,14 @@ export default function P16Scene({ onNext, sceneName }: PageProps) {
 
         {!!consumeMemberName && (
           <div style={{ marginBottom: "8px" }}>
-            你最长停在
+            你最常停在
             <span
               className={`text-r-yellow`}
               style={{ fontSize: 14, paddingLeft: "7px", paddingRight: "7px" }}
             >
               @{String(consumeMemberName ?? "consume_member_name")}
             </span>
+            的页面
           </div>
         )}
 

@@ -131,12 +131,12 @@ export default function P15Scene({ onNext, sceneName }: PageProps) {
 
         {!!newFollowCount && (
           <div className='absolute' style={{ left: '120px', top: '172px' }}>
-            <span className='mr-[7px]'>2025</span>
+            <span className='mr-[4px]'>2025</span>
             <span>年</span> <br />有
             <span className={`mx-[6px] text-r-fern`} style={{ fontSize: 23 }}>
               {String(newFollowCount ?? 'new_follow_cnt')}
             </span>
-            位知友选择关注你
+            位知友关注你
           </div>
         )}
 

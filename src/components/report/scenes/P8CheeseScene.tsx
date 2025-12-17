@@ -20,7 +20,7 @@ export default function P8CheeseScene({ onNext, sceneName }: PageProps) {
   const blue1Asset = bgAsset.blue1;
   const mix5Asset = bgAsset.mix5;
   const mix2Asset = bgAsset.mix2;
-  const liukanshanAsset = assets.report.p8.liukanshan;
+  const p8GifAsset = assets.report.p8.gif;
 
   const cheeseAwards = (reportData?.cheese_award_list || '') as string;
   const studentName = (reportData?.cheese_student_name || '') as string;
@@ -72,17 +72,15 @@ export default function P8CheeseScene({ onNext, sceneName }: PageProps) {
                 fontSize: '22px',
               }}
             >
-              这一年，你荣登榜首
+              这一路，作品为你点亮星光
             </div>
             <div hidden={!cheeseAwards}>
-              <div style={{ paddingBottom: '10px' }}>你的商业作品获得</div>
-
               <div style={{ paddingBottom: '8px' }}>
                 <span
                   className='text-r-yellow font-bold'
                   style={{ fontSize: '18px' }}
                 >
-                  2025 芝士奖「{cheeseAwards}」荣誉
+                  {cheeseAwards}
                 </span>
               </div>
 
@@ -105,11 +103,12 @@ export default function P8CheeseScene({ onNext, sceneName }: PageProps) {
           }}
         >
           <Image
-            src={liukanshanAsset.url}
-            alt={liukanshanAsset.alt}
-            width={liukanshanAsset.width}
-            height={liukanshanAsset.height}
+            src={p8GifAsset.url}
+            alt={p8GifAsset.alt}
+            width={p8GifAsset.width}
+            height={p8GifAsset.height}
             className='object-contain relative pointer-events-none select-none z-10'
+            unoptimized
           />
         </div>
         {!!studentName && (

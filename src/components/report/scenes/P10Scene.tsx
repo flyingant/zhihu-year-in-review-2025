@@ -101,7 +101,8 @@ export default function P10Scene({ onNext, sceneName }: PageProps) {
         className={'text-center'}
         style={{ paddingTop: '120px', paddingBottom: '24px', fontSize: '22px' }}
       >
-        你总共浏览了
+        <div>阅读，开启你与世界的沉浸对话</div>
+        <div>今年，你看过</div>
       </div>
 
       <div>
@@ -124,7 +125,7 @@ export default function P10Scene({ onNext, sceneName }: PageProps) {
             }}
           >
              <span className="text-r-pink font-bold pixel-font" style={{ fontSize: '34px', textShadow: '3px 3px 0px #000000' }}>
-               {questionCount}个
+               {questionCount}
              </span>
           </div>
         </div>
@@ -148,7 +149,7 @@ export default function P10Scene({ onNext, sceneName }: PageProps) {
             }}
           >
              <span className="text-r-fern font-bold pixel-font" style={{ fontSize: '34px', textShadow: '3px 3px 0px #000000' }}>
-               {answerCount}个
+               {answerCount}
              </span>
           </div>
         </div>
@@ -172,7 +173,7 @@ export default function P10Scene({ onNext, sceneName }: PageProps) {
             }}
           >
              <span className="text-r-green font-bold pixel-font" style={{ fontSize: '34px', textShadow: '3px 3px 0px #000000' }}>
-               {articleCount}篇
+               {articleCount}
              </span>
           </div>
         </div>
@@ -196,7 +197,7 @@ export default function P10Scene({ onNext, sceneName }: PageProps) {
             }}
           >
             <span className="text-r-yellow font-bold pixel-font" style={{ fontSize: '34px', textShadow: '3px 3px 0px #000000' }}>
-              {pinCount}个
+              {pinCount}
             </span>
           </div>
         </div>
@@ -206,15 +207,20 @@ export default function P10Scene({ onNext, sceneName }: PageProps) {
       <div 
         className="flex flex-col items-center justify-center"
         style={{ paddingTop: '210px', paddingBottom: '20px', marginTop: '-150px' }}
-      >
-        <Image 
-          src={wordsAsset.url} 
-          alt={wordsAsset.alt} 
-          width={wordsAsset.width} 
-          height={wordsAsset.height} 
-          className="object-contain pointer-events-none select-none z-1"
-          style={{ marginBottom: '20px' }}
-        />
+      > 
+        <div className="flex items-center justify-center">
+          <div>总计阅读</div>
+           <Image 
+            src={wordsAsset.url} 
+            alt={wordsAsset.alt} 
+            width={wordsAsset.width} 
+            height={wordsAsset.height} 
+            className="object-contain pointer-events-none select-none z-1"
+            style={{ marginBottom: '20px' }}
+          />
+          {/* <div>个字</div> */}
+        </div>
+       
         <div>
           相当于读完 
           <span 

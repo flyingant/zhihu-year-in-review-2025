@@ -22,7 +22,7 @@ export default function P8Scene({ onNext, sceneName }: PageProps) {
   const blue1Asset = bgAsset.blue1;
   const mix5Asset = bgAsset.mix5;
   const mix2Asset = bgAsset.mix2;
-  const liukanshanAsset = assets.report.p8.liukanshan;
+  const p8GifAsset = assets.report.p8.gif;
   const sparkleAsset = assets.report.p8.sparkle;
   const shipAsset = assets.report.p8.ship;
   
@@ -67,14 +67,14 @@ export default function P8Scene({ onNext, sceneName }: PageProps) {
         <div 
           style={{ lineHeight: '1.4', marginBottom: '68px', fontSize: '22px' }}
         >
-          这一年，你荣登榜首
+          这一路，作品为你点亮星光
         </div>
 
-        <div hidden={!zhiTrendRankCount}>
+        <div hidden={!zhiTrendRankCount} style={{ paddingBottom: '18px' }}>
           你登上了 
           <span 
             className="text-r-pink"
-            style={{ fontSize: '18px', paddingRight: '6px', paddingLeft: '6px'}}
+            style={{ fontSize: '18px', paddingRight: '6px', paddingLeft: '6px', }}
           >
             {zhiTrendRankCount}
           </span> 
@@ -94,17 +94,21 @@ export default function P8Scene({ onNext, sceneName }: PageProps) {
 
         <div style={{ lineHeight: '40px' }} hidden={!bestAnswerTopic.length}>
           在
-          <span 
-            className={`text-r-blue`}
-            style={{ marginLeft: '4px', marginRight: '4px', fontSize: '18px' }}
-          >
-            「{bestAnswerTopic[0]}」
-          </span>
+          {bestAnswerTopic.map((topic, index) => (
+            <span key={index}>
+              <span 
+                className={`text-r-blue`}
+                style={{ fontSize: '18px' }}
+              >
+                「{topic}」
+              </span>
+            </span>
+          ))}
           话题下成为优秀答主
         </div>
 
         {/* 奖杯和刘看山区域 */}
-        <div style={{ position: 'relative', paddingTop: '50px', paddingLeft: '140px' }}>
+        <div style={{ position: 'relative', paddingTop: '50px' }}>
           <Image 
             src={sparkleAsset.url} 
             alt={sparkleAsset.alt} 
@@ -114,11 +118,13 @@ export default function P8Scene({ onNext, sceneName }: PageProps) {
             style={{ top: '10px', left: '90px' }}
           />
           <Image 
-            src={liukanshanAsset.url} 
-            alt={liukanshanAsset.alt} 
-            width={liukanshanAsset.width} 
-            height={liukanshanAsset.height} 
+            src={p8GifAsset.url} 
+            alt={p8GifAsset.alt} 
+            width={p8GifAsset.width} 
+            height={p8GifAsset.height} 
             className="object-contain relative pointer-events-none select-none z-10" 
+            unoptimized
+            style={{ top: '0px', left: '60px' }}
           />
         </div>
 
@@ -149,16 +155,17 @@ export default function P8Scene({ onNext, sceneName }: PageProps) {
                   {navigatorContentCount}
                 </span> 
                 篇好内容
-                </div>
-              
+                <span className="inline-block align-middle ml-1" style={{ width: shipAsset.width, height: shipAsset.height }}>
+                  <Image 
+                    src={shipAsset.url} 
+                    alt={shipAsset.alt} 
+                    width={shipAsset.width} 
+                    height={shipAsset.height} 
+                    className="object-contain pointer-events-none select-none" 
+                  />
+                </span>  
+              </div>
             </div>
-            <Image 
-              src={shipAsset.url} 
-              alt={shipAsset.alt} 
-              width={shipAsset.width} 
-              height={shipAsset.height} 
-              className="object-contain pointer-events-none select-none z-1" 
-            />
           </div>
         </div>
         

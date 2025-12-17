@@ -562,7 +562,7 @@
       "alt": "年度视频清晰图片"
     },
     "reportBg": {
-      "url": "/assets/yearly_report_bg.png",
+      "url": "/assets/yearly_report_bg_1217.png",
       "width": 686,
       "height": 551,
       "alt": "年度报告背景"
@@ -1017,6 +1017,12 @@
       "height": 300,
       "alt": "保存图片"
     },
+    "unauth": {
+      "url": "/assets/2025_2_fourgrid_unauth.png",
+      "width": 2250,
+      "height": 1857,
+      "alt": "未登录四宫格"
+    },
     "preview": {
       "annual_video": {
         "url": "/assets/2025_2_fourgrid_annual_video_preview.png",
@@ -1258,7 +1264,7 @@
         "alt": "Introduction Step 2 Video"
       },
       "step3": {
-        "url": "/assets/2025_2_report_intro_step3.mp4",
+        "url": "/assets/2025_2_report_intro_step3_1217.mp4",
         "width": 375,
         "height": 812,
         "alt": "Introduction Step 3 Video"
@@ -1634,6 +1640,12 @@
         "width": 78,
         "height": 78,
         "alt": "3dHi"
+      },
+      "gif": {
+        "url": "/assets/report/p5.gif",
+        "width": 146,
+        "height": 180,
+        "alt": "P5 GIF Animation"
       }
     },
     "p6": {
@@ -1642,6 +1654,18 @@
         "width": 189,
         "height": 241,
         "alt": "liukanshan"
+      },
+      "gif": {
+        "url": "/assets/report/p6.gif",
+        "width": 145,
+        "height": 170,
+        "alt": "P6 GIF Animation"
+      },
+      "books": {
+        "url": "/assets/2025_2_report_p6_books.png",
+        "width": 171,
+        "height": 157,
+        "alt": "books"
       }
     },
     "p7": {
@@ -1668,6 +1692,12 @@
         "width": 71,
         "height": 69,
         "alt": "yellowBubble"
+      },
+      "gif": {
+        "url": "/assets/report/p7.gif",
+        "width": 375,
+        "height": 812,
+        "alt": "P7 GIF Animation"
       }
     },
     "p8": {
@@ -1688,6 +1718,12 @@
         "width": 32,
         "height": 32,
         "alt": "ship"
+      },
+      "gif": {
+        "url": "/assets/report/p8.gif",
+        "width": 260,
+        "height": 260,
+        "alt": "P8 GIF Animation"
       }
     },
     "p9": {
@@ -1816,6 +1852,12 @@
         "width": 263,
         "height": 263,
         "alt": "clock"
+      },
+      "gif": {
+        "url": "/assets/report/p12.gif",
+        "width": 375,
+        "height": 812,
+        "alt": "P12 GIF Animation"
       }
     },
     "p13": {
@@ -1824,6 +1866,12 @@
         "width": 237,
         "height": 292,
         "alt": "liukanshan"
+      },
+      "gif": {
+        "url": "/assets/report/p13.gif",
+        "width": 375,
+        "height": 812,
+        "alt": "P13 GIF Animation"
       }
     },
     "p14": {
@@ -1858,6 +1906,24 @@
         "width": 40,
         "height": 18,
         "alt": "year"
+      },
+      "gif1": {
+        "url": "/assets/report/p15-1.gif",
+        "width": 375,
+        "height": 812,
+        "alt": "P15 GIF Animation 1"
+      },
+      "gif2": {
+        "url": "/assets/report/p15-2.gif",
+        "width": 375,
+        "height": 812,
+        "alt": "P15 GIF Animation 2"
+      },
+      "gif3": {
+        "url": "/assets/report/p15-3.gif",
+        "width": 375,
+        "height": 812,
+        "alt": "P15 GIF Animation 3"
       }
     },
     "p16": {
@@ -1878,6 +1944,12 @@
         "width": 40,
         "height": 17,
         "alt": "subscribed"
+      },
+      "gif": {
+        "url": "/assets/report/p16.gif",
+        "width": 375,
+        "height": 812,
+        "alt": "P16 GIF Animation"
       }
     },
     "p17": {
@@ -1924,6 +1996,12 @@
         "width": 323,
         "height": 232,
         "alt": "main"
+      },
+      "gif": {
+        "url": "/assets/report/p18.gif",
+        "width": 375,
+        "height": 812,
+        "alt": "P18 GIF Animation"
       }
     },
     "p19": {
@@ -1956,6 +2034,12 @@
         "width": 196,
         "height": 70,
         "alt": "yellow"
+      },
+      "gif": {
+        "url": "/assets/report/p19.gif",
+        "width": 375,
+        "height": 812,
+        "alt": "P19 GIF Animation"
       }
     },
     "p20": {
@@ -1964,6 +2048,12 @@
         "width": 299,
         "height": 421,
         "alt": "main"
+      },
+      "gif": {
+        "url": "/assets/report/p20.gif",
+        "width": 375,
+        "height": 812,
+        "alt": "P20 GIF Animation"
       }
     },
     "p21": {
@@ -2040,6 +2130,12 @@
         "width": 41,
         "height": 17,
         "alt": "P22 Joined"
+      },
+      "gif": {
+        "url": "/assets/report/p22.gif",
+        "width": 375,
+        "height": 812,
+        "alt": "P22 GIF Animation"
       }
     },
     "p23": {
@@ -2048,6 +2144,12 @@
         "width": 375,
         "height": 355,
         "alt": "P23 Review"
+      },
+      "gif": {
+        "url": "/assets/report/p23.gif",
+        "width": 375,
+        "height": 812,
+        "alt": "P23 GIF Animation"
       }
     },
     "p24": {
@@ -2062,6 +2164,12 @@
         "width": 375,
         "height": 787,
         "alt": "P24 Film"
+      },
+      "gif": {
+        "url": "/assets/report/p24.gif",
+        "width": 375,
+        "height": 812,
+        "alt": "P24 GIF Animation"
       }
     },
     "p25": {
@@ -2094,6 +2202,12 @@
         "width": 1,
         "height": 73,
         "alt": "P25 Right"
+      },
+      "gif": {
+        "url": "/assets/report/p25.gif",
+        "width": 375,
+        "height": 812,
+        "alt": "P25 GIF Animation"
       }
     },
     "p26": {
@@ -2126,6 +2240,12 @@
         "width": 88,
         "height": 15,
         "alt": "P26 red pixel 2"
+      },
+      "gif": {
+        "url": "/assets/report/p26.gif",
+        "width": 375,
+        "height": 812,
+        "alt": "P26 GIF Animation"
       }
     },
     "p28": {
@@ -2216,6 +2336,12 @@
         "width": 1080,
         "height": 2073,
         "alt": "Index Bottom Right Background"
+      },
+      "gif": {
+        "url": "/assets/report/index.gif",
+        "width": 223,
+        "height": 200,
+        "alt": "Index GIF Animation"
       }
     },
     "audio": {

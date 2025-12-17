@@ -68,7 +68,7 @@ export default function AuthWrapper({
     );
   }
 
-  const isDevelopment = process.env.NODE_ENV === 'development';
+  const isDevelopment = false;
 
   return (
     <>

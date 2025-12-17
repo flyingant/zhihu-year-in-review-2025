@@ -1,7 +1,7 @@
 // components/report/scenes/IndexScene.tsx
 import { motion, AnimatePresence } from "framer-motion";
 import Image from "next/image";
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 import BaseScene from "./BaseScene";
 import { useUserReportData } from "@/context/user-report-data-context";
 import { useAssets } from "@/context/assets-context";
@@ -33,16 +33,16 @@ const MirrorContent = ({
   
   <div className="flex flex-col justify-center text-left pointer-events-none select-none w-full h-full" style={{ fontSize: '14px' }}>
     <div style={{ fontSize: '22px', paddingBottom: '8px' }}>
-      @{userName}
+      你说，时间是真实的吗？
     </div>
     <div style={{ fontSize: '22px', paddingBottom: '8px' }}>
-      你说，时间是真实的吗？
+      @{userName}
     </div>
     <div>
       从 
-      <span className="text-r-pink" style={{ padding: '0px 3px' }}>{year}</span>年
-      <span className="text-r-pink" style={{ padding: '0px 3px' }}>{month}</span>月
-      <span className="text-r-pink" style={{ padding: '0px 3px' }}>{day}</span>日
+      <span className="text-r-pink" style={{ padding: '0px 3px', fontSize: '18px' }}>{year}</span>年
+      <span className="text-r-pink" style={{ padding: '0px 3px', fontSize: '18px' }}>{month}</span>月
+      <span className="text-r-pink" style={{ padding: '0px 3px', fontSize: '18px' }}>{day}</span>日
       开始
     </div>
     <div>
@@ -56,6 +56,47 @@ export default function IndexScene({ onNext, sceneName }: IndexSceneProps) {
   const { reportData } = useUserReportData();
   const [activeView, setActiveView] = useState<ActiveView>(null);
   const [expandingView, setExpandingView] = useState<ActiveView>(null);
+  const [gifFirstFrame, setGifFirstFrame] = useState<string | null>(null);
+  const [showAnimatedGif, setShowAnimatedGif] = useState(false);
+  const [showGif, setShowGif] = useState(true);
+  const gifImageRef = useRef<HTMLImageElement | null>(null);
+  const gifTimeoutRef = useRef<NodeJS.Timeout | null>(null);
+
+  // Extract first frame from GIF
+  useEffect(() => {
+    if (!assets?.report?.index?.gif) return;
+
+    const img = new window.Image();
+    img.crossOrigin = "anonymous";
+    
+    img.onload = () => {
+      const canvas = document.createElement("canvas");
+      canvas.width = img.width;
+      canvas.height = img.height;
+      const ctx = canvas.getContext("2d");
+      if (ctx) {
+        ctx.drawImage(img, 0, 0);
+        const dataUrl = canvas.toDataURL("image/png");
+        setGifFirstFrame(dataUrl);
+      }
+    };
+
+    img.onerror = () => {
+      console.error("Failed to load GIF for first frame extraction");
+    };
+
+    img.src = assets.report.index.gif.url;
+    gifImageRef.current = img;
+  }, [assets?.report?.index?.gif]);
+
+  // Cleanup timeout on unmount
+  useEffect(() => {
+    return () => {
+      if (gifTimeoutRef.current) {
+        clearTimeout(gifTimeoutRef.current);
+      }
+    };
+  }, []);
 
   if (!assets) return null;
 
@@ -80,6 +121,25 @@ export default function IndexScene({ onNext, sceneName }: IndexSceneProps) {
 
   const handleBackgroundClick = () => {
     setActiveView(null);
+  };
+
+  // Handle next button click - show animated GIF first, then proceed after 3 seconds
+  const handleNextClick = () => {
+    if (!assets?.report?.index?.gif) {
+      // If no GIF, proceed directly
+      onNext?.();
+      return;
+    }
+
+    // Show animated GIF
+    setShowAnimatedGif(true);
+
+    // Set timeout for 3 seconds, then hide GIF and proceed to next
+    gifTimeoutRef.current = setTimeout(() => {
+      setShowAnimatedGif(false);
+      setShowGif(false);
+      onNext?.();
+    }, 3000);
   };
 
   const floatTransition = (delay = 0, duration = 2) => ({
@@ -198,7 +258,7 @@ export default function IndexScene({ onNext, sceneName }: IndexSceneProps) {
 
   return (
     <BaseScene
-      onNext={onNext}
+      onNext={handleNextClick}
       sceneName={sceneName}
       showBottomNextButton={!!activeView}
     >
@@ -371,6 +431,45 @@ export default function IndexScene({ onNext, sceneName }: IndexSceneProps) {
                   priority
                 />
               )}
+              {indexAssets.gif && showGif && (
+                <motion.div
+                  className="absolute"
+                  style={{top: '300px', left: '100px'}}
+                  animate={{ 
+                    y: [-4, 8, -4],
+                    x: [-2, 2, -2]
+                  }}
+                  transition={{ 
+                    repeat: Infinity, 
+                    duration: 3, 
+                    ease: "easeInOut" 
+                  }}
+                >
+                  {showAnimatedGif ? (
+                    // eslint-disable-next-line @next/next/no-img-element
+                    <img
+                      src={indexAssets.gif.url}
+                      alt={indexAssets.gif.alt}
+                      width={indexAssets.gif.width}
+                      height={indexAssets.gif.height}
+                      className="object-cover"
+                      style={{ display: 'block' }}
+                    />
+                  ) : (
+                    gifFirstFrame && (
+                      <Image
+                        src={gifFirstFrame}
+                        alt={indexAssets.gif.alt}
+                        width={indexAssets.gif.width}
+                        height={indexAssets.gif.height}
+                        className="object-cover"
+                        priority
+                      />
+                    )
+                  )}
+                </motion.div>
+              )}
+              
               <div
                 className="absolute flex items-center justify-center"
                 style={getMirrorStyle(activeView).container}

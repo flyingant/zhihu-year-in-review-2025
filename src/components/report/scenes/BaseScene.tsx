@@ -1,11 +1,11 @@
-"use client";
+'use client';
 
-import { ReactNode, useState, useRef, useEffect } from "react";
-import Image from "next/image";
-import { useSceneThemeStyles } from "@/hooks/useSceneTheme";
-import { SCENES } from "@/data/reportConfig";
-import { useAssets } from "@/context/assets-context";
-import { motion } from "framer-motion";
+import { ReactNode, useState, useRef, useEffect } from 'react';
+import Image from 'next/image';
+import { useSceneThemeStyles } from '@/hooks/useSceneTheme';
+import { SCENES } from '@/data/reportConfig';
+import { useAssets } from '@/context/assets-context';
+import { motion } from 'framer-motion';
 
 interface BaseSceneProps {
   children: ReactNode;
@@ -32,7 +32,7 @@ function DebugPanel({
   onNavigateToScene?: (sceneId: string) => void;
 }) {
   // Only show in development
-  const isDev = process.env.NODE_ENV === "development";
+  const isDev = process.env.NODE_ENV === 'development';
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
 
@@ -50,9 +50,9 @@ function DebugPanel({
     };
 
     if (isDropdownOpen) {
-      document.addEventListener("mousedown", handleClickOutside);
+      document.addEventListener('mousedown', handleClickOutside);
       return () =>
-        document.removeEventListener("mousedown", handleClickOutside);
+        document.removeEventListener('mousedown', handleClickOutside);
     }
   }, [isDropdownOpen, isDev]);
 
@@ -70,12 +70,12 @@ function DebugPanel({
     if (onNavigateToScene) {
       // Use the navigation function if provided (no reload needed)
       onNavigateToScene(sceneId);
-    } else if (typeof window !== "undefined") {
+    } else if (typeof window !== 'undefined') {
       // Fallback: Update URL parameter and reload (only if navigation function not available)
       const searchParams = new URLSearchParams(window.location.search);
       searchParams.set('scene', sceneId);
       const newUrl = `${window.location.pathname}?${searchParams.toString()}`;
-      window.history.replaceState(null, "", newUrl);
+      window.history.replaceState(null, '', newUrl);
       window.location.reload();
     }
   };
@@ -83,28 +83,28 @@ function DebugPanel({
   const sceneList = Object.keys(SCENES);
 
   return (
-    <div className="fixed top-0 left-0 right-0 z-50 bg-black/20 backdrop-blur-sm border-b border-white/20">
-      <div className="max-w-7xl mx-auto px-4 py-2 flex items-center justify-between gap-4 text-xs text-white">
-        <div className="flex items-center gap-4 flex-1 min-w-0">
-          <div className="font-mono font-semibold whitespace-nowrap">
-            Scene:{" "}
-            <span className="text-yellow-300">{sceneName || "Unknown"}</span>
+    <div className='fixed top-0 left-0 right-0 z-50 bg-black/20 backdrop-blur-sm border-b border-white/20'>
+      <div className='max-w-7xl mx-auto px-4 py-2 flex items-center justify-between gap-4 text-xs text-white'>
+        <div className='flex items-center gap-4 flex-1 min-w-0'>
+          <div className='font-mono font-semibold whitespace-nowrap'>
+            Scene:{' '}
+            <span className='text-yellow-300'>{sceneName || 'Unknown'}</span>
           </div>
         </div>
-        <div className="flex items-center gap-2">
+        <div className='flex items-center gap-2'>
           {/* Scene Navigation Dropdown */}
-          <div className="relative" ref={dropdownRef}>
+          <div className='relative' ref={dropdownRef}>
             <button
               onClick={(e) => {
                 e.stopPropagation();
                 setIsDropdownOpen(!isDropdownOpen);
               }}
-              className="px-3 py-1 bg-purple-500/80 hover:bg-purple-500 text-white rounded text-xs font-semibold transition-colors whitespace-nowrap"
+              className='px-3 py-1 bg-purple-500/80 hover:bg-purple-500 text-white rounded text-xs font-semibold transition-colors whitespace-nowrap'
             >
               Navigate ▼
             </button>
             {isDropdownOpen && (
-              <div className="absolute top-full right-0 mt-1 bg-black/90 backdrop-blur-sm border border-white/20 rounded shadow-lg min-w-[150px] max-h-[300px] overflow-y-auto z-50">
+              <div className='absolute top-full right-0 mt-1 bg-black/90 backdrop-blur-sm border border-white/20 rounded shadow-lg min-w-[150px] max-h-[300px] overflow-y-auto z-50'>
                 {sceneList.map((sceneId) => (
                   <button
                     key={sceneId}
@@ -114,8 +114,8 @@ function DebugPanel({
                     }}
                     className={`w-full text-left px-3 py-2 text-xs hover:bg-white/20 transition-colors ${
                       sceneId === sceneName
-                        ? "bg-blue-500/50 text-yellow-300"
-                        : "text-white"
+                        ? 'bg-blue-500/50 text-yellow-300'
+                        : 'text-white'
                     }`}
                   >
                     {sceneId}
@@ -127,7 +127,7 @@ function DebugPanel({
           {onNext && (
             <button
               onClick={handleNextClick}
-              className="px-3 py-1 bg-blue-500/80 hover:bg-blue-500 text-white rounded text-xs font-semibold transition-colors whitespace-nowrap"
+              className='px-3 py-1 bg-blue-500/80 hover:bg-blue-500 text-white rounded text-xs font-semibold transition-colors whitespace-nowrap'
             >
               Next →
             </button>
@@ -159,7 +159,7 @@ function AudioPlayer() {
       setIsPlaying(false);
     } else {
       audioRef.current.play().catch((error) => {
-        console.error("Error playing audio:", error);
+        console.error('Error playing audio:', error);
       });
       setIsPlaying(true);
     }
@@ -174,9 +174,9 @@ function AudioPlayer() {
       setIsPlaying(false);
     };
 
-    audio.addEventListener("ended", handleEnded);
+    audio.addEventListener('ended', handleEnded);
     return () => {
-      audio.removeEventListener("ended", handleEnded);
+      audio.removeEventListener('ended', handleEnded);
     };
   }, []);
 
@@ -187,15 +187,16 @@ function AudioPlayer() {
       <audio ref={audioRef} src={audioUrl} loop />
       <button
         onClick={togglePlayPause}
-        className="absolute top-4 right-4 cursor-pointer " style={{ zIndex: 9999 }}
-        aria-label={isPlaying ? "Pause audio" : "Play audio"}
+        className='absolute top-4 right-4 cursor-pointer '
+        style={{ zIndex: 9999 }}
+        aria-label={isPlaying ? 'Pause audio' : 'Play audio'}
       >
         <Image
           src={isPlaying ? iconPlaying.url : iconDisable.url}
           alt={isPlaying ? iconPlaying.alt : iconDisable.alt}
           width={iconDisable.width / 2}
           height={iconDisable.height / 2}
-          className="object-contain"
+          className='object-contain'
         />
       </button>
     </>
@@ -219,7 +220,7 @@ export default function BaseScene({
 
   useEffect(() => {
     const calculateScale = () => {
-      if (typeof window !== "undefined") {
+      if (typeof window !== 'undefined') {
         const screenWidth = window.innerWidth;
         const screenHeight = window.innerHeight;
         const baseWidth = 375;
@@ -247,38 +248,43 @@ export default function BaseScene({
     calculateScale();
 
     // Listen for resize events
-    window.addEventListener("resize", calculateScale);
+    window.addEventListener('resize', calculateScale);
 
     return () => {
-      window.removeEventListener("resize", calculateScale);
+      window.removeEventListener('resize', calculateScale);
     };
   }, []);
 
   return (
     <div
-      className="relative z-30 w-full h-full bg-transparent flex items-center justify-center text-[#000]"
+      className='relative z-30 w-full h-full bg-transparent flex items-center justify-center text-[#000]'
       style={{
         ...styles,
       }}
     >
       <div
         ref={containerRef}
-        className="relative bg-transparent"
+        className='relative bg-transparent'
         style={{
-          width: "375px",
-          height: "812px",
-          overflow: "hidden",
+          width: '375px',
+          height: '812px',
+          overflow: 'hidden',
           transform: `scale(${scale})`,
-          transformOrigin: "center center",
+          transformOrigin: 'center center',
         }}
       >
-        <DebugPanel sceneName={sceneName} onNext={onNext} onNavigateToScene={onNavigateToScene} />
+        <DebugPanel
+          sceneName={sceneName}
+          onNext={onNext}
+          onNavigateToScene={onNavigateToScene}
+        />
         <div className={`relative z-40 w-full h-full`}>
           <AudioPlayer />
           {logoAsset ? (
             <div
               className={`absolute z-50`}
-              style={{ top: "58px", left: "140px" }}
+              hidden
+              style={{ top: '58px', left: '140px' }}
             >
               {defaultLogo ? (
                 <Image
@@ -286,7 +292,7 @@ export default function BaseScene({
                   alt={logoAsset.alt}
                   width={logoAsset.width / 2}
                   height={logoAsset.height / 2}
-                  className="object-contain"
+                  className='object-contain'
                 />
               ) : logoWhiteAsset ? (
                 <Image
@@ -294,7 +300,7 @@ export default function BaseScene({
                   alt={logoWhiteAsset.alt}
                   width={logoWhiteAsset.width / 2}
                   height={logoWhiteAsset.height / 2}
-                  className="object-contain"
+                  className='object-contain'
                 />
               ) : null}
             </div>
@@ -306,24 +312,28 @@ export default function BaseScene({
                 e.stopPropagation();
                 onNext();
               }}
-              className="absolute left-0 right-0 bottom-6 z-60 mx-auto px-5 py-2 rounded-full bg-black/80 text-white text-sm font-semibold shadow-lg flex items-center justify-center w-fit"
-              aria-label="Next"
+              className='absolute left-0 right-0 bottom-6 z-60 mx-auto px-5 py-2 rounded-full bg-black/80 text-white text-sm font-semibold shadow-lg flex items-center justify-center w-fit'
+              aria-label='Next'
               animate={{ y: [0, -6, 0], scale: [1, 1.05, 1] }}
-              transition={{ repeat: Infinity, duration: 1.8, ease: "easeInOut" }}
+              transition={{
+                repeat: Infinity,
+                duration: 1.8,
+                ease: 'easeInOut',
+              }}
             >
               <svg
-                width="28"
-                height="20"
-                viewBox="0 0 36 24"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg"
+                width='28'
+                height='20'
+                viewBox='0 0 36 24'
+                fill='none'
+                xmlns='http://www.w3.org/2000/svg'
               >
                 <path
-                  d="M4 6L18 18L32 6"
-                  stroke="white"
-                  strokeWidth="2.2"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
+                  d='M4 6L18 18L32 6'
+                  stroke='white'
+                  strokeWidth='2.2'
+                  strokeLinecap='round'
+                  strokeLinejoin='round'
                 />
               </svg>
             </motion.button>

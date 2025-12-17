@@ -95,8 +95,7 @@ export const SCENES: Record<string, SceneConfig> = {
     component: P4Scene,
     next: "p5",
     shouldSkip: (data) =>
-      !data?.answer_most_upvote_question_title ||
-      !((data?.answer_most_upvote_cnt ?? 0) < 50),
+      (data?.answer_most_upvote_cnt ?? 0) < 50 && !data?.answer_1k_upvote_cnt,
   },
   p5: {
     id: "p5",
@@ -107,6 +106,8 @@ export const SCENES: Record<string, SceneConfig> = {
     id: "p5Emoji",
     component: P5EmojiScene,
     next: "p6",
+    shouldSkip: (data) =>
+      !data?.emoji_name && !data?.comment_discuss_member_name,
   },
   p6: {
     id: "p6",
@@ -213,6 +214,8 @@ export const SCENES: Record<string, SceneConfig> = {
     id: "p22",
     component: P22Scene,
     next: "p23",
+    shouldSkip: (data) =>
+      !data?.consume_billboard_days || data?.consume_billboard_days < 5,
   },
   p23: {
     id: "p23",
@@ -236,6 +239,7 @@ export const SCENES: Record<string, SceneConfig> = {
     id: "p26",
     component: P26Scene,
     next: "p27",
+    shouldSkip: (data) => !data?.write_story_num_sum,
   },
   p27: {
     id: "p27",

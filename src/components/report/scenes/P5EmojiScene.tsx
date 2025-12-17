@@ -27,6 +27,7 @@ export default function P5EmojiScene({ onNext, sceneName }: PageProps) {
   const hiAsset = assets.report.p5.hi;
   const yellowMirrorAsset = assets.report.p5.yellowMirror;
   const liukanshanAsset = assets.report.p5.liukanshan;
+  const p5GifAsset = assets.report.p5.gif;
   const threeDHiAsset = assets.report.p5["3dHi"];
 
 
@@ -69,9 +70,9 @@ export default function P5EmojiScene({ onNext, sceneName }: PageProps) {
           style={{ bottom: '203px', left: '126px', animationDelay: '1s', transformOrigin: 'bottom left' }}
         />
         <Image
-          src={liukanshanAsset.url} alt="" width={liukanshanAsset.width} height={liukanshanAsset.height}
+          src={p5GifAsset.url} alt="" width={p5GifAsset.width} height={p5GifAsset.height}
           className="object-contain absolute pointer-events-none select-none z-1"
-          style={{ bottom: '53px', right: '28px' }}
+          style={{ bottom: '46px', right: '20px' }}
         />
         <Image
           src={threeDHiAsset.url} alt="" width={threeDHiAsset.width} height={threeDHiAsset.height}
@@ -110,18 +111,10 @@ export default function P5EmojiScene({ onNext, sceneName }: PageProps) {
             className={`text-r-pink`}
             style={{ paddingLeft: '6px', paddingRight: '6px', fontSize: '18px' }}
           >
-            {discussMemberName}
+            @{discussMemberName}
           </span>
-          在评论区
           <div>
-            交锋了
-            <span
-              className={`text-r-purple`}
-              style={{ paddingLeft: '6px', paddingRight: '6px', fontSize: '18px' }}
-            >
-              {discussCount}
-            </span>
-            轮
+            在评论区讨论最多
           </div>
           <div style={{ marginTop: '6px' }}>
             那场思维碰撞，至今回想仍有余温。

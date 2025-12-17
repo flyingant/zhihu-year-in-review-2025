@@ -11,6 +11,8 @@ import { useInView } from 'react-intersection-observer';
 const ROWS_COUNT = 6;
 const ITEMS_PER_ROW = 17;
 const CHAR_SPACING_PERCENT = 0.3;
+// 自动动画速度 (每秒移动的百分比)
+const AUTO_ANIMATION_SPEED = 0.01; // 调整这个值来控制动画速度
 
 // 左右跨度（距离中心点的距离）
 const PATH_SPREAD_FROM_CENTER = 2500;
@@ -44,6 +46,7 @@ export default function CurveMarquee() {
 
   const progressRef = useRef(0);
   const spansRef = useRef<(HTMLSpanElement | null)[]>([]);
+  const lastTimeRef = useRef<number | null>(null);
   const { trackShow } = useZA();
   const { ref: inViewRef, inView } = useInView({
     triggerOnce: true,
@@ -60,17 +63,10 @@ export default function CurveMarquee() {
     }
   }, [inView, trackShow]);
 
-
-  const dragRef = useRef({
-    startX: 0,
-    startProgress: 0,
-    isDragging: false,
-  });
-
-
-  const rowOffsets = React.useMemo(() => {
-    return Array.from({ length: ROWS_COUNT }, () => Math.random() * 100);
-  }, []);
+  // 生成随机偏移量，只生成一次
+  const [rowOffsets] = useState(() => 
+    Array.from({ length: ROWS_COUNT }, () => Math.random() * 100)
+  );
 
   // 监听容器宽度变化,实现自适应居中
   useEffect(() => {
@@ -86,52 +82,41 @@ export default function CurveMarquee() {
     return () => window.removeEventListener("resize", updatePath);
   }, []);
 
+  // 自动动画效果
   useEffect(() => {
-    const handleWindowMove = (e: PointerEvent) => {
-      if (!dragRef.current.isDragging) return;
-      e.preventDefault();
+    let animationFrameId: number;
 
-      const deltaX = e.clientX - dragRef.current.startX;
-      // 调整灵敏度
-      const sensitivity = 0.15;
-
-      const newProgress = dragRef.current.startProgress + (deltaX * sensitivity);
-      progressRef.current = newProgress;
-    };
-
-    const resetDraggingState = () => {
-      if (dragRef.current.isDragging) {
-        dragRef.current.isDragging = false;
-        if (containerRef.current) containerRef.current.style.cursor = 'grab';
-
-        // 松手时重置数值到 0-100 之间，防止数值无限增大导致精度丢失卡死
-        progressRef.current = ((progressRef.current % 100) + 100) % 100;
-      }
-    };
-
-    const handleWindowUp = () => {
-      resetDraggingState();
-    };
-
-    const handleVisibilityChange = () => {
+    const animate = (currentTime: number) => {
+      // 如果页面隐藏，暂停动画
       if (document.hidden) {
-        resetDraggingState();
+        lastTimeRef.current = null;
+        animationFrameId = requestAnimationFrame(animate);
+        return;
       }
+
+      if (lastTimeRef.current === null) {
+        lastTimeRef.current = currentTime;
+        animationFrameId = requestAnimationFrame(animate);
+        return;
+      }
+
+      const deltaTime = currentTime - lastTimeRef.current;
+      lastTimeRef.current = currentTime;
+
+      // 根据时间差更新进度 (deltaTime 是毫秒，转换为秒)
+      const deltaProgress = (deltaTime / 1000) * AUTO_ANIMATION_SPEED * 100;
+      progressRef.current += deltaProgress;
+
+      // 保持进度在合理范围内，防止数值过大
+      progressRef.current = wrapPercent(progressRef.current);
+
+      animationFrameId = requestAnimationFrame(animate);
     };
 
-    window.addEventListener('pointermove', handleWindowMove);
-    window.addEventListener('pointerup', handleWindowUp);
-    window.addEventListener('touchend', handleWindowUp);
-    document.addEventListener('visibilitychange', handleVisibilityChange);
-    window.addEventListener('blur', resetDraggingState);
-
+    animationFrameId = requestAnimationFrame(animate);
 
     return () => {
-      window.removeEventListener('pointermove', handleWindowMove);
-      window.removeEventListener('pointerup', handleWindowUp);
-      window.removeEventListener('touchend', handleWindowUp);
-      document.removeEventListener('visibilitychange', handleVisibilityChange);
-      window.removeEventListener('blur', resetDraggingState);
+      cancelAnimationFrame(animationFrameId);
     };
   }, []);
 
@@ -172,16 +157,6 @@ export default function CurveMarquee() {
     };
   }, []);
 
-  const handlePointerDown = (e: React.PointerEvent) => {
-    e.preventDefault();
-    dragRef.current.isDragging = true;
-    dragRef.current.startX = e.clientX;
-    dragRef.current.startProgress = progressRef.current;
-
-    if (containerRef.current) containerRef.current.style.cursor = 'grabbing';
-  };
-
-
   if (!assets) return null;
 
   const bgAsset = assets.realMoment.bg;
@@ -196,11 +171,8 @@ export default function CurveMarquee() {
     return contentAsset.slice(start, end);
   });
 
-  spansRef.current = [];
-
   return (
-    <div ref={containerRef} className="relative w-full max-w-[500px] mx-auto h-[500px] overflow-hidden bg-white touch-none"
-      onPointerDown={handlePointerDown}>
+    <div ref={containerRef} className="relative w-full max-w-[500px] mx-auto h-[500px] overflow-hidden bg-white">
       <div ref={inViewRef} className="absolute inset-0 z-0">
         <Image
           src={bgAsset.url}
@@ -211,7 +183,7 @@ export default function CurveMarquee() {
           priority
         />
       </div>
-      <div className={`relative w-full h-full ${isMobile ? '-mt-[10px]' : 'mt-[30px]'}`}>
+      <div className={`relative w-full h-full ${isMobile ? '-mt-[20px]' : 'mt-[60px]'}`}>
         {rows.map((rowItems, rowIndex) => {
           const gap = isMobile ? 58 : 80;
           const rowTop = rowIndex * gap;
@@ -232,6 +204,10 @@ export default function CurveMarquee() {
                   <span
                     key={charIndex}
                     ref={(el) => {
+                      // 在第一个元素的 ref 回调中重置数组
+                      if (rowIndex === 0 && charIndex === 0) {
+                        spansRef.current = [];
+                      }
                       if (el) spansRef.current.push(el);
                     }}
                     data-base-offset={baseRowOffset}

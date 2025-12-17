@@ -189,13 +189,13 @@ export default function P20Scene({ onNext, sceneName }: PageProps) {
             className='absolute'
             style={{
               fontSize: '14px',
-              top: '160px',
+              top: '150px',
               left: '34px',
               right: '19px',
             }}
           >
-            {!!clubFriendCount && (
-              <div className='leading-[29px]'>
+            {
+              <div className='leading-[29px]' hidden={!clubFriendCount}>
                 你在圈子里「扩列」了
                 <span
                   className='text-r-blue px-[7px]'
@@ -207,49 +207,61 @@ export default function P20Scene({ onNext, sceneName }: PageProps) {
                 <br />
                 希望新的一年，你能遇见更多同频的人
               </div>
-            )}
+            }
           </div>
           {/* Most Interacted Club Members */}
-          <div
-            className='absolute'
-            style={{ fontSize: 14, top: '578px', left: '34px', right: '34px' }}
-          >
-            <div className='flex flex-col leading-[34px]'>
-              <span>与你互动最多的圈友是：</span>
-
-              {mostInteractionMemberName1 && (
-                <InteractionMemberItem
-                  name={mostInteractionMemberName1}
-                  avatar={mostInteractionMemberAvatar1}
-                  fallbackName='most_interaction_club_member_name_top1'
-                />
-              )}
-              {mostInteractionMemberName2 && (
-                <InteractionMemberItem
-                  name={mostInteractionMemberName2}
-                  avatar={mostInteractionMemberAvatar2}
-                  fallbackName='most_interaction_club_member_name_top2'
-                />
-              )}
-              {mostInteractionMemberName3 && (
-                <InteractionMemberItem
-                  name={mostInteractionMemberName3}
-                  avatar={mostInteractionMemberAvatar3}
-                  fallbackName='most_interaction_club_member_name_top3'
-                />
-              )}
-            </div>
+          {
             <div
-              className='flex items-center gap-1'
-              style={{ marginTop: '8px' }}
+              className='absolute'
+              hidden={
+                !mostInteractionMemberName1 &&
+                !mostInteractionMemberName2 &&
+                !mostInteractionMemberName3
+              }
+              style={{
+                fontSize: 14,
+                top: '578px',
+                left: '34px',
+                right: '34px',
+              }}
             >
-              要不要
-              <ActionsButton type='message' onClick={() => {}} />
-              {/* <ActionsButton type="join" onClick={() => {}} /> */}
-              {/* <ActionsButton type="joined" onClick={() => {}} /> */}
-              送他们一个感谢？
+              <div className='flex flex-col leading-[34px]'>
+                <span>与你互动最多的圈友是：</span>
+
+                {mostInteractionMemberName1 && (
+                  <InteractionMemberItem
+                    name={mostInteractionMemberName1}
+                    avatar={mostInteractionMemberAvatar1}
+                    fallbackName='most_interaction_club_member_name_top1'
+                  />
+                )}
+                {mostInteractionMemberName2 && (
+                  <InteractionMemberItem
+                    name={mostInteractionMemberName2}
+                    avatar={mostInteractionMemberAvatar2}
+                    fallbackName='most_interaction_club_member_name_top2'
+                  />
+                )}
+                {mostInteractionMemberName3 && (
+                  <InteractionMemberItem
+                    name={mostInteractionMemberName3}
+                    avatar={mostInteractionMemberAvatar3}
+                    fallbackName='most_interaction_club_member_name_top3'
+                  />
+                )}
+              </div>
+              <div
+                className='flex items-center gap-1'
+                style={{ marginTop: '8px' }}
+              >
+                要不要
+                <ActionsButton type='message' onClick={() => {}} />
+                {/* <ActionsButton type="join" onClick={() => {}} /> */}
+                {/* <ActionsButton type="joined" onClick={() => {}} /> */}
+                送他们一个感谢？
+              </div>
             </div>
-          </div>
+          }
         </div>
       </div>
     </BaseScene>

@@ -181,12 +181,12 @@ export default function P19Scene({ onNext, sceneName }: PageProps) {
 
       {/* content */}
       <div className='z-0 tracking-wide' style={{ fontSize: '14px' }}>
-        {joinClubCount && (
+        {!!joinClubCount && (
           <div
             className='absolute'
             style={{ fontSize: '14px', top: '184px', left: '36px' }}
           >
-            <span className='pr-[4px]' style={{ fontSize: '18px' }}>
+            <span className='pr-[2px]' style={{ fontSize: '18px' }}>
               2025
             </span>
             年 , 你加入了
@@ -212,7 +212,7 @@ export default function P19Scene({ onNext, sceneName }: PageProps) {
             )}
           </div>
         )}
-        {consumeMostClubPv && (
+        {!!consumeMostClubPv && (
           <div className='absolute' style={{ top: '360px', left: '141px' }}>
             <div className='mb-[10px]'>
               你在
@@ -229,7 +229,7 @@ export default function P19Scene({ onNext, sceneName }: PageProps) {
               <br />
               停留最久，驻足
               <span
-                className='text-r-blue px-[7px]'
+                className='text-r-blue px-[4px]'
                 style={{ fontSize: '18px' }}
               >
                 {String(consumeMostClubPv ?? 'consume_most_club_pv')}
@@ -267,14 +267,21 @@ export default function P19Scene({ onNext, sceneName }: PageProps) {
                 )}
               </span>
               条讨论 <br />
-              <span className='text-r-pink pr-[7px]' style={{ fontSize: 18 }}>
-                {String(
-                  interactiveMostClubUpvoteCount ??
-                    'interactive_most_club_upvote_cnt'
-                )}
-              </span>
-              个赞同 <br />
-              <span>真诚的人路同亦同心</span>
+              {!!interactiveMostClubUpvoteCount && (
+                <div>
+                  <span
+                    className='text-r-pink pr-[4px]'
+                    style={{ fontSize: 18 }}
+                  >
+                    {String(
+                      interactiveMostClubUpvoteCount ??
+                        'interactive_most_club_upvote_cnt'
+                    )}
+                  </span>
+                  个赞同
+                </div>
+              )}
+              <span>真诚的人同路亦同心</span>
             </div>
           </div>
         )}

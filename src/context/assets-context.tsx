@@ -129,6 +129,7 @@ export interface AssetsData {
     blur: AssetMetadata;
     bg: AssetMetadata;
     save: AssetMetadata;
+    unauth: AssetMetadata;
     preview: {
       annual_video: AssetMetadata;
       annual_report: AssetMetadata;
@@ -289,20 +290,25 @@ export interface AssetsData {
       yellowMirror: AssetMetadata;
       hi: AssetMetadata;
       "3dHi": AssetMetadata;
+      gif: AssetMetadata;
     };
     p6: {
       liukanshan: AssetMetadata;
+      gif: AssetMetadata;
+      books: AssetMetadata;
     };
     p7: {
       liukanshan: AssetMetadata;
       blueBubble: AssetMetadata;
       redBubble: AssetMetadata;
       yellowBubble: AssetMetadata;
+      gif: AssetMetadata;
     };
     p8: {
       liukanshan: AssetMetadata;
       sparkle: AssetMetadata;
       ship: AssetMetadata;
+      gif: AssetMetadata;
     };
     p9: {
       bg: AssetMetadata;
@@ -332,13 +338,18 @@ export interface AssetsData {
       moon: AssetMetadata;
       bar: AssetMetadata;
       clock: AssetMetadata;
+      gif: AssetMetadata;
     };
     p13: {
       liukanshan: AssetMetadata;
+      gif: AssetMetadata;
     };
     p15: {
       ladder: AssetMetadata;
       year: AssetMetadata;
+      gif1: AssetMetadata;
+      gif2: AssetMetadata;
+      gif3: AssetMetadata;
     };
     p14: {
       bg: AssetMetadata;
@@ -349,6 +360,7 @@ export interface AssetsData {
       thumbUp: AssetMetadata;
       subscribe: AssetMetadata;
       subscribed: AssetMetadata;
+      gif: AssetMetadata;
     };
     p17: {
       city: AssetMetadata;
@@ -360,6 +372,7 @@ export interface AssetsData {
     };
     p18: {
       main: AssetMetadata;
+      gif: AssetMetadata;
     };
     p19: {
       blue: AssetMetadata;
@@ -367,9 +380,11 @@ export interface AssetsData {
       tiffany: AssetMetadata;
       yellow: AssetMetadata;
       liukanshan: AssetMetadata;
+      gif: AssetMetadata;
     };
     p20: {
       main: AssetMetadata;
+      gif: AssetMetadata;
     };
     p21: {
       bg: AssetMetadata;
@@ -386,13 +401,16 @@ export interface AssetsData {
       message: AssetMetadata;
       join: AssetMetadata;
       joined: AssetMetadata;
+      gif: AssetMetadata;
     };
     p23: {
       review: AssetMetadata;
+      gif: AssetMetadata;
     };
     p24: {
       liukanshan: AssetMetadata;
       film: AssetMetadata;
+      gif: AssetMetadata;
     };
     p25: {
       liukanshan: AssetMetadata;
@@ -400,6 +418,7 @@ export interface AssetsData {
       left: AssetMetadata;
       middle: AssetMetadata;
       right: AssetMetadata;
+      gif: AssetMetadata;
     };
     p26: {
       liukanshan: AssetMetadata;
@@ -407,6 +426,7 @@ export interface AssetsData {
       rainbow: AssetMetadata;
       redPixel1: AssetMetadata;
       redPixel2: AssetMetadata;
+      gif: AssetMetadata;
     };
     loading: AssetMetadata;
     loadingBar: AssetMetadata;
@@ -420,6 +440,7 @@ export interface AssetsData {
       bgTopRight: AssetMetadata;
       bgBottomLeft: AssetMetadata;
       bgBottomRight: AssetMetadata;
+      gif: AssetMetadata;
     };
     audio: {
       iconDisable: AssetMetadata;

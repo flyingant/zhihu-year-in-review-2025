@@ -25,7 +25,8 @@ export default function P6Scene({ onNext, sceneName }: PageProps) {
   const green1Asset = bgAsset.green1;
   const mix1Asset = bgAsset.mix1;
   const mix2Asset = bgAsset.mix2;
-  const liukanshanAsset = assets.report.p6.liukanshan;
+  const p6GifAsset = assets.report.p6.gif;
+  const booksAsset = assets.report.p6.books;
 
   // Map context data to component variables according to P6 spec
   const totalWords = reportData?.content_total_word_cnt ?? 0;
@@ -83,7 +84,7 @@ export default function P6Scene({ onNext, sceneName }: PageProps) {
 
       <div style={{ paddingTop: '120px', fontSize: '14px' }}>
         <div style={{ fontSize: '22px', marginBottom: '40px', paddingLeft: '34px' }}>
-          这一年，你真心分享
+          真实的表达，写清了自己
         </div>
 
         {/* 总字数 */}
@@ -92,7 +93,7 @@ export default function P6Scene({ onNext, sceneName }: PageProps) {
           你在知乎写下了
           <span
             className={`text-r-pink`}
-            style={{ paddingLeft: '6px', paddingRight: '6px', fontSize: '24px' }}
+            style={{ paddingLeft: '6px', paddingRight: '6px', fontSize: '18px' }}
           >
             {totalWords}
           </span>
@@ -101,30 +102,37 @@ export default function P6Scene({ onNext, sceneName }: PageProps) {
 
         {/* 创作天数 */}
         <div style={{ marginBottom: '30px', paddingLeft: '34px', paddingRight: '34px', }}>
-          足以拼成
+          一句一行，都是你的
           <span
             className={`text-r-fern`}
-            style={{ paddingLeft: '4px', paddingRight: '4px', fontSize: '24px' }}
+            style={{ paddingLeft: '4px', paddingRight: '4px', fontSize: '18px' }}
           >
-            {creationDays}
-          </span>
-          本
-          <span
-            className={`text-r-fern`}
-            style={{ paddingLeft: '4px', paddingRight: '4px', fontSize: '24px' }}
-          >
-            {creationDays}
+            2025.txt
           </span>
         </div>
 
         <div className="z-0 flex ">
-          <Image
-            src={liukanshanAsset.url}
-            alt={liukanshanAsset.alt}
-            width={liukanshanAsset.width}
-            height={liukanshanAsset.height}
-            className="object-contain pointer-events-none select-none z-1 relative"
-          />
+          <div className="relative">
+            <Image
+              src={booksAsset.url}
+              alt={booksAsset.alt}
+              width={booksAsset.width}
+              height={booksAsset.height}
+              className="object-contain pointer-events-none select-none z-1 relative"
+              unoptimized
+              style={{left: '0px', marginTop: '96px', }}
+            />
+            <Image
+              src={p6GifAsset.url}
+              alt={p6GifAsset.alt}
+              width={p6GifAsset.width}
+              height={p6GifAsset.height}
+              className="object-contain pointer-events-none select-none z-1 relative"
+              unoptimized
+              style={{left: '51px', top: '0px', position: 'absolute'}}
+            />
+          </div>
+           
           <div className="text-center" style={{ paddingTop: '20px' }}>
             <div >
               在
@@ -143,34 +151,37 @@ export default function P6Scene({ onNext, sceneName }: PageProps) {
         </div>
 
         {/* 最高产月份 */}
-        <div hidden={!mostProductiveMonth || creationDays < 5}
-          style={{ paddingBottom: '8px', paddingTop: '70px', paddingLeft: '34px', paddingRight: '34px', }}>
-          <div style={{ marginBottom: '6px' }}>
-            <span
-              className={`text-r-blue`}
-              style={{ paddingRight: '4px', fontSize: '18px' }}
-            >
-              {mostProductiveMonth}
-            </span>
-            月是你的灵感高峰
+        <div  style={{ paddingBottom: '8px', paddingTop: '60px', paddingLeft: '34px', paddingRight: '34px', }}>
+          <div hidden={!mostProductiveMonth || creationDays < 5}>
+            <div style={{ marginBottom: '6px' }}>
+              <span
+                className={`text-r-blue`}
+                style={{ paddingRight: '4px', fontSize: '18px' }}
+              >
+                {mostProductiveMonth}
+              </span>
+              月是你的灵感高峰
+            </div>
+          </div>
+          {/* 文思泉涌的一天 */}
+          <div hidden={!dayWordCount || dayWordCount < 30}>
+            <div style={{ marginBottom: '6px' }}>
+              <span className={`text-r-yellow`} style={{ paddingRight: '5px', fontSize: '18px' }}>{month}</span>月
+              <span className={`text-r-yellow`} style={{ paddingRight: '5px', fontSize: '18px', paddingLeft: '4px' }}>{day}</span>日
+              ，你写下了今年最多的
+              <span
+                className={`text-r-fern`}
+                style={{ paddingLeft: '6px', paddingRight: '6px', fontSize: '18px' }}
+              >
+                {dayWordCount}
+              </span>
+              字
+            </div>
           </div>
         </div>
+        
 
-        {/* 文思泉涌的一天 */}
-        <div style={{ paddingLeft: '34px', paddingRight: '34px', }} hidden={!dayWordCount || dayWordCount < 30}>
-          <div style={{ marginBottom: '6px' }}>
-            <span className={`text-r-yellow`} style={{ paddingRight: '5px', fontSize: '18px' }}>{month}</span>月
-            <span className={`text-r-yellow`} style={{ paddingRight: '5px', fontSize: '18px', paddingLeft: '4px' }}>{day}</span>日
-            ，你写下了今年最多的
-            <span
-              className={`text-r-fern`}
-              style={{ paddingLeft: '6px', paddingRight: '6px', fontSize: '18px' }}
-            >
-              {dayWordCount}
-            </span>
-            字
-          </div>
-        </div>
+        
       </div>
     </BaseScene>
   );

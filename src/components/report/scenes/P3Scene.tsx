@@ -6,7 +6,7 @@ import BaseScene from "./BaseScene";
 import Image from "next/image";
 import { useAssets } from "@/context/assets-context";
 import GlitchLayer from "@/components/report/effects/GlitchLayer";
-import { formatDate } from "@/utils/common";
+import { formatDate, truncateText } from "@/utils/common";
 
 interface PageProps {
   onNext?: () => void;
@@ -36,7 +36,7 @@ export default function P3Scene({ onNext, sceneName }: PageProps) {
   const topDomain3 = (reportData?.publish_max_domin_top3 ?? null) as number | null;
   const firstAnswerDate = formatDate((reportData?.first_answer_date ?? null) as string | null);
   const firstAnswerTitle = (reportData?.first_answer_question_title ?? null) as string | null;
-
+  const firstAnswerTitleTruncated = truncateText(firstAnswerTitle, 28);
   return (
     <BaseScene onNext={onNext} sceneName={sceneName}>
       <GlitchLayer>
@@ -104,7 +104,7 @@ export default function P3Scene({ onNext, sceneName }: PageProps) {
 
       <div style={{ paddingLeft: '34px', paddingRight: '34px', paddingTop: '120px', fontSize: '14px' }}>
         <div style={{ fontSize: '22px' }}>
-          这一年，你依旧好奇
+          你的答案，让混沌变得清晰
         </div>
 
         <div style={{ paddingTop: '46px', paddingBottom: '8px' }} hidden={!answerCount && !articleCount}>
@@ -112,7 +112,7 @@ export default function P3Scene({ onNext, sceneName }: PageProps) {
           <span
             hidden={!answerCount}
             className={`text-r-fern`}
-            style={{ paddingLeft: '2px', paddingRight: '2px', fontSize: '18px' }}
+            style={{ paddingLeft: '6px', paddingRight: '4px', fontSize: '18px' }}
           >
             {answerCount}
           </span>
@@ -169,15 +169,15 @@ export default function P3Scene({ onNext, sceneName }: PageProps) {
             {firstAnswerDate}
           </span>
         </div>
-        <div style={{ lineHeight: '36px' }}>
+        <div style={{ lineHeight: '32px' }}>
           你在，
           <span
             className={`text-r-fern`}
             style={{ marginLeft: '4px', marginRight: '4px', fontSize: '18px' }}
           >
-            「{firstAnswerTitle}」
+            {firstAnswerTitleTruncated}
           </span>
-          里写下了今年第一条回答。
+          问题写下了今年第一条回答
         </div>
       </div>
 

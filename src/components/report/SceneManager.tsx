@@ -1,13 +1,15 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { useSearchParams } from 'next/navigation';
 import { AnimatePresence, motion } from 'framer-motion';
+import Image from 'next/image';
 import { SCENES } from '@/data/reportConfig';
 import {
   useUserReportData,
   UserReportData,
 } from '@/context/user-report-data-context';
+import { useAssets } from '@/context/assets-context';
 
 // Determine the next valid scene ID recursively, checking for skip conditions
 const getNextValidSceneId = (
@@ -32,6 +34,70 @@ const getNextValidSceneId = (
 
   return nextId;
 };
+
+/**
+ * Audio Player Component
+ * Fixed audio play/pause button that appears on all pages
+ */
+function AudioPlayer() {
+  const { assets } = useAssets();
+  const [isPlaying, setIsPlaying] = useState(false);
+  const audioRef = useRef<HTMLAudioElement>(null);
+
+  const iconDisable = assets?.report.audio.iconDisable;
+  const iconPlaying = assets?.report.audio.iconPlaying;
+  const audioUrl = assets?.report.audio.bgAudio?.url;
+
+  const togglePlayPause = () => {
+    if (!audioRef.current || !audioUrl) return;
+
+    if (isPlaying) {
+      audioRef.current.pause();
+      setIsPlaying(false);
+    } else {
+      audioRef.current.play().catch((error) => {
+        console.error("Error playing audio:", error);
+      });
+      setIsPlaying(true);
+    }
+  };
+
+  // Handle audio ended event
+  useEffect(() => {
+    const audio = audioRef.current;
+    if (!audio) return;
+
+    const handleEnded = () => {
+      setIsPlaying(false);
+    };
+
+    audio.addEventListener("ended", handleEnded);
+    return () => {
+      audio.removeEventListener("ended", handleEnded);
+    };
+  }, []);
+
+  if (!iconDisable || !iconPlaying || !audioUrl) return null;
+
+  return (
+    <>
+      <audio ref={audioRef} src={audioUrl} loop />
+      <button
+        onClick={togglePlayPause}
+        className="absolute top-4 right-4 cursor-pointer " style={{ zIndex: 9999 }}
+        aria-label={isPlaying ? "Pause audio" : "Play audio"}
+      >
+        <Image
+          src={isPlaying ? iconPlaying.url : iconDisable.url}
+          alt={isPlaying ? iconPlaying.alt : iconDisable.alt}
+          width={iconDisable.width / 2}
+          height={iconDisable.height / 2}
+          className="object-contain"
+        />
+      </button>
+    </>
+  );
+}
 
 export default function SceneManager() {
   const searchParams = useSearchParams();
@@ -127,6 +193,7 @@ export default function SceneManager() {
 
   return (
     <div className='relative w-full h-full flex justify-center items-center z-20'>
+      <AudioPlayer />
       {/* AnimatePresence 处理页面转场 */}
       <AnimatePresence mode='wait'>
         <motion.div

@@ -91,7 +91,7 @@ export default function P25Scene({ onNext, sceneName }: PageProps) {
           width={gif.width / 2}
           height={gif.height / 2}
           className='object-contain absolute pointer-events-none select-none -z-10'
-          style={{ top: '295px', left: '100px', right: '0' }}
+          style={{ top: '415px', left: '100px', right: '0' }}
         />
         <Image
           src={left.url}

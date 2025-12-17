@@ -136,7 +136,7 @@ export default function P5Scene({ onNext, sceneName }: PageProps) {
         </div>
 
         {/* 评论统计 */}
-        <div style={{ marginBottom: '30px' }} hidden={!commentCount}>
+        <div hidden={!commentCount}>
           你留下了
           <span
             className={`text-r-pink`}

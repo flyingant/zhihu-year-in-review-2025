@@ -62,7 +62,7 @@ const MirrorContent = ({
     </div>
     <div>
       我们一起走过了{' '}
-      <span className='text-r-yellow' style={{ fontSize: '18px' }}>
+      <span className='text-r-yellow' style={{ fontSize: '24px' }}>
         {registerDays}
       </span>{' '}
       天真实的时间

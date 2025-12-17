@@ -131,9 +131,9 @@ export default function P15Scene({ onNext, sceneName }: PageProps) {
 
         {!!newFollowCount && (
           <div className='absolute' style={{ left: '120px', top: '172px' }}>
-            <span className='mr-[4px]'>2025</span>
+            <span className='pr-[4px]'>2025</span>
             <span>年</span> <br />有
-            <span className={`mx-[6px] text-r-fern`} style={{ fontSize: 23 }}>
+            <span className={`px-[4px] text-r-fern`} style={{ fontSize: 23 }}>
               {String(newFollowCount ?? 'new_follow_cnt')}
             </span>
             位知友关注你
@@ -149,16 +149,16 @@ export default function P15Scene({ onNext, sceneName }: PageProps) {
               <div className=''>
                 最懂你的是
                 <span
-                  className={`px-[6px] text-r-yellow`}
+                  className={`px-[4px] text-r-yellow`}
                   style={{ fontSize: 16 }}
                 >
                   @{String(mostUpvoteMemberName ?? 'most_upvote_member_name')}
                 </span>
               </div>
-              <div>
+              <div hidden={!mostUpvoteMemberUpvote}>
                 TA用
                 <span
-                  className={`px-[6px] text-r-green`}
+                  className={`px-[4px] text-r-green`}
                   style={{ fontSize: 18 }}
                 >
                   {String(
@@ -173,7 +173,7 @@ export default function P15Scene({ onNext, sceneName }: PageProps) {
           {!!interactionMostMemberName && (
             <div>
               和你互动最多的，是
-              <span className={`px-[6px] text-r-pink`} style={{ fontSize: 16 }}>
+              <span className={`px-[4px] text-r-pink`} style={{ fontSize: 16 }}>
                 @
                 {String(
                   interactionMostMemberName ?? 'interaction_most_member_name'
@@ -208,14 +208,12 @@ export default function P15Scene({ onNext, sceneName }: PageProps) {
               </span> */}
               <br />
               <span className={`text-r-yellow`} style={{ fontSize: 16 }}>
-                「
                 {truncateText(
                   String(
                     thanksInvitationQuestionTitle ??
                       'thanks_invitation_question'
                   )
                 )}
-                」
               </span>
             </div>
             <div>

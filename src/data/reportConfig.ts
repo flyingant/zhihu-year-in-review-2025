@@ -162,6 +162,7 @@ export const SCENES: Record<string, SceneConfig> = {
     id: "p13",
     component: P13Scene,
     next: "p14",
+    shouldSkip: (data) => !data?.zhihu_browse_most_date && (data?.zhihu_browse_most_date_duration ?? 0) < 5 && !data?.consume_most_answer_title && (data?.consume_most_answer_pv_cnt ?? 0) < 10,
   },
   p14: {
     id: "p14",
@@ -172,6 +173,7 @@ export const SCENES: Record<string, SceneConfig> = {
     id: "p15",
     component: P15Scene,
     next: "p16",
+    shouldSkip: (data) => !data?.new_follow_cnt && !data?.most_upvote_member_name && !data?.thanks_invitation_member_name,
   },
   p16: {
     id: "p16",

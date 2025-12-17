@@ -215,7 +215,13 @@ export interface UserReportData {
   best_answer_topic?: string[];
   is_navigator?: number;
   navigator_upvote_content_cnt?: number;
-
+  
+  // P13: Time spent
+  zhihu_browse_most_date?: string;
+  zhihu_browse_most_date_duration?: number;
+  consume_most_answer_title?: string;
+  consume_most_answer_pv_cnt?: number;
+  
   // P15: Social/Follow related fields
   new_follow_cnt?: number;
   most_upvote_member_name?: string;

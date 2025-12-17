@@ -201,8 +201,8 @@ export default function P14Scene({ onNext, sceneName }: PageProps) {
           />
         </GlitchLayer>
         <p
-          className='absolute z-30 text-center text-xl w-full'
-          style={{ top: '106px' }}
+          className='absolute z-30 text-center text-xl w-full leading-relaxed'
+          style={{ top: '110px', fontSize: 24 }}
         >
           当你赞同时
           <br />

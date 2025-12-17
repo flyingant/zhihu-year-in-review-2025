@@ -61,6 +61,7 @@ export default function P20Scene({ onNext, sceneName }: PageProps) {
 
   // Club Friend Count / Expansion
   const clubFriendCount = reportData?.club_friend_cnt ?? null;
+  console.log(reportData?.club_friend_cnt);
 
   // Most Interacted Club Members
   const mostInteractionMemberName1 =
@@ -69,6 +70,9 @@ export default function P20Scene({ onNext, sceneName }: PageProps) {
     reportData?.most_interaction_club_member_name_top2 ?? null;
   const mostInteractionMemberName3 =
     reportData?.most_interaction_club_member_name_top3 ?? null;
+  console.log(reportData?.most_interaction_club_member_name_top1);
+  console.log(reportData?.most_interaction_club_member_name_top2);
+  console.log(reportData?.most_interaction_club_member_name_top3);
 
   const mostInteractionMemberAvatar1 =
     reportData?.most_interaction_club_member_avatar_top1 ?? null;

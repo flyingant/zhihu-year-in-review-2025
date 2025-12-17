@@ -163,22 +163,27 @@ export default function P18Scene({ onNext, sceneName }: PageProps) {
           感谢有你,圈子一直在发光
         </div>
 
-        {clubAdminTop1Name && (
+        <div
+          className={'absolute text-center'}
+          style={{ width: '321px', left: '17px', top: '195px' }}
+          hidden={!clubAdminTop1Name && !clubAdminTop2Name}
+        >
           <div
-            className={'absolute text-center'}
-            style={{ width: '321px', left: '17px', top: '195px' }}
+            className={`text-r-blue px-[7px]`}
+            style={{ fontSize: 20 }}
+            hidden={!clubAdminTop1Name}
           >
-            <div className={`text-r-blue px-[7px]`} style={{ fontSize: 20 }}>
-              「{String(clubAdminTop1Name ?? 'club_admin_top1_name')} 」
-            </div>
-            { clubAdminTop2Name &&<div className={`text-r-blue px-[7px]`} style={{ fontSize: 20 }}>
-              「{String(clubAdminTop2Name ?? 'club_admin_top2_name')} 」
-            </div> }
-            <div>圈子主理人，你好！2025，你的圈子聚集</div>
+            「{String(clubAdminTop1Name ?? 'club_admin_top1_name')} 」
           </div>
-        )}
-        
-
+          <div
+            className={`text-r-blue px-[7px]`}
+            style={{ fontSize: 20 }}
+            hidden={!clubAdminTop2Name}
+          >
+            「{String(clubAdminTop2Name ?? 'club_admin_top2_name')} 」
+          </div>
+          <div>圈子主理人，你好！2025，你的圈子聚集</div>
+        </div>
 
         {!!clubAdminTop1MemberCount && (
           <div className={' absolute'} style={{ right: '14px', top: '290px' }}>
@@ -210,7 +215,7 @@ export default function P18Scene({ onNext, sceneName }: PageProps) {
               {String(clubAdminPinCount ?? 'club_admin_pin_cnt')}
             </span>
             次 <br />
-            <span>
+            <span hidden={!clubAdminInteractionCount}>
               与
               <span className={`text-r-fern px-[7px]`} style={{ fontSize: 18 }}>
                 {String(

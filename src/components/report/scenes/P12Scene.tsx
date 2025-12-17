@@ -24,6 +24,7 @@ export default function P12Scene({ onNext, sceneName }: PageProps) {
   const mix7Asset = bgAsset.mix7;
   // const mix8Asset = bgAsset.mix8; // Not used in JSX, commented out
   const liukanshanAsset = assets.report.p12.liukanshan;
+  const p12GifAsset = assets.report.p12.gif;
   const sunAsset = assets.report.p12.sun;
   const moonAsset = assets.report.p12.moon;
   const barAsset = assets.report.p12.bar;
@@ -90,12 +91,13 @@ export default function P12Scene({ onNext, sceneName }: PageProps) {
 
         <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
           <Image
-            src={liukanshanAsset.url}
-            alt="liukanshan"
+            src={p12GifAsset.url}
+            alt={p12GifAsset.alt}
             width={liukanshanAsset.width}
             height={liukanshanAsset.height}
             className="object-contain"
             style={{ marginBottom: '10px' }}
+            unoptimized
           />
         </div>
       </div>

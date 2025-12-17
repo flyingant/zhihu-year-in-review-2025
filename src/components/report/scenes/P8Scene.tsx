@@ -22,7 +22,7 @@ export default function P8Scene({ onNext, sceneName }: PageProps) {
   const blue1Asset = bgAsset.blue1;
   const mix5Asset = bgAsset.mix5;
   const mix2Asset = bgAsset.mix2;
-  const liukanshanAsset = assets.report.p8.liukanshan;
+  const p8GifAsset = assets.report.p8.gif;
   const sparkleAsset = assets.report.p8.sparkle;
   const shipAsset = assets.report.p8.ship;
   
@@ -114,11 +114,12 @@ export default function P8Scene({ onNext, sceneName }: PageProps) {
             style={{ top: '10px', left: '90px' }}
           />
           <Image 
-            src={liukanshanAsset.url} 
-            alt={liukanshanAsset.alt} 
-            width={liukanshanAsset.width} 
-            height={liukanshanAsset.height} 
+            src={p8GifAsset.url} 
+            alt={p8GifAsset.alt} 
+            width={p8GifAsset.width} 
+            height={p8GifAsset.height} 
             className="object-contain relative pointer-events-none select-none z-10" 
+            unoptimized
           />
         </div>
 

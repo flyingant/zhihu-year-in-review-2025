@@ -23,6 +23,7 @@ export default function P13Scene({ onNext, sceneName }: PageProps) {
   const mix7Asset = bgAsset.mix7;
   const mix8Asset = bgAsset.mix8;
   const liukanshanAsset = assets.report.p13.liukanshan;
+  const p13GifAsset = assets.report.p13.gif;
 
   // Map context data to component variables according to P13 spec
   // Note: P13 spec details to be confirmed, using placeholder structure
@@ -138,10 +139,11 @@ export default function P13Scene({ onNext, sceneName }: PageProps) {
 
         <div className='flex items-center justify-center'>
           <Image
-            src={liukanshanAsset.url}
-            alt={liukanshanAsset.alt}
+            src={p13GifAsset.url}
+            alt={p13GifAsset.alt}
             width={liukanshanAsset.width}
             height={liukanshanAsset.height}
+            unoptimized
           />
         </div>
 

@@ -25,7 +25,7 @@ export default function P6Scene({ onNext, sceneName }: PageProps) {
   const green1Asset = bgAsset.green1;
   const mix1Asset = bgAsset.mix1;
   const mix2Asset = bgAsset.mix2;
-  const liukanshanAsset = assets.report.p6.liukanshan;
+  const p6GifAsset = assets.report.p6.gif;
 
   // Map context data to component variables according to P6 spec
   const totalWords = reportData?.content_total_word_cnt ?? 0;
@@ -112,11 +112,12 @@ export default function P6Scene({ onNext, sceneName }: PageProps) {
 
         <div className="z-0 flex ">
           <Image
-            src={liukanshanAsset.url}
-            alt={liukanshanAsset.alt}
-            width={liukanshanAsset.width}
-            height={liukanshanAsset.height}
+            src={p6GifAsset.url}
+            alt={p6GifAsset.alt}
+            width={p6GifAsset.width}
+            height={p6GifAsset.height}
             className="object-contain pointer-events-none select-none z-1 relative"
+            unoptimized
           />
           <div className="text-center" style={{ paddingTop: '20px' }}>
             <div >

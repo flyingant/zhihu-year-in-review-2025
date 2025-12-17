@@ -27,7 +27,7 @@ export default function P5Scene({ onNext, sceneName }: PageProps) {
   const liukanshanPixelAsset = assets.report.p2.liukanshan;
   const hiAsset = assets.report.p5.hi;
   const yellowMirrorAsset = assets.report.p5.yellowMirror;
-  const liukanshanAsset = assets.report.p5.liukanshan;
+  const p5GifAsset = assets.report.p5.gif;
   
   // Map context data to component variables according to P5 spec
   const commentCount = reportData?.publish_comment_cnt ?? null;
@@ -105,12 +105,13 @@ export default function P5Scene({ onNext, sceneName }: PageProps) {
           style={{ bottom: '203px', left: '126px', animationDelay: '1.5s', transformOrigin: 'bottom left' }}
         />
         <Image 
-          src={liukanshanAsset.url} 
-          alt={liukanshanAsset.alt} 
-          width={liukanshanAsset.width} 
-          height={liukanshanAsset.height} 
+          src={p5GifAsset.url} 
+          alt={p5GifAsset.alt} 
+          width={p5GifAsset.width / 2} 
+          height={p5GifAsset.height / 2} 
           className="object-contain absolute pointer-events-none select-none z-1"
           style={{ bottom: '53px', right: '28px' }}
+          unoptimized
         />
       </div>
 

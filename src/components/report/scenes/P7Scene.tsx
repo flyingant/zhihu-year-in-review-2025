@@ -21,7 +21,7 @@ export default function P7Scene({ onNext, sceneName }: PageProps) {
   const blue1Asset = bgAsset.blue1;
   const mix5Asset = bgAsset.mix5;
   const mix2Asset = bgAsset.mix2;
-  const liukanshanAsset = assets.report.p7.liukanshan;
+  const p7GifAsset = assets.report.p7.gif;
   const blueBubbleAsset = assets.report.p7.blueBubble;
   const redBubbleAsset = assets.report.p7.redBubble;
   const yellowBubbleAsset = assets.report.p7.yellowBubble;
@@ -154,12 +154,13 @@ export default function P7Scene({ onNext, sceneName }: PageProps) {
             />
           </div>
           <Image 
-            src={liukanshanAsset.url} 
-            alt={liukanshanAsset.alt} 
-            width={liukanshanAsset.width} 
-            height={liukanshanAsset.height} 
+            src={p7GifAsset.url} 
+            alt={p7GifAsset.alt} 
+            width={p7GifAsset.width} 
+            height={p7GifAsset.height} 
             className="relative object-contain pointer-events-none select-none z-1" 
             style={{ right: '-20px' }}
+            unoptimized
           />
         </div>
 

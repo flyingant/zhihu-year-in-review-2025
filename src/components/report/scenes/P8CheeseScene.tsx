@@ -20,7 +20,7 @@ export default function P8CheeseScene({ onNext, sceneName }: PageProps) {
   const blue1Asset = bgAsset.blue1;
   const mix5Asset = bgAsset.mix5;
   const mix2Asset = bgAsset.mix2;
-  const liukanshanAsset = assets.report.p8.liukanshan;
+  const p8GifAsset = assets.report.p8.gif;
 
   const cheeseAwards = (reportData?.cheese_award_list || '') as string;
   const studentName = (reportData?.cheese_student_name || '') as string;
@@ -105,11 +105,12 @@ export default function P8CheeseScene({ onNext, sceneName }: PageProps) {
           }}
         >
           <Image
-            src={liukanshanAsset.url}
-            alt={liukanshanAsset.alt}
-            width={liukanshanAsset.width}
-            height={liukanshanAsset.height}
+            src={p8GifAsset.url}
+            alt={p8GifAsset.alt}
+            width={p8GifAsset.width}
+            height={p8GifAsset.height}
             className='object-contain relative pointer-events-none select-none z-10'
+            unoptimized
           />
         </div>
         {!!studentName && (

@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useEffect, useCallback } from 'react';
+import ZheXieZhenDeKeYi from '@/components/ui/ZheXieZhenDeKeYi';
 import Image from 'next/image';
 import { useZA } from '@/hooks/useZA';
 import { useAssets } from '@/context/assets-context';
@@ -89,15 +90,10 @@ const RealCanDoSection = () => {
   return (
     <div ref={setRefs} className="relative w-full flex flex-col">
       <div className="relative w-full mb-4">
-        <div className={`relative z-50 mr-[119px]`}>
-          <Image
-            src={titleAsset.url}
-            alt={titleAsset.alt}
-            width={titleAsset.width}
-            height={titleAsset.height}
-            className="object-contain"
-          />
-        </div>
+       {/* Title */}
+      <div className="mb-4">
+        <ZheXieZhenDeKeYi />
+      </div>
         <div
           className={`absolute -bottom-[70%] left-[2%] w-[72px] z-0 transition-transform duration-500 ease-out ${showIcon
             ? 'translate-y-0 opacity-100'

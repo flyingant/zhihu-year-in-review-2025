@@ -261,7 +261,6 @@ export default function BaseScene({
         ...styles,
       }}
     >
-      <AudioPlayer />
       <div
         ref={containerRef}
         className="relative bg-transparent"
@@ -275,6 +274,7 @@ export default function BaseScene({
       >
         <DebugPanel sceneName={sceneName} onNext={onNext} onNavigateToScene={onNavigateToScene} />
         <div className={`relative z-40 w-full h-full`}>
+          <AudioPlayer />
           {logoAsset ? (
             <div
               className={`absolute z-50`}

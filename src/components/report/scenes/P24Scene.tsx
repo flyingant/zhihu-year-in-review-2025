@@ -62,7 +62,7 @@ export default function P24Scene({ onNext, sceneName }: PageProps) {
 
   if (!assets) return null;
 
-  const { liukanshan, film } = assets.report.p24;
+  const { liukanshan, film, gif } = assets.report.p24;
   const { mix22_1, mix22_4, mix22_5 } = assets.report.bg;
 
   // Map context data to component variables according to P24 spec (特殊-影视作品)
@@ -147,13 +147,14 @@ export default function P24Scene({ onNext, sceneName }: PageProps) {
           className='object-contain absolute pointer-events-none select-none -z-10'
           style={{ top: '17px', left: '0', right: '0' }}
         />
-        <Image
-          src={liukanshan.url}
-          alt='{liukanshan.alt}'
-          width={liukanshan.width}
-          height={liukanshan.height}
-          className='object-contain absolute pointer-events-none select-none -z-10'
-          style={{ top: '578px', left: '45px' }}
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img
+          src={gif.url}
+          alt={gif.alt}
+          width={gif.width / 2}
+          height={gif.height / 2}
+          className='object-contain absolute pointer-events-none select-none z-1'
+          style={{ top: '556px', left: '45px' }}
         />
       </div>
       {/* content */}

@@ -17,7 +17,7 @@ export default function P26Scene({ onNext, sceneName }: PageProps) {
 
   if (!assets) return null;
 
-  const { liukanshan, pinkPixel, rainbow, redPixel1, redPixel2 } =
+  const { pinkPixel, rainbow, redPixel1, redPixel2, gif } =
     assets.report.p26;
   const { mix22_4, mix22_5 } = assets.report.bg;
 
@@ -95,13 +95,14 @@ export default function P26Scene({ onNext, sceneName }: PageProps) {
           className='object-contain absolute pointer-events-none select-none -z-10'
           style={{ top: '0', left: '0', right: '0' }}
         />
-        <Image
-          src={liukanshan.url}
-          alt='{liukanshan.alt}'
-          width={liukanshan.width}
-          height={liukanshan.height}
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img
+          src={gif.url}
+          alt={gif.alt}
+          width={gif.width / 2}
+          height={gif.height / 2}
           className='object-contain absolute pointer-events-none select-none -z-10'
-          style={{ top: '410px', left: '108px', right: '0' }}
+          style={{ top: '410px', left: '93px', right: '0' }}
         />
       </div>
       {/* content */}

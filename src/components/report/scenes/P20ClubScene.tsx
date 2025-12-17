@@ -198,78 +198,97 @@ export default function P20Scene({ onNext, sceneName }: PageProps) {
       <div className='z-0 tracking-wide'>
         <div className='spots'>
           {/* Most Favorite Spots */}
-          <div
-            className='z-30 absolute'
-            style={{
-              fontSize: '14px',
-              top: '145px',
-              left: '34px',
-              right: '34px',
-              lineHeight: '24px',
-            }}
-          >
-            {clubActiveListName1 && (
-              <span className='text-r-pink'>
-                「
-                {truncateText(
-                  String(clubActiveListName1 ?? 'club_active_list_name_top1')
-                )}
-                」
-              </span>
-            )}
-            {clubActiveListName2 && (
-              <span className='text-r-pink'>
-                「
-                {truncateText(
-                  String(clubActiveListName2 ?? 'club_active_list_name_top2')
-                )}
-                」
-              </span>
-            )}
-            {clubActiveListName3 && (
-              <span className='text-r-pink'>
-                「
-                {truncateText(
-                  String(clubActiveListName3 ?? 'club_active_list_name_top3')
-                )}
-                」
-              </span>
-            )}
-            <span>圈子是你今年最爱的精神据点</span>
-          </div>
+          {(!!clubActiveListName1 ||
+            !!clubActiveListName2 ||
+            !!clubActiveListName3) && (
+            <div
+              className='z-30 absolute'
+              style={{
+                fontSize: '14px',
+                top: '145px',
+                left: '34px',
+                right: '34px',
+                lineHeight: '24px',
+              }}
+            >
+              {!!clubActiveListName1 && (
+                <span className='text-r-pink'>
+                  「
+                  {truncateText(
+                    String(clubActiveListName1 ?? 'club_active_list_name_top1')
+                  )}
+                  」
+                </span>
+              )}
+              {!!clubActiveListName2 && (
+                <span className='text-r-pink'>
+                  「
+                  {truncateText(
+                    String(clubActiveListName2 ?? 'club_active_list_name_top2')
+                  )}
+                  」
+                </span>
+              )}
+              {!!clubActiveListName3 && (
+                <span className='text-r-pink'>
+                  「
+                  {truncateText(
+                    String(clubActiveListName3 ?? 'club_active_list_name_top3')
+                  )}
+                  」
+                </span>
+              )}
+              <span>圈子是你今年最爱的精神据点</span>
+            </div>
+          )}
           {/* Recommended Clubs */}
-          <div
-            className='absolute z-30'
-            style={{ fontSize: 14, top: '583px', left: '34px', right: '34px' }}
-          >
-            <div className='flex flex-col gap-1 leading-[34px]'>
-              <ClubInterestItem
-                name={clubInterestListName1}
-                avatar={clubInterestListAvatar1}
-                fallbackName='club_interest_list_name_top1'
-                type='join'
-                onClick={() => {}}
-              />
-              <ClubInterestItem
-                name={clubInterestListName2}
-                avatar={clubInterestListAvatar2}
-                fallbackName='club_interest_list_name_top2'
-                type='join'
-                onClick={() => {}}
-              />
-              <ClubInterestItem
-                name={clubInterestListName3}
-                avatar={clubInterestListAvatar3}
-                fallbackName='club_interest_list_name_top3'
-                type='joined'
-                onClick={() => {}}
-              />
+          {(!!clubInterestListName1 ||
+            !!clubInterestListName2 ||
+            !!clubInterestListName3) && (
+            <div
+              className='absolute z-30'
+              style={{
+                fontSize: 14,
+                top: '583px',
+                left: '34px',
+                right: '34px',
+              }}
+            >
+              <div className='flex flex-col gap-1 leading-[34px]'>
+                {!!clubInterestListName1 && (
+                  <ClubInterestItem
+                    name={clubInterestListName1}
+                    avatar={clubInterestListAvatar1}
+                    fallbackName='club_interest_list_name_top1'
+                    type='join'
+                    onClick={() => {}}
+                  />
+                )}
+                {!!clubInterestListName2 && (
+                  <ClubInterestItem
+                    name={clubInterestListName2}
+                    avatar={clubInterestListAvatar2}
+                    fallbackName='club_interest_list_name_top2'
+                    type='join'
+                    onClick={() => {}}
+                  />
+                )}
+                {!!clubInterestListName3 && (
+                  <ClubInterestItem
+                    name={clubInterestListName3}
+                    avatar={clubInterestListAvatar3}
+                    fallbackName='club_interest_list_name_top3'
+                    type='joined'
+                    onClick={() => {}}
+                  />
+                )}
+              </div>
+              <div className='flex flex-col gap-2' style={{ marginTop: '8px' }}>
+                <span>或许会是你的下一站</span>
+                <span>点击加入一起开启新年新旅程吧</span>
+              </div>
             </div>
-            <div className='flex flex-col gap-2' style={{ marginTop: '8px' }}>
-              <span>或许会是你的下一站</span>
-              <span>点击加入一起开启新年新旅程吧</span>
-            </div>
-          </div>
+          )}
         </div>
       </div>
     </BaseScene>

@@ -5,6 +5,7 @@ import BaseScene from './BaseScene';
 import GlitchLayer from '@/components/report/effects/GlitchLayer';
 import { useAssets } from '@/context/assets-context';
 import Image from 'next/image';
+import { log } from 'console';
 
 interface PageProps {
   onNext?: () => void;
@@ -137,31 +138,25 @@ export default function P22Scene({ onNext, sceneName }: PageProps) {
           style={{ top: '214px', left: '41px', fontSize: 14 }}
         >
           {!!consumeBillboardDays && consumeBillboardDays >= 5 && (
-            <>
-              <p>
-                你今，年驻扎热榜
-                <span
-                  className={`text-r-fern px-[7px]`}
-                  style={{ fontSize: 24 }}
-                >
-                  {String(consumeBillboardDays ?? 'consume_billboard_days')}
-                </span>
-                天
-              </p>
-              <p>
-                浏览了
-                <span
-                  className={`text-r-fern px-[7px]`}
-                  style={{ fontSize: 24 }}
-                >
-                  {String(
-                    consumeBillboardContentCount ??
-                      'consume_billboard_content_cnt'
-                  )}
-                </span>
-                条热榜内容
-              </p>
-            </>
+            <p>
+              今年，你驻扎热榜
+              <span className={`text-r-fern px-[7px]`} style={{ fontSize: 24 }}>
+                {String(consumeBillboardDays ?? 'consume_billboard_days')}
+              </span>
+              天
+            </p>
+          )}
+          {!!consumeBillboardContentCount && (
+            <p>
+              浏览了
+              <span className={`text-r-fern px-[7px]`} style={{ fontSize: 24 }}>
+                {String(
+                  consumeBillboardContentCount ??
+                    'consume_billboard_content_cnt'
+                )}
+              </span>
+              条热榜内容
+            </p>
           )}
           {/* Upvoted content on billboard */}
           {!!upvoteZhihuBillboardContentCount && (

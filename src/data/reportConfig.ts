@@ -205,6 +205,7 @@ export const SCENES: Record<string, SceneConfig> = {
     id: 'p22',
     component: P22Scene,
     next: 'p23',
+    shouldSkip: (data) => !data?.consume_billboard_days || data?.consume_billboard_days < 5,
   },
   'p23': {
     id: 'p23',

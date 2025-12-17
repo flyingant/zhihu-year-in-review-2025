@@ -210,46 +210,55 @@ export default function P20Scene({ onNext, sceneName }: PageProps) {
             )}
           </div>
           {/* Most Interacted Club Members */}
-          <div
-            className='absolute'
-            style={{ fontSize: 14, top: '578px', left: '34px', right: '34px' }}
-          >
-            <div className='flex flex-col leading-[34px]'>
-              <span>与你互动最多的圈友是：</span>
-
-              {mostInteractionMemberName1 && (
-                <InteractionMemberItem
-                  name={mostInteractionMemberName1}
-                  avatar={mostInteractionMemberAvatar1}
-                  fallbackName='most_interaction_club_member_name_top1'
-                />
-              )}
-              {mostInteractionMemberName2 && (
-                <InteractionMemberItem
-                  name={mostInteractionMemberName2}
-                  avatar={mostInteractionMemberAvatar2}
-                  fallbackName='most_interaction_club_member_name_top2'
-                />
-              )}
-              {mostInteractionMemberName3 && (
-                <InteractionMemberItem
-                  name={mostInteractionMemberName3}
-                  avatar={mostInteractionMemberAvatar3}
-                  fallbackName='most_interaction_club_member_name_top3'
-                />
-              )}
-            </div>
+          {(!!mostInteractionMemberName1 ||
+            !!mostInteractionMemberName2 ||
+            !!mostInteractionMemberName3) && (
             <div
-              className='flex items-center gap-1'
-              style={{ marginTop: '8px' }}
+              className='absolute'
+              style={{
+                fontSize: 14,
+                top: '578px',
+                left: '34px',
+                right: '34px',
+              }}
             >
-              要不要
-              <ActionsButton type='message' onClick={() => {}} />
-              {/* <ActionsButton type="join" onClick={() => {}} /> */}
-              {/* <ActionsButton type="joined" onClick={() => {}} /> */}
-              送他们一个感谢？
+              <div className='flex flex-col leading-[34px]'>
+                <span>与你互动最多的圈友是：</span>
+
+                {mostInteractionMemberName1 && (
+                  <InteractionMemberItem
+                    name={mostInteractionMemberName1}
+                    avatar={mostInteractionMemberAvatar1}
+                    fallbackName='most_interaction_club_member_name_top1'
+                  />
+                )}
+                {mostInteractionMemberName2 && (
+                  <InteractionMemberItem
+                    name={mostInteractionMemberName2}
+                    avatar={mostInteractionMemberAvatar2}
+                    fallbackName='most_interaction_club_member_name_top2'
+                  />
+                )}
+                {mostInteractionMemberName3 && (
+                  <InteractionMemberItem
+                    name={mostInteractionMemberName3}
+                    avatar={mostInteractionMemberAvatar3}
+                    fallbackName='most_interaction_club_member_name_top3'
+                  />
+                )}
+              </div>
+              <div
+                className='flex items-center gap-1'
+                style={{ marginTop: '8px' }}
+              >
+                要不要
+                <ActionsButton type='message' onClick={() => {}} />
+                {/* <ActionsButton type="join" onClick={() => {}} /> */}
+                {/* <ActionsButton type="joined" onClick={() => {}} /> */}
+                送他们一个感谢？
+              </div>
             </div>
-          </div>
+          )}
         </div>
       </div>
     </BaseScene>

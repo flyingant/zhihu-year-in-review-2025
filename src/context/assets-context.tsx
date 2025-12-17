@@ -440,6 +440,7 @@ export interface AssetsData {
       bgTopRight: AssetMetadata;
       bgBottomLeft: AssetMetadata;
       bgBottomRight: AssetMetadata;
+      gif: AssetMetadata;
     };
     audio: {
       iconDisable: AssetMetadata;

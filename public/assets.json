@@ -2323,6 +2323,12 @@
         "width": 1080,
         "height": 2073,
         "alt": "Index Bottom Right Background"
+      },
+      "gif": {
+        "url": "/assets/report/index.gif",
+        "width": 223,
+        "height": 200,
+        "alt": "Index GIF Animation"
       }
     },
     "audio": {

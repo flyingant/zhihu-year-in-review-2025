@@ -125,7 +125,7 @@ export default function P10Scene({ onNext, sceneName }: PageProps) {
             }}
           >
              <span className="text-r-pink font-bold pixel-font" style={{ fontSize: '34px', textShadow: '3px 3px 0px #000000' }}>
-               {questionCount}个
+               {questionCount}
              </span>
           </div>
         </div>
@@ -149,7 +149,7 @@ export default function P10Scene({ onNext, sceneName }: PageProps) {
             }}
           >
              <span className="text-r-fern font-bold pixel-font" style={{ fontSize: '34px', textShadow: '3px 3px 0px #000000' }}>
-               {answerCount}个
+               {answerCount}
              </span>
           </div>
         </div>
@@ -173,7 +173,7 @@ export default function P10Scene({ onNext, sceneName }: PageProps) {
             }}
           >
              <span className="text-r-green font-bold pixel-font" style={{ fontSize: '34px', textShadow: '3px 3px 0px #000000' }}>
-               {articleCount}篇
+               {articleCount}
              </span>
           </div>
         </div>
@@ -197,7 +197,7 @@ export default function P10Scene({ onNext, sceneName }: PageProps) {
             }}
           >
             <span className="text-r-yellow font-bold pixel-font" style={{ fontSize: '34px', textShadow: '3px 3px 0px #000000' }}>
-              {pinCount}个
+              {pinCount}
             </span>
           </div>
         </div>

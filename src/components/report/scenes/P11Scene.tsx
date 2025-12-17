@@ -115,7 +115,7 @@ export default function P11Scene({ onNext, sceneName }: PageProps) {
               top: '182px',
               left: '10%',
               transform: 'translateX(-50%)',
-              fontSize: '21px',
+              fontSize: '18px',
             }}
           >
             <span>{topCategories[0]}</span>
@@ -141,7 +141,7 @@ export default function P11Scene({ onNext, sceneName }: PageProps) {
               top: '182px',
               right: '15%',
               transform: 'translateX(50%)',
-              fontSize: '21px',
+              fontSize: '18px',
             }}
           >
             <span>{topCategories[2]}</span>
@@ -236,7 +236,7 @@ export default function P11Scene({ onNext, sceneName }: PageProps) {
               <div className='mb-[2px]' style={{ fontSize: '12px' }}>
                 增加好奇
               </div>
-              {displayAddList.map((category, index) => (
+              {displayReduceList.map((category, index) => (
                 <div
                   key={index}
                   className='text-r-blue mb-[2px] absolute text-left'
@@ -260,7 +260,7 @@ export default function P11Scene({ onNext, sceneName }: PageProps) {
                 textAlign: 'left',
               }}
             >
-              {displayReduceList.map((category, index) => {
+              {displayAddList.map((category, index) => {
                 return (
                   <div
                     key={index}
@@ -268,7 +268,7 @@ export default function P11Scene({ onNext, sceneName }: PageProps) {
                     style={{
                       fontSize: '17px',
                       textAlign: 'right',
-                      bottom: `${index * 22 + 12}px`,
+                      bottom: `${50 - index * 22}px`,
                       left: '180px',
                       width: '120px',
                     }}

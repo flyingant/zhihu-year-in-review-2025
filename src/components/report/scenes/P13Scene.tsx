@@ -126,8 +126,8 @@ export default function P13Scene({ onNext, sceneName }: PageProps) {
             <span
               className='text-r-fern'
               style={{
-                paddingLeft: '6px',
-                paddingRight: '6px',
+                paddingLeft: '4px',
+                paddingRight: '4px',
                 fontSize: '18px',
               }}
             >
@@ -170,8 +170,8 @@ export default function P13Scene({ onNext, sceneName }: PageProps) {
               <span
                 className='text-r-pink'
                 style={{
-                  paddingLeft: '6px',
-                  paddingRight: '6px',
+                  paddingLeft: '4px',
+                  paddingRight: '4px',
                   fontSize: '18px',
                 }}
               >

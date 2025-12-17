@@ -83,8 +83,8 @@ export default function P8Scene({ onNext, sceneName }: PageProps) {
             className='text-r-pink'
             style={{
               fontSize: '18px',
-              paddingRight: '6px',
-              paddingLeft: '6px',
+              paddingRight: '4px',
+              paddingLeft: '4px',
             }}
           >
             {zhiTrendRankCount}

@@ -1,5 +1,5 @@
 // src/api/report.ts
-import request from '../lib/request';
+import request from "../lib/request";
 
 // ============================================================================
 // User Report Data Interface
@@ -12,7 +12,7 @@ export interface UserReportData {
   question_answer_comment_cnt?: number;
   billboard_question_cnt?: number;
   billboard_question_token?: string;
-  
+
   // Answer related fields
   answer_cnt?: number;
   answer_upvote_cnt?: number;
@@ -28,7 +28,7 @@ export interface UserReportData {
   answer_most_comment_id?: number;
   answer_most_comment_title?: string;
   answer_most_comment_url?: string;
-  
+
   // Article related fields
   article_cnt?: number;
   article_upvote_cnt?: number;
@@ -44,7 +44,7 @@ export interface UserReportData {
   article_most_comment_id?: number;
   article_most_comment_title?: string;
   article_most_comment_url?: string;
-  
+
   // Idea/Pin related fields
   pin_cnt?: number;
   pin_upvote_cnt?: number;
@@ -60,7 +60,7 @@ export interface UserReportData {
   pin_most_comment_id?: number;
   pin_most_comment_title?: string;
   pin_most_comment_url?: string;
-  
+
   // Video related fields
   video_cnt?: number;
   video_upvote_cnt?: number;
@@ -76,7 +76,7 @@ export interface UserReportData {
   video_most_comment_id?: number;
   video_most_comment_title?: string;
   video_most_comment_url?: string;
-  
+
   // Question related fields
   question_cnt?: number;
   question_follower_cnt?: number;
@@ -89,13 +89,13 @@ export interface UserReportData {
   question_most_answer_id?: number;
   question_most_answer_title?: string;
   question_most_answer_url?: string;
-  
+
   // Topic related fields
   topic_follow_cnt?: number;
   topic_most_follow_id?: number;
   topic_most_follow_name?: string;
   topic_most_follow_url?: string;
-  
+
   // User follow related fields
   user_follow_cnt?: number;
   user_follower_cnt?: number;
@@ -107,14 +107,14 @@ export interface UserReportData {
   user_follower_most_upvote_name?: string;
   user_follower_most_upvote_url?: string;
   user_follower_most_upvote_upvote_cnt?: number;
-  
+
   // Collection related fields
   collection_cnt?: number;
   collection_follower_cnt?: number;
   collection_most_follower_id?: number;
   collection_most_follower_name?: string;
   collection_most_follower_url?: string;
-  
+
   // Column related fields
   column_cnt?: number;
   column_follower_cnt?: number;
@@ -126,14 +126,14 @@ export interface UserReportData {
   column_most_article_name?: string;
   column_most_article_url?: string;
   column_most_article_cnt?: number;
-  
+
   // Live related fields
   live_cnt?: number;
   live_audience_cnt?: number;
   live_most_audience_id?: number;
   live_most_audience_title?: string;
   live_most_audience_url?: string;
-  
+
   // Club/Community related fields
   club_admin_top1_id?: number;
   club_admin_top1_name?: string;
@@ -145,7 +145,7 @@ export interface UserReportData {
   club_admin_top2_content_cnt?: number;
   club_admin_pin_cnt?: number;
   club_admin_interaction_cnt?: number;
-  
+
   // Active club fields
   club_active_list_id_top1?: number;
   club_active_list_name_top1?: string;
@@ -153,7 +153,7 @@ export interface UserReportData {
   club_active_list_name_top2?: string;
   club_active_list_id_top3?: number;
   club_active_list_name_top3?: string;
-  
+
   // Interest club fields
   club_interest_list_id_top1?: number;
   club_interest_list_name_top1?: string;
@@ -163,7 +163,7 @@ export interface UserReportData {
   club_interest_list_name_top3?: string;
   club_friend_interest_id?: number;
   club_friend_interest_name?: string;
-  
+
   // Paid content (Salt Select) related fields
   paid_content_cnt?: number;
   total_word_cnt?: number;
@@ -172,7 +172,7 @@ export interface UserReportData {
   label_name_top3?: string;
   most_favorite_author_name?: string;
   most_favorite_author_num?: number;
-  
+
   // Creator related fields
   write_story_num_sum?: number;
   write_story_most_popular_name?: string;
@@ -180,7 +180,7 @@ export interface UserReportData {
   short_story_influence_list?: string;
   annual_author?: string;
   awarded_copy?: string;
-  
+
   // P5: Short content creation fields
   publish_comment_cnt?: number;
   hot_comment_content?: string;
@@ -192,14 +192,14 @@ export interface UserReportData {
   emoji_cnt?: number;
   comment_discuss_member_name?: string;
   comment_discuss_cnt?: number;
-  
+
   // P6: Content summary fields
   content_total_word_cnt?: number;
   publish_total_day_cnt?: number;
   publish_max_month?: number;
   publish_most_word_date?: string;
   publish_most_word_cnt?: number;
-  
+
   // P7: Content feedback fields
   content_pv_cnt?: number;
   content_upvote_cnt?: number;
@@ -208,14 +208,14 @@ export interface UserReportData {
   content_share_cnt?: number;
   roundtable_cnt?: number;
   recommended_cnt?: number;
-  
+
   // P8: Honor/achievement fields
   zhishi_cnt?: number;
   biz_list_num?: number;
   best_answer_topic?: string[];
   is_navigator?: number;
   navigator_upvote_content_cnt?: number;
-  
+
   // P15: Social/Follow related fields
   new_follow_cnt?: number;
   most_upvote_member_name?: string;
@@ -224,7 +224,7 @@ export interface UserReportData {
   thanks_invitation_date?: string | number;
   thanks_invitation_question_title?: string;
   thanks_invitation_member_name?: string;
-  
+
   // P17: Social interaction content
   follow_question_friend?: number;
   follow_question_friend_question_title?: string;
@@ -252,8 +252,7 @@ export interface UserReportData {
   club_interest_list_avatar_top1?: string;
   club_interest_list_avatar_top2?: string;
   club_interest_list_avatar_top3?: string;
-  
-  
+
   // P22: Billboard/Hot Events related fields
   consume_billboard_days?: number;
   consume_billboard_content_cnt?: number;
@@ -301,10 +300,10 @@ export interface FollowStatusResponse {
 /**
  * 用户关注状态接口
  * Query the follow status of the current user for a specific target user
- * 
+ *
  * @param memberToken - User identifier token for the target user
  * @returns Promise<FollowStatusResponse> - Follow status information
- * 
+ *
  * @example
  * const status = await getFollowStatus('abc123');
  * if (status.is_followed) {
@@ -313,8 +312,8 @@ export interface FollowStatusResponse {
  */
 export const getFollowStatus = (memberToken: string) => {
   return request<FollowStatusResponse>({
-    url: '/campaigns/v2/2025/follow/status',
-    method: 'GET',
+    url: "/campaigns/v2/2025/follow/status",
+    method: "GET",
     params: {
       member_token: memberToken,
     },
@@ -334,17 +333,17 @@ export interface FollowUserRequest {
 /**
  * 用户关注操作接口
  * Follow a specific user
- * 
+ *
  * @param params - Follow request parameters containing member_token
  * @returns Promise<null> - Success response (no data returned)
- * 
+ *
  * @example
  * await followUser({ member_token: 'abc123' });
  */
 export const followUser = (params: FollowUserRequest) => {
   return request<null>({
-    url: '/campaigns/v2/2025/follow',
-    method: 'POST',
+    url: "/campaigns/v2/2025/follow",
+    method: "POST",
     data: params,
   });
 };
@@ -362,17 +361,17 @@ export interface UnfollowUserRequest {
 /**
  * 用户取消关注操作接口
  * Unfollow a specific user
- * 
+ *
  * @param params - Unfollow request parameters containing member_token
  * @returns Promise<null> - Success response (no data returned)
- * 
+ *
  * @example
  * await unfollowUser({ member_token: 'abc123' });
  */
 export const unfollowUser = (params: UnfollowUserRequest) => {
   return request<null>({
-    url: '/campaigns/v2/2025/unfollow',
-    method: 'POST',
+    url: "/campaigns/v2/2025/unfollow",
+    method: "POST",
     data: params,
   });
 };
@@ -398,10 +397,10 @@ export interface QuizAnswerResponse {
 /**
  * 用户答题接口
  * Submit user's answer to a quiz question
- * 
+ *
  * @param params - Quiz answer request parameters
  * @returns Promise<QuizAnswerResponse> - Quiz result or prompt message
- * 
+ *
  * @example
  * const result = await submitQuizAnswer({
  *   question_id: 1,
@@ -411,8 +410,8 @@ export interface QuizAnswerResponse {
  */
 export const submitQuizAnswer = (params: QuizAnswerRequest) => {
   return request<QuizAnswerResponse>({
-    url: '/campaigns/v2/2025/quiz/answer',
-    method: 'POST',
+    url: "/campaigns/v2/2025/quiz/answer",
+    method: "POST",
     data: params,
   });
 };
@@ -440,10 +439,10 @@ export interface GenerateSummaryPosterResponse {
  * 个人总结海报生成接口
  * Generate a personal summary poster based on user's input text
  * Note: This is an asynchronous operation, client should show loading indicator
- * 
+ *
  * @param params - Poster generation request parameters
  * @returns Promise<GenerateSummaryPosterResponse> - Generated poster information
- * 
+ *
  * @example
  * const poster = await generateSummaryPoster({
  *   text: '我真的 XXX 了'
@@ -452,8 +451,8 @@ export interface GenerateSummaryPosterResponse {
  */
 export const generateSummaryPoster = (params: GenerateSummaryPosterRequest) => {
   return request<GenerateSummaryPosterResponse>({
-    url: '/campaigns/v2/2025/summary_poster/generate',
-    method: 'POST',
+    url: "/campaigns/v2/2025/summary_poster/generate",
+    method: "POST",
     data: params,
   });
 };
@@ -471,10 +470,10 @@ export interface PublishSummaryPosterRequest {
 /**
  * 个人总结海报发想法接口
  * Publish the generated summary poster as a pin (想法)
- * 
+ *
  * @param params - Publish request parameters containing poster_id
  * @returns Promise<null> - Success response (no data returned)
- * 
+ *
  * @example
  * // First generate the poster
  * const poster = await generateSummaryPoster({ text: '我真的 XXX 了' });
@@ -483,8 +482,8 @@ export interface PublishSummaryPosterRequest {
  */
 export const publishSummaryPoster = (params: PublishSummaryPosterRequest) => {
   return request<null>({
-    url: '/campaigns/v2/2025/summary_poster/publish_pin',
-    method: 'POST',
+    url: "/campaigns/v2/2025/summary_poster/publish_pin",
+    method: "POST",
     data: params,
   });
 };
@@ -503,18 +502,18 @@ export interface PersonalImageOptionResponse {
 /**
  * 获取用户个人形象选择信息接口
  * Get user's personal image option information
- * 
+ *
  * @param posterId - Poster ID
  * @returns Promise<PersonalImageOptionResponse> - Personal image option information
- * 
+ *
  * @example
  * const option = await getPersonalImageOption(123);
  * console.log(option.correct_option); // "真诚友善的知友"
  */
 export const getPersonalImageOption = (posterId: number) => {
   return request<PersonalImageOptionResponse>({
-    url: '/campaigns/v2/2025/personal_image_option',
-    method: 'GET',
+    url: "/campaigns/v2/2025/personal_image_option",
+    method: "GET",
     params: {
       poster_id: posterId,
     },
@@ -537,10 +536,10 @@ export interface SetVoteOptionRequest {
  * 设置投票选项接口
  * Set vote options for a generated poster
  * Supports optional publishing as a pin and submitting custom vote options
- * 
+ *
  * @param params - Vote option request parameters
  * @returns Promise<null> - Success response (no data returned)
- * 
+ *
  * @example
  * await setVoteOption({
  *   poster_id: 1234,
@@ -550,8 +549,8 @@ export interface SetVoteOptionRequest {
  */
 export const setVoteOption = (params: SetVoteOptionRequest) => {
   return request<null>({
-    url: '/campaigns/v2/2025/vote/option',
-    method: 'POST',
+    url: "/campaigns/v2/2025/poll/setup",
+    method: "POST",
     data: params,
   });
 };
@@ -583,11 +582,11 @@ export interface VoteInfoResponse {
 
 /**
  * 获取投票信息接口
- * Get vote information for a specific poster
- * 
- * @param posterId - Poster ID
+ * Get vote information for a specific poll
+ *
+ * @param pollId - Poll ID
  * @returns Promise<VoteInfoResponse> - Vote information including options and statistics
- * 
+ *
  * @example
  * const voteInfo = await getVoteInfo(1234);
  * console.log(voteInfo.vote_title);
@@ -595,12 +594,12 @@ export interface VoteInfoResponse {
  *   console.log(`${option.option_text}: ${option.vote_count} votes`);
  * });
  */
-export const getVoteInfo = (posterId: number) => {
+export const getVoteInfo = (pollId: string) => {
   return request<VoteInfoResponse>({
-    url: '/campaigns/v2/2025/vote/info',
-    method: 'GET',
+    url: "/campaigns/v2/2025/poll_info",
+    method: "GET",
     params: {
-      poster_id: posterId,
+      poll_id: pollId,
     },
   });
 };
@@ -628,10 +627,10 @@ export interface SubmitVoteResponse {
 /**
  * 投票提交接口
  * Submit a vote for a specific poster
- * 
+ *
  * @param params - Vote submission request parameters
  * @returns Promise<SubmitVoteResponse> - Vote submission result
- * 
+ *
  * @example
  * const result = await submitVote({
  *   poster_id: 1234,
@@ -643,8 +642,8 @@ export interface SubmitVoteResponse {
  */
 export const submitVote = (params: SubmitVoteRequest) => {
   return request<SubmitVoteResponse>({
-    url: '/campaigns/v2/2025/vote/submit',
-    method: 'POST',
+    url: "/campaigns/v2/2025/submit_vote",
+    method: "POST",
     data: params,
   });
 };
@@ -657,25 +656,23 @@ export const submitVote = (params: SubmitVoteRequest) => {
  * Get user's annual summary report data
  * This endpoint returns comprehensive user activity data for the year
  * Note: Data is sourced from data warehouse and updated daily
- * 
+ *
  * @param params - Optional query params (e.g., test_member_id for testing)
  * @returns Promise<UserReportData> - Complete user annual report data
- * 
+ *
  * @example
  * const reportData = await getUserReportData();
  * console.log(`Published ${reportData.answer_cnt} answers`);
  * console.log(`Most upvoted answer: ${reportData.answer_most_upvote_title}`);
  */
 export const getUserReportData = (params?: { test_member_id?: string }) => {
-  const baseUrl = '/campaigns/v2/2025/summary/profile';
-  const url =
-    params?.test_member_id
-      ? `${baseUrl}?test_member_id=${encodeURIComponent(params.test_member_id)}`
-      : baseUrl;
+  const baseUrl = "/campaigns/v2/2025/summary/profile";
+  const url = params?.test_member_id
+    ? `${baseUrl}?test_member_id=${encodeURIComponent(params.test_member_id)}`
+    : baseUrl;
 
   return request<UserReportData>({
     url,
-    method: 'GET',
+    method: "GET",
   });
 };
-

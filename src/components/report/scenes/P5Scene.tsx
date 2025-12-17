@@ -115,8 +115,8 @@ export default function P5Scene({ onNext, sceneName }: PageProps) {
         <Image
           src={p5GifAsset.url}
           alt={p5GifAsset.alt}
-          width={p5GifAsset.width / 2}
-          height={p5GifAsset.height / 2}
+          width={p5GifAsset.width}
+          height={p5GifAsset.height}
           className='object-contain absolute pointer-events-none select-none z-1'
           style={{ bottom: '53px', right: '28px' }}
           unoptimized

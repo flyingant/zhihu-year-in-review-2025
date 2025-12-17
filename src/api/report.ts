@@ -212,7 +212,7 @@ export interface UserReportData {
   // P8: Honor/achievement fields
   zhishi_cnt?: number;
   biz_list_num?: number;
-  best_answer_topic?: string;
+  best_answer_topic?: string[];
   is_navigator?: number;
   navigator_upvote_content_cnt?: number;
   

@@ -75,14 +75,12 @@ export default function P8CheeseScene({ onNext, sceneName }: PageProps) {
               这一路，作品为你点亮星光
             </div>
             <div hidden={!cheeseAwards}>
-              <div style={{ paddingBottom: '10px' }}>你的商业作品获得</div>
-
               <div style={{ paddingBottom: '8px' }}>
                 <span
                   className='text-r-yellow font-bold'
                   style={{ fontSize: '18px' }}
                 >
-                  2025 芝士奖「{cheeseAwards}」荣誉
+                  {cheeseAwards}
                 </span>
               </div>
 

@@ -6,7 +6,7 @@ import { useAssets } from '@/context/assets-context';
 import { useUserReportData } from "@/context/user-report-data-context";
 import BaseScene from "./BaseScene";
 import GlitchLayer from "@/components/report/effects/GlitchLayer";
-import { formatDate } from "@/utils/common";
+import { formatDate, truncateText } from "@/utils/common";
 
 interface PageProps {
   onNext?: () => void;
@@ -46,7 +46,7 @@ export default function P2BillboardScene({ onNext, sceneName }: PageProps) {
 
   const billboardCount = reportData?.billboard_question_cnt ?? 0;
   const billboardQuestionDate = formatDate((reportData?.billboard_question_date ?? "") as string | null) || '05月06日';
-  const billboardQuestionTitle = (reportData?.billboard_question_title ?? "") as string | null;
+  const billboardQuestionTitle = truncateText((reportData?.billboard_question_title ?? "") as string | null, 28);
 
 
   return (

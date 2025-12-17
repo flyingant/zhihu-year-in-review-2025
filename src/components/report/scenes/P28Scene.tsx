@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { useSearchParams } from "next/navigation";
 import BaseScene from "./BaseScene";
 import { useAssets } from "@/context/assets-context";
 import { generateSummaryPoster } from "@/api/report";
@@ -16,6 +17,7 @@ export default function P28Scene({ onNext, sceneName }: PageProps) {
   const { assets } = useAssets();
   const { showToast } = useToast();
   const { setSummaryPoster } = useUserReportData();
+  const searchParams = useSearchParams();
   const [inputValue, setInputValue] = useState("");
   const [isLoading, setIsLoading] = useState(false);
 
@@ -32,7 +34,11 @@ export default function P28Scene({ onNext, sceneName }: PageProps) {
     setIsLoading(true);
     try {
       const text = `${inputValue.trim()}`;
-      const response = await generateSummaryPoster({ text });
+      const testMemberId = searchParams?.get("test_member_id") || undefined;
+      const response = await generateSummaryPoster({
+        text,
+        ...(testMemberId && { test_member_id: testMemberId }),
+      });
       
       // Save poster data to context
       setSummaryPoster({

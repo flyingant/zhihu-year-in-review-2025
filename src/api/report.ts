@@ -425,6 +425,7 @@ export const submitQuizAnswer = (params: QuizAnswerRequest) => {
  */
 export interface GenerateSummaryPosterRequest {
   text: string; // User's summary text input (e.g., "我真的 XXX 了")
+  test_member_id?: string; // Optional test member ID for testing purposes
 }
 
 /**

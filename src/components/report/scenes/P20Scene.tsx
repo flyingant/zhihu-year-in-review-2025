@@ -189,13 +189,13 @@ export default function P20Scene({ onNext, sceneName }: PageProps) {
             className='absolute'
             style={{
               fontSize: '14px',
-              top: '160px',
+              top: '150px',
               left: '34px',
               right: '19px',
             }}
           >
-            {!!clubFriendCount && (
-              <div className='leading-[29px]'>
+            {
+              <div className='leading-[29px]' hidden={!clubFriendCount}>
                 你在圈子里「扩列」了
                 <span
                   className='text-r-blue px-[7px]'
@@ -207,14 +207,17 @@ export default function P20Scene({ onNext, sceneName }: PageProps) {
                 <br />
                 希望新的一年，你能遇见更多同频的人
               </div>
-            )}
+            }
           </div>
           {/* Most Interacted Club Members */}
-          {(!!mostInteractionMemberName1 ||
-            !!mostInteractionMemberName2 ||
-            !!mostInteractionMemberName3) && (
+          {
             <div
               className='absolute'
+              hidden={
+                !mostInteractionMemberName1 &&
+                !mostInteractionMemberName2 &&
+                !mostInteractionMemberName3
+              }
               style={{
                 fontSize: 14,
                 top: '578px',
@@ -258,7 +261,7 @@ export default function P20Scene({ onNext, sceneName }: PageProps) {
                 送他们一个感谢？
               </div>
             </div>
-          )}
+          }
         </div>
       </div>
     </BaseScene>

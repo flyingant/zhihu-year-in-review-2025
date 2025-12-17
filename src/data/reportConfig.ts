@@ -177,11 +177,13 @@ export const SCENES: Record<string, SceneConfig> = {
     id: "p16",
     component: P16Scene,
     next: "p17",
+    shouldSkip: (data) => !data?.send_upvote_cnt && !data?.consume_member_name && !data?.consume_interest_member_name_top1 && !data?.consume_interest_member_name_top2 && !data?.consume_interest_member_name_top3,
   },
   p17: {
     id: "p17",
     component: P17Scene,
     next: "p18",
+    shouldSkip: (data) => !data?.follow_question_friend && !data?.upvote_hot_answer_member_name,
   },
   p18: {
     id: "p18",

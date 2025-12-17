@@ -38,7 +38,8 @@ export default function P11Scene({ onNext, sceneName }: PageProps) {
   const displayAddList = addCategoryList.slice(0, 3);
   const displayReduceList = reduceCategoryList.slice(0, 3);
 
-  const shouldShowTable = displayAddList.length > 0 || displayReduceList.length > 0;
+  const shouldShowTable =
+    displayAddList.length > 0 || displayReduceList.length > 0;
 
   // const addCategoryList = reportData?.add_category_list ?? null; // Not used in JSX
   // const reduceCategoryList = reportData?.reduce_category_list ?? null; // Not used in JSX
@@ -242,12 +243,12 @@ export default function P11Scene({ onNext, sceneName }: PageProps) {
                   className='text-r-blue mb-[2px] absolute text-left'
                   style={{
                     fontSize: '17px',
-                    top: `${index * 22 - 18}px`,
-                    left: 0,
+                    top: `${26 - index * 22}px`,
+                    left: 10,
                     width: '120px',
                   }}
                 >
-                  「{category}」
+                  {category}
                 </div>
               ))}
             </div>
@@ -269,11 +270,11 @@ export default function P11Scene({ onNext, sceneName }: PageProps) {
                       fontSize: '17px',
                       textAlign: 'right',
                       bottom: `${50 - index * 22}px`,
-                      left: '180px',
+                      left: '170px',
                       width: '120px',
                     }}
                   >
-                    「{category}」
+                    {category}
                   </div>
                 );
               })}

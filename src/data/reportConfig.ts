@@ -157,6 +157,7 @@ export const SCENES: Record<string, SceneConfig> = {
     id: "p12",
     component: P12Scene,
     next: "p13",
+    shouldSkip: (data) => !data?.zhihu_browse_last_date
   },
   p13: {
     id: "p13",

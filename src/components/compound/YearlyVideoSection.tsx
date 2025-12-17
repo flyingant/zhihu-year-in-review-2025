@@ -351,7 +351,7 @@ const YearlyVideoSection = () => {
             ref={playerContainerRef}
             className="absolute z-20 overflow-hidden bg-black rounded-[20px]"
             style={{
-              top: '27.5%',
+              top: '26.5%',
               left: '4.8%',
               width: '90.5%',
               height: '51%',

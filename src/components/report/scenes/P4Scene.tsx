@@ -6,7 +6,8 @@ import BaseScene from "./BaseScene";
 import Image from "next/image";
 import { useAssets } from "@/context/assets-context";
 import GlitchLayer from "@/components/report/effects/GlitchLayer";
-
+import { truncateText } from "@/utils/common";
+ 
 interface PageProps {
   onNext?: () => void;
   sceneName?: string;
@@ -36,7 +37,8 @@ export default function P4Scene({ onNext, sceneName }: PageProps) {
     typeof value === "number" ? value : fallback;
 
   // Map context data to component variables according to P4 spec
-  const questionTitle = toStringOrFallback(reportData?.answer_most_upvote_question_title, '');
+  const questionTitle = truncateText((reportData?.answer_most_upvote_question_title ?? 
+    '') as string, 28);
   const upvoteCount = toNumberOrFallback(reportData?.answer_most_upvote_cnt, '');
   const thousandUpvoteAnswers = toNumberOrFallback(reportData?.answer_1k_upvote_cnt, '');
 

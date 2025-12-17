@@ -129,7 +129,7 @@ export default function P8Scene({ onNext, sceneName }: PageProps) {
         </div>
 
         {/* 航海家区域 - 从右侧滑入动画 */}
-        <div hidden={isNavigator === 0}>
+        <div hidden={isNavigator === 0} style={{ marginTop: '-30px' }}>
           <div 
             className="opacity-0 animate-slide-in-right" 
             style={{ 

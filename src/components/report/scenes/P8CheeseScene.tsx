@@ -68,7 +68,7 @@ export default function P8CheeseScene({ onNext, sceneName }: PageProps) {
             <div
               style={{
                 lineHeight: '1.4',
-                marginBottom: '68px',
+                marginBottom: '60px',
                 fontSize: '22px',
               }}
             >
@@ -99,7 +99,6 @@ export default function P8CheeseScene({ onNext, sceneName }: PageProps) {
           style={{
             position: 'relative',
             paddingTop: '20px',
-            paddingLeft: '140px',
           }}
         >
           <Image
@@ -109,6 +108,7 @@ export default function P8CheeseScene({ onNext, sceneName }: PageProps) {
             height={p8GifAsset.height}
             className='object-contain relative pointer-events-none select-none z-10'
             unoptimized
+            style={{ top: '0px', left: '60px' }}
           />
         </div>
         {!!studentName && (
@@ -116,7 +116,7 @@ export default function P8CheeseScene({ onNext, sceneName }: PageProps) {
             className='opacity-0 animate-slide-in-right'
             style={{
               animationDelay: '0.5s',
-              marginTop: '20px',
+              marginTop: '-20px',
             }}
           >
             <div style={{ marginBottom: '8px' }} hidden={!courseCount}>

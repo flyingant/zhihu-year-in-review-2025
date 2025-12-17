@@ -52,15 +52,28 @@ export default function P30Scene({ onNext, sceneName }: PageProps) {
         .map((i) => summaryFlags.find((flag) => flag.key === i)?.fullText || "")
         .filter(Boolean),
       is_publish_pin: 0,
-    }).then(() => {
-      // Vote options set successfully
-      // Note: poll_id would need to be retrieved separately if needed
-    });
+    })
+      .then((res) => {
+        // Vote options set successfully
+        // Note: poll_id would need to be retrieved separately if needed
+        // Vote options set successfully, redirect to guess page
+        if (res?.poll_id) {
+          const redirectUrl = `https://event.zhihu.com/2025guess/?pollId=${res.poll_id}`;
+          window.location.href = redirectUrl;
+        } else {
+          showToast("投票选项设置成功，但无法获取投票ID", "error");
+        }
+      })
+      .catch((error) => {
+        console.error("Failed to set vote options:", error);
+        showToast("设置投票选项失败，请重试", "error");
+      });
   };
 
   const handleSyncToggle = () => {
     setIsSynced(!isSynced);
     // TODO: Implement sync functionality
+    showToast("TODO: Implement sync functionality");
   };
 
   return (

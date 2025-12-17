@@ -106,7 +106,7 @@ export default function P2Scene({ onNext, sceneName }: PageProps) {
 
       <div style={{ paddingLeft: '34px', paddingRight: '34px', paddingTop: '120px', fontSize: '14px' }}>
         <div style={{ fontSize: '22px' }}>
-          这一年，你依旧好奇
+          你的好奇，擦亮了世界的雾面
         </div>
 
         <div hidden={!questionCount} style={{ paddingTop: '60px', paddingBottom: '2px' }}>
@@ -142,14 +142,13 @@ export default function P2Scene({ onNext, sceneName }: PageProps) {
             个领域
           </p>
           <p className="flex items-center">
-            其中，
             <span
               className={`text-r-green`}
               style={{ paddingRight: '5px', fontSize: '18px' }}
             >
               {topDomain}
             </span>
-            领域让你反复追问
+            领域的内容令你着迷
           </p>
         </div>
       </div>

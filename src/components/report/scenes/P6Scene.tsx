@@ -83,7 +83,7 @@ export default function P6Scene({ onNext, sceneName }: PageProps) {
 
       <div style={{ paddingTop: '120px', fontSize: '14px' }}>
         <div style={{ fontSize: '22px', marginBottom: '40px', paddingLeft: '34px' }}>
-          这一年，你真心分享
+          真实的表达，写清了自己
         </div>
 
         {/* 总字数 */}
@@ -92,7 +92,7 @@ export default function P6Scene({ onNext, sceneName }: PageProps) {
           你在知乎写下了
           <span
             className={`text-r-pink`}
-            style={{ paddingLeft: '6px', paddingRight: '6px', fontSize: '24px' }}
+            style={{ paddingLeft: '6px', paddingRight: '6px', fontSize: '18px' }}
           >
             {totalWords}
           </span>
@@ -101,19 +101,12 @@ export default function P6Scene({ onNext, sceneName }: PageProps) {
 
         {/* 创作天数 */}
         <div style={{ marginBottom: '30px', paddingLeft: '34px', paddingRight: '34px', }}>
-          足以拼成
+          一句一行，都是你的
           <span
             className={`text-r-fern`}
-            style={{ paddingLeft: '4px', paddingRight: '4px', fontSize: '24px' }}
+            style={{ paddingLeft: '4px', paddingRight: '4px', fontSize: '18px' }}
           >
-            {creationDays}
-          </span>
-          本
-          <span
-            className={`text-r-fern`}
-            style={{ paddingLeft: '4px', paddingRight: '4px', fontSize: '24px' }}
-          >
-            {creationDays}
+            2025.txt
           </span>
         </div>
 

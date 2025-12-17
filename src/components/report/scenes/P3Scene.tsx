@@ -104,7 +104,7 @@ export default function P3Scene({ onNext, sceneName }: PageProps) {
 
       <div style={{ paddingLeft: '34px', paddingRight: '34px', paddingTop: '120px', fontSize: '14px' }}>
         <div style={{ fontSize: '22px' }}>
-          这一年，你依旧好奇
+          你的答案，让混沌变得清晰
         </div>
 
         <div style={{ paddingTop: '46px', paddingBottom: '8px' }} hidden={!answerCount && !articleCount}>
@@ -177,7 +177,7 @@ export default function P3Scene({ onNext, sceneName }: PageProps) {
           >
             「{firstAnswerTitle}」
           </span>
-          里写下了今年第一条回答。
+          问题写下了今年第一条回答
         </div>
       </div>
 

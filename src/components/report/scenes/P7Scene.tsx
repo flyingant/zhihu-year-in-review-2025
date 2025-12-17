@@ -65,8 +65,8 @@ export default function P7Scene({ onNext, sceneName }: PageProps) {
       </GlitchLayer>
 
       <div style={{ paddingLeft: '34px', paddingRight: '34px', paddingTop: '120px', fontSize: '14px' }}>
-        <div style={{ marginBottom: '40px', fontSize: '22px' }}>
-          这一年，你真心分享
+        <div className="text-center" style={{ marginBottom: '40px', fontSize: '22px' }}>
+          真诚的文字值得被认真回应
         </div>
 
         <div style={{ lineHeight: '32px', marginBottom: '20px', display: 'flex', alignItems: 'center' }}>

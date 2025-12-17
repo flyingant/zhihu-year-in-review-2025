@@ -116,7 +116,7 @@ export default function P5Scene({ onNext, sceneName }: PageProps) {
 
       <div style={{ paddingLeft: '34px', paddingRight: '34px', paddingTop: '120px', fontSize: '14px' }}>
         <div style={{ fontSize: '22px', marginBottom: '46px' }}>
-          这一年，你真心分享
+          不算太长的字句，都留下痕迹
         </div>
 
         {/* 评论统计 */}
@@ -150,7 +150,7 @@ export default function P5Scene({ onNext, sceneName }: PageProps) {
               >
                 {hotCommentLikes}
               </span> 
-              人的点赞
+              人的点赞和回复
             </div>
              
           </div>
@@ -174,7 +174,7 @@ export default function P5Scene({ onNext, sceneName }: PageProps) {
             >
               「{hotPinTitle}」
             </span>
-            <div>折射出最多共鸣</div>
+            <div>获得了 {hotPinLikes} 次回应</div>
           </div>
         </div>
       </div>

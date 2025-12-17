@@ -115,7 +115,7 @@ export default function P4Scene({ onNext, sceneName }: PageProps) {
       
       <div style={{ paddingLeft: '34px', paddingRight: '34px', paddingTop: '120px', fontSize: '14px' }}>
         <div style={{ fontSize: '22px' }}>
-          这一年，你依旧好奇
+          你的答案，让混沌变得清晰
         </div>
         <div className="" style={{ paddingTop: '46px', paddingBottom: '8px' }} hidden={questionTitle === '' || +upvoteCount <= 50}>
           <div  style={{ paddingBottom: '2px' }}>

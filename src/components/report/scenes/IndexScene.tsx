@@ -33,10 +33,10 @@ const MirrorContent = ({
   
   <div className="flex flex-col justify-center text-left pointer-events-none select-none w-full h-full" style={{ fontSize: '14px' }}>
     <div style={{ fontSize: '22px', paddingBottom: '8px' }}>
-      @{userName}
+      你说，时间是真实的吗？
     </div>
     <div style={{ fontSize: '22px', paddingBottom: '8px' }}>
-      你说，时间是真实的吗？
+      @{userName}
     </div>
     <div>
       从 

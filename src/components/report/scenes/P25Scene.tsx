@@ -18,7 +18,7 @@ export default function P25Scene({ onNext, sceneName }: PageProps) {
 
   if (!assets) return null;
 
-  const { liukanshan, top, left, middle, right } = assets.report.p25;
+  const { liukanshan, top, left, middle, right, gif } = assets.report.p25;
   const { mix22_1, mix22_4, mix22_5 } = assets.report.bg;
 
   // Map context data to component variables according to P25 spec (特殊-故事会员/读者)
@@ -82,7 +82,16 @@ export default function P25Scene({ onNext, sceneName }: PageProps) {
           width={liukanshan.width}
           height={liukanshan.height}
           className='object-contain absolute pointer-events-none select-none -z-10'
-          style={{ top: '424px', left: '0', right: '0' }}
+          style={{ top: '295px', left: '0', right: '0' }}
+        />
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img
+          src={gif.url}
+          alt={gif.alt}
+          width={gif.width / 2}
+          height={gif.height / 2}
+          className='object-contain absolute pointer-events-none select-none -z-10'
+          style={{ top: '415px', left: '100px', right: '0' }}
         />
         <Image
           src={left.url}
@@ -90,7 +99,7 @@ export default function P25Scene({ onNext, sceneName }: PageProps) {
           width={left.width}
           height={left.height}
           className='object-contain absolute pointer-events-none select-none -z-10'
-          style={{ top: '442px', left: '80px', right: '0' }}
+          style={{ top: '412px', left: '80px', right: '0' }}
         />
         <Image
           src={middle.url}
@@ -143,6 +152,7 @@ export default function P25Scene({ onNext, sceneName }: PageProps) {
               left: '50%',
               transform: 'translateX(-50%)',
             }}
+            hidden={!labelName1 || !labelName2 || !labelName3}
           >
             是最打动你的故事元素是
           </div>

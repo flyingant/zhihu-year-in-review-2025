@@ -2044,7 +2044,7 @@
     },
     "p20": {
       "main": {
-        "url": "/assets/2025_2_report_p20_main.png",
+        "url": "/assets/2025_2_report_p20_main_1217.png",
         "width": 299,
         "height": 421,
         "alt": "main"
@@ -2140,7 +2140,7 @@
     },
     "p23": {
       "review": {
-        "url": "/assets/2025_2_report_p23_review.png",
+        "url": "/assets/2025_2_report_p23_review_1217.png",
         "width": 375,
         "height": 355,
         "alt": "P23 Review"
@@ -2174,7 +2174,7 @@
     },
     "p25": {
       "liukanshan": {
-        "url": "/assets/2025_2_report_p25_liukanshan.png",
+        "url": "/assets/2025_2_report_p25_liukanshan_1217.png",
         "width": 375,
         "height": 198,
         "alt": "P25 Liukanshan"
@@ -2342,7 +2342,37 @@
         "width": 223,
         "height": 200,
         "alt": "Index GIF Animation"
+      },
+      "gifReverse": {
+        "url": "/assets/report/index-reverse.gif",
+        "width": 223,
+        "height": 200,
+        "alt": "Index Reverse GIF Animation"
       }
+    },
+    "top2025": {
+      "url": "/assets/2025_2_report_2025.png",
+      "width": 750,
+      "height": 1334,
+      "alt": "2025 Report Top"
+    },
+    "top2026": {
+      "url": "/assets/2025_2_report_2026.png",
+      "width": 750,
+      "height": 1334,
+      "alt": "2026 Report Top"
+    },
+    "topSpiningInfinit": {
+      "url": "/assets/2025_2_report_top_spining_infinit.mp4",
+      "width": 375,
+      "height": 812,
+      "alt": "Top Spinning Infinite Animation"
+    },
+    "topSpiningStop": {
+      "url": "/assets/2025_2_report_top_spining_stop.mp4",
+      "width": 375,
+      "height": 812,
+      "alt": "Top Spinning Stop Animation"
     },
     "audio": {
       "iconDisable": {

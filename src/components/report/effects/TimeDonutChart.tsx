@@ -35,12 +35,12 @@ export default function TimeDonutChart({ data }: { data: TimeData }) {
   // 图表半径配置
   const baseRadius = 130;
   const baseInnerRadius = 105;
-  const popRadius = 150;     // 最大块凸出半径
-  const popInnerRadius = 95; // 最大块内凹半径
+  const popRadius = 140;     // 最大块凸出半径
+  const popInnerRadius = 90; // 最大块内凹半径
 
   // 文字距离配置
   const baseLabelRadius = 160; // 普通文字距离
-  const popLabelRadius = 175;  // 最大块文字距离 (稍微移开一点)
+  const popLabelRadius = 170;  // 最大块文字距离 (稍微移开一点)
 
   const maxValue = Math.max(...Object.values(data));
   const total = Object.values(data).reduce((acc, cur) => acc + cur, 0);

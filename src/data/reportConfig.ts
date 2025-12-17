@@ -177,33 +177,38 @@ export const SCENES: Record<string, SceneConfig> = {
     id: "p16",
     component: P16Scene,
     next: "p17",
+    shouldSkip: (data) => !data?.send_upvote_cnt && !data?.consume_member_name && !data?.consume_interest_member_name_top1 && !data?.consume_interest_member_name_top2 && !data?.consume_interest_member_name_top3,
   },
   p17: {
     id: "p17",
     component: P17Scene,
     next: "p18",
+    shouldSkip: (data) => !data?.follow_question_friend && !data?.upvote_hot_answer_member_name,
   },
   p18: {
     id: "p18",
     component: P18Scene,
     next: "p19",
-    shouldSkip: (data) => !data?.club_admin_top1_name,
+    shouldSkip: (data) => !data?.club_admin_top1_name && !data?.club_admin_top2_name && !data?.club_admin_pin_cnt,
   },
   p19: {
     id: "p19",
     component: P19Scene,
     next: "p20",
-    shouldSkip: (data) => !data?.join_club_cnt,
+    shouldSkip: (data) => !data?.join_club_cnt && !data?.consume_most_club_name && !data?.interactive_most_club_name,
   },
   p20: {
     id: "p20",
     component: P20Scene,
     next: "p20Club",
+    shouldSkip: (data) => !data?.club_friend_cnt && !data?.most_interaction_club_member_name_top1 && !data?.most_interaction_club_member_name_top2 && !data?.most_interaction_club_member_name_top3,
   },
   p20Club: {
     id: "p20Club",
     component: P20ClubScene,
     next: "p21",
+    shouldSkip: (data) => !data?.club_active_list_name_top1 && !data?.club_active_list_name_top2 && !data?.club_active_list_name_top3 && !data?.club_interest_list_name_top1 && !data?.club_interest_list_name_top2 && !data?.club_interest_list_name_top3,
+
   },
   p21: {
     id: "p21",
@@ -215,31 +220,31 @@ export const SCENES: Record<string, SceneConfig> = {
     component: P22Scene,
     next: "p23",
     shouldSkip: (data) =>
-      !data?.consume_billboard_days || data?.consume_billboard_days < 5,
+      (!data?.consume_billboard_days || data?.consume_billboard_days < 5) && !data?.consume_billboard_content_cnt && !data?.event_name,
   },
   p23: {
     id: "p23",
     component: P23Scene,
     next: "p24",
-    shouldSkip: (data) => !data?.review_answer_cnt,
+    shouldSkip: (data) => !data?.review_answer_cnt && !data?.review_answer_product_name,
   },
   p24: {
     id: "p24",
     component: P24Scene,
     next: "p25",
-    shouldSkip: (data) => !data?.movie_like_cnt,
+    shouldSkip: (data) => !data?.movie_like_cnt && !data?.movie_like_name_top1 && !data?.movie_like_name_top2 && !data?.movie_like_name_top3,
   },
   p25: {
     id: "p25",
     component: P25Scene,
     next: "p26",
-    shouldSkip: (data) => !data?.paid_content_cnt,
+    shouldSkip: (data) => !data?.paid_content_cnt && !data?.total_word_cnt && !data?.label_name_top1 && !data?.label_name_top2 && !data?.label_name_top3 && !data?.most_favorite_author_name, 
   },
   p26: {
     id: "p26",
     component: P26Scene,
     next: "p27",
-    shouldSkip: (data) => !data?.write_story_num_sum,
+    shouldSkip: (data) => !data?.write_story_num_sum && !data?.total_upvote_num && !data?.write_story_most_popular_name,
   },
   p27: {
     id: "p27",

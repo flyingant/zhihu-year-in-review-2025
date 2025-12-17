@@ -17,7 +17,7 @@ export default function P23Scene({ onNext, sceneName }: PageProps) {
 
   if (!assets) return null;
 
-  const { review } = assets.report.p23;
+  const { review, gif } = assets.report.p23;
   const { mix22_1, mix22_4, mix22_5 } = assets.report.bg;
 
   // Map context data to component variables according to P23 spec (特殊-答主评审团)
@@ -78,6 +78,15 @@ export default function P23Scene({ onNext, sceneName }: PageProps) {
           className='object-contain absolute pointer-events-none select-none -z-10'
           style={{ top: '456px', left: '0' }}
         />
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img
+          src={gif.url}
+          alt={gif.alt}
+          width={gif.width / 2}
+          height={gif.height / 2}
+          className='object-contain absolute pointer-events-none select-none z-1'
+          style={{ top: '518px', left: '87px' }}
+        />
       </div>
       {/* content */}
       <div className='z-0 tracking-wide' style={{ fontSize: 13 }}>
@@ -92,7 +101,11 @@ export default function P23Scene({ onNext, sceneName }: PageProps) {
           那一份「真」
         </div>
 
-        <div className='absolute' style={{ top: '274px', left: '41px' }}>
+        <div
+          className='absolute'
+          style={{ top: '274px', left: '41px' }}
+          hidden={!reviewAnswerCount}
+        >
           <div className='mb-[10px]'>
             2025 年，你在
             <span className='text-r-purple px-[7px]'>@答主评审团</span>

@@ -50,7 +50,7 @@ export default function P20Scene({ onNext, sceneName }: PageProps) {
 
   if (!assets) return null;
 
-  const { main } = assets.report.p20;
+  const { main, gif } = assets.report.p20;
   const { blue15, blue16, mix15_1, mix16_1, mix20 } = assets.report.bg;
 
   // Map context data to component variables according to P20 spec (社交圈子用户)
@@ -61,6 +61,7 @@ export default function P20Scene({ onNext, sceneName }: PageProps) {
 
   // Club Friend Count / Expansion
   const clubFriendCount = reportData?.club_friend_cnt ?? null;
+  console.log(reportData?.club_friend_cnt);
 
   // Most Interacted Club Members
   const mostInteractionMemberName1 =
@@ -69,6 +70,9 @@ export default function P20Scene({ onNext, sceneName }: PageProps) {
     reportData?.most_interaction_club_member_name_top2 ?? null;
   const mostInteractionMemberName3 =
     reportData?.most_interaction_club_member_name_top3 ?? null;
+  console.log(reportData?.most_interaction_club_member_name_top1);
+  console.log(reportData?.most_interaction_club_member_name_top2);
+  console.log(reportData?.most_interaction_club_member_name_top3);
 
   const mostInteractionMemberAvatar1 =
     reportData?.most_interaction_club_member_avatar_top1 ?? null;
@@ -177,7 +181,16 @@ export default function P20Scene({ onNext, sceneName }: PageProps) {
           width={main.width}
           height={main.height}
           className='object-contain absolute pointer-events-none select-none z-20'
-          style={{ top: '228px', right: '0' }}
+          style={{ top: '325px', left: '60px' }}
+        />
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img
+          src={gif.url}
+          alt={gif.alt}
+          width={gif.width / 4}
+          height={gif.height / 4}
+          className='object-contain absolute pointer-events-none select-none z-1'
+          style={{ top: '228px', right: '165px' }}
         />
       </div>
 

@@ -199,7 +199,7 @@ export default function P17Scene({ onNext, sceneName }: PageProps) {
           <div className=''>
             <div style={{ marginBottom: '6px' }}>
               你和
-              <span className={`text-r-pink px-[7px]`} style={{ fontSize: 24 }}>
+              <span className={`text-r-pink px-[4px]`} style={{ fontSize: 24 }}>
                 {String(followQuestionFriend ?? 'follow_question_friend')}
               </span>
               位好友共同关注着一个问题
@@ -209,24 +209,22 @@ export default function P17Scene({ onNext, sceneName }: PageProps) {
                 className={`text-r-green`}
                 style={{ fontSize: 17, lineHeight: '34px' }}
               >
-                「
                 {truncateText(
                   String(
                     followQuestionFriendQuestionTitle ??
                       'follow_question_friend_question_title'
                   )
                 )}
-                」
               </span>
             </div>
           </div>
         )}
         {!!upvoteHotAnswerUserCount && upvoteHotAnswerUserCount >= 10 && (
           <div className='z-0'>
-            <div style={{ fontSize: 14, marginBottom: '0px' }}>
+            <div style={{ fontSize: 14, marginBottom: '16px' }}>
               你赞同了
               <span
-                className={`text-r-yellow px-[7px]`}
+                className={`text-r-yellow px-[4px]`}
                 style={{ fontSize: 17 }}
               >
                 @
@@ -241,11 +239,9 @@ export default function P17Scene({ onNext, sceneName }: PageProps) {
                   className={`text-r-blue`}
                   style={{ fontSize: 17, lineHeight: '34px' }}
                 >
-                  「
                   {truncateText(
                     upvoteHotAnswerTitle ?? 'upvote_hot_answer_title'
                   )}
-                  」
                 </span>
                 <span
                   className={`px-[2px]`}
@@ -255,9 +251,9 @@ export default function P17Scene({ onNext, sceneName }: PageProps) {
                 </span>
               </p>
             </div>
-            <div style={{ fontSize: 13 }}>
+            <div style={{ fontSize: 13 }} hidden={!upvoteHotAnswerUserCount}>
               <span
-                className={`text-r-purple pr-[7px]`}
+                className={`text-r-purple pr-[4px]`}
                 style={{ fontSize: 24 }}
               >
                 {String(

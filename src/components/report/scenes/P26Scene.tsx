@@ -17,7 +17,7 @@ export default function P26Scene({ onNext, sceneName }: PageProps) {
 
   if (!assets) return null;
 
-  const { liukanshan, pinkPixel, rainbow, redPixel1, redPixel2 } =
+  const { pinkPixel, rainbow, redPixel1, redPixel2, gif } =
     assets.report.p26;
   const { mix22_4, mix22_5 } = assets.report.bg;
 
@@ -95,19 +95,20 @@ export default function P26Scene({ onNext, sceneName }: PageProps) {
           className='object-contain absolute pointer-events-none select-none -z-10'
           style={{ top: '0', left: '0', right: '0' }}
         />
-        <Image
-          src={liukanshan.url}
-          alt='{liukanshan.alt}'
-          width={liukanshan.width}
-          height={liukanshan.height}
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img
+          src={gif.url}
+          alt={gif.alt}
+          width={gif.width / 2}
+          height={gif.height / 2}
           className='object-contain absolute pointer-events-none select-none -z-10'
-          style={{ top: '410px', left: '108px', right: '0' }}
+          style={{ top: '410px', left: '93px', right: '0' }}
         />
       </div>
       {/* content */}
       <div
         className='absolute z-0 leading-relaxed'
-        style={{ fontSize: 14, top: '114px', left: '40px' }}
+        style={{ fontSize: 14, top: '114px', left: '40px', right: '40px' }}
       >
         <p style={{ fontSize: 22 }}>情节之下，是心意织成的篇章</p>
         {!!writeStoryNumSum && (
@@ -152,7 +153,7 @@ export default function P26Scene({ onNext, sceneName }: PageProps) {
 
         {/* 荣誉榜单 - 可滑动 */}
         <div
-
+          className='max-h-[40px] overflow-y-auto'
           style={{ marginRight: 20 }}
         >
           <div className=''>
@@ -165,30 +166,26 @@ export default function P26Scene({ onNext, sceneName }: PageProps) {
                     shortStoryInfluenceList ?? 'short_story_influence_list'
                   )}
                   》
-                </span><br />
+                </span>
+                <br />
                 <span>荣登第三届盐言故事短篇故事影响力榜</span>
               </div>
             )}
 
-            <div className='max-h-[40px] overflow-y-auto'>
+            <div className=''>
               {!!awardedCopy && (
                 <div>
                   <span>{String(awardedCopy ?? 'awarded_copy')}</span>
                 </div>
               )}
             </div>
-            {!!annualAuthor && (
-              <div>
-                <span
-                  className='text-r-blue'
-                  style={{ fontSize: 18 }}
-                >
-                  {String(annualAuthor ?? 'annual_author')}
-                </span>
-              </div>
-            )}
           </div>
         </div>
+        {!!annualAuthor && (
+          <div className='text-r-blue' style={{ fontSize: 18, marginTop: 4 }}>
+            {String(annualAuthor ?? 'annual_author')}
+          </div>
+        )}
       </div>
     </BaseScene>
   );

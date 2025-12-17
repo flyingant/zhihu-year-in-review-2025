@@ -49,7 +49,7 @@ export const formatDateWithoutText = (
 // truncate text to maxLength, add ellipsis if text is longer than maxLength
 export const truncateText = (
   text: string | null | undefined,
-  maxLength: number = 20
+  maxLength: number = 28
 ) => {
   if (!text) return "";
   const str = String(text);

@@ -305,7 +305,25 @@ function HomeContent() {
           </SectionLayout>
 
           <SectionLayout topOffset={0} id="collect-four-grid-element-section">
-            <FourGridSection />
+            {isAuthenticated ? (
+              <FourGridSection />
+            ) : (
+              assets?.fourGrid?.unauth && (
+                <div 
+                  className="relative w-full flex items-center pt-5 cursor-pointer"
+                  onClick={handleLoginClick}
+                >
+                  <Image
+                    src={assets.fourGrid.unauth.url}
+                    alt={assets.fourGrid.unauth.alt}
+                    width={assets.fourGrid.unauth.width}
+                    height={assets.fourGrid.unauth.height}
+                    className="w-full h-auto object-contain"
+                    priority
+                  />
+                </div>
+              )
+            )}
           </SectionLayout>
 
           <SectionLayout topOffset={0} id="nian-zhong-xiao-wen-section">

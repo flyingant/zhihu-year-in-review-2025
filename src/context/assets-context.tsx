@@ -129,6 +129,7 @@ export interface AssetsData {
     blur: AssetMetadata;
     bg: AssetMetadata;
     save: AssetMetadata;
+    unauth: AssetMetadata;
     preview: {
       annual_video: AssetMetadata;
       annual_report: AssetMetadata;

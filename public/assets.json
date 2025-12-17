@@ -1017,6 +1017,12 @@
       "height": 300,
       "alt": "保存图片"
     },
+    "unauth": {
+      "url": "/assets/2025_2_fourgrid_unauth.png",
+      "width": 2250,
+      "height": 1857,
+      "alt": "未登录四宫格"
+    },
     "preview": {
       "annual_video": {
         "url": "/assets/2025_2_fourgrid_annual_video_preview.png",

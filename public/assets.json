@@ -1666,9 +1666,15 @@
       },
       "gif": {
         "url": "/assets/report/p6.gif",
-        "width": 375,
-        "height": 812,
+        "width": 145,
+        "height": 170,
         "alt": "P6 GIF Animation"
+      },
+      "books": {
+        "url": "/assets/2025_2_report_p6_books.png",
+        "width": 171,
+        "height": 157,
+        "alt": "books"
       }
     },
     "p7": {

@@ -295,6 +295,7 @@ export interface AssetsData {
     p6: {
       liukanshan: AssetMetadata;
       gif: AssetMetadata;
+      books: AssetMetadata;
     };
     p7: {
       liukanshan: AssetMetadata;

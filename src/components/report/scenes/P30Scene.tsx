@@ -28,7 +28,7 @@ export default function P30Scene({ onNext, sceneName }: PageProps) {
   const titleOtherAsset = p28Assets.titleOther;
 
   const handleSelect = (key: string) => {
-    if (summaryPoster.key === key) {
+    if (summaryPoster?.key === key) {
       showToast("请选择与正确答案不同的选项来迷惑");
       return;
     }
@@ -47,16 +47,14 @@ export default function P30Scene({ onNext, sceneName }: PageProps) {
       return;
     }
     setVoteOption({
-      poster_id: summaryPoster.poster_id,
-      options: shareOptionKeys
+      poster_id: summaryPoster?.poster_id || 0,
+      custom_options: shareOptionKeys
         .map((i) => summaryFlags.find((flag) => flag.key === i)?.fullText || "")
         .filter(Boolean),
-      is_publish_pin: 0,
-    }).then((res) => {
-      console.log("share url: /guess?pollId=" + res?.poll_id);
-      console.log(
-        "self view result url: /guess?pollId=" + res?.poll_id + "&selfView=1"
-      );
+      publish_pin: false,
+    }).then(() => {
+      // Vote options set successfully
+      // Note: poll_id would need to be retrieved separately if needed
     });
   };
 

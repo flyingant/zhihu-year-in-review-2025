@@ -144,7 +144,7 @@ export function UserReportDataProvider({ children }: { children: ReactNode }) {
         userChoices,
         setUserChoice,
         getUserChoice,
-        summaryPoster,
+        summaryPoster: summaryPoster || null,
         setSummaryPoster,
       }}
     >

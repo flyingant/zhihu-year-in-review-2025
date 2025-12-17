@@ -569,8 +569,13 @@ export const setVoteOption = (params: SetVoteOptionRequest) => {
  */
 export interface VoteOptionInfo {
   option_id: number; // Vote option ID
-  option_text: string; // Vote option text
+  option_text?: string; // Vote option text
+  option_name?: string; // Vote option name (alternative to option_text)
   vote_count?: number; // Number of votes for this option (if available)
+  vote_num?: number; // Number of votes (alternative field name)
+  vote_percent?: string; // Vote percentage as string
+  is_correct?: number; // Whether this option is correct (1 = correct, 0 = incorrect)
+  is_voted?: number; // Whether user voted for this option (1 = voted, 0 = not voted)
 }
 
 /**
@@ -584,6 +589,9 @@ export interface VoteInfoResponse {
   total_votes?: number; // Total number of votes (if available)
   user_voted?: boolean; // Whether the current user has voted (if available)
   user_vote_option_id?: number; // User's voted option ID (if available)
+  username?: string; // Username
+  is_vote_correct?: number; // Whether the vote is correct (0 = incorrect, 1 = correct, 2 = not voted yet)
+  transformedOptions?: Array<VoteOptionInfo & { key: string }>; // Transformed options with key property
 }
 
 /**

@@ -72,7 +72,7 @@ interface ZhihuHybridNewAPI {
  * 如果在知乎 App 内，使用 zhihuHybrid SDK 下载图片
  * 否则使用标准的 JavaScript 下载方法
  */
-export const handleSaveImage = async (posterUrl) => {
+export const handleSaveImage = async (posterUrl: string) => {
   if (!posterUrl) {
     // showToast('没有可保存的图片', 'error');
     return;

@@ -11,7 +11,7 @@ import { useState } from "react";
 import { summaryFlags } from "@/utils/common";
 import BaseScene from "@/components/report/scenes/BaseScene";
 import { useEffect } from "react";
-import { getVoteInfo, submitVote } from "@/api/report";
+import { getVoteInfo, submitVote, VoteInfoResponse, VoteOptionInfo } from "@/api/report";
 import { useSearchParams } from "next/navigation";
 
 const tianwangFont = localFont({
@@ -27,21 +27,24 @@ function GuessPageScene() {
   const searchParams = useSearchParams();
   const pollId = searchParams.get("pollId");
   const isSelfView = searchParams.get("selfView") !== undefined;
-  const [voteInfo, setVoteInfo] = useState();
+  const [voteInfo, setVoteInfo] = useState<VoteInfoResponse & { transformedOptions?: Array<VoteOptionInfo & { key: string }> } | undefined>();
 
   const initPollData = () => {
     if (!pollId) return;
     getVoteInfo(pollId).then((res) => {
-      if (res.options) {
-        res.transformedOptions = res.options.map((option) => ({
-          ...option,
-          key:
-            summaryFlags.find((flag) => flag.fullText === option.option_name)
-              ?.key || "empty",
-        }));
-      }
+      const voteInfoWithTransformed = {
+        ...res,
+        ...(res.options && {
+          transformedOptions: res.options.map((option) => ({
+            ...option,
+            key:
+              summaryFlags.find((flag) => flag.fullText === option.option_name)
+                ?.key || "empty",
+          })),
+        }),
+      };
 
-      setVoteInfo(res);
+      setVoteInfo(voteInfoWithTransformed);
     });
   };
 
@@ -53,16 +56,17 @@ function GuessPageScene() {
   const titleOtherAsset = p28Assets.titleOther;
 
   const onSubmit = () => {
+    const selectedId = selectedOptionId ? Number(selectedOptionId) : undefined;
+    if (!selectedId || !voteInfo?.poster_id) return;
+    
     submitVote({
-      vote_id: pollId || "",
-      poll_id: pollId || "",
-      option_name:
-        voteInfo?.transformedOptions?.find(
-          (option) => option.option_id === selectedOptionId
-        )?.option_name || "",
-      option_id: selectedOptionId || "",
+      poster_id: voteInfo.poster_id,
+      option_id: selectedId,
     }).then((res) => {
-      setVoteInfo(res);
+      // Refresh vote info after submitting
+      if (pollId) {
+        initPollData();
+      }
     });
   };
 
@@ -103,7 +107,7 @@ function GuessPageScene() {
               onClick={() => {
                 if (voteInfo?.is_vote_correct !== 2) return;
                 if (isSelfView) return;
-                setSelectedOptionId(option.option_id);
+                setSelectedOptionId(String(option.option_id));
               }}
             >
               <Image
@@ -116,7 +120,7 @@ function GuessPageScene() {
                     ? option.is_correct
                       ? "active"
                       : "grey"
-                    : selectedOptionId === option.option_id
+                    : selectedOptionId === String(option.option_id)
                     ? "active"
                     : "grey"
                 }.png`}

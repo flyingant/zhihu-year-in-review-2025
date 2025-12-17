@@ -442,6 +442,10 @@ export interface AssetsData {
       bgBottomRight: AssetMetadata;
       gif: AssetMetadata;
     };
+    top2025: AssetMetadata;
+    top2026: AssetMetadata;
+    topSpiningInfinit: AssetMetadata;
+    topSpiningStop: AssetMetadata;
     audio: {
       iconDisable: AssetMetadata;
       iconPlaying: AssetMetadata;

@@ -2344,6 +2344,30 @@
         "alt": "Index GIF Animation"
       }
     },
+    "top2025": {
+      "url": "/assets/2025_2_report_2025.png",
+      "width": 750,
+      "height": 1334,
+      "alt": "2025 Report Top"
+    },
+    "top2026": {
+      "url": "/assets/2025_2_report_2026.png",
+      "width": 750,
+      "height": 1334,
+      "alt": "2026 Report Top"
+    },
+    "topSpiningInfinit": {
+      "url": "/assets/2025_2_report_top_spining_infinit.mp4",
+      "width": 375,
+      "height": 812,
+      "alt": "Top Spinning Infinite Animation"
+    },
+    "topSpiningStop": {
+      "url": "/assets/2025_2_report_top_spining_stop.mp4",
+      "width": 375,
+      "height": 812,
+      "alt": "Top Spinning Stop Animation"
+    },
     "audio": {
       "iconDisable": {
         "url": "/assets/2025_2_report_audio_disable.png",

@@ -6,6 +6,9 @@ import { useAssets } from '@/context/assets-context';
 import Image from 'next/image';
 import GlitchLayer from '../effects/GlitchLayer';
 import ActionsButton from '@/components/ui/ActionsButton';
+import { sendMessage } from '@/api/report';
+import { useToast } from '@/context/toast-context';
+import { useState } from 'react';
 
 interface PageProps {
   onNext?: () => void;
@@ -47,6 +50,8 @@ const InteractionMemberItem = ({
 export default function P20Scene({ onNext, sceneName }: PageProps) {
   const { reportData } = useUserReportData();
   const { assets } = useAssets();
+  const { showToast } = useToast();
+  const [isSending, setIsSending] = useState(false);
 
   if (!assets) return null;
 
@@ -100,6 +105,34 @@ export default function P20Scene({ onNext, sceneName }: PageProps) {
     reportData?.club_interest_list_name_top2 ?? null;
   const clubInterestListName3 =
     reportData?.club_interest_list_name_top3 ?? null;
+
+  // Handler for sending thank you message
+  const handleSendMessage = async () => {
+    // Get the first available member name
+    const receiverId =
+      mostInteractionMemberName1 ||
+      mostInteractionMemberName2 ||
+      mostInteractionMemberName3;
+
+    if (!receiverId) {
+      showToast('暂无可发送消息的用户', 'error');
+      return;
+    }
+
+    setIsSending(true);
+    try {
+      await sendMessage({
+        receiver_id: String(receiverId),
+        text: '感谢你在圈子里的互动，新的一年一起加油！', // TBC
+      });
+      showToast('消息发送成功', 'success');
+    } catch (error) {
+      console.error('Error sending message:', error);
+      showToast('消息发送失败，请稍后重试', 'error');
+    } finally {
+      setIsSending(false);
+    }
+  };
 
   return (
     <BaseScene onNext={onNext} sceneName={sceneName}>
@@ -268,7 +301,11 @@ export default function P20Scene({ onNext, sceneName }: PageProps) {
                 style={{ marginTop: '8px' }}
               >
                 要不要
-                <ActionsButton type='message' onClick={() => {}} />
+                <ActionsButton
+                  type='message'
+                  onClick={handleSendMessage}
+                  disabled={isSending}
+                />
                 {/* <ActionsButton type="join" onClick={() => {}} /> */}
                 {/* <ActionsButton type="joined" onClick={() => {}} /> */}
                 送他们一个感谢？

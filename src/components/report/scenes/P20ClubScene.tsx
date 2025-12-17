@@ -7,6 +7,13 @@ import Image from 'next/image';
 import GlitchLayer from '../effects/GlitchLayer';
 import ActionsButton from '@/components/ui/ActionsButton';
 import { truncateText } from '@/utils/common';
+import {
+  getCircleMembershipStatus,
+  joinCircle,
+  leaveCircle,
+} from '@/api/report';
+import { useToast } from '@/context/toast-context';
+import { useState, useEffect } from 'react';
 
 interface PageProps {
   onNext?: () => void;
@@ -19,12 +26,14 @@ const ClubInterestItem = ({
   fallbackName,
   type = 'join',
   onClick,
+  disabled = false,
 }: {
   name: unknown;
   avatar?: string | null;
   fallbackName?: string;
   type?: 'join' | 'joined';
   onClick?: () => void;
+  disabled?: boolean;
 }) => {
   return (
     <span
@@ -52,6 +61,7 @@ const ClubInterestItem = ({
         className='ml-[7px]'
         type={type}
         onClick={onClick || (() => {})}
+        disabled={disabled}
       />
     </span>
   );
@@ -60,6 +70,55 @@ const ClubInterestItem = ({
 export default function P20Scene({ onNext, sceneName }: PageProps) {
   const { reportData } = useUserReportData();
   const { assets } = useAssets();
+  const { showToast } = useToast();
+
+  // State to track membership status for each club
+  const [membershipStatus, setMembershipStatus] = useState<{
+    [key: string]: boolean | null;
+  }>({});
+  const [loadingStates, setLoadingStates] = useState<{
+    [key: string]: boolean;
+  }>({});
+
+  // Club IDs - extract before early return
+  const clubInterestListId1 =
+    reportData?.club_interest_list_id_top1 ?? null;
+  const clubInterestListId2 =
+    reportData?.club_interest_list_id_top2 ?? null;
+  const clubInterestListId3 =
+    reportData?.club_interest_list_id_top3 ?? null;
+
+  // Check membership status on mount
+  useEffect(() => {
+    const checkMembershipStatuses = async () => {
+      const ids = [
+        { id: clubInterestListId1, key: 'club1' },
+        { id: clubInterestListId2, key: 'club2' },
+        { id: clubInterestListId3, key: 'club3' },
+      ].filter((item) => item.id !== null);
+
+      for (const { id, key } of ids) {
+        try {
+          const status = await getCircleMembershipStatus(String(id));
+          setMembershipStatus((prev) => ({
+            ...prev,
+            [key]: status.is_joined,
+          }));
+        } catch (error) {
+          console.error(`Error checking membership for club ${id}:`, error);
+          // Default to false if check fails
+          setMembershipStatus((prev) => ({
+            ...prev,
+            [key]: false,
+          }));
+        }
+      }
+    };
+
+    if (clubInterestListId1 || clubInterestListId2 || clubInterestListId3) {
+      checkMembershipStatuses();
+    }
+  }, [clubInterestListId1, clubInterestListId2, clubInterestListId3]);
 
   if (!assets) return null;
 
@@ -109,6 +168,51 @@ export default function P20Scene({ onNext, sceneName }: PageProps) {
     reportData?.club_interest_list_name_top2 ?? null;
   const clubInterestListName3 =
     reportData?.club_interest_list_name_top3 ?? null;
+
+
+  // Handler for toggling circle membership
+  const handleToggleMembership = async (
+    ringId: number | null,
+    clubKey: string
+  ) => {
+    if (!ringId) {
+      showToast('圈子ID不存在', 'error');
+      return;
+    }
+
+    const ringIdStr = String(ringId);
+    const isCurrentlyJoined = membershipStatus[clubKey] ?? false;
+
+    setLoadingStates((prev) => ({ ...prev, [clubKey]: true }));
+
+    try {
+      if (isCurrentlyJoined) {
+        // Leave the circle
+        await leaveCircle(ringIdStr);
+        setMembershipStatus((prev) => ({
+          ...prev,
+          [clubKey]: false,
+        }));
+        showToast('已退出圈子', 'success');
+      } else {
+        // Join the circle
+        await joinCircle(ringIdStr);
+        setMembershipStatus((prev) => ({
+          ...prev,
+          [clubKey]: true,
+        }));
+        showToast('已加入圈子', 'success');
+      }
+    } catch (error) {
+      console.error('Error toggling circle membership:', error);
+      showToast(
+        isCurrentlyJoined ? '退出圈子失败，请稍后重试' : '加入圈子失败，请稍后重试',
+        'error'
+      );
+    } finally {
+      setLoadingStates((prev) => ({ ...prev, [clubKey]: false }));
+    }
+  };
 
   return (
     <BaseScene onNext={onNext} sceneName={sceneName}>
@@ -263,8 +367,13 @@ export default function P20Scene({ onNext, sceneName }: PageProps) {
                     name={clubInterestListName1}
                     avatar={clubInterestListAvatar1}
                     fallbackName='club_interest_list_name_top1'
-                    type='join'
-                    onClick={() => {}}
+                    type={
+                      membershipStatus.club1 ? 'joined' : 'join'
+                    }
+                    onClick={() =>
+                      handleToggleMembership(clubInterestListId1, 'club1')
+                    }
+                    disabled={loadingStates.club1}
                   />
                 )}
                 {!!clubInterestListName2 && (
@@ -272,8 +381,13 @@ export default function P20Scene({ onNext, sceneName }: PageProps) {
                     name={clubInterestListName2}
                     avatar={clubInterestListAvatar2}
                     fallbackName='club_interest_list_name_top2'
-                    type='join'
-                    onClick={() => {}}
+                    type={
+                      membershipStatus.club2 ? 'joined' : 'join'
+                    }
+                    onClick={() =>
+                      handleToggleMembership(clubInterestListId2, 'club2')
+                    }
+                    disabled={loadingStates.club2}
                   />
                 )}
                 {!!clubInterestListName3 && (
@@ -281,8 +395,13 @@ export default function P20Scene({ onNext, sceneName }: PageProps) {
                     name={clubInterestListName3}
                     avatar={clubInterestListAvatar3}
                     fallbackName='club_interest_list_name_top3'
-                    type='joined'
-                    onClick={() => {}}
+                    type={
+                      membershipStatus.club3 ? 'joined' : 'join'
+                    }
+                    onClick={() =>
+                      handleToggleMembership(clubInterestListId3, 'club3')
+                    }
+                    disabled={loadingStates.club3}
                   />
                 )}
               </div>

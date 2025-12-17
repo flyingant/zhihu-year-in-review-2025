@@ -48,10 +48,10 @@ export default function P30Scene({ onNext, sceneName }: PageProps) {
     }
     setVoteOption({
       poster_id: summaryPoster?.poster_id || 0,
-      custom_options: shareOptionKeys
+      options: shareOptionKeys
         .map((i) => summaryFlags.find((flag) => flag.key === i)?.fullText || "")
         .filter(Boolean),
-      publish_pin: false,
+      is_publish_pin: 0,
     }).then(() => {
       // Vote options set successfully
       // Note: poll_id would need to be retrieved separately if needed

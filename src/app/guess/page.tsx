@@ -11,7 +11,12 @@ import { useState } from "react";
 import { summaryFlags } from "@/utils/common";
 import BaseScene from "@/components/report/scenes/BaseScene";
 import { useEffect } from "react";
-import { getVoteInfo, submitVote, VoteInfoResponse, VoteOptionInfo } from "@/api/report";
+import {
+  getVoteInfo,
+  submitVote,
+  VoteInfoResponse,
+  VoteOptionInfo,
+} from "@/api/report";
 import { useSearchParams } from "next/navigation";
 
 const tianwangFont = localFont({
@@ -26,8 +31,13 @@ function GuessPageScene() {
   const [selectedOptionId, setSelectedOptionId] = useState<string | null>(null);
   const searchParams = useSearchParams();
   const pollId = searchParams.get("pollId");
-  const isSelfView = searchParams.get("selfView") !== undefined;
-  const [voteInfo, setVoteInfo] = useState<VoteInfoResponse & { transformedOptions?: Array<VoteOptionInfo & { key: string }> } | undefined>();
+  const isSelfView = searchParams.get("selfView") !== null;
+  const [voteInfo, setVoteInfo] = useState<
+    | (VoteInfoResponse & {
+        transformedOptions?: Array<VoteOptionInfo & { key: string }>;
+      })
+    | undefined
+  >();
 
   const initPollData = () => {
     if (!pollId) return;
@@ -56,17 +66,33 @@ function GuessPageScene() {
   const titleOtherAsset = p28Assets.titleOther;
 
   const onSubmit = () => {
-    const selectedId = selectedOptionId ? Number(selectedOptionId) : undefined;
-    if (!selectedId || !voteInfo?.poster_id) return;
-    
+    const selectedId = selectedOptionId;
+    if (!selectedId) return;
+    const option = voteInfo?.transformedOptions?.find(
+      (option) => option.option_id.toString() === selectedId
+    );
     submitVote({
-      poster_id: voteInfo.poster_id,
+      vote_id: pollId || "",
+      poll_id: pollId || "",
+      option_name: option?.option_name || "",
       option_id: selectedId,
     }).then((res) => {
       // Refresh vote info after submitting
-      if (pollId) {
-        initPollData();
-      }
+      // if (pollId) {
+      //   initPollData();
+      // }
+      const voteInfoWithTransformed = {
+        ...res,
+        ...(res.options && {
+          transformedOptions: res.options.map((option) => ({
+            ...option,
+            key:
+              summaryFlags.find((flag) => flag.fullText === option.option_name)
+                ?.key || "empty",
+          })),
+        }),
+      };
+      setVoteInfo(voteInfoWithTransformed);
     });
   };
 

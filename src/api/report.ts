@@ -215,13 +215,13 @@ export interface UserReportData {
   best_answer_topic?: string[];
   is_navigator?: number;
   navigator_upvote_content_cnt?: number;
-  
+
   // P13: Time spent
   zhihu_browse_most_date?: string;
   zhihu_browse_most_date_duration?: number;
   consume_most_answer_title?: string;
   consume_most_answer_pv_cnt?: number;
-  
+
   // P15: Social/Follow related fields
   new_follow_cnt?: number;
   most_upvote_member_name?: string;
@@ -534,8 +534,8 @@ export const getPersonalImageOption = (posterId: number) => {
  */
 export interface SetVoteOptionRequest {
   poster_id: number; // Poster ID for vote association
-  publish_pin?: boolean; // Whether to publish as a pin (optional, default: false)
-  custom_options?: string[]; // User-defined custom vote options list (optional)
+  is_publish_pin?: number; // Whether to publish as a pin (optional, default: false)
+  options?: string[]; // User-defined custom vote options list (optional)
 }
 
 /**
@@ -625,8 +625,10 @@ export const getVoteInfo = (pollId: string) => {
  * Request parameters for submitting a vote
  */
 export interface SubmitVoteRequest {
-  poster_id: number; // Poster ID
-  option_id: number; // Selected vote option ID
+  vote_id: string; // Vote ID
+  poll_id: string; // Poll ID
+  option_name: string; // Selected vote option name
+  option_id: string; // Selected vote option ID
 }
 
 /**
@@ -655,7 +657,7 @@ export interface SubmitVoteResponse {
  * }
  */
 export const submitVote = (params: SubmitVoteRequest) => {
-  return request<SubmitVoteResponse>({
+  return request<VoteInfoResponse>({
     url: "/campaigns/v2/2025/submit_vote",
     method: "POST",
     data: params,
@@ -705,10 +707,10 @@ export interface CircleMembershipStatusResponse {
 /**
  * 查询用户加入圈子状态接口
  * Query the membership status of the current user for a specific circle
- * 
+ *
  * @param ringId - Circle identifier (ring_id)
  * @returns Promise<CircleMembershipStatusResponse> - Membership status information
- * 
+ *
  * @example
  * const status = await getCircleMembershipStatus('abc123');
  * if (status.is_joined) {
@@ -718,7 +720,7 @@ export interface CircleMembershipStatusResponse {
 export const getCircleMembershipStatus = (ringId: string) => {
   return request<CircleMembershipStatusResponse>({
     url: `/rings/v1/${ringId}/membership`,
-    method: 'GET',
+    method: "GET",
   });
 };
 
@@ -736,10 +738,10 @@ export interface JoinCircleResponse {
 /**
  * 用户加入圈子接口
  * Join a specific circle
- * 
+ *
  * @param ringId - Circle identifier (ring_id)
  * @returns Promise<JoinCircleResponse> - Join operation result
- * 
+ *
  * @example
  * const result = await joinCircle('abc123');
  * if (result.success) {
@@ -749,7 +751,7 @@ export interface JoinCircleResponse {
 export const joinCircle = (ringId: string) => {
   return request<JoinCircleResponse>({
     url: `/rings/v1/${ringId}/membership`,
-    method: 'POST',
+    method: "POST",
   });
 };
 
@@ -767,10 +769,10 @@ export interface LeaveCircleResponse {
 /**
  * 用户退出圈子接口
  * Leave a specific circle
- * 
+ *
  * @param ringId - Circle identifier (ring_id)
  * @returns Promise<LeaveCircleResponse> - Leave operation result
- * 
+ *
  * @example
  * const result = await leaveCircle('abc123');
  * if (result.success) {
@@ -780,7 +782,7 @@ export interface LeaveCircleResponse {
 export const leaveCircle = (ringId: string) => {
   return request<LeaveCircleResponse>({
     url: `/rings/v1/${ringId}/membership`,
-    method: 'DELETE',
+    method: "DELETE",
   });
 };
 
@@ -807,10 +809,10 @@ export interface SendMessageResponse {
 /**
  * 发送私信接口
  * Send a private message to a user
- * 
+ *
  * @param params - Message request parameters containing receiver_id and text
  * @returns Promise<SendMessageResponse> - Send operation result
- * 
+ *
  * @example
  * const result = await sendMessage({
  *   receiver_id: 'user123',
@@ -822,8 +824,8 @@ export interface SendMessageResponse {
  */
 export const sendMessage = (params: SendMessageRequest) => {
   return authRequest<SendMessageResponse>({
-    url: '/chat',
-    method: 'POST',
+    url: "/chat",
+    method: "POST",
     data: {
       content_type: params.content_type ?? 0,
       receiver_id: params.receiver_id,

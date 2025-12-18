@@ -17,7 +17,7 @@ export default function FlipCounter({
 }: FlipCounterProps) {
   // Use a spring to animate the number value
   const spring = useSpring(0, {
-    duration: 2,
+    duration: 10,
     bounce: 0,
   });
 
@@ -38,7 +38,7 @@ export default function FlipCounter({
       const now = Date.now();
       // Throttle updates to allow flip animation to be visible
       // Using 100ms to strike balance between fluidity and visibility
-      if (now - lastUpdate > 100) {
+      if (now - lastUpdate > 200) {
         updateDigits(Math.floor(latest));
         lastUpdate = now;
       }

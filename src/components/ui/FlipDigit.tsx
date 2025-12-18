@@ -145,7 +145,7 @@ function SingleFlip({
       <motion.div
         initial={isDiff ? { rotateX: 0 } : false}
         animate={isDiff ? { rotateX: -180 } : false}
-        transition={{ duration: 0.6, ease: 'easeInOut' }}
+        transition={{ duration: 1.6, ease: 'easeInOut' }}
         style={{ transformOrigin: 'bottom', transformStyle: 'preserve-3d' }}
         className='absolute top-0 left-0 w-full h-[50%] z-10 pointer-events-none'
       >

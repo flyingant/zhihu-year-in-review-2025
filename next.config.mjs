@@ -35,7 +35,11 @@ const nextConfig = {
         {
           source: "/zvideos/:path*",
           destination: "https://api.zhihu.com/zvideos/:path*",
-        }
+        },
+        {
+          source: "/chat/:path*",
+          destination: "https://event.zhihu.com/api/:path*",
+        },
       ];
     }
     return [];

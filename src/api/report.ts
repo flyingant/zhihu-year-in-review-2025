@@ -1,5 +1,5 @@
 // src/api/report.ts
-import request, { appRequest, authRequest } from "../lib/request";
+import request, { appRequest, authRequest, chatRequest } from "../lib/request";
 
 // ============================================================================
 // User Report Data Interface
@@ -830,8 +830,8 @@ export interface SendMessageResponse {
  * }
  */
 export const sendMessage = (params: SendMessageRequest) => {
-  return authRequest<SendMessageResponse>({
-    url: "/chat",
+  return chatRequest<SendMessageResponse>({
+    url: "/v4/chat",
     method: "POST",
     data: {
       content_type: params.content_type ?? 0,

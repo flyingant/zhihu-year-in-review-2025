@@ -6,6 +6,7 @@ import BaseScene from './BaseScene';
 import { useAssets } from '@/context/assets-context';
 import Image from "next/image";
 import GlitchLayer from "@/components/report/effects/GlitchLayer";
+import { useZA } from "@/hooks/useZA"; 
 
 interface IntroductionSceneProps {
   onNext: () => void;
@@ -18,6 +19,12 @@ export default function IntroductionScene({ onNext, sceneName }: IntroductionSce
   const [isAgreed, setIsAgreed] = useState(false);
   const [isAgreementDialogOpen, setIsAgreementDialogOpen] = useState(false);
   const videoRef = useRef<HTMLVideoElement>(null);
+
+  const { trackPageShow } = useZA();
+
+  useEffect(() => {
+    trackPageShow({ page: { page_id: '60864' } });
+  }, []);
   
   // Compute video source based on current step
   const videoSrc = assets?.report?.intro

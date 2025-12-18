@@ -4,7 +4,6 @@ import localFont from "next/font/local";
 import { UserReportDataProvider } from "@/context/user-report-data-context";
 import GridBackground from "@/components/report/effects/GridBackground";
 import AuthWrapper from "@/components/layout/AuthWrapper";
-import { useUserReportData } from "@/context/user-report-data-context";
 import { useAssets } from "@/context/assets-context";
 import Image from "next/image";
 import { useState } from "react";
@@ -26,7 +25,6 @@ const tianwangFont = localFont({
 });
 
 function GuessPageScene() {
-  const { summaryPoster } = useUserReportData();
   const { assets } = useAssets();
   const [selectedOptionId, setSelectedOptionId] = useState<string | null>(null);
   const searchParams = useSearchParams();
@@ -39,30 +37,30 @@ function GuessPageScene() {
     | undefined
   >();
 
-  const initPollData = () => {
-    if (!pollId) return;
-    getVoteInfo(pollId).then((res) => {
-      const voteInfoWithTransformed = {
-        ...res,
-        ...(res.options && {
-          transformedOptions: res.options.map((option) => ({
-            ...option,
-            key:
-              summaryFlags.find((flag) => flag.fullText === option.option_name)
-                ?.key || "empty",
-          })),
-        }),
-      };
-
-      setVoteInfo(voteInfoWithTransformed);
-    });
-  };
-
   useEffect(() => {
+    const initPollData = () => {
+      if (!pollId) return;
+      getVoteInfo(pollId).then((res) => {
+        const voteInfoWithTransformed = {
+          ...res,
+          ...(res.options && {
+            transformedOptions: res.options.map((option) => ({
+              ...option,
+              key:
+                summaryFlags.find((flag) => flag.fullText === option.option_name)
+                  ?.key || "empty",
+            })),
+          }),
+        };
+
+        setVoteInfo(voteInfoWithTransformed);
+      });
+    };
     initPollData();
-  }, []);
+  }, [pollId]);
   if (!assets) return null;
   const p28Assets = assets.report.p28 || {};
+  const guessAssets = assets.report.guess || {};
   const titleOtherAsset = p28Assets.titleOther;
 
   const onSubmit = () => {
@@ -136,30 +134,38 @@ function GuessPageScene() {
                 setSelectedOptionId(String(option.option_id));
               }}
             >
-              <Image
-                src={`/assets/2025-28-banner-${option.key}${
-                  voteInfo?.is_vote_correct !== 2 && option.is_correct
-                    ? "-self"
-                    : ""
-                }-${
-                  voteInfo?.is_vote_correct !== 2
-                    ? option.is_correct
-                      ? "active"
-                      : "grey"
-                    : selectedOptionId === String(option.option_id)
-                    ? "active"
-                    : "grey"
-                }.png`}
-                width={344}
-                height={95}
-                alt="banner"
-              />
-              {voteInfo?.is_vote_correct !== 2 && option.is_correct === 1 && (
+              {(() => {
+                const bannerKey = option.key as keyof typeof p28Assets.banners;
+                const banner = p28Assets.banners?.[bannerKey];
+                if (!banner) return null;
+                
+                let bannerAsset;
+                if (voteInfo?.is_vote_correct !== 2 && option.is_correct) {
+                  // Show self-active variant if available, otherwise fallback to active
+                  bannerAsset = (banner as { selfActive?: typeof banner.active }).selfActive || banner.active;
+                } else if (voteInfo?.is_vote_correct !== 2) {
+                  // Show active or grey based on correctness
+                  bannerAsset = option.is_correct ? banner.active : banner.grey;
+                } else {
+                  // Show active or grey based on selection
+                  bannerAsset = selectedOptionId === String(option.option_id) ? banner.active : banner.grey;
+                }
+                
+                return (
+                  <Image
+                    src={bannerAsset.url}
+                    alt={bannerAsset.alt}
+                    width={344}
+                    height={95}
+                  />
+                );
+              })()}
+              {voteInfo?.is_vote_correct !== 2 && option.is_correct === 1 && guessAssets.taOption && (
                 <Image
-                  src="/assets/guess-ta-option.png"
+                  src={guessAssets.taOption.url}
+                  alt={guessAssets.taOption.alt}
                   width={96}
                   height={19}
-                  alt="ta-option"
                   className="absolute"
                   style={{
                     left: 70,
@@ -167,21 +173,24 @@ function GuessPageScene() {
                   }}
                 />
               )}
-              {voteInfo?.is_vote_correct !== 2 && option.is_voted === 1 && (
-                <Image
-                  src={`/assets/guess-your-option${
-                    voteInfo?.is_vote_correct === 1 ? "-correct" : ""
-                  }.png`}
-                  width={96}
-                  height={19}
-                  alt="ta-option"
-                  className="absolute"
-                  style={{
-                    right: 70,
-                    bottom: 4,
-                  }}
-                />
-              )}
+              {voteInfo?.is_vote_correct !== 2 && option.is_voted === 1 && (() => {
+                const yourOptionAsset = voteInfo?.is_vote_correct === 1 
+                  ? guessAssets.yourOptionCorrect 
+                  : guessAssets.yourOption;
+                return yourOptionAsset ? (
+                  <Image
+                    src={yourOptionAsset.url}
+                    alt={yourOptionAsset.alt}
+                    width={96}
+                    height={19}
+                    className="absolute"
+                    style={{
+                      right: 70,
+                      bottom: 4,
+                    }}
+                  />
+                ) : null;
+              })()}
               {(voteInfo?.is_vote_correct !== 2 || isSelfView) && (
                 <div
                   className="absolute right-0 bg-[#5cc0f9]"
@@ -227,33 +236,39 @@ function GuessPageScene() {
             确认选择
           </button>
         )}
-        {voteInfo?.is_vote_correct !== 2 && !isSelfView && (
-          <Image
-            className="absolute left-1/2 -translate-x-1/2  z-60"
-            width={296}
-            height={21}
-            style={{ bottom: 40 }}
-            src={`/assets/guess-${
-              voteInfo?.is_vote_correct === 1
-                ? "choose-same"
-                : "choose-different"
-            }.png`}
-            alt="result"
-          />
-        )}
+        {voteInfo?.is_vote_correct !== 2 && !isSelfView && (() => {
+          const chooseAsset = voteInfo?.is_vote_correct === 1 
+            ? guessAssets.chooseSame 
+            : guessAssets.chooseDifferent;
+          return chooseAsset ? (
+            <Image
+              className="absolute left-1/2 -translate-x-1/2  z-60"
+              width={296}
+              height={21}
+              style={{ bottom: 40 }}
+              src={chooseAsset.url}
+              alt={chooseAsset.alt}
+            />
+          ) : null;
+        })()}
 
         <div>
-          <Image
-            src={`/assets/guess-${isSelfView ? "go-again" : "go"}.png`}
-            className="absolute left-1/2 -translate-x-1/2 "
-            style={{
-              bottom: 15,
-            }}
-            width={200}
-            height={15}
-            alt="go"
-            onClick={() => {}}
-          />
+          {(() => {
+            const goAsset = isSelfView ? guessAssets.goAgain : guessAssets.go;
+            return goAsset ? (
+              <Image
+                src={goAsset.url}
+                alt={goAsset.alt}
+                className="absolute left-1/2 -translate-x-1/2 "
+                style={{
+                  bottom: 15,
+                }}
+                width={200}
+                height={15}
+                onClick={() => {}}
+              />
+            ) : null;
+          })()}
         </div>
       </div>
     </BaseScene>

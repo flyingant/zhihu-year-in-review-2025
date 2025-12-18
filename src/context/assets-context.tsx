@@ -508,20 +508,77 @@ export interface AssetsData {
         };
       };
       banners: {
-        cure: AssetMetadata;
-        get: AssetMetadata;
-        action: AssetMetadata;
-        release: AssetMetadata;
-        live: AssetMetadata;
-        love: AssetMetadata;
-        good: AssetMetadata;
-        ai: AssetMetadata;
-        clam: AssetMetadata;
-        growth: AssetMetadata;
-        change: AssetMetadata;
-        zhileng: AssetMetadata;
+        cure: {
+          active: AssetMetadata;
+          grey: AssetMetadata;
+          selfActive: AssetMetadata;
+        };
+        get: {
+          active: AssetMetadata;
+          grey: AssetMetadata;
+        };
+        action: {
+          active: AssetMetadata;
+          grey: AssetMetadata;
+        };
+        release: {
+          active: AssetMetadata;
+          grey: AssetMetadata;
+        };
+        live: {
+          active: AssetMetadata;
+          grey: AssetMetadata;
+          selfActive: AssetMetadata;
+        };
+        love: {
+          active: AssetMetadata;
+          grey: AssetMetadata;
+          selfActive: AssetMetadata;
+        };
+        good: {
+          active: AssetMetadata;
+          grey: AssetMetadata;
+          selfActive: AssetMetadata;
+        };
+        ai: {
+          active: AssetMetadata;
+          grey: AssetMetadata;
+          selfActive: AssetMetadata;
+        };
+        clam: {
+          active: AssetMetadata;
+          grey: AssetMetadata;
+          selfActive: AssetMetadata;
+        };
+        growth: {
+          active: AssetMetadata;
+          grey: AssetMetadata;
+          selfActive: AssetMetadata;
+        };
+        change: {
+          active: AssetMetadata;
+          grey: AssetMetadata;
+          selfActive: AssetMetadata;
+        };
+        zhileng: {
+          active: AssetMetadata;
+          grey: AssetMetadata;
+        };
+        empty: {
+          active: AssetMetadata;
+          grey: AssetMetadata;
+        };
       };
       flagEmpty: AssetMetadata;
+    };
+    guess: {
+      taOption: AssetMetadata;
+      yourOption: AssetMetadata;
+      yourOptionCorrect: AssetMetadata;
+      chooseSame: AssetMetadata;
+      chooseDifferent: AssetMetadata;
+      go: AssetMetadata;
+      goAgain: AssetMetadata;
     };
   };
   /**

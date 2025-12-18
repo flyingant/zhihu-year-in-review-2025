@@ -122,7 +122,7 @@ export default function P3Scene({ onNext, sceneName }: PageProps) {
           fontSize: '14px',
         }}
       >
-        <div style={{ fontSize: '22px' }}>你的答案，让混沌变得清晰</div>
+        <div>你的答案，让混沌变得清晰</div>
 
         <div
           style={{ paddingTop: '46px', paddingBottom: '8px' }}
@@ -213,7 +213,7 @@ export default function P3Scene({ onNext, sceneName }: PageProps) {
           </span>
         </div>
         <div style={{ lineHeight: '32px' }}>
-          你在，
+          你在
           <span
             className={`text-r-fern`}
             style={{ marginLeft: '4px', marginRight: '4px', fontSize: '18px' }}

@@ -18,7 +18,6 @@ export default function P30Scene({ onNext, sceneName }: PageProps) {
   const { assets } = useAssets();
   const { showToast } = useToast();
   const { summaryPoster } = useUserReportData();
-
   const [shareOptionKeys, setShareOptionKeys] = useState<string[]>([]);
   const [isSynced, setIsSynced] = useState(false);
 
@@ -111,12 +110,16 @@ export default function P30Scene({ onNext, sceneName }: PageProps) {
                 className="relative"
                 style={{ top: 131, gap: 22, left: 20, right: 20 }}
               >
-              <Image
-                src={bannerAsset.active.url}
-                width={bannerAsset.active.width}
-                height={bannerAsset.active.height}
-                alt={bannerAsset.active.alt}
-              />
+                <Image
+                  src={bannerAsset.active.url}
+                  width={bannerAsset.active.width}
+                  height={bannerAsset.active.height}
+                  alt={bannerAsset.active.alt}
+                />
+                <div className="absolute" style={{ left: 95, bottom: 0, }}>
+                  <span style={{ fontSize: 44 }}>{summaryPoster.text}</span>
+                  <span style={{ fontSize: 22, marginLeft: 2 }}>了</span>
+                </div>
               </div>
             );
           })()

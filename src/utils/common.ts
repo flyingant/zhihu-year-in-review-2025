@@ -285,3 +285,15 @@ export const summaryFlags = [
     fullText: "我真的支棱了",
   },
 ];
+
+export const extractOptionKeyword = (text: string) => {
+  // 匹配 "我真的" 开头，"了" 结尾，中间是任意非"了"字符
+  const pattern = /我真的\s*([^了]+)\s*了/;
+  const match = text.match(pattern);
+  
+  if (match && match[1]) {
+    return match[1].trim();
+  }
+  
+  return  ''
+}

@@ -29,13 +29,26 @@ function GuessPageScene() {
   const [selectedOptionId, setSelectedOptionId] = useState<string | null>(null);
   const searchParams = useSearchParams();
   const pollId = searchParams.get("pollId");
-  const isSelfView = searchParams.get("selfView") !== null;
+
   const [voteInfo, setVoteInfo] = useState<
     | (VoteInfoResponse & {
-        transformedOptions?: Array<VoteOptionInfo & { key: string }>;
+        transformedOptions?: Array<VoteOptionInfo & { key: string, optionKeyword: string }>;
       })
     | undefined
   >();
+
+  const extractKeyword = (text: string) => {
+    // 匹配 "我真的" 开头，"了" 结尾，中间是任意非"了"字符
+    const pattern = /我真的\s*([^了]+)\s*了/;
+    const match = text.match(pattern);
+    
+    if (match && match[1]) {
+      return match[1].trim();
+    }
+    
+    return  ''
+  }
+
 
   useEffect(() => {
     const initPollData = () => {
@@ -49,10 +62,10 @@ function GuessPageScene() {
               key:
                 summaryFlags.find((flag) => flag.fullText === option.option_name)
                   ?.key || "empty",
+              optionKeyword: extractKeyword(option.option_name || ''),
             })),
           }),
         };
-
         setVoteInfo(voteInfoWithTransformed);
       });
     };
@@ -130,7 +143,7 @@ function GuessPageScene() {
               style={{ marginTop: 30, height: 95, width: 344 }}
               onClick={() => {
                 if (voteInfo?.is_vote_correct !== 2) return;
-                if (isSelfView) return;
+                if (voteInfo?.is_owner) return;
                 setSelectedOptionId(String(option.option_id));
               }}
             >
@@ -150,17 +163,32 @@ function GuessPageScene() {
                   // Show active or grey based on selection
                   bannerAsset = selectedOptionId === String(option.option_id) ? banner.active : banner.grey;
                 }
+
+                if (voteInfo?.is_owner) {
+                  bannerAsset =  banner.active
+                  if (option.is_correct) {
+                    bannerAsset =  (banner as { selfActive?: typeof banner.active }).selfActive
+                  }
+                }
                 
                 return (
                   <Image
-                    src={bannerAsset.url}
-                    alt={bannerAsset.alt}
+                    src={bannerAsset?.url || ''}
+                    alt={bannerAsset?.alt || ''}
                     width={344}
                     height={95}
                   />
                 );
               })()}
-              {voteInfo?.is_vote_correct !== 2 && option.is_correct === 1 && guessAssets.taOption && (
+              {option.key === 'empty' && option.optionKeyword && <div className="absolute" style={{
+              
+                left: 95,
+                bottom: 17,
+              }}>
+              <span style={{ fontSize: 44 }}>{option.optionKeyword}</span>
+              <span style={{ fontSize: 22, marginLeft: 2 }}>了</span>
+              </div>}
+              {(voteInfo?.is_vote_correct !== 2 || voteInfo.is_owner === 1) && option.is_correct === 1 && guessAssets.taOption && (
                 <Image
                   src={guessAssets.taOption.url}
                   alt={guessAssets.taOption.alt}
@@ -186,15 +214,16 @@ function GuessPageScene() {
                     className="absolute"
                     style={{
                       right: 70,
-                      bottom: 4,
+                      bottom: option.is_correct ? 4 : 12,
                     }}
                   />
                 ) : null;
               })()}
-              {(voteInfo?.is_vote_correct !== 2 || isSelfView) && (
+              {(voteInfo?.is_vote_correct !== 2 || voteInfo?.is_owner === 1) && (
                 <div
-                  className="absolute right-0 bg-[#5cc0f9]"
+                  className="absolute right-0"
                   style={{
+                    background: option.is_correct ? '#5cc0f9' : '#adadad',
                     padding: "6px 9px",
                     top: -10,
                     fontSize: 12,
@@ -205,7 +234,7 @@ function GuessPageScene() {
                   {option?.vote_num}人选择
                 </div>
               )}
-              {(voteInfo?.is_vote_correct !== 2 || isSelfView) && (
+              {(voteInfo?.is_vote_correct !== 2 || voteInfo?.is_owner === 1) && (
                 <div
                   className="absolute left-0 "
                   style={{
@@ -220,7 +249,7 @@ function GuessPageScene() {
             </div>
           ))}
         </div>
-        {voteInfo?.is_vote_correct === 2 && !isSelfView && (
+        {voteInfo?.is_vote_correct === 2 && voteInfo?.is_owner !== 1 && (
           <button
             className="absolute left-1/2 -translate-x-1/2  z-60  rounded-full text-white text-lg"
             style={{
@@ -236,7 +265,7 @@ function GuessPageScene() {
             确认选择
           </button>
         )}
-        {voteInfo?.is_vote_correct !== 2 && !isSelfView && (() => {
+        {voteInfo?.is_vote_correct !== 2 && voteInfo?.is_owner !== 1 && (() => {
           const chooseAsset = voteInfo?.is_vote_correct === 1 
             ? guessAssets.chooseSame 
             : guessAssets.chooseDifferent;
@@ -254,14 +283,14 @@ function GuessPageScene() {
 
         <div>
           {(() => {
-            const goAsset = isSelfView ? guessAssets.goAgain : guessAssets.go;
+            const goAsset = voteInfo?.is_owner === 1 ? guessAssets.goAgain : guessAssets.go;
             return goAsset ? (
               <Image
                 src={goAsset.url}
                 alt={goAsset.alt}
                 className="absolute left-1/2 -translate-x-1/2 "
                 style={{
-                  bottom: 15,
+                  bottom: 20,
                 }}
                 width={200}
                 height={15}

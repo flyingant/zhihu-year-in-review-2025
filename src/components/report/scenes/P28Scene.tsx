@@ -128,7 +128,7 @@ export default function P28Scene({ onNext, sceneName }: PageProps) {
         poster_id: response.poster_id,
         poster_url: response.poster_url,
         text: text,
-        key: selectedFlag || "",
+        key: selectedFlag || "empty",
         bg: selectedFlag
           ? flags.find((flag) => flag.key === selectedFlag)?.bg || ""
           : "#B6DFFE",

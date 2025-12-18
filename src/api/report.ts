@@ -583,6 +583,7 @@ export interface VoteOptionInfo {
   vote_percent?: string; // Vote percentage as string
   is_correct?: number; // Whether this option is correct (1 = correct, 0 = incorrect)
   is_voted?: number; // Whether user voted for this option (1 = voted, 0 = not voted)
+  optionKeyword: string;
 }
 
 /**
@@ -599,6 +600,7 @@ export interface VoteInfoResponse {
   username?: string; // Username
   is_vote_correct?: number; // Whether the vote is correct (0 = incorrect, 1 = correct, 2 = not voted yet)
   transformedOptions?: Array<VoteOptionInfo & { key: string }>; // Transformed options with key property
+  is_owner?: number; // Whether the current user is the owner of the vote
 }
 
 /**

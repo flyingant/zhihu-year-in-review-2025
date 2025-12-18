@@ -24,6 +24,9 @@ type ZhihuHybridLegacy = (action: string, params?: Record<string, unknown>) => v
 declare global {
   interface Window {
     zhihuHybrid?: ZhihuHybridNewAPI | ZhihuHybridLegacy;
+    WeixinJSBridge?: {
+      invoke: (cmd: string, args?: unknown, cb?: (...args: unknown[]) => void) => void;
+    };
   }
 }
 

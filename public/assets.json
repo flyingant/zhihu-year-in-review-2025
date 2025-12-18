@@ -2470,6 +2470,12 @@
             "width": 993,
             "height": 232,
             "alt": "悟"
+          },
+           "selfActive": {
+            "url": "/assets/2025-28-banner-get-self-active.png",
+            "width": 1006,
+            "height": 232,
+            "alt": "悟"
           }
         },
         "action": {
@@ -2482,6 +2488,12 @@
           "grey": {
             "url": "/assets/2025-28-banner-action-grey.png",
             "width": 1002,
+            "height": 232,
+            "alt": "行动"
+          },
+           "selfActive": {
+            "url": "/assets/2025-28-banner-action-self-active.png",
+            "width": 1006,
             "height": 232,
             "alt": "行动"
           }
@@ -2498,6 +2510,12 @@
             "width": 331,
             "height": 78,
             "alt": "释怀"
+          },
+           "selfActive": {
+            "url": "/assets/2025-28-banner-release-self-active.png",
+            "width": 1006,
+            "height": 232,
+            "alt": "行动"
           }
         },
         "live": {
@@ -2652,6 +2670,12 @@
             "width": 993,
             "height": 232,
             "alt": "支棱"
+          },
+           "selfActive": {
+            "url": "/assets/2025-28-banner-zhileng-self-active.png",
+            "width": 1006,
+            "height": 232,
+            "alt": "支棱"
           }
         },
         "empty": {
@@ -2665,6 +2689,12 @@
             "url": "/assets/2025-28-banner-empty-grey.png",
             "width": 344,
             "height": 95,
+            "alt": "empty"
+          },
+           "selfActive": {
+            "url": "/assets/2025-28-banner-empty-self-active.png",
+            "width": 1006,
+            "height": 232,
             "alt": "empty"
           }
         }

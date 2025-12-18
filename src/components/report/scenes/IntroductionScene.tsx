@@ -50,6 +50,14 @@ export default function IntroductionScene({ onNext, sceneName }: IntroductionSce
     };
   }, [assets?.report?.intro]);
 
+  useEffect(() => {
+    if (window.WeixinJSBridge) {
+      window.WeixinJSBridge.invoke("getNetworkType", {}, function () {
+        videoRef.current?.play();
+      });
+    }
+  }, [currentStep]);
+
   // Handle video end event
   const handleVideoEnd = () => {
     if (currentStep === 'step1') {

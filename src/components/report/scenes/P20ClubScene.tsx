@@ -172,7 +172,7 @@ export default function P20Scene({ onNext, sceneName }: PageProps) {
 
   // Handler for toggling circle membership
   const handleToggleMembership = async (
-    ringId: number | null,
+    ringId: string | null,
     clubKey: string
   ) => {
     if (!ringId) {

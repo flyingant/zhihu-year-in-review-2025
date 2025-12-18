@@ -2682,6 +2682,14 @@
         "alt": "empty"
       }
     },
+    "p29": {
+      "iconFriend": {
+        "url": "/assets/2025_2_report_p29_icon_friend.png",
+        "width": 38,
+        "height": 38,
+        "alt": "Friend Interaction Icon"
+      }
+    },
     "guess": {
       "taOption": {
         "url": "/assets/guess-ta-option.png",

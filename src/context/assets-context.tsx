@@ -573,6 +573,9 @@ export interface AssetsData {
       };
       flagEmpty: AssetMetadata;
     };
+    p29: {
+      iconFriend: AssetMetadata;
+    };
     guess: {
       taOption: AssetMetadata;
       yourOption: AssetMetadata;

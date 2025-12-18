@@ -664,6 +664,8 @@ export interface AssetsData {
       BROWSE_2025_YEARLY_REPORT: number;
       /** 浏览2025年度十个问题的任务ID */
       BROWSE_2025_YEARLY_TEN_QUESTIONS: number;
+      /** 浏览我的年度十问的任务ID */
+      BROWSE_2025_MY_TEN_QUESTIONS: number;
       /** 收集四宫格元素的任务ID */
       COLLECT_FOUR_GRID_ELEMENT: number;
     };

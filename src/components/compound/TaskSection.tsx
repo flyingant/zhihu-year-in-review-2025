@@ -203,6 +203,17 @@ const TaskSection = () => {
         }
         break;
       }
+      case assets.campaign.completeTaskIds.BROWSE_2025_MY_TEN_QUESTIONS: {
+        // 滚动到 "我的年度十问" 部分
+        const targetSection = document.getElementById('vote-ten-questions-section');
+        if (targetSection) {
+          targetSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        } else {
+          console.warn('未找到目标区域: 2025年度十问');
+          showToast('请稍后再试', 'info');
+        }
+        break;
+      }
       case assets.campaign.completeTaskIds.COLLECT_FOUR_GRID_ELEMENT: {
         // 滚动到 "收集四宫格元素" 部分
         const targetSection = document.getElementById('collect-four-grid-element-section');

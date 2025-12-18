@@ -46,6 +46,7 @@ export interface AssetsData {
   home: {
     bg: AssetMetadata;
     bgBottom: AssetMetadata;
+    bgBottom2: AssetMetadata;
   };
   kv: {
     logo: AssetMetadata;
@@ -85,6 +86,7 @@ export interface AssetsData {
     qiangXianYuGao: AssetMetadata;
     qiangXianYuGaoBanner: AssetMetadata;
     zheXieZhenDeKeYi: AssetMetadata;
+    zheXieZhenDeKeYi2: AssetMetadata;
     zheXieZhenDeKeYiBanner: AssetMetadata;
     zhenShiShunJian: AssetMetadata;
     sidebarCampaignRules: AssetMetadata;

@@ -220,7 +220,7 @@ export default function P6Scene({ onNext, sceneName }: PageProps) {
               >
                 {day}
               </span>
-              日 ，你写下了今年最多的
+              日，你写下了今年最多的
               <span
                 className={`text-r-fern`}
                 style={{

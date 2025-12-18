@@ -190,7 +190,7 @@ export default function P19Scene({ onNext, sceneName }: PageProps) {
             <span className='pr-[2px]' style={{ fontSize: '18px' }}>
               2025
             </span>
-            年 , 你加入了
+            年，你加入了
             <span className='text-r-pink px-[4px]' style={{ fontSize: '24px' }}>
               {String(joinClubCount ?? 'join_club_cnt')}
             </span>

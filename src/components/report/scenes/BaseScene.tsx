@@ -138,71 +138,6 @@ function DebugPanel({
   );
 }
 
-/**
- * Audio Player Component
- * Fixed audio play/pause button that appears on all pages
- */
-function AudioPlayer() {
-  const { assets } = useAssets();
-  const [isPlaying, setIsPlaying] = useState(false);
-  const audioRef = useRef<HTMLAudioElement>(null);
-
-  const iconDisable = assets?.report.audio.iconDisable;
-  const iconPlaying = assets?.report.audio.iconPlaying;
-  const audioUrl = assets?.report.audio.bgAudio?.url;
-
-  const togglePlayPause = () => {
-    if (!audioRef.current || !audioUrl) return;
-
-    if (isPlaying) {
-      audioRef.current.pause();
-      setIsPlaying(false);
-    } else {
-      audioRef.current.play().catch((error) => {
-        console.error('Error playing audio:', error);
-      });
-      setIsPlaying(true);
-    }
-  };
-
-  // Handle audio ended event
-  useEffect(() => {
-    const audio = audioRef.current;
-    if (!audio) return;
-
-    const handleEnded = () => {
-      setIsPlaying(false);
-    };
-
-    audio.addEventListener('ended', handleEnded);
-    return () => {
-      audio.removeEventListener('ended', handleEnded);
-    };
-  }, []);
-
-  if (!iconDisable || !iconPlaying || !audioUrl) return null;
-
-  return (
-    <>
-      <audio ref={audioRef} src={audioUrl} loop />
-      <button
-        onClick={togglePlayPause}
-        className='absolute top-4 right-4 cursor-pointer '
-        style={{ zIndex: 9999 }}
-        aria-label={isPlaying ? 'Pause audio' : 'Play audio'}
-      >
-        <Image
-          src={isPlaying ? iconPlaying.url : iconDisable.url}
-          alt={isPlaying ? iconPlaying.alt : iconDisable.alt}
-          width={iconDisable.width / 2}
-          height={iconDisable.height / 2}
-          className='object-contain'
-        />
-      </button>
-    </>
-  );
-}
-
 export default function BaseScene({
   children,
   onNext,
@@ -279,7 +214,6 @@ export default function BaseScene({
           onNavigateToScene={onNavigateToScene}
         />
         <div className={`relative z-40 w-full h-full`}>
-          <AudioPlayer />
           {logoAsset ? (
             <div
               className={`absolute z-50`}

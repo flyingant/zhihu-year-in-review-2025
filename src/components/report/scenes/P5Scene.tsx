@@ -141,8 +141,8 @@ export default function P5Scene({ onNext, sceneName }: PageProps) {
           <span
             className={`text-r-pink`}
             style={{
-              paddingLeft: '6px',
-              paddingRight: '6px',
+              paddingLeft: '4px',
+              paddingRight: '4px',
               fontSize: '18px',
             }}
           >
@@ -179,8 +179,8 @@ export default function P5Scene({ onNext, sceneName }: PageProps) {
               <span
                 className={`text-r-purple`}
                 style={{
-                  paddingLeft: '6px',
-                  paddingRight: '6px',
+                  paddingLeft: '4px',
+                  paddingRight: '4px',
                   fontSize: '24px',
                 }}
               >
@@ -197,8 +197,8 @@ export default function P5Scene({ onNext, sceneName }: PageProps) {
           <span
             className={`text-r-pink`}
             style={{
-              paddingLeft: '6px',
-              paddingRight: '6px',
+              paddingLeft: '4px',
+              paddingRight: '4px',
               fontSize: '18px',
             }}
           >

@@ -142,8 +142,8 @@ export default function P4Scene({ onNext, sceneName }: PageProps) {
             <span
               className={`text-r-pink leading-[32px]`}
               style={{
-                paddingLeft: '6px',
-                paddingRight: '6px',
+                paddingLeft: '4px',
+                paddingRight: '4px',
                 fontSize: '18px',
               }}
             >
@@ -156,8 +156,8 @@ export default function P4Scene({ onNext, sceneName }: PageProps) {
             <span
               className={`text-r-fern`}
               style={{
-                paddingLeft: '6px',
-                paddingRight: '6px',
+                paddingLeft: '4px',
+                paddingRight: '4px',
                 fontSize: '18px',
               }}
             >
@@ -175,8 +175,8 @@ export default function P4Scene({ onNext, sceneName }: PageProps) {
           <span
             className={`text-r-purple`}
             style={{
-              paddingLeft: '6px',
-              paddingRight: '6px',
+              paddingLeft: '4px',
+              paddingRight: '4px',
               fontSize: '24px',
             }}
           >

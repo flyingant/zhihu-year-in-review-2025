@@ -183,8 +183,8 @@ export default function P11Scene({ onNext, sceneName }: PageProps) {
             <span
               className='text-r-fern'
               style={{
-                paddingLeft: '6px',
-                paddingRight: '6px',
+                paddingLeft: '4px',
+                paddingRight: '4px',
                 fontSize: '14px',
               }}
             >

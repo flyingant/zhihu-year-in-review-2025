@@ -1,6 +1,7 @@
 'use client';
 
 import { useUserReportData } from '@/context/user-report-data-context';
+import { colorClass, typographyClass } from '@/hooks/useSceneTheme';
 import BaseScene from './BaseScene';
 import Image from 'next/image';
 import { useAssets } from '@/context/assets-context';
@@ -165,7 +166,7 @@ export default function P6Scene({ onNext, sceneName }: PageProps) {
             <div>
               在
               <FlipCounter
-                value={123}
+                value={creationDays}
                 className={`text-r-blue`}
                 style={{
                   paddingLeft: '4px',

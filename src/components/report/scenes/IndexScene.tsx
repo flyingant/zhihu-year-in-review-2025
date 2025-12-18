@@ -32,10 +32,10 @@ const MirrorContent = ({
     className='flex flex-col justify-center text-left pointer-events-none select-none w-full h-full'
     style={{ fontSize: '14px' }}
   >
+    <div style={{ fontSize: '22px', paddingBottom: '8px' }}>@{userName}</div>
     <div style={{ fontSize: '22px', paddingBottom: '8px' }}>
       你说，时间是真实的吗？
     </div>
-    <div style={{ fontSize: '22px', paddingBottom: '8px' }}>@{userName}</div>
     <div>
       从
       <span
@@ -76,7 +76,9 @@ export default function IndexScene({ onNext, sceneName }: IndexSceneProps) {
   const [activeView, setActiveView] = useState<ActiveView>(null);
   const [expandingView, setExpandingView] = useState<ActiveView>(null);
   const [gifFirstFrame, setGifFirstFrame] = useState<string | null>(null);
-  const [gifReverseFirstFrame, setGifReverseFirstFrame] = useState<string | null>(null);
+  const [gifReverseFirstFrame, setGifReverseFirstFrame] = useState<
+    string | null
+  >(null);
   const [showAnimatedGif, setShowAnimatedGif] = useState(false);
   const [showGif, setShowGif] = useState(true);
   const gifImageRef = useRef<HTMLImageElement | null>(null);

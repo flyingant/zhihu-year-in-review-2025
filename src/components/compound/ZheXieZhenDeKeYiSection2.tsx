@@ -95,9 +95,9 @@ const RealCanDoSection = () => {
         <ZheXieZhenDeKeYi2 />
       </div>
         <div
-          className={`absolute -bottom-[70%] left-[2%] w-[72px] z-0 transition-transform duration-500 ease-out ${showIcon
+          className={`absolute top-[75%] md:top-[70%] left-[2%] w-[72px] z-0 transition-transform duration-500 ease-out ${showIcon
             ? 'translate-y-0 opacity-100'
-            : 'translate-y-full opacity-0'
+            : 'translate-y-full'
             }`}
         >
           <video

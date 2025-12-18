@@ -10,6 +10,7 @@ import { useState } from "react";
 import { extractOptionKeyword, summaryFlags } from "@/utils/common";
 import BaseScene from "@/components/report/scenes/BaseScene";
 import { useEffect } from "react";
+import { useZA } from "@/hooks/useZA"; 
 import {
   getVoteInfo,
   submitVote,
@@ -30,6 +31,7 @@ function GuessPageScene() {
   const [selectedOptionId, setSelectedOptionId] = useState<string | null>(null);
   const searchParams = useSearchParams();
   const pollId = searchParams.get("pollId");
+  const { trackPageShow } = useZA();
 
   const [voteInfo, setVoteInfo] = useState<
     | (VoteInfoResponse & {
@@ -37,6 +39,10 @@ function GuessPageScene() {
       })
     | undefined
   >();
+  
+  useEffect(() => {
+    trackPageShow({ page: { page_id: '60865' } });
+  }, []);
 
   useEffect(() => {
     const initPollData = () => {
@@ -61,6 +67,7 @@ function GuessPageScene() {
     };
     initPollData();
   }, [pollId]);
+  
   if (!assets) return null;
   const p28Assets = assets.report.p28 || {};
   const guessAssets = assets.report.guess || {};

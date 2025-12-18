@@ -221,7 +221,7 @@ export default function P17Scene({ onNext, sceneName }: PageProps) {
         )}
         {!!upvoteHotAnswerUserCount && upvoteHotAnswerUserCount >= 10 && (
           <div className='z-0'>
-            <div style={{ fontSize: 14, marginBottom: '16px' }}>
+            <div style={{ fontSize: 14, marginBottom: '2px' }}>
               你赞同了
               <span
                 className={`text-r-yellow px-[4px]`}

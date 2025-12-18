@@ -498,7 +498,7 @@ const VoteTenQuestions = () => {
         {/* 问题列表区 */}
         <div className="relative w-full w-[375px] h-[382px] mt-2 ">
           {/* 列表背景图 */}
-          <div className="absolute inset-0 z-0 left-0 right-0">
+          <div className="absolute inset-0 z-0">
             <Image
               src={listBgAsset.url}
               alt="bg"
@@ -507,8 +507,9 @@ const VoteTenQuestions = () => {
             />
           </div>
           <div
-            className="relative w-full h-[370px] overflow-y-auto my-2 hide-scrollbar">
-            <div className="pt-2 flex flex-col justify-center items-center">
+            className="absolute z-10 overflow-y-auto hide-scrollbar py-[12px]
+              top-[4px] bottom-[4px] left-[6px] right-[6px]">
+            <div className="flex flex-col justify-center items-center">
               {isLoadingQuestions ? (
                 <div className="text-center text-gray-400 py-10">加载中...</div>
               ) : (
@@ -523,7 +524,7 @@ const VoteTenQuestions = () => {
                     return (
                       <div
                         key={q.id}
-                        className="relative w-[343px] h-[56px] transition-transform mb-[14px]"
+                        className="relative w-[343px] h-[56px] transition-transform mb-[14px] last:mb-0"
                       >
                         <div className="absolute inset-0 z-0">
                           <Image
@@ -587,7 +588,7 @@ const VoteTenQuestions = () => {
             onClick={() => setIsModalOpen(false)}
           ></div>
           <div className="relative w-full animate-slide-up h-[80vh] flex flex-col z-10 overflow-hidden" >
-            <div className="absolute top-0 left-0 w-full h-[1160px] z-0 bg-white">
+            <div className="absolute top-0 left-0 w-full h-[1160px] z-0">
               <Image
                 src={panelBgAsset.url}
                 alt={panelBgAsset.alt}
@@ -613,7 +614,7 @@ const VoteTenQuestions = () => {
                 {selectedQuestions.map((q) => (
                   <div
                     key={q.id}
-                    className="flex items-center justify-between bg-white border-b-[1px] border-gray-200 py-[14px]"
+                    className="flex items-center justify-between bg-white border-b-[1px] border-[#e8eaed] py-[14px]"
                   >
                     <div className="flex-1 text-[14px] line-clamp-2 mr-2 max-w-[220px]">
                       {q.title}

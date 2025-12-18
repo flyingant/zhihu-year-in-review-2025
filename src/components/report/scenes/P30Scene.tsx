@@ -9,6 +9,7 @@ import { useToast } from "@/context/toast-context";
 import { useUserReportData } from "@/context/user-report-data-context";
 import { summaryFlags } from "@/utils/common";
 import GlitchLayer from "../effects/GlitchLayer";
+import { useZA } from '@/hooks/useZA';
 
 interface PageProps {
   onNext?: () => void;
@@ -20,6 +21,8 @@ export default function P30Scene({ onNext, sceneName, onNavigateToScene }: PageP
   const { assets } = useAssets();
   const { showToast } = useToast();
   const { summaryPoster, reportData } = useUserReportData();
+  const { trackEvent } = useZA();
+
   const [shareOptionKeys, setShareOptionKeys] = useState<string[]>([]);
   const [isSynced, setIsSynced] = useState(false);
 
@@ -49,6 +52,16 @@ export default function P30Scene({ onNext, sceneName, onNavigateToScene }: PageP
       showToast("请任选三个选项");
       return;
     }
+
+    trackEvent('', {
+      moduleId: 'share_guess_button',
+      type: 'Button',
+      text: "*",
+      page: {
+        page_id: '60864',
+      }
+    });
+
     setVoteOption({
       poster_id: summaryPoster?.poster_id || 0,
       options: shareOptionKeys

@@ -140,11 +140,12 @@ export default function P4Scene({ onNext, sceneName }: PageProps) {
           <div style={{ paddingBottom: '2px' }}>
             你在
             <span
-              className={`text-r-pink leading-[32px]`}
+              className={`text-r-pink`}
               style={{
-                paddingLeft: '4px',
-                paddingRight: '4px',
+                paddingLeft: '6px',
+                paddingRight: '6px',
                 fontSize: '18px',
+                lineHeight: '32px',
               }}
             >
               {questionTitle}
@@ -156,8 +157,8 @@ export default function P4Scene({ onNext, sceneName }: PageProps) {
             <span
               className={`text-r-fern`}
               style={{
-                paddingLeft: '4px',
-                paddingRight: '4px',
+                paddingLeft: '6px',
+                paddingRight: '6px',
                 fontSize: '18px',
               }}
             >
@@ -175,8 +176,8 @@ export default function P4Scene({ onNext, sceneName }: PageProps) {
           <span
             className={`text-r-purple`}
             style={{
-              paddingLeft: '4px',
-              paddingRight: '4px',
+              paddingLeft: '6px',
+              paddingRight: '6px',
               fontSize: '24px',
             }}
           >

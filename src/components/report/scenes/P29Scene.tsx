@@ -4,12 +4,13 @@ import { useUserReportData } from "@/context/user-report-data-context";
 import BaseScene from "./BaseScene";
 import { useAssets } from "@/context/assets-context";
 import Image from "next/image";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useZhihuHybrid } from "@/hooks/useZhihuHybrid";
 import { useToast } from "@/context/toast-context";
 import { isZhihuApp } from "@/lib/zhihu-detection";
 import { useMobile } from "@/hooks/useMobile";
 import { publishSummaryPoster } from "@/api/report";
+import { useZA } from "@/hooks/useZA";
 
 // Type for Zhihu Hybrid SDK
 interface ZhihuHybridAction {
@@ -29,12 +30,17 @@ export default function P29Scene({ onNext, sceneName }: PageProps) {
   const { summaryPoster } = useUserReportData();
   const { assets } = useAssets();
   const [isSynced, setIsSynced] = useState(false);
+  const { trackEvent, trackPageShow } = useZA();
   const {
     downloadImage: downloadImageViaHybrid,
     isAvailable: isHybridAvailable,
   } = useZhihuHybrid();
   const { showToast } = useToast();
   const isMobile = useMobile();
+
+  useEffect(() => {
+    trackPageShow({ page: { page_id: '60864' } });
+  }, []);
 
   if (!assets) return null;
 
@@ -164,6 +170,15 @@ export default function P29Scene({ onNext, sceneName }: PageProps) {
       return;
     }
 
+    trackEvent('', {
+      moduleId: 'annual_individual_report_result_save_picture_button',
+      type: 'Button',
+      text: '*',
+      page: {
+        page_id: '60864',
+      }
+    });
+
     // 检测是否在知乎 App 内
     if (isZhihuApp()) {
       try {
@@ -187,6 +202,15 @@ export default function P29Scene({ onNext, sceneName }: PageProps) {
       showToast("没有可分享的图片", "error");
       return;
     }
+
+    trackEvent('', {
+      moduleId: 'annual_report_share_image_button',
+      type: 'Button',
+      text: '*',
+      page: {
+        page_id: '60864',
+      }
+    });
 
     // 如果用户勾选了同步至想法赢徽章，先发布海报
     if (isSynced && summaryPoster?.poster_id) {

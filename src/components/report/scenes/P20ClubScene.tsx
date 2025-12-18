@@ -40,7 +40,7 @@ const ClubInterestItem = ({
       className='flex items-center text-r-green px-[2px]'
       style={{ fontSize: 18 }}
     >
-      <div className='flex items-center gap-1'>
+      <div className='flex items-center' style={{ gap: '2px' }}>
         <Image
           src={avatar ?? ''}
           alt={String(name ?? '')}
@@ -81,12 +81,9 @@ export default function P20Scene({ onNext, sceneName }: PageProps) {
   }>({});
 
   // Club IDs - extract before early return
-  const clubInterestListId1 =
-    reportData?.club_interest_list_id_top1 ?? null;
-  const clubInterestListId2 =
-    reportData?.club_interest_list_id_top2 ?? null;
-  const clubInterestListId3 =
-    reportData?.club_interest_list_id_top3 ?? null;
+  const clubInterestListId1 = reportData?.club_interest_list_id_top1 ?? null;
+  const clubInterestListId2 = reportData?.club_interest_list_id_top2 ?? null;
+  const clubInterestListId3 = reportData?.club_interest_list_id_top3 ?? null;
 
   // Check membership status on mount
   useEffect(() => {
@@ -169,10 +166,9 @@ export default function P20Scene({ onNext, sceneName }: PageProps) {
   const clubInterestListName3 =
     reportData?.club_interest_list_name_top3 ?? null;
 
-
   // Handler for toggling circle membership
   const handleToggleMembership = async (
-    ringId: number | null,
+    ringId: string | null,
     clubKey: string
   ) => {
     if (!ringId) {
@@ -206,7 +202,9 @@ export default function P20Scene({ onNext, sceneName }: PageProps) {
     } catch (error) {
       console.error('Error toggling circle membership:', error);
       showToast(
-        isCurrentlyJoined ? '退出圈子失败，请稍后重试' : '加入圈子失败，请稍后重试',
+        isCurrentlyJoined
+          ? '退出圈子失败，请稍后重试'
+          : '加入圈子失败，请稍后重试',
         'error'
       );
     } finally {
@@ -326,23 +324,25 @@ export default function P20Scene({ onNext, sceneName }: PageProps) {
             >
               {!!clubActiveListName1 && (
                 <span className='text-r-pink'>
-                  {truncateText(
+                  {`「${truncateText(
                     String(clubActiveListName1 ?? 'club_active_list_name_top1')
-                  )}
+                  )}」`}
+                  ，
                 </span>
               )}
               {!!clubActiveListName2 && (
                 <span className='text-r-pink'>
-                  {truncateText(
+                  {`「${truncateText(
                     String(clubActiveListName2 ?? 'club_active_list_name_top2')
-                  )}
+                  )}」`}
+                  ，
                 </span>
               )}
               {!!clubActiveListName3 && (
                 <span className='text-r-pink'>
-                  {truncateText(
+                  {`「${truncateText(
                     String(clubActiveListName3 ?? 'club_active_list_name_top3')
-                  )}
+                  )}」`}
                 </span>
               )}
               <span>圈子是你今年最爱的精神据点</span>
@@ -361,15 +361,13 @@ export default function P20Scene({ onNext, sceneName }: PageProps) {
                 right: '34px',
               }}
             >
-              <div className='flex flex-col gap-1 leading-[34px]'>
+              <div className='flex flex-col' style={{ gap: '8px' }}>
                 {!!clubInterestListName1 && (
                   <ClubInterestItem
                     name={clubInterestListName1}
                     avatar={clubInterestListAvatar1}
                     fallbackName='club_interest_list_name_top1'
-                    type={
-                      membershipStatus.club1 ? 'joined' : 'join'
-                    }
+                    type={membershipStatus.club1 ? 'joined' : 'join'}
                     onClick={() =>
                       handleToggleMembership(clubInterestListId1, 'club1')
                     }
@@ -381,9 +379,7 @@ export default function P20Scene({ onNext, sceneName }: PageProps) {
                     name={clubInterestListName2}
                     avatar={clubInterestListAvatar2}
                     fallbackName='club_interest_list_name_top2'
-                    type={
-                      membershipStatus.club2 ? 'joined' : 'join'
-                    }
+                    type={membershipStatus.club2 ? 'joined' : 'join'}
                     onClick={() =>
                       handleToggleMembership(clubInterestListId2, 'club2')
                     }
@@ -395,9 +391,7 @@ export default function P20Scene({ onNext, sceneName }: PageProps) {
                     name={clubInterestListName3}
                     avatar={clubInterestListAvatar3}
                     fallbackName='club_interest_list_name_top3'
-                    type={
-                      membershipStatus.club3 ? 'joined' : 'join'
-                    }
+                    type={membershipStatus.club3 ? 'joined' : 'join'}
                     onClick={() =>
                       handleToggleMembership(clubInterestListId3, 'club3')
                     }

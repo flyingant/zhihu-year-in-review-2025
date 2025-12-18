@@ -27,7 +27,7 @@ const InteractionMemberItem = ({
   className?: string;
 }) => {
   return (
-    <div className='flex items-center gap-1'>
+    <div className='flex items-center' style={{ gap: '2px' }}>
       <Image
         src={avatar ?? ''}
         alt={String(name ?? '')}
@@ -271,7 +271,7 @@ export default function P20Scene({ onNext, sceneName }: PageProps) {
                 right: '34px',
               }}
             >
-              <div className='flex flex-col leading-[34px]'>
+              <div className='flex flex-col' style={{ gap: '8px' }}>
                 <span>与你互动最多的圈友是：</span>
 
                 {mostInteractionMemberName1 && (

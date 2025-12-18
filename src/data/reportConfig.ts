@@ -88,7 +88,7 @@ export const SCENES: Record<string, SceneConfig> = {
     id: "p3",
     component: P3Scene,
     next: "p4",
-    shouldSkip: (data) => !data?.publish_answer_cnt,
+    shouldSkip: (data) => !data?.publish_answer_cnt && !data?.publish_article_cnt,
   },
   p4: {
     id: "p4",
@@ -101,7 +101,7 @@ export const SCENES: Record<string, SceneConfig> = {
     id: "p5",
     component: P5Scene,
     next: "p5Emoji",
-    shouldSkip: (data) => !data?.hot_comment_uv && !data?.publish_pin_cnt,
+    shouldSkip: (data) => !data?.publish_comment_cnt && !data?.publish_pin_cnt,
   },
   p5Emoji: {
     id: "p5Emoji",
@@ -126,7 +126,7 @@ export const SCENES: Record<string, SceneConfig> = {
     id: "p8",
     component: P8Scene,
     next: "p8Cheese",
-    shouldSkip: (data) => !data?.zhishi_cnt,
+    shouldSkip: (data) => !data?.zhishi_cnt && !data?.biz_list_num && !data?.best_answer_topic && !data?.is_navigator,
   },
   p8Cheese: {
     id: "P8Cheese",
@@ -170,7 +170,7 @@ export const SCENES: Record<string, SceneConfig> = {
       !data?.zhihu_browse_most_date &&
       (data?.zhihu_browse_most_date_duration ?? 0) < 5 &&
       !data?.consume_most_answer_title &&
-      (data?.consume_most_answer_pv_cnt ?? 0) < 10,
+      (data?.consume_most_answer_pv_cnt ?? 0) < 5,
   },
   p14: {
     id: "p14",
@@ -210,8 +210,7 @@ export const SCENES: Record<string, SceneConfig> = {
     next: "p19",
     shouldSkip: (data) =>
       !data?.club_admin_top1_name &&
-      !data?.club_admin_top2_name &&
-      !data?.club_admin_pin_cnt,
+      !data?.club_admin_top2_name
   },
   p19: {
     id: "p19",
@@ -256,14 +255,15 @@ export const SCENES: Record<string, SceneConfig> = {
     shouldSkip: (data) =>
       (!data?.consume_billboard_days || data?.consume_billboard_days < 5) &&
       !data?.consume_billboard_content_cnt &&
-      !data?.event_name,
+      !data?.event_name &&
+      !data?.upvote_zhihu_billboard_content_cnt
   },
   p23: {
     id: "p23",
     component: P23Scene,
     next: "p24",
     shouldSkip: (data) =>
-      !data?.review_answer_cnt && !data?.review_answer_product_name,
+      !data?.review_answer_cnt
   },
   p24: {
     id: "p24",
@@ -294,7 +294,10 @@ export const SCENES: Record<string, SceneConfig> = {
     shouldSkip: (data) =>
       !data?.write_story_num_sum &&
       !data?.total_upvote_num &&
-      !data?.write_story_most_popular_name,
+      !data?.write_story_most_popular_name &&
+      !data?.short_story_influence_list &&
+      !data?.annual_author && 
+      !data?.awarded_copy
   },
   p27: {
     id: "p27",

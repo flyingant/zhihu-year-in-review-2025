@@ -283,7 +283,6 @@ export default function P10Scene({ onNext, sceneName }: PageProps) {
           />
           <div>个字</div>
         </div>
-
         <div hidden={!equivalentBooks}>
           相当于读完
           <span

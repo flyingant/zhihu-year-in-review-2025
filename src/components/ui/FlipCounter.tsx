@@ -2,7 +2,6 @@
 
 import React, { useEffect } from 'react';
 import FlipDigit from './FlipDigit';
-import { useSpring, useTransform } from 'framer-motion';
 
 interface FlipCounterProps {
   value: number;
@@ -15,46 +14,14 @@ export default function FlipCounter({
   className,
   style,
 }: FlipCounterProps) {
-  // Use a spring to animate the number value
-  const spring = useSpring(0, {
-    duration: 10,
-    bounce: 0,
-  });
-
-  const displayValue = useTransform(spring, (current) => Math.floor(current));
+  // Start from 0 to ensure flip animation always triggers
   const [digits, setDigits] = React.useState<string[]>(['0']);
 
   useEffect(() => {
-    spring.set(value);
-  }, [value, spring]);
-
-  useEffect(() => {
-    let lastUpdate = 0;
-    const updateDigits = (val: number) => {
-      setDigits(val.toString().split(''));
-    };
-
-    const unsubscribe = displayValue.on('change', (latest) => {
-      const now = Date.now();
-      // Throttle updates to allow flip animation to be visible
-      // Using 100ms to strike balance between fluidity and visibility
-      if (now - lastUpdate > 200) {
-        updateDigits(Math.floor(latest));
-        lastUpdate = now;
-      }
-    });
-
-    const cleanupInterval = setInterval(() => {
-      if (!spring.isAnimating()) {
-        updateDigits(Math.floor(spring.get()));
-      }
-    }, 100);
-
-    return () => {
-      unsubscribe();
-      clearInterval(cleanupInterval);
-    };
-  }, [displayValue, spring, value]);
+    // Update digits immediately when value changes
+    // FlipDigit component will handle the flip animation
+    setDigits(value.toString().split(''));
+  }, [value]);
 
   const reversedDigits = [...digits].reverse();
 

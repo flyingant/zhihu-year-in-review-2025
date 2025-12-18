@@ -124,7 +124,7 @@ function SingleFlip({
   prev: string | number;
   current: string | number;
 }) {
-  const isDiff = prev !== current;
+  const isDiff = true;
 
   return (
     <div className='relative w-full h-full user-select-none'>

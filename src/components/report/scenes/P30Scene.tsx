@@ -111,12 +111,12 @@ export default function P30Scene({ onNext, sceneName }: PageProps) {
                 className="relative"
                 style={{ top: 131, gap: 22, left: 20, right: 20 }}
               >
-                <Image
-                  src={bannerAsset.url}
-                  width={bannerAsset.width}
-                  height={bannerAsset.height}
-                  alt={bannerAsset.alt}
-                />
+              <Image
+                src={bannerAsset.active.url}
+                width={bannerAsset.active.width}
+                height={bannerAsset.active.height}
+                alt={bannerAsset.active.alt}
+              />
               </div>
             );
           })()

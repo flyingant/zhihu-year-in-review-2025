@@ -210,8 +210,10 @@ export default function P28Scene({ onNext, sceneName }: PageProps) {
         />
         {isShareView && summaryPoster?.key && (
           (() => {
-            const bannerAsset = bannersAssets[summaryPoster.key as keyof typeof bannersAssets];
-            if (!bannerAsset) return null;
+            const banner = bannersAssets[summaryPoster.key as keyof typeof bannersAssets];
+            if (!banner) return null;
+            // Use active variant for share view
+            const bannerAsset = banner.active;
             return (
               <div
                 className="relative"

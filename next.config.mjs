@@ -25,6 +25,10 @@ const nextConfig = {
           destination: "https://www.zhihu.com/api/v4/me",
         },
         {
+          source: "/app/:path*",
+          destination: "https://api.zhihu.com/:path*",
+        },
+        {
           source: "/api/:path*",
           destination: "https://api.zhihu.com/api/:path*",
         },

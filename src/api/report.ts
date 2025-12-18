@@ -1,5 +1,5 @@
 // src/api/report.ts
-import request, { authRequest } from "../lib/request";
+import request, { appRequest, authRequest } from "../lib/request";
 
 // ============================================================================
 // User Report Data Interface
@@ -135,11 +135,11 @@ export interface UserReportData {
   live_most_audience_url?: string;
 
   // Club/Community related fields
-  club_admin_top1_id?: number;
+  club_admin_top1_id?: string;
   club_admin_top1_name?: string;
   club_admin_top1_member_cnt?: number;
   club_admin_top1_content_cnt?: number;
-  club_admin_top2_id?: number;
+  club_admin_top2_id?: string;
   club_admin_top2_name?: string;
   club_admin_top2_member_cnt?: number;
   club_admin_top2_content_cnt?: number;
@@ -147,21 +147,21 @@ export interface UserReportData {
   club_admin_interaction_cnt?: number;
 
   // Active club fields
-  club_active_list_id_top1?: number;
+  club_active_list_id_top1?: string;
   club_active_list_name_top1?: string;
-  club_active_list_id_top2?: number;
+  club_active_list_id_top2?: string;
   club_active_list_name_top2?: string;
-  club_active_list_id_top3?: number;
+  club_active_list_id_top3?: string;
   club_active_list_name_top3?: string;
 
   // Interest club fields
-  club_interest_list_id_top1?: number;
+  club_interest_list_id_top1?: string;
   club_interest_list_name_top1?: string;
-  club_interest_list_id_top2?: number;
+  club_interest_list_id_top2?: string;
   club_interest_list_name_top2?: string;
-  club_interest_list_id_top3?: number;
+  club_interest_list_id_top3?: string;
   club_interest_list_name_top3?: string;
-  club_friend_interest_id?: number;
+  club_friend_interest_id?: string;
   club_friend_interest_name?: string;
 
   // Paid content (Salt Select) related fields
@@ -725,7 +725,7 @@ export interface CircleMembershipStatusResponse {
  * }
  */
 export const getCircleMembershipStatus = (ringId: string) => {
-  return request<CircleMembershipStatusResponse>({
+  return appRequest<CircleMembershipStatusResponse>({
     url: `/rings/v1/${ringId}/membership`,
     method: "GET",
   });
@@ -756,7 +756,7 @@ export interface JoinCircleResponse {
  * }
  */
 export const joinCircle = (ringId: string) => {
-  return request<JoinCircleResponse>({
+  return appRequest<JoinCircleResponse>({
     url: `/rings/v1/${ringId}/membership`,
     method: "POST",
   });
@@ -787,7 +787,7 @@ export interface LeaveCircleResponse {
  * }
  */
 export const leaveCircle = (ringId: string) => {
-  return request<LeaveCircleResponse>({
+  return appRequest<LeaveCircleResponse>({
     url: `/rings/v1/${ringId}/membership`,
     method: "DELETE",
   });

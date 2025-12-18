@@ -181,7 +181,7 @@ export default function P21Scene({ onNext, sceneName }: PageProps) {
           max="300"
           value={maskPosition}
           onChange={handleRangeChange}
-          className="absolute bottom-4 left-1/2 transform -translate-x-1/2 w-3/4 z-30"
+          className="absolute bottom-16 left-1/2 transform -translate-x-1/2 w-3/4 z-30"
           style={{ pointerEvents: "auto" }}
         />
         {/* Options */}

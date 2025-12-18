@@ -230,7 +230,7 @@ export default function P9Scene({ onNext, sceneName }: PageProps) {
           max='0'
           value={maskPosition}
           onChange={handleRangeChange}
-          className='absolute bottom-4 left-1/2 transform -translate-x-1/2 w-3/4 z-50'
+          className='absolute bottom-16 left-1/2 transform -translate-x-1/2 w-3/4 z-50'
           style={{ pointerEvents: 'auto' }}
         />
       </div>

@@ -498,7 +498,7 @@ const VoteTenQuestions = () => {
         {/* 问题列表区 */}
         <div className="relative w-full w-[375px] h-[382px] mt-2 ">
           {/* 列表背景图 */}
-          <div className="absolute inset-0 z-0 left-0 right-0">
+          <div className="absolute inset-0 z-0">
             <Image
               src={listBgAsset.url}
               alt="bg"
@@ -507,8 +507,9 @@ const VoteTenQuestions = () => {
             />
           </div>
           <div
-            className="relative w-full h-[370px] overflow-y-auto my-2 hide-scrollbar">
-            <div className="pt-2 flex flex-col justify-center items-center">
+            className="absolute z-10 overflow-y-auto hide-scrollbar py-[12px]
+              top-[4px] bottom-[4px] left-[6px] right-[6px]">
+            <div className="flex flex-col justify-center items-center">
               {isLoadingQuestions ? (
                 <div className="text-center text-gray-400 py-10">加载中...</div>
               ) : (
@@ -523,7 +524,7 @@ const VoteTenQuestions = () => {
                     return (
                       <div
                         key={q.id}
-                        className="relative w-[343px] h-[56px] transition-transform mb-[14px]"
+                        className="relative w-[343px] h-[56px] transition-transform mb-[14px] last:mb-0"
                       >
                         <div className="absolute inset-0 z-0">
                           <Image

@@ -588,7 +588,7 @@ const VoteTenQuestions = () => {
             onClick={() => setIsModalOpen(false)}
           ></div>
           <div className="relative w-full animate-slide-up h-[80vh] flex flex-col z-10 overflow-hidden" >
-            <div className="absolute top-0 left-0 w-full h-[1160px] z-0 bg-white">
+            <div className="absolute top-0 left-0 w-full h-[1160px] z-0">
               <Image
                 src={panelBgAsset.url}
                 alt={panelBgAsset.alt}
@@ -614,7 +614,7 @@ const VoteTenQuestions = () => {
                 {selectedQuestions.map((q) => (
                   <div
                     key={q.id}
-                    className="flex items-center justify-between bg-white border-b-[1px] border-gray-200 py-[14px]"
+                    className="flex items-center justify-between bg-white border-b-[1px] border-[#e8eaed] py-[14px]"
                   >
                     <div className="flex-1 text-[14px] line-clamp-2 mr-2 max-w-[220px]">
                       {q.title}

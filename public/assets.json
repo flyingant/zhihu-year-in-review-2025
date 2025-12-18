@@ -2251,7 +2251,6 @@
     "p28": {
       "bg": {
         "url": "/assets/2025-28-background.png",
-
         "width": 375,
         "height": 812,
         "alt": "bg"
@@ -2267,6 +2266,256 @@
         "width": 243,
         "height": 78,
         "alt": "title"
+      },
+      "flags": {
+        "cure": {
+          "active": {
+            "url": "/assets/2025-28-flag-cure-active.png",
+            "width": 855,
+            "height": 423,
+            "alt": "被治愈"
+          },
+          "grey": {
+            "url": "/assets/2025-28-flag-cure-grey.png",
+            "width": 855,
+            "height": 423,
+            "alt": "被治愈"
+          }
+        },
+        "get": {
+          "active": {
+            "url": "/assets/2025-28-flag-get-active.png",
+            "width": 780,
+            "height": 399,
+            "alt": "悟"
+          },
+          "grey": {
+            "url": "/assets/2025-28-flag-get-grey.png",
+            "width": 780,
+            "height": 399,
+            "alt": "悟"
+          }
+        },
+        "action": {
+          "active": {
+            "url": "/assets/2025-28-flag-action-active.png",
+            "width": 816,
+            "height": 402,
+            "alt": "行动"
+          },
+          "grey": {
+            "url": "/assets/2025-28-flag-action-grey.png",
+            "width": 284,
+            "height": 140,
+            "alt": "行动"
+          }
+        },
+        "release": {
+          "active": {
+            "url": "/assets/2025-28-flag-release-active.png",
+            "width": 816,
+            "height": 402,
+            "alt": "释怀"
+          },
+          "grey": {
+            "url": "/assets/2025-28-flag-release-grey.png",
+            "width": 816,
+            "height": 402,
+            "alt": "释怀"
+          }
+        },
+        "live": {
+          "active": {
+            "url": "/assets/2025-28-flag-live-active.png",
+            "width": 855,
+            "height": 423,
+            "alt": "生活"
+          },
+          "grey": {
+            "url": "/assets/2025-28-flag-live-grey.png",
+            "width": 855,
+            "height": 423,
+            "alt": "生活"
+          }
+        },
+        "love": {
+          "active": {
+            "url": "/assets/2025-28-flag-love-active.png",
+            "width": 780,
+            "height": 399,
+            "alt": "爱"
+          },
+          "grey": {
+            "url": "/assets/2025-28-flag-love-grey.png",
+            "width": 780,
+            "height": 399,
+            "alt": "爱"
+          }
+        },
+        "good": {
+          "active": {
+            "url": "/assets/2025-28-flag-good-active.png",
+            "width": 780,
+            "height": 399,
+            "alt": "很棒"
+          },
+          "grey": {
+            "url": "/assets/2025-28-flag-good-grey.png",
+            "width": 780,
+            "height": 399,
+            "alt": "很棒"
+          }
+        },
+        "ai": {
+          "active": {
+            "url": "/assets/2025-28-flag-ai-active.png",
+            "width": 816,
+            "height": 402,
+            "alt": "AI"
+          },
+          "grey": {
+            "url": "/assets/2025-28-flag-ai-grey.png",
+            "width": 816,
+            "height": 402,
+            "alt": "AI"
+          }
+        },
+        "clam": {
+          "active": {
+            "url": "/assets/2025-28-flag-clam-active.png",
+            "width": 855,
+            "height": 423,
+            "alt": "清醒"
+          },
+          "grey": {
+            "url": "/assets/2025-28-flag-clam-grey.png",
+            "width": 855,
+            "height": 423,
+            "alt": "清醒"
+          }
+        },
+        "growth": {
+          "active": {
+            "url": "/assets/2025-28-flag-growth-active.png",
+            "width": 780,
+            "height": 399,
+            "alt": "成长"
+          },
+          "grey": {
+            "url": "/assets/2025-28-flag-growth-grey.png",
+            "width": 780,
+            "height": 399,
+            "alt": "成长"
+          }
+        },
+        "change": {
+          "active": {
+            "url": "/assets/2025-28-flag-change-active.png",
+            "width": 798,
+            "height": 423,
+            "alt": "改变"
+          },
+          "grey": {
+            "url": "/assets/2025-28-flag-change-grey.png",
+            "width": 798,
+            "height": 423,
+            "alt": "改变"
+          }
+        },
+        "zhileng": {
+          "active": {
+            "url": "/assets/2025-28-flag-zhileng-active.png",
+            "width": 816,
+            "height": 402,
+            "alt": "支棱"
+          },
+          "grey": {
+            "url": "/assets/2025-28-flag-zhileng-grey.png",
+            "width": 816,
+            "height": 402,
+            "alt": "支棱"
+          }
+        }
+      },
+      "banners": {
+        "cure": {
+          "url": "/assets/2025-28-banner-cure-active.png",
+          "width": 1006,
+          "height": 232,
+          "alt": "被治愈"
+        },
+        "get": {
+          "url": "/assets/2025-28-banner-get-active.png",
+          "width": 993,
+          "height": 232,
+          "alt": "悟"
+        },
+        "action": {
+          "url": "/assets/2025-28-banner-action-active.png",
+          "width": 1002,
+          "height": 232,
+          "alt": "行动"
+        },
+        "release": {
+          "url": "/assets/2025-28-banner-release-active.png",
+          "width": 331,
+          "height": 78,
+          "alt": "释怀"
+        },
+        "live": {
+          "url": "/assets/2025-28-banner-live-active.png",
+          "width": 991,
+          "height": 232,
+          "alt": "生活"
+        },
+        "love": {
+          "url": "/assets/2025-28-banner-love-active.png",
+          "width": 2862,
+          "height": 666,
+          "alt": "爱"
+        },
+        "good": {
+          "url": "/assets/2025-28-banner-good-active.png",
+          "width": 2865,
+          "height": 666,
+          "alt": "很棒"
+        },
+        "ai": {
+          "url": "/assets/2025-28-banner-ai-active.png",
+          "width": 1006,
+          "height": 232,
+          "alt": "AI"
+        },
+        "clam": {
+          "url": "/assets/2025-28-banner-clam-active.png",
+          "width": 2862,
+          "height": 669,
+          "alt": "清醒"
+        },
+        "growth": {
+          "url": "/assets/2025-28-banner-growth-active.png",
+          "width": 994,
+          "height": 232,
+          "alt": "成长"
+        },
+        "change": {
+          "url": "/assets/2025-28-banner-change-active.png",
+          "width": 1001,
+          "height": 232,
+          "alt": "改变"
+        },
+        "zhileng": {
+          "url": "/assets/2025-28-banner-zhileng-active.png",
+          "width": 993,
+          "height": 232,
+          "alt": "支棱"
+        }
+      },
+      "flagEmpty": {
+        "url": "/assets/2025-28-flag-empty-self.png",
+        "width": 280,
+        "height": 147,
+        "alt": "empty"
       }
     },
 

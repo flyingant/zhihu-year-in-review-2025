@@ -26,6 +26,8 @@ export default function P30Scene({ onNext, sceneName }: PageProps) {
   const p28Assets = assets.report.p28 || {};
   const bgAsset = p28Assets.bg;
   const titleOtherAsset = p28Assets.titleOther;
+  const flagsAssets = p28Assets.flags || {};
+  const bannersAssets = p28Assets.banners || {};
 
   const handleSelect = (key: string) => {
     if (summaryPoster?.key === key) {
@@ -100,17 +102,25 @@ export default function P30Scene({ onNext, sceneName }: PageProps) {
           className="relative mx-auto left-0 right-0 pointer-events-none select-none"
           style={{ top: 114 }}
         />
-        <div
-          className="relative"
-          style={{ top: 131, gap: 22, left: 20, right: 20 }}
-        >
-          <Image
-            src={`/assets/2025-28-banner-${summaryPoster?.key}-active.png`}
-            width={330}
-            height={77}
-            alt="banner"
-          />
-        </div>
+        {summaryPoster?.key && (
+          (() => {
+            const bannerAsset = bannersAssets[summaryPoster.key as keyof typeof bannersAssets];
+            if (!bannerAsset) return null;
+            return (
+              <div
+                className="relative"
+                style={{ top: 131, gap: 22, left: 20, right: 20 }}
+              >
+                <Image
+                  src={bannerAsset.url}
+                  width={bannerAsset.width}
+                  height={bannerAsset.height}
+                  alt={bannerAsset.alt}
+                />
+              </div>
+            );
+          })()
+        )}
         <div
           className="relative"
           style={{ top: 141, gap: 22, left: 20, right: 20 }}
@@ -122,18 +132,24 @@ export default function P30Scene({ onNext, sceneName }: PageProps) {
           className="relative flex flex-wrap"
           style={{ top: 151, gap: 22, left: 20, right: 20 }}
         >
-          {summaryFlags.map((item) => (
-            <Image
-              onClick={() => handleSelect(item.key)}
-              src={`/assets/2025-28-flag-${item.key}-${
-                shareOptionKeys.includes(item.key) ? "active" : "grey"
-              }.png`}
-              key={item.key}
-              alt={item.key}
-              width={98}
-              height={50}
-            />
-          ))}
+          {summaryFlags.map((item) => {
+            const flagAsset = flagsAssets[item.key as keyof typeof flagsAssets];
+            if (!flagAsset) return null;
+            
+            const isActive = shareOptionKeys.includes(item.key);
+            const stateAsset = isActive ? flagAsset.active : flagAsset.grey;
+            
+            return (
+              <Image
+                onClick={() => handleSelect(item.key)}
+                src={stateAsset.url}
+                key={item.key}
+                alt={stateAsset.alt}
+                width={98}
+                height={50}
+              />
+            );
+          })}
         </div>
 
         <button

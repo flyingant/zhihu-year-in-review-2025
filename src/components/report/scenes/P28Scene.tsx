@@ -32,6 +32,9 @@ export default function P28Scene({ onNext, sceneName }: PageProps) {
   const bgAsset = p28Assets.bg;
   const titleSelfAsset = p28Assets.titleSelf;
   const titleOtherAsset = p28Assets.titleOther;
+  const flagsAssets = p28Assets.flags || {};
+  const bannersAssets = p28Assets.banners || {};
+  const flagEmptyAsset = p28Assets.flagEmpty;
 
   const flags = [
     {
@@ -205,18 +208,24 @@ export default function P28Scene({ onNext, sceneName }: PageProps) {
           className="relative mx-auto left-0 right-0 pointer-events-none select-none"
           style={{ top: 114 }}
         />
-        {isShareView && (
-          <div
-            className="relative"
-            style={{ top: 131, gap: 22, left: 20, right: 20 }}
-          >
-            <Image
-              src={`/assets/2025-28-banner-${summaryPoster?.key}-active.png`}
-              width={330}
-              height={77}
-              alt="banner"
-            />
-          </div>
+        {isShareView && summaryPoster?.key && (
+          (() => {
+            const bannerAsset = bannersAssets[summaryPoster.key as keyof typeof bannersAssets];
+            if (!bannerAsset) return null;
+            return (
+              <div
+                className="relative"
+                style={{ top: 131, gap: 22, left: 20, right: 20 }}
+              >
+                <Image
+                  src={bannerAsset.url}
+                  width={bannerAsset.width}
+                  height={bannerAsset.height}
+                  alt={bannerAsset.alt}
+                />
+              </div>
+            );
+          })()
         )}
         {isShareView && (
           <div
@@ -231,24 +240,26 @@ export default function P28Scene({ onNext, sceneName }: PageProps) {
           className="relative flex flex-wrap"
           style={{ top: 151, gap: 22, left: 20, right: 20 }}
         >
-          {flags.map((item) => (
-            <Image
-              onClick={() => handleSelect(item.key)}
-              src={`/assets/2025-28-flag-${item.key}-${
-                !isShareView
-                  ? selectedFlag === item.key
-                    ? "active"
-                    : "grey"
-                  : shareOptionKeys.includes(item.key)
-                  ? "active"
-                  : "grey"
-              }.png`}
-              key={item.key}
-              alt={item.key}
-              width={98}
-              height={50}
-            />
-          ))}
+          {flags.map((item) => {
+            const flagAsset = flagsAssets[item.key as keyof typeof flagsAssets];
+            if (!flagAsset) return null;
+            
+            const isActive = !isShareView
+              ? selectedFlag === item.key
+              : shareOptionKeys.includes(item.key);
+            const stateAsset = isActive ? flagAsset.active : flagAsset.grey;
+            
+            return (
+              <Image
+                onClick={() => handleSelect(item.key)}
+                src={stateAsset.url}
+                key={item.key}
+                alt={stateAsset.alt}
+                width={98}
+                height={50}
+              />
+            );
+          })}
         </div>
         {!isFriendView && !isShareView && (
           <div
@@ -260,12 +271,14 @@ export default function P28Scene({ onNext, sceneName }: PageProps) {
               <div className="text-right">没有你想要的答案？</div>
               <div className="text-right">自定义：</div>
             </div>
-            <Image
-              src={`/assets/2025-28-flag-empty-self.png`}
-              width={98}
-              height={50}
-              alt="empty"
-            />
+            {flagEmptyAsset && (
+              <Image
+                src={flagEmptyAsset.url}
+                width={flagEmptyAsset.width / 3}
+                height={flagEmptyAsset.height / 3}
+                alt={flagEmptyAsset.alt}
+              />
+            )}
             <input
               className="absolute text-[#666]"
               style={{

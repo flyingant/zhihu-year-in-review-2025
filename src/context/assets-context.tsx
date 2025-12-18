@@ -457,6 +457,71 @@ export interface AssetsData {
       bg: AssetMetadata;
       titleOther: AssetMetadata;
       titleSelf: AssetMetadata;
+      flags: {
+        cure: {
+          active: AssetMetadata;
+          grey: AssetMetadata;
+        };
+        get: {
+          active: AssetMetadata;
+          grey: AssetMetadata;
+        };
+        action: {
+          active: AssetMetadata;
+          grey: AssetMetadata;
+        };
+        release: {
+          active: AssetMetadata;
+          grey: AssetMetadata;
+        };
+        live: {
+          active: AssetMetadata;
+          grey: AssetMetadata;
+        };
+        love: {
+          active: AssetMetadata;
+          grey: AssetMetadata;
+        };
+        good: {
+          active: AssetMetadata;
+          grey: AssetMetadata;
+        };
+        ai: {
+          active: AssetMetadata;
+          grey: AssetMetadata;
+        };
+        clam: {
+          active: AssetMetadata;
+          grey: AssetMetadata;
+        };
+        growth: {
+          active: AssetMetadata;
+          grey: AssetMetadata;
+        };
+        change: {
+          active: AssetMetadata;
+          grey: AssetMetadata;
+        };
+        zhileng: {
+          active: AssetMetadata;
+          grey: AssetMetadata;
+        };
+      };
+      banners: {
+        cure: AssetMetadata;
+        get: AssetMetadata;
+        action: AssetMetadata;
+        release: AssetMetadata;
+        live: AssetMetadata;
+        love: AssetMetadata;
+        good: AssetMetadata;
+        ai: AssetMetadata;
+        clam: AssetMetadata;
+        growth: AssetMetadata;
+        change: AssetMetadata;
+        zhileng: AssetMetadata;
+      };
+      flagEmpty: AssetMetadata;
     };
   };
   /**
@@ -614,18 +679,24 @@ export function AssetsProvider({ children }: { children: ReactNode }) {
         // For relative URLs, combine CDN_BASE_URL + BASE_PATH if CDN is configured
         // Otherwise, use BASE_PATH only
         let baseUrl = "";
+        const IGNORE_BASE_URL = process.env.NEXT_PUBLIC_IGNORE_BASE_URL === "true";
         if (CDN_BASE_URL) {
-          // Combine CDN_BASE_URL + BASE_PATH
           const cdnBase = CDN_BASE_URL.endsWith("/")
             ? CDN_BASE_URL.slice(0, -1)
             : CDN_BASE_URL;
-          if (BASE_PATH) {
-            const basePath = BASE_PATH.startsWith("/")
-              ? BASE_PATH
-              : `/${BASE_PATH}`;
-            baseUrl = `${cdnBase}${basePath}`;
-          } else {
+          if (IGNORE_BASE_URL) {
+            // If IGNORE_BASE_URL is true, use only CDN_BASE_URL without BASE_PATH
             baseUrl = cdnBase;
+          } else {
+            // Combine CDN_BASE_URL + BASE_PATH
+            if (BASE_PATH) {
+              const basePath = BASE_PATH.startsWith("/")
+                ? BASE_PATH
+                : `/${BASE_PATH}`;
+              baseUrl = `${cdnBase}${basePath}`;
+            } else {
+              baseUrl = cdnBase;
+            }
           }
         } else {
           baseUrl = BASE_PATH;

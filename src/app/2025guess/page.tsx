@@ -7,7 +7,7 @@ import AuthWrapper from "@/components/layout/AuthWrapper";
 import { useAssets } from "@/context/assets-context";
 import Image from "next/image";
 import { useState } from "react";
-import { summaryFlags } from "@/utils/common";
+import { extractOptionKeyword, summaryFlags } from "@/utils/common";
 import BaseScene from "@/components/report/scenes/BaseScene";
 import { useEffect } from "react";
 import {
@@ -17,6 +17,7 @@ import {
   VoteOptionInfo,
 } from "@/api/report";
 import { useSearchParams } from "next/navigation";
+import GlitchLayer from "@/components/report/effects/GlitchLayer";
 
 const tianwangFont = localFont({
   src: "../../../public/fonts/tianwangxingxiangsu.ttf",
@@ -37,19 +38,6 @@ function GuessPageScene() {
     | undefined
   >();
 
-  const extractKeyword = (text: string) => {
-    // 匹配 "我真的" 开头，"了" 结尾，中间是任意非"了"字符
-    const pattern = /我真的\s*([^了]+)\s*了/;
-    const match = text.match(pattern);
-    
-    if (match && match[1]) {
-      return match[1].trim();
-    }
-    
-    return  ''
-  }
-
-
   useEffect(() => {
     const initPollData = () => {
       if (!pollId) return;
@@ -62,10 +50,12 @@ function GuessPageScene() {
               key:
                 summaryFlags.find((flag) => flag.fullText === option.option_name)
                   ?.key || "empty",
-              optionKeyword: extractKeyword(option.option_name || ''),
+            optionKeyword: extractOptionKeyword(option.option_name || ''),
             })),
           }),
         };
+        voteInfoWithTransformed.is_owner = 0
+        voteInfoWithTransformed.is_vote_correct = 2
         setVoteInfo(voteInfoWithTransformed);
       });
     };
@@ -109,18 +99,64 @@ function GuessPageScene() {
 
   return (
     <BaseScene showBottomNextButton={false}>
+      <GlitchLayer>
+        <Image
+          className="absolute"
+          style={{ left: 51, top: 28 }}
+          src={assets.report.bg.blue0_1.url}
+          alt={assets.report.bg.blue0_1.alt}
+          width={38}
+          height={38}
+        />
+
+        <Image
+          className="absolute right-0"
+          style={{ top: 70 }}
+          src={assets.report.bg.mix0_2.url}
+          alt={assets.report.bg.mix0_2.alt}
+          width={84}
+          height={20}
+        />
+
+        <Image
+          className="absolute left-0"
+          style={{ top: 455 }}
+          src={p28Assets.bg10.url}
+          alt={p28Assets.bg10.alt}
+          width={62}
+          height={20}
+        />
+
+        <Image
+          className="absolute"
+          style={{ right: 20, bottom: 20 }}
+          src={p28Assets.bg6.url}
+          alt={p28Assets.bg6.alt}
+          width={p28Assets.bg6.width}
+          height={p28Assets.bg6.height}
+        />
+      </GlitchLayer>
       <div className="relative w-full h-full overflow-hidden">
+        
+        <Image
+          className="absolute left-1/2 -translate-x-1/2"
+          style={{ top: 60 }}
+          src={assets.kv.logo.url}
+          alt={assets.kv.logo.alt}
+          width={92}
+          height={18}  
+          />
         <Image
           src={titleOtherAsset.url}
           alt={titleOtherAsset.alt}
-          width={titleOtherAsset.width}
-          height={titleOtherAsset.height}
+          width={303}
+          height={94}
           className="relative mx-auto left-0 right-0 pointer-events-none select-none"
-          style={{ top: 114 }}
+          style={{ top: 98 }}
         />
         <div
           className="relative flex items-center justify-center text-center"
-          style={{ top: 150 }}
+          style={{ top: 120 }}
         >
           <div
             className="text-[#fff] bg-[#34C2FD]"
@@ -135,12 +171,12 @@ function GuessPageScene() {
           </div>
           <div>「真实关键词」是</div>
         </div>
-        <div className="relative" style={{ top: 131, left: 20, right: 20 }}>
+        <div className="relative" style={{ top: 115, left: 20, right: 20 }}>
           {voteInfo?.transformedOptions?.map((option) => (
             <div
               className="relative"
               key={`option-${option.key}`}
-              style={{ marginTop: 30, height: 95, width: 344 }}
+              style={{ marginTop: 20, height: 95, width: 344 }}
               onClick={() => {
                 if (voteInfo?.is_vote_correct !== 2) return;
                 if (voteInfo?.is_owner) return;
@@ -254,7 +290,7 @@ function GuessPageScene() {
             className="absolute left-1/2 -translate-x-1/2  z-60  rounded-full text-white text-lg"
             style={{
               width: 164,
-              bottom: 40,
+              bottom: 82,
               height: 32,
               background: selectedOptionId ? "#5cc0f9" : "#adadad",
               border: "1px solid #000",
@@ -290,11 +326,14 @@ function GuessPageScene() {
                 alt={goAsset.alt}
                 className="absolute left-1/2 -translate-x-1/2 "
                 style={{
-                  bottom: 20,
+                  bottom: 60,
                 }}
                 width={200}
                 height={15}
-                onClick={() => {}}
+                onClick={() => {
+                  const redirectUrl = `https://event.zhihu.com/2025`;
+                  window.location.href = redirectUrl;
+                }}
               />
             ) : null;
           })()}

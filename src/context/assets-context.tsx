@@ -457,8 +457,19 @@ export interface AssetsData {
 
     p28: {
       bg: AssetMetadata;
+      bg1: AssetMetadata;
+      bg2: AssetMetadata;
+      bg3: AssetMetadata;
+      bg4: AssetMetadata;
+      bg5: AssetMetadata;
+      bg6: AssetMetadata;
+      bg7: AssetMetadata;
+      bg8: AssetMetadata;
+      bg9: AssetMetadata;
+      bg10: AssetMetadata;
       titleOther: AssetMetadata;
       titleSelf: AssetMetadata;
+      titleTransparent: AssetMetadata;
       flags: {
         cure: {
           active: AssetMetadata;

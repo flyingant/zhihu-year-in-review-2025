@@ -8,6 +8,8 @@ import { useAssets } from "@/context/assets-context";
 import { generateSummaryPoster } from "@/api/report";
 import { useToast } from "@/context/toast-context";
 import { useUserReportData } from "@/context/user-report-data-context";
+import { summaryFlags } from "@/utils/common";
+import GlitchLayer from "../effects/GlitchLayer";
 
 interface PageProps {
   onNext?: () => void;
@@ -35,69 +37,7 @@ export default function P28Scene({ onNext, sceneName }: PageProps) {
   const flagsAssets = p28Assets.flags || {};
   const bannersAssets = p28Assets.banners || {};
   const flagEmptyAsset = p28Assets.flagEmpty;
-
-  const flags = [
-    {
-      key: "cure",
-      text: "被治愈",
-      bg: "#FAF163",
-    },
-    {
-      key: "get",
-      text: "悟",
-      bg: "#FFF59E",
-    },
-    {
-      key: "action",
-      text: "行动",
-      bg: "#FF9C4B",
-    },
-    {
-      key: "release",
-      text: "释怀",
-      bg: "#BAC0E1",
-    },
-    {
-      key: "live",
-      text: "生活",
-      bg: "#A0BDE2",
-    },
-    {
-      key: "love",
-      text: "爱",
-      bg: "#FFE0E4",
-    },
-    {
-      key: "good",
-      text: "很棒",
-      bg: "#FFE48D",
-    },
-    {
-      key: "ai",
-      text: "AI",
-      bg: "#B6DFFE",
-    },
-    {
-      key: "clam",
-      text: "清醒",
-      bg: "#B7E4F3",
-    },
-    {
-      key: "growth",
-      text: "成长",
-      bg: "#F6F6C5",
-    },
-    {
-      key: "change",
-      text: "改变",
-      bg: "#ECD0CD",
-    },
-    {
-      key: "zhileng",
-      text: "支棱",
-      bg: "#ED6046",
-    },
-  ];
+  const mix3Asset = assets.report.bg.mix0_3;
 
   const handleGeneratePoster = async (e: React.MouseEvent) => {
     e.stopPropagation();
@@ -115,7 +55,7 @@ export default function P28Scene({ onNext, sceneName }: PageProps) {
     setIsLoading(true);
     try {
       const text = selectedFlag
-        ? flags.find((flag) => flag.key === selectedFlag)?.text || ""
+        ? summaryFlags.find((flag) => flag.key === selectedFlag)?.text || ""
         : `${inputValue.trim()}`;
       const testMemberId = searchParams?.get("test_member_id") || undefined;
       const response = await generateSummaryPoster({
@@ -130,7 +70,7 @@ export default function P28Scene({ onNext, sceneName }: PageProps) {
         text: text,
         key: selectedFlag || "empty",
         bg: selectedFlag
-          ? flags.find((flag) => flag.key === selectedFlag)?.bg || ""
+          ? summaryFlags.find((flag) => flag.key === selectedFlag)?.bg || ""
           : "#B6DFFE",
       });
 
@@ -175,6 +115,58 @@ export default function P28Scene({ onNext, sceneName }: PageProps) {
       sceneName={sceneName}
       showBottomNextButton={false}
     >
+      <GlitchLayer>
+        <Image
+          className="absolute"
+          style={{ right: 8, bottom: 150 }}
+          src={assets.report.bg.blue0_1.url}
+          alt={assets.report.bg.blue0_1.alt}
+          width={38}
+          height={38}
+        />
+
+        <Image
+          className="absolute left-0"
+          style={{ top: 610 }}
+          src={p28Assets.bg2.url}
+          alt={p28Assets.bg2.alt}
+          width={p28Assets.bg2.width}
+          height={p28Assets.bg2.height}  
+        />
+        <Image
+          className="absolute"
+          style={{ left: 80, top: 550 }}
+          src={p28Assets.bg4.url}
+          alt={p28Assets.bg4.alt}
+          width={p28Assets.bg4.width}
+          height={p28Assets.bg4.height}
+        />
+        <Image
+          className="absolute"
+          style={{ right: 20, bottom: 20 }}
+          src={p28Assets.bg6.url}
+          alt={p28Assets.bg6.alt}
+          width={p28Assets.bg6.width}
+          height={p28Assets.bg6.height}
+        />
+        <Image
+          className="absolute left-0"
+          style={{ top: 53 }}
+          src={p28Assets.bg1.url}
+          alt={p28Assets.bg1.alt}
+          width={p28Assets.bg1.width}
+          height={p28Assets.bg1.height}  
+        />
+        
+        <Image
+          className="absolute right-0"
+          style={{ top: 98 }}
+          src={p28Assets.bg3.url}
+          alt={p28Assets.bg3.alt}
+          width={p28Assets.bg3.width}
+          height={p28Assets.bg3.height}  
+        />
+      </GlitchLayer>
       {/* content */}
       <div className="relative w-full h-full overflow-hidden">
         <Image
@@ -182,29 +174,29 @@ export default function P28Scene({ onNext, sceneName }: PageProps) {
           alt={bgAsset.alt}
           width={bgAsset.width}
           height={bgAsset.height}
-          className="absolute z-0 w-auto h-full pointer-events-none select-none"
+          className="absolute z-[-2] w-auto h-full pointer-events-none select-none"
         />
 
         <Image
+          className="absolute left-1/2 -translate-x-1/2"
+          style={{ top: 60 }}
+          src={assets.kv.logo.url}
+          alt={assets.kv.logo.alt}
+          width={92}
+          height={18}  
+        />
+        <Image
           src={
-            isFriendView || isShareView
-              ? titleOtherAsset.url
-              : titleSelfAsset.url
+           titleSelfAsset.url
           }
           alt={
-            isFriendView || isShareView
-              ? titleOtherAsset.alt
-              : titleSelfAsset.alt
+           titleSelfAsset.alt
           }
           width={
-            isFriendView || isShareView
-              ? titleOtherAsset.width
-              : titleSelfAsset.width
+            titleSelfAsset.width
           }
           height={
-            isFriendView || isShareView
-              ? titleOtherAsset.height
-              : titleSelfAsset.height
+            titleSelfAsset.height
           }
           className="relative mx-auto left-0 right-0 pointer-events-none select-none"
           style={{ top: 114 }}
@@ -230,20 +222,11 @@ export default function P28Scene({ onNext, sceneName }: PageProps) {
             );
           })()
         )}
-        {isShareView && (
-          <div
-            className="relative"
-            style={{ top: 141, gap: 22, left: 20, right: 20 }}
-          >
-            任选三个「迷惑好友」
-          </div>
-        )}
-
         <div
           className="relative flex flex-wrap"
           style={{ top: 151, gap: 22, left: 20, right: 20 }}
         >
-          {flags.map((item) => {
+          {summaryFlags.map((item) => {
             const flagAsset = flagsAssets[item.key as keyof typeof flagsAssets];
             if (!flagAsset) return null;
             
@@ -264,7 +247,7 @@ export default function P28Scene({ onNext, sceneName }: PageProps) {
             );
           })}
         </div>
-        {!isFriendView && !isShareView && (
+
           <div
             className="flex relative justify-end"
             style={{ gap: 22, right: 20, top: 177 }}
@@ -300,84 +283,24 @@ export default function P28Scene({ onNext, sceneName }: PageProps) {
               }}
               onBlur={(e) => {
                 setInputValue(e.target.value.trim().slice(0, 2));
+                setSelectedFlag(null)
               }}
             />
-          </div>
-        )}
 
-        {isShareView ? (
-          <>
-            <button
-              className="absolute left-1/2 -translate-x-1/2 z-60 px-8 py-3 rounded-full bg-[#000] text-white text-lg"
-              style={{
-                minWidth: "280px",
-                bottom: 100,
-              }}
-              onClick={handleShare}
-            >
-              分享给好友猜猜
-            </button>
-            <label
-              className="flex items-center gap-2 cursor-pointer"
-              style={{
-                position: "absolute",
-                bottom: 70,
-                left: "50%",
-                transform: "translateX(-50%)",
-                width: "max-content",
-              }}
-            >
-              <div className="relative">
-                <input
-                  type="checkbox"
-                  checked={isSynced}
-                  onChange={handleSyncToggle}
-                  className="sr-only"
-                />
-                <div
-                  className={`w-5 h-5 rounded border-2 flex items-center justify-center transition-all duration-200 ${
-                    isSynced
-                      ? "bg-[#00ADE9] border-[#00ADE9]"
-                      : "bg-white/90 border-[#000]/30"
-                  }`}
-                >
-                  {isSynced && (
-                    <svg
-                      width="12"
-                      height="12"
-                      viewBox="0 0 24 24"
-                      fill="none"
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
-                      <path
-                        d="M20 6L9 17L4 12"
-                        stroke="white"
-                        strokeWidth="2.5"
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                      />
-                    </svg>
-                  )}
-                </div>
-              </div>
-              <span className="text-[12px] text-black font-normal">
-                同步至想法，评论@好友赢周边
-              </span>
-            </label>
-          </>
-        ) : (
+          </div>
           <button
-            className="absolute left-1/2 -translate-x-1/2 z-60 px-8 py-3 rounded-full bg-[#000] text-white text-lg"
+            className="absolute left-1/2 -translate-x-1/2 z-60 rounded-full bg-[#000] text-white text-lg"
             style={{
               minWidth: "280px",
-              bottom: 160,
+              bottom: 100,
+              height: 43
             }}
             onClick={handleGeneratePoster}
             disabled={isLoading}
           >
             {isLoading ? "生成中..." : "点击生成结果"}
           </button>
-        )}
+           
       </div>
     </BaseScene>
   );

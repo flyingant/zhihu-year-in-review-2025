@@ -8,23 +8,25 @@ import { setVoteOption } from "@/api/report";
 import { useToast } from "@/context/toast-context";
 import { useUserReportData } from "@/context/user-report-data-context";
 import { summaryFlags } from "@/utils/common";
+import GlitchLayer from "../effects/GlitchLayer";
 
 interface PageProps {
   onNext?: () => void;
+  onNavigateToScene: (sceneName: string) => void;
   sceneName?: string;
 }
 
-export default function P30Scene({ onNext, sceneName }: PageProps) {
+export default function P30Scene({ onNext, sceneName, onNavigateToScene }: PageProps) {
   const { assets } = useAssets();
   const { showToast } = useToast();
-  const { summaryPoster } = useUserReportData();
+  const { summaryPoster, reportData } = useUserReportData();
   const [shareOptionKeys, setShareOptionKeys] = useState<string[]>([]);
   const [isSynced, setIsSynced] = useState(false);
 
   if (!assets) return null;
   const p28Assets = assets.report.p28 || {};
   const bgAsset = p28Assets.bg;
-  const titleOtherAsset = p28Assets.titleOther;
+  const titleTransparent = p28Assets.titleTransparent;
   const flagsAssets = p28Assets.flags || {};
   const bannersAssets = p28Assets.banners || {};
 
@@ -52,7 +54,7 @@ export default function P30Scene({ onNext, sceneName }: PageProps) {
       options: shareOptionKeys
         .map((i) => summaryFlags.find((flag) => flag.key === i)?.fullText || "")
         .filter(Boolean),
-      is_publish_pin: 0,
+      is_publish_pin: isSynced ? 1 : 0,
     })
       .then((res) => {
         // Vote options set successfully
@@ -77,29 +79,74 @@ export default function P30Scene({ onNext, sceneName }: PageProps) {
     showToast("TODO: Implement sync functionality");
   };
 
+  const userName = reportData?.username as string | undefined;
   return (
     <BaseScene
       onNext={onNext}
       sceneName={sceneName}
       showBottomNextButton={false}
     >
+       <GlitchLayer>
+          <Image
+            className="absolute"
+            style={{ left: 0, top: 498 }}
+            src={p28Assets.bg4.url}
+            alt={p28Assets.bg4.alt}
+            width={p28Assets.bg4.width}
+            height={p28Assets.bg4.height}
+          />
+          <Image
+            className="absolute"
+            style={{ right: 20, bottom: 20 }}
+            src={p28Assets.bg6.url}
+            alt={p28Assets.bg6.alt}
+            width={p28Assets.bg6.width}
+            height={p28Assets.bg6.height}
+          />
+          <Image
+            className="absolute left-0"
+            style={{ top: 53 }}
+            src={p28Assets.bg1.url}
+            alt={p28Assets.bg1.alt}
+            width={p28Assets.bg1.width}
+            height={p28Assets.bg1.height}  
+          />
+          
+          <Image
+            className="absolute right-0"
+            style={{ top: 98 }}
+            src={p28Assets.bg3.url}
+            alt={p28Assets.bg3.alt}
+            width={p28Assets.bg3.width}
+            height={p28Assets.bg3.height}  
+          />
+        </GlitchLayer>
       {/* content */}
       <div className="relative w-full h-full overflow-hidden">
+        <Image
+          className="absolute left-1/2 -translate-x-1/2"
+          style={{ top: 60 }}
+          src={assets.kv.logo.url}
+          alt={assets.kv.logo.alt}
+          width={92}
+          height={18}  
+        />
+
         <Image
           src={bgAsset.url}
           alt={bgAsset.alt}
           width={bgAsset.width}
           height={bgAsset.height}
-          className="absolute z-0 w-auto h-full pointer-events-none select-none"
+          className="absolute z-[-2] w-auto h-full pointer-events-none select-none"
         />
 
         <Image
-          src={titleOtherAsset.url}
-          alt={titleOtherAsset.alt}
-          width={titleOtherAsset.width}
-          height={titleOtherAsset.height}
+          src={titleTransparent.url}
+          alt={titleTransparent.alt}
+          width={330}
+          height={113}
           className="relative mx-auto left-0 right-0 pointer-events-none select-none"
-          style={{ top: 114 }}
+          style={{ top: 80 }}
         />
         {summaryPoster?.key && (
           (() => {
@@ -108,32 +155,40 @@ export default function P30Scene({ onNext, sceneName }: PageProps) {
             return (
               <div
                 className="relative"
-                style={{ top: 131, gap: 22, left: 20, right: 20 }}
+                style={{ top: 150, gap: 22, left: 20, right: 20 }}
               >
                 <Image
                   src={bannerAsset.active.url}
-                  width={bannerAsset.active.width}
-                  height={bannerAsset.active.height}
+                  width={331}
+                  height={77}
                   alt={bannerAsset.active.alt}
                 />
-                <div className="absolute" style={{ left: 95, bottom: 0, }}>
-                  <span style={{ fontSize: 44 }}>{summaryPoster.text}</span>
-                  <span style={{ fontSize: 22, marginLeft: 2 }}>了</span>
-                </div>
+                {
+                  summaryPoster?.key === 'empty' && (
+                    <div className="absolute" style={{ left: 95, bottom: 0, }}>
+                      <span style={{ fontSize: 44 }}>{summaryPoster.text}</span>
+                      <span style={{ fontSize: 22, marginLeft: 2 }}>了</span>
+                    </div>
+                  )
+                }
               </div>
             );
           })()
         )}
+      
+        <div className="relative flex justify-center items-center bg-[#000] text-white" style={{ top: 30,  borderRadius: 24,  margin: '0 auto', padding: '3px 8px', width: 'max-content'}}>
+          @{userName} 的 2025
+        </div>
         <div
           className="relative"
-          style={{ top: 141, gap: 22, left: 20, right: 20 }}
+          style={{ top: 130, gap: 22, left: 20, right: 20 }}
         >
           任选三个「迷惑好友」
         </div>
 
         <div
           className="relative flex flex-wrap"
-          style={{ top: 151, gap: 22, left: 20, right: 20 }}
+          style={{ top: 140, gap: 22, left: 20, right: 20 }}
         >
           {summaryFlags.map((item) => {
             const flagAsset = flagsAssets[item.key as keyof typeof flagsAssets];
@@ -156,10 +211,11 @@ export default function P30Scene({ onNext, sceneName }: PageProps) {
         </div>
 
         <button
-          className="absolute left-1/2 -translate-x-1/2 z-60 px-8 py-3 rounded-full bg-[#000] text-white text-lg"
+          className="absolute left-1/2 -translate-x-1/2 z-60 rounded-full bg-[#000] text-white text-lg"
           style={{
-            minWidth: "280px",
+            minWidth: "264px",
             bottom: 100,
+            height: 43
           }}
           onClick={handleShare}
         >
@@ -212,6 +268,16 @@ export default function P30Scene({ onNext, sceneName }: PageProps) {
             同步至想法，评论@好友赢周边
           </span>
         </label>
+
+        <Image
+          className="absolute"
+          onClick={() => onNavigateToScene("p29")}
+          style={{ bottom: 27, left: 20 }}
+          src={p28Assets.bg9.url}
+          alt={p28Assets.bg9.alt}
+          width={p28Assets.bg9.width}
+          height={p28Assets.bg9.height}
+        />
       </div>
     </BaseScene>
   );

@@ -157,7 +157,8 @@ export default function P28Scene({ onNext, sceneName }: PageProps) {
         setShareOptionKeys(newKyes.slice(-3));
       }
     } else {
-      setSelectedFlag(key);
+      // Toggle selection: if same flag is clicked, deselect it
+      setSelectedFlag(selectedFlag === key ? null : key);
     }
   };
 

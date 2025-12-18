@@ -121,7 +121,7 @@ export default function P17Scene({ onNext, sceneName }: PageProps) {
         />
         <motion.div
           className='relative z-10'
-          animate={{ y: [-2, 10, -2] }}
+          animate={{ x: [0, 5, 0], y: [0, 5, 0] }}
           transition={{ repeat: Infinity, duration: 2, ease: 'easeInOut' }}
         >
           <Image
@@ -135,7 +135,7 @@ export default function P17Scene({ onNext, sceneName }: PageProps) {
         </motion.div>
         <motion.div
           className='relative z-10'
-          animate={{ y: [-2, 10, -2] }}
+          animate={{ x: [0, -5, 0], y: [0, 5, 0] }}
           transition={{ repeat: Infinity, duration: 2, ease: 'easeInOut' }}
         >
           <Image
@@ -149,7 +149,7 @@ export default function P17Scene({ onNext, sceneName }: PageProps) {
         </motion.div>
         <motion.div
           className='relative z-10'
-          animate={{ y: [-2, 10, -2] }}
+          animate={{ x: [0, -5, 0], y: [0, -5, 0] }}
           transition={{ repeat: Infinity, duration: 2, ease: 'easeInOut' }}
         >
           <Image
@@ -163,7 +163,7 @@ export default function P17Scene({ onNext, sceneName }: PageProps) {
         </motion.div>
         <motion.div
           className='relative z-10'
-          animate={{ y: [-2, 10, -2] }}
+          animate={{ x: [0, -2, 0], y: [0, -8, 0] }}
           transition={{ repeat: Infinity, duration: 2, ease: 'easeInOut' }}
         >
           <Image
@@ -177,7 +177,7 @@ export default function P17Scene({ onNext, sceneName }: PageProps) {
         </motion.div>
         <motion.div
           className='relative z-10'
-          animate={{ y: [-2, 10, -2] }}
+          animate={{ x: [0, 8, 0], y: [0, -2, 0] }}
           transition={{ repeat: Infinity, duration: 2, ease: 'easeInOut' }}
         >
           <Image

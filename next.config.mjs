@@ -25,13 +25,21 @@ const nextConfig = {
           destination: "https://www.zhihu.com/api/v4/me",
         },
         {
+          source: "/app/:path*",
+          destination: "https://api.zhihu.com/:path*",
+        },
+        {
           source: "/api/:path*",
           destination: "https://api.zhihu.com/api/:path*",
         },
         {
           source: "/zvideos/:path*",
           destination: "https://api.zhihu.com/zvideos/:path*",
-        }
+        },
+        {
+          source: "/chat/:path*",
+          destination: "https://event.zhihu.com/api/:path*",
+        },
       ];
     }
     return [];

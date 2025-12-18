@@ -113,6 +113,7 @@ export default function P8Scene({ onNext, sceneName }: PageProps) {
             <span key={index}>
               <span className={`text-r-blue`} style={{ fontSize: '18px' }}>
                 {topic}
+                {index !== bestAnswerTopic.length - 1 && '，'}
               </span>
             </span>
           ))}

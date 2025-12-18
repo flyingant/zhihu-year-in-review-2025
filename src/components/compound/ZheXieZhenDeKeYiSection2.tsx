@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useEffect, useCallback } from 'react';
-import ZheXieZhenDeKeYi from '@/components/ui/ZheXieZhenDeKeYi';
+import ZheXieZhenDeKeYi2 from '@/components/ui/ZheXieZhenDeKeYi2';
 import Image from 'next/image';
 import { useZA } from '@/hooks/useZA';
 import { useAssets } from '@/context/assets-context';
@@ -92,7 +92,7 @@ const RealCanDoSection = () => {
       <div className="relative w-full mb-4">
        {/* Title */}
       <div className="mb-4">
-        <ZheXieZhenDeKeYi />
+        <ZheXieZhenDeKeYi2 />
       </div>
         <div
           className={`absolute -bottom-[70%] left-[2%] w-[72px] z-0 transition-transform duration-500 ease-out ${showIcon

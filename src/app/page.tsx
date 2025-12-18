@@ -284,7 +284,7 @@ function HomeContent() {
             <KVSection variant="phase2" />
           </SectionLayout>
 
-          <SectionLayout topOffset={-45} id="2025-yearly-video-section">
+          <SectionLayout topOffset={-20} id="2025-yearly-video-section">
             <YearlyVideoSection />
           </SectionLayout>
 

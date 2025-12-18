@@ -29,7 +29,10 @@ export default function P29Scene({ onNext, sceneName }: PageProps) {
   const { summaryPoster } = useUserReportData();
   const { assets } = useAssets();
   const [isSynced, setIsSynced] = useState(false);
-  const { downloadImage: downloadImageViaHybrid, isAvailable: isHybridAvailable } = useZhihuHybrid();
+  const {
+    downloadImage: downloadImageViaHybrid,
+    isAvailable: isHybridAvailable,
+  } = useZhihuHybrid();
   const { showToast } = useToast();
   const isMobile = useMobile();
 
@@ -44,18 +47,18 @@ export default function P29Scene({ onNext, sceneName }: PageProps) {
       // 方法1: 尝试使用 canvas（需要服务器支持 CORS）
       const tryCanvasMethod = (): Promise<Blob> => {
         return new Promise<Blob>((resolve, reject) => {
-          const img = document.createElement('img');
-          img.crossOrigin = 'anonymous';
+          const img = document.createElement("img");
+          img.crossOrigin = "anonymous";
 
           img.onload = () => {
             try {
-              const canvas = document.createElement('canvas');
+              const canvas = document.createElement("canvas");
               canvas.width = img.naturalWidth || img.width;
               canvas.height = img.naturalHeight || img.height;
 
-              const ctx = canvas.getContext('2d');
+              const ctx = canvas.getContext("2d");
               if (!ctx) {
-                reject(new Error('Failed to get canvas context'));
+                reject(new Error("Failed to get canvas context"));
                 return;
               }
 
@@ -65,15 +68,16 @@ export default function P29Scene({ onNext, sceneName }: PageProps) {
                 if (blob) {
                   resolve(blob);
                 } else {
-                  reject(new Error('Failed to convert canvas to blob'));
+                  reject(new Error("Failed to convert canvas to blob"));
                 }
-              }, 'image/png');
+              }, "image/png");
             } catch (error) {
               reject(error);
             }
           };
 
-          img.onerror = () => reject(new Error('Failed to load image with CORS'));
+          img.onerror = () =>
+            reject(new Error("Failed to load image with CORS"));
           img.src = imageUrl;
         });
       };
@@ -81,12 +85,12 @@ export default function P29Scene({ onNext, sceneName }: PageProps) {
       // 方法2: 直接使用 fetch（如果 canvas 方法失败）
       const tryFetchMethod = async (): Promise<Blob> => {
         const response = await fetch(imageUrl, {
-          mode: 'cors',
-          credentials: 'omit',
+          mode: "cors",
+          credentials: "omit",
         });
 
         if (!response.ok) {
-          throw new Error('Failed to fetch image');
+          throw new Error("Failed to fetch image");
         }
 
         return await response.blob();
@@ -94,11 +98,11 @@ export default function P29Scene({ onNext, sceneName }: PageProps) {
 
       // 方法3: 使用代理或直接链接下载（最后的降级方案）
       const tryDirectDownload = () => {
-        const link = document.createElement('a');
+        const link = document.createElement("a");
         link.href = imageUrl;
         link.download = `poster-${Date.now()}.png`;
-        link.target = '_blank';
-        link.style.display = 'none';
+        link.target = "_blank";
+        link.style.display = "none";
 
         document.body.appendChild(link);
         link.click();
@@ -111,12 +115,15 @@ export default function P29Scene({ onNext, sceneName }: PageProps) {
         // 首先尝试 canvas 方法
         blob = await tryCanvasMethod();
       } catch (canvasError) {
-        console.warn('Canvas method failed, trying fetch:', canvasError);
+        console.warn("Canvas method failed, trying fetch:", canvasError);
         try {
           // 如果 canvas 失败，尝试 fetch
           blob = await tryFetchMethod();
         } catch (fetchError) {
-          console.warn('Fetch method failed, using direct download:', fetchError);
+          console.warn(
+            "Fetch method failed, using direct download:",
+            fetchError
+          );
           // 如果都失败，使用直接下载（可能在某些浏览器中不工作）
           tryDirectDownload();
           return;
@@ -125,10 +132,10 @@ export default function P29Scene({ onNext, sceneName }: PageProps) {
 
       // 如果成功获取到 blob，创建下载链接
       const blobUrl = window.URL.createObjectURL(blob);
-      const link = document.createElement('a');
+      const link = document.createElement("a");
       link.href = blobUrl;
       link.download = `poster-${Date.now()}.png`;
-      link.style.display = 'none';
+      link.style.display = "none";
 
       document.body.appendChild(link);
       link.click();
@@ -138,10 +145,10 @@ export default function P29Scene({ onNext, sceneName }: PageProps) {
         window.URL.revokeObjectURL(blobUrl);
       }, 100);
 
-      showToast('图片保存成功', 'success');
+      showToast("图片保存成功", "success");
     } catch (error) {
-      console.error('Failed to download image:', error);
-      showToast('保存失败，请稍后重试', 'error');
+      console.error("Failed to download image:", error);
+      showToast("保存失败，请稍后重试", "error");
     }
   };
 
@@ -153,7 +160,7 @@ export default function P29Scene({ onNext, sceneName }: PageProps) {
   const handleSave = async () => {
     const posterUrl = summaryPoster?.poster_url;
     if (!posterUrl) {
-      showToast('没有可保存的图片', 'error');
+      showToast("没有可保存的图片", "error");
       return;
     }
 
@@ -162,9 +169,9 @@ export default function P29Scene({ onNext, sceneName }: PageProps) {
       try {
         // 在知乎 App 内，使用 Hybrid SDK 下载图片
         await downloadImageViaHybrid(posterUrl);
-        // showToast('图片保存成功', 'success'); 
+        // showToast('图片保存成功', 'success');
       } catch (error) {
-        console.error('Failed to save image via zhihuHybrid:', error);
+        console.error("Failed to save image via zhihuHybrid:", error);
         // 如果 zhihuHybrid 失败，降级到标准下载方法
         await downloadImageStandard(posterUrl);
       }
@@ -177,7 +184,7 @@ export default function P29Scene({ onNext, sceneName }: PageProps) {
   const handleShare = async () => {
     const posterUrl = summaryPoster?.poster_url;
     if (!posterUrl) {
-      showToast('没有可分享的图片', 'error');
+      showToast("没有可分享的图片", "error");
       return;
     }
 
@@ -185,13 +192,14 @@ export default function P29Scene({ onNext, sceneName }: PageProps) {
     if (isSynced && summaryPoster?.poster_id) {
       try {
         await publishSummaryPoster({ poster_id: summaryPoster.poster_id });
-        showToast('已同步至想法', 'success');
+        showToast("已同步至想法", "success");
       } catch (error) {
-        console.error('Failed to publish summary poster:', error);
-        const errorMessage = error && typeof error === 'object' && 'msg' in error
-          ? String(error.msg)
-          : '同步失败，请稍后重试';
-        showToast(errorMessage, 'error');
+        console.error("Failed to publish summary poster:", error);
+        const errorMessage =
+          error && typeof error === "object" && "msg" in error
+            ? String(error.msg)
+            : "同步失败，请稍后重试";
+        showToast(errorMessage, "error");
         return; // 如果发布失败，不继续分享流程
       }
     }
@@ -200,30 +208,30 @@ export default function P29Scene({ onNext, sceneName }: PageProps) {
     if (!isZhihuApp()) {
       try {
         await navigator.clipboard.writeText(posterUrl);
-        showToast('链接已复制到剪贴板', 'success');
+        showToast("链接已复制到剪贴板", "success");
       } catch (error) {
-        console.error('Failed to copy to clipboard:', error);
+        console.error("Failed to copy to clipboard:", error);
         // 降级方案：使用传统的复制方法
         try {
-          const textArea = document.createElement('textarea');
+          const textArea = document.createElement("textarea");
           textArea.value = posterUrl;
-          textArea.style.position = 'fixed';
-          textArea.style.left = '-999999px';
-          textArea.style.top = '-999999px';
+          textArea.style.position = "fixed";
+          textArea.style.left = "-999999px";
+          textArea.style.top = "-999999px";
           document.body.appendChild(textArea);
           textArea.focus();
           textArea.select();
-          const successful = document.execCommand('copy');
+          const successful = document.execCommand("copy");
           document.body.removeChild(textArea);
-          
+
           if (successful) {
-            showToast('链接已复制到剪贴板', 'success');
+            showToast("链接已复制到剪贴板", "success");
           } else {
-            showToast('复制失败，请稍后重试', 'error');
+            showToast("复制失败，请稍后重试", "error");
           }
         } catch (fallbackError) {
-          console.error('Fallback copy method failed:', fallbackError);
-          showToast('复制失败，请稍后重试', 'error');
+          console.error("Fallback copy method failed:", fallbackError);
+          showToast("复制失败，请稍后重试", "error");
         }
       }
     } else {
@@ -232,30 +240,32 @@ export default function P29Scene({ onNext, sceneName }: PageProps) {
         try {
           // 使用 zhihuHybrid SDK 的分享功能
           // 根据知乎 Hybrid SDK 文档，分享功能通常使用 'base/share' 或 'social/share'
-          const hybridAction = (window.zhihuHybrid as ZhihuHybridNewAPI)('base/share');
+          const hybridAction = (window.zhihuHybrid as ZhihuHybridNewAPI)(
+            "base/share"
+          );
           await hybridAction.dispatch({
             url: posterUrl,
-            title: '2025年度总结',
+            title: "2025年度总结",
           });
         } catch (error) {
-          console.error('Failed to share via zhihuHybrid:', error);
+          console.error("Failed to share via zhihuHybrid:", error);
           // 如果分享失败，降级到复制链接
           try {
             await navigator.clipboard.writeText(posterUrl);
-            showToast('分享失败，链接已复制到剪贴板', 'success');
+            showToast("分享失败，链接已复制到剪贴板", "success");
           } catch (clipboardError) {
-            console.error('Failed to copy to clipboard:', clipboardError);
-            showToast('分享失败，请稍后重试', 'error');
+            console.error("Failed to copy to clipboard:", clipboardError);
+            showToast("分享失败，请稍后重试", "error");
           }
         }
       } else {
         // 如果 Hybrid SDK 不可用，降级到复制链接
         try {
           await navigator.clipboard.writeText(posterUrl);
-          showToast('链接已复制到剪贴板', 'success');
+          showToast("链接已复制到剪贴板", "success");
         } catch (clipboardError) {
-          console.error('Failed to copy to clipboard:', clipboardError);
-          showToast('复制失败，请稍后重试', 'error');
+          console.error("Failed to copy to clipboard:", clipboardError);
+          showToast("复制失败，请稍后重试", "error");
         }
       }
     }
@@ -317,28 +327,16 @@ export default function P29Scene({ onNext, sceneName }: PageProps) {
           className="flex items-center justify-center gap-2 bg-black rounded-full text-center mb-4"
           style={{ width: "330px", height: "34px" }}
         >
-          <svg
-            width="18"
-            height="18"
-            viewBox="0 0 24 24"
-            fill="none"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <path
-              d="M21 15C21 15.5304 20.7893 16.0391 20.4142 16.4142C20.0391 16.7893 19.5304 17 19 17H7L3 21V5C3 4.46957 3.21071 3.96086 3.58579 3.58579C3.96086 3.21071 4.46957 3 5 3H19C19.5304 3 20.0391 3.21071 20.4142 3.58579C20.7893 3.96086 21 4.46957 21 5V15Z"
-              stroke="#000"
-              strokeWidth="2"
-              strokeLinecap="round"
-              strokeLinejoin="round"
+          {assets.report.p29?.iconFriend && (
+            <Image
+              src={assets.report.p29.iconFriend.url}
+              alt={assets.report.p29.iconFriend.alt}
+              width={assets.report.p29.iconFriend.width / 2}
+              height={assets.report.p29.iconFriend.height / 2}
+              className="object-contain"
             />
-            <path
-              d="M8 9H16M8 13H12"
-              stroke="#000"
-              strokeWidth="2"
-              strokeLinecap="round"
-            />
-          </svg>
-          <span className="text-[14px] font-medium text-white">
+          )}
+          <span className="font-medium text-white" style={{ fontSize: "18px" }}>
             好友互动：猜猜哪个才是真的我？
           </span>
         </button>
@@ -373,7 +371,12 @@ export default function P29Scene({ onNext, sceneName }: PageProps) {
                   strokeLinecap="round"
                 />
               </svg>
-              <span className="text-[14px] font-medium text-[#000]">保存</span>
+              <span
+                className="font-medium text-[#000]"
+                style={{ fontSize: "18px" }}
+              >
+                保存
+              </span>
             </button>
           )}
 
@@ -421,7 +424,12 @@ export default function P29Scene({ onNext, sceneName }: PageProps) {
                 strokeLinecap="round"
               />
             </svg>
-            <span className="text-[14px] font-medium text-[#000]">分享</span>
+            <span
+              className="font-medium text-[#000]"
+              style={{ fontSize: "18px" }}
+            >
+              分享
+            </span>
           </button>
         </div>
 
@@ -460,7 +468,7 @@ export default function P29Scene({ onNext, sceneName }: PageProps) {
               )}
             </div>
           </div>
-          <span className="text-[12px] text-black font-normal">
+          <span className="text-black font-normal" style={{ fontSize: "18px" }}>
             同步至想法赢徽章
           </span>
         </label>

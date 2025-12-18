@@ -31,6 +31,34 @@ export default async function request<T = any>(
   }
 }
 
+// 给调用 app API 使用
+export async function appRequest<T = any>(
+  requestConfig: RequestConfig
+): Promise<T> {
+  requestConfig.baseURL = process.env.NEXT_PUBLIC_BASE_APP_API_URL;
+  requestConfig.withCredentials = true;
+  const response = await axiosInstance(requestConfig);
+  if (response.data.success) {
+    return response.data.data;
+  } else {
+    return Promise.reject(response.data);
+  }
+}
+
+// 给调用 chat API 使用
+export async function chatRequest<T = any>(
+  requestConfig: RequestConfig
+): Promise<T> {
+  requestConfig.baseURL = process.env.NEXT_PUBLIC_BASE_CHAT_API_URL;
+  requestConfig.withCredentials = true;
+  const response = await axiosInstance(requestConfig);
+  if (response.data.success) {
+    return response.data.data;
+  } else {
+    return Promise.reject(response.data);
+  }
+}
+
 // 给调用 www.zhihu.com/api/v4 使用
 export async function authRequest<T = any>(
   requestConfig: RequestConfig

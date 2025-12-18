@@ -288,6 +288,12 @@
       "height": 143,
       "alt": "这些真的可以"
     },
+    "zheXieZhenDeKeYi2": {
+      "url": "/assets/zhexiezhendekeyi2@3x.png",
+      "width": 375,
+      "height": 81,
+      "alt": "这些真的可以"
+    },
     "qingZiDa": [
       {
         "url": "/assets/qinzida_liuzhendong@3x.png",
@@ -598,7 +604,7 @@
       "alt": "年度视频框架"
     },
     "questionBg": {
-      "url": "/assets/yearly_question@3x.png",
+      "url": "/assets/yearly_question@3x.jpg",
       "width": 714,
       "height": 1714,
       "alt": "年度问题"
@@ -1229,7 +1235,7 @@
     "activityId": 300230,
     "showTaskIds": [
       330392, 330393, 360387, 330394, 390404, 360382, 360383, 360384, 270780,
-      390402, 360385
+      390402
     ],
     "completeTaskIds": {
       "BROWSE_ZHEXIEZHENDEKEYI": 360383,
@@ -1240,6 +1246,7 @@
       "BROWSE_2025_YEARLY_VIDEO": 330392,
       "BROWSE_2025_YEARLY_REPORT": 330393,
       "BROWSE_2025_YEARLY_TEN_QUESTIONS": 360387,
+      "BROWSE_2025_MY_TEN_QUESTIONS": 330394,
       "COLLECT_FOUR_GRID_ELEMENT": 390404
     },
     "recordBtnPosition": {
@@ -2706,6 +2713,14 @@
         "alt": "empty"
       }
     },
+    "p29": {
+      "iconFriend": {
+        "url": "/assets/2025_2_report_p29_icon_friend.png",
+        "width": 38,
+        "height": 38,
+        "alt": "Friend Interaction Icon"
+      }
+    },
     "guess": {
       "taOption": {
         "url": "/assets/guess-ta-option.png",
@@ -2819,13 +2834,13 @@
         "alt": "Index Bottom Right Background"
       },
       "gif": {
-        "url": "/assets/report/index.gif",
+        "url": "/assets/report/index_reverse_1218.gif",
         "width": 223,
         "height": 200,
         "alt": "Index GIF Animation"
       },
       "gifReverse": {
-        "url": "/assets/report/index-reverse.gif",
+        "url": "/assets/report/index_1218.gif",
         "width": 223,
         "height": 200,
         "alt": "Index Reverse GIF Animation"

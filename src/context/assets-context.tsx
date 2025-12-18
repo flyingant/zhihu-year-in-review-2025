@@ -46,6 +46,7 @@ export interface AssetsData {
   home: {
     bg: AssetMetadata;
     bgBottom: AssetMetadata;
+    bgBottom2: AssetMetadata;
   };
   kv: {
     logo: AssetMetadata;
@@ -85,6 +86,7 @@ export interface AssetsData {
     qiangXianYuGao: AssetMetadata;
     qiangXianYuGaoBanner: AssetMetadata;
     zheXieZhenDeKeYi: AssetMetadata;
+    zheXieZhenDeKeYi2: AssetMetadata;
     zheXieZhenDeKeYiBanner: AssetMetadata;
     zhenShiShunJian: AssetMetadata;
     sidebarCampaignRules: AssetMetadata;
@@ -571,6 +573,9 @@ export interface AssetsData {
       };
       flagEmpty: AssetMetadata;
     };
+    p29: {
+      iconFriend: AssetMetadata;
+    };
     guess: {
       taOption: AssetMetadata;
       yourOption: AssetMetadata;
@@ -659,6 +664,8 @@ export interface AssetsData {
       BROWSE_2025_YEARLY_REPORT: number;
       /** 浏览2025年度十个问题的任务ID */
       BROWSE_2025_YEARLY_TEN_QUESTIONS: number;
+      /** 浏览我的年度十问的任务ID */
+      BROWSE_2025_MY_TEN_QUESTIONS: number;
       /** 收集四宫格元素的任务ID */
       COLLECT_FOUR_GRID_ELEMENT: number;
     };

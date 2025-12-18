@@ -6,6 +6,8 @@ import BaseScene from './BaseScene';
 import { useUserReportData } from '@/context/user-report-data-context';
 import { useAssets } from '@/context/assets-context';
 import { formatDateWithoutText } from '@/utils/common';
+import { useZhihuHybrid } from '@/hooks/useZhihuHybrid';
+import { useZhihuApp } from '@/hooks/useZhihuApp';
 
 interface IndexSceneProps {
   onNext?: (choice?: string) => void;
@@ -32,10 +34,10 @@ const MirrorContent = ({
     className='flex flex-col justify-center text-left pointer-events-none select-none w-full h-full'
     style={{ fontSize: '14px' }}
   >
+    <div style={{ fontSize: '22px', paddingBottom: '8px' }}>@{userName}</div>
     <div style={{ fontSize: '22px', paddingBottom: '8px' }}>
       你说，时间是真实的吗？
     </div>
-    <div style={{ fontSize: '22px', paddingBottom: '8px' }}>@{userName}</div>
     <div>
       从
       <span
@@ -73,10 +75,14 @@ const MirrorContent = ({
 export default function IndexScene({ onNext, sceneName }: IndexSceneProps) {
   const { assets } = useAssets();
   const { reportData } = useUserReportData();
+  const { isAvailable: isHybridAvailable, openURL } = useZhihuHybrid();
+  const isZhihuApp = useZhihuApp();
   const [activeView, setActiveView] = useState<ActiveView>(null);
   const [expandingView, setExpandingView] = useState<ActiveView>(null);
   const [gifFirstFrame, setGifFirstFrame] = useState<string | null>(null);
-  const [gifReverseFirstFrame, setGifReverseFirstFrame] = useState<string | null>(null);
+  const [gifReverseFirstFrame, setGifReverseFirstFrame] = useState<
+    string | null
+  >(null);
   const [showAnimatedGif, setShowAnimatedGif] = useState(false);
   const [showGif, setShowGif] = useState(true);
   const gifImageRef = useRef<HTMLImageElement | null>(null);
@@ -191,6 +197,22 @@ export default function IndexScene({ onNext, sceneName }: IndexSceneProps) {
       setShowGif(false);
       onNext?.();
     }, 3000);
+  };
+
+  // Handle ZhiLink URL opening - use hybrid if in app, otherwise open in new tab
+  const handleZhiLinkClick = async () => {
+    const url = 'https://www.zhihu.com/profile?zh_hide_nav_bar=true';
+    
+    if (isZhihuApp && isHybridAvailable) {
+      try {
+        await openURL(url);
+      } catch (error) {
+        console.error('Failed to open URL via zhihuHybrid, falling back to window.open:', error);
+        window.open(url, '_blank');
+      }
+    } else {
+      window.open(url, '_blank');
+    }
   };
 
   const floatTransition = (delay = 0, duration = 2) => ({
@@ -530,7 +552,7 @@ export default function IndexScene({ onNext, sceneName }: IndexSceneProps) {
                 return (
                   <motion.div
                     className='absolute'
-                    style={{ top: '300px', left: '100px' }}
+                    style={{ top: '310px', left: '90px' }}
                     animate={{
                       y: [-4, 8, -4],
                       x: [-2, 2, -2],
@@ -556,8 +578,8 @@ export default function IndexScene({ onNext, sceneName }: IndexSceneProps) {
                         <Image
                           src={firstFrame}
                           alt={gifAsset.alt}
-                          width={gifAsset.width}
-                          height={gifAsset.height}
+                          width={gifAsset.width * 1.2}
+                          height={gifAsset.height * 1.2}
                           className='object-cover'
                           priority
                         />
@@ -590,12 +612,7 @@ export default function IndexScene({ onNext, sceneName }: IndexSceneProps) {
                   ...getMirrorStyle(activeView).style,
                   ...getMirrorStyle(activeView).zhiLinkPos,
                 }}
-                onClick={() =>
-                  window.open(
-                    'https://www.zhihu.com/profile?zh_hide_nav_bar=true',
-                    '_blank'
-                  )
-                }
+                onClick={handleZhiLinkClick}
               >
                 <span className='mr-2'>&gt;</span>
                 <motion.span

@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect, useRef } from "react";
+import { useState } from "react";
 import Image from "next/image";
 import { useAssets } from "@/context/assets-context";
 import { useUserReportData } from '@/context/user-report-data-context';
@@ -17,80 +17,10 @@ export default function P21Scene({ onNext, sceneName }: PageProps) {
   const { assets } = useAssets();
   const { setUserChoice } = useUserReportData();
   const [maskPosition, setMaskPosition] = useState(-21);
-  const containerRef = useRef<HTMLDivElement>(null);
 
   const handleRangeChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setMaskPosition(Number(e.target.value));
   };
-
-  // Handle scroll/wheel events and touch events to change mask position
-  useEffect(() => {
-    const container = containerRef.current;
-    if (!container) return;
-
-    const handleWheel = (e: WheelEvent) => {
-      e.preventDefault();
-      const delta = e.deltaY > 0 ? 10 : -10; // Scroll down increases, up decreases
-      setMaskPosition((prev) => {
-        const newValue = prev + delta;
-        return Math.max(-600, Math.min(0, newValue)); // Clamp between min and max
-      });
-    };
-
-    // Touch event handlers for mobile devices
-    let touchStartY = 0;
-    let lastTouchY = 0;
-    let isTouching = false;
-
-    const handleTouchStart = (e: TouchEvent) => {
-      if (e.touches.length === 1) {
-        touchStartY = e.touches[0].clientY;
-        lastTouchY = touchStartY;
-        isTouching = true;
-      }
-    };
-
-    const handleTouchMove = (e: TouchEvent) => {
-      if (!isTouching || e.touches.length !== 1) return;
-      
-      e.preventDefault();
-      const currentY = e.touches[0].clientY;
-      const deltaY = currentY - lastTouchY;
-      
-      // Convert touch movement to mask position change
-      // Moving down (positive deltaY) should increase mask position (move right)
-      // Moving up (negative deltaY) should decrease mask position (move left)
-      // Use actual deltaY for smoother, proportional movement
-      // Scale factor of 1.0 means 1px touch = 1px mask movement
-      const delta = deltaY;
-      
-      setMaskPosition((prev) => {
-        const newValue = prev + delta;
-        return Math.max(-600, Math.min(0, newValue)); // Clamp between min and max
-      });
-      
-      lastTouchY = currentY;
-    };
-
-    const handleTouchEnd = () => {
-      isTouching = false;
-    };
-
-    // Add event listeners
-    container.addEventListener("wheel", handleWheel, { passive: false });
-    container.addEventListener("touchstart", handleTouchStart, { passive: true });
-    container.addEventListener("touchmove", handleTouchMove, { passive: false });
-    container.addEventListener("touchend", handleTouchEnd, { passive: true });
-    container.addEventListener("touchcancel", handleTouchEnd, { passive: true });
-
-    return () => {
-      container.removeEventListener("wheel", handleWheel);
-      container.removeEventListener("touchstart", handleTouchStart);
-      container.removeEventListener("touchmove", handleTouchMove);
-      container.removeEventListener("touchend", handleTouchEnd);
-      container.removeEventListener("touchcancel", handleTouchEnd);
-    };
-  }, []);
 
   const handleSelect = async (choice: "A" | "B") => {
     // call API to record the choice
@@ -118,29 +48,54 @@ export default function P21Scene({ onNext, sceneName }: PageProps) {
 
   const isMaskPastThreshold = maskPosition < -20;
   const isMaskAboveThreshold = maskPosition > 0;
-  const floatPulse = isMaskPastThreshold ? { scale: [1, 1.06, 1] } : { scale: 1 };
+  const floatPulse = isMaskPastThreshold
+    ? { scale: [1, 1.2, 1], opacity: 1 }
+    : { scale: 1, opacity: 0 };
   const floatPulseTransition = isMaskPastThreshold
     ? {
-        repeat: Infinity,
-        repeatType: "reverse" as const,
-        duration: 1.2,
-        ease: "easeInOut" as const,
+        scale: {
+          repeat: Infinity,
+          repeatType: "reverse" as const,
+          duration: 1.2,
+          ease: "easeInOut" as const,
+        },
+        opacity: {
+          duration: 0.5,
+          ease: "easeInOut" as const,
+        },
       }
-    : undefined;
-  const floatPulseB = isMaskAboveThreshold ? { scale: [1, 1.06, 1] } : { scale: 1 };
+    : {
+        opacity: {
+          duration: 0.5,
+          ease: "easeInOut" as const,
+        },
+      };
+  const floatPulseB = isMaskAboveThreshold
+    ? { scale: [1, 1.06, 1], opacity: 1 }
+    : { scale: 1, opacity: 0 };
   const floatPulseTransitionB = isMaskAboveThreshold
     ? {
-        repeat: Infinity,
-        repeatType: "reverse" as const,
-        duration: 1.2,
-        ease: "easeInOut" as const,
+        scale: {
+          repeat: Infinity,
+          repeatType: "reverse" as const,
+          duration: 1.2,
+          ease: "easeInOut" as const,
+        },
+        opacity: {
+          duration: 0.5,
+          ease: "easeInOut" as const,
+        },
       }
-    : undefined;
+    : {
+        opacity: {
+          duration: 0.5,
+          ease: "easeInOut" as const,
+        },
+      };
 
   return (
     <BaseScene onNext={onNext} sceneName={sceneName}>
       <div
-        ref={containerRef}
         className="relative w-full h-full overflow-hidden"
       >
         <div className="absolute inset-0 z-30">
@@ -219,14 +174,14 @@ export default function P21Scene({ onNext, sceneName }: PageProps) {
             className="w-full h-full pointer-events-none select-none"
           />
         </div>
-        {/* Invisible range input for touch/mobile support */}
+        {/* Range input displayed at the bottom */}
         <input
           type="range"
           min="-300"
           max="300"
           value={maskPosition}
           onChange={handleRangeChange}
-          className="absolute inset-0 w-full h-full opacity-0 cursor-none z-30"
+          className="absolute bottom-4 left-1/2 transform -translate-x-1/2 w-3/4 z-30"
           style={{ pointerEvents: "auto" }}
         />
         {/* Options */}

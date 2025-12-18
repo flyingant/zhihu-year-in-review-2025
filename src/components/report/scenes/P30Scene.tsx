@@ -10,6 +10,8 @@ import { useUserReportData } from "@/context/user-report-data-context";
 import { summaryFlags } from "@/utils/common";
 import GlitchLayer from "../effects/GlitchLayer";
 import { useZA } from '@/hooks/useZA';
+import { useZhihuHybrid } from '@/hooks/useZhihuHybrid';
+import { isZhihuApp } from '@/lib/zhihu-detection';
 
 interface PageProps {
   onNext?: () => void;
@@ -17,11 +19,20 @@ interface PageProps {
   sceneName?: string;
 }
 
+interface ZhihuHybridAction {
+  dispatch(params: Record<string, unknown>): Promise<unknown>;
+}
+
+interface ZhihuHybridNewAPI {
+  (action: string): ZhihuHybridAction;
+}
+
 export default function P30Scene({ onNext, sceneName, onNavigateToScene }: PageProps) {
   const { assets } = useAssets();
   const { showToast } = useToast();
   const { summaryPoster, reportData } = useUserReportData();
   const { trackEvent } = useZA();
+  const { isAvailable: isHybridAvailable } = useZhihuHybrid();
 
   const [shareOptionKeys, setShareOptionKeys] = useState<string[]>([]);
   const [isSynced, setIsSynced] = useState(false);
@@ -69,13 +80,48 @@ export default function P30Scene({ onNext, sceneName, onNavigateToScene }: PageP
         .filter(Boolean),
       is_publish_pin: isSynced ? 1 : 0,
     })
-      .then((res) => {
+      .then(async (res) => {
         // Vote options set successfully
         // Note: poll_id would need to be retrieved separately if needed
         // Vote options set successfully, redirect to guess page
         if (res?.poll_id) {
-          const redirectUrl = `https://event.zhihu.com/2025guess/?pollId=${res.poll_id}`;
-          window.location.href = redirectUrl;
+          const baseShareUrl = process.env.NEXT_PUBLIC_BASE_SHARE_URL || 'https://event.zhihu.com/2025guess';
+          const redirectUrl = `${baseShareUrl}/?pollId=${res.poll_id}`;
+          
+          // Check if user is in zhihu app
+          if (isZhihuApp() && isHybridAvailable && window.zhihuHybrid) {
+            try {
+              // Use zhihuHybrid SDK to share the link
+              const hybridAction = (window.zhihuHybrid as ZhihuHybridNewAPI)('base/share');
+              await hybridAction.dispatch({
+                url: redirectUrl,
+                title: '2025个人年度总结',
+              });
+            } catch (error) {
+              console.error('Failed to share via zhihuHybrid:', error);
+              // If share fails, fallback to clipboard copy
+              try {
+                await navigator.clipboard.writeText(redirectUrl);
+                showToast('分享失败，链接已复制到剪贴板', 'success');
+              } catch (clipboardError) {
+                console.error('Failed to copy to clipboard:', clipboardError);
+                showToast('分享失败，请稍后重试', 'error');
+              }
+            }
+          } else {
+            // Not in zhihu app, copy to clipboard and show toast
+            try {
+              await navigator.clipboard.writeText(redirectUrl);
+              showToast('链接已复制到剪贴板', 'success');
+            } catch (clipboardError) {
+              console.error('Failed to copy to clipboard:', clipboardError);
+              showToast('复制链接失败，请稍后重试', 'error');
+            }
+            // Redirect after 3 seconds
+            setTimeout(() => {
+              window.location.href = redirectUrl;
+            }, 3000);
+          }
         } else {
           showToast("投票选项设置成功，但无法获取投票ID", "error");
         }
@@ -88,8 +134,6 @@ export default function P30Scene({ onNext, sceneName, onNavigateToScene }: PageP
 
   const handleSyncToggle = () => {
     setIsSynced(!isSynced);
-    // TODO: Implement sync functionality
-    showToast("TODO: Implement sync functionality");
   };
 
   const userName = reportData?.username as string | undefined;

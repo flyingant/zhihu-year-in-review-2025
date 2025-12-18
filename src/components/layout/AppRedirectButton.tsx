@@ -33,7 +33,7 @@ export default function AppRedirectButton() {
   };
 
   return (
-    <div className="fixed bottom-0 left-0 right-0 z-100 flex justify-center pb-4 pointer-events-none">
+    <div className="fixed bottom-0 left-0 right-0 z-[500] flex justify-center pb-4 pointer-events-none">
       <button
         onClick={handleClick}
         className="pointer-events-auto flex items-center gap-2 bg-[#0084FF] text-white px-4 py-3 rounded-full shadow-lg hover:bg-[#0066CC] transition-colors overflow-hidden appearance-none border-0"

@@ -101,6 +101,7 @@ export const SCENES: Record<string, SceneConfig> = {
     id: "p5",
     component: P5Scene,
     next: "p5Emoji",
+    shouldSkip: (data) => !data?.hot_comment_uv && !data?.publish_pin_cnt,
   },
   p5Emoji: {
     id: "p5Emoji",

@@ -2789,13 +2789,13 @@
         "alt": "Index Bottom Right Background"
       },
       "gif": {
-        "url": "/assets/report/index.gif",
+        "url": "/assets/report/index_reverse_1218.gif",
         "width": 223,
         "height": 200,
         "alt": "Index GIF Animation"
       },
       "gifReverse": {
-        "url": "/assets/report/index-reverse.gif",
+        "url": "/assets/report/index_1218.gif",
         "width": 223,
         "height": 200,
         "alt": "Index Reverse GIF Animation"

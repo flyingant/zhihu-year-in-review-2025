@@ -1,12 +1,12 @@
 'use client';
 
 import { useUserReportData } from '@/context/user-report-data-context';
-import { colorClass, typographyClass } from '@/hooks/useSceneTheme';
 import BaseScene from './BaseScene';
 import Image from 'next/image';
 import { useAssets } from '@/context/assets-context';
 import GlitchLayer from '@/components/report/effects/GlitchLayer';
 import { formatDateWithoutText } from '@/utils/common';
+import FlipCounter from '@/components/ui/FlipCounter';
 
 interface PageProps {
   onNext?: () => void;
@@ -164,16 +164,15 @@ export default function P6Scene({ onNext, sceneName }: PageProps) {
           <div className='text-center' style={{ paddingTop: '20px' }}>
             <div>
               在
-              <span
+              <FlipCounter
+                value={123}
                 className={`text-r-blue`}
                 style={{
                   paddingLeft: '4px',
                   paddingRight: '4px',
                   fontSize: '44px',
                 }}
-              >
-                {creationDays}
-              </span>
+              />
               天里
             </div>
             <div style={{ paddingTop: '8px' }}>你都勇敢表达、留下印记</div>

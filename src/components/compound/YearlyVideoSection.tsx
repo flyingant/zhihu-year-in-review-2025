@@ -373,6 +373,7 @@ const YearlyVideoSection = () => {
                   id="yearly-video-player"
                   defaultQuality="hd"
                   cover={coverImage || undefined}
+                  locale="zh-Hans"
                 />
               </div>
             ) : (

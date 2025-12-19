@@ -219,6 +219,7 @@ const NianZhongXiaoWenSection = () => {
                 id="nianzhong-video-player"
                 defaultQuality="hd"
                 cover={coverImage || undefined}
+                locale="zh-Hans"
               />
             </div>
           ) : (

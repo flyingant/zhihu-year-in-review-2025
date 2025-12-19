@@ -152,7 +152,7 @@ export default function P22Scene({ onNext, sceneName }: PageProps) {
               <span className={`text-r-fern px-[4px]`} style={{ fontSize: 24 }}>
                 {String(
                   consumeBillboardContentCount ??
-                    'consume_billboard_content_cnt'
+                  'consume_billboard_content_cnt'
                 )}
               </span>
               条热榜内容
@@ -165,7 +165,7 @@ export default function P22Scene({ onNext, sceneName }: PageProps) {
               <span className={`text-r-fern px-[4px]`} style={{ fontSize: 24 }}>
                 {String(
                   upvoteZhihuBillboardContentCount ??
-                    'upvote_zhihu_billboard_content_cnt'
+                  'upvote_zhihu_billboard_content_cnt'
                 )}
               </span>
               篇内容登上了知乎热榜
@@ -173,7 +173,7 @@ export default function P22Scene({ onNext, sceneName }: PageProps) {
           )}
 
           {/* Hot events */}
-          {!eventUpvoteCount && (
+          {!!eventUpvoteCount && (
             <div style={{ marginTop: 16 }}>
               <p>
                 <span className='text-r-pink mr-[4px]'>{eventMonth}</span>

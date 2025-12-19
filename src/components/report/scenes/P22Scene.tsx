@@ -137,57 +137,49 @@ export default function P22Scene({ onNext, sceneName }: PageProps) {
           className='absolute'
           style={{ top: '214px', left: '41px', fontSize: 14 }}
         >
-          {!!consumeBillboardDays && consumeBillboardDays >= 5 && (
-            <p>
-              今年，你驻扎热榜
-              <span className={`text-r-fern px-[4px]`} style={{ fontSize: 24 }}>
-                {String(consumeBillboardDays ?? 'consume_billboard_days')}
-              </span>
-              天
-            </p>
-          )}
-          {!!consumeBillboardContentCount && (
-            <p>
-              浏览了
-              <span className={`text-r-fern px-[4px]`} style={{ fontSize: 24 }}>
-                {String(
-                  consumeBillboardContentCount ??
-                    'consume_billboard_content_cnt'
-                )}
-              </span>
-              条热榜内容
-            </p>
-          )}
+          <p hidden={!consumeBillboardDays || consumeBillboardDays < 5}>
+            今年，你驻扎热榜
+            <span className={`text-r-fern px-[4px]`} style={{ fontSize: 24 }}>
+              {String(consumeBillboardDays ?? 'consume_billboard_days')}
+            </span>
+            天
+          </p>
+          <p hidden={!consumeBillboardContentCount}>
+            浏览了
+            <span className={`text-r-fern px-[4px]`} style={{ fontSize: 24 }}>
+              {String(
+                consumeBillboardContentCount ??
+                'consume_billboard_content_cnt'
+              )}
+            </span>
+            条热榜内容
+          </p>
           {/* Upvoted content on billboard */}
-          {!!upvoteZhihuBillboardContentCount && (
-            <p>
-              你的赞同, 助推
-              <span className={`text-r-fern px-[4px]`} style={{ fontSize: 24 }}>
-                {String(
-                  upvoteZhihuBillboardContentCount ??
-                    'upvote_zhihu_billboard_content_cnt'
-                )}
-              </span>
-              篇内容登上了知乎热榜
-            </p>
-          )}
+          <p hidden={!upvoteZhihuBillboardContentCount}>
+            你的赞同, 助推
+            <span className={`text-r-fern px-[4px]`} style={{ fontSize: 24 }}>
+              {String(
+                upvoteZhihuBillboardContentCount ??
+                'upvote_zhihu_billboard_content_cnt'
+              )}
+            </span>
+            篇内容登上了知乎热榜
+          </p>
 
           {/* Hot events */}
-          {!eventUpvoteCount && (
-            <div style={{ marginTop: 16 }}>
-              <p>
-                <span className='text-r-pink mr-[4px]'>{eventMonth}</span>
-                月里，你参与了
-                <span className='text-r-pink mx-[4px]'>{eventName}</span>
-                的讨论
-              </p>
-              <p>
-                收获
-                <span className='text-r-pink mx-[4px]'>{eventUpvoteCount}</span>
-                个赞同，和无数人共同记录那段集体记忆
-              </p>
-            </div>
-          )}
+          <div style={{ marginTop: 16 }} hidden={!eventUpvoteCount}>
+            <p>
+              <span className='text-r-pink mr-[4px]'>{eventMonth}</span>
+              月里，你参与了
+              <span className='text-r-pink mx-[4px]'>{eventName}</span>
+              的讨论
+            </p>
+            <p>
+              收获
+              <span className='text-r-pink mx-[4px]'>{eventUpvoteCount}</span>
+              个赞同，和无数人共同记录那段集体记忆
+            </p>
+          </div>
         </div>
       </div>
     </BaseScene>

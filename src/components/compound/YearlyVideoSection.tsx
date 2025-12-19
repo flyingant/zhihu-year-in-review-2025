@@ -75,6 +75,9 @@ const YearlyVideoSection = () => {
         content: {
           type: 'Zvideo',
           token: videoId,
+        },
+        page: {
+          page_id: '60850',
         }
       }, {
         media_info: {
@@ -208,6 +211,9 @@ const YearlyVideoSection = () => {
             type: 'Button',
             content: {
               type: 'Zvideo',
+            },
+            page: {
+              page_id: '60850',
             }
           }, getPlayEventExtra(videoElement));
 
@@ -230,6 +236,9 @@ const YearlyVideoSection = () => {
             type: 'Button',
             content: {
               type: 'Zvideo',
+            },
+            page: {
+              page_id: '60850',
             }
           }, getPlayEventExtra(videoElement));
         };
@@ -305,6 +314,9 @@ const YearlyVideoSection = () => {
       content: {
         type: 'Answer',
         token: videoId
+      },
+      page: {
+        page_id: '60850',
       }
     });
 

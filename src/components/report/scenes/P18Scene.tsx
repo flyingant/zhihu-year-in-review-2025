@@ -160,7 +160,7 @@ export default function P18Scene({ onNext, sceneName }: PageProps) {
           className={'text-xl leading-relaxed absolute'}
           style={{ left: '30px', top: '121px' }}
         >
-          感谢有你,圈子一直在发光
+          感谢有你，圈子一直在发光
         </div>
 
         <div
@@ -210,7 +210,7 @@ export default function P18Scene({ onNext, sceneName }: PageProps) {
 
         {!!clubAdminPinCount && (
           <div className={'absolute'} style={{ left: '30px', top: '631px' }}>
-            作为引路人,你在圈内发言
+            作为引路人，你在圈内发言
             <span className={`text-r-pink px-[4px]`} style={{ fontSize: 24 }}>
               {String(clubAdminPinCount ?? 'club_admin_pin_cnt')}
             </span>

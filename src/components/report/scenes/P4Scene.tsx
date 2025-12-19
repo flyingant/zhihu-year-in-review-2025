@@ -172,7 +172,7 @@ export default function P4Scene({ onNext, sceneName }: PageProps) {
           style={{ paddingTop: '5px', paddingBottom: '20px' }}
           hidden={thousandUpvoteAnswers === 0}
         >
-          这一年, 你还迎来了
+          这一年， 你还迎来了
           <span
             className={`text-r-purple`}
             style={{

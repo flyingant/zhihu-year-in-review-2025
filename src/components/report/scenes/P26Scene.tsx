@@ -153,7 +153,7 @@ export default function P26Scene({ onNext, sceneName }: PageProps) {
           {!!writeStoryNumSum && (
             <div className='z-0'>
               <div className='mb-[8px]'>
-                今年,你创作
+                今年，你创作
                 <span
                   className={`text-r-pink px-[4px]`}
                   style={{ fontSize: 24 }}

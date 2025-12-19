@@ -126,7 +126,7 @@ export default function P15Scene({ onNext, sceneName }: PageProps) {
           className={'text-xl absolute leading-relaxed'}
           style={{ left: '32px' }}
         >
-          真实的连接, 从点滴开启
+          真实的连接，从点滴开启
         </span>
 
         {!!newFollowCount && (

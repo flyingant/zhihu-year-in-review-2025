@@ -129,7 +129,7 @@ export default function P16Scene({ onNext, sceneName }: PageProps) {
         {!!sendUpvoteCount && (
           <>
             <div className='leading-relaxed' style={{ marginBottom: '12px' }}>
-              今年,你点亮了
+              今年，你点亮了
               <span
                 className={`text-r-pink`}
                 style={{
@@ -174,7 +174,7 @@ export default function P16Scene({ onNext, sceneName }: PageProps) {
                 >
                   {String(sendMostUpvoteCount ?? 'send_most_upvote_cnt')}
                 </span>
-                个赞同, 给了
+                个赞同，给了
                 <span
                   className={`text-r-yellow`}
                   style={{

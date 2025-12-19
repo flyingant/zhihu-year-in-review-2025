@@ -86,7 +86,7 @@ export default function P30Scene({ onNext, sceneName, onNavigateToScene }: PageP
         // Vote options set successfully, redirect to guess page
         if (res?.poll_id) {
           const baseShareUrl = process.env.NEXT_PUBLIC_BASE_SHARE_URL || 'https://event.zhihu.com/2025guess';
-          const redirectUrl = `${baseShareUrl}/?pollId=${res.poll_id}`;
+          const redirectUrl = `${baseShareUrl}/2025guess/?pollId=${res.poll_id}`;
           
           // Check if user is in zhihu app
           if (isZhihuApp() && isHybridAvailable && window.zhihuHybrid) {

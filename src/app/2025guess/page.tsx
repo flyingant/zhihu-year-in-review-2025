@@ -36,6 +36,8 @@ function GuessPageScene() {
   const [voteInfo, setVoteInfo] = useState<
     | (VoteInfoResponse & {
         transformedOptions?: Array<VoteOptionInfo & { key: string, optionKeyword: string }>;
+        isVoted: boolean,
+        isVoteCorrect: boolean
       })
     | undefined
   >();
@@ -48,6 +50,8 @@ function GuessPageScene() {
     const initPollData = () => {
       if (!pollId) return;
       getVoteInfo(pollId).then((res) => {
+        const isVoted = !!res.options.find(i => i.is_voted)
+        const isVoteCorrect = !!res.options.find(i => i.is_voted && i.is_correct)
         const voteInfoWithTransformed = {
           ...res,
           ...(res.options && {
@@ -58,10 +62,10 @@ function GuessPageScene() {
                   ?.key || "empty",
             optionKeyword: extractOptionKeyword(option.option_name || ''),
             })),
+          isVoted,
+          isVoteCorrect,
           }),
         };
-        voteInfoWithTransformed.is_owner = 0
-        voteInfoWithTransformed.is_vote_correct = 2
         setVoteInfo(voteInfoWithTransformed);
       });
     };
@@ -89,6 +93,8 @@ function GuessPageScene() {
       // if (pollId) {
       //   initPollData();
       // }
+      const isVoted = !!res.options.find(i => i.is_voted)
+      const isVoteCorrect = !!res.options.find(i => i.is_voted && i.is_correct)
       const voteInfoWithTransformed = {
         ...res,
         ...(res.options && {
@@ -99,6 +105,8 @@ function GuessPageScene() {
                 ?.key || "empty",
           })),
         }),
+        isVoted,
+        isVoteCorrect,
       };
       setVoteInfo(voteInfoWithTransformed);
     });
@@ -183,7 +191,7 @@ function GuessPageScene() {
             <div
               className="relative"
               key={`option-${option.key}`}
-              style={{ marginTop: 20, height: 95, width: 344 }}
+              style={{ marginTop: 20, height: 90, width: 344 }}
               onClick={() => {
                 if (voteInfo?.is_vote_correct !== 2) return;
                 if (voteInfo?.is_owner) return;
@@ -196,10 +204,10 @@ function GuessPageScene() {
                 if (!banner) return null;
                 
                 let bannerAsset;
-                if (voteInfo?.is_vote_correct !== 2 && option.is_correct) {
+                if (voteInfo?.isVoted && option.is_correct) {
                   // Show self-active variant if available, otherwise fallback to active
                   bannerAsset = (banner as { selfActive?: typeof banner.active }).selfActive || banner.active;
-                } else if (voteInfo?.is_vote_correct !== 2) {
+                } else if (voteInfo?.isVoted) {
                   // Show active or grey based on correctness
                   bannerAsset = option.is_correct ? banner.active : banner.grey;
                 } else {
@@ -219,19 +227,22 @@ function GuessPageScene() {
                     src={bannerAsset?.url || ''}
                     alt={bannerAsset?.alt || ''}
                     width={344}
-                    height={95}
+                    height={90}
+                    style={{
+                      width: 344,
+                      height: 90,
+                    }}
                   />
                 );
               })()}
               {option.key === 'empty' && option.optionKeyword && <div className="absolute" style={{
-              
                 left: 95,
-                bottom: 17,
+                bottom: 4,
               }}>
               <span style={{ fontSize: 44 }}>{option.optionKeyword}</span>
               <span style={{ fontSize: 22, marginLeft: 2 }}>了</span>
               </div>}
-              {(voteInfo?.is_vote_correct !== 2 || voteInfo.is_owner === 1) && option.is_correct === 1 && guessAssets.taOption && (
+              {(voteInfo?.isVoted || voteInfo.is_owner === 1) && option.is_correct === 1 && guessAssets.taOption && (
                 <Image
                   src={guessAssets.taOption.url}
                   alt={guessAssets.taOption.alt}
@@ -240,12 +251,12 @@ function GuessPageScene() {
                   className="absolute"
                   style={{
                     left: 70,
-                    bottom: 4,
+                    bottom: -1,
                   }}
                 />
               )}
-              {voteInfo?.is_vote_correct !== 2 && option.is_voted === 1 && (() => {
-                const yourOptionAsset = voteInfo?.is_vote_correct === 1 
+              {voteInfo?.isVoted && voteInfo?.is_owner !==1 && option.is_voted === 1 && (() => {
+                const yourOptionAsset = voteInfo?.isVoteCorrect 
                   ? guessAssets.yourOptionCorrect 
                   : guessAssets.yourOption;
                 return yourOptionAsset ? (
@@ -257,12 +268,12 @@ function GuessPageScene() {
                     className="absolute"
                     style={{
                       right: 70,
-                      bottom: option.is_correct ? 4 : 12,
+                      bottom: option.is_correct ? -1 : -7,
                     }}
                   />
                 ) : null;
               })()}
-              {(voteInfo?.is_vote_correct !== 2 || voteInfo?.is_owner === 1) && (
+              {(voteInfo?.isVoted || voteInfo?.is_owner === 1) && (
                 <div
                   className="absolute right-0"
                   style={{
@@ -277,7 +288,7 @@ function GuessPageScene() {
                   {option?.vote_num}人选择
                 </div>
               )}
-              {(voteInfo?.is_vote_correct !== 2 || voteInfo?.is_owner === 1) && (
+              {(voteInfo?.isVoted || voteInfo?.is_owner === 1) && (
                 <div
                   className="absolute left-0 "
                   style={{
@@ -292,7 +303,7 @@ function GuessPageScene() {
             </div>
           ))}
         </div>
-        {voteInfo?.is_vote_correct === 2 && voteInfo?.is_owner !== 1 && (
+        {!voteInfo?.isVoted && voteInfo?.is_owner !== 1 && (
           <button
             className="absolute left-1/2 -translate-x-1/2  z-60  rounded-full text-white text-lg"
             style={{
@@ -308,8 +319,8 @@ function GuessPageScene() {
             确认选择
           </button>
         )}
-        {voteInfo?.is_vote_correct !== 2 && voteInfo?.is_owner !== 1 && (() => {
-          const chooseAsset = voteInfo?.is_vote_correct === 1 
+        {voteInfo?.isVoted && voteInfo?.is_owner !== 1 && (() => {
+          const chooseAsset = voteInfo?.isVoteCorrect 
             ? guessAssets.chooseSame 
             : guessAssets.chooseDifferent;
           return chooseAsset ? (
@@ -317,7 +328,7 @@ function GuessPageScene() {
               className="absolute left-1/2 -translate-x-1/2  z-60"
               width={296}
               height={21}
-              style={{ bottom: 40 }}
+              style={{ bottom: 90 }}
               src={chooseAsset.url}
               alt={chooseAsset.alt}
             />
@@ -338,7 +349,7 @@ function GuessPageScene() {
                 width={200}
                 height={15}
                 onClick={() => {
-                  const redirectUrl = `https://event.zhihu.com/2025`;
+                  const redirectUrl = `${process.env.NEXT_PUBLIC_BASE_SHARE_URL}/2025/`;
                   window.location.href = redirectUrl;
                 }}
               />

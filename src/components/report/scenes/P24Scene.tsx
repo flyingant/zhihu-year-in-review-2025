@@ -81,7 +81,7 @@ export default function P24Scene({ onNext, sceneName }: PageProps) {
       fallbackName: 'movie_like_name_top1',
       fallbackUrl: 'movie_like_url_top1',
       fallbackRate: 'movie_like_rate_top1',
-      
+      style: {},
     },
     {
       name: reportData?.movie_like_name_top2,
@@ -90,7 +90,7 @@ export default function P24Scene({ onNext, sceneName }: PageProps) {
       fallbackName: 'movie_like_name_top2',
       fallbackUrl: 'movie_like_url_top2',
       fallbackRate: 'movie_like_rate_top2',
-     
+      style: {},
     },
     {
       name: reportData?.movie_like_name_top3,
@@ -99,6 +99,7 @@ export default function P24Scene({ onNext, sceneName }: PageProps) {
       fallbackName: 'movie_like_name_top3',
       fallbackUrl: 'movie_like_url_top3',
       fallbackRate: 'movie_like_rate_top3',
+      style: {},
     },
   ].filter(item => item.name);
   

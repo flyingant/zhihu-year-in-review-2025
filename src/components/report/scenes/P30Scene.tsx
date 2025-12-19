@@ -27,7 +27,7 @@ interface ZhihuHybridNewAPI {
   (action: string): ZhihuHybridAction;
 }
 
-export default function P30Scene({ onNext, sceneName }: PageProps) {
+export default function P30Scene({ onNext, sceneName, onPrevious }: PageProps) {
   const { assets } = useAssets();
   const { showToast } = useToast();
   const { summaryPoster, reportData } = useUserReportData();
@@ -359,7 +359,7 @@ export default function P30Scene({ onNext, sceneName }: PageProps) {
 
         <Image
           className='absolute'
-          onClick={() => onNavigateToScene('p29')}
+          onClick={onPrevious}
           style={{ bottom: 27, left: 20 }}
           src={p28Assets.bg9.url}
           alt={p28Assets.bg9.alt}

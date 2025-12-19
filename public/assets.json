@@ -2402,13 +2402,13 @@
             "url": "/assets/2025-28-flag-live-active.png",
             "width": 855,
             "height": 423,
-            "alt": "生活"
+            "alt": "活过"
           },
           "grey": {
             "url": "/assets/2025-28-flag-live-grey.png",
             "width": 855,
             "height": 423,
-            "alt": "生活"
+            "alt": "活过"
           }
         },
         "love": {
@@ -2596,19 +2596,19 @@
             "url": "/assets/2025-28-banner-live-active.png",
             "width": 991,
             "height": 232,
-            "alt": "生活"
+            "alt": "活过"
           },
           "grey": {
             "url": "/assets/2025-28-banner-live-grey.png",
             "width": 991,
             "height": 232,
-            "alt": "生活"
+            "alt": "活过"
           },
           "selfActive": {
             "url": "/assets/2025-28-banner-live-self-active.png",
             "width": 991,
             "height": 232,
-            "alt": "生活"
+            "alt": "活过"
           }
         },
         "love": {

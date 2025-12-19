@@ -238,9 +238,9 @@ export const summaryFlags = [
   },
   {
     key: "live",
-    text: "生活",
+    text: "活过",
     bg: "#A0BDE2",
-    fullText: "我真的生活了",
+    fullText: "我真的活过了",
   },
   {
     key: "love",

@@ -270,10 +270,10 @@ export const SCENES: Record<string, SceneConfig> = {
     component: P24Scene,
     next: "p25",
     shouldSkip: (data) =>
-      !data?.movie_like_cnt &&
-      !data?.movie_like_name_top1 &&
-      !data?.movie_like_name_top2 &&
-      !data?.movie_like_name_top3,
+      !data?.movie_like_cnt && !(data?.movie_like_name_top1 ||
+      data?.movie_like_name_top2 ||
+      data?.movie_like_name_top3
+    )
   },
   p25: {
     id: "p25",

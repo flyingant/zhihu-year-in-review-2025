@@ -43,6 +43,10 @@ const MovieLikeItem = ({
         className='object-cover bg-slate-100'
         width={104}
         height={156}
+        style={{
+          width: 104,
+          height: 156,
+        }}
       />
       <div
         className='w-full whitespace-normal'
@@ -69,7 +73,7 @@ export default function P24Scene({ onNext, sceneName }: PageProps) {
   const movieLikeCount = reportData?.movie_like_cnt ?? null;
 
   // Top 3 movies
-  const movieLikeList = [
+  let movieLikeList = [
     {
       name: reportData?.movie_like_name_top1,
       rate: reportData?.movie_like_rate_top1,
@@ -77,7 +81,7 @@ export default function P24Scene({ onNext, sceneName }: PageProps) {
       fallbackName: 'movie_like_name_top1',
       fallbackUrl: 'movie_like_url_top1',
       fallbackRate: 'movie_like_rate_top1',
-      style: { top: '280px', left: '6px', width: '137px' },
+      
     },
     {
       name: reportData?.movie_like_name_top2,
@@ -86,7 +90,7 @@ export default function P24Scene({ onNext, sceneName }: PageProps) {
       fallbackName: 'movie_like_name_top2',
       fallbackUrl: 'movie_like_url_top2',
       fallbackRate: 'movie_like_rate_top2',
-      style: { top: '332px', left: '123px', width: '137px' },
+     
     },
     {
       name: reportData?.movie_like_name_top3,
@@ -95,9 +99,38 @@ export default function P24Scene({ onNext, sceneName }: PageProps) {
       fallbackName: 'movie_like_name_top3',
       fallbackUrl: 'movie_like_url_top3',
       fallbackRate: 'movie_like_rate_top3',
-      style: { top: '280px', left: '240px', width: '137px' },
     },
-  ];
+  ].filter(item => item.name);
+  
+  const allPos = [
+    { top: '280px', left: '6px', width: '137px' },
+    { top: '332px', left: '123px', width: '137px' },
+    { top: '280px', left: '240px', width: '137px' }
+  ]
+
+  const twoPos = [
+    { top: '300px', left: '56px', width: '137px' },
+    { top: '300px', left: '196px', width: '137px' },
+  ]
+
+  const onePos = [{ top: '300px', left: '120px', width: '137px' },]
+
+  if (movieLikeList.length === 3) {
+    movieLikeList = movieLikeList.map((item, index) => ({
+      ...item,
+      style: allPos[index]
+    }));
+  } else if (movieLikeList.length === 2) {
+    movieLikeList = movieLikeList.map((item, index) => ({
+      ...item,
+      style: twoPos[index]
+    }));
+  } else if (movieLikeList.length === 1) {
+    movieLikeList = movieLikeList.map((item, index) => ({
+      ...item,
+      style: onePos[index]
+    }));
+  }
 
   return (
     <BaseScene onNext={onNext} sceneName={sceneName}>
@@ -183,9 +216,7 @@ export default function P24Scene({ onNext, sceneName }: PageProps) {
             <div
               className='text-center'
               hidden={
-                !movieLikeList[0].name ||
-                !movieLikeList[1].name ||
-                !movieLikeList[2].name
+                movieLikeList.length === 0
               }
             >
               你的<span className='text-r-fern'>年度影视作品</span>是
@@ -194,9 +225,7 @@ export default function P24Scene({ onNext, sceneName }: PageProps) {
         </div>
       )}
       {/* top films */}
-      {!!movieLikeList[0].name &&
-        !!movieLikeList[1].name &&
-        !!movieLikeList[2].name && (
+      {(
           <div className='z-0 w-full tracking-wide' style={{ fontSize: 13 }}>
             {movieLikeList.map(
               (item, index) =>

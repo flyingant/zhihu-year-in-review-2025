@@ -112,7 +112,7 @@ export default function P10Scene({ onNext, sceneName }: PageProps) {
         <div>今年，你看过</div>
       </div>
 
-      <div>
+      <div className='tracking-widest'>
         {/* Group 1: 问题 */}
         <div
           hidden={!questionCount}
@@ -135,8 +135,8 @@ export default function P10Scene({ onNext, sceneName }: PageProps) {
             className='absolute flex items-center justify-center'
             style={{
               top: '50%',
-              right: '50%',
-              transform: 'translate(50%, -50%)',
+              left: '45%',
+              transform: 'translate(-50%, -50%)',
             }}
           >
             <span
@@ -171,7 +171,7 @@ export default function P10Scene({ onNext, sceneName }: PageProps) {
             className='absolute flex items-center justify-center'
             style={{
               top: '50%',
-              left: '46%',
+              left: '45%',
               transform: 'translate(-50%, -50%)',
             }}
           >
@@ -207,8 +207,8 @@ export default function P10Scene({ onNext, sceneName }: PageProps) {
             className='absolute flex items-center justify-center'
             style={{
               top: '50%',
-              right: '50%',
-              transform: 'translate(50%, -50%)',
+              left: '45%',
+              transform: 'translate(-50%, -50%)',
             }}
           >
             <span
@@ -243,7 +243,7 @@ export default function P10Scene({ onNext, sceneName }: PageProps) {
             className='absolute flex items-center justify-center'
             style={{
               top: '50%',
-              left: '46%',
+              left: '45%',
               transform: 'translate(-50%, -50%)',
             }}
           >

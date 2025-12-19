@@ -169,7 +169,7 @@ export default function P4Scene({ onNext, sceneName }: PageProps) {
         </div>
 
         <div
-          style={{ paddingTop: '20px', paddingBottom: '20px' }}
+          style={{ paddingTop: '5px', paddingBottom: '20px' }}
           hidden={thousandUpvoteAnswers === 0}
         >
           这一年, 你还迎来了

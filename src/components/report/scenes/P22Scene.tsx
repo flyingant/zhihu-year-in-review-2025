@@ -67,7 +67,7 @@ export default function P22Scene({ onNext, sceneName }: PageProps) {
           width={mix22_3.width}
           height={mix22_3.height}
           className='object-contain absolute pointer-events-none select-none z-1'
-          style={{ top: '388px', left: '0' }}
+          style={{ top: '418px', left: '0' }}
         />
         <Image
           src={mix22_4.url}
@@ -102,7 +102,7 @@ export default function P22Scene({ onNext, sceneName }: PageProps) {
           width={front.width}
           height={front.height}
           className='object-contain absolute pointer-events-none select-none z-20'
-          style={{ top: '386px', right: '0', left: '0' }}
+          style={{ top: '426px', right: '0', left: '0' }}
         />
         <Image
           src={back.url}
@@ -110,7 +110,7 @@ export default function P22Scene({ onNext, sceneName }: PageProps) {
           width={back.width}
           height={back.height}
           className='object-contain absolute pointer-events-none select-none z-1'
-          style={{ top: '212px', right: '0' }}
+          style={{ top: '242px', right: '0' }}
         />
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img
@@ -119,7 +119,7 @@ export default function P22Scene({ onNext, sceneName }: PageProps) {
           width={gif.width / 2}
           height={gif.height / 2}
           className='object-contain absolute pointer-events-none select-none z-1'
-          style={{ top: '563px', left: '135px' }}
+          style={{ top: '603px', left: '135px' }}
         />
       </div>
       {/* content */}
@@ -173,7 +173,7 @@ export default function P22Scene({ onNext, sceneName }: PageProps) {
           )}
 
           {/* Hot events */}
-          {!!eventUpvoteCount && (
+          {!eventUpvoteCount && (
             <div style={{ marginTop: 16 }}>
               <p>
                 <span className='text-r-pink mr-[4px]'>{eventMonth}</span>

@@ -206,8 +206,7 @@ export default function P5Scene({ onNext, sceneName }: PageProps) {
           </span>
           条想法
           <div
-            className='leading-[32px]'
-            style={{ marginTop: '10px' }}
+            style={{ marginTop: '10px', lineHeight: '32px' }}
             hidden={!hotPinTitle || hotPinLikes < 10 || !hotPinLikes}
           >
             其中

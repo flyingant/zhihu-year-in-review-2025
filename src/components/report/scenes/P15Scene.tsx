@@ -150,7 +150,11 @@ export default function P15Scene({ onNext, sceneName }: PageProps) {
                 最懂你的是
                 <span
                   className={`px-[4px] text-r-yellow`}
-                  style={{ fontSize: 16 }}
+                  style={{
+                    fontSize: 16,
+                    paddingLeft: '6px',
+                    paddingRight: '6px',
+                  }}
                 >
                   @{String(mostUpvoteMemberName ?? 'most_upvote_member_name')}
                 </span>
@@ -159,7 +163,11 @@ export default function P15Scene({ onNext, sceneName }: PageProps) {
                 TA用
                 <span
                   className={`px-[4px] text-r-green`}
-                  style={{ fontSize: 18 }}
+                  style={{
+                    fontSize: 18,
+                    paddingLeft: '6px',
+                    paddingRight: '6px',
+                  }}
                 >
                   {String(
                     mostUpvoteMemberUpvote ?? 'most_upvote_member_upvote'
@@ -220,7 +228,11 @@ export default function P15Scene({ onNext, sceneName }: PageProps) {
               回应了
               <span
                 className={`px-[4px] text-r-purple`}
-                style={{ fontSize: 16 }}
+                style={{
+                  fontSize: 16,
+                  paddingLeft: '6px',
+                  paddingRight: '6px',
+                }}
               >
                 @
                 {String(

@@ -126,7 +126,7 @@ export const SCENES: Record<string, SceneConfig> = {
     id: "p8",
     component: P8Scene,
     next: "p8Cheese",
-    shouldSkip: (data) => !data?.zhishi_cnt && !data?.biz_list_num && !data?.best_answer_topic && !data?.is_navigator,
+    shouldSkip: (data) => !data?.zhishi_cnt && !data?.biz_list_num && !data?.best_answer_topic?.length && !data?.is_navigator,
   },
   p8Cheese: {
     id: "P8Cheese",
@@ -296,7 +296,7 @@ export const SCENES: Record<string, SceneConfig> = {
       !data?.total_upvote_num &&
       !data?.write_story_most_popular_name &&
       !data?.short_story_influence_list &&
-      !data?.annual_author && 
+      !data?.annual_author &&
       !data?.awarded_copy
   },
   p27: {

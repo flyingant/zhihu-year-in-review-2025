@@ -102,25 +102,47 @@ export default function P30Scene({ onNext, sceneName, onPrevious }: PageProps) {
                   content: '猜猜哪一个是真实的我',
                   link: redirectUrl,
                 },
-                WechatTimelineInfo: {
+                wechatTimeline: {
                   title: '猜猜哪一个是真实的我',
                   link: redirectUrl,
                   imgUrl: assets.report.p29?.shareHeadImg?.url,
                 },
-                WechatMessageInfo: {
+                wechatMessage: {
                   title: '猜猜哪一个是真实的我',
                   desc: '快来猜猜哪一个是真实的我',
                   link: redirectUrl,
                   imgUrl: assets.report.p29?.shareHeadImg?.url,
+                },
+                QQ: {
+                  url: redirectUrl,
+                  title: '猜猜哪一个是真实的我',
+                  content: '快来猜猜哪一个是真实的我',
+                  imageURL: assets.report.p29?.shareHeadImg?.url,
+                },
+                weibo: {
+                  url: redirectUrl,
+                  title: '猜猜哪一个是真实的我',
+                  content: '快来猜猜哪一个是真实的我',
+                  imageURL: assets.report.p29?.shareHeadImg?.url,
+                },
+                PosterShare: {
+                  imageURL:redirectUrl,
+                  pinContent: '猜猜哪一个是真实的我',
+                },
+                copyLink: {
+                  content: redirectUrl,
+                },
+                Qzone: {
+                  url: redirectUrl,
+                  title: '猜猜哪一个是真实的我',
+                  content: '快来猜猜哪一个是真实的我',
+                  imageURL: assets.report.p29?.shareHeadImg?.url,
                 }
               }); 
 
               // Use zhihuHybrid SDK to share the link
-              const hybridAction = (window.zhihuHybrid as ZhihuHybridNewAPI)("share/showShareActionSheet");
-              await hybridAction.dispatch({
-                url: redirectUrl,
-                title: '猜猜哪一个是真实的我',
-              });
+              const showActionSheetAction = (window.zhihuHybrid as ZhihuHybridNewAPI)("share/showActionSheet");
+              await showActionSheetAction.dispatch({});
             } catch (error) {
               console.error('Failed to share via zhihuHybrid:', error);
               // If share fails, fallback to clipboard copy

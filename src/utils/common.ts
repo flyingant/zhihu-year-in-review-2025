@@ -257,7 +257,7 @@ export const summaryFlags = [
   {
     key: "ai",
     text: "AI",
-    bg: "#B6DFFE",
+    bg: "#b493fd",
     fullText: "我真的AI了",
   },
   {

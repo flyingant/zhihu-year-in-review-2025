@@ -135,7 +135,7 @@ export default function P28Scene({ onNext, sceneName }: PageProps) {
         />
         <Image
           className="absolute"
-          style={{ left: 80, top: 550 }}
+          style={{ left: 40, top: 564 }}
           src={p28Assets.bg4.url}
           alt={p28Assets.bg4.alt}
           width={p28Assets.bg4.width}
@@ -255,7 +255,7 @@ export default function P28Scene({ onNext, sceneName }: PageProps) {
             <div></div>
             <div className="text-white">
               <div className="text-right">没有你想要的答案？</div>
-              <div className="text-right">自定义：</div>
+              <div className="text-right">自定义（1~2 字）：</div>
             </div>
             {flagEmptyAsset && (
               <Image
@@ -268,12 +268,12 @@ export default function P28Scene({ onNext, sceneName }: PageProps) {
             <input
               className="absolute text-[#666]"
               style={{
-                width: 80,
+                width: 60,
                 top: 24,
-                right: 8,
-                fontSize: 22,
+                right: 24,
+                fontSize: 18,
+                marginTop: -7,
                 textAlign: "center",
-                lineHeight: "16px",
                 background: "transparent",
               }}
               type="text"

@@ -272,19 +272,34 @@ export default function P29Scene({ onNext, sceneName }: PageProps) {
               content: '2025年度总结海报图片',
               link: summaryPoster.poster_url,
             },
-            WechatTimelineInfo: {
+            wechatTimeline: {
               title: '2025年度总结海报图片',
               link: summaryPoster.poster_url,
               imgUrl: assets.report.p29?.shareHeadImg?.url,
             },
-            WechatMessageInfo: {
+            wechatMessage: {
               title: '2025年度总结海报图片',
               desc: '快来看看我的2025年度总结海报吧！',
               link: summaryPoster.poster_url,
               imgUrl: assets.report.p29?.shareHeadImg?.url,
+            },
+            QQ: {
+              url: summaryPoster.poster_url,
+              title: '2025年度总结海报图片',
+              content: '快来看看我的2025年度总结海报吧！',
+              imageURL: assets.report.p29?.shareHeadImg?.url,
+            },
+            weibo: {
+              url: summaryPoster.poster_url,
+              title: '2025年度总结海报图片',
+              content: '快来看看我的2025年度总结海报吧！',
+              imageURL: assets.report.p29?.shareHeadImg?.url,
+            },
+            PosterShare: {
+              imageURL:summaryPoster.poster_url,
+              pinContent: '2025年度总结海报图片',
             }
           })
-
 
           const showActionSheetAction = (window.zhihuHybrid as ZhihuHybridNewAPI)(
             "share/showShareActionSheet"
@@ -294,12 +309,7 @@ export default function P29Scene({ onNext, sceneName }: PageProps) {
           // const hybridAction = (window.zhihuHybrid as ZhihuHybridNewAPI)(
           //   "base/share"
           // );
-          await showActionSheetAction.dispatch({
-            url: posterUrl,
-            title: "2025年度总结海报图片",
-            description: "快来看看我的2025年度总结海报吧！",
-            
-          });
+          await showActionSheetAction.dispatch({});
         } catch (error) {
           console.error('Failed to share via zhihuHybrid:', error);
           // 如果分享失败，降级到复制链接
@@ -397,7 +407,7 @@ export default function P29Scene({ onNext, sceneName }: PageProps) {
         {/* Save and Share buttons */}
         <div className='flex gap-3 mb-4'>
           {/* Save button */}
-          {!isMobile && (
+          {isZhihuApp() && (
             <button
               onClick={handleSave}
               className='flex items-center justify-center gap-2 bg-white rounded-full shadow-lg text-center'

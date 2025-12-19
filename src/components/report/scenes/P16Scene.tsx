@@ -33,7 +33,7 @@ export default function P16Scene({ onNext, onPrevious, onNavigateToScene, sceneN
 
   if (!assets) return null;
 
-  const { thumbUp } = assets.report.p16;
+  const { gif, thumbUp } = assets.report.p16;
   const { blue15, blue16, mix15_1, mix16_1, mix16_2 } = assets.report.bg;
 
   // Map context data to component variables according to P16 spec (社交-我关注的)
@@ -108,6 +108,7 @@ export default function P16Scene({ onNext, onPrevious, onNavigateToScene, sceneN
 
       {/* main image */}
       <div className='z-0'>
+
         <Image
           src={thumbUp.url}
           alt={thumbUp.alt}
@@ -115,6 +116,14 @@ export default function P16Scene({ onNext, onPrevious, onNavigateToScene, sceneN
           height={thumbUp.height}
           className='w-full absolute pointer-events-none select-none z-0'
           style={{ top: '127px', left: '0' }}
+        />
+        <Image
+          src={gif.url}
+          alt={gif.alt}
+          width={gif.width}
+          height={gif.height}
+          className='w-full absolute pointer-events-none select-none z-0'
+          style={{ top: '119px', left: '43px', width: '80px' }}
         />
       </div>
       {/* content */}

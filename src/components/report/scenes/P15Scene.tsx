@@ -22,7 +22,7 @@ export default function P15Scene({ onNext, onPrevious, onNavigateToScene, sceneN
   if (!assets) return null;
 
   const { blue15, mix15, mix15_1, mix15_2 } = assets.report.bg;
-  const { ladder, year } = assets.report.p15;
+  const { ladder, year, gif1, gif2, gif3 } = assets.report.p15;
 
   // Map context data to component variables according to P15 spec (社交-关注我的)
   const newFollowCount = reportData?.new_follow_cnt ?? null;
@@ -116,7 +116,31 @@ export default function P15Scene({ onNext, onPrevious, onNavigateToScene, sceneN
           width={ladder.width}
           height={ladder.height}
           className='object-contain absolute pointer-events-none select-none z-0 w-full'
-          style={{ top: '155px', left: '0', right: '0' }}
+          style={{ top: '155px', left: '0' }}
+        />
+        <Image
+          src={gif1.url}
+          alt={gif1.alt}
+          width={gif1.width}
+          height={gif1.height}
+          className='object-contain absolute pointer-events-none select-none z-0 w-full'
+          style={{ top: '155px', left: '0', right: '0', width: gif1.width, }}
+        />
+        <Image
+          src={gif2.url}
+          alt={gif2.alt}
+          width={gif2.width}
+          height={gif2.height}
+          className='object-contain absolute pointer-events-none select-none z-0 w-full'
+          style={{ left: '-5px', top: '479px', width: gif2.width, }}
+        />
+        <Image
+          src={gif3.url}
+          alt={gif3.alt}
+          width={gif3.width}
+          height={gif3.height}
+          className='object-contain absolute pointer-events-none select-none z-0 w-full'
+          style={{ top: '285px', right: '0', width: gif3.width, }}
         />
       </div>
       {/* content */}

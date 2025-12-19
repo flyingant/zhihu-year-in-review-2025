@@ -326,6 +326,11 @@ const VoteTenQuestions = () => {
       return;
     }
 
+    if (selectedQuestions.length < 10) {
+      showToast('请选择 10 个问题', 'info');
+      return;
+    }
+
     // phase2埋点7
     trackEvent('', {
       moduleId: 'annual_report_publish_pin_2025',

@@ -1,7 +1,6 @@
 'use client';
 
 import { useUserReportData } from '@/context/user-report-data-context';
-import { colorClass, typographyClass } from '@/hooks/useSceneTheme';
 import BaseScene from './BaseScene';
 import Image from 'next/image';
 import { useAssets } from '@/context/assets-context';

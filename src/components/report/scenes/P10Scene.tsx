@@ -271,7 +271,7 @@ export default function P10Scene({ onNext, sceneName }: PageProps) {
           style={{ marginBottom: '20px' }}
           hidden={!wordCount}
         >
-          <div>总计阅读</div>
+          <div>阅读</div>
           <FlipCounter
             value={Number(wordCount)}
             className={`text-r-purple`}

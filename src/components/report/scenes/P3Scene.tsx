@@ -7,6 +7,7 @@ import Image from 'next/image';
 import { useAssets } from '@/context/assets-context';
 import GlitchLayer from '@/components/report/effects/GlitchLayer';
 import { formatDate, truncateText } from '@/utils/common';
+import { format } from 'date-fns';
 
 interface PageProps {
   onNext?: () => void;
@@ -29,25 +30,19 @@ export default function P3Scene({ onNext, sceneName }: PageProps) {
   const jiangtaiAsset = assets.report.p3.jiangtai;
 
   // Map context data to component variables according to P3 spec
-  const answerCount = (reportData?.publish_answer_cnt ?? null) as number | null;
-  const articleCount = (reportData?.publish_article_cnt ?? null) as
-    | number
-    | null;
-  const topDomain1 = (reportData?.publish_max_domin_top1 ?? null) as
-    | number
-    | null;
-  const topDomain2 = (reportData?.publish_max_domin_top2 ?? null) as
-    | number
-    | null;
-  const topDomain3 = (reportData?.publish_max_domin_top3 ?? null) as
-    | number
-    | null;
-  const firstAnswerDate = formatDate(
-    (reportData?.first_answer_date ?? null) as string | null
-  );
-  const firstAnswerTitle = (reportData?.first_answer_question_title ?? null) as
-    | string
-    | null;
+  const answerCount = reportData?.publish_answer_cnt ?? 0;
+  const articleCount = reportData?.publish_article_cnt ?? 0;
+  const topDomain1 = reportData?.publish_max_domin_top1 ?? null;
+  const topDomain2 = reportData?.publish_max_domin_top2 ?? null;
+  const topDomain3 = reportData?.publish_max_domin_top3 ?? null;
+  const firstAnswerDate = reportData?.first_answer_date ?? null;
+  const firstAnswerTitle = reportData?.first_answer_question_title ?? null;
+  const firstAnswerMonth = firstAnswerDate
+    ? format(new Date(firstAnswerDate), 'MM')
+    : '';
+  const firstAnswerDay = firstAnswerDate
+    ? format(new Date(firstAnswerDate), 'dd')
+    : '';
   const firstAnswerTitleTruncated = truncateText(firstAnswerTitle, 28);
   return (
     <BaseScene onNext={onNext} sceneName={sceneName}>
@@ -122,7 +117,7 @@ export default function P3Scene({ onNext, sceneName }: PageProps) {
           fontSize: '14px',
         }}
       >
-        <div>你的答案，让混沌变得清晰</div>
+        <div style={{ fontSize: '22px' }}>你的答案，让混沌变得清晰</div>
 
         <div
           style={{ paddingTop: '46px', paddingBottom: '8px' }}
@@ -207,12 +202,14 @@ export default function P3Scene({ onNext, sceneName }: PageProps) {
           还记得吗？
           <span
             className={`text-r-green`}
-            style={{ paddingLeft: '4px', fontSize: '18px' }}
+            style={{ paddingLeft: '4px', fontSize: '14px' }}
           >
-            {firstAnswerDate}
+            &nbsp;
+            <span style={{ fontSize: '18px' }}>{firstAnswerMonth}</span>月
+            <span style={{ fontSize: '18px' }}>&nbsp;{firstAnswerDay}</span>日
           </span>
         </div>
-        <div style={{ lineHeight: '32px' }}>
+        <div style={{ lineHeight: '32px' }} hidden={!firstAnswerTitleTruncated}>
           你在
           <span
             className={`text-r-fern`}

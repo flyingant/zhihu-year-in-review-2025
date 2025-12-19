@@ -67,7 +67,7 @@ export default function P22Scene({ onNext, sceneName }: PageProps) {
           width={mix22_3.width}
           height={mix22_3.height}
           className='object-contain absolute pointer-events-none select-none z-1'
-          style={{ top: '418px', left: '0' }}
+          style={{ top: '438px', left: '0' }}
         />
         <Image
           src={mix22_4.url}
@@ -135,7 +135,7 @@ export default function P22Scene({ onNext, sceneName }: PageProps) {
         {/* Billboard browsing */}
         <div
           className='absolute'
-          style={{ top: '214px', left: '41px', fontSize: 14 }}
+          style={{ top: '214px', left: '41px', right: '20px', fontSize: 14 }}
         >
           <p hidden={!consumeBillboardDays || consumeBillboardDays < 5}>
             今年，你驻扎热榜
@@ -148,8 +148,7 @@ export default function P22Scene({ onNext, sceneName }: PageProps) {
             浏览了
             <span className={`text-r-fern px-[4px]`} style={{ fontSize: 24 }}>
               {String(
-                consumeBillboardContentCount ??
-                'consume_billboard_content_cnt'
+                consumeBillboardContentCount ?? 'consume_billboard_content_cnt'
               )}
             </span>
             条热榜内容
@@ -160,7 +159,7 @@ export default function P22Scene({ onNext, sceneName }: PageProps) {
             <span className={`text-r-fern px-[4px]`} style={{ fontSize: 24 }}>
               {String(
                 upvoteZhihuBillboardContentCount ??
-                'upvote_zhihu_billboard_content_cnt'
+                  'upvote_zhihu_billboard_content_cnt'
               )}
             </span>
             篇内容登上了知乎热榜

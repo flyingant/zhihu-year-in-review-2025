@@ -135,7 +135,7 @@ export default function P2BillboardScene({ onNext, sceneName }: PageProps) {
             <span className='text-r-green' style={{ fontSize: '18px' }}>
               {billboardQuestionDate}
             </span>
-            ,
+            ，
             <span className='text-r-fern' style={{ fontSize: '20px' }}>
               {billboardQuestionTitle}
             </span>{' '}

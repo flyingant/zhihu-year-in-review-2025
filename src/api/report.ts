@@ -181,6 +181,16 @@ export interface UserReportData {
   annual_author?: string;
   awarded_copy?: string;
 
+  // P3 Answer fields
+  publish_answer_cnt?: number;
+  publish_article_cnt?: number;
+  publish_max_domin_top1?: number;
+  publish_max_domin_top2?: number;
+  publish_max_domin_top3?: number;
+  first_answer_date?: string;
+  first_answer_question_title?: string;
+  
+
   // P5: Short content creation fields
   publish_comment_cnt?: number;
   hot_comment_content?: string;

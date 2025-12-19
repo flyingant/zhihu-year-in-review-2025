@@ -6,7 +6,6 @@ import { useSceneThemeStyles } from '@/hooks/useSceneTheme';
 import { SCENES } from '@/data/reportConfig';
 import { useAssets } from '@/context/assets-context';
 import { motion } from 'framer-motion';
-import Hammer from 'hammerjs';
 
 interface BaseSceneProps {
   children: ReactNode;
@@ -155,7 +154,8 @@ export default function BaseScene({
   const logoWhiteAsset = assets?.kv.logoWhite;
   const [scale, setScale] = useState(1);
   const containerRef = useRef<HTMLDivElement>(null);
-  const hammerRef = useRef<InstanceType<typeof Hammer.Manager> | null>(null);
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const hammerRef = useRef<any>(null);
 
   useEffect(() => {
     const calculateScale = () => {
@@ -196,33 +196,51 @@ export default function BaseScene({
 
   // Initialize Hammer.js for swipe gestures
   useEffect(() => {
-    if (!containerRef.current) return;
+    if (!containerRef.current || typeof window === 'undefined') return;
 
-    // Create Hammer instance
-    const hammer = new Hammer(containerRef.current);
-    hammerRef.current = hammer;
+    // Dynamically import Hammer.js only on the client side
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    let hammer: any = null;
+    let isMounted = true;
 
-    // Enable swipe recognizer with vertical directions
-    hammer.get('swipe').set({ direction: Hammer.DIRECTION_VERTICAL });
+    const initHammer = async () => {
+      try {
+        const Hammer = (await import('hammerjs')).default;
+        
+        if (!isMounted || !containerRef.current) return;
 
-    // Handle swipe up (next)
-    hammer.on('swipeup', () => {
-      if (onNext) {
-        console.log('Swipe up detected - going to next scene');
-        onNext();
+        // Create Hammer instance
+        hammer = new Hammer(containerRef.current);
+        hammerRef.current = hammer;
+
+        // Enable swipe recognizer with vertical directions
+        hammer.get('swipe').set({ direction: Hammer.DIRECTION_VERTICAL });
+
+        // Handle swipe up (next)
+        hammer.on('swipeup', () => {
+          if (onNext) {
+            console.log('Swipe up detected - going to next scene');
+            onNext();
+          }
+        });
+
+        // Handle swipe down (previous)
+        hammer.on('swipedown', () => {
+          if (onPrevious) {
+            console.log('Swipe down detected - going to previous scene');
+            onPrevious();
+          }
+        });
+      } catch (error) {
+        console.error('Failed to load Hammer.js:', error);
       }
-    });
+    };
 
-    // Handle swipe down (previous)
-    hammer.on('swipedown', () => {
-      if (onPrevious) {
-        console.log('Swipe down detected - going to previous scene');
-        onPrevious();
-      }
-    });
+    initHammer();
 
     // Cleanup
     return () => {
+      isMounted = false;
       if (hammerRef.current) {
         hammerRef.current.destroy();
         hammerRef.current = null;

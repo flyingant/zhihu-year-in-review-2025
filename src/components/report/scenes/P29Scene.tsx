@@ -1,16 +1,16 @@
-"use client";
+'use client';
 
-import { useUserReportData } from "@/context/user-report-data-context";
-import BaseScene from "./BaseScene";
-import { useAssets } from "@/context/assets-context";
-import Image from "next/image";
-import { useState, useEffect } from "react";
-import { useZhihuHybrid } from "@/hooks/useZhihuHybrid";
-import { useToast } from "@/context/toast-context";
-import { isZhihuApp } from "@/lib/zhihu-detection";
-import { useMobile } from "@/hooks/useMobile";
-import { publishSummaryPoster } from "@/api/report";
-import { useZA } from "@/hooks/useZA";
+import { useUserReportData } from '@/context/user-report-data-context';
+import BaseScene from './BaseScene';
+import { useAssets } from '@/context/assets-context';
+import Image from 'next/image';
+import { useState, useEffect } from 'react';
+import { useZhihuHybrid } from '@/hooks/useZhihuHybrid';
+import { useToast } from '@/context/toast-context';
+import { isZhihuApp } from '@/lib/zhihu-detection';
+import { useMobile } from '@/hooks/useMobile';
+import { publishSummaryPoster } from '@/api/report';
+import { useZA } from '@/hooks/useZA';
 
 // Type for Zhihu Hybrid SDK
 interface ZhihuHybridAction {
@@ -23,12 +23,10 @@ interface ZhihuHybridNewAPI {
 
 interface PageProps {
   onNext?: () => void;
-  onPrevious?: () => void;
-  onNavigateToScene?: (sceneId: string) => void;
   sceneName?: string;
 }
 
-export default function P29Scene({ onNext, onPrevious, onNavigateToScene, sceneName }: PageProps) {
+export default function P29Scene({ onNext, sceneName }: PageProps) {
   const { summaryPoster } = useUserReportData();
   const { assets } = useAssets();
   const [isSynced, setIsSynced] = useState(false);
@@ -55,18 +53,18 @@ export default function P29Scene({ onNext, onPrevious, onNavigateToScene, sceneN
       // 方法1: 尝试使用 canvas（需要服务器支持 CORS）
       const tryCanvasMethod = (): Promise<Blob> => {
         return new Promise<Blob>((resolve, reject) => {
-          const img = document.createElement("img");
-          img.crossOrigin = "anonymous";
+          const img = document.createElement('img');
+          img.crossOrigin = 'anonymous';
 
           img.onload = () => {
             try {
-              const canvas = document.createElement("canvas");
+              const canvas = document.createElement('canvas');
               canvas.width = img.naturalWidth || img.width;
               canvas.height = img.naturalHeight || img.height;
 
-              const ctx = canvas.getContext("2d");
+              const ctx = canvas.getContext('2d');
               if (!ctx) {
-                reject(new Error("Failed to get canvas context"));
+                reject(new Error('Failed to get canvas context'));
                 return;
               }
 
@@ -76,16 +74,16 @@ export default function P29Scene({ onNext, onPrevious, onNavigateToScene, sceneN
                 if (blob) {
                   resolve(blob);
                 } else {
-                  reject(new Error("Failed to convert canvas to blob"));
+                  reject(new Error('Failed to convert canvas to blob'));
                 }
-              }, "image/png");
+              }, 'image/png');
             } catch (error) {
               reject(error);
             }
           };
 
           img.onerror = () =>
-            reject(new Error("Failed to load image with CORS"));
+            reject(new Error('Failed to load image with CORS'));
           img.src = imageUrl;
         });
       };
@@ -93,12 +91,12 @@ export default function P29Scene({ onNext, onPrevious, onNavigateToScene, sceneN
       // 方法2: 直接使用 fetch（如果 canvas 方法失败）
       const tryFetchMethod = async (): Promise<Blob> => {
         const response = await fetch(imageUrl, {
-          mode: "cors",
-          credentials: "omit",
+          mode: 'cors',
+          credentials: 'omit',
         });
 
         if (!response.ok) {
-          throw new Error("Failed to fetch image");
+          throw new Error('Failed to fetch image');
         }
 
         return await response.blob();
@@ -106,11 +104,11 @@ export default function P29Scene({ onNext, onPrevious, onNavigateToScene, sceneN
 
       // 方法3: 使用代理或直接链接下载（最后的降级方案）
       const tryDirectDownload = () => {
-        const link = document.createElement("a");
+        const link = document.createElement('a');
         link.href = imageUrl;
         link.download = `poster-${Date.now()}.png`;
-        link.target = "_blank";
-        link.style.display = "none";
+        link.target = '_blank';
+        link.style.display = 'none';
 
         document.body.appendChild(link);
         link.click();
@@ -123,13 +121,13 @@ export default function P29Scene({ onNext, onPrevious, onNavigateToScene, sceneN
         // 首先尝试 canvas 方法
         blob = await tryCanvasMethod();
       } catch (canvasError) {
-        console.warn("Canvas method failed, trying fetch:", canvasError);
+        console.warn('Canvas method failed, trying fetch:', canvasError);
         try {
           // 如果 canvas 失败，尝试 fetch
           blob = await tryFetchMethod();
         } catch (fetchError) {
           console.warn(
-            "Fetch method failed, using direct download:",
+            'Fetch method failed, using direct download:',
             fetchError
           );
           // 如果都失败，使用直接下载（可能在某些浏览器中不工作）
@@ -140,10 +138,10 @@ export default function P29Scene({ onNext, onPrevious, onNavigateToScene, sceneN
 
       // 如果成功获取到 blob，创建下载链接
       const blobUrl = window.URL.createObjectURL(blob);
-      const link = document.createElement("a");
+      const link = document.createElement('a');
       link.href = blobUrl;
       link.download = `poster-${Date.now()}.png`;
-      link.style.display = "none";
+      link.style.display = 'none';
 
       document.body.appendChild(link);
       link.click();
@@ -153,10 +151,10 @@ export default function P29Scene({ onNext, onPrevious, onNavigateToScene, sceneN
         window.URL.revokeObjectURL(blobUrl);
       }, 100);
 
-      showToast("图片保存成功", "success");
+      showToast('图片保存成功', 'success');
     } catch (error) {
-      console.error("Failed to download image:", error);
-      showToast("保存失败，请稍后重试", "error");
+      console.error('Failed to download image:', error);
+      showToast('保存失败，请稍后重试', 'error');
     }
   };
 
@@ -168,7 +166,7 @@ export default function P29Scene({ onNext, onPrevious, onNavigateToScene, sceneN
   const handleSave = async () => {
     const posterUrl = summaryPoster?.poster_url;
     if (!posterUrl) {
-      showToast("没有可保存的图片", "error");
+      showToast('没有可保存的图片', 'error');
       return;
     }
 
@@ -178,7 +176,7 @@ export default function P29Scene({ onNext, onPrevious, onNavigateToScene, sceneN
       text: '*',
       page: {
         page_id: '60864',
-      }
+      },
     });
 
     // 检测是否在知乎 App 内
@@ -188,7 +186,7 @@ export default function P29Scene({ onNext, onPrevious, onNavigateToScene, sceneN
         await downloadImageViaHybrid(posterUrl);
         // showToast('图片保存成功', 'success');
       } catch (error) {
-        console.error("Failed to save image via zhihuHybrid:", error);
+        console.error('Failed to save image via zhihuHybrid:', error);
         // 如果 zhihuHybrid 失败，降级到标准下载方法
         await downloadImageStandard(posterUrl);
       }
@@ -201,7 +199,7 @@ export default function P29Scene({ onNext, onPrevious, onNavigateToScene, sceneN
   const handleShare = async () => {
     const posterUrl = summaryPoster?.poster_url;
     if (!posterUrl) {
-      showToast("没有可分享的图片", "error");
+      showToast('没有可分享的图片', 'error');
       return;
     }
 
@@ -211,21 +209,21 @@ export default function P29Scene({ onNext, onPrevious, onNavigateToScene, sceneN
       text: '*',
       page: {
         page_id: '60864',
-      }
+      },
     });
 
     // 如果用户勾选了同步至想法赢徽章，先发布海报
     if (isSynced && summaryPoster?.poster_id) {
       try {
         await publishSummaryPoster({ poster_id: summaryPoster.poster_id });
-        showToast("已同步至想法", "success");
+        showToast('已同步至想法', 'success');
       } catch (error) {
-        console.error("Failed to publish summary poster:", error);
+        console.error('Failed to publish summary poster:', error);
         const errorMessage =
-          error && typeof error === "object" && "msg" in error
+          error && typeof error === 'object' && 'msg' in error
             ? String(error.msg)
-            : "同步失败，请稍后重试";
-        showToast(errorMessage, "error");
+            : '同步失败，请稍后重试';
+        showToast(errorMessage, 'error');
         return; // 如果发布失败，不继续分享流程
       }
     }
@@ -234,30 +232,30 @@ export default function P29Scene({ onNext, onPrevious, onNavigateToScene, sceneN
     if (!isZhihuApp()) {
       try {
         await navigator.clipboard.writeText(posterUrl);
-        showToast("链接已复制到剪贴板", "success");
+        showToast('链接已复制到剪贴板', 'success');
       } catch (error) {
-        console.error("Failed to copy to clipboard:", error);
+        console.error('Failed to copy to clipboard:', error);
         // 降级方案：使用传统的复制方法
         try {
-          const textArea = document.createElement("textarea");
+          const textArea = document.createElement('textarea');
           textArea.value = posterUrl;
-          textArea.style.position = "fixed";
-          textArea.style.left = "-999999px";
-          textArea.style.top = "-999999px";
+          textArea.style.position = 'fixed';
+          textArea.style.left = '-999999px';
+          textArea.style.top = '-999999px';
           document.body.appendChild(textArea);
           textArea.focus();
           textArea.select();
-          const successful = document.execCommand("copy");
+          const successful = document.execCommand('copy');
           document.body.removeChild(textArea);
 
           if (successful) {
-            showToast("链接已复制到剪贴板", "success");
+            showToast('链接已复制到剪贴板', 'success');
           } else {
-            showToast("复制失败，请稍后重试", "error");
+            showToast('复制失败，请稍后重试', 'error');
           }
         } catch (fallbackError) {
-          console.error("Fallback copy method failed:", fallbackError);
-          showToast("复制失败，请稍后重试", "error");
+          console.error('Fallback copy method failed:', fallbackError);
+          showToast('复制失败，请稍后重试', 'error');
         }
       }
     } else {
@@ -298,29 +296,29 @@ export default function P29Scene({ onNext, onPrevious, onNavigateToScene, sceneN
           // );
           await showActionSheetAction.dispatch({
             url: posterUrl,
-            title: "2025年度总结",
-            description: "2025年度总结",
+            title: "2025年度总结海报图片",
+            description: "快来看看我的2025年度总结海报吧！",
             
           });
         } catch (error) {
-          console.error("Failed to share via zhihuHybrid:", error);
+          console.error('Failed to share via zhihuHybrid:', error);
           // 如果分享失败，降级到复制链接
           try {
             await navigator.clipboard.writeText(posterUrl);
-            showToast("分享失败，链接已复制到剪贴板", "success");
+            showToast('分享失败，链接已复制到剪贴板', 'success');
           } catch (clipboardError) {
-            console.error("Failed to copy to clipboard:", clipboardError);
-            showToast("分享失败，请稍后重试", "error");
+            console.error('Failed to copy to clipboard:', clipboardError);
+            showToast('分享失败，请稍后重试', 'error');
           }
         }
       } else {
         // 如果 Hybrid SDK 不可用，降级到复制链接
         try {
           await navigator.clipboard.writeText(posterUrl);
-          showToast("链接已复制到剪贴板", "success");
+          showToast('链接已复制到剪贴板', 'success');
         } catch (clipboardError) {
-          console.error("Failed to copy to clipboard:", clipboardError);
-          showToast("复制失败，请稍后重试", "error");
+          console.error('Failed to copy to clipboard:', clipboardError);
+          showToast('复制失败，请稍后重试', 'error');
         }
       }
     }
@@ -332,7 +330,7 @@ export default function P29Scene({ onNext, onPrevious, onNavigateToScene, sceneN
 
   const handleFriendInteraction = () => {
     // TODO: Implement friend interaction functionality
-    console.log("Friend interaction clicked");
+    console.log('Friend interaction clicked');
     onNext && onNext();
   };
 
@@ -344,25 +342,25 @@ export default function P29Scene({ onNext, onPrevious, onNavigateToScene, sceneN
     >
       {/* Poster display - fullscreen */}
       {summaryPoster ? (
-        <div className="absolute inset-0 z-10">
-          <div className="relative w-full h-full">
+        <div className='absolute inset-0 z-10'>
+          <div className='relative w-full h-full'>
             <Image
               src={summaryPoster.poster_url}
-              alt="Summary Poster"
+              alt='Summary Poster'
               fill
-              className="object-cover"
+              className='object-cover'
               unoptimized
             />
           </div>
         </div>
       ) : (
         <div
-          className="absolute z-0 leading-relaxed text-center"
+          className='absolute z-0 leading-relaxed text-center'
           style={{
             fontSize: 14,
-            top: "50%",
-            left: "50%",
-            transform: "translate(-50%, -50%)",
+            top: '50%',
+            left: '50%',
+            transform: 'translate(-50%, -50%)',
           }}
         >
           暂无海报
@@ -371,7 +369,7 @@ export default function P29Scene({ onNext, onPrevious, onNavigateToScene, sceneN
 
       {/* Action buttons area at the bottom */}
       <div
-        className="absolute bottom-0 left-0 right-0 z-20 flex flex-col items-center pb-6 px-6"
+        className='absolute bottom-0 left-0 right-0 z-20 flex flex-col items-center pb-6 px-6'
         style={{
           background: summaryPoster?.bg,
         }}
@@ -379,8 +377,8 @@ export default function P29Scene({ onNext, onPrevious, onNavigateToScene, sceneN
         {/* Friend Interaction button */}
         <button
           onClick={handleFriendInteraction}
-          className="flex items-center justify-center gap-2 bg-black rounded-full text-center mb-4"
-          style={{ width: "330px", height: "34px" }}
+          className='flex items-center justify-center gap-2 bg-black rounded-full text-center mb-4'
+          style={{ width: '330px', height: '34px' }}
         >
           {assets.report.p29?.iconFriend && (
             <Image
@@ -388,47 +386,47 @@ export default function P29Scene({ onNext, onPrevious, onNavigateToScene, sceneN
               alt={assets.report.p29.iconFriend.alt}
               width={assets.report.p29.iconFriend.width / 2}
               height={assets.report.p29.iconFriend.height / 2}
-              className="object-contain"
+              className='object-contain'
             />
           )}
-          <span className="font-medium text-white" style={{ fontSize: "18px" }}>
+          <span className='font-medium text-white' style={{ fontSize: '18px' }}>
             好友互动：猜猜哪个才是真的我？
           </span>
         </button>
 
         {/* Save and Share buttons */}
-        <div className="flex gap-3 mb-4">
+        <div className='flex gap-3 mb-4'>
           {/* Save button */}
           {!isMobile && (
             <button
               onClick={handleSave}
-              className="flex items-center justify-center gap-2 bg-white rounded-full shadow-lg text-center"
-              style={{ width: "160px", height: "34px" }}
+              className='flex items-center justify-center gap-2 bg-white rounded-full shadow-lg text-center'
+              style={{ width: '160px', height: '34px' }}
             >
               <svg
-                width="18"
-                height="18"
-                viewBox="0 0 24 24"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg"
+                width='18'
+                height='18'
+                viewBox='0 0 24 24'
+                fill='none'
+                xmlns='http://www.w3.org/2000/svg'
               >
                 <path
-                  d="M12 16V4M12 16L8 12M12 16L16 12"
-                  stroke="#000"
-                  strokeWidth="2"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
+                  d='M12 16V4M12 16L8 12M12 16L16 12'
+                  stroke='#000'
+                  strokeWidth='2'
+                  strokeLinecap='round'
+                  strokeLinejoin='round'
                 />
                 <path
-                  d="M4 20H20"
-                  stroke="#000"
-                  strokeWidth="2"
-                  strokeLinecap="round"
+                  d='M4 20H20'
+                  stroke='#000'
+                  strokeWidth='2'
+                  strokeLinecap='round'
                 />
               </svg>
               <span
-                className="font-medium text-[#000]"
-                style={{ fontSize: "18px" }}
+                className='font-medium text-[#000]'
+                style={{ fontSize: '18px' }}
               >
                 保存
               </span>
@@ -438,50 +436,50 @@ export default function P29Scene({ onNext, onPrevious, onNavigateToScene, sceneN
           {/* Share button */}
           <button
             onClick={handleShare}
-            className="flex items-center justify-center gap-2 bg-white rounded-full shadow-lg text-center"
-            style={{ width: "160px", height: "34px" }}
+            className='flex items-center justify-center gap-2 bg-white rounded-full shadow-lg text-center'
+            style={{ width: '160px', height: '34px' }}
           >
             <svg
-              width="18"
-              height="18"
-              viewBox="0 0 24 24"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
+              width='18'
+              height='18'
+              viewBox='0 0 24 24'
+              fill='none'
+              xmlns='http://www.w3.org/2000/svg'
             >
               <circle
-                cx="18"
-                cy="5"
-                r="3"
-                stroke="#000"
-                strokeWidth="2"
-                fill="none"
+                cx='18'
+                cy='5'
+                r='3'
+                stroke='#000'
+                strokeWidth='2'
+                fill='none'
               />
               <circle
-                cx="6"
-                cy="12"
-                r="3"
-                stroke="#000"
-                strokeWidth="2"
-                fill="none"
+                cx='6'
+                cy='12'
+                r='3'
+                stroke='#000'
+                strokeWidth='2'
+                fill='none'
               />
               <circle
-                cx="18"
-                cy="19"
-                r="3"
-                stroke="#000"
-                strokeWidth="2"
-                fill="none"
+                cx='18'
+                cy='19'
+                r='3'
+                stroke='#000'
+                strokeWidth='2'
+                fill='none'
               />
               <path
-                d="M8.59 13.51L15.42 17.49M15.41 6.51L8.59 10.49"
-                stroke="#000"
-                strokeWidth="2"
-                strokeLinecap="round"
+                d='M8.59 13.51L15.42 17.49M15.41 6.51L8.59 10.49'
+                stroke='#000'
+                strokeWidth='2'
+                strokeLinecap='round'
               />
             </svg>
             <span
-              className="font-medium text-[#000]"
-              style={{ fontSize: "18px" }}
+              className='font-medium text-[#000]'
+              style={{ fontSize: '18px' }}
             >
               分享
             </span>
@@ -489,41 +487,41 @@ export default function P29Scene({ onNext, onPrevious, onNavigateToScene, sceneN
         </div>
 
         {/* Sync checkbox */}
-        <label className="flex items-center gap-2 cursor-pointer">
-          <div className="relative">
+        <label className='flex items-center gap-2 cursor-pointer'>
+          <div className='relative'>
             <input
-              type="checkbox"
+              type='checkbox'
               checked={isSynced}
               onChange={handleSyncToggle}
-              className="sr-only"
+              className='sr-only'
             />
             <div
               className={`w-5 h-5 rounded border-2 flex items-center justify-center transition-all duration-200 ${
                 isSynced
-                  ? "bg-[#00ADE9] border-[#00ADE9]"
-                  : "bg-white/90 border-[#000]/30"
+                  ? 'bg-[#00ADE9] border-[#00ADE9]'
+                  : 'bg-white/90 border-[#000]/30'
               }`}
             >
               {isSynced && (
                 <svg
-                  width="12"
-                  height="12"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  xmlns="http://www.w3.org/2000/svg"
+                  width='12'
+                  height='12'
+                  viewBox='0 0 24 24'
+                  fill='none'
+                  xmlns='http://www.w3.org/2000/svg'
                 >
                   <path
-                    d="M20 6L9 17L4 12"
-                    stroke="white"
-                    strokeWidth="2.5"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
+                    d='M20 6L9 17L4 12'
+                    stroke='white'
+                    strokeWidth='2.5'
+                    strokeLinecap='round'
+                    strokeLinejoin='round'
                   />
                 </svg>
               )}
             </div>
           </div>
-          <span className="text-black font-normal" style={{ fontSize: "18px" }}>
+          <span className='text-black font-normal' style={{ fontSize: '18px' }}>
             同步至想法赢徽章
           </span>
         </label>

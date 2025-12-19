@@ -1,14 +1,14 @@
-"use client";
+'use client';
 
-import { colorClass, typographyClass } from "@/hooks/useSceneTheme";
-import BaseScene from "./BaseScene";
+import { colorClass, typographyClass } from '@/hooks/useSceneTheme';
+import BaseScene from './BaseScene';
 
 interface PageProps {
   onNext?: (choice: string) => void;
   sceneName?: string;
 }
 
-export default function EndingScene({ onNext, onPrevious, onNavigateToScene, sceneName }: PageProps) {
+export default function EndingScene({ onNext, sceneName }: PageProps) {
   const handleChoice = (e: React.MouseEvent, choice: string) => {
     e.stopPropagation();
     if (onNext) {
@@ -25,4 +25,3 @@ export default function EndingScene({ onNext, onPrevious, onNavigateToScene, sce
     </BaseScene>
   );
 }
-

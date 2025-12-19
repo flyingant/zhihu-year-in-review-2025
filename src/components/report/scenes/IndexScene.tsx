@@ -74,12 +74,7 @@ const MirrorContent = ({
   </div>
 );
 
-export default function IndexScene({
-  onNext,
-  onPrevious,
-  onNavigateToScene,
-  sceneName,
-}: IndexSceneProps) {
+export default function IndexScene({ onNext, sceneName }: IndexSceneProps) {
   const { assets } = useAssets();
   const { reportData } = useUserReportData();
   const { isAvailable: isHybridAvailable, openURL } = useZhihuHybrid();
@@ -377,8 +372,6 @@ export default function IndexScene({
   return (
     <BaseScene
       onNext={handleNextClick}
-      onPrevious={onPrevious}
-      onNavigateToScene={onNavigateToScene}
       sceneName={sceneName}
       showBottomNextButton={!!activeView}
     >

@@ -10,11 +10,10 @@ import { truncateText } from '@/utils/common';
 interface PageProps {
   onNext?: () => void;
   onPrevious?: () => void;
-  onNavigateToScene?: (sceneId: string) => void;
   sceneName?: string;
 }
 
-export default function P25Scene({ onNext, onPrevious, onNavigateToScene, sceneName }: PageProps) {
+export default function P25Scene({ onNext, onPrevious, sceneName }: PageProps) {
   const { reportData } = useUserReportData();
   const { assets } = useAssets();
 
@@ -33,7 +32,12 @@ export default function P25Scene({ onNext, onPrevious, onNavigateToScene, sceneN
   const mostFavoriteAuthorNum = reportData?.most_favorite_author_num ?? null;
 
   return (
-    <BaseScene defaultLogo={false} onNext={onNext} sceneName={sceneName}>
+    <BaseScene
+      defaultLogo={false}
+      onNext={onNext}
+      onPrevious={onPrevious}
+      sceneName={sceneName}
+    >
       {/* pixel block */}
       <GlitchLayer>
         {/* 顺序从上到下 */}

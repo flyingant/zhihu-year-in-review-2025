@@ -1,22 +1,20 @@
-"use client";
+'use client';
 
-import BaseScene from "./BaseScene";
-import { useAssets } from "@/context/assets-context";
-import Image from "next/image";
-import { useState, useRef, useEffect } from "react";
+import BaseScene from './BaseScene';
+import { useAssets } from '@/context/assets-context';
+import Image from 'next/image';
+import { useState, useRef, useEffect } from 'react';
 
 interface PageProps {
   onNext?: () => void;
-  onPrevious?: () => void;
-  onNavigateToScene?: (sceneId: string) => void;
   sceneName?: string;
 }
 
-export default function P27Scene({ onNext, onPrevious, onNavigateToScene, sceneName }: PageProps) {
+export default function P27Scene({ onNext, sceneName }: PageProps) {
   const { assets } = useAssets();
   const [isSceneFading, setIsSceneFading] = useState(false);
   const [isButtonClicked, setIsButtonClicked] = useState(false);
-  const [videoMode, setVideoMode] = useState<"infinite" | "stop">("infinite");
+  const [videoMode, setVideoMode] = useState<'infinite' | 'stop'>('infinite');
   const videoRef = useRef<HTMLVideoElement>(null);
 
   const top2025Asset = assets?.report.top2025;
@@ -30,7 +28,7 @@ export default function P27Scene({ onNext, onPrevious, onNavigateToScene, sceneN
       videoRef.current.src = topSpiningInfinitAsset.url;
       videoRef.current.loop = true;
       videoRef.current.play().catch((error) => {
-        console.error("Error playing video:", error);
+        console.error('Error playing video:', error);
       });
     }
   }, [topSpiningInfinitAsset?.url]);
@@ -61,19 +59,19 @@ export default function P27Scene({ onNext, onPrevious, onNavigateToScene, sceneN
 
     // Switch to stop video
     if (topSpiningStopAsset?.url && videoRef.current) {
-      setVideoMode("stop");
+      setVideoMode('stop');
       videoRef.current.loop = false;
       videoRef.current.src = topSpiningStopAsset.url;
       videoRef.current.load();
       videoRef.current.play().catch((error) => {
-        console.error("Error playing video:", error);
+        console.error('Error playing video:', error);
       });
     }
   };
 
   const handleVideoEnd = () => {
     // Only handle end event for stop video (not infinite loop)
-    if (videoMode === "stop") {
+    if (videoMode === 'stop') {
       // Fade out the whole scene and go to next page
       setIsSceneFading(true);
       setTimeout(() => {
@@ -87,7 +85,7 @@ export default function P27Scene({ onNext, onPrevious, onNavigateToScene, sceneN
   if (!assets) return null;
 
   const currentVideoSrc =
-    videoMode === "infinite"
+    videoMode === 'infinite'
       ? topSpiningInfinitAsset?.url
       : topSpiningStopAsset?.url;
 
@@ -99,25 +97,25 @@ export default function P27Scene({ onNext, onPrevious, onNavigateToScene, sceneN
     >
       {/* Wrapper to fade out the whole scene */}
       <div
-        className="w-full h-full transition-opacity duration-1000 ease-in-out"
+        className='w-full h-full transition-opacity duration-1000 ease-in-out'
         style={{
           opacity: isSceneFading ? 0 : 1,
         }}
       >
         {/* content */}
         <div
-          className="absolute z-[110] leading-relaxed w-full"
+          className='absolute z-[110] leading-relaxed w-full'
           style={{
             fontSize: 14,
-            top: "114px",
-            left: "50%",
-            transform: "translateX(-50%)",
-            paddingLeft: "40px",
-            paddingRight: "40px",
-            boxSizing: "border-box",
+            top: '114px',
+            left: '50%',
+            transform: 'translateX(-50%)',
+            paddingLeft: '40px',
+            paddingRight: '40px',
+            boxSizing: 'border-box',
           }}
         >
-          <p style={{ fontSize: 24, textAlign: "center" }}>
+          <p style={{ fontSize: 24, textAlign: 'center' }}>
             这一年，真的要过去了
             <br />
             时间会被打包
@@ -133,31 +131,31 @@ export default function P27Scene({ onNext, onPrevious, onNavigateToScene, sceneN
 
         {/* Full width and height video container */}
         {currentVideoSrc && (
-          <div className="fixed inset-0 z-[100] bg-white w-full h-full">
+          <div className='fixed inset-0 z-[100] bg-white w-full h-full'>
             <video
               ref={videoRef}
-              className="w-full h-full object-cover"
+              className='w-full h-full object-cover'
               playsInline
               muted
               onEnded={handleVideoEnd}
               controls={false}
             >
-              <source src={currentVideoSrc} type="video/mp4" />
+              <source src={currentVideoSrc} type='video/mp4' />
               Your browser does not support the video tag.
             </video>
           </div>
         )}
 
         {/* Fixed position buttons at the bottom - always on top of video */}
-        <div className="absolute bottom-0 left-0 right-0 z-[200] flex items-center justify-center px-4 pb-4">
+        <div className='absolute bottom-0 left-0 right-0 z-[200] flex items-center justify-center px-4 pb-4'>
           {/* Left button - top2025 */}
           {top2025Asset && (
             <button
               onClick={handleTop2025Click}
               disabled={isButtonClicked}
-              className="cursor-pointer mx-4"
+              className='cursor-pointer mx-4'
               style={{
-                pointerEvents: isButtonClicked ? "none" : "auto",
+                pointerEvents: isButtonClicked ? 'none' : 'auto',
                 opacity: isButtonClicked ? 0.5 : 1,
               }}
             >
@@ -166,7 +164,7 @@ export default function P27Scene({ onNext, onPrevious, onNavigateToScene, sceneN
                 alt={top2025Asset.alt}
                 width={top2025Asset.width / 6}
                 height={top2025Asset.height / 6}
-                className="object-contain"
+                className='object-contain'
               />
             </button>
           )}
@@ -176,9 +174,9 @@ export default function P27Scene({ onNext, onPrevious, onNavigateToScene, sceneN
             <button
               onClick={handleTop2026Click}
               disabled={isButtonClicked}
-              className="cursor-pointer mx-4"
+              className='cursor-pointer mx-4'
               style={{
-                pointerEvents: isButtonClicked ? "none" : "auto",
+                pointerEvents: isButtonClicked ? 'none' : 'auto',
                 opacity: isButtonClicked ? 0.5 : 1,
               }}
             >
@@ -187,7 +185,7 @@ export default function P27Scene({ onNext, onPrevious, onNavigateToScene, sceneN
                 alt={top2026Asset.alt}
                 width={top2026Asset.width / 6}
                 height={top2026Asset.height / 6}
-                className="object-contain"
+                className='object-contain'
               />
             </button>
           )}

@@ -17,8 +17,6 @@ interface IntroductionSceneProps {
 
 export default function IntroductionScene({
   onNext,
-  onPrevious,
-  onNavigateToScene,
   sceneName,
 }: IntroductionSceneProps) {
   const { assets } = useAssets();
@@ -213,8 +211,6 @@ export default function IntroductionScene({
   return (
     <BaseScene
       onNext={onNext}
-      onPrevious={onPrevious}
-      onNavigateToScene={onNavigateToScene}
       sceneName={sceneName}
       className='pt-0'
       containerClassName='w-full max-w-none'

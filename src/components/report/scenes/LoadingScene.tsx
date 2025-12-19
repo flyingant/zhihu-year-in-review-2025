@@ -13,12 +13,7 @@ interface LoadingSceneProps {
   sceneName?: string;
 }
 
-export default function LoadingScene({
-  onNext,
-  onPrevious,
-  onNavigateToScene,
-  sceneName,
-}: LoadingSceneProps) {
+export default function LoadingScene({ onNext, sceneName }: LoadingSceneProps) {
   const { assets } = useAssets();
   const [progress, setProgress] = useState(0);
 
@@ -65,8 +60,6 @@ export default function LoadingScene({
   return (
     <BaseScene
       onNext={onNext}
-      onPrevious={onPrevious}
-      onNavigateToScene={onNavigateToScene}
       sceneName={sceneName}
       showBottomNextButton={false}
     >

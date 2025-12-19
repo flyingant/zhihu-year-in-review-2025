@@ -586,6 +586,7 @@ export interface AssetsData {
     };
     p29: {
       iconFriend: AssetMetadata;
+      shareHeadImg: AssetMetadata;
     };
     guess: {
       taOption: AssetMetadata;

@@ -264,14 +264,43 @@ export default function P29Scene({ onNext, onPrevious, onNavigateToScene, sceneN
       // 在知乎 App 内，使用 zhihuHybrid SDK 分享
       if (isHybridAvailable && window.zhihuHybrid) {
         try {
+
+          const setShareInfoAction = (window.zhihuHybrid as ZhihuHybridNewAPI)(
+            "share/setShareInfo"
+          );
+
+          await setShareInfoAction.dispatch({
+            zhihuMessage: {
+              content: '2025年度总结海报图片',
+              link: summaryPoster.poster_url,
+            },
+            WechatTimelineInfo: {
+              title: '2025年度总结海报图片',
+              link: summaryPoster.poster_url,
+              imgUrl: assets.report.p29?.shareHeadImg?.url,
+            },
+            WechatMessageInfo: {
+              title: '2025年度总结海报图片',
+              desc: '快来看看我的2025年度总结海报吧！',
+              link: summaryPoster.poster_url,
+              imgUrl: assets.report.p29?.shareHeadImg?.url,
+            }
+          })
+
+
+          const showActionSheetAction = (window.zhihuHybrid as ZhihuHybridNewAPI)(
+            "share/showShareActionSheet"
+          );
           // 使用 zhihuHybrid SDK 的分享功能
           // 根据知乎 Hybrid SDK 文档，分享功能通常使用 'base/share' 或 'social/share'
-          const hybridAction = (window.zhihuHybrid as ZhihuHybridNewAPI)(
-            "base/share"
-          );
-          await hybridAction.dispatch({
+          // const hybridAction = (window.zhihuHybrid as ZhihuHybridNewAPI)(
+          //   "base/share"
+          // );
+          await showActionSheetAction.dispatch({
             url: posterUrl,
             title: "2025年度总结",
+            description: "2025年度总结",
+            
           });
         } catch (error) {
           console.error("Failed to share via zhihuHybrid:", error);

@@ -2780,6 +2780,12 @@
       }
     },
     "p29": {
+      "shareHeadImg": {
+        "url": "/assets/summary-head-img.png",
+        "width": 30,
+        "height": 30,
+        "alt": "Share Head Image"
+      },
       "iconFriend": {
         "url": "/assets/2025_2_report_p29_icon_friend.png",
         "width": 38,

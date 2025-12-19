@@ -93,11 +93,33 @@ export default function P30Scene({ onNext, sceneName, onNavigateToScene }: PageP
           // Check if user is in zhihu app
           if (isZhihuApp() && isHybridAvailable && window.zhihuHybrid) {
             try {
+              const setShareInfoAction = (window.zhihuHybrid as ZhihuHybridNewAPI)(
+                "share/setShareInfo"
+              );
+
+              await setShareInfoAction.dispatch({
+                zhihuMessage: {
+                  content: '猜猜哪一个是真实的我',
+                  link: redirectUrl,
+                },
+                WechatTimelineInfo: {
+                  title: '猜猜哪一个是真实的我',
+                  link: redirectUrl,
+                  imgUrl: assets.report.p29?.shareHeadImg?.url,
+                },
+                WechatMessageInfo: {
+                  title: '猜猜哪一个是真实的我',
+                  desc: '快来猜猜哪一个是真实的我',
+                  link: redirectUrl,
+                  imgUrl: assets.report.p29?.shareHeadImg?.url,
+                }
+              }); 
+
               // Use zhihuHybrid SDK to share the link
-              const hybridAction = (window.zhihuHybrid as ZhihuHybridNewAPI)('base/share');
+              const hybridAction = (window.zhihuHybrid as ZhihuHybridNewAPI)("share/showShareActionSheet");
               await hybridAction.dispatch({
                 url: redirectUrl,
-                title: '2025个人年度总结',
+                title: '猜猜哪一个是真实的',
               });
             } catch (error) {
               console.error('Failed to share via zhihuHybrid:', error);

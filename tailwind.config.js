@@ -131,6 +131,7 @@ module.exports = {
       animation: {
         marquee: 'marquee linear infinite',
         'slide-in': 'slide-in 8s ease-out forwards',
+        'blink': 'blink 1s step-end infinite',
         'wiggle-x': 'wiggle-x 1.5s ease-in-out infinite',
         float: 'float 1.5s ease-in-out infinite',
         'pop-dialog': 'pop-dialog 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275) 0.3s forwards',

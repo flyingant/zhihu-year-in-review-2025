@@ -421,7 +421,7 @@ const MiniComputerSection = () => {
           priority
         />
         {/* 电脑输入框 */}
-        <div className="absolute z-10 top-[20%] left-[14%] w-[74%] h-[35%]">
+        <div className="absolute z-10 top-[20%] left-[14%] md:left-[16%] w-[74%] h-[35%]">
           <div
             ref={mirrorRef}
             style={{
@@ -440,15 +440,15 @@ const MiniComputerSection = () => {
               ) : (
                 <div className="flex items-center">
                   <div
+                    style={{ width: '2px', height: '16px', marginTop: '2px' }}
                     className={`
-                      w-[2px] h-[16px] mt-[2px]
                       ${!isFocused
-                        ? 'bg-gray-400 animate-[blink_1s_step-end_infinite]'
+                        ? 'bg-[#263133] animate-blink'
                         : 'bg-transparent'
                       }
                     `}
                   ></div>
-                  <span className="text-gray-300">写下你的 2025 真实瞬间</span>
+                  <span className="text-[#d7d6c7]">写下你的 2025 真实瞬间</span>
                 </div>
               )}
               <span className="text-[#2faeef] font-bold">

@@ -13,12 +13,10 @@ import GlitchLayer from "../effects/GlitchLayer";
 
 interface PageProps {
   onNext?: () => void;
-  onPrevious?: () => void;
-  onNavigateToScene?: (sceneId: string) => void;
   sceneName?: string;
 }
 
-export default function P28Scene({ onNext, onPrevious, onNavigateToScene, sceneName }: PageProps) {
+export default function P28Scene({ onNext, sceneName }: PageProps) {
   const { assets } = useAssets();
   const { showToast } = useToast();
   const { setSummaryPoster, summaryPoster } = useUserReportData();

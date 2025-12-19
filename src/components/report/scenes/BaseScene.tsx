@@ -6,10 +6,12 @@ import { useSceneThemeStyles } from '@/hooks/useSceneTheme';
 import { SCENES } from '@/data/reportConfig';
 import { useAssets } from '@/context/assets-context';
 import { motion } from 'framer-motion';
+import Hammer from 'hammerjs';
 
 interface BaseSceneProps {
   children: ReactNode;
   onNext?: () => void;
+  onPrevious?: () => void;
   onNavigateToScene?: (sceneId: string) => void;
   className?: string;
   containerClassName?: string;
@@ -141,6 +143,7 @@ function DebugPanel({
 export default function BaseScene({
   children,
   onNext,
+  onPrevious,
   onNavigateToScene,
   sceneName,
   defaultLogo = true,
@@ -152,6 +155,7 @@ export default function BaseScene({
   const logoWhiteAsset = assets?.kv.logoWhite;
   const [scale, setScale] = useState(1);
   const containerRef = useRef<HTMLDivElement>(null);
+  const hammerRef = useRef<InstanceType<typeof Hammer.Manager> | null>(null);
 
   useEffect(() => {
     const calculateScale = () => {
@@ -189,6 +193,42 @@ export default function BaseScene({
       window.removeEventListener('resize', calculateScale);
     };
   }, []);
+
+  // Initialize Hammer.js for swipe gestures
+  useEffect(() => {
+    if (!containerRef.current) return;
+
+    // Create Hammer instance
+    const hammer = new Hammer(containerRef.current);
+    hammerRef.current = hammer;
+
+    // Enable swipe recognizer with vertical directions
+    hammer.get('swipe').set({ direction: Hammer.DIRECTION_VERTICAL });
+
+    // Handle swipe up (next)
+    hammer.on('swipeup', () => {
+      if (onNext) {
+        console.log('Swipe up detected - going to next scene');
+        onNext();
+      }
+    });
+
+    // Handle swipe down (previous)
+    hammer.on('swipedown', () => {
+      if (onPrevious) {
+        console.log('Swipe down detected - going to previous scene');
+        onPrevious();
+      }
+    });
+
+    // Cleanup
+    return () => {
+      if (hammerRef.current) {
+        hammerRef.current.destroy();
+        hammerRef.current = null;
+      }
+    };
+  }, [onNext, onPrevious]);
 
   return (
     <div

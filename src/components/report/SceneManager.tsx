@@ -119,6 +119,12 @@ export default function SceneManager() {
     return initialSceneId || 'loading';
   });
 
+  // Track navigation history for going back
+  const [sceneHistory, setSceneHistory] = useState<string[]>(() => {
+    const initialSceneId = getInitialSceneId();
+    return initialSceneId ? [initialSceneId] : ['loading'];
+  });
+
   // 当前场景 ID：始终使用内部状态（URL 参数仅在初始化时使用）
   const currentSceneId = internalSceneId;
   // 获取当前场景的配置
@@ -162,6 +168,8 @@ export default function SceneManager() {
     const finalNextId = getNextValidSceneId(initialNextId, reportData);
 
     if (finalNextId && SCENES[finalNextId]) {
+      // Add current scene to history before navigating
+      setSceneHistory((prev) => [...prev, currentSceneId]);
       setInternalSceneId(finalNextId);
       // 埋点逻辑
       console.log(
@@ -170,9 +178,31 @@ export default function SceneManager() {
     }
   };
 
+  // 处理返回逻辑
+  const handlePrevious = () => {
+    if (sceneHistory.length <= 1) {
+      // Already at the first scene, can't go back
+      console.log('Already at the first scene, cannot go back');
+      return;
+    }
+
+    // Get the previous scene from history
+    const previousHistory = [...sceneHistory];
+    previousHistory.pop(); // Remove current scene
+    const previousSceneId = previousHistory[previousHistory.length - 1];
+
+    if (previousSceneId && SCENES[previousSceneId]) {
+      setSceneHistory(previousHistory);
+      setInternalSceneId(previousSceneId);
+      console.log(`Navigating back from ${currentSceneId} to ${previousSceneId}`);
+    }
+  };
+
   // 直接导航到指定场景（用于调试面板等场景）
   const handleNavigateToScene = (sceneId: string) => {
     if (SCENES[sceneId]) {
+      // Add current scene to history before navigating
+      setSceneHistory((prev) => [...prev, currentSceneId]);
       setInternalSceneId(sceneId);
       console.log(`Navigating directly to scene: ${sceneId}`);
     }
@@ -207,6 +237,7 @@ export default function SceneManager() {
           {/* 渲染当前页面，并传入跳转函数 */}
           <Component
             onNext={handleNext}
+            onPrevious={handlePrevious}
             onNavigateToScene={handleNavigateToScene}
             sceneName={currentSceneId}
             {...extraProps}

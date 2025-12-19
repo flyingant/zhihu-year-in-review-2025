@@ -202,12 +202,15 @@ export default function IndexScene({ onNext, sceneName }: IndexSceneProps) {
   // Handle ZhiLink URL opening - use hybrid if in app, otherwise open in new tab
   const handleZhiLinkClick = async () => {
     const url = 'https://www.zhihu.com/profile?zh_hide_nav_bar=true';
-    
+
     if (isZhihuApp && isHybridAvailable) {
       try {
         await openURL(url);
       } catch (error) {
-        console.error('Failed to open URL via zhihuHybrid, falling back to window.open:', error);
+        console.error(
+          'Failed to open URL via zhihuHybrid, falling back to window.open:',
+          error
+        );
         window.open(url, '_blank');
       }
     } else {
@@ -379,6 +382,7 @@ export default function IndexScene({ onNext, sceneName }: IndexSceneProps) {
             transform: 'translateX(-50%)',
             fontSize: '24px',
           }}
+          hidden={!!activeView}
         >
           选择你的方向
         </div>

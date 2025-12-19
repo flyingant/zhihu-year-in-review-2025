@@ -12,6 +12,8 @@ import { useState } from 'react';
 
 interface PageProps {
   onNext?: () => void;
+  onPrevious?: () => void;
+  onNavigateToScene?: (sceneId: string) => void;
   sceneName?: string;
 }
 
@@ -47,7 +49,7 @@ const InteractionMemberItem = ({
   );
 };
 
-export default function P20Scene({ onNext, sceneName }: PageProps) {
+export default function P20Scene({ onNext, onPrevious, onNavigateToScene, sceneName }: PageProps) {
   const { reportData } = useUserReportData();
   const { assets } = useAssets();
   const { showToast } = useToast();
@@ -135,7 +137,7 @@ export default function P20Scene({ onNext, sceneName }: PageProps) {
   };
 
   return (
-    <BaseScene onNext={onNext} sceneName={sceneName}>
+    <BaseScene onNext={onNext} onPrevious={onPrevious} onNavigateToScene={onNavigateToScene} sceneName={sceneName}>
       {/* background */}
       <GlitchLayer>
         <div className='z-0'>

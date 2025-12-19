@@ -23,10 +23,12 @@ interface ZhihuHybridNewAPI {
 
 interface PageProps {
   onNext?: () => void;
+  onPrevious?: () => void;
+  onNavigateToScene?: (sceneId: string) => void;
   sceneName?: string;
 }
 
-export default function P29Scene({ onNext, sceneName }: PageProps) {
+export default function P29Scene({ onNext, onPrevious, onNavigateToScene, sceneName }: PageProps) {
   const { summaryPoster } = useUserReportData();
   const { assets } = useAssets();
   const [isSynced, setIsSynced] = useState(false);

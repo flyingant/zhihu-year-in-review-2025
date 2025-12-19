@@ -10,10 +10,12 @@ import { truncateText } from '@/utils/common';
 
 interface PageProps {
   onNext?: () => void;
+  onPrevious?: () => void;
+  onNavigateToScene?: (sceneId: string) => void;
   sceneName?: string;
 }
 
-export default function P15Scene({ onNext, sceneName }: PageProps) {
+export default function P15Scene({ onNext, onPrevious, onNavigateToScene, sceneName }: PageProps) {
   const { reportData } = useUserReportData();
   const { assets } = useAssets();
 
@@ -50,7 +52,7 @@ export default function P15Scene({ onNext, sceneName }: PageProps) {
     reportData?.thanks_invitation_member_name ?? null;
 
   return (
-    <BaseScene onNext={onNext} sceneName={sceneName}>
+    <BaseScene onNext={onNext} onPrevious={onPrevious} onNavigateToScene={onNavigateToScene} sceneName={sceneName}>
       {/* background */}
       <GlitchLayer>
         <div className='z-0'>

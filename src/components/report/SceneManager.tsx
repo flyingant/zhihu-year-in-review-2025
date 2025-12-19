@@ -35,6 +35,46 @@ const getNextValidSceneId = (
   return nextId;
 };
 
+// Find the previous valid scene from history, checking for skip conditions
+const getPreviousValidSceneId = (
+  history: string[],
+  data: UserReportData | null
+): { sceneId: string; newHistory: string[] } | null => {
+  if (history.length <= 1) return null;
+
+  // Work backwards through history to find a valid scene
+  const newHistory = [...history];
+
+  // Remove current scene from history
+  newHistory.pop();
+
+  // Keep going back until we find a scene that shouldn't be skipped
+  while (newHistory.length > 0) {
+    const candidateSceneId = newHistory[newHistory.length - 1];
+    const sceneConfig = SCENES[candidateSceneId];
+
+    if (!sceneConfig) {
+      // Invalid scene in history, remove it and continue
+      newHistory.pop();
+      continue;
+    }
+
+    if (sceneConfig.shouldSkip?.(data)) {
+      console.warn(
+        `Skipping Scene ${candidateSceneId} in history based on skip condition`
+      );
+      // This scene should be skipped, remove it and continue
+      newHistory.pop();
+      continue;
+    }
+
+    // Found a valid scene
+    return { sceneId: candidateSceneId, newHistory };
+  }
+
+  return null;
+};
+
 /**
  * Audio Player Component
  * Fixed audio play/pause button that appears on all pages
@@ -56,7 +96,7 @@ function AudioPlayer() {
       setIsPlaying(false);
     } else {
       audioRef.current.play().catch((error) => {
-        console.error("Error playing audio:", error);
+        console.error('Error playing audio:', error);
       });
       setIsPlaying(true);
     }
@@ -71,9 +111,9 @@ function AudioPlayer() {
       setIsPlaying(false);
     };
 
-    audio.addEventListener("ended", handleEnded);
+    audio.addEventListener('ended', handleEnded);
     return () => {
-      audio.removeEventListener("ended", handleEnded);
+      audio.removeEventListener('ended', handleEnded);
     };
   }, []);
 
@@ -84,15 +124,16 @@ function AudioPlayer() {
       <audio ref={audioRef} src={audioUrl} loop />
       <button
         onClick={togglePlayPause}
-        className="absolute top-4 right-4 cursor-pointer " style={{ zIndex: 9999 }}
-        aria-label={isPlaying ? "Pause audio" : "Play audio"}
+        className='absolute top-4 right-4 cursor-pointer '
+        style={{ zIndex: 9999 }}
+        aria-label={isPlaying ? 'Pause audio' : 'Play audio'}
       >
         <Image
           src={isPlaying ? iconPlaying.url : iconDisable.url}
           alt={isPlaying ? iconPlaying.alt : iconDisable.alt}
           width={iconDisable.width / 2}
           height={iconDisable.height / 2}
-          className="object-contain"
+          className='object-contain'
         />
       </button>
     </>
@@ -120,6 +161,7 @@ export default function SceneManager() {
   });
 
   // Track navigation history for going back
+  // History contains all visited scenes INCLUDING the current one
   const [sceneHistory, setSceneHistory] = useState<string[]>(() => {
     const initialSceneId = getInitialSceneId();
     return initialSceneId ? [initialSceneId] : ['loading'];
@@ -168,8 +210,8 @@ export default function SceneManager() {
     const finalNextId = getNextValidSceneId(initialNextId, reportData);
 
     if (finalNextId && SCENES[finalNextId]) {
-      // Add current scene to history before navigating
-      setSceneHistory((prev) => [...prev, currentSceneId]);
+      // Add the NEW scene to history (not the current one)
+      setSceneHistory((prev) => [...prev, finalNextId]);
       setInternalSceneId(finalNextId);
       // 埋点逻辑
       console.log(
@@ -180,29 +222,28 @@ export default function SceneManager() {
 
   // 处理返回逻辑
   const handlePrevious = () => {
-    if (sceneHistory.length <= 1) {
-      // Already at the first scene, can't go back
-      console.log('Already at the first scene, cannot go back');
+    const result = getPreviousValidSceneId(sceneHistory, reportData);
+
+    if (!result) {
+      // Already at the first scene or no valid previous scene
+      console.log(
+        'Already at the first scene or no valid previous scene, cannot go back'
+      );
       return;
     }
 
-    // Get the previous scene from history
-    const previousHistory = [...sceneHistory];
-    previousHistory.pop(); // Remove current scene
-    const previousSceneId = previousHistory[previousHistory.length - 1];
+    const { sceneId: previousSceneId, newHistory } = result;
 
-    if (previousSceneId && SCENES[previousSceneId]) {
-      setSceneHistory(previousHistory);
-      setInternalSceneId(previousSceneId);
-      console.log(`Navigating back from ${currentSceneId} to ${previousSceneId}`);
-    }
+    setSceneHistory(newHistory);
+    setInternalSceneId(previousSceneId);
+    console.log(`Navigating back from ${currentSceneId} to ${previousSceneId}`);
   };
 
   // 直接导航到指定场景（用于调试面板等场景）
   const handleNavigateToScene = (sceneId: string) => {
     if (SCENES[sceneId]) {
-      // Add current scene to history before navigating
-      setSceneHistory((prev) => [...prev, currentSceneId]);
+      // Add the NEW scene to history (consistent with handleNext)
+      setSceneHistory((prev) => [...prev, sceneId]);
       setInternalSceneId(sceneId);
       console.log(`Navigating directly to scene: ${sceneId}`);
     }

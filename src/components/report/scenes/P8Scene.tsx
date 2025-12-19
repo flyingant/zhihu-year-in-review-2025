@@ -9,10 +9,12 @@ import GlitchLayer from '@/components/report/effects/GlitchLayer';
 
 interface PageProps {
   onNext?: () => void;
+  onPrevious?: () => void;
+  onNavigateToScene?: (sceneId: string) => void;
   sceneName?: string;
 }
 
-export default function P8Scene({ onNext, sceneName }: PageProps) {
+export default function P8Scene({ onNext, onPrevious, onNavigateToScene, sceneName }: PageProps) {
   const { reportData } = useUserReportData();
 
   const { assets } = useAssets();
@@ -35,7 +37,7 @@ export default function P8Scene({ onNext, sceneName }: PageProps) {
     reportData?.navigator_upvote_content_cnt ?? null;
 
   return (
-    <BaseScene onNext={onNext} sceneName={sceneName}>
+    <BaseScene onNext={onNext} onPrevious={onPrevious} onNavigateToScene={onNavigateToScene} sceneName={sceneName}>
       <GlitchLayer>
         {/* 顺序从上到下 */}
         <Image

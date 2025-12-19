@@ -9,10 +9,12 @@ import GlitchLayer from '@/components/report/effects/GlitchLayer';
 
 interface PageProps {
   onNext?: () => void;
+  onPrevious?: () => void;
+  onNavigateToScene?: (sceneId: string) => void;
   sceneName?: string;
 }
 
-export default function P7Scene({ onNext, sceneName }: PageProps) {
+export default function P7Scene({ onNext, onPrevious, onNavigateToScene, sceneName }: PageProps) {
   const { reportData } = useUserReportData();
   const { assets } = useAssets();
   if (!assets) return null;
@@ -36,7 +38,7 @@ export default function P7Scene({ onNext, sceneName }: PageProps) {
   const editorPickCount = reportData?.recommended_cnt ?? null;
 
   return (
-    <BaseScene onNext={onNext} sceneName={sceneName}>
+    <BaseScene onNext={onNext} onPrevious={onPrevious} onNavigateToScene={onNavigateToScene} sceneName={sceneName}>
       <GlitchLayer>
         <Image
           src={blue1Asset.url}

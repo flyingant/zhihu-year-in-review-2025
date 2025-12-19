@@ -9,10 +9,12 @@ import { truncateText } from '@/utils/common';
 
 interface PageProps {
   onNext?: () => void;
+  onPrevious?: () => void;
+  onNavigateToScene?: (sceneId: string) => void;
   sceneName?: string;
 }
 
-export default function P25Scene({ onNext, sceneName }: PageProps) {
+export default function P25Scene({ onNext, onPrevious, onNavigateToScene, sceneName }: PageProps) {
   const { reportData } = useUserReportData();
   const { assets } = useAssets();
 

@@ -9,10 +9,12 @@ import { truncateText } from '@/utils/common';
 
 interface PageProps {
   onNext?: () => void;
+  onPrevious?: () => void;
+  onNavigateToScene?: (sceneId: string) => void;
   sceneName?: string;
 }
 
-export default function P17Scene({ onNext, sceneName }: PageProps) {
+export default function P17Scene({ onNext, onPrevious, onNavigateToScene, sceneName }: PageProps) {
   const { reportData } = useUserReportData();
   const { assets } = useAssets();
 
@@ -36,7 +38,7 @@ export default function P17Scene({ onNext, sceneName }: PageProps) {
     reportData?.upvote_hot_answer_user_cnt ?? null;
 
   return (
-    <BaseScene onNext={onNext} sceneName={sceneName}>
+    <BaseScene onNext={onNext} onPrevious={onPrevious} onNavigateToScene={onNavigateToScene} sceneName={sceneName}>
       {/* background */}
       <div className='z-0'>
         <Image

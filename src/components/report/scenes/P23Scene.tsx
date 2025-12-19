@@ -8,10 +8,12 @@ import Image from 'next/image';
 
 interface PageProps {
   onNext?: () => void;
+  onPrevious?: () => void;
+  onNavigateToScene?: (sceneId: string) => void;
   sceneName?: string;
 }
 
-export default function P23Scene({ onNext, sceneName }: PageProps) {
+export default function P23Scene({ onNext, onPrevious, onNavigateToScene, sceneName }: PageProps) {
   const { reportData } = useUserReportData();
   const { assets } = useAssets();
 
@@ -31,7 +33,7 @@ export default function P23Scene({ onNext, sceneName }: PageProps) {
   // }
 
   return (
-    <BaseScene onNext={onNext} sceneName={sceneName}>
+    <BaseScene onNext={onNext} onPrevious={onPrevious} onNavigateToScene={onNavigateToScene} sceneName={sceneName}>
       {/* pixel block */}
       <GlitchLayer>
         {/* 顺序从上到下 */}

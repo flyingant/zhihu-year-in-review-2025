@@ -10,6 +10,8 @@ import FlipCounter from '@/components/ui/FlipCounter';
 
 interface PageProps {
   onNext?: () => void;
+  onPrevious?: () => void;
+  onNavigateToScene?: (sceneId: string) => void;
   sceneName?: string;
 }
 
@@ -18,7 +20,7 @@ const formatNumber = (num: number | string | null | undefined) => {
   return Number(num).toLocaleString('en-US');
 };
 
-export default function P10Scene({ onNext, sceneName }: PageProps) {
+export default function P10Scene({ onNext, onPrevious, onNavigateToScene, sceneName }: PageProps) {
   const { reportData } = useUserReportData();
   const { assets } = useAssets();
   if (!assets) return null;
@@ -59,7 +61,7 @@ export default function P10Scene({ onNext, sceneName }: PageProps) {
   const equivalentBooks = calculateEquivalentBooks(wordCount);
 
   return (
-    <BaseScene onNext={onNext} sceneName={sceneName}>
+    <BaseScene onNext={onNext} onPrevious={onPrevious} onNavigateToScene={onNavigateToScene} sceneName={sceneName}>
       <GlitchLayer>
         {/* 顺序从上到下 */}
         <Image

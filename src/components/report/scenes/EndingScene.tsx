@@ -8,7 +8,7 @@ interface PageProps {
   sceneName?: string;
 }
 
-export default function EndingScene({ onNext, sceneName }: PageProps) {
+export default function EndingScene({ onNext, onPrevious, onNavigateToScene, sceneName }: PageProps) {
   const handleChoice = (e: React.MouseEvent, choice: string) => {
     e.stopPropagation();
     if (onNext) {

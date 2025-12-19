@@ -8,10 +8,12 @@ import { useFollow } from '@/hooks/useFollow';
 
 interface PageProps {
   onNext?: () => void;
+  onPrevious?: () => void;
+  onNavigateToScene?: (sceneId: string) => void;
   sceneName?: string;
 }
 
-export default function P16Scene({ onNext, sceneName }: PageProps) {
+export default function P16Scene({ onNext, onPrevious, onNavigateToScene, sceneName }: PageProps) {
   const { reportData } = useUserReportData();
   const { assets } = useAssets();
 
@@ -48,7 +50,7 @@ export default function P16Scene({ onNext, sceneName }: PageProps) {
     reportData?.consume_interest_member_name_top3 ?? null;
 
   return (
-    <BaseScene onNext={onNext} sceneName={sceneName}>
+    <BaseScene onNext={onNext} onPrevious={onPrevious} onNavigateToScene={onNavigateToScene} sceneName={sceneName}>
       {/* background */}
       <GlitchLayer>
         <div className='z-0'>

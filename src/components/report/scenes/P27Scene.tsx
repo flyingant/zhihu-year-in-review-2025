@@ -7,10 +7,12 @@ import { useState, useRef, useEffect } from "react";
 
 interface PageProps {
   onNext?: () => void;
+  onPrevious?: () => void;
+  onNavigateToScene?: (sceneId: string) => void;
   sceneName?: string;
 }
 
-export default function P27Scene({ onNext, sceneName }: PageProps) {
+export default function P27Scene({ onNext, onPrevious, onNavigateToScene, sceneName }: PageProps) {
   const { assets } = useAssets();
   const [isSceneFading, setIsSceneFading] = useState(false);
   const [isButtonClicked, setIsButtonClicked] = useState(false);

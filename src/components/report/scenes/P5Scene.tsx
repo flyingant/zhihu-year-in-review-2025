@@ -9,10 +9,12 @@ import { truncateText } from '@/utils/common';
 
 interface PageProps {
   onNext?: () => void;
+  onPrevious?: () => void;
+  onNavigateToScene?: (sceneId: string) => void;
   sceneName?: string;
 }
 
-export default function P5Scene({ onNext, sceneName }: PageProps) {
+export default function P5Scene({ onNext, onPrevious, onNavigateToScene, sceneName }: PageProps) {
   const { reportData } = useUserReportData();
 
   const { assets } = useAssets();
@@ -45,7 +47,7 @@ export default function P5Scene({ onNext, sceneName }: PageProps) {
   // const discussCount = reportData?.comment_discuss_cnt ?? null; // Not used in JSX, commented out
 
   return (
-    <BaseScene onNext={onNext} sceneName={sceneName}>
+    <BaseScene onNext={onNext} onPrevious={onPrevious} onNavigateToScene={onNavigateToScene} sceneName={sceneName}>
       <GlitchLayer>
         {/* 顺序从上到下 */}
         <Image

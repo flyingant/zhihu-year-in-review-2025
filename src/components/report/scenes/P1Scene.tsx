@@ -11,10 +11,12 @@ import GlitchLayer from "@/components/report/effects/GlitchLayer";
 
 interface PageProps {
   onNext?: () => void;
+  onPrevious?: () => void;
+  onNavigateToScene?: (sceneId: string) => void;
   sceneName?: string;
 }
 
-export default function P1Scene({ onNext, sceneName }: PageProps) {
+export default function P1Scene({ onNext, onPrevious, onNavigateToScene, sceneName }: PageProps) {
   const { assets } = useAssets();
   const { setUserChoice } = useUserReportData();
   const [maskPosition, setMaskPosition] = useState(-75);
@@ -102,7 +104,7 @@ export default function P1Scene({ onNext, sceneName }: PageProps) {
 
   
   return (
-    <BaseScene onNext={onNext} sceneName={sceneName} showBottomNextButton={false}>
+    <BaseScene onNext={onNext} onPrevious={onPrevious} onNavigateToScene={onNavigateToScene} sceneName={sceneName} showBottomNextButton={false}>
       <GlitchLayer className="z-[40]">
         <Image 
           src={mixAsset.url} 

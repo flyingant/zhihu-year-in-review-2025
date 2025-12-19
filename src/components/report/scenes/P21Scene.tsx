@@ -10,10 +10,12 @@ import { submitQuizAnswer } from "@/api/report";
 
 interface PageProps {
   onNext?: () => void;
+  onPrevious?: () => void;
+  onNavigateToScene?: (sceneId: string) => void;
   sceneName?: string;
 }
 
-export default function P21Scene({ onNext, sceneName }: PageProps) {
+export default function P21Scene({ onNext, onPrevious, onNavigateToScene, sceneName }: PageProps) {
   const { assets } = useAssets();
   const { setUserChoice } = useUserReportData();
   const [maskPosition, setMaskPosition] = useState(-21);
@@ -94,7 +96,7 @@ export default function P21Scene({ onNext, sceneName }: PageProps) {
       };
 
   return (
-    <BaseScene onNext={onNext} sceneName={sceneName}>
+    <BaseScene onNext={onNext} onPrevious={onPrevious} onNavigateToScene={onNavigateToScene} sceneName={sceneName}>
       <div
         className="relative w-full h-full overflow-hidden"
       >

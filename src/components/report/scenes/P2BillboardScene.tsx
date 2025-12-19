@@ -10,10 +10,12 @@ import { formatDate, truncateText } from '@/utils/common';
 
 interface PageProps {
   onNext?: () => void;
+  onPrevious?: () => void;
+  onNavigateToScene?: (sceneId: string) => void;
   sceneName?: string;
 }
 
-export default function P2BillboardScene({ onNext, sceneName }: PageProps) {
+export default function P2BillboardScene({ onNext, onPrevious, onNavigateToScene, sceneName }: PageProps) {
   const { assets } = useAssets();
   const { reportData } = useUserReportData();
 
@@ -52,7 +54,7 @@ export default function P2BillboardScene({ onNext, sceneName }: PageProps) {
   );
 
   return (
-    <BaseScene onNext={onNext} sceneName={sceneName}>
+    <BaseScene onNext={onNext} onPrevious={onPrevious} onNavigateToScene={onNavigateToScene} sceneName={sceneName}>
       <GlitchLayer>
         {/* 标题右侧蓝色小块 */}
         {blue1Asset && (

@@ -8,10 +8,17 @@ import GlitchLayer from '@/components/report/effects/GlitchLayer';
 
 interface PageProps {
   onNext?: () => void;
+  onPrevious?: () => void;
+  onNavigateToScene?: (sceneId: string) => void;
   sceneName?: string;
 }
 
-export default function P2Scene({ onNext, sceneName }: PageProps) {
+export default function P2Scene({
+  onNext,
+  onPrevious,
+  onNavigateToScene,
+  sceneName,
+}: PageProps) {
   const { reportData } = useUserReportData();
   const { assets } = useAssets();
 
@@ -40,7 +47,12 @@ export default function P2Scene({ onNext, sceneName }: PageProps) {
   const topDomain = (reportData?.publish_domain_name ?? null) as string | null;
 
   return (
-    <BaseScene onNext={onNext} sceneName={sceneName}>
+    <BaseScene
+      onNext={onNext}
+      onPrevious={onPrevious}
+      onNavigateToScene={onNavigateToScene}
+      sceneName={sceneName}
+    >
       <GlitchLayer>
         {/* 标题右侧蓝色小块 */}
         <Image

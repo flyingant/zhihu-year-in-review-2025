@@ -11,10 +11,12 @@ import { submitQuizAnswer } from '@/api/report';
 
 interface PageProps {
   onNext?: () => void;
+  onPrevious?: () => void;
+  onNavigateToScene?: (sceneId: string) => void;
   sceneName?: string;
 }
 
-export default function P9Scene({ onNext, sceneName }: PageProps) {
+export default function P9Scene({ onNext, onPrevious, onNavigateToScene, sceneName }: PageProps) {
   const { assets } = useAssets();
   const { setUserChoice } = useUserReportData();
   const [maskPosition, setMaskPosition] = useState(-190);
@@ -97,7 +99,7 @@ export default function P9Scene({ onNext, sceneName }: PageProps) {
       };
 
   return (
-    <BaseScene onNext={onNext} sceneName={sceneName}>
+    <BaseScene onNext={onNext} onPrevious={onPrevious} onNavigateToScene={onNavigateToScene} sceneName={sceneName}>
       <GlitchLayer className='z-[40]'>
         <Image
           src={blue1Asset.url}

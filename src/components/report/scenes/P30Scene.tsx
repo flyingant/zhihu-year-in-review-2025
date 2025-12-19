@@ -15,6 +15,8 @@ import { isZhihuApp } from '@/lib/zhihu-detection';
 
 interface PageProps {
   onNext?: () => void;
+  onPrevious?: () => void;
+  onNavigateToScene?: (sceneId: string) => void;
   onNavigateToScene: (sceneName: string) => void;
   sceneName?: string;
 }

@@ -10,10 +10,12 @@ import TimeDonutChart from '@/components/report/effects/TimeDonutChart';
 
 interface PageProps {
   onNext?: () => void;
+  onPrevious?: () => void;
+  onNavigateToScene?: (sceneId: string) => void;
   sceneName?: string;
 }
 
-export default function P12Scene({ onNext, sceneName }: PageProps) {
+export default function P12Scene({ onNext, onPrevious, onNavigateToScene, sceneName }: PageProps) {
   const { reportData } = useUserReportData();
   const { assets } = useAssets();
   if (!assets) return null;
@@ -51,7 +53,7 @@ export default function P12Scene({ onNext, sceneName }: PageProps) {
     null;
 
   return (
-    <BaseScene onNext={onNext} sceneName={sceneName}>
+    <BaseScene onNext={onNext} onPrevious={onPrevious} onNavigateToScene={onNavigateToScene} sceneName={sceneName}>
       <GlitchLayer className='z-0'>
         {/* 顺序从上到下 */}
         <Image

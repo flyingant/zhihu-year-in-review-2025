@@ -21,6 +21,13 @@ export default function ReportPage() {
     };
     if (window.location.href.includes("debugger")) {
       setupVConsole();
+      const testImage = new Image();
+      testImage.src =
+        "https://event-preview.zhihu.com/zhihu2025/report/test-image.jpg"
+      testImage.crossOrigin = "anonymous";
+      testImage.onload = () => {
+        console.log("测试图片加载成功");
+      };
     }
   }, []);
   return (

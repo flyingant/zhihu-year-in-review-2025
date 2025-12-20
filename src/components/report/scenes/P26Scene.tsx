@@ -14,7 +14,12 @@ interface PageProps {
   sceneName?: string;
 }
 
-export default function P26Scene({ onNext, onPrevious, onNavigateToScene, sceneName }: PageProps) {
+export default function P26Scene({
+  onNext,
+  onPrevious,
+  onNavigateToScene,
+  sceneName,
+}: PageProps) {
   const { reportData } = useUserReportData();
   const { assets } = useAssets();
 
@@ -72,7 +77,12 @@ export default function P26Scene({ onNext, onPrevious, onNavigateToScene, sceneN
   const { mix22_4, mix22_5 } = assets.report.bg;
 
   return (
-    <BaseScene onNext={onNext} onPrevious={onPrevious} onNavigateToScene={onNavigateToScene} sceneName={sceneName}>
+    <BaseScene
+      onNext={onNext}
+      onPrevious={onPrevious}
+      onNavigateToScene={onNavigateToScene}
+      sceneName={sceneName}
+    >
       {/* pixel block */}
       <GlitchLayer>
         {/* 顺序从上到下 */}
@@ -151,7 +161,10 @@ export default function P26Scene({ onNext, onPrevious, onNavigateToScene, sceneN
         style={{ fontSize: 14, top: '114px', left: '40px', right: '40px' }}
       >
         <p style={{ fontSize: 22 }}>情节之下，是心意织成的篇章</p>
-        <div ref={scrollContainerRef} className='max-h-[240px] overflow-y-auto'>
+        <div
+          ref={scrollContainerRef}
+          style={{ maxHeight: '240px', overflowY: 'auto' }}
+        >
           {!!writeStoryNumSum && (
             <div className='z-0'>
               <div className='mb-[8px]'>

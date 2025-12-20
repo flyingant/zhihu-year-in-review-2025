@@ -65,6 +65,13 @@ module.exports = {
           '80%': { opacity: '1', transform: 'scale(1.1)' },
           '100%': { opacity: '1', transform: 'scale(1)' },
         },
+        'pop-bubble-vanish': {
+          '0%': { opacity: '0', transform: 'scale(0)' },
+          '40%': { opacity: '1', transform: 'scale(1.1)' },
+          '100%': { opacity: '0', transform: 'scale(0.8)' },
+          // '50%': { opacity: '1', transform: 'scale(1)' },
+          // '100%': { opacity: '0', transform: 'scale(0.8)' },
+        },
         'jump-steps': {
           '0%': { transform: 'translate(-10px, 0)' },
           '20%': { transform: 'translate(0px, -30px)' }, // 第一跳最高点
@@ -138,6 +145,7 @@ module.exports = {
         'pop-sparkle': 'pop-sparkle 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275) 0.2s forwards',
         'jump-steps': 'jump-steps 2s ease-in-out forwards',
         'pop-bubble': 'pop-bubble 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards',
+        'pop-bubble-vanish': 'pop-bubble-vanish 3s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards',
         'slide-in-right': 'slide-in-right-fade 1.5s cubic-bezier(0.16, 1, 0.3, 1) forwards',
         contentShow: 'contentShow 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards',
         overlayShow: 'overlayShow 0.2s ease-out forwards',

@@ -35,6 +35,7 @@ export default function P5Scene({
   const hiAsset = assets.report.p5.hi;
   const yellowMirrorAsset = assets.report.p5.yellowMirror;
   const p5GifAsset = assets.report.p5.gif;
+  const threeDHiAsset = assets.report.p5['3dHi'];
 
   // Map context data to component variables according to P5 spec
   const commentCount = reportData?.publish_comment_cnt ?? null;
@@ -46,6 +47,8 @@ export default function P5Scene({
   const pinCount = reportData?.publish_pin_cnt ?? null;
   const hotPinTitle = truncateText(reportData?.hot_pin_title ?? '', 28);
   const hotPinLikes = reportData?.hot_pin_uv ?? 0; // Not used in JSX, commented out
+  const emojiName = reportData?.emoji_name ?? '';
+  const emojiCount = reportData?.emoji_cnt ?? null;
   // const emojiName = reportData?.emoji_name ?? null; // Not used in JSX, commented out
   // const emojiCount = reportData?.emoji_cnt ?? null; // Not used in JSX, commented out
   // const discussMemberName = reportData?.comment_discuss_member_name ?? null; // Not used in JSX, commented out
@@ -97,7 +100,7 @@ export default function P5Scene({
       <div className='z-1'>
         <Image
           src={yellowMirrorAsset.url}
-          alt={yellowMirrorAsset.alt}
+          alt=''
           width={yellowMirrorAsset.width}
           height={yellowMirrorAsset.height}
           className='object-contain absolute pointer-events-none select-none z-1'
@@ -105,7 +108,7 @@ export default function P5Scene({
         />
         <Image
           src={liukanshanPixelAsset.url}
-          alt={liukanshanPixelAsset.alt}
+          alt=''
           width={liukanshanPixelAsset.width}
           height={liukanshanPixelAsset.height}
           className='object-contain absolute pointer-events-none select-none z-1'
@@ -116,22 +119,34 @@ export default function P5Scene({
           alt={hiAsset.alt}
           width={hiAsset.width}
           height={hiAsset.height}
-          className='opacity-0 animate-pop-bubble object-contain absolute pointer-events-none select-none z-1'
+          className='opacity-0 animate-pop-bubble-vanish object-contain absolute pointer-events-none select-none z-1'
           style={{
             bottom: '203px',
             left: '126px',
-            animationDelay: '1.5s',
+            animationDelay: '.5s',
             transformOrigin: 'bottom left',
           }}
         />
         <Image
           src={p5GifAsset.url}
-          alt={p5GifAsset.alt}
+          alt=''
           width={p5GifAsset.width}
           height={p5GifAsset.height}
           className='object-contain absolute pointer-events-none select-none z-1'
-          style={{ bottom: '53px', right: '28px' }}
-          unoptimized
+          style={{ bottom: '46px', right: '20px' }}
+        />
+        <Image
+          src={threeDHiAsset.url}
+          alt=''
+          width={threeDHiAsset.width}
+          height={threeDHiAsset.height}
+          className='opacity-0 animate-3d-pop object-contain absolute pointer-events-none select-none z-1'
+          style={{
+            bottom: '212px',
+            right: '93px',
+            animationDelay: '2s',
+            transformOrigin: 'bottom center',
+          }}
         />
       </div>
 
@@ -241,6 +256,38 @@ export default function P5Scene({
               次回应
             </div>
           </div>
+        </div>
+
+        <div
+          style={{ marginBottom: '10px' }}
+          hidden={!emojiName || !emojiCount || emojiCount < 2}
+        >
+          <div
+            style={{ marginBottom: '10px' }}
+            className='flex items-center flex-wrap'
+          >
+            你的年度表情是{' '}
+            <Image
+              src={emojiName}
+              alt=''
+              width={50}
+              height={50}
+              style={{ padding: '0 4px' }}
+            />
+            ，共出现了
+            <span
+              className={`text-r-yellow`}
+              style={{
+                paddingLeft: '4px',
+                paddingRight: '4px',
+                fontSize: '18px',
+              }}
+            >
+              {emojiCount}
+            </span>
+            次
+          </div>
+          <div></div>
         </div>
       </div>
     </BaseScene>

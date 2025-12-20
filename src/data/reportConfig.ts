@@ -100,16 +100,16 @@ export const SCENES: Record<string, SceneConfig> = {
   p5: {
     id: "p5",
     component: P5Scene,
-    next: "p5Emoji",
+    next: "p6",
     shouldSkip: (data) => !data?.publish_comment_cnt && !data?.publish_pin_cnt,
   },
-  p5Emoji: {
-    id: "p5Emoji",
-    component: P5EmojiScene,
-    next: "p6",
-    shouldSkip: (data) =>
-      !data?.emoji_name && !data?.comment_discuss_member_name,
-  },
+  // p5Emoji: {
+  //   id: "p5Emoji",
+  //   component: P5EmojiScene,
+  //   next: "p6",
+  //   shouldSkip: (data) =>
+  //     !data?.emoji_name && !data?.comment_discuss_member_name,
+  // },
   p6: {
     id: "p6",
     component: P6Scene,

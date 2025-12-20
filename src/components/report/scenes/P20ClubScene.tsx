@@ -13,7 +13,7 @@ import {
   leaveCircle,
 } from '@/api/report';
 import { useToast } from '@/context/toast-context';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useMemo } from 'react';
 
 interface PageProps {
   onNext?: () => void;
@@ -69,7 +69,12 @@ const ClubInterestItem = ({
   );
 };
 
-export default function P20Scene({ onNext, onPrevious, onNavigateToScene, sceneName }: PageProps) {
+export default function P20Scene({
+  onNext,
+  onPrevious,
+  onNavigateToScene,
+  sceneName,
+}: PageProps) {
   const { reportData } = useUserReportData();
   const { assets } = useAssets();
   const { showToast } = useToast();
@@ -119,35 +124,6 @@ export default function P20Scene({ onNext, onPrevious, onNavigateToScene, sceneN
     }
   }, [clubInterestListId1, clubInterestListId2, clubInterestListId3]);
 
-  if (!assets) return null;
-
-  const { main, gif } = assets.report.p20;
-  const { blue15, blue16, mix15_1, mix16_1, mix20 } = assets.report.bg;
-
-  // Map context data to component variables according to P20 spec (社交圈子用户)
-  // Night Club Publish
-  const nightClubPinTime = reportData?.night_club_pin_time ?? null;
-  const nightClubPinClubName = reportData?.night_club_pin_club_name ?? null;
-  const nightClubPinTitle = reportData?.night_club_pin_title ?? null;
-
-  // Club Friend Count / Expansion
-  const clubFriendCount = reportData?.club_friend_cnt ?? null;
-
-  // Most Interacted Club Members
-  const mostInteractionMemberName1 =
-    reportData?.most_interaction_club_member_name_top1 ?? null;
-  const mostInteractionMemberName2 =
-    reportData?.most_interaction_club_member_name_top2 ?? null;
-  const mostInteractionMemberName3 =
-    reportData?.most_interaction_club_member_name_top3 ?? null;
-
-  const mostInteractionMemberAvatar1 =
-    reportData?.most_interaction_club_member_avatar_top1 ?? null;
-  const mostInteractionMemberAvatar2 =
-    reportData?.most_interaction_club_member_avatar_top2 ?? null;
-  const mostInteractionMemberAvatar3 =
-    reportData?.most_interaction_club_member_avatar_top3 ?? null;
-
   const clubInterestListAvatar1 =
     reportData?.club_interest_list_avatar_top1 ?? null;
   const clubInterestListAvatar2 =
@@ -167,6 +143,54 @@ export default function P20Scene({ onNext, onPrevious, onNavigateToScene, sceneN
     reportData?.club_interest_list_name_top2 ?? null;
   const clubInterestListName3 =
     reportData?.club_interest_list_name_top3 ?? null;
+
+  // Compute active clubs list
+  const activeClubs = useMemo(
+    () =>
+      [clubActiveListName1, clubActiveListName2, clubActiveListName3].filter(
+        Boolean
+      ),
+    [clubActiveListName1, clubActiveListName2, clubActiveListName3]
+  );
+
+  // Compute interest clubs list
+  const interestClubs = useMemo(
+    () =>
+      [
+        {
+          name: clubInterestListName1,
+          avatar: clubInterestListAvatar1,
+          id: clubInterestListId1,
+          key: 'club1',
+          fallbackName: 'club_interest_list_name_top1',
+        },
+        {
+          name: clubInterestListName2,
+          avatar: clubInterestListAvatar2,
+          id: clubInterestListId2,
+          key: 'club2',
+          fallbackName: 'club_interest_list_name_top2',
+        },
+        {
+          name: clubInterestListName3,
+          avatar: clubInterestListAvatar3,
+          id: clubInterestListId3,
+          key: 'club3',
+          fallbackName: 'club_interest_list_name_top3',
+        },
+      ].filter((club) => club.name),
+    [
+      clubInterestListName1,
+      clubInterestListAvatar1,
+      clubInterestListId1,
+      clubInterestListName2,
+      clubInterestListAvatar2,
+      clubInterestListId2,
+      clubInterestListName3,
+      clubInterestListAvatar3,
+      clubInterestListId3,
+    ]
+  );
 
   // Handler for toggling circle membership
   const handleToggleMembership = async (
@@ -214,8 +238,18 @@ export default function P20Scene({ onNext, onPrevious, onNavigateToScene, sceneN
     }
   };
 
+  if (!assets) return null;
+
+  const { main, gif } = assets.report.p20;
+  const { blue15, blue16, mix15_1, mix16_1, mix20 } = assets.report.bg;
+
   return (
-    <BaseScene onNext={onNext} onPrevious={onPrevious} onNavigateToScene={onNavigateToScene} sceneName={sceneName}>
+    <BaseScene
+      onNext={onNext}
+      onPrevious={onPrevious}
+      onNavigateToScene={onNavigateToScene}
+      sceneName={sceneName}
+    >
       {/* background */}
       <GlitchLayer>
         <div className='z-0'>
@@ -311,9 +345,7 @@ export default function P20Scene({ onNext, onPrevious, onNavigateToScene, sceneN
       <div className='z-0 tracking-wide'>
         <div className='spots'>
           {/* Most Favorite Spots */}
-          {(!!clubActiveListName1 ||
-            !!clubActiveListName2 ||
-            !!clubActiveListName3) && (
+          {activeClubs.length > 0 && (
             <div
               className='z-30 absolute'
               style={{
@@ -324,36 +356,18 @@ export default function P20Scene({ onNext, onPrevious, onNavigateToScene, sceneN
                 lineHeight: '24px',
               }}
             >
-              {!!clubActiveListName1 && (
-                <span className='text-r-pink'>
-                  {`「${truncateText(
-                    String(clubActiveListName1 ?? 'club_active_list_name_top1')
-                  )}」`}
-                  ，
+              {activeClubs.map((clubName, index) => (
+                <span key={index} className='text-r-pink'>
+                  {`「${truncateText(String(clubName))}」`}
+                  {index < activeClubs.length - 1 ? '，' : ''}
                 </span>
-              )}
-              {!!clubActiveListName2 && (
-                <span className='text-r-pink'>
-                  {`「${truncateText(
-                    String(clubActiveListName2 ?? 'club_active_list_name_top2')
-                  )}」`}
-                  ，
-                </span>
-              )}
-              {!!clubActiveListName3 && (
-                <span className='text-r-pink'>
-                  {`「${truncateText(
-                    String(clubActiveListName3 ?? 'club_active_list_name_top3')
-                  )}」`}
-                </span>
-              )}
+              ))}
               <span>圈子是你今年最爱的精神据点</span>
             </div>
           )}
+
           {/* Recommended Clubs */}
-          {(!!clubInterestListName1 ||
-            !!clubInterestListName2 ||
-            !!clubInterestListName3) && (
+          {interestClubs.length > 0 && (
             <div
               className='absolute z-30'
               style={{
@@ -364,42 +378,17 @@ export default function P20Scene({ onNext, onPrevious, onNavigateToScene, sceneN
               }}
             >
               <div className='flex flex-col' style={{ gap: '8px' }}>
-                {!!clubInterestListName1 && (
+                {interestClubs.map((club) => (
                   <ClubInterestItem
-                    name={clubInterestListName1}
-                    avatar={clubInterestListAvatar1}
-                    fallbackName='club_interest_list_name_top1'
-                    type={membershipStatus.club1 ? 'joined' : 'join'}
-                    onClick={() =>
-                      handleToggleMembership(clubInterestListId1, 'club1')
-                    }
-                    disabled={loadingStates.club1}
+                    key={club.key}
+                    name={club.name}
+                    avatar={club.avatar}
+                    fallbackName={club.fallbackName}
+                    type={membershipStatus[club.key] ? 'joined' : 'join'}
+                    onClick={() => handleToggleMembership(club.id, club.key)}
+                    disabled={loadingStates[club.key]}
                   />
-                )}
-                {!!clubInterestListName2 && (
-                  <ClubInterestItem
-                    name={clubInterestListName2}
-                    avatar={clubInterestListAvatar2}
-                    fallbackName='club_interest_list_name_top2'
-                    type={membershipStatus.club2 ? 'joined' : 'join'}
-                    onClick={() =>
-                      handleToggleMembership(clubInterestListId2, 'club2')
-                    }
-                    disabled={loadingStates.club2}
-                  />
-                )}
-                {!!clubInterestListName3 && (
-                  <ClubInterestItem
-                    name={clubInterestListName3}
-                    avatar={clubInterestListAvatar3}
-                    fallbackName='club_interest_list_name_top3'
-                    type={membershipStatus.club3 ? 'joined' : 'join'}
-                    onClick={() =>
-                      handleToggleMembership(clubInterestListId3, 'club3')
-                    }
-                    disabled={loadingStates.club3}
-                  />
-                )}
+                ))}
               </div>
               <div className='flex flex-col gap-2' style={{ marginTop: '8px' }}>
                 <span>或许会是你的下一站</span>

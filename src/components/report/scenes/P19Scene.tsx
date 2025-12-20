@@ -207,8 +207,10 @@ export default function P19Scene({
               {String(joinClubCount ?? 'join_club_cnt')}
             </span>
             个圈子 <br />
-            {joinClubPercentage && (
-              <>
+            {
+              <div
+                hidden={!joinClubPercentage || Number(joinClubPercentage) <= 0}
+              >
                 <span className='mt-5'>对同好社交的热情超过了</span>
                 <span
                   className='text-r-green'
@@ -221,8 +223,8 @@ export default function P19Scene({
                   {String(joinClubPercentage ?? 'join_club_percentage')}%
                 </span>
                 的知友
-              </>
-            )}
+              </div>
+            }
           </div>
         )}
         {!!consumeMostClubPv && (
@@ -266,23 +268,25 @@ export default function P19Scene({
                 </span>
                 圈 <br />
               </div>
-              <span hidden={!interactiveMostClubCommentCount}>
+              <span>
                 你留下了
-                <span
-                  className='text-r-green'
-                  style={{ padding: '0 4px', fontSize: 18 }}
-                >
-                  {String(
-                    interactiveMostClubCommentCount ??
-                      'interactive_most_club_comment_cnt'
-                  )}
+                <span hidden={!interactiveMostClubCommentCount}>
+                  <span
+                    className='text-r-green'
+                    style={{ padding: '0 4px', fontSize: 18 }}
+                  >
+                    {String(
+                      interactiveMostClubCommentCount ??
+                        'interactive_most_club_comment_cnt'
+                    )}
+                  </span>
+                  条讨论 <br />
                 </span>
-                条讨论 <br />
               </span>
               {
                 <span hidden={!interactiveMostClubUpvoteCount}>
                   <span
-                    className='text-r-pink pr-[4px]'
+                    className='text-r-pink px-[4px]'
                     style={{ fontSize: 18 }}
                   >
                     {String(

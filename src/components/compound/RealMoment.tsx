@@ -19,10 +19,10 @@ const GESTURE_SPEED_MULTIPLIER = 2; // 手势时的速度倍数
 const VELOCITY_DECAY = 0.95;
 
 // 左右跨度（距离中心点的距离）
-const PATH_SPREAD_FROM_CENTER = 2500;
+const PATH_SPREAD_FROM_CENTER = 2300;
 // 垂直高度配置，网页坐标值是相反的，y越大，位置越靠下
-const PATH_BASE_Y = 2000; // 起点和终点的 Y 坐标 (下落的位置)
-const PATH_PEAK_Y = -1700;  // 中间顶点的 Y 坐标 (拱起的位置)
+const PATH_BASE_Y = 1900; // 起点和终点的 Y 坐标 (下落的位置)
+const PATH_PEAK_Y = -1600;  // 中间顶点的 Y 坐标 (拱起的位置)
 // 定义缓存对象的接口，避免在循环中读取 DOM
 interface CachedItem {
   el: HTMLSpanElement;
@@ -234,8 +234,8 @@ export default function CurveMarquee() {
         const currentPercent = item.baseRowOffset + currentGlobalProgress + (item.charIndex * CHAR_SPACING_PERCENT);
         const finalDistance = wrapPercent(currentPercent);
         
-        // 判断可见性范围 (例如 5% 到 95% 之间可见)
-        const shouldBeVisible = finalDistance > 5 && finalDistance < 95;
+        // 判断可见性范围 
+        const shouldBeVisible = finalDistance > 45 && finalDistance < 55;
 
         // 核心优化: 状态过滤
         // 如果它当前是隐藏的，且计算结果依然是隐藏的，直接跳过，不要碰 DOM

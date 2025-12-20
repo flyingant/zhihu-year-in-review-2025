@@ -20,7 +20,12 @@ type ActiveView = 'topLeft' | 'topRight' | 'bottomLeft' | 'bottomRight' | null;
 
 // Helper function to get random corner (only called in event handlers, not during render)
 const getRandomCorner = (): ActiveView => {
-  const corners: ActiveView[] = ['topLeft', 'topRight', 'bottomLeft', 'bottomRight'];
+  const corners: ActiveView[] = [
+    'topLeft',
+    'topRight',
+    'bottomLeft',
+    'bottomRight',
+  ];
   return corners[Math.floor(Math.random() * corners.length)] as ActiveView;
 };
 
@@ -30,6 +35,7 @@ interface MirrorContentProps {
   month?: string;
   day?: string;
   registerDays?: number;
+  style?: React.CSSProperties;
 }
 
 const MirrorContent = ({
@@ -38,13 +44,28 @@ const MirrorContent = ({
   year,
   month,
   day,
+  style,
 }: MirrorContentProps) => (
   <div
     className='flex flex-col justify-center text-left pointer-events-none select-none w-full h-full'
     style={{ fontSize: '16px' }}
   >
-    <div style={{ fontSize: '22px', paddingBottom: '8px' }}>@{userName}</div>
-    <div>
+    <div
+      style={{
+        fontSize: '22px',
+        paddingBottom: '8px',
+        marginLeft:
+          (typeof style?.marginLeft === 'number' ? style.marginLeft : 0) * 1.5,
+      }}
+    >
+      @{userName}
+    </div>
+    <div
+      style={{
+        marginLeft:
+          (typeof style?.marginLeft === 'number' ? style.marginLeft : 0) * 2.3,
+      }}
+    >
       从
       <span
         className='text-r-pink'
@@ -68,7 +89,12 @@ const MirrorContent = ({
       </span>
       日 开始
     </div>
-    <div>
+    <div
+      style={{
+        marginLeft:
+          (typeof style?.marginLeft === 'number' ? style.marginLeft : 0) * 3,
+      }}
+    >
       我们一起走过了{' '}
       <span className='text-r-yellow' style={{ fontSize: '24px' }}>
         {registerDays}
@@ -304,11 +330,14 @@ export default function IndexScene({ onNext, sceneName }: IndexSceneProps) {
         return {
           container: {
             top: '-30%',
-            left: '35%',
+            left: '40%',
             right: '-20%',
             bottom: '25%',
           },
-          style: { transform: 'rotate(-2deg) skewX(-10deg) skewY(-10deg)' },
+          style: {
+            transform: 'rotate(-8deg) skewX(-12deg) skewY(-10deg)',
+          },
+          textStyle: { marginLeft: -10 },
           zhiLinkPos: { bottom: '13%', left: '40px' },
         };
       case 'bottomLeft':
@@ -604,6 +633,7 @@ export default function IndexScene({ onNext, sceneName }: IndexSceneProps) {
                     month={month}
                     day={day}
                     registerDays={registerDays}
+                    style={getMirrorStyle(activeView).textStyle}
                   />
                 </div>
               </div>

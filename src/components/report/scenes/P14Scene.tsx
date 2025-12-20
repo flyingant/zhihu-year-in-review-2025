@@ -1,8 +1,8 @@
 'use client';
 
 import Image from 'next/image';
-import { useState } from 'react';
-import { motion } from 'framer-motion';
+import { useState, useEffect } from 'react';
+import { motion, useMotionValue, useSpring } from 'framer-motion';
 import { useAssets } from '@/context/assets-context';
 import { useUserReportData } from '@/context/user-report-data-context';
 import BaseScene from './BaseScene';
@@ -17,12 +17,65 @@ interface PageProps {
 }
 
 export default function P14Scene({ onNext, onPrevious, onNavigateToScene, sceneName }: PageProps) {
-  const [maskPosition, setMaskPosition] = useState(460);
   const { assets } = useAssets();
   const { setUserChoice } = useUserReportData();
+  
+  // Use motion value with spring physics for smooth, physics-based animation (vertical)
+  const maskPositionMotion = useMotionValue(200);
+  const maskPositionSpring = useSpring(maskPositionMotion, {
+    stiffness: 50,
+    damping: 15,
+    mass: 1,
+  });
+  
+  const [maskPosition, setMaskPosition] = useState(200);
+
+  // Sync motion value with state for maskPosition updates
+  useEffect(() => {
+    const unsubscribe = maskPositionSpring.on("change", (latest) => {
+      setMaskPosition(Math.round(latest));
+    });
+    return unsubscribe;
+  }, [maskPositionSpring]);
+
+  // Create smooth physics-based shake animation (vertical)
+  useEffect(() => {
+    let isAnimating = true;
+    const startTime = Date.now();
+
+    const createSmoothShakeAnimation = () => {
+      const animate = () => {
+        if (!isAnimating) return;
+
+        const basePosition = 200; // Vertical base position
+        const shakeAmount = 400; // Shake amount
+        
+        // Use smooth sine wave oscillation for predictable, smooth motion
+        const elapsed = (Date.now() - startTime) / 1000; // Time in seconds
+        const frequency = 0.2; // Oscillation frequency (cycles per second) - lower = slower
+        // Map sine wave from [-1, 1] to [0, shakeAmount] so it goes from basePosition to basePosition + shakeAmount
+        const smoothOffset = (Math.sin(elapsed * frequency * Math.PI * 2) + 1) / 2 * shakeAmount;
+        const targetPosition = basePosition + smoothOffset;
+        
+        // Update motion value smoothly
+        maskPositionMotion.set(targetPosition);
+        
+        requestAnimationFrame(animate);
+      };
+
+      animate();
+    };
+
+    createSmoothShakeAnimation();
+
+    return () => {
+      isAnimating = false;
+    };
+  }, [maskPositionMotion]);
 
   const handleRangeChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setMaskPosition(Number(e.target.value));
+    const newValue = Number(e.target.value);
+    maskPositionMotion.set(newValue);
   };
 
   const handleSelect = async (choice: 'A' | 'B') => {
@@ -52,52 +105,6 @@ export default function P14Scene({ onNext, onPrevious, onNavigateToScene, sceneN
   const mix3Asset = reportBg.mix3;
   const mix14Asset = reportBg.mix14;
 
-  const isMaskPastThreshold = maskPosition < 460;
-  const isMaskAboveThreshold = maskPosition > 460;
-  const floatPulse = isMaskPastThreshold
-    ? { scale: [1, 1.06, 1], opacity: 1 }
-    : { scale: 1, opacity: 0 };
-  const floatPulseTransition = isMaskPastThreshold
-    ? {
-        scale: {
-          repeat: Infinity,
-          repeatType: 'reverse' as const,
-          duration: 1.2,
-          ease: 'easeInOut' as const,
-        },
-        opacity: {
-          duration: 0.5,
-          ease: 'easeInOut' as const,
-        },
-      }
-    : {
-        opacity: {
-          duration: 0.5,
-          ease: 'easeInOut' as const,
-        },
-      };
-  const floatPulseB = isMaskAboveThreshold
-    ? { scale: [1, 1.2, 1], opacity: 1 }
-    : { scale: 1, opacity: 0 };
-  const floatPulseTransitionB = isMaskAboveThreshold
-    ? {
-        scale: {
-          repeat: Infinity,
-          repeatType: 'reverse' as const,
-          duration: 1.2,
-          ease: 'easeInOut' as const,
-        },
-        opacity: {
-          duration: 0.5,
-          ease: 'easeInOut' as const,
-        },
-      }
-    : {
-        opacity: {
-          duration: 0.5,
-          ease: 'easeInOut' as const,
-        },
-      };
 
   return (
     <BaseScene onNext={onNext} onPrevious={onPrevious} onNavigateToScene={onNavigateToScene} sceneName={sceneName}>
@@ -155,7 +162,7 @@ export default function P14Scene({ onNext, onPrevious, onNavigateToScene, sceneN
           <br />
           你在回应什么？
         </p>
-        <motion.p
+        <p
           className='absolute z-[70] text-center text-xl text-r-yellow cursor-pointer'
           style={{
             width: '280px',
@@ -163,8 +170,6 @@ export default function P14Scene({ onNext, onPrevious, onNavigateToScene, sceneN
             left: '55px',
             pointerEvents: 'auto',
           }}
-          animate={floatPulse}
-          transition={floatPulseTransition}
           onClick={() => handleSelect('A')}
           role='button'
           tabIndex={0}
@@ -179,8 +184,8 @@ export default function P14Scene({ onNext, onPrevious, onNavigateToScene, sceneN
           >
             A.一种&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;被理解的感觉
           </span>
-        </motion.p>
-        <motion.p
+        </p>
+        <p
           className='absolute z-[70] text-center text-xl text-r-blue cursor-pointer'
           style={{
             width: '180px',
@@ -188,8 +193,6 @@ export default function P14Scene({ onNext, onPrevious, onNavigateToScene, sceneN
             right: '33px',
             pointerEvents: 'auto',
           }}
-          animate={floatPulseB}
-          transition={floatPulseTransitionB}
           onClick={() => handleSelect('B')}
           role='button'
           tabIndex={0}
@@ -204,7 +207,7 @@ export default function P14Scene({ onNext, onPrevious, onNavigateToScene, sceneN
           >
             B.一句说得对的道理
           </span>
-        </motion.p>
+        </p>
 
         <Image
           src={bgAsset.url}
@@ -236,7 +239,7 @@ export default function P14Scene({ onNext, onPrevious, onNavigateToScene, sceneN
             className='w-full h-full pointer-events-none select-none'
           />
         </div>
-        {/* Range input displayed vertically on the right side */}
+        {/* Range input - hidden but kept for animation control (vertical) */}
         <input
           type='range'
           min='0'
@@ -245,7 +248,9 @@ export default function P14Scene({ onNext, onPrevious, onNavigateToScene, sceneN
           onChange={handleRangeChange}
           className='absolute right-4 top-1/2 transform -translate-y-1/2 z-50'
           style={{
-            pointerEvents: 'auto',
+            opacity: 0,
+            pointerEvents: 'none',
+            visibility: 'hidden',
             transform: 'translateY(-50%) rotate(90deg)',
             transformOrigin: 'center',
             width: '60vh',

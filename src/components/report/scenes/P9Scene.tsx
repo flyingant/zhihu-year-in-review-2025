@@ -1,7 +1,7 @@
 'use client';
 
-import { useState } from 'react';
-import { motion } from 'framer-motion';
+import { useState, useEffect } from 'react';
+import { motion, useMotionValue, useSpring } from 'framer-motion';
 import Image from 'next/image';
 import { useAssets } from '@/context/assets-context';
 import { useUserReportData } from '@/context/user-report-data-context';
@@ -19,10 +19,63 @@ interface PageProps {
 export default function P9Scene({ onNext, onPrevious, onNavigateToScene, sceneName }: PageProps) {
   const { assets } = useAssets();
   const { setUserChoice } = useUserReportData();
-  const [maskPosition, setMaskPosition] = useState(-190);
+  
+  // Use motion value with spring physics for smooth, physics-based animation
+  const maskPositionMotion = useMotionValue(-300);
+  const maskPositionSpring = useSpring(maskPositionMotion, {
+    stiffness: 50,
+    damping: 15,
+    mass: 1,
+  });
+  
+  const [maskPosition, setMaskPosition] = useState(-300);
+
+  // Sync motion value with state for maskPosition updates
+  useEffect(() => {
+    const unsubscribe = maskPositionSpring.on("change", (latest) => {
+      setMaskPosition(Math.round(latest));
+    });
+    return unsubscribe;
+  }, [maskPositionSpring]);
+
+  // Create smooth physics-based shake animation
+  useEffect(() => {
+    let isAnimating = true;
+    const startTime = Date.now();
+
+    const createSmoothShakeAnimation = () => {
+      const animate = () => {
+        if (!isAnimating) return;
+
+        const basePosition = -300;
+        const shakeAmount = 200; // Shake amount
+        
+        // Use smooth sine wave oscillation for predictable, smooth motion
+        const elapsed = (Date.now() - startTime) / 1000; // Time in seconds
+        const frequency = 0.2; // Oscillation frequency (cycles per second) - lower = slower
+        // Map sine wave from [-1, 1] to [0, shakeAmount] so it goes from basePosition to basePosition + shakeAmount
+        const smoothOffset = (Math.sin(elapsed * frequency * Math.PI * 2) + 1) / 2 * shakeAmount;
+        const targetPosition = basePosition + smoothOffset;
+        
+        // Update motion value smoothly
+        maskPositionMotion.set(targetPosition);
+        
+        requestAnimationFrame(animate);
+      };
+
+      animate();
+    };
+
+    createSmoothShakeAnimation();
+
+    return () => {
+      isAnimating = false;
+    };
+  }, [maskPositionMotion]);
 
   const handleRangeChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setMaskPosition(Number(e.target.value));
+    const newValue = Number(e.target.value);
+    maskPositionMotion.set(newValue);
   };
 
   const handleSelect = async (choice: 'A' | 'B') => {
@@ -51,52 +104,6 @@ export default function P9Scene({ onNext, onPrevious, onNavigateToScene, sceneNa
   const middleAsset = p9Assets.middle;
   const liukanshanAsset = p9Assets.liukanshan;
 
-  const isMaskPastThreshold = maskPosition < -190;
-  const isMaskAboveThreshold = maskPosition > -190;
-  const floatPulse = isMaskPastThreshold
-    ? { scale: [1, 1.2, 1], opacity: 1 }
-    : { scale: 1, opacity: 0 };
-  const floatPulseTransition = isMaskPastThreshold
-    ? {
-        scale: {
-          repeat: Infinity,
-          repeatType: 'reverse' as const,
-          duration: 1.2,
-          ease: 'easeInOut' as const,
-        },
-        opacity: {
-          duration: 0.5,
-          ease: 'easeInOut' as const,
-        },
-      }
-    : {
-        opacity: {
-          duration: 0.5,
-          ease: 'easeInOut' as const,
-        },
-      };
-  const floatPulseB = isMaskAboveThreshold
-    ? { scale: [1, 1.06, 1], opacity: 1 }
-    : { scale: 1, opacity: 0 };
-  const floatPulseTransitionB = isMaskAboveThreshold
-    ? {
-        scale: {
-          repeat: Infinity,
-          repeatType: 'reverse' as const,
-          duration: 1.2,
-          ease: 'easeInOut' as const,
-        },
-        opacity: {
-          duration: 0.5,
-          ease: 'easeInOut' as const,
-        },
-      }
-    : {
-        opacity: {
-          duration: 0.5,
-          ease: 'easeInOut' as const,
-        },
-      };
 
   return (
     <BaseScene onNext={onNext} onPrevious={onPrevious} onNavigateToScene={onNavigateToScene} sceneName={sceneName}>
@@ -147,7 +154,7 @@ export default function P9Scene({ onNext, onPrevious, onNavigateToScene, sceneNa
           <br />
           哪一份收获更「真」？
         </p>
-        <motion.p
+        <p
           className='absolute z-[70] text-center text-xl text-r-yellow cursor-pointer'
           style={{
             width: '188px',
@@ -155,8 +162,6 @@ export default function P9Scene({ onNext, onPrevious, onNavigateToScene, sceneNa
             left: '22px',
             pointerEvents: 'auto',
           }}
-          animate={floatPulse}
-          transition={floatPulseTransition}
           onClick={() => handleSelect('A')}
           role='button'
           tabIndex={0}
@@ -164,8 +169,8 @@ export default function P9Scene({ onNext, onPrevious, onNavigateToScene, sceneNa
           <span style={{ display: 'inline-block', color: '#2AAE9D' }}>
             A.思考与哲理的启发
           </span>
-        </motion.p>
-        <motion.p
+        </p>
+        <p
           className='absolute z-[70] text-center text-xl text-r-blue cursor-pointer'
           style={{
             width: '185px',
@@ -173,8 +178,6 @@ export default function P9Scene({ onNext, onPrevious, onNavigateToScene, sceneNa
             right: '24px',
             pointerEvents: 'auto',
           }}
-          animate={floatPulseB}
-          transition={floatPulseTransitionB}
           onClick={() => handleSelect('B')}
           role='button'
           tabIndex={0}
@@ -182,7 +185,7 @@ export default function P9Scene({ onNext, onPrevious, onNavigateToScene, sceneNa
           <span style={{ display: 'inline-block', color: '#F47246' }}>
             B.知识与经验的输入
           </span>
-        </motion.p>
+        </p>
 
         {/* Background layer - static */}
         <Image
@@ -225,7 +228,7 @@ export default function P9Scene({ onNext, onPrevious, onNavigateToScene, sceneNa
             className='w-full h-full pointer-events-none select-none'
           />
         </div>
-        {/* Range input displayed at the bottom */}
+        {/* Range input - hidden but kept for animation control */}
         <input
           type='range'
           min='-375'
@@ -233,7 +236,7 @@ export default function P9Scene({ onNext, onPrevious, onNavigateToScene, sceneNa
           value={maskPosition}
           onChange={handleRangeChange}
           className='absolute bottom-16 left-1/2 transform -translate-x-1/2 w-3/4 z-50'
-          style={{ pointerEvents: 'auto' }}
+          style={{ opacity: 0, pointerEvents: 'none', visibility: 'hidden' }}
         />
       </div>
     </BaseScene>

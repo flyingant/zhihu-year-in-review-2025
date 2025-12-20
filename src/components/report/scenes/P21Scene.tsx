@@ -1,11 +1,11 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Image from "next/image";
 import { useAssets } from "@/context/assets-context";
 import { useUserReportData } from '@/context/user-report-data-context';
 import BaseScene from "./BaseScene";
-import { motion } from "framer-motion";
+import { motion, useMotionValue, useSpring } from "framer-motion";
 import { submitQuizAnswer } from "@/api/report";
 
 interface PageProps {
@@ -18,10 +18,63 @@ interface PageProps {
 export default function P21Scene({ onNext, onPrevious, onNavigateToScene, sceneName }: PageProps) {
   const { assets } = useAssets();
   const { setUserChoice } = useUserReportData();
-  const [maskPosition, setMaskPosition] = useState(-21);
+  
+  // Use motion value with spring physics for smooth, physics-based animation
+  const maskPositionMotion = useMotionValue(-100);
+  const maskPositionSpring = useSpring(maskPositionMotion, {
+    stiffness: 50,
+    damping: 15,
+    mass: 1,
+  });
+  
+  const [maskPosition, setMaskPosition] = useState(-100);
+
+  // Sync motion value with state for maskPosition updates
+  useEffect(() => {
+    const unsubscribe = maskPositionSpring.on("change", (latest) => {
+      setMaskPosition(Math.round(latest));
+    });
+    return unsubscribe;
+  }, [maskPositionSpring]);
+
+  // Create smooth physics-based shake animation
+  useEffect(() => {
+    let isAnimating = true;
+    const startTime = Date.now();
+
+    const createSmoothShakeAnimation = () => {
+      const animate = () => {
+        if (!isAnimating) return;
+
+        const basePosition = -100;
+        const shakeAmount = 350; // Shake amount
+        
+        // Use smooth sine wave oscillation for predictable, smooth motion
+        const elapsed = (Date.now() - startTime) / 1000; // Time in seconds
+        const frequency = 0.2; // Oscillation frequency (cycles per second) - lower = slower
+        // Map sine wave from [-1, 1] to [0, shakeAmount] so it goes from basePosition to basePosition + shakeAmount
+        const smoothOffset = (Math.sin(elapsed * frequency * Math.PI * 2) + 1) / 2 * shakeAmount;
+        const targetPosition = basePosition + smoothOffset;
+        
+        // Update motion value smoothly
+        maskPositionMotion.set(targetPosition);
+        
+        requestAnimationFrame(animate);
+      };
+
+      animate();
+    };
+
+    createSmoothShakeAnimation();
+
+    return () => {
+      isAnimating = false;
+    };
+  }, [maskPositionMotion]);
 
   const handleRangeChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setMaskPosition(Number(e.target.value));
+    const newValue = Number(e.target.value);
+    maskPositionMotion.set(newValue);
   };
 
   const handleSelect = async (choice: "A" | "B") => {
@@ -48,52 +101,6 @@ export default function P21Scene({ onNext, onPrevious, onNavigateToScene, sceneN
   const liukanshanAsset = p21Assets.liukanshan;
   const { mix21_1, mix21_2, mix21_3, mix21_4 } = assets.report.bg;
 
-  const isMaskPastThreshold = maskPosition < -20;
-  const isMaskAboveThreshold = maskPosition > 0;
-  const floatPulse = isMaskPastThreshold
-    ? { scale: [1, 1.2, 1], opacity: 1 }
-    : { scale: 1, opacity: 0 };
-  const floatPulseTransition = isMaskPastThreshold
-    ? {
-        scale: {
-          repeat: Infinity,
-          repeatType: "reverse" as const,
-          duration: 1.2,
-          ease: "easeInOut" as const,
-        },
-        opacity: {
-          duration: 0.5,
-          ease: "easeInOut" as const,
-        },
-      }
-    : {
-        opacity: {
-          duration: 0.5,
-          ease: "easeInOut" as const,
-        },
-      };
-  const floatPulseB = isMaskAboveThreshold
-    ? { scale: [1, 1.06, 1], opacity: 1 }
-    : { scale: 1, opacity: 0 };
-  const floatPulseTransitionB = isMaskAboveThreshold
-    ? {
-        scale: {
-          repeat: Infinity,
-          repeatType: "reverse" as const,
-          duration: 1.2,
-          ease: "easeInOut" as const,
-        },
-        opacity: {
-          duration: 0.5,
-          ease: "easeInOut" as const,
-        },
-      }
-    : {
-        opacity: {
-          duration: 0.5,
-          ease: "easeInOut" as const,
-        },
-      };
 
   return (
     <BaseScene onNext={onNext} onPrevious={onPrevious} onNavigateToScene={onNavigateToScene} sceneName={sceneName}>
@@ -176,7 +183,7 @@ export default function P21Scene({ onNext, onPrevious, onNavigateToScene, sceneN
             className="w-full h-full pointer-events-none select-none"
           />
         </div>
-        {/* Range input displayed at the bottom */}
+        {/* Range input - hidden but kept for animation control */}
         <input
           type="range"
           min="-300"
@@ -184,14 +191,12 @@ export default function P21Scene({ onNext, onPrevious, onNavigateToScene, sceneN
           value={maskPosition}
           onChange={handleRangeChange}
           className="absolute bottom-16 left-1/2 transform -translate-x-1/2 w-3/4 z-30"
-          style={{ pointerEvents: "auto" }}
+          style={{ opacity: 0, pointerEvents: "none", visibility: "hidden" }}
         />
         {/* Options */}
-        <motion.p
+        <p
           className="absolute z-[70] text-xl cursor-pointer"
           style={{ top: "625px", left: "23px", pointerEvents: 'auto' }}
-          animate={floatPulse}
-          transition={floatPulseTransition}
           onClick={() => handleSelect("A")}
           role="button"
           tabIndex={0}
@@ -200,12 +205,10 @@ export default function P21Scene({ onNext, onPrevious, onNavigateToScene, sceneN
             A. 寻着光探索未知
           </span>
           
-        </motion.p>
-        <motion.p
+        </p>
+        <p
           className="absolute z-[70] text-xl cursor-pointer"
           style={{ top: "286px", left: "230px", pointerEvents: 'auto' }}
-          animate={floatPulseB}
-          transition={floatPulseTransitionB}
           onClick={() => handleSelect("B")}
           role="button"
           tabIndex={0}
@@ -213,7 +216,7 @@ export default function P21Scene({ onNext, onPrevious, onNavigateToScene, sceneN
           <span style={{ display: 'inline-block', width: '84px', color: '#2F8C07' }}>
             B. 跟着图奔向目标
           </span>
-        </motion.p>
+        </p>
         {/* content **/}
         <div className="z-0">
           <div

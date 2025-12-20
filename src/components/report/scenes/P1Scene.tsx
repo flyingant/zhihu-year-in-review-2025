@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { motion, useMotionValue, useSpring } from "framer-motion";
+import { useMotionValue, useSpring } from "framer-motion";
 import Image from "next/image";
 import { useAssets } from '@/context/assets-context';
 import { useUserReportData } from '@/context/user-report-data-context';
@@ -48,12 +48,14 @@ export default function P1Scene({ onNext, onPrevious, onNavigateToScene, sceneNa
         if (!isAnimating) return;
 
         const basePosition = -300;
-        const shakeAmount = 75; // Offset: how much to shake from base position
+        const shakeAmount = 200; // Shake amount
         
         // Use smooth sine wave oscillation for predictable, smooth motion
         const elapsed = (Date.now() - startTime) / 1000; // Time in seconds
         const frequency = 0.2; // Oscillation frequency (cycles per second) - lower = slower
-        const smoothOffset = Math.sin(elapsed * frequency * Math.PI * 2) * shakeAmount;
+        // Oscillate from middle (-300) upward with shakeAmount range
+        // Map sine wave from [-1, 1] to [0, shakeAmount] so it goes from basePosition to basePosition + shakeAmount
+        const smoothOffset = (Math.sin(elapsed * frequency * Math.PI * 2) + 1) / 2 * shakeAmount;
         const targetPosition = basePosition + smoothOffset;
         
         // Update motion value smoothly
@@ -107,34 +109,6 @@ export default function P1Scene({ onNext, onPrevious, onNavigateToScene, sceneNa
   const middleAsset = p1Assets.middle;
   const liukanshanReadingAsset = p1Assets.liukanshanReading;
 
-  const isMaskPastThreshold = maskPosition < -300;
-  const isMaskAboveThreshold = maskPosition > -300;
-  const floatPulse = isMaskPastThreshold
-    ? { scale: [1, 1.2, 1] }
-    : { scale: 1 };
-  const floatPulseTransition = isMaskPastThreshold
-    ? {
-        scale: {
-          repeat: Infinity,
-          repeatType: "reverse" as const,
-          duration: 1.2,
-          ease: "easeInOut" as const,
-        },
-      }
-    : {};
-  const floatPulseB = isMaskAboveThreshold
-    ? { scale: [1, 1.06, 1] }
-    : { scale: 1 };
-  const floatPulseTransitionB = isMaskAboveThreshold
-    ? {
-        scale: {
-          repeat: Infinity,
-          repeatType: "reverse" as const,
-          duration: 1.2,
-          ease: "easeInOut" as const,
-        },
-      }
-    : {};
 
   
   return (
@@ -183,11 +157,9 @@ export default function P1Scene({ onNext, onPrevious, onNavigateToScene, sceneNa
       </GlitchLayer>
       <div className="relative w-full h-full overflow-hidden">
         <p className="absolute z-30 text-center text-xl w-full" style={{ top: '106px' }}>这一年，<br/>是什么在驱动你的创作？</p>
-        <motion.p 
+        <p 
           className="absolute z-[70] text-center text-xl text-r-yellow cursor-pointer" 
           style={{ width: '188px', top: '229px', left: '22px', pointerEvents: 'auto' }}
-          animate={floatPulse}
-          transition={floatPulseTransition}
           onClick={() => handleSelect("A")}
           role="button"
           tabIndex={0}
@@ -195,12 +167,10 @@ export default function P1Scene({ onNext, onPrevious, onNavigateToScene, sceneNa
           <span style={{ display: 'inline-block', transform: 'rotate(14deg) skewX(10deg) skewY(10deg)', transformStyle: 'preserve-3d' }}>
             A.来自世界的目光和他人交流
           </span>
-        </motion.p>
-        <motion.p 
+        </p>
+        <p 
           className="absolute z-[70] text-center text-xl text-r-blue cursor-pointer" 
           style={{ width: '163px', bottom: '89px', right: '33px', pointerEvents: 'auto' }}
-          animate={floatPulseB}
-          transition={floatPulseTransitionB}
           onClick={() => handleSelect("B")}
           role="button"
           tabIndex={0}
@@ -208,7 +178,7 @@ export default function P1Scene({ onNext, onPrevious, onNavigateToScene, sceneNa
           <span style={{ display: 'inline-block', transform: 'rotate(-25deg) skewX(15deg) skewY(15deg)', transformStyle: 'preserve-3d' }}>
             B.来自内心的回声与自己对话
           </span>
-        </motion.p>
+        </p>
          {/* Background layer - static */}
         <Image 
           src={bgAsset.url} 
@@ -247,7 +217,7 @@ export default function P1Scene({ onNext, onPrevious, onNavigateToScene, sceneNa
             className="w-full h-full pointer-events-none select-none" 
           />
         </div>
-        {/* Range input displayed at the top */}
+        {/* Range input - hidden but kept for animation control */}
         <input
           type="range"
           min="-600"
@@ -255,7 +225,7 @@ export default function P1Scene({ onNext, onPrevious, onNavigateToScene, sceneNa
           value={maskPosition}
           onChange={handleRangeChange}
           className="absolute bottom-16 left-1/2 transform -translate-x-1/2 w-3/4 z-[60]"
-          style={{ pointerEvents: 'auto' }}
+          style={{ opacity: 0, pointerEvents: 'none', visibility: 'hidden' }}
         />
       </div>
     </BaseScene>

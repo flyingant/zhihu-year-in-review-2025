@@ -473,7 +473,7 @@ const VoteTenQuestions = () => {
         className="relative z-10 w-full h-auto object-contain pr-[20px] pb-[13px]"
         priority
       />
-      <div className="w-full overflow-x-auto hide-scrollbar mb-2 px-[16px]">
+      <div className="w-full overflow-x-auto overflow-y-hidden touch-pan-x hide-scrollbar mb-2 px-[16px]">
         <div className="flex flex-col gap-y-3 w-max">
           <div className="flex flex-nowrap items-center">
             {topRowTopics.map(renderTab)}

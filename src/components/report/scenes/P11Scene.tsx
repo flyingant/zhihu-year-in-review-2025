@@ -99,7 +99,7 @@ export default function P11Scene({ onNext, onPrevious, onNavigateToScene, sceneN
       {/* 浏览最多的领域 */}
       <div
         className='flex items-center justify-center relative'
-        style={{ paddingBottom: '30px', fontSize: '14px' }}
+        style={{ paddingBottom: '30px', fontSize: '16px' }}
       >
         {/* 1. 文件夹背景大图 */}
         <div className='relative'>
@@ -187,7 +187,7 @@ export default function P11Scene({ onNext, onPrevious, onNavigateToScene, sceneN
               style={{
                 paddingLeft: '4px',
                 paddingRight: '4px',
-                fontSize: '14px',
+                fontSize: '16px',
               }}
             >
               {categoryHours} 小时
@@ -216,7 +216,7 @@ export default function P11Scene({ onNext, onPrevious, onNavigateToScene, sceneN
               padding: '0 10px',
               transform: 'translateX(-50%)',
               zIndex: 100,
-              fontSize: '14px',
+              fontSize: '16px',
               lineHeight: '1.1',
             }}
           >

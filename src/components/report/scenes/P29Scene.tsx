@@ -368,7 +368,7 @@ export default function P29Scene({ onNext, sceneName }: PageProps) {
         <div
           className='absolute z-0 leading-relaxed text-center'
           style={{
-            fontSize: 14,
+            fontSize: 16,
             top: '50%',
             left: '50%',
             transform: 'translate(-50%, -50%)',
@@ -521,7 +521,7 @@ export default function P29Scene({ onNext, sceneName }: PageProps) {
           </div>
           <span
             className='text-[#000] font-normal'
-            style={{ fontSize: '14px' }}
+            style={{ fontSize: '16px' }}
           >
             同步至想法
           </span>

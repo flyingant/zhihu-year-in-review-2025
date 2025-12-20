@@ -90,7 +90,7 @@ export default function P13Scene({ onNext, onPrevious, onNavigateToScene, sceneN
           paddingLeft: '34px',
           paddingRight: '34px',
           paddingTop: '120px',
-          fontSize: '14px',
+          fontSize: '16px',
         }}
       >
         <div style={{ fontSize: '20px' }}>

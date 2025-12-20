@@ -52,7 +52,7 @@ const MovieLikeItem = ({
       />
       <div
         className='w-full whitespace-normal'
-        style={{ fontSize: 13, marginTop: 12 }}
+        style={{ fontSize: 14, marginTop: 12 }}
       >
         <span>《{String(name ?? fallbackName)}》</span>
         <br />
@@ -198,7 +198,7 @@ export default function P24Scene({ onNext, onPrevious, onNavigateToScene, sceneN
         <div
           className='absolute z-0 w-full tracking-wide'
           style={{
-            fontSize: 13,
+            fontSize: 14,
             top: 125,
             left: '50%',
             transform: 'translateX(-50%)',
@@ -229,7 +229,7 @@ export default function P24Scene({ onNext, onPrevious, onNavigateToScene, sceneN
       )}
       {/* top films */}
       {(
-          <div className='z-0 w-full tracking-wide' style={{ fontSize: 13 }}>
+          <div className='z-0 w-full tracking-wide' style={{ fontSize: 14 }}>
             {movieLikeList.map(
               (item, index) =>
                 item.name && (

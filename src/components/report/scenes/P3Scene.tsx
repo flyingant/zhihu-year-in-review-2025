@@ -159,7 +159,7 @@ export default function P3Scene({
           paddingLeft: '34px',
           paddingRight: '34px',
           paddingTop: '120px',
-          fontSize: '14px',
+          fontSize: '16px',
         }}
       >
         <div style={{ fontSize: '22px' }}>你的答案，让混沌变得清晰</div>
@@ -245,7 +245,7 @@ export default function P3Scene({
           还记得吗？
           <span
             className={`text-r-green`}
-            style={{ paddingLeft: '4px', fontSize: '14px' }}
+            style={{ paddingLeft: '4px', fontSize: '16px' }}
           >
             &nbsp;
             <span style={{ fontSize: '18px' }}>{firstAnswerMonth}</span>月

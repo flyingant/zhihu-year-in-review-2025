@@ -193,11 +193,11 @@ export default function P19Scene({
       </div>
 
       {/* content */}
-      <div className='z-0 tracking-wide' style={{ fontSize: '14px' }}>
+      <div className='z-0 tracking-wide' style={{ fontSize: '16px' }}>
         {!!joinClubCount && (
           <div
             className='absolute'
-            style={{ fontSize: '14px', top: '184px', left: '36px' }}
+            style={{ fontSize: '16px', top: '184px', left: '36px' }}
           >
             <span className='pr-[2px]' style={{ fontSize: '18px' }}>
               2025

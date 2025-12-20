@@ -195,7 +195,7 @@ export default function P17Scene({ onNext, onPrevious, onNavigateToScene, sceneN
       {/* content */}
       <div
         className='absolute z-0 tracking-wide'
-        style={{ fontSize: 14, top: '223px', left: '35px', right: '37px' }}
+        style={{ fontSize: 16, top: '223px', left: '35px', right: '37px' }}
       >
         {!!followQuestionFriend && followQuestionFriend >= 2 && (
           <div className=''>
@@ -223,7 +223,7 @@ export default function P17Scene({ onNext, onPrevious, onNavigateToScene, sceneN
         )}
         {!!upvoteHotAnswerUserCount && upvoteHotAnswerUserCount >= 10 && (
           <div className='z-0'>
-            <div style={{ fontSize: 14, marginBottom: '2px' }}>
+            <div style={{ fontSize: 16, marginBottom: '2px' }}>
               你赞同了
               <span
                 className={`text-r-yellow px-[4px]`}
@@ -247,13 +247,13 @@ export default function P17Scene({ onNext, onPrevious, onNavigateToScene, sceneN
                 </span>
                 <span
                   className={`px-[2px]`}
-                  style={{ fontSize: 13, lineHeight: '34px' }}
+                  style={{ fontSize: 14, lineHeight: '34px' }}
                 >
                   问题下的回答
                 </span>
               </p>
             </div>
-            <div style={{ fontSize: 13 }} hidden={!upvoteHotAnswerUserCount}>
+            <div style={{ fontSize: 14 }} hidden={!upvoteHotAnswerUserCount}>
               <span
                 className={`text-r-purple pr-[4px]`}
                 style={{ fontSize: 24 }}

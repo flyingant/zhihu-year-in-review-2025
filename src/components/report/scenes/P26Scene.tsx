@@ -158,7 +158,7 @@ export default function P26Scene({
       {/* content */}
       <div
         className='absolute z-0 leading-relaxed'
-        style={{ fontSize: 14, top: '114px', left: '40px', right: '40px' }}
+        style={{ fontSize: 16, top: '114px', left: '40px', right: '40px' }}
       >
         <p style={{ fontSize: 22 }}>情节之下，是心意织成的篇章</p>
         <div

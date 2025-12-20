@@ -135,7 +135,7 @@ export default function P22Scene({
         />
       </div>
       {/* content */}
-      <div className='z-0 relative tracking-wide' style={{ fontSize: 14 }}>
+      <div className='z-0 relative tracking-wide' style={{ fontSize: 16 }}>
         <div
           className='absolute leading-loose'
           style={{ fontSize: 22, top: '116px', left: '41px' }}
@@ -147,7 +147,7 @@ export default function P22Scene({
         {/* Billboard browsing */}
         <div
           className='absolute'
-          style={{ top: '214px', left: '41px', right: '20px', fontSize: 14 }}
+          style={{ top: '214px', left: '41px', right: '20px', fontSize: 16 }}
         >
           <p hidden={!consumeBillboardDays || consumeBillboardDays < 5}>
             今年，你驻扎热榜

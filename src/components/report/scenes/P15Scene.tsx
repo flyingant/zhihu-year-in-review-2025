@@ -146,7 +146,7 @@ export default function P15Scene({ onNext, onPrevious, onNavigateToScene, sceneN
       {/* content */}
       <div
         className='z-0 tracking-wide'
-        style={{ fontSize: 13, paddingTop: '113px' }}
+        style={{ fontSize: 14, paddingTop: '113px' }}
       >
         <span
           className={'text-xl absolute leading-relaxed'}
@@ -220,7 +220,7 @@ export default function P15Scene({ onNext, onPrevious, onNavigateToScene, sceneN
         {!!thanksInvitationMemberName && (
           <div
             className='absolute'
-            style={{ fontSize: 13, top: '566px', left: '114px', right: '20px' }}
+            style={{ fontSize: 14, top: '566px', left: '114px', right: '20px' }}
           >
             <div
               className='text-r-green wrap-break-word'

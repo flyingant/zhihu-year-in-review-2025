@@ -106,7 +106,7 @@ export default function P27Scene({ onNext, sceneName }: PageProps) {
         <div
           className='absolute z-[110] leading-relaxed w-full'
           style={{
-            fontSize: 14,
+            fontSize: 16,
             top: '114px',
             left: '50%',
             transform: 'translateX(-50%)',

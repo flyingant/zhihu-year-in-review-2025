@@ -236,7 +236,7 @@ export default function P20Scene({ onNext, onPrevious, onNavigateToScene, sceneN
           <div
             className='absolute'
             style={{
-              fontSize: '14px',
+              fontSize: '16px',
               top: '150px',
               left: '34px',
               right: '19px',
@@ -267,7 +267,7 @@ export default function P20Scene({ onNext, onPrevious, onNavigateToScene, sceneN
                 !mostInteractionMemberName3
               }
               style={{
-                fontSize: 14,
+                fontSize: 16,
                 top: '578px',
                 left: '34px',
                 right: '34px',

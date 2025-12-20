@@ -157,7 +157,7 @@ export default function P18Scene({ onNext, onPrevious, onNavigateToScene, sceneN
         />
       </div>
       {/* content */}
-      <div className='z-0 tracking-wide' style={{ fontSize: 14 }}>
+      <div className='z-0 tracking-wide' style={{ fontSize: 16 }}>
         <div
           className={'text-xl leading-relaxed absolute'}
           style={{ left: '30px', top: '121px' }}

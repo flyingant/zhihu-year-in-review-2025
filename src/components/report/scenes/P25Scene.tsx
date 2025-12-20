@@ -191,7 +191,7 @@ export default function P25Scene({ onNext, onPrevious, sceneName }: PageProps) {
         </div>
 
         {/* Top Books */}
-        <div className='z-0' style={{ fontSize: 13 }}>
+        <div className='z-0' style={{ fontSize: 14 }}>
           <div
             style={{
               position: 'absolute',
@@ -238,7 +238,7 @@ export default function P25Scene({ onNext, onPrevious, sceneName }: PageProps) {
         <div
           className='absolute text-start'
           style={{
-            fontSize: '14px',
+            fontSize: '16px',
             top: '657px',
             left: '40px',
             right: '77px',

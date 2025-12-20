@@ -41,7 +41,7 @@ const MirrorContent = ({
 }: MirrorContentProps) => (
   <div
     className='flex flex-col justify-center text-left pointer-events-none select-none w-full h-full'
-    style={{ fontSize: '14px' }}
+    style={{ fontSize: '16px' }}
   >
     <div style={{ fontSize: '22px', paddingBottom: '8px' }}>@{userName}</div>
     <div>

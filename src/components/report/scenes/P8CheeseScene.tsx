@@ -62,7 +62,7 @@ export default function P8CheeseScene({ onNext, onPrevious, onNavigateToScene, s
           paddingLeft: '34px',
           paddingRight: '34px',
           paddingTop: '120px',
-          fontSize: '14px',
+          fontSize: '16px',
         }}
       >
         {!!cheeseAwards && (

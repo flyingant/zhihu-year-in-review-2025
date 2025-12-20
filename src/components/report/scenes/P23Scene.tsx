@@ -91,7 +91,7 @@ export default function P23Scene({ onNext, onPrevious, onNavigateToScene, sceneN
         />
       </div>
       {/* content */}
-      <div className='z-0 tracking-wide' style={{ fontSize: 13 }}>
+      <div className='z-0 tracking-wide' style={{ fontSize: 14 }}>
         <div
           className='leading-relaxed absolute'
           style={{ fontSize: 22, top: '116px', left: '41px' }}

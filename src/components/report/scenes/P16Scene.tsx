@@ -132,7 +132,7 @@ export default function P16Scene({ onNext, onPrevious, onNavigateToScene, sceneN
         style={{
           position: 'absolute',
           zIndex: 0,
-          fontSize: 14,
+          fontSize: 16,
           top: '371px',
           left: '35px',
         }}
@@ -162,7 +162,7 @@ export default function P16Scene({ onNext, onPrevious, onNavigateToScene, sceneN
             你最常停在
             <span
               className={`text-r-yellow`}
-              style={{ fontSize: 14, paddingLeft: '4px', paddingRight: '4px' }}
+              style={{ fontSize: 16, paddingLeft: '4px', paddingRight: '4px' }}
             >
               @{String(consumeMemberName ?? 'consume_member_name')}
             </span>
@@ -189,7 +189,7 @@ export default function P16Scene({ onNext, onPrevious, onNavigateToScene, sceneN
                 <span
                   className={`text-r-yellow`}
                   style={{
-                    fontSize: 14,
+                    fontSize: 16,
                     paddingLeft: '4px',
                     paddingRight: '4px',
                   }}
@@ -202,7 +202,7 @@ export default function P16Scene({ onNext, onPrevious, onNavigateToScene, sceneN
         )}
 
         <div
-          style={{ fontSize: 14 }}
+          style={{ fontSize: 16 }}
           hidden={
             !interestMemberName1 && !interestMemberName2 && !interestMemberName3
           }

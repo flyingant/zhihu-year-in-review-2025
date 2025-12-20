@@ -38,6 +38,15 @@ export default function P29Scene({ onNext, sceneName }: PageProps) {
   const { showToast } = useToast();
   const isMobile = useMobile();
 
+  const {
+    iconShare,
+    iconSave,
+    ctaTextSave,
+    ctaTextShare,
+    ctaTextSync,
+    ctaTextGuess,
+  } = assets?.report.p29;
+
   useEffect(() => {
     trackPageShow({ page: { page_id: '60864' } });
   }, []);
@@ -262,7 +271,9 @@ export default function P29Scene({ onNext, sceneName }: PageProps) {
       // 在知乎 App 内，使用 zhihuHybrid SDK 分享
       if (isHybridAvailable && window.zhihuHybrid) {
         try {
-          const shareHeadImg = process.env.NEXT_PUBLIC_CDN_BASE_URL + 'assets/share-head-img-new.png'
+          const shareHeadImg =
+            process.env.NEXT_PUBLIC_CDN_BASE_URL +
+            'assets/share-head-img-new.png';
           const setShareInfoAction = (window.zhihuHybrid as ZhihuHybridNewAPI)(
             'share/setShareInfo'
           );
@@ -296,10 +307,10 @@ export default function P29Scene({ onNext, sceneName }: PageProps) {
               imageURL: shareHeadImg,
             },
             PosterShare: {
-              imageURL:summaryPoster.poster_url,
+              imageURL: summaryPoster.poster_url,
               pinContent: JSON.stringify(`<p>知乎｜2025 个人年度报告</p>`),
-            }
-          })
+            },
+          });
 
           const showActionSheetAction = (
             window.zhihuHybrid as ZhihuHybridNewAPI
@@ -386,44 +397,55 @@ export default function P29Scene({ onNext, sceneName }: PageProps) {
           paddingTop: 0,
         }}
       >
-        {/* Save and Share buttons */}
-        <div className='flex gap-3'>
-          {/* Save button */}
-          {isZhihuApp() && (
-            <button
-              onClick={handleSave}
-              className='flex items-center justify-center gap-2 bg-white rounded-full shadow-lg text-center'
-              style={{ width: '160px', height: '34px' }}
-            >
-              <svg
-                width='18'
-                height='18'
-                viewBox='0 0 24 24'
-                fill='none'
-                xmlns='http://www.w3.org/2000/svg'
-              >
-                <path
-                  d='M12 16V4M12 16L8 12M12 16L16 12'
-                  stroke='#000'
-                  strokeWidth='2'
-                  strokeLinecap='round'
-                  strokeLinejoin='round'
-                />
-                <path
-                  d='M4 20H20'
-                  stroke='#000'
-                  strokeWidth='2'
-                  strokeLinecap='round'
-                />
-              </svg>
-              <span
-                className='font-medium text-[#000]'
-                style={{ fontSize: '18px' }}
-              >
-                保存「源文件」
-              </span>
-            </button>
+        {/* Friend Interaction button */}
+        <button
+          onClick={handleFriendInteraction}
+          className='flex items-center justify-center gap-2 bg-[#000] rounded-full text-center'
+          style={{ width: '330px', height: '43px' }}
+        >
+          {assets.report.p29?.iconFriend && (
+            <Image
+              src={assets.report.p29.iconFriend.url}
+              alt={assets.report.p29.iconFriend.alt}
+              width={assets.report.p29.iconFriend.width / 2}
+              height={assets.report.p29.iconFriend.height / 2}
+              className='object-contain'
+            />
           )}
+          <Image
+            src={ctaTextGuess.url}
+            alt={ctaTextGuess.alt}
+            width={ctaTextGuess.width}
+            height={ctaTextGuess.height}
+            className='object-contain  pointer-events-none select-none z-0'
+          />
+        </button>
+        {/* Save and Share buttons */}
+        <div
+          className='flex gap-3'
+          style={{ marginTop: '11px', marginBottom: '4px' }}
+        >
+          {/* Save button */}
+          <button
+            onClick={handleSave}
+            className='flex items-center justify-center gap-2 bg-white rounded-full shadow-lg text-center'
+            style={{ width: '160px', height: '34px' }}
+          >
+            <Image
+              src={iconSave.url}
+              alt={iconSave.alt}
+              width={iconSave.width}
+              height={iconSave.height}
+              className='object-contain  pointer-events-none select-none z-0'
+            />
+            <Image
+              src={ctaTextSave.url}
+              alt={ctaTextSave.alt}
+              width={ctaTextSave.width}
+              height={ctaTextSave.height}
+              className='object-contain  pointer-events-none select-none z-0'
+            />
+          </button>
 
           {/* Share button */}
           <button
@@ -431,58 +453,27 @@ export default function P29Scene({ onNext, sceneName }: PageProps) {
             className='flex items-center justify-center gap-2 bg-white rounded-full shadow-lg text-center'
             style={{ width: '160px', height: '34px' }}
           >
-            <svg
-              width='18'
-              height='18'
-              viewBox='0 0 24 24'
-              fill='none'
-              xmlns='http://www.w3.org/2000/svg'
-            >
-              <circle
-                cx='18'
-                cy='5'
-                r='3'
-                stroke='#000'
-                strokeWidth='2'
-                fill='none'
-              />
-              <circle
-                cx='6'
-                cy='12'
-                r='3'
-                stroke='#000'
-                strokeWidth='2'
-                fill='none'
-              />
-              <circle
-                cx='18'
-                cy='19'
-                r='3'
-                stroke='#000'
-                strokeWidth='2'
-                fill='none'
-              />
-              <path
-                d='M8.59 13.51L15.42 17.49M15.41 6.51L8.59 10.49'
-                stroke='#000'
-                strokeWidth='2'
-                strokeLinecap='round'
-              />
-            </svg>
-            <span
-              className='font-medium text-[#000]'
-              style={{ fontSize: '18px' }}
-            >
-              分享「源文件」
-            </span>
+            <Image
+              src={iconShare.url}
+              alt={iconShare.alt}
+              width={iconShare.width}
+              height={iconShare.height}
+              className='object-contain  pointer-events-none select-none z-0'
+            />
+            <Image
+              src={ctaTextShare.url}
+              alt={ctaTextShare.alt}
+              width={ctaTextShare.width}
+              height={ctaTextShare.height}
+              className='object-contain  pointer-events-none select-none z-0'
+            />
           </button>
         </div>
         {/* Sync checkbox */}
         <label
           className='flex left-[200px] gap-2 cursor-pointer'
           style={{
-            margin: '7px 0',
-            marginLeft: isZhihuApp() ? '130px' : '0px',
+            marginLeft: '160px',
           }}
         >
           <div className='relative'>
@@ -518,32 +509,14 @@ export default function P29Scene({ onNext, sceneName }: PageProps) {
               )}
             </div>
           </div>
-          <span
-            className='text-[#000] font-normal'
-            style={{ fontSize: '16px' }}
-          >
-            同步至想法
-          </span>
+          <Image
+            src={ctaTextSync.url}
+            alt={ctaTextSync.alt}
+            width={ctaTextSync.width}
+            height={ctaTextSync.height}
+            className='object-contain  pointer-events-none select-none z-0'
+          />
         </label>
-        {/* Friend Interaction button */}
-        <button
-          onClick={handleFriendInteraction}
-          className='flex items-center justify-center gap-2 bg-[#000] rounded-full text-center'
-          style={{ width: '330px', height: '43px' }}
-        >
-          {assets.report.p29?.iconFriend && (
-            <Image
-              src={assets.report.p29.iconFriend.url}
-              alt={assets.report.p29.iconFriend.alt}
-              width={assets.report.p29.iconFriend.width / 2}
-              height={assets.report.p29.iconFriend.height / 2}
-              className='object-contain'
-            />
-          )}
-          <span className='font-medium text-white' style={{ fontSize: '18px' }}>
-            好友互动：猜猜哪个才是真的我？
-          </span>
-        </button>
       </div>
     </BaseScene>
   );

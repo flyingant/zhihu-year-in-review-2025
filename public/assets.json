@@ -2833,6 +2833,42 @@
         "width": 38,
         "height": 38,
         "alt": "Friend Interaction Icon"
+      },
+      "iconSave": {
+        "url": "/assets/2025_2_report_p29_icon_save.png",
+        "width": 14,
+        "height": 14,
+        "alt": "Save Icon"
+      },
+      "iconShare": {
+        "url": "/assets/2025_2_report_p29_icon_share.png",
+        "width": 14,
+        "height": 14,
+        "alt": "Share Icon"
+      },
+      "ctaTextSave": {
+        "url": "/assets/2025_2_report_p29_cta_text_save.png",
+        "width": 35,
+        "height": 21,
+        "alt": "Share Text"
+      },
+      "ctaTextShare": {
+        "url": "/assets/2025_2_report_p29_cta_text_share.png",
+        "width": 35,
+        "height": 21,
+        "alt": "Share Text"
+      },
+      "ctaTextSync": {
+        "url": "/assets/2025_2_report_p29_cta_text_sync.png",
+        "width": 112,
+        "height": 17,
+        "alt": "Sync Text"
+      },
+      "ctaTextGuess": {
+        "url": "/assets/2025_2_report_p29_cta_text_guess.png",
+        "width": 261,
+        "height": 21,
+        "alt": "Guess Text"
       }
     },
     "guess": {

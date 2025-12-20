@@ -598,6 +598,12 @@ export interface AssetsData {
     p29: {
       iconFriend: AssetMetadata;
       shareHeadImg: AssetMetadata;
+      iconShare: AssetMetadata;
+      iconSave: AssetMetadata;
+      ctaTextSave: AssetMetadata;
+      ctaTextShare: AssetMetadata;
+      ctaTextSync: AssetMetadata;
+      ctaTextGuess: AssetMetadata;
     };
     guess: {
       taOption: AssetMetadata;

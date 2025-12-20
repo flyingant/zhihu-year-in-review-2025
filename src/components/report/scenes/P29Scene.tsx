@@ -262,7 +262,7 @@ export default function P29Scene({ onNext, sceneName }: PageProps) {
       // 在知乎 App 内，使用 zhihuHybrid SDK 分享
       if (isHybridAvailable && window.zhihuHybrid) {
         try {
-
+          const shareHeadImg = process.env.NEXT_PUBLIC_CDN_BASE_URL + 'assets/share-head-img.png'
           const setShareInfoAction = (window.zhihuHybrid as ZhihuHybridNewAPI)(
             "share/setShareInfo"
           );
@@ -275,29 +275,29 @@ export default function P29Scene({ onNext, sceneName }: PageProps) {
             wechatTimeline: {
               title: '2025年度总结海报图片',
               link: summaryPoster.poster_url,
-              imgUrl: assets.report.p29?.shareHeadImg?.url,
+              imgUrl: shareHeadImg,
             },
             wechatMessage: {
               title: '2025年度总结海报图片',
               desc: '快来看看我的2025年度总结海报吧！',
               link: summaryPoster.poster_url,
-              imgUrl: assets.report.p29?.shareHeadImg?.url,
+              imgUrl: shareHeadImg,
             },
             QQ: {
               url: summaryPoster.poster_url,
               title: '2025年度总结海报图片',
               content: '快来看看我的2025年度总结海报吧！',
-              imageURL: assets.report.p29?.shareHeadImg?.url,
+              imageURL: shareHeadImg,
             },
             weibo: {
               url: summaryPoster.poster_url,
               title: '2025年度总结海报图片',
               content: '快来看看我的2025年度总结海报吧！',
-              imageURL: assets.report.p29?.shareHeadImg?.url,
+              imageURL: shareHeadImg,
             },
             PosterShare: {
               imageURL:summaryPoster.poster_url,
-              pinContent: '2025年度总结海报图片',
+              pinContent: JSON.stringify(`<p>2025年度总结海报图片</p>`),
             }
           })
 

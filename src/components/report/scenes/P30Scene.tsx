@@ -92,6 +92,7 @@ export default function P30Scene({ onNext, sceneName, onPrevious }: PageProps) {
 
           // Check if user is in zhihu app
           if (isZhihuApp() && isHybridAvailable && window.zhihuHybrid) {
+            const shareHeadImg = process.env.NEXT_PUBLIC_CDN_BASE_URL + 'assets/share-head-img.png'
             try {
               const setShareInfoAction = (window.zhihuHybrid as ZhihuHybridNewAPI)(
                 "share/setShareInfo"
@@ -105,25 +106,25 @@ export default function P30Scene({ onNext, sceneName, onPrevious }: PageProps) {
                 wechatTimeline: {
                   title: '猜猜哪一个是真实的我',
                   link: redirectUrl,
-                  imgUrl: assets.report.p29?.shareHeadImg?.url,
+                  imgUrl: shareHeadImg,
                 },
                 wechatMessage: {
                   title: '猜猜哪一个是真实的我',
                   desc: '快来猜猜哪一个是真实的我',
                   link: redirectUrl,
-                  imgUrl: assets.report.p29?.shareHeadImg?.url,
+                  imgUrl: shareHeadImg,
                 },
                 QQ: {
                   url: redirectUrl,
                   title: '猜猜哪一个是真实的我',
                   content: '快来猜猜哪一个是真实的我',
-                  imageURL: assets.report.p29?.shareHeadImg?.url,
+                  imageURL: shareHeadImg,
                 },
                 weibo: {
                   url: redirectUrl,
                   title: '猜猜哪一个是真实的我',
                   content: '快来猜猜哪一个是真实的我',
-                  imageURL: assets.report.p29?.shareHeadImg?.url,
+                  imageURL: shareHeadImg,
                 },
                 PosterShare: {
                   imageURL:redirectUrl,
@@ -136,12 +137,12 @@ export default function P30Scene({ onNext, sceneName, onPrevious }: PageProps) {
                   url: redirectUrl,
                   title: '猜猜哪一个是真实的我',
                   content: '快来猜猜哪一个是真实的我',
-                  imageURL: assets.report.p29?.shareHeadImg?.url,
+                  imageURL: shareHeadImg,
                 }
               }); 
 
               // Use zhihuHybrid SDK to share the link
-              const showActionSheetAction = (window.zhihuHybrid as ZhihuHybridNewAPI)("share/showActionSheet");
+              const showActionSheetAction = (window.zhihuHybrid as ZhihuHybridNewAPI)("share/showShareActionSheet");
               await showActionSheetAction.dispatch({});
             } catch (error) {
               console.error('Failed to share via zhihuHybrid:', error);

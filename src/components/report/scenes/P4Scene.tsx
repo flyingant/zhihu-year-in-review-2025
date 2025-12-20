@@ -173,7 +173,7 @@ export default function P4Scene({
           paddingLeft: '34px',
           paddingRight: '34px',
           paddingTop: '120px',
-          fontSize: '14px',
+          fontSize: '16px',
         }}
       >
         <div style={{ fontSize: '22px' }}>你的答案，让混沌变得清晰</div>

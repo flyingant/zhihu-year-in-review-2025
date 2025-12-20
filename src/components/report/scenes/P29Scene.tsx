@@ -264,7 +264,7 @@ export default function P29Scene({ onNext, sceneName }: PageProps) {
         try {
           const shareHeadImg = process.env.NEXT_PUBLIC_CDN_BASE_URL + 'assets/share-head-img-new.png'
           const setShareInfoAction = (window.zhihuHybrid as ZhihuHybridNewAPI)(
-            "share/setShareInfo"
+            'share/setShareInfo'
           );
 
           await setShareInfoAction.dispatch({
@@ -301,9 +301,9 @@ export default function P29Scene({ onNext, sceneName }: PageProps) {
             }
           })
 
-          const showActionSheetAction = (window.zhihuHybrid as ZhihuHybridNewAPI)(
-            "share/showShareActionSheet"
-          );
+          const showActionSheetAction = (
+            window.zhihuHybrid as ZhihuHybridNewAPI
+          )('share/showShareActionSheet');
           // 使用 zhihuHybrid SDK 的分享功能
           // 根据知乎 Hybrid SDK 文档，分享功能通常使用 'base/share' 或 'social/share'
           // const hybridAction = (window.zhihuHybrid as ZhihuHybridNewAPI)(
@@ -367,7 +367,7 @@ export default function P29Scene({ onNext, sceneName }: PageProps) {
         <div
           className='absolute z-0 leading-relaxed text-center'
           style={{
-            fontSize: 14,
+            fontSize: 16,
             top: '50%',
             left: '50%',
             transform: 'translate(-50%, -50%)',
@@ -382,30 +382,12 @@ export default function P29Scene({ onNext, sceneName }: PageProps) {
         className='absolute bottom-0 left-0 right-0 z-20 flex flex-col items-center pb-6 px-6'
         style={{
           background: summaryPoster?.bg,
+          padding: '20px',
+          paddingTop: 0,
         }}
       >
-        {/* Friend Interaction button */}
-        <button
-          onClick={handleFriendInteraction}
-          className='flex items-center justify-center gap-2 bg-black rounded-full text-center mb-4'
-          style={{ width: '330px', height: '34px' }}
-        >
-          {assets.report.p29?.iconFriend && (
-            <Image
-              src={assets.report.p29.iconFriend.url}
-              alt={assets.report.p29.iconFriend.alt}
-              width={assets.report.p29.iconFriend.width / 2}
-              height={assets.report.p29.iconFriend.height / 2}
-              className='object-contain'
-            />
-          )}
-          <span className='font-medium text-white' style={{ fontSize: '18px' }}>
-            好友互动：猜猜哪个才是真的我？
-          </span>
-        </button>
-
         {/* Save and Share buttons */}
-        <div className='flex gap-3 mb-4'>
+        <div className='flex gap-3'>
           {/* Save button */}
           {isZhihuApp() && (
             <button
@@ -438,7 +420,7 @@ export default function P29Scene({ onNext, sceneName }: PageProps) {
                 className='font-medium text-[#000]'
                 style={{ fontSize: '18px' }}
               >
-                保存
+                保存「源文件」
               </span>
             </button>
           )}
@@ -491,13 +473,18 @@ export default function P29Scene({ onNext, sceneName }: PageProps) {
               className='font-medium text-[#000]'
               style={{ fontSize: '18px' }}
             >
-              分享
+              分享「源文件」
             </span>
           </button>
         </div>
-
         {/* Sync checkbox */}
-        <label className='flex items-center gap-2 cursor-pointer'>
+        <label
+          className='flex left-[200px] gap-2 cursor-pointer'
+          style={{
+            margin: '7px 0',
+            marginLeft: isZhihuApp() ? '130px' : '0px',
+          }}
+        >
           <div className='relative'>
             <input
               type='checkbox'
@@ -531,10 +518,32 @@ export default function P29Scene({ onNext, sceneName }: PageProps) {
               )}
             </div>
           </div>
-          <span className='text-black font-normal' style={{ fontSize: '18px' }}>
-            同步至想法赢徽章
+          <span
+            className='text-[#000] font-normal'
+            style={{ fontSize: '16px' }}
+          >
+            同步至想法
           </span>
         </label>
+        {/* Friend Interaction button */}
+        <button
+          onClick={handleFriendInteraction}
+          className='flex items-center justify-center gap-2 bg-[#000] rounded-full text-center'
+          style={{ width: '330px', height: '43px' }}
+        >
+          {assets.report.p29?.iconFriend && (
+            <Image
+              src={assets.report.p29.iconFriend.url}
+              alt={assets.report.p29.iconFriend.alt}
+              width={assets.report.p29.iconFriend.width / 2}
+              height={assets.report.p29.iconFriend.height / 2}
+              className='object-contain'
+            />
+          )}
+          <span className='font-medium text-white' style={{ fontSize: '18px' }}>
+            好友互动：猜猜哪个才是真的我？
+          </span>
+        </button>
       </div>
     </BaseScene>
   );

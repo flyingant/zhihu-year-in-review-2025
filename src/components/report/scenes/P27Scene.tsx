@@ -7,10 +7,11 @@ import { useState, useRef, useEffect } from 'react';
 
 interface PageProps {
   onNext?: () => void;
+  onPrevious: () => void;
   sceneName?: string;
 }
 
-export default function P27Scene({ onNext, sceneName }: PageProps) {
+export default function P27Scene({ onNext, onPrevious, sceneName }: PageProps) {
   const { assets } = useAssets();
   const [isSceneFading, setIsSceneFading] = useState(false);
   const [isButtonClicked, setIsButtonClicked] = useState(false);
@@ -92,6 +93,7 @@ export default function P27Scene({ onNext, sceneName }: PageProps) {
   return (
     <BaseScene
       onNext={onNext}
+      onPrevious={onPrevious}
       sceneName={sceneName}
       showBottomNextButton={false}
     >
@@ -106,7 +108,7 @@ export default function P27Scene({ onNext, sceneName }: PageProps) {
         <div
           className='absolute z-[110] leading-relaxed w-full'
           style={{
-            fontSize: 14,
+            fontSize: 16,
             top: '114px',
             left: '50%',
             transform: 'translateX(-50%)',

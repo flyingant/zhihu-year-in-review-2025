@@ -125,7 +125,7 @@ export default function P2Scene({
           paddingLeft: '34px',
           paddingRight: '34px',
           paddingTop: '120px',
-          fontSize: '14px',
+          fontSize: '16px',
         }}
       >
         <div style={{ fontSize: '22px' }}>你的好奇，擦亮了世界的雾面</div>

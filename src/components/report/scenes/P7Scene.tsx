@@ -71,7 +71,7 @@ export default function P7Scene({ onNext, onPrevious, onNavigateToScene, sceneNa
           paddingLeft: '34px',
           paddingRight: '34px',
           paddingTop: '120px',
-          fontSize: '14px',
+          fontSize: '16px',
         }}
       >
         <div
@@ -189,7 +189,7 @@ export default function P7Scene({ onNext, onPrevious, onNavigateToScene, sceneNa
         </div>
 
         <div
-          style={{ fontSize: '14px', lineHeight: '28px', top: '-40px' }}
+          style={{ fontSize: '16px', lineHeight: '28px', top: '-40px' }}
           className='relative'
           hidden={!roundTableCount && !editorPickCount}
         >

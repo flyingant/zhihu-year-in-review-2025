@@ -20,7 +20,12 @@ const formatNumber = (num: number | string | null | undefined) => {
   return Number(num).toLocaleString('en-US');
 };
 
-export default function P10Scene({ onNext, onPrevious, onNavigateToScene, sceneName }: PageProps) {
+export default function P10Scene({
+  onNext,
+  onPrevious,
+  onNavigateToScene,
+  sceneName,
+}: PageProps) {
   const { reportData } = useUserReportData();
   const { assets } = useAssets();
   if (!assets) return null;
@@ -53,7 +58,9 @@ export default function P10Scene({ onNext, onPrevious, onNavigateToScene, sceneN
   const wordCount = toNumberOrNull(reportData?.consume_word_cnt);
 
   // Map word count to equivalent reading achievement
-  const getEquivalentReading = (words: number | null): { number: string; unit: string; work: string } | null => {
+  const getEquivalentReading = (
+    words: number | null
+  ): { number: string; unit: string; work: string } | null => {
     if (!words || words === 0) return null;
 
     const w = words;
@@ -111,7 +118,12 @@ export default function P10Scene({ onNext, onPrevious, onNavigateToScene, sceneN
   const equivalentReading = getEquivalentReading(wordCount);
 
   return (
-    <BaseScene onNext={onNext} onPrevious={onPrevious} onNavigateToScene={onNavigateToScene} sceneName={sceneName}>
+    <BaseScene
+      onNext={onNext}
+      onPrevious={onPrevious}
+      onNavigateToScene={onNavigateToScene}
+      sceneName={sceneName}
+    >
       <GlitchLayer>
         {/* 顺序从上到下 */}
         <Image
@@ -158,7 +170,7 @@ export default function P10Scene({ onNext, onPrevious, onNavigateToScene, sceneN
 
       <div
         className={'text-center'}
-        style={{ paddingTop: '120px', paddingBottom: '24px', fontSize: '22px' }}
+        style={{ paddingTop: '100px', paddingBottom: '24px', fontSize: '22px' }}
       >
         <div>阅读，开启你与世界的沉浸对话</div>
         <div>今年，你看过</div>
@@ -313,7 +325,7 @@ export default function P10Scene({ onNext, onPrevious, onNavigateToScene, sceneN
       <div
         className='flex flex-col items-center justify-center'
         style={{
-          paddingTop: '210px',
+          paddingTop: '190px',
           paddingBottom: '20px',
           marginTop: '-150px',
         }}
@@ -323,7 +335,7 @@ export default function P10Scene({ onNext, onPrevious, onNavigateToScene, sceneN
           style={{ marginBottom: '20px' }}
           hidden={!wordCount}
         >
-          <div>阅读</div>
+          <div>阅读&nbsp;</div>
           <FlipCounter
             value={Number(wordCount)}
             className={`text-r-purple`}
@@ -333,7 +345,7 @@ export default function P10Scene({ onNext, onPrevious, onNavigateToScene, sceneN
               fontSize: '44px',
             }}
           />
-          <div>个字</div>
+          <div>&nbsp;个字</div>
         </div>
         {equivalentReading && (
           <div>

@@ -135,7 +135,7 @@ export default function P22Scene({
         />
       </div>
       {/* content */}
-      <div className='z-0 relative tracking-wide' style={{ fontSize: 14 }}>
+      <div className='z-0 relative tracking-wide' style={{ fontSize: 16 }}>
         <div
           className='absolute leading-loose'
           style={{ fontSize: 22, top: '116px', left: '41px' }}
@@ -147,7 +147,7 @@ export default function P22Scene({
         {/* Billboard browsing */}
         <div
           className='absolute'
-          style={{ top: '214px', left: '41px', right: '20px', fontSize: 14 }}
+          style={{ top: '214px', left: '41px', right: '20px', fontSize: 16 }}
         >
           <p hidden={!consumeBillboardDays || consumeBillboardDays < 5}>
             今年，你驻扎热榜
@@ -179,17 +179,12 @@ export default function P22Scene({
 
           {/* Hot events */}
           <div style={{ marginTop: 16 }} hidden={!eventUpvoteCount}>
-            <p>
-              <span className='text-r-pink mr-[4px]'>{eventMonth}</span>
-              月里，你参与了
-              <span className='text-r-pink mx-[4px]'>{eventName}</span>
-              的讨论
-            </p>
-            <p>
-              收获
-              <span className='text-r-pink mx-[4px]'>{eventUpvoteCount}</span>
-              个赞同，和无数人共同记录那段集体记忆
-            </p>
+            <span className='text-r-pink mr-[4px]'>{eventMonth}</span>
+            月里，你参与了
+            <span className='text-r-pink mx-[4px]'>{eventName}</span>
+            的讨论，收获
+            <span className='text-r-pink mx-[4px]'>{eventUpvoteCount}</span>
+            个赞同，和无数人共同记录那段集体记忆
           </div>
         </div>
       </div>

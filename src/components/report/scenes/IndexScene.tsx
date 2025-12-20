@@ -17,12 +17,25 @@ interface IndexSceneProps {
 }
 
 type ActiveView = 'topLeft' | 'topRight' | 'bottomLeft' | 'bottomRight' | null;
+
+// Helper function to get random corner (only called in event handlers, not during render)
+const getRandomCorner = (): ActiveView => {
+  const corners: ActiveView[] = [
+    'topLeft',
+    'topRight',
+    'bottomLeft',
+    'bottomRight',
+  ];
+  return corners[Math.floor(Math.random() * corners.length)] as ActiveView;
+};
+
 interface MirrorContentProps {
   userName?: string;
   year?: string;
   month?: string;
   day?: string;
   registerDays?: number;
+  style?: React.CSSProperties;
 }
 
 const MirrorContent = ({
@@ -31,16 +44,28 @@ const MirrorContent = ({
   year,
   month,
   day,
+  style,
 }: MirrorContentProps) => (
   <div
     className='flex flex-col justify-center text-left pointer-events-none select-none w-full h-full'
-    style={{ fontSize: '14px' }}
+    style={{ fontSize: '16px' }}
   >
-    <div style={{ fontSize: '22px', paddingBottom: '8px' }}>@{userName}</div>
-    <div style={{ fontSize: '22px', paddingBottom: '8px' }}>
-      你说，时间是真实的吗？
+    <div
+      style={{
+        fontSize: '22px',
+        paddingBottom: '8px',
+        marginLeft:
+          (typeof style?.marginLeft === 'number' ? style.marginLeft : 0) * 1.5,
+      }}
+    >
+      @{userName}
     </div>
-    <div>
+    <div
+      style={{
+        marginLeft:
+          (typeof style?.marginLeft === 'number' ? style.marginLeft : 0) * 2.3,
+      }}
+    >
       从
       <span
         className='text-r-pink'
@@ -64,7 +89,12 @@ const MirrorContent = ({
       </span>
       日 开始
     </div>
-    <div>
+    <div
+      style={{
+        marginLeft:
+          (typeof style?.marginLeft === 'number' ? style.marginLeft : 0) * 3,
+      }}
+    >
       我们一起走过了{' '}
       <span className='text-r-yellow' style={{ fontSize: '24px' }}>
         {registerDays}
@@ -177,12 +207,16 @@ export default function IndexScene({ onNext, sceneName }: IndexSceneProps) {
     }
   };
 
-  const handleBackgroundClick = () => {
-    setActiveView(null);
-  };
-
-  // Handle next button click - show animated GIF first, then proceed after 3 seconds
+  // Handle next button click - randomly select corner if no activeView, otherwise show animated GIF
   const handleNextClick = () => {
+    // If no activeView, randomly select a corner and trigger expansion
+    if (!activeView) {
+      const randomCorner = getRandomCorner();
+      handleCornerClick(randomCorner);
+      return;
+    }
+
+    // If activeView exists, show animated GIF first, then proceed after 3 seconds
     const gifAsset = getGifAsset();
     if (!gifAsset) {
       // If no GIF, proceed directly
@@ -296,11 +330,14 @@ export default function IndexScene({ onNext, sceneName }: IndexSceneProps) {
         return {
           container: {
             top: '-30%',
-            left: '35%',
+            left: '40%',
             right: '-20%',
             bottom: '25%',
           },
-          style: { transform: 'rotate(10deg) skewX(0deg) skewY(-20deg)' },
+          style: {
+            transform: 'rotate(-8deg) skewX(-12deg) skewY(-10deg)',
+          },
+          textStyle: { marginLeft: -10 },
           zhiLinkPos: { bottom: '13%', left: '40px' },
         };
       case 'bottomLeft':
@@ -373,20 +410,20 @@ export default function IndexScene({ onNext, sceneName }: IndexSceneProps) {
     <BaseScene
       onNext={handleNextClick}
       sceneName={sceneName}
-      showBottomNextButton={!!activeView}
+      showBottomNextButton={true}
     >
       <div className='relative w-full h-full overflow-hidden'>
         <div
           className='absolute text-[#121212] tracking-[0.2em] [writing-mode:vertical-lr]'
           style={{
-            top: '110px',
+            top: '60px',
             left: '50%',
             transform: 'translateX(-50%)',
-            fontSize: '24px',
+            fontSize: '20px',
           }}
           hidden={!!activeView}
         >
-          选择你的方向
+          你说，时间是真实的吗？
         </div>
         {/* Initial view - stays visible during expansion to avoid blink */}
         {!activeView && (
@@ -395,15 +432,12 @@ export default function IndexScene({ onNext, sceneName }: IndexSceneProps) {
             animate={{ opacity: expandingView ? 0.3 : 1 }}
             transition={{ duration: 0.3 }}
           >
-            {/* Top Left Decoration - Clickable */}
+            {/* Top Left Decoration */}
             <motion.div
-              className='absolute top-0 left-0 z-10 cursor-pointer'
+              className='absolute top-0 left-0 z-10'
               style={{ top: '5%', left: '0' }}
               animate={{ x: [0, -8, 0], y: [0, -8, 0] }}
               transition={floatTransition(0, 3)}
-              whileHover={{ scale: 1.1 }}
-              whileTap={{ scale: 0.95 }}
-              onClick={() => handleCornerClick('topLeft')}
             >
               <Image
                 src={indexAssets.topLeft.url}
@@ -414,15 +448,12 @@ export default function IndexScene({ onNext, sceneName }: IndexSceneProps) {
               />
             </motion.div>
 
-            {/* Top Right Decoration - Clickable */}
+            {/* Top Right Decoration */}
             <motion.div
-              className='absolute top-0 right-0 z-10 cursor-pointer'
+              className='absolute top-0 right-0 z-10'
               style={{ top: '2%', right: '0' }}
               animate={{ x: [0, 8, 0], y: [0, -8, 0] }}
               transition={floatTransition(0.2, 3)}
-              whileHover={{ scale: 1.1 }}
-              whileTap={{ scale: 0.95 }}
-              onClick={() => handleCornerClick('topRight')}
             >
               <Image
                 src={indexAssets.topRight.url}
@@ -433,15 +464,12 @@ export default function IndexScene({ onNext, sceneName }: IndexSceneProps) {
               />
             </motion.div>
 
-            {/* Bottom Left Decoration - Clickable */}
+            {/* Bottom Left Decoration */}
             <motion.div
-              className='absolute bottom-0 left-0 z-10 cursor-pointer'
+              className='absolute bottom-0 left-0 z-10'
               style={{ bottom: '13%', left: '0' }}
               animate={{ x: [0, -8, 0], y: [0, 8, 0] }}
               transition={floatTransition(0.4, 6)}
-              whileHover={{ scale: 1.1 }}
-              whileTap={{ scale: 0.95 }}
-              onClick={() => handleCornerClick('bottomLeft')}
             >
               <Image
                 src={indexAssets.bottomLeft.url}
@@ -452,15 +480,12 @@ export default function IndexScene({ onNext, sceneName }: IndexSceneProps) {
               />
             </motion.div>
 
-            {/* Bottom Right Decoration - Clickable */}
+            {/* Bottom Right Decoration */}
             <motion.div
-              className='absolute bottom-0 right-0 z-10 cursor-pointer'
+              className='absolute bottom-0 right-0 z-10'
               style={{ bottom: '6%', right: '5px' }}
               animate={{ x: [0, 8, 0], y: [0, -4, 0] }}
               transition={floatTransition(0.6, 5)}
-              whileHover={{ scale: 1.1 }}
-              whileTap={{ scale: 0.95 }}
-              onClick={() => handleCornerClick('bottomRight')}
             >
               <Image
                 src={indexAssets.bottomRight.url}
@@ -537,8 +562,7 @@ export default function IndexScene({ onNext, sceneName }: IndexSceneProps) {
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
               transition={{ duration: 0.6, ease: 'easeInOut' }}
-              className='relative w-full h-full cursor-pointer'
-              onClick={handleBackgroundClick}
+              className='relative w-full h-full'
             >
               {backgroundAsset && (
                 <Image
@@ -609,6 +633,7 @@ export default function IndexScene({ onNext, sceneName }: IndexSceneProps) {
                     month={month}
                     day={day}
                     registerDays={registerDays}
+                    style={getMirrorStyle(activeView).textStyle}
                   />
                 </div>
               </div>

@@ -142,7 +142,7 @@ export default function P5EmojiScene({
           paddingLeft: '34px',
           paddingRight: '34px',
           paddingTop: '120px',
-          fontSize: '14px',
+          fontSize: '16px',
         }}
       >
         <div style={{ fontSize: '22px', marginBottom: '46px' }}>

@@ -86,7 +86,7 @@ export default function P6Scene({ onNext, onPrevious, onNavigateToScene, sceneNa
         />
       </GlitchLayer>
 
-      <div style={{ paddingTop: '120px', fontSize: '14px' }}>
+      <div style={{ paddingTop: '120px', fontSize: '16px' }}>
         <div
           style={{
             fontSize: '22px',

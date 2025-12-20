@@ -89,7 +89,7 @@ export default function P12Scene({ onNext, onPrevious, onNavigateToScene, sceneN
           paddingBottom: '10px',
           paddingLeft: '34px',
           paddingRight: '34px',
-          fontSize: '14px',
+          fontSize: '16px',
         }}
       >
         <div style={{ fontSize: '22px' }}>

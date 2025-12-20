@@ -6,6 +6,8 @@ import Player from 'griffith';
 import { useAssets } from '@/context/assets-context';
 import { useInView } from 'react-intersection-observer';
 import { getVideoDetails, VideoDetailResponse, extractVideoPlayUrl, extractVideoQualityUrls, extractVideoCoverImage } from '@/api/video';
+import { useGriffithSpeedFix } from '@/hooks/useGriffithSpeedFix'; 
+import { GriffithSpeedStyle } from './GriffithSpeedStyle';
 
 const NianZhongXiaoWenSection = () => {
   const { assets } = useAssets();
@@ -15,6 +17,8 @@ const NianZhongXiaoWenSection = () => {
   const [videoUrl, setVideoUrl] = useState<string>('');
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  useGriffithSpeedFix(playerContainerRef, [videoUrl]);
+
 
   // const { trackShow, trackEvent } = useZA();
   const { ref: moduleRef, inView } = useInView({ triggerOnce: true });
@@ -192,6 +196,7 @@ const NianZhongXiaoWenSection = () => {
 
   return (
     <div ref={moduleRef} className="relative w-full flex flex-col items-center">
+      <GriffithSpeedStyle />
       <div className="relative w-full">
         <div
           ref={playerContainerRef}

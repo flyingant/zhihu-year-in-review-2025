@@ -11,37 +11,37 @@ import { submitQuizAnswer } from '@/api/report';
 
 interface PageProps {
   onNext?: () => void;
-  onPrevious?: () => void;
   onNavigateToScene?: (sceneId: string) => void;
   sceneName?: string;
 }
 
-export default function P14Scene({ onNext, onPrevious, onNavigateToScene, sceneName }: PageProps) {
-  const [maskPosition, setMaskPosition] = useState(460);
+export default function P14Scene({
+  onNext,
+  onNavigateToScene,
+  sceneName,
+}: PageProps) {
   const { assets } = useAssets();
   const { setUserChoice } = useUserReportData();
 
-  const handleRangeChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setMaskPosition(Number(e.target.value));
-  };
-  
-
-  // Use motion value with spring physics for smooth, physics-based animation
-  const maskPositionMotion = useMotionValue(460);
+  // Use motion value with spring physics for smooth, physics-based animation (vertical)
+  const maskPositionMotion = useMotionValue(200);
   const maskPositionSpring = useSpring(maskPositionMotion, {
     stiffness: 50,
     damping: 15,
     mass: 1,
   });
-    // Sync motion value with state for maskPosition updates
+
+  const [maskPosition, setMaskPosition] = useState(200);
+
+  // Sync motion value with state for maskPosition updates
   useEffect(() => {
-    const unsubscribe = maskPositionSpring.on("change", (latest) => {
+    const unsubscribe = maskPositionSpring.on('change', (latest) => {
       setMaskPosition(Math.round(latest));
     });
     return unsubscribe;
   }, [maskPositionSpring]);
 
-  // Create smooth physics-based shake animation
+  // Create smooth physics-based shake animation (vertical)
   useEffect(() => {
     let isAnimating = true;
     const startTime = Date.now();
@@ -50,18 +50,20 @@ export default function P14Scene({ onNext, onPrevious, onNavigateToScene, sceneN
       const animate = () => {
         if (!isAnimating) return;
 
-        const basePosition = 460;
-        const shakeAmount = 75; // Offset: how much to shake from base position
-        
+        const basePosition = 200; // Vertical base position
+        const shakeAmount = 400; // Shake amount
+
         // Use smooth sine wave oscillation for predictable, smooth motion
         const elapsed = (Date.now() - startTime) / 1000; // Time in seconds
         const frequency = 0.2; // Oscillation frequency (cycles per second) - lower = slower
-        const smoothOffset = Math.sin(elapsed * frequency * Math.PI * 2) * shakeAmount;
+        // Map sine wave from [-1, 1] to [0, shakeAmount] so it goes from basePosition to basePosition + shakeAmount
+        const smoothOffset =
+          ((Math.sin(elapsed * frequency * Math.PI * 2) + 1) / 2) * shakeAmount;
         const targetPosition = basePosition + smoothOffset;
-        
+
         // Update motion value smoothly
         maskPositionMotion.set(targetPosition);
-        
+
         requestAnimationFrame(animate);
       };
 
@@ -74,6 +76,7 @@ export default function P14Scene({ onNext, onPrevious, onNavigateToScene, sceneN
       isAnimating = false;
     };
   }, [maskPositionMotion]);
+
 
   const handleSelect = async (choice: 'A' | 'B') => {
     // call API to record the choice
@@ -131,7 +134,11 @@ export default function P14Scene({ onNext, onPrevious, onNavigateToScene, sceneN
       }
     : {};
   return (
-    <BaseScene onNext={onNext} onPrevious={onPrevious} onNavigateToScene={onNavigateToScene} sceneName={sceneName}>
+    <BaseScene
+      onNext={onNext}
+      onNavigateToScene={onNavigateToScene}
+      sceneName={sceneName}
+    >
       <div
         className='relative w-full h-full overflow-hidden'
         style={{ perspective: '1000px' }}

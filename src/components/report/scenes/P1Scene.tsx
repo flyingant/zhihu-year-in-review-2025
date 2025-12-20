@@ -1,25 +1,28 @@
-"use client";
+'use client';
 
-import { useState, useEffect } from "react";
-import { motion, useMotionValue, useSpring } from "framer-motion";
-import Image from "next/image";
+import { useState, useEffect } from 'react';
+import { useMotionValue, useSpring, motion } from 'framer-motion';
+import Image from 'next/image';
 import { useAssets } from '@/context/assets-context';
 import { useUserReportData } from '@/context/user-report-data-context';
 import { submitQuizAnswer } from '@/api/report';
-import BaseScene from "./BaseScene";
-import GlitchLayer from "@/components/report/effects/GlitchLayer";
+import BaseScene from './BaseScene';
+import GlitchLayer from '@/components/report/effects/GlitchLayer';
 
 interface PageProps {
   onNext?: () => void;
-  onPrevious?: () => void;
   onNavigateToScene?: (sceneId: string) => void;
   sceneName?: string;
 }
 
-export default function P1Scene({ onNext, onPrevious, onNavigateToScene, sceneName }: PageProps) {
+export default function P1Scene({
+  onNext,
+  onNavigateToScene,
+  sceneName,
+}: PageProps) {
   const { assets } = useAssets();
   const { setUserChoice } = useUserReportData();
-  
+
   // Use motion value with spring physics for smooth, physics-based animation
   const maskPositionMotion = useMotionValue(-300);
   const maskPositionSpring = useSpring(maskPositionMotion, {
@@ -27,12 +30,12 @@ export default function P1Scene({ onNext, onPrevious, onNavigateToScene, sceneNa
     damping: 15,
     mass: 1,
   });
-  
+
   const [maskPosition, setMaskPosition] = useState(-300);
 
   // Sync motion value with state for maskPosition updates
   useEffect(() => {
-    const unsubscribe = maskPositionSpring.on("change", (latest) => {
+    const unsubscribe = maskPositionSpring.on('change', (latest) => {
       setMaskPosition(Math.round(latest));
     });
     return unsubscribe;
@@ -48,17 +51,20 @@ export default function P1Scene({ onNext, onPrevious, onNavigateToScene, sceneNa
         if (!isAnimating) return;
 
         const basePosition = -300;
-        const shakeAmount = 75; // Offset: how much to shake from base position
-        
+        const shakeAmount = 200; // Shake amount
+
         // Use smooth sine wave oscillation for predictable, smooth motion
         const elapsed = (Date.now() - startTime) / 1000; // Time in seconds
         const frequency = 0.2; // Oscillation frequency (cycles per second) - lower = slower
-        const smoothOffset = Math.sin(elapsed * frequency * Math.PI * 2) * shakeAmount;
+        // Oscillate from middle (-300) upward with shakeAmount range
+        // Map sine wave from [-1, 1] to [0, shakeAmount] so it goes from basePosition to basePosition + shakeAmount
+        const smoothOffset =
+          ((Math.sin(elapsed * frequency * Math.PI * 2) + 1) / 2) * shakeAmount;
         const targetPosition = basePosition + smoothOffset;
-        
+
         // Update motion value smoothly
         maskPositionMotion.set(targetPosition);
-        
+
         requestAnimationFrame(animate);
       };
 
@@ -81,12 +87,11 @@ export default function P1Scene({ onNext, onPrevious, onNavigateToScene, sceneNa
         answer: choice,
       });
     } catch (error) {
-      console.error("Failed to submit quiz answer:", error);
+      console.error('Failed to submit quiz answer:', error);
       // Continue to next scene even if API call fails
     }
     onNext?.();
   };
-
 
   if (!assets) return null;
 
@@ -133,52 +138,64 @@ export default function P1Scene({ onNext, onPrevious, onNavigateToScene, sceneNa
 
   
   return (
-    <BaseScene onNext={onNext} onPrevious={onPrevious} onNavigateToScene={onNavigateToScene} sceneName={sceneName} showBottomNextButton={false}>
-      <GlitchLayer className="z-[40]">
-        <Image 
-          src={mixAsset.url} 
-          alt="{mixAsset.alt}" 
-          width={mixAsset.width} 
-          height={mixAsset.height} 
-          className="object-contain absolute pointer-events-none select-none z-1"
-          style={{ top: '28px', left: '-30px' }} 
+    <BaseScene
+      onNext={onNext}
+      onNavigateToScene={onNavigateToScene}
+      sceneName={sceneName}
+      showBottomNextButton={false}
+    >
+      <GlitchLayer className='z-[40]'>
+        <Image
+          src={mixAsset.url}
+          alt='{mixAsset.alt}'
+          width={mixAsset.width}
+          height={mixAsset.height}
+          className='object-contain absolute pointer-events-none select-none z-1'
+          style={{ top: '28px', left: '-30px' }}
         />
-        <Image 
-          src={blue2Asset.url} 
-          alt="{blue2Asset.alt}" 
-          width={blue2Asset.width} 
-          height={blue2Asset.height} 
-          className="object-contain absolute pointer-events-none select-none z-1"
-          style={{ top: '210px', right: '39px' }} 
+        <Image
+          src={blue2Asset.url}
+          alt='{blue2Asset.alt}'
+          width={blue2Asset.width}
+          height={blue2Asset.height}
+          className='object-contain absolute pointer-events-none select-none z-1'
+          style={{ top: '210px', right: '39px' }}
         />
-        <Image 
-          src={mix2Asset.url} 
-          alt="{mix2Asset.alt}" 
-          width={mix2Asset.width} 
-          height={mix2Asset.height} 
-          className="object-contain absolute pointer-events-none select-none z-1"
-          style={{ top: '295px', left: '0px' }} 
+        <Image
+          src={mix2Asset.url}
+          alt='{mix2Asset.alt}'
+          width={mix2Asset.width}
+          height={mix2Asset.height}
+          className='object-contain absolute pointer-events-none select-none z-1'
+          style={{ top: '295px', left: '0px' }}
         />
-        <Image 
-          src={mix1Asset.url} 
-          alt="{mix1Asset.alt}" 
-          width={mix1Asset.width} 
-          height={mix1Asset.height} 
-          className="object-contain absolute pointer-events-none select-none z-1"
-          style={{ bottom: '155px', right: '-30px' }} 
+        <Image
+          src={mix1Asset.url}
+          alt='{mix1Asset.alt}'
+          width={mix1Asset.width}
+          height={mix1Asset.height}
+          className='object-contain absolute pointer-events-none select-none z-1'
+          style={{ bottom: '155px', right: '-30px' }}
         />
-        <Image 
-          src={blue2Asset.url} 
-          alt="{blue2Asset.alt}" 
-          width={blue2Asset.width} 
-          height={blue2Asset.height} 
-          className="object-contain absolute pointer-events-none select-none z-1"
-          style={{ bottom: '45px', left: '45px' }} 
+        <Image
+          src={blue2Asset.url}
+          alt='{blue2Asset.alt}'
+          width={blue2Asset.width}
+          height={blue2Asset.height}
+          className='object-contain absolute pointer-events-none select-none z-1'
+          style={{ bottom: '45px', left: '45px' }}
         />
       </GlitchLayer>
-      <div className="relative w-full h-full overflow-hidden">
-        <p className="absolute z-30 text-center text-xl w-full" style={{ top: '73px', fontSize: 26, lineHeight: '40px' }}>这一年，<br/>是什么在驱动你的创作？</p>
-        <motion.div 
+      <div className='relative w-full h-full overflow-hidden'>
+        <p
+          className='absolute z-30 text-center text-xl w-full'
+          style={{ top: '73px', fontSize: 26, lineHeight: '40px'  }}
+        >
+          这一年，
+          <br />
+          是什么在驱动你的创作？
+        </p>
+       <motion.div 
           className="absolute z-[70] text-center text-xl text-r-yellow cursor-pointer" 
           style={{ top: '229px', width: 310, height: 36, pointerEvents: 'auto', left: 0, right: 0, margin: '0 auto' }}
           animate={floatPulseB}
@@ -200,42 +217,45 @@ export default function P1Scene({ onNext, onPrevious, onNavigateToScene, sceneNa
         >
           <Image src={p1Assets.optionB.url} alt={p1Assets.optionB.alt} width={p1Assets.optionB.width} height={p1Assets.optionB.height} style={{ width: 310, height: 36}} />
         </motion.div>
-         {/* Background layer - static */}
-        <Image 
-          src={bgAsset.url} 
-          alt={bgAsset.alt} 
-          width={bgAsset.width} 
-          height={bgAsset.height} 
-          className="relative z-10 w-auto h-full pointer-events-none select-none" 
+        {/* Background layer - static */}
+        <Image
+          src={bgAsset.url}
+          alt={bgAsset.alt}
+          width={bgAsset.width}
+          height={bgAsset.height}
+          className='relative z-10 w-auto h-full pointer-events-none select-none'
         />
         {/* Liukanshan reading character */}
-        <div className="absolute inset-0 z-50 pointer-events-none" style={{ top: '56%', left: '19%' }}>
-          <Image 
-            src={liukanshanReadingAsset.url} 
-            alt={liukanshanReadingAsset.alt} 
-            width={liukanshanReadingAsset.width} 
-            height={liukanshanReadingAsset.height} 
-            className="object-contain pointer-events-none select-none" 
+        <div
+          className='absolute inset-0 z-50 pointer-events-none'
+          style={{ top: '56%', left: '19%' }}
+        >
+          <Image
+            src={liukanshanReadingAsset.url}
+            alt={liukanshanReadingAsset.alt}
+            width={liukanshanReadingAsset.width}
+            height={liukanshanReadingAsset.height}
+            className='object-contain pointer-events-none select-none'
           />
         </div>
         {/* Top layer with wiper mask effect using new middle image + vertical line gradient */}
-        <div 
-          className="absolute inset-0 z-20 pointer-events-none"
+        <div
+          className='absolute inset-0 z-20 pointer-events-none'
           style={{
             maskImage: `url("${middleAsset.url}")`,
             WebkitMaskImage: `url("${middleAsset.url}")`,
             maskSize: 'auto 100%',
             maskRepeat: 'no-repeat',
             maskPosition: `${maskPosition}px center`,
-            maskMode: 'alpha'
+            maskMode: 'alpha',
           }}
         >
-          <Image 
-            src={topAsset.url} 
-            alt={topAsset.alt} 
-            width={topAsset.width} 
-            height={topAsset.height} 
-            className="w-full h-full pointer-events-none select-none" 
+          <Image
+            src={topAsset.url}
+            alt={topAsset.alt}
+            width={topAsset.width}
+            height={topAsset.height}
+            className='w-full h-full pointer-events-none select-none'
           />
         </div>
         

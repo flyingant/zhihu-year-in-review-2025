@@ -13,7 +13,12 @@ interface PageProps {
   sceneName?: string;
 }
 
-export default function P16Scene({ onNext, onPrevious, onNavigateToScene, sceneName }: PageProps) {
+export default function P16Scene({
+  onNext,
+  onPrevious,
+  onNavigateToScene,
+  sceneName,
+}: PageProps) {
   const { reportData } = useUserReportData();
   const { assets } = useAssets();
 
@@ -50,7 +55,12 @@ export default function P16Scene({ onNext, onPrevious, onNavigateToScene, sceneN
     reportData?.consume_interest_member_name_top3 ?? null;
 
   return (
-    <BaseScene onNext={onNext} onPrevious={onPrevious} onNavigateToScene={onNavigateToScene} sceneName={sceneName}>
+    <BaseScene
+      onNext={onNext}
+      onPrevious={onPrevious}
+      onNavigateToScene={onNavigateToScene}
+      sceneName={sceneName}
+    >
       {/* background */}
       <GlitchLayer>
         <div className='z-0'>
@@ -108,7 +118,6 @@ export default function P16Scene({ onNext, onPrevious, onNavigateToScene, sceneN
 
       {/* main image */}
       <div className='z-0'>
-
         <Image
           src={thumbUp.url}
           alt={thumbUp.alt}
@@ -132,7 +141,7 @@ export default function P16Scene({ onNext, onPrevious, onNavigateToScene, sceneN
         style={{
           position: 'absolute',
           zIndex: 0,
-          fontSize: 14,
+          fontSize: 16,
           top: '371px',
           left: '35px',
         }}
@@ -162,7 +171,7 @@ export default function P16Scene({ onNext, onPrevious, onNavigateToScene, sceneN
             你最常停在
             <span
               className={`text-r-yellow`}
-              style={{ fontSize: 14, paddingLeft: '4px', paddingRight: '4px' }}
+              style={{ fontSize: 16, paddingLeft: '4px', paddingRight: '4px' }}
             >
               @{String(consumeMemberName ?? 'consume_member_name')}
             </span>
@@ -189,7 +198,7 @@ export default function P16Scene({ onNext, onPrevious, onNavigateToScene, sceneN
                 <span
                   className={`text-r-yellow`}
                   style={{
-                    fontSize: 14,
+                    fontSize: 16,
                     paddingLeft: '4px',
                     paddingRight: '4px',
                   }}
@@ -202,12 +211,12 @@ export default function P16Scene({ onNext, onPrevious, onNavigateToScene, sceneN
         )}
 
         <div
-          style={{ fontSize: 14 }}
+          style={{ fontSize: 16 }}
           hidden={
             !interestMemberName1 && !interestMemberName2 && !interestMemberName3
           }
         >
-          <span>看看</span>
+          <span>看看你感兴趣领域的答主</span>
           <span
             className={`text-r-blue flex items-center ${
               interestMemberName1 ? '' : 'hidden'

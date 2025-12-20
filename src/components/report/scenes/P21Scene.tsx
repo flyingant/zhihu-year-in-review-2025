@@ -1,21 +1,24 @@
-"use client";
+'use client';
 
-import { useEffect, useState } from "react";
-import Image from "next/image";
-import { useAssets } from "@/context/assets-context";
+import { useState, useEffect } from 'react';
+import Image from 'next/image';
+import { useAssets } from '@/context/assets-context';
 import { useUserReportData } from '@/context/user-report-data-context';
-import BaseScene from "./BaseScene";
-import { motion, useMotionValue, useSpring } from "framer-motion";
-import { submitQuizAnswer } from "@/api/report";
+import BaseScene from './BaseScene';
+import { motion, useMotionValue, useSpring } from 'framer-motion';
+import { submitQuizAnswer } from '@/api/report';
 
 interface PageProps {
   onNext?: () => void;
-  onPrevious?: () => void;
   onNavigateToScene?: (sceneId: string) => void;
   sceneName?: string;
 }
 
-export default function P21Scene({ onNext, onPrevious, onNavigateToScene, sceneName }: PageProps) {
+export default function P21Scene({
+  onNext,
+  onNavigateToScene,
+  sceneName,
+}: PageProps) {
   const { assets } = useAssets();
   const { setUserChoice } = useUserReportData();
 
@@ -71,7 +74,7 @@ export default function P21Scene({ onNext, onPrevious, onNavigateToScene, sceneN
     };
   }, [maskPositionMotion]);
 
-  const handleSelect = async (choice: "A" | "B") => {
+  const handleSelect = async (choice: 'A' | 'B') => {
     // call API to record the choice
     try {
       await submitQuizAnswer({
@@ -79,8 +82,8 @@ export default function P21Scene({ onNext, onPrevious, onNavigateToScene, sceneN
         answer: choice,
       });
     } catch (error) {
-      console.error("Failed to submit quiz answer:", error);
-    setUserChoice("p21", choice);
+      console.error('Failed to submit quiz answer:', error);
+      setUserChoice('p21', choice);
       // Continue to next scene even if API call fails
     }
     onNext?.();
@@ -125,43 +128,45 @@ export default function P21Scene({ onNext, onPrevious, onNavigateToScene, sceneN
     : {};
 
   return (
-    <BaseScene onNext={onNext} onPrevious={onPrevious} onNavigateToScene={onNavigateToScene} sceneName={sceneName}>
-      <div
-        className="relative w-full h-full overflow-hidden"
-      >
-        <div className="absolute inset-0 z-30">
+    <BaseScene
+      onNext={onNext}
+      onNavigateToScene={onNavigateToScene}
+      sceneName={sceneName}
+    >
+      <div className='relative w-full h-full overflow-hidden'>
+        <div className='absolute inset-0 z-30'>
           {/* descending order */}
           <Image
             src={mix21_1.url}
-            alt="{mix21_1.alt}"
+            alt='{mix21_1.alt}'
             width={mix21_1.width}
             height={mix21_1.height}
-            className="object-contain absolute pointer-events-none select-none z-1"
-            style={{ top: "222px", left: "304px" }}
+            className='object-contain absolute pointer-events-none select-none z-1'
+            style={{ top: '222px', left: '304px' }}
           />
           <Image
             src={mix21_2.url}
-            alt="{mix21_2.alt}"
+            alt='{mix21_2.alt}'
             width={mix21_2.width}
             height={mix21_2.height}
-            className="object-contain absolute pointer-events-none select-none z-1"
-            style={{ top: "351px", left: "236px" }}
+            className='object-contain absolute pointer-events-none select-none z-1'
+            style={{ top: '351px', left: '236px' }}
           />
           <Image
             src={mix21_3.url}
-            alt="{mix21_3.alt}"
+            alt='{mix21_3.alt}'
             width={mix21_3.width}
             height={mix21_3.height}
-            className="object-contain absolute pointer-events-none select-none z-1"
-            style={{ top: "711px", left: "0" }}
+            className='object-contain absolute pointer-events-none select-none z-1'
+            style={{ top: '711px', left: '0' }}
           />
           <Image
             src={mix21_4.url}
-            alt="{mix21_4.alt}"
+            alt='{mix21_4.alt}'
             width={mix21_4.width}
             height={mix21_4.height}
-            className="object-contain absolute pointer-events-none select-none z-1"
-            style={{ top: "492px", left: "30px" }}
+            className='object-contain absolute pointer-events-none select-none z-1'
+            style={{ top: '492px', left: '30px' }}
           />
         </div>
         {/* Background layer - static */}
@@ -170,31 +175,31 @@ export default function P21Scene({ onNext, onPrevious, onNavigateToScene, sceneN
           alt={bgAsset.alt}
           width={bgAsset.width}
           height={bgAsset.height}
-          className="relative z-10 w-auto h-full pointer-events-none select-none"
+          className='relative z-10 w-auto h-full pointer-events-none select-none'
         />
         {/* Liukanshan character */}
         <div
-          className="absolute inset-0 z-50 pointer-events-none"
-          style={{ top: "51%", left: "26%" }}
+          className='absolute inset-0 z-50 pointer-events-none'
+          style={{ top: '51%', left: '26%' }}
         >
           <Image
             src={liukanshanAsset.url}
             alt={liukanshanAsset.alt}
             width={liukanshanAsset.width}
             height={liukanshanAsset.height}
-            className="object-contain pointer-events-none select-none"
+            className='object-contain pointer-events-none select-none'
           />
         </div>
         {/* Top layer with wiper mask effect using new middle image + vertical line gradient */}
         <div
-          className="absolute inset-0 z-20 pointer-events-none"
+          className='absolute inset-0 z-20 pointer-events-none'
           style={{
             maskImage: `url("${middleAsset.url}")`,
             WebkitMaskImage: `url("${middleAsset.url}")`,
-            maskSize: "auto 100%",
-            maskRepeat: "no-repeat",
+            maskSize: 'auto 100%',
+            maskRepeat: 'no-repeat',
             maskPosition: `${maskPosition}px center`,
-            maskMode: "alpha",
+            maskMode: 'alpha',
           }}
         >
           <Image
@@ -202,7 +207,7 @@ export default function P21Scene({ onNext, onPrevious, onNavigateToScene, sceneN
             alt={topAsset.alt}
             width={topAsset.width}
             height={topAsset.height}
-            className="w-full h-full pointer-events-none select-none"
+            className='w-full h-full pointer-events-none select-none'
           />
         </div>
         {/* Options */}
@@ -237,7 +242,7 @@ export default function P21Scene({ onNext, onPrevious, onNavigateToScene, sceneN
          <Image src={p21Assets.optionB.url} alt={p21Assets.optionB.alt} width={p21Assets.optionB.width} height={p21Assets.optionB.height} style={{ width: 224, height: 36}} />
         </motion.div>
         {/* content **/}
-        <div className="z-0">
+        <div className='z-0'>
           <div
             className={`absolute z-20 text-center leading-relaxed`}
             style={{ fontSize: 26, lineHeight: '40px', top: "73px", left: "70px", right: "70px" }}

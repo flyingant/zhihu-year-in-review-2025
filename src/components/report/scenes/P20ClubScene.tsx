@@ -55,7 +55,7 @@ const ClubInterestItem = ({
             borderRadius: '50%',
           }}
         />
-        <span className='text-r-yellow px-[2px]' style={{ fontSize: 14 }}>
+        <span className='text-r-yellow px-[2px]' style={{ fontSize: 16 }}>
           {String(name ?? fallbackName)}
         </span>
       </div>
@@ -349,7 +349,7 @@ export default function P20Scene({
             <div
               className='z-30 absolute'
               style={{
-                fontSize: '14px',
+                fontSize: '16px',
                 top: '145px',
                 left: '34px',
                 right: '34px',
@@ -371,7 +371,7 @@ export default function P20Scene({
             <div
               className='absolute z-30'
               style={{
-                fontSize: 14,
+                fontSize: 16,
                 top: '583px',
                 left: '34px',
                 right: '34px',

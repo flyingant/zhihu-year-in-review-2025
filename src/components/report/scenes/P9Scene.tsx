@@ -11,15 +11,18 @@ import { submitQuizAnswer } from '@/api/report';
 
 interface PageProps {
   onNext?: () => void;
-  onPrevious?: () => void;
   onNavigateToScene?: (sceneId: string) => void;
   sceneName?: string;
 }
 
-export default function P9Scene({ onNext, onPrevious, onNavigateToScene, sceneName }: PageProps) {
+export default function P9Scene({
+  onNext,
+  onNavigateToScene,
+  sceneName,
+}: PageProps) {
   const { assets } = useAssets();
   const { setUserChoice } = useUserReportData();
-  
+
   // Use motion value with spring physics for smooth, physics-based animation
   const maskPositionMotion = useMotionValue(-300);
   const maskPositionSpring = useSpring(maskPositionMotion, {
@@ -27,12 +30,12 @@ export default function P9Scene({ onNext, onPrevious, onNavigateToScene, sceneNa
     damping: 15,
     mass: 1,
   });
-  
+
   const [maskPosition, setMaskPosition] = useState(-300);
 
   // Sync motion value with state for maskPosition updates
   useEffect(() => {
-    const unsubscribe = maskPositionSpring.on("change", (latest) => {
+    const unsubscribe = maskPositionSpring.on('change', (latest) => {
       setMaskPosition(Math.round(latest));
     });
     return unsubscribe;
@@ -49,17 +52,18 @@ export default function P9Scene({ onNext, onPrevious, onNavigateToScene, sceneNa
 
         const basePosition = -300;
         const shakeAmount = 200; // Shake amount
-        
+
         // Use smooth sine wave oscillation for predictable, smooth motion
         const elapsed = (Date.now() - startTime) / 1000; // Time in seconds
         const frequency = 0.2; // Oscillation frequency (cycles per second) - lower = slower
         // Map sine wave from [-1, 1] to [0, shakeAmount] so it goes from basePosition to basePosition + shakeAmount
-        const smoothOffset = (Math.sin(elapsed * frequency * Math.PI * 2) + 1) / 2 * shakeAmount;
+        const smoothOffset =
+          ((Math.sin(elapsed * frequency * Math.PI * 2) + 1) / 2) * shakeAmount;
         const targetPosition = basePosition + smoothOffset;
-        
+
         // Update motion value smoothly
         maskPositionMotion.set(targetPosition);
-        
+
         requestAnimationFrame(animate);
       };
 
@@ -104,9 +108,12 @@ export default function P9Scene({ onNext, onPrevious, onNavigateToScene, sceneNa
   const middleAsset = p9Assets.middle;
   const liukanshanAsset = p9Assets.liukanshan;
 
-
   return (
-    <BaseScene onNext={onNext} onPrevious={onPrevious} onNavigateToScene={onNavigateToScene} sceneName={sceneName}>
+    <BaseScene
+      onNext={onNext}
+      onNavigateToScene={onNavigateToScene}
+      sceneName={sceneName}
+    >
       <GlitchLayer className='z-[40]'>
         <Image
           src={blue1Asset.url}

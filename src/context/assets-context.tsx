@@ -1,4 +1,4 @@
-"use client";
+'use client';
 
 import {
   createContext,
@@ -7,7 +7,7 @@ import {
   useEffect,
   useCallback,
   ReactNode,
-} from "react";
+} from 'react';
 
 /**
  * Asset metadata type
@@ -291,7 +291,7 @@ export interface AssetsData {
       liukanshan: AssetMetadata;
       yellowMirror: AssetMetadata;
       hi: AssetMetadata;
-      "3dHi": AssetMetadata;
+      '3dHi': AssetMetadata;
       gif: AssetMetadata;
     };
     p6: {
@@ -453,6 +453,10 @@ export interface AssetsData {
       iconDisable: AssetMetadata;
       iconPlaying: AssetMetadata;
       bgAudio: AssetMetadata;
+      hitCoin: AssetMetadata;
+      flipBook: AssetMetadata;
+      jumpUp: AssetMetadata;
+      noise: AssetMetadata;
     };
 
     p28: {
@@ -696,7 +700,7 @@ export interface AssetsData {
 
 // Component expiration dates (in milliseconds since epoch)
 export const componentExpiration = {
-  sidebarLiuKanshan: new Date("2025-12-25T00:00:00").getTime(), // 2025.12.25 00:00
+  sidebarLiuKanshan: new Date('2025-12-25T00:00:00').getTime(), // 2025.12.25 00:00
 };
 
 interface AssetsContextType {
@@ -726,14 +730,14 @@ export function AssetsProvider({ children }: { children: ReactNode }) {
     try {
       // Get basePath from NEXT_PUBLIC_BASE_URL (same as next.config.mjs)
       // Falls back to production default '/zhihu2025' if not set
-      const BASE_PATH = process.env.NEXT_PUBLIC_BASE_URL || "";
-      const CDN_BASE_URL = process.env.NEXT_PUBLIC_CDN_BASE_URL || "";
+      const BASE_PATH = process.env.NEXT_PUBLIC_BASE_URL || '';
+      const CDN_BASE_URL = process.env.NEXT_PUBLIC_CDN_BASE_URL || '';
 
       // Fetch assets.json: Always use BASE_PATH (never CDN) with timestamp for cache busting
       const baseAssetsPath = BASE_PATH
         ? `${BASE_PATH}/assets.json`
-        : "/assets.json";
-      const separator = baseAssetsPath.includes("?") ? "&" : "?";
+        : '/assets.json';
+      const separator = baseAssetsPath.includes('?') ? '&' : '?';
       const assetsJsonPath = `${baseAssetsPath}${separator}v=${BUILD_VERSION}`;
       const response = await fetch(assetsJsonPath);
 
@@ -748,16 +752,17 @@ export function AssetsProvider({ children }: { children: ReactNode }) {
         if (!url) return url;
 
         // If URL is already absolute (starts with http:// or https://), return as is
-        if (url.startsWith("http://") || url.startsWith("https://")) {
+        if (url.startsWith('http://') || url.startsWith('https://')) {
           return url;
         }
 
         // For relative URLs, combine CDN_BASE_URL + BASE_PATH if CDN is configured
         // Otherwise, use BASE_PATH only
-        let baseUrl = "";
-        const IGNORE_BASE_URL = process.env.NEXT_PUBLIC_IGNORE_BASE_URL === "true";
+        let baseUrl = '';
+        const IGNORE_BASE_URL =
+          process.env.NEXT_PUBLIC_IGNORE_BASE_URL === 'true';
         if (CDN_BASE_URL) {
-          const cdnBase = CDN_BASE_URL.endsWith("/")
+          const cdnBase = CDN_BASE_URL.endsWith('/')
             ? CDN_BASE_URL.slice(0, -1)
             : CDN_BASE_URL;
           if (IGNORE_BASE_URL) {
@@ -766,7 +771,7 @@ export function AssetsProvider({ children }: { children: ReactNode }) {
           } else {
             // Combine CDN_BASE_URL + BASE_PATH
             if (BASE_PATH) {
-              const basePath = BASE_PATH.startsWith("/")
+              const basePath = BASE_PATH.startsWith('/')
                 ? BASE_PATH
                 : `/${BASE_PATH}`;
               baseUrl = `${cdnBase}${basePath}`;
@@ -782,25 +787,25 @@ export function AssetsProvider({ children }: { children: ReactNode }) {
         let finalUrl = url;
 
         // If URL starts with '/', prepend the base URL
-        if (url.startsWith("/")) {
+        if (url.startsWith('/')) {
           if (baseUrl) {
             const cleanPath = url.slice(1); // Remove leading slash
             // Ensure baseUrl doesn't end with / and cleanPath doesn't start with /
-            const cleanBaseUrl = baseUrl.endsWith("/")
+            const cleanBaseUrl = baseUrl.endsWith('/')
               ? baseUrl.slice(0, -1)
               : baseUrl;
             finalUrl = `${cleanBaseUrl}/${cleanPath}`;
           }
         } else if (baseUrl) {
           // If URL doesn't start with '/', still prepend base URL if available
-          const cleanBaseUrl = baseUrl.endsWith("/")
+          const cleanBaseUrl = baseUrl.endsWith('/')
             ? baseUrl.slice(0, -1)
             : baseUrl;
           finalUrl = `${cleanBaseUrl}/${url}`;
         }
 
         // Append version query parameter for cache busting
-        const separator = finalUrl.includes("?") ? "&" : "?";
+        const separator = finalUrl.includes('?') ? '&' : '?';
         return `${finalUrl}${separator}v=${BUILD_VERSION}`;
       };
 
@@ -808,9 +813,9 @@ export function AssetsProvider({ children }: { children: ReactNode }) {
       const transformAssets = (obj: unknown): unknown => {
         if (Array.isArray(obj)) {
           return obj.map(transformAssets);
-        } else if (obj && typeof obj === "object" && obj !== null) {
+        } else if (obj && typeof obj === 'object' && obj !== null) {
           const objRecord = obj as Record<string, unknown>;
-          if ("url" in objRecord && typeof objRecord.url === "string") {
+          if ('url' in objRecord && typeof objRecord.url === 'string') {
             return {
               ...objRecord,
               url: transformAssetUrl(objRecord.url),
@@ -829,9 +834,9 @@ export function AssetsProvider({ children }: { children: ReactNode }) {
       const transformedAssets = transformAssets(assetsData) as AssetsData;
       setAssets(transformedAssets);
     } catch (err: unknown) {
-      console.error("Error fetching assets:", err);
+      console.error('Error fetching assets:', err);
       const errorMessage =
-        err instanceof Error ? err.message : "获取资源数据失败，请稍后重试";
+        err instanceof Error ? err.message : '获取资源数据失败，请稍后重试';
       setError(errorMessage);
     } finally {
       setIsLoading(false);
@@ -865,7 +870,7 @@ export function AssetsProvider({ children }: { children: ReactNode }) {
 export function useAssets() {
   const context = useContext(AssetsContext);
   if (context === undefined) {
-    throw new Error("useAssets must be used within an AssetsProvider");
+    throw new Error('useAssets must be used within an AssetsProvider');
   }
   return context;
 }

@@ -13,6 +13,10 @@ const ITEMS_PER_ROW = 17;
 const CHAR_SPACING_PERCENT = 0.3;
 // 自动动画速度 (每秒移动的百分比)
 const AUTO_ANIMATION_SPEED = 0.01; // 调整这个值来控制动画速度
+// 手势控制的速度倍数
+const GESTURE_SPEED_MULTIPLIER = 2; // 手势时的速度倍数
+// 速度衰减系数 (每帧)
+const VELOCITY_DECAY = 0.95;
 
 // 左右跨度（距离中心点的距离）
 const PATH_SPREAD_FROM_CENTER = 2500;
@@ -47,6 +51,10 @@ export default function CurveMarquee() {
   const progressRef = useRef(0);
   const spansRef = useRef<(HTMLSpanElement | null)[]>([]);
   const lastTimeRef = useRef<number | null>(null);
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const hammerRef = useRef<any>(null);
+  const velocityRef = useRef(0); // 当前速度，正数向右，负数向左
+  const directionRef = useRef<number>(-1); // 动画方向：1向右，-1向左，默认向左
   const { trackShow } = useZA();
   const { ref: inViewRef, inView } = useInView({
     triggerOnce: true,
@@ -82,7 +90,62 @@ export default function CurveMarquee() {
     return () => window.removeEventListener("resize", updatePath);
   }, []);
 
-  // 自动动画效果
+  // 初始化 Hammer.js 手势识别
+  useEffect(() => {
+    if (!containerRef.current || typeof window === 'undefined') return;
+
+    let isMounted = true;
+
+    const initHammer = async () => {
+      try {
+        const Hammer = (await import('hammerjs')).default;
+        
+        if (!isMounted || !containerRef.current) return;
+
+        // Create Hammer instance
+        const hammer = new Hammer(containerRef.current);
+        hammerRef.current = hammer;
+
+        // Enable swipe recognizer with horizontal directions
+        hammer.get('swipe').set({ 
+          direction: Hammer.DIRECTION_HORIZONTAL,
+          threshold: 10,
+          velocity: 0.1
+        });
+
+        // Handle swipe left (动画向左)
+        hammer.on('swipeleft', () => {
+          // 向左滑动，设置方向为向左（负数）
+          directionRef.current = -1;
+          // 设置初始速度
+          velocityRef.current = -AUTO_ANIMATION_SPEED * 100 * GESTURE_SPEED_MULTIPLIER;
+        });
+
+        // Handle swipe right (动画向右)
+        hammer.on('swiperight', () => {
+          // 向右滑动，设置方向为向右（正数）
+          directionRef.current = 1;
+          // 设置初始速度
+          velocityRef.current = AUTO_ANIMATION_SPEED * 100 * GESTURE_SPEED_MULTIPLIER;
+        });
+      } catch (error) {
+        console.error('Failed to load Hammer.js:', error);
+      }
+    };
+
+    initHammer();
+
+    // Cleanup
+    return () => {
+      isMounted = false;
+      if (hammerRef.current) {
+        hammerRef.current.destroy();
+        hammerRef.current = null;
+      }
+    };
+  }, []);
+
+  // 动画效果（基于手势方向）
   useEffect(() => {
     let animationFrameId: number;
 
@@ -103,9 +166,25 @@ export default function CurveMarquee() {
       const deltaTime = currentTime - lastTimeRef.current;
       lastTimeRef.current = currentTime;
 
-      // 根据时间差更新进度 (deltaTime 是毫秒，转换为秒)
-      const deltaProgress = (deltaTime / 1000) * AUTO_ANIMATION_SPEED * 100;
-      progressRef.current += deltaProgress;
+      // 根据当前速度和方向更新进度
+      if (Math.abs(velocityRef.current) > 0.01) {
+        // 有速度时，使用速度更新（手势后的加速效果）
+        const deltaProgress = (deltaTime / 1000) * velocityRef.current;
+        progressRef.current += deltaProgress;
+        
+        // 速度衰减
+        velocityRef.current *= VELOCITY_DECAY;
+        
+        // 如果速度太小，切换到自动播放模式（保持当前方向）
+        if (Math.abs(velocityRef.current) < 0.01) {
+          velocityRef.current = 0;
+          // 不重置 directionRef，保持当前方向继续自动播放
+        }
+      } else {
+        // 自动播放模式：使用默认速度按当前方向持续播放
+        const deltaProgress = (deltaTime / 1000) * AUTO_ANIMATION_SPEED * 100 * directionRef.current;
+        progressRef.current += deltaProgress;
+      }
 
       // 保持进度在合理范围内，防止数值过大
       progressRef.current = wrapPercent(progressRef.current);

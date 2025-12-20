@@ -222,6 +222,7 @@ export interface AssetsData {
       step3: AssetMetadata;
       title: AssetMetadata;
       button: AssetMetadata;
+      arrowDown: AssetMetadata;
     };
     bg: {
       blue0_1: AssetMetadata;

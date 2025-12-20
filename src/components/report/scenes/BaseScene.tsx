@@ -152,6 +152,7 @@ export default function BaseScene({
   const styles = useSceneThemeStyles();
   const logoAsset = assets?.kv.logo;
   const logoWhiteAsset = assets?.kv.logoWhite;
+  const arrowDownAsset = assets?.report.intro.arrowDown;
   const [scale, setScale] = useState(1);
   const containerRef = useRef<HTMLDivElement>(null);
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -304,7 +305,7 @@ export default function BaseScene({
                 e.stopPropagation();
                 onNext();
               }}
-              className='absolute left-0 right-0 bottom-6 z-60 mx-auto px-5 py-2 rounded-full bg-black/80 text-white text-sm font-semibold shadow-lg flex items-center justify-center w-fit'
+              className='absolute left-0 right-0 bottom-6 z-60 mx-auto px-5 py-2 text-sm flex items-center justify-center w-fit'
               aria-label='Next'
               animate={{ y: [0, -6, 0], scale: [1, 1.05, 1] }}
               transition={{
@@ -313,21 +314,9 @@ export default function BaseScene({
                 ease: 'easeInOut',
               }}
             >
-              <svg
-                width='28'
-                height='20'
-                viewBox='0 0 36 24'
-                fill='none'
-                xmlns='http://www.w3.org/2000/svg'
-              >
-                <path
-                  d='M4 6L18 18L32 6'
-                  stroke='white'
-                  strokeWidth='2.2'
-                  strokeLinecap='round'
-                  strokeLinejoin='round'
-                />
-              </svg>
+              {arrowDownAsset && 
+                <Image src={arrowDownAsset.url} alt={arrowDownAsset.alt} width={arrowDownAsset.width} height={arrowDownAsset.height} style={{ width: 20, height: 11 }} />
+              }
             </motion.button>
           )}
         </div>

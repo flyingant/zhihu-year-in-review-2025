@@ -1287,6 +1287,12 @@
         "width": 230,
         "height": 43,
         "alt": "Intro button"
+      },
+      "arrowDown": {
+        "url": "/assets/icon-arrow-down.png",
+        "width": 20,
+        "height": 11,
+        "alt": "Arrow Down"
       }
     },
     "bg": {

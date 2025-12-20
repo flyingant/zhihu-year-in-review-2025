@@ -364,8 +364,8 @@ const YearlyVideoSection = () => {
             className="absolute z-20 overflow-hidden bg-black rounded-[20px]"
             style={{
               top: '26.5%',
-              left: '4.8%',
-              width: '90.5%',
+              left: '8%',
+              width: '84%',
               height: '51%',
             }}
           >
@@ -378,7 +378,7 @@ const YearlyVideoSection = () => {
                 <span>{error}</span>
               </div>
             ) : playerSources ? (
-              <div className="w-full h-full relative [&>div]:w-full [&>div]:h-full [&_video]:w-full [&_video]:h-full [&_video]:object-cover">
+              <div className="w-full h-full relative [&>div]:!w-full [&>div]:!h-full [&_video]:!w-full [&_video]:!h-full [&_video]:!object-cover">
                 {/* @ts-expect-error - Griffith Player type compatibility with React 19 */}
                 <Player
                   sources={playerSources}

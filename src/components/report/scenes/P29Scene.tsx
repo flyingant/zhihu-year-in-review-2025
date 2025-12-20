@@ -38,6 +38,12 @@ export default function P29Scene({ onNext, sceneName }: PageProps) {
   const { showToast } = useToast();
   const isMobile = useMobile();
 
+  useEffect(() => {
+    trackPageShow({ page: { page_id: '60864' } });
+  }, []);
+
+  if (!assets) return null;
+
   const {
     iconShare,
     iconSave,
@@ -45,13 +51,7 @@ export default function P29Scene({ onNext, sceneName }: PageProps) {
     ctaTextShare,
     ctaTextSync,
     ctaTextGuess,
-  } = assets?.report.p29;
-
-  useEffect(() => {
-    trackPageShow({ page: { page_id: '60864' } });
-  }, []);
-
-  if (!assets) return null;
+  } = assets.report.p29;
 
   /**
    * 标准的图片下载方法（用于非知乎 App 环境）

@@ -52,13 +52,63 @@ export default function P10Scene({ onNext, onPrevious, onNavigateToScene, sceneN
   const pinCount = formatNumber(toNumberOrNull(reportData?.consume_pin_cnt));
   const wordCount = toNumberOrNull(reportData?.consume_word_cnt);
 
-  // Calculate equivalent books
-  const calculateEquivalentBooks = (words: number | null): number => {
-    if (!words || words === 0) return 0;
-    return Math.round(words / 200000);
+  // Map word count to equivalent reading achievement
+  const getEquivalentReading = (words: number | null): { number: string; unit: string; work: string } | null => {
+    if (!words || words === 0) return null;
+
+    const w = words;
+
+    if (w < 10000) {
+      return null; // P10 placeholder - no equivalent shown
+    } else if (w >= 10000 && w < 20000) {
+      return { number: '1', unit: '本', work: '散文集《野草》' };
+    } else if (w >= 20000 && w < 50000) {
+      return { number: '1', unit: '本', work: '《人类群星闪耀时》' };
+    } else if (w >= 50000 && w < 100000) {
+      return { number: '半', unit: '部', work: '《人间词话》' };
+    } else if (w >= 100000 && w < 150000) {
+      return { number: '1', unit: '本', work: '《活着》' };
+    } else if (w >= 150000 && w < 200000) {
+      return { number: '1', unit: '本', work: '《献给阿尔吉侬的花束》' };
+    } else if (w >= 200000 && w < 300000) {
+      return { number: '1', unit: '本', work: '《杀死一只知更鸟》' };
+    } else if (w >= 300000 && w < 500000) {
+      return { number: '1', unit: '部', work: '《人类简史》' };
+    } else if (w >= 500000 && w < 750000) {
+      return { number: '1', unit: '部', work: '《红楼梦》' };
+    } else if (w >= 750000 && w < 1000000) {
+      return { number: '1', unit: '部', work: '《三体》三部曲' };
+    } else if (w >= 1000000 && w < 1500000) {
+      return { number: '1', unit: '部', work: '《四世同堂》' };
+    } else if (w >= 1500000 && w < 2000000) {
+      return { number: '1', unit: '部', work: '《平凡的世界》' };
+    } else if (w >= 2000000 && w < 3000000) {
+      return { number: '1', unit: '套', work: '《追忆似水年华》全卷' };
+    } else if (w >= 3000000 && w < 4000000) {
+      return { number: '1', unit: '遍', work: '四大名著' };
+    } else if (w >= 4000000 && w < 5000000) {
+      return { number: '10', unit: '遍', work: '《史记》' };
+    } else if (w >= 5000000 && w < 7000000) {
+      return { number: '10', unit: '遍', work: '「四书五经」' };
+    } else if (w >= 7000000 && w < 10000000) {
+      return { number: '1', unit: '整套', work: '《金庸全集》' };
+    } else if (w >= 10000000 && w < 15000000) {
+      return { number: '1', unit: '遍', work: '最长版本的《中国通史》' };
+    } else if (w >= 15000000 && w < 20000000) {
+      return { number: '100', unit: '遍', work: '《时间简史》' };
+    } else if (w >= 20000000 && w < 30000000) {
+      return { number: '100', unit: '遍', work: '《百年孤独》' };
+    } else if (w >= 30000000 && w < 50000000) {
+      return { number: '15', unit: '遍', work: '《战争与和平》' };
+    } else if (w >= 50000000 && w < 100000000) {
+      return { number: '100', unit: '遍', work: '马尔克斯的《活着为了讲述》' };
+    } else {
+      // 100000000+
+      return { number: '', unit: '', work: '在脑海中建成一座「真实图书馆」' };
+    }
   };
 
-  const equivalentBooks = calculateEquivalentBooks(wordCount);
+  const equivalentReading = getEquivalentReading(wordCount);
 
   return (
     <BaseScene onNext={onNext} onPrevious={onPrevious} onNavigateToScene={onNavigateToScene} sceneName={sceneName}>
@@ -285,20 +335,47 @@ export default function P10Scene({ onNext, onPrevious, onNavigateToScene, sceneN
           />
           <div>个字</div>
         </div>
-        <div hidden={!equivalentBooks}>
-          相当于读完
-          <span
-            className='text-r-yellow'
-            style={{
-              paddingLeft: '2px',
-              paddingRight: '2px',
-              fontSize: '18px',
-            }}
-          >
-            {equivalentBooks}
-          </span>
-          本书
-        </div>
+        {equivalentReading && (
+          <div>
+            {equivalentReading.number && equivalentReading.unit ? (
+              <>
+                相当于读完
+                <span
+                  className='text-r-yellow'
+                  style={{
+                    paddingLeft: '2px',
+                    paddingRight: '2px',
+                    fontSize: '18px',
+                  }}
+                >
+                  {equivalentReading.number}
+                </span>
+                {equivalentReading.unit}
+                <span
+                  className='text-r-yellow'
+                  style={{
+                    paddingLeft: '2px',
+                    paddingRight: '2px',
+                    fontSize: '18px',
+                  }}
+                >
+                  {equivalentReading.work}
+                </span>
+              </>
+            ) : (
+              <span
+                className='text-r-yellow'
+                style={{
+                  paddingLeft: '2px',
+                  paddingRight: '2px',
+                  fontSize: '18px',
+                }}
+              >
+                {equivalentReading.work}
+              </span>
+            )}
+          </div>
+        )}
       </div>
     </BaseScene>
   );

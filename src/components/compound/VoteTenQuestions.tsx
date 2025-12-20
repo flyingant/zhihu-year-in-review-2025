@@ -415,53 +415,53 @@ const VoteTenQuestions = () => {
     );
   }
 
-  if (shouldShowPoster && posterInfo?.poster_image_url) {
-    return (
-      <div className="relative w-full flex flex-col items-center pb-10">
-        <div className="relative w-full flex flex-col items-center mt-4">
-          <div className="relative w-full">
-            <Image
-              src={posterInfo.poster_image_url}
-              alt="Generated poster"
-              width={343}
-              height={600}
-              className="w-full h-auto object-contain"
-              unoptimized
-            />
-            <div className="absolute bottom-0 left-0 right-0 bg-white flex flex-col gap-2 w-full px-2 py-2">
-              <div
-                onClick={() => handleSavePosterImage(posterInfo.poster_image_url)}
-                className="flex justify-center items-center w-full cursor-pointer"
-              >
-                {assets.vote.save && (
-                  <Image
-                    src={assets.vote.save.url}
-                    alt={assets.vote.save.alt}
-                    width={assets.vote.save.width}
-                    height={assets.vote.save.height}
-                    className="object-contain"
-                    unoptimized
-                  />
-                )}
-              </div>
-              {assets.vote.saveBottom && (
-                <div className="flex justify-center items-center w-full">
-                  <Image
-                    src={assets.vote.saveBottom.url}
-                    alt={assets.vote.saveBottom.alt}
-                    width={assets.vote.saveBottom.width}
-                    height={assets.vote.saveBottom.height}
-                    className="object-contain"
-                    unoptimized
-                  />
-                </div>
-              )}
-            </div>
-          </div>
-        </div>
-      </div>
-    );
-  }
+  // if (shouldShowPoster && posterInfo?.poster_image_url) {
+  //   return (
+  //     <div className="relative w-full flex flex-col items-center pb-10">
+  //       <div className="relative w-full flex flex-col items-center mt-4">
+  //         <div className="relative w-full">
+  //           <Image
+  //             src={posterInfo.poster_image_url}
+  //             alt="Generated poster"
+  //             width={343}
+  //             height={600}
+  //             className="w-full h-auto object-contain"
+  //             unoptimized
+  //           />
+  //           <div className="absolute bottom-0 left-0 right-0 bg-white flex flex-col gap-2 w-full px-2 py-2">
+  //             <div
+  //               onClick={() => handleSavePosterImage(posterInfo.poster_image_url)}
+  //               className="flex justify-center items-center w-full cursor-pointer"
+  //             >
+  //               {assets.vote.save && (
+  //                 <Image
+  //                   src={assets.vote.save.url}
+  //                   alt={assets.vote.save.alt}
+  //                   width={assets.vote.save.width}
+  //                   height={assets.vote.save.height}
+  //                   className="object-contain"
+  //                   unoptimized
+  //                 />
+  //               )}
+  //             </div>
+  //             {assets.vote.saveBottom && (
+  //               <div className="flex justify-center items-center w-full">
+  //                 <Image
+  //                   src={assets.vote.saveBottom.url}
+  //                   alt={assets.vote.saveBottom.alt}
+  //                   width={assets.vote.saveBottom.width}
+  //                   height={assets.vote.saveBottom.height}
+  //                   className="object-contain"
+  //                   unoptimized
+  //                 />
+  //               </div>
+  //             )}
+  //           </div>
+  //         </div>
+  //       </div>
+  //     </div>
+  //   );
+  // }
 
   return (
     <div className="relative w-full flex flex-col items-center pb-10">
@@ -537,6 +537,7 @@ const VoteTenQuestions = () => {
                             alt="bg"
                             fill
                             className="object-fill"
+                            priority
                           />
                         </div>
 

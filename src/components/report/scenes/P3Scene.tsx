@@ -2,12 +2,11 @@
 
 import { useRef, useEffect } from 'react';
 import { useUserReportData } from '@/context/user-report-data-context';
-import { typographyClass } from '@/hooks/useSceneTheme';
 import BaseScene from './BaseScene';
 import Image from 'next/image';
 import { useAssets } from '@/context/assets-context';
 import GlitchLayer from '@/components/report/effects/GlitchLayer';
-import { formatDate, truncateText } from '@/utils/common';
+import { truncateText } from '@/utils/common';
 import { format } from 'date-fns';
 
 interface PageProps {
@@ -166,7 +165,7 @@ export default function P3Scene({
         <div style={{ fontSize: '22px' }}>你的答案，让混沌变得清晰</div>
 
         <div
-          style={{ paddingTop: '46px', paddingBottom: '8px' }}
+          style={{ paddingTop: '46px', lineHeight: '32px' }}
           hidden={!answerCount && !articleCount}
         >
           你写下了
@@ -196,9 +195,7 @@ export default function P3Scene({
             {articleCount}
           </span>
           <span hidden={!articleCount}> 篇文章。</span>
-        </div>
-        <div hidden={!answerCount} style={{ paddingBottom: '23px' }}>
-          给这个世界一些答案
+          <div hidden={!answerCount}>给这个世界一些答案</div>
         </div>
 
         {/* 深耕领域 */}
@@ -242,7 +239,7 @@ export default function P3Scene({
 
         {/* 第一条回答 */}
         <div
-          style={{ marginBottom: '4px' }}
+          style={{ marginTop: '28px', marginBottom: '4px' }}
           hidden={!firstAnswerDate && !firstAnswerTitle}
         >
           还记得吗？

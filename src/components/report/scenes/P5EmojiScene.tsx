@@ -13,7 +13,12 @@ interface PageProps {
   sceneName?: string;
 }
 
-export default function P5EmojiScene({ onNext, onPrevious, onNavigateToScene, sceneName }: PageProps) {
+export default function P5EmojiScene({
+  onNext,
+  onPrevious,
+  onNavigateToScene,
+  sceneName,
+}: PageProps) {
   const { reportData } = useUserReportData();
   const { assets } = useAssets();
 
@@ -38,7 +43,12 @@ export default function P5EmojiScene({ onNext, onPrevious, onNavigateToScene, sc
   const discussCount = reportData?.comment_discuss_cnt ?? null;
 
   return (
-    <BaseScene onNext={onNext} onPrevious={onPrevious} onNavigateToScene={onNavigateToScene} sceneName={sceneName}>
+    <BaseScene
+      onNext={onNext}
+      onPrevious={onPrevious}
+      onNavigateToScene={onNavigateToScene}
+      sceneName={sceneName}
+    >
       <GlitchLayer>
         <Image
           src={mix6Asset.url}
@@ -141,7 +151,7 @@ export default function P5EmojiScene({ onNext, onPrevious, onNavigateToScene, sc
 
         <div
           style={{ marginBottom: '10px' }}
-          hidden={!emojiName || !emojiCount}
+          hidden={!emojiName || !emojiCount || emojiCount < 2}
         >
           <div
             style={{ marginBottom: '10px' }}
@@ -173,7 +183,7 @@ export default function P5EmojiScene({ onNext, onPrevious, onNavigateToScene, sc
 
         <div
           style={{ marginBottom: '20px', lineHeight: '32px' }}
-          hidden={!discussMemberName || !discussCount}
+          hidden={!discussMemberName || !discussCount || discussCount < 3}
         >
           这一年，你和
           <span

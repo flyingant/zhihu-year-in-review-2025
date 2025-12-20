@@ -168,9 +168,7 @@ export default function P5Scene({
               marginBottom: '40px',
               lineHeight: '32px',
             }}
-            hidden={
-              !hotCommentContent || hotCommentLikes < 10 || !hotCommentLikes
-            }
+            hidden={!hotCommentContent || hotCommentLikes < 1}
           >
             <div>
               最热一条
@@ -219,7 +217,7 @@ export default function P5Scene({
           条想法
           <div
             style={{ marginTop: '10px', lineHeight: '32px' }}
-            hidden={!hotPinTitle || hotPinLikes < 10 || !hotPinLikes}
+            hidden={!hotPinTitle || hotPinLikes < 1}
           >
             其中
             <span

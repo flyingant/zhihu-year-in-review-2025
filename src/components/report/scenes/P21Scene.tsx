@@ -1,11 +1,11 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Image from "next/image";
 import { useAssets } from "@/context/assets-context";
 import { useUserReportData } from '@/context/user-report-data-context';
 import BaseScene from "./BaseScene";
-import { motion } from "framer-motion";
+import { motion, useMotionValue, useSpring } from "framer-motion";
 import { submitQuizAnswer } from "@/api/report";
 
 interface PageProps {
@@ -18,11 +18,58 @@ interface PageProps {
 export default function P21Scene({ onNext, onPrevious, onNavigateToScene, sceneName }: PageProps) {
   const { assets } = useAssets();
   const { setUserChoice } = useUserReportData();
-  const [maskPosition, setMaskPosition] = useState(-21);
 
-  const handleRangeChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setMaskPosition(Number(e.target.value));
-  };
+  // Use motion value with spring physics for smooth, physics-based animation
+  const maskPositionMotion = useMotionValue(0);
+  const maskPositionSpring = useSpring(maskPositionMotion, {
+    stiffness: 50,
+    damping: 15,
+    mass: 1,
+  });
+  
+  const [maskPosition, setMaskPosition] = useState(0);
+
+  // Sync motion value with state for maskPosition updates
+  useEffect(() => {
+    const unsubscribe = maskPositionSpring.on("change", (latest) => {
+      setMaskPosition(Math.round(latest));
+    });
+    return unsubscribe;
+  }, [maskPositionSpring]);
+
+  // Create smooth physics-based shake animation
+  useEffect(() => {
+    let isAnimating = true;
+    const startTime = Date.now();
+
+    const createSmoothShakeAnimation = () => {
+      const animate = () => {
+        if (!isAnimating) return;
+
+        const basePosition = 0;
+        const shakeAmount = 75; // Offset: how much to shake from base position
+        
+        // Use smooth sine wave oscillation for predictable, smooth motion
+        const elapsed = (Date.now() - startTime) / 1000; // Time in seconds
+        const frequency = 0.2; // Oscillation frequency (cycles per second) - lower = slower
+        const smoothOffset = Math.sin(elapsed * frequency * Math.PI * 2) * shakeAmount;
+        const targetPosition = basePosition + smoothOffset;
+        
+        // Update motion value smoothly
+        maskPositionMotion.set(targetPosition);
+        
+        requestAnimationFrame(animate);
+      };
+
+      animate();
+    };
+
+    createSmoothShakeAnimation();
+
+    return () => {
+      isAnimating = false;
+    };
+  }, [maskPositionMotion]);
 
   const handleSelect = async (choice: "A" | "B") => {
     // call API to record the choice
@@ -48,11 +95,11 @@ export default function P21Scene({ onNext, onPrevious, onNavigateToScene, sceneN
   const liukanshanAsset = p21Assets.liukanshan;
   const { mix21_1, mix21_2, mix21_3, mix21_4 } = assets.report.bg;
 
-  const isMaskPastThreshold = maskPosition < -20;
+  const isMaskPastThreshold = maskPosition < 0;
   const isMaskAboveThreshold = maskPosition > 0;
   const floatPulse = isMaskPastThreshold
-    ? { scale: [1, 1.2, 1], opacity: 1 }
-    : { scale: 1, opacity: 0 };
+    ? { scale: [1, 1.06, 1] }
+    : { scale: 1 };
   const floatPulseTransition = isMaskPastThreshold
     ? {
         scale: {
@@ -61,20 +108,11 @@ export default function P21Scene({ onNext, onPrevious, onNavigateToScene, sceneN
           duration: 1.2,
           ease: "easeInOut" as const,
         },
-        opacity: {
-          duration: 0.5,
-          ease: "easeInOut" as const,
-        },
       }
-    : {
-        opacity: {
-          duration: 0.5,
-          ease: "easeInOut" as const,
-        },
-      };
+    : {};
   const floatPulseB = isMaskAboveThreshold
-    ? { scale: [1, 1.06, 1], opacity: 1 }
-    : { scale: 1, opacity: 0 };
+    ? { scale: [1, 1.06, 1] }
+    : { scale: 1 };
   const floatPulseTransitionB = isMaskAboveThreshold
     ? {
         scale: {
@@ -83,17 +121,8 @@ export default function P21Scene({ onNext, onPrevious, onNavigateToScene, sceneN
           duration: 1.2,
           ease: "easeInOut" as const,
         },
-        opacity: {
-          duration: 0.5,
-          ease: "easeInOut" as const,
-        },
       }
-    : {
-        opacity: {
-          duration: 0.5,
-          ease: "easeInOut" as const,
-        },
-      };
+    : {};
 
   return (
     <BaseScene onNext={onNext} onPrevious={onPrevious} onNavigateToScene={onNavigateToScene} sceneName={sceneName}>
@@ -171,54 +200,47 @@ export default function P21Scene({ onNext, onPrevious, onNavigateToScene, sceneN
           <Image
             src={topAsset.url}
             alt={topAsset.alt}
-            width={topAsset.width / 2}
+            width={topAsset.width}
             height={topAsset.height}
             className="w-full h-full pointer-events-none select-none"
           />
         </div>
-        {/* Range input displayed at the bottom */}
-        <input
-          type="range"
-          min="-300"
-          max="300"
-          value={maskPosition}
-          onChange={handleRangeChange}
-          className="absolute bottom-16 left-1/2 transform -translate-x-1/2 w-3/4 z-30"
-          style={{ pointerEvents: "auto" }}
-        />
         {/* Options */}
-        <motion.p
+        <motion.div
           className="absolute z-[70] text-xl cursor-pointer"
-          style={{ top: "625px", left: "23px", pointerEvents: 'auto' }}
+          style={{  width: '224px', top: "625px", left: "23px", pointerEvents: 'auto', left: 0,
+            right: 0,
+            margin: '0 auto',
+          }}
           animate={floatPulse}
           transition={floatPulseTransition}
           onClick={() => handleSelect("A")}
           role="button"
           tabIndex={0}
         >
-          <span style={{ display: 'inline-block', width: '90px', color: '#7D4617' }}>
-            A. 寻着光探索未知
-          </span>
-          
-        </motion.p>
-        <motion.p
+          <Image src={p21Assets.optionA.url} alt={p21Assets.optionA.alt} width={p21Assets.optionA.width} height={p21Assets.optionA.height} style={{ width: 224, height: 36}} />
+
+        </motion.div>
+        <motion.div
           className="absolute z-[70] text-xl cursor-pointer"
-          style={{ top: "286px", left: "230px", pointerEvents: 'auto' }}
+          style={{  width: '224px', top: "286px", pointerEvents: 'auto',
+            left: 0,
+            right: 0,
+            margin: '0 auto',
+           }}
           animate={floatPulseB}
           transition={floatPulseTransitionB}
           onClick={() => handleSelect("B")}
           role="button"
           tabIndex={0}
         >
-          <span style={{ display: 'inline-block', width: '84px', color: '#2F8C07' }}>
-            B. 跟着图奔向目标
-          </span>
-        </motion.p>
+         <Image src={p21Assets.optionB.url} alt={p21Assets.optionB.alt} width={p21Assets.optionB.width} height={p21Assets.optionB.height} style={{ width: 224, height: 36}} />
+        </motion.div>
         {/* content **/}
         <div className="z-0">
           <div
             className={`absolute z-20 text-center leading-relaxed`}
-            style={{ fontSize: 24, top: "114px", left: "70px", right: "70px" }}
+            style={{ fontSize: 26, lineHeight: '40px', top: "73px", left: "70px", right: "70px" }}
           >
             这一年，
             <br />

@@ -276,6 +276,8 @@ export interface AssetsData {
       middle: AssetMetadata;
       top: AssetMetadata;
       liukanshanReading: AssetMetadata;
+      optionA: AssetMetadata;
+      optionB: AssetMetadata;
     };
     p2: {
       liukanshan: AssetMetadata;
@@ -318,6 +320,8 @@ export interface AssetsData {
       middle: AssetMetadata;
       top: AssetMetadata;
       liukanshan: AssetMetadata;
+      optionA: AssetMetadata;
+      optionB: AssetMetadata;
     };
     p10: {
       group1: AssetMetadata;
@@ -358,6 +362,8 @@ export interface AssetsData {
       bg: AssetMetadata;
       top: AssetMetadata;
       middle: AssetMetadata;
+      optionA: AssetMetadata;
+      optionB: AssetMetadata;
     };
     p16: {
       thumbUp: AssetMetadata;

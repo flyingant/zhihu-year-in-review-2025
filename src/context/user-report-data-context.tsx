@@ -19,12 +19,13 @@ import {
 // Re-export UserReportData for backward compatibility
 export type { UserReportData };
 
-interface SummaryPosterData {
+export interface SummaryPosterData {
   poster_id: number;
   poster_url: string;
   text: string;
   key?: string;
   bg: string;
+  pollId?: string;
 }
 
 interface UserReportDataContextType {

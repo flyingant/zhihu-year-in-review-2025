@@ -6,7 +6,7 @@ import BaseScene from './BaseScene';
 import { useAssets } from '@/context/assets-context';
 import { setVoteOption } from '@/api/report';
 import { useToast } from '@/context/toast-context';
-import { useUserReportData } from '@/context/user-report-data-context';
+import { SummaryPosterData, useUserReportData } from '@/context/user-report-data-context';
 import { summaryFlags } from '@/utils/common';
 import GlitchLayer from '../effects/GlitchLayer';
 import { useZA } from '@/hooks/useZA';
@@ -30,7 +30,7 @@ interface ZhihuHybridNewAPI {
 export default function P30Scene({ onNext, sceneName, onPrevious }: PageProps) {
   const { assets } = useAssets();
   const { showToast } = useToast();
-  const { summaryPoster, reportData } = useUserReportData();
+  const { summaryPoster, reportData, setSummaryPoster } = useUserReportData();
   const { trackEvent } = useZA();
   const { isAvailable: isHybridAvailable } = useZhihuHybrid();
 
@@ -59,11 +59,6 @@ export default function P30Scene({ onNext, sceneName, onPrevious }: PageProps) {
   };
 
   const handleShare = () => {
-    if (shareOptionKeys.length < 3) {
-      showToast('请任选三个选项');
-      return;
-    }
-
     trackEvent('', {
       moduleId: 'share_guess_button',
       type: 'Button',
@@ -72,6 +67,16 @@ export default function P30Scene({ onNext, sceneName, onPrevious }: PageProps) {
         page_id: '60864',
       },
     });
+
+    if (summaryPoster?.pollId) {
+      handleSetVote(summaryPoster.pollId);
+      return
+    }
+
+    if (shareOptionKeys.length < 3) {
+      showToast('请任选三个选项');
+      return;
+    }
 
     setVoteOption({
       poster_id: summaryPoster?.poster_id || 0,
@@ -85,90 +90,8 @@ export default function P30Scene({ onNext, sceneName, onPrevious }: PageProps) {
         // Note: poll_id would need to be retrieved separately if needed
         // Vote options set successfully, redirect to guess page
         if (res?.poll_id) {
-          const baseShareUrl =
-            process.env.NEXT_PUBLIC_BASE_SHARE_URL ||
-            'https://event.zhihu.com/2025guess';
-          const redirectUrl = `${baseShareUrl}/2025guess/?pollId=${res.poll_id}`;
-
-          // Check if user is in zhihu app
-          if (isZhihuApp() && isHybridAvailable && window.zhihuHybrid) {
-            const shareHeadImg = process.env.NEXT_PUBLIC_CDN_BASE_URL + 'assets/share-head-img.png'
-            try {
-              const setShareInfoAction = (window.zhihuHybrid as ZhihuHybridNewAPI)(
-                "share/setShareInfo"
-              );
-
-              await setShareInfoAction.dispatch({
-                zhihuMessage: {
-                  content: '猜猜哪一个是真实的我',
-                  link: redirectUrl,
-                },
-                wechatTimeline: {
-                  title: '猜猜哪一个是真实的我',
-                  link: redirectUrl,
-                  imgUrl: shareHeadImg,
-                },
-                wechatMessage: {
-                  title: '猜猜哪一个是真实的我',
-                  desc: '快来猜猜哪一个是真实的我',
-                  link: redirectUrl,
-                  imgUrl: shareHeadImg,
-                },
-                QQ: {
-                  url: redirectUrl,
-                  title: '猜猜哪一个是真实的我',
-                  content: '快来猜猜哪一个是真实的我',
-                  imageURL: shareHeadImg,
-                },
-                weibo: {
-                  url: redirectUrl,
-                  title: '猜猜哪一个是真实的我',
-                  content: '快来猜猜哪一个是真实的我',
-                  imageURL: shareHeadImg,
-                },
-                PosterShare: {
-                  imageURL:redirectUrl,
-                  pinContent: '猜猜哪一个是真实的我',
-                },
-                copyLink: {
-                  content: redirectUrl,
-                },
-                Qzone: {
-                  url: redirectUrl,
-                  title: '猜猜哪一个是真实的我',
-                  content: '快来猜猜哪一个是真实的我',
-                  imageURL: shareHeadImg,
-                }
-              }); 
-
-              // Use zhihuHybrid SDK to share the link
-              const showActionSheetAction = (window.zhihuHybrid as ZhihuHybridNewAPI)("share/showShareActionSheet");
-              await showActionSheetAction.dispatch({});
-            } catch (error) {
-              console.error('Failed to share via zhihuHybrid:', error);
-              // If share fails, fallback to clipboard copy
-              try {
-                await navigator.clipboard.writeText(redirectUrl);
-                showToast('分享失败，链接已复制到剪贴板', 'success');
-              } catch (clipboardError) {
-                console.error('Failed to copy to clipboard:', clipboardError);
-                showToast('分享失败，请稍后重试', 'error');
-              }
-            }
-          } else {
-            // Not in zhihu app, copy to clipboard and show toast
-            try {
-              await navigator.clipboard.writeText(redirectUrl);
-              showToast('链接已复制到剪贴板', 'success');
-            } catch (clipboardError) {
-              console.error('Failed to copy to clipboard:', clipboardError);
-              showToast('复制链接失败，请稍后重试', 'error');
-            }
-            // Redirect after 3 seconds
-            setTimeout(() => {
-              window.location.href = redirectUrl;
-            }, 3000);
-          }
+          setSummaryPoster({ ...(summaryPoster as SummaryPosterData), pollId: res.poll_id });
+          handleSetVote(res.poll_id);
         } else {
           showToast('投票选项设置成功，但无法获取投票ID', 'error');
         }
@@ -178,6 +101,93 @@ export default function P30Scene({ onNext, sceneName, onPrevious }: PageProps) {
         showToast('设置投票选项失败，请重试', 'error');
       });
   };
+
+  const handleSetVote = async (pollId = '') => {
+    const baseShareUrl =
+      process.env.NEXT_PUBLIC_BASE_SHARE_URL ||
+      'https://event.zhihu.com/2025guess';
+    const redirectUrl = `${baseShareUrl}/2025guess/?pollId=${pollId}`;
+
+    // Check if user is in zhihu app
+    if (isZhihuApp() && isHybridAvailable && window.zhihuHybrid) {
+      const shareHeadImg = process.env.NEXT_PUBLIC_CDN_BASE_URL + 'assets/share-head-img.png'
+      try {
+        const setShareInfoAction = (window.zhihuHybrid as ZhihuHybridNewAPI)(
+          "share/setShareInfo"
+        );
+
+        await setShareInfoAction.dispatch({
+          zhihuMessage: {
+            content: '知乎｜2025，我真的 XX 了？',
+            link: redirectUrl,
+          },
+          wechatTimeline: {
+            title: '知乎｜2025，我真的 XX 了？',
+            link: redirectUrl,
+            imgUrl: shareHeadImg,
+          },
+          wechatMessage: {
+            title: '知乎｜2025，我真的 XX 了？',
+            desc: '别笑，我猜你也猜不到哪个是真的我 >>',
+            link: redirectUrl,
+            imgUrl: shareHeadImg,
+          },
+          QQ: {
+            url: redirectUrl,
+            title: '知乎｜2025，我真的 XX 了？',
+            content: '别笑，我猜你也猜不到哪个是真的我 >>',
+            imageURL: shareHeadImg,
+          },
+          weibo: {
+            url: redirectUrl,
+            title: '知乎｜2025，我真的 XX 了？',
+            content: '别笑，我猜你也猜不到哪个是真的我 >>',
+            imageURL: shareHeadImg,
+          },
+          PosterShare: {
+            imageURL:redirectUrl,
+            pinContent: '知乎｜2025，我真的 XX 了？',
+          },
+          copyLink: {
+            content: redirectUrl,
+          },
+          Qzone: {
+            url: redirectUrl,
+            title: '知乎｜2025，我真的 XX 了？',
+            content: '别笑，我猜你也猜不到哪个是真的我 >>',
+            imageURL: shareHeadImg,
+          }
+        }); 
+
+        // Use zhihuHybrid SDK to share the link
+        const showActionSheetAction = (window.zhihuHybrid as ZhihuHybridNewAPI)("share/showShareActionSheet");
+        await showActionSheetAction.dispatch({});
+      } catch (error) {
+        console.error('Failed to share via zhihuHybrid:', error);
+        // If share fails, fallback to clipboard copy
+        try {
+          await navigator.clipboard.writeText(redirectUrl);
+          showToast('分享失败，链接已复制到剪贴板', 'success');
+        } catch (clipboardError) {
+          console.error('Failed to copy to clipboard:', clipboardError);
+          showToast('分享失败，请稍后重试', 'error');
+        }
+      }
+    } else {
+      // Not in zhihu app, copy to clipboard and show toast
+      try {
+        await navigator.clipboard.writeText(redirectUrl);
+        showToast('链接已复制到剪贴板', 'success');
+      } catch (clipboardError) {
+        console.error('Failed to copy to clipboard:', clipboardError);
+        showToast('复制链接失败，请稍后重试', 'error');
+      }
+      // Redirect after 3 seconds
+      setTimeout(() => {
+        window.location.href = redirectUrl;
+      }, 3000);
+    }
+  }
 
   const handleSyncToggle = () => {
     setIsSynced(!isSynced);

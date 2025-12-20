@@ -222,7 +222,7 @@ export const summaryFlags = [
     key: "get",
     text: "悟",
     bg: "#FFF59E",
-    fullText: "我真的悟到了",
+    fullText: "我真的悟了",
   },
   {
     key: "action",

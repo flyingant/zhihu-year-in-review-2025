@@ -262,42 +262,42 @@ export default function P29Scene({ onNext, sceneName }: PageProps) {
       // 在知乎 App 内，使用 zhihuHybrid SDK 分享
       if (isHybridAvailable && window.zhihuHybrid) {
         try {
-          const shareHeadImg = process.env.NEXT_PUBLIC_CDN_BASE_URL + 'assets/share-head-img.png'
+          const shareHeadImg = process.env.NEXT_PUBLIC_CDN_BASE_URL + 'assets/share-head-img-new.png'
           const setShareInfoAction = (window.zhihuHybrid as ZhihuHybridNewAPI)(
             "share/setShareInfo"
           );
 
           await setShareInfoAction.dispatch({
             zhihuMessage: {
-              content: '2025年度总结海报图片',
+              content: '知乎｜2025 个人年度报告 ',
               link: summaryPoster.poster_url,
             },
             wechatTimeline: {
-              title: '2025年度总结海报图片',
+              title: '知乎｜2025 个人年度报告',
               link: summaryPoster.poster_url,
               imgUrl: shareHeadImg,
             },
             wechatMessage: {
-              title: '2025年度总结海报图片',
-              desc: '快来看看我的2025年度总结海报吧！',
+              title: '知乎｜2025 个人年度报告',
+              desc: '回顾这一年，我真的____？点击加载真实 >>',
               link: summaryPoster.poster_url,
               imgUrl: shareHeadImg,
             },
             QQ: {
               url: summaryPoster.poster_url,
-              title: '2025年度总结海报图片',
-              content: '快来看看我的2025年度总结海报吧！',
+              title: '知乎｜2025 个人年度报告',
+              content: '回顾这一年，我真的____？点击加载真实 >>',
               imageURL: shareHeadImg,
             },
             weibo: {
               url: summaryPoster.poster_url,
-              title: '2025年度总结海报图片',
-              content: '快来看看我的2025年度总结海报吧！',
+              title: '知乎｜2025 个人年度报告',
+              content: '回顾这一年，我真的____？点击加载真实 >>',
               imageURL: shareHeadImg,
             },
             PosterShare: {
               imageURL:summaryPoster.poster_url,
-              pinContent: JSON.stringify(`<p>2025年度总结海报图片</p>`),
+              pinContent: JSON.stringify(`<p>知乎｜2025 个人年度报告</p>`),
             }
           })
 

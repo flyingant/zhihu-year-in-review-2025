@@ -1591,6 +1591,18 @@
         "width": 233,
         "height": 144,
         "alt": "P1 Liukanshan Reading"
+      },
+      "optionA": {
+         "url": "/assets/2025_1_report_option_A.png",
+        "width": 332,
+        "height": 36,
+        "alt": "OptionA"
+      },
+      "optionB": {
+        "url": "/assets/2025_1_report_option_B.png",
+        "width": 332,
+        "height": 36,
+        "alt": "OptionB"
       }
     },
     "p2": {
@@ -1763,6 +1775,18 @@
         "width": 164,
         "height": 207,
         "alt": "P9 Liukanshan"
+      },
+      "optionA": {
+        "url": "/assets/2025_9_report_option_A.png",
+        "width": 332,
+        "height": 36,
+        "alt": "OptionA"
+      },
+      "optionB": {
+        "url": "/assets/2025_9_report_option_B.png",
+        "width": 332,
+        "height": 36,
+        "alt": "OptionB"
       }
     },
     "p10": {
@@ -1905,6 +1929,18 @@
         "width": 375,
         "height": 812,
         "alt": "middle"
+      },
+      "optionA": {
+         "url": "/assets/2025_14_report_option_A.png",
+        "width": 332,
+        "height": 36,
+        "alt": "OptionA"
+      },
+      "optionB": {
+        "url": "/assets/2025_14_report_option_B.png",
+        "width": 332,
+        "height": 36,
+        "alt": "OptionB"
       }
     },
     "p15": {
@@ -2095,13 +2131,13 @@
         "alt": "P21 Liukanshan"
       },
       "optionA": {
-        "url": "/assets/2025_2_report_p21_option_a.png",
+        "url": "/assets/2025_21_report_option_A.png",
         "width": 107,
         "height": 44,
         "alt": "P21 Option A"
       },
       "optionB": {
-        "url": "/assets/2025_2_report_p21_option_b.png",
+        "url": "/assets/2025_21_report_option_B.png",
         "width": 107,
         "height": 44,
         "alt": "P21 Option B"

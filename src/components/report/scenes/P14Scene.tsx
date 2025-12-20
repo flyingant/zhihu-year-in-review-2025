@@ -1,8 +1,8 @@
 'use client';
 
 import Image from 'next/image';
-import { useState } from 'react';
-import { motion } from 'framer-motion';
+import { useEffect, useState } from 'react';
+import { motion, useMotionValue, useSpring } from 'framer-motion';
 import { useAssets } from '@/context/assets-context';
 import { useUserReportData } from '@/context/user-report-data-context';
 import BaseScene from './BaseScene';
@@ -24,6 +24,56 @@ export default function P14Scene({ onNext, onPrevious, onNavigateToScene, sceneN
   const handleRangeChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setMaskPosition(Number(e.target.value));
   };
+  
+
+  // Use motion value with spring physics for smooth, physics-based animation
+  const maskPositionMotion = useMotionValue(460);
+  const maskPositionSpring = useSpring(maskPositionMotion, {
+    stiffness: 50,
+    damping: 15,
+    mass: 1,
+  });
+    // Sync motion value with state for maskPosition updates
+  useEffect(() => {
+    const unsubscribe = maskPositionSpring.on("change", (latest) => {
+      setMaskPosition(Math.round(latest));
+    });
+    return unsubscribe;
+  }, [maskPositionSpring]);
+
+  // Create smooth physics-based shake animation
+  useEffect(() => {
+    let isAnimating = true;
+    const startTime = Date.now();
+
+    const createSmoothShakeAnimation = () => {
+      const animate = () => {
+        if (!isAnimating) return;
+
+        const basePosition = 460;
+        const shakeAmount = 75; // Offset: how much to shake from base position
+        
+        // Use smooth sine wave oscillation for predictable, smooth motion
+        const elapsed = (Date.now() - startTime) / 1000; // Time in seconds
+        const frequency = 0.2; // Oscillation frequency (cycles per second) - lower = slower
+        const smoothOffset = Math.sin(elapsed * frequency * Math.PI * 2) * shakeAmount;
+        const targetPosition = basePosition + smoothOffset;
+        
+        // Update motion value smoothly
+        maskPositionMotion.set(targetPosition);
+        
+        requestAnimationFrame(animate);
+      };
+
+      animate();
+    };
+
+    createSmoothShakeAnimation();
+
+    return () => {
+      isAnimating = false;
+    };
+  }, [maskPositionMotion]);
 
   const handleSelect = async (choice: 'A' | 'B') => {
     // call API to record the choice
@@ -55,50 +105,31 @@ export default function P14Scene({ onNext, onPrevious, onNavigateToScene, sceneN
   const isMaskPastThreshold = maskPosition < 460;
   const isMaskAboveThreshold = maskPosition > 460;
   const floatPulse = isMaskPastThreshold
-    ? { scale: [1, 1.06, 1], opacity: 1 }
-    : { scale: 1, opacity: 0 };
+    ? { scale: [1, 1.06, 1] }
+    : { scale: 1 };
   const floatPulseTransition = isMaskPastThreshold
     ? {
         scale: {
           repeat: Infinity,
-          repeatType: 'reverse' as const,
+          repeatType: "reverse" as const,
           duration: 1.2,
-          ease: 'easeInOut' as const,
-        },
-        opacity: {
-          duration: 0.5,
-          ease: 'easeInOut' as const,
+          ease: "easeInOut" as const,
         },
       }
-    : {
-        opacity: {
-          duration: 0.5,
-          ease: 'easeInOut' as const,
-        },
-      };
+    : {};
   const floatPulseB = isMaskAboveThreshold
-    ? { scale: [1, 1.2, 1], opacity: 1 }
-    : { scale: 1, opacity: 0 };
+    ? { scale: [1, 1.06, 1] }
+    : { scale: 1 };
   const floatPulseTransitionB = isMaskAboveThreshold
     ? {
         scale: {
           repeat: Infinity,
-          repeatType: 'reverse' as const,
+          repeatType: "reverse" as const,
           duration: 1.2,
-          ease: 'easeInOut' as const,
-        },
-        opacity: {
-          duration: 0.5,
-          ease: 'easeInOut' as const,
+          ease: "easeInOut" as const,
         },
       }
-    : {
-        opacity: {
-          duration: 0.5,
-          ease: 'easeInOut' as const,
-        },
-      };
-
+    : {};
   return (
     <BaseScene onNext={onNext} onPrevious={onPrevious} onNavigateToScene={onNavigateToScene} sceneName={sceneName}>
       <div
@@ -149,7 +180,7 @@ export default function P14Scene({ onNext, onPrevious, onNavigateToScene, sceneN
         </GlitchLayer>
         <p
           className='absolute z-30 text-center text-xl w-full leading-relaxed'
-          style={{ top: '110px', fontSize: 24 }}
+          style={{ top: '73px', fontSize: 26, lineHeight: '40px'}}
         >
           当你赞同时
           <br />
@@ -158,52 +189,38 @@ export default function P14Scene({ onNext, onPrevious, onNavigateToScene, sceneN
         <motion.p
           className='absolute z-[70] text-center text-xl text-r-yellow cursor-pointer'
           style={{
-            width: '280px',
+            width: '224px',
             top: '260px',
-            left: '55px',
+            left: 0,
+            right: 0,
+            margin: '0 auto',
             pointerEvents: 'auto',
           }}
-          animate={floatPulse}
+          animate={floatPulseB}
           transition={floatPulseTransition}
           onClick={() => handleSelect('A')}
           role='button'
           tabIndex={0}
         >
-          <span
-            style={{
-              width: '100%',
-              display: 'inline-block',
-              color: '#FE8BC5',
-              marginLeft: 22,
-            }}
-          >
-            A.一种&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;被理解的感觉
-          </span>
+          <Image src={p14Assets.optionA.url} alt={p14Assets.optionA.alt} width={p14Assets.optionA.width} height={p14Assets.optionA.height} style={{ width: 224, height: 36}} />
         </motion.p>
         <motion.p
           className='absolute z-[70] text-center text-xl text-r-blue cursor-pointer'
           style={{
-            width: '180px',
+            width: '224px',
             bottom: '150px',
-            right: '33px',
+            left: 0,
+            right: 0,
+            margin: '0 auto',
             pointerEvents: 'auto',
           }}
-          animate={floatPulseB}
+          animate={floatPulse}
           transition={floatPulseTransitionB}
           onClick={() => handleSelect('B')}
           role='button'
           tabIndex={0}
         >
-          <span
-            style={{
-              display: 'inline-block',
-              transform: 'rotate(-2deg) skewX(15deg) skewY(15deg)',
-              transformStyle: 'preserve-3d',
-              color: '#A49FFE',
-            }}
-          >
-            B.一句说得对的道理
-          </span>
+          <Image src={p14Assets.optionB.url} alt={p14Assets.optionB.alt} width={p14Assets.optionB.width} height={p14Assets.optionB.height} style={{ width: 224, height: 36}} />
         </motion.p>
 
         <Image
@@ -236,22 +253,6 @@ export default function P14Scene({ onNext, onPrevious, onNavigateToScene, sceneN
             className='w-full h-full pointer-events-none select-none'
           />
         </div>
-        {/* Range input displayed vertically on the right side */}
-        <input
-          type='range'
-          min='0'
-          max='760'
-          value={maskPosition}
-          onChange={handleRangeChange}
-          className='absolute right-4 top-1/2 transform -translate-y-1/2 z-50'
-          style={{
-            pointerEvents: 'auto',
-            transform: 'translateY(-50%) rotate(90deg)',
-            transformOrigin: 'center',
-            width: '60vh',
-            height: 'auto',
-          }}
-        />
       </div>
     </BaseScene>
   );

@@ -72,11 +72,6 @@ export default function P1Scene({ onNext, onPrevious, onNavigateToScene, sceneNa
     };
   }, [maskPositionMotion]);
 
-  const handleRangeChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const newValue = Number(e.target.value);
-    maskPositionMotion.set(newValue);
-  };
-
   const handleSelect = async (choice: "A" | "B") => {
     setUserChoice("p1", choice);
     // call API to record the choice
@@ -110,7 +105,7 @@ export default function P1Scene({ onNext, onPrevious, onNavigateToScene, sceneNa
   const isMaskPastThreshold = maskPosition < -300;
   const isMaskAboveThreshold = maskPosition > -300;
   const floatPulse = isMaskPastThreshold
-    ? { scale: [1, 1.2, 1] }
+    ? { scale: [1, 1.06, 1] }
     : { scale: 1 };
   const floatPulseTransition = isMaskPastThreshold
     ? {
@@ -182,33 +177,29 @@ export default function P1Scene({ onNext, onPrevious, onNavigateToScene, sceneNa
         />
       </GlitchLayer>
       <div className="relative w-full h-full overflow-hidden">
-        <p className="absolute z-30 text-center text-xl w-full" style={{ top: '106px' }}>这一年，<br/>是什么在驱动你的创作？</p>
-        <motion.p 
+        <p className="absolute z-30 text-center text-xl w-full" style={{ top: '73px', fontSize: 26, lineHeight: '40px' }}>这一年，<br/>是什么在驱动你的创作？</p>
+        <motion.div 
           className="absolute z-[70] text-center text-xl text-r-yellow cursor-pointer" 
-          style={{ width: '188px', top: '229px', left: '22px', pointerEvents: 'auto' }}
-          animate={floatPulse}
+          style={{ top: '229px', width: 310, height: 36, pointerEvents: 'auto', left: 0, right: 0, margin: '0 auto' }}
+          animate={floatPulseB}
           transition={floatPulseTransition}
           onClick={() => handleSelect("A")}
           role="button"
           tabIndex={0}
         >
-          <span style={{ display: 'inline-block', transform: 'rotate(14deg) skewX(10deg) skewY(10deg)', transformStyle: 'preserve-3d' }}>
-            A.来自世界的目光和他人交流
-          </span>
-        </motion.p>
-        <motion.p 
-          className="absolute z-[70] text-center text-xl text-r-blue cursor-pointer" 
-          style={{ width: '163px', bottom: '89px', right: '33px', pointerEvents: 'auto' }}
-          animate={floatPulseB}
+          <Image src={p1Assets.optionA.url} alt={p1Assets.optionA.alt} width={p1Assets.optionA.width} height={p1Assets.optionA.height} style={{ width: 310, height: 36}} />
+        </motion.div>
+        <motion.div 
+          className="absolute z-[70] text-center text-xl text-r-blue cursor-pointer"
+          style={{ bottom: '89px', width: 310, height: 36, pointerEvents: 'auto', left: 0, right: 0, margin: '0 auto' }}
+          animate={floatPulse}
           transition={floatPulseTransitionB}
           onClick={() => handleSelect("B")}
           role="button"
           tabIndex={0}
         >
-          <span style={{ display: 'inline-block', transform: 'rotate(-25deg) skewX(15deg) skewY(15deg)', transformStyle: 'preserve-3d' }}>
-            B.来自内心的回声与自己对话
-          </span>
-        </motion.p>
+          <Image src={p1Assets.optionB.url} alt={p1Assets.optionB.alt} width={p1Assets.optionB.width} height={p1Assets.optionB.height} style={{ width: 310, height: 36}} />
+        </motion.div>
          {/* Background layer - static */}
         <Image 
           src={bgAsset.url} 
@@ -247,16 +238,7 @@ export default function P1Scene({ onNext, onPrevious, onNavigateToScene, sceneNa
             className="w-full h-full pointer-events-none select-none" 
           />
         </div>
-        {/* Range input displayed at the top */}
-        <input
-          type="range"
-          min="-600"
-          max="0"
-          value={maskPosition}
-          onChange={handleRangeChange}
-          className="absolute bottom-16 left-1/2 transform -translate-x-1/2 w-3/4 z-[60]"
-          style={{ pointerEvents: 'auto' }}
-        />
+        
       </div>
     </BaseScene>
   );

@@ -11,6 +11,8 @@ import { useUserData } from '@/context/user-data-context';
 import { useZhihuHybrid } from '@/hooks/useZhihuHybrid';
 import { useZhihuApp } from '@/hooks/useZhihuApp';
 import { completeTask, getCampaignInfo } from '@/api/campaign';
+import { useGriffithSpeedFix } from '@/hooks/useGriffithSpeedFix'; 
+import { GriffithSpeedStyle } from './GriffithSpeedStyle';
 
 const generateRandomId = () => {
   return Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15);
@@ -36,6 +38,7 @@ const YearlyVideoSection = () => {
   const [videoUrl, setVideoUrl] = useState<string>('');
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  useGriffithSpeedFix(playerContainerRef, [videoUrl]);
 
   // Extract cover image from video details
   const coverImage = useMemo(() => {
@@ -357,6 +360,7 @@ const YearlyVideoSection = () => {
 
   return (
     <div ref={setRefs} className="relative w-full flex flex-col items-center">
+      <GriffithSpeedStyle />
       <div className="relative w-full flex flex-col items-center">
         <div className="relative w-full flex items-center justify-center">
           <div

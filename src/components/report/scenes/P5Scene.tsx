@@ -99,6 +99,7 @@ export default function P5Scene({
 
       <div className='z-1'>
         <Image
+          priority
           src={yellowMirrorAsset.url}
           alt=''
           width={yellowMirrorAsset.width}
@@ -107,6 +108,7 @@ export default function P5Scene({
           style={{ bottom: '49px', left: '0px' }}
         />
         <Image
+          priority
           src={liukanshanPixelAsset.url}
           alt=''
           width={liukanshanPixelAsset.width}
@@ -115,6 +117,7 @@ export default function P5Scene({
           style={{ bottom: '73px', left: '26px' }}
         />
         <Image
+          priority
           src={hiAsset.url}
           alt={hiAsset.alt}
           width={hiAsset.width}
@@ -128,6 +131,7 @@ export default function P5Scene({
           }}
         />
         <Image
+          priority
           src={p5GifAsset.url}
           alt=''
           width={p5GifAsset.width}
@@ -136,6 +140,7 @@ export default function P5Scene({
           style={{ bottom: '46px', right: '20px' }}
         />
         <Image
+          priority
           src={threeDHiAsset.url}
           alt=''
           width={threeDHiAsset.width}

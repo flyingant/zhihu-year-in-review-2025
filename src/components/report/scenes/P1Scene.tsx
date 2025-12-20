@@ -204,7 +204,7 @@ export default function P1Scene({
           role="button"
           tabIndex={0}
         >
-          <Image src={p1Assets.optionA.url} alt={p1Assets.optionA.alt} width={p1Assets.optionA.width} height={p1Assets.optionA.height} style={{ width: 310, height: 36}} />
+          <Image priority src={p1Assets.optionA.url} alt={p1Assets.optionA.alt} width={p1Assets.optionA.width} height={p1Assets.optionA.height} style={{ width: 310, height: 36}} />
         </motion.div>
         <motion.div 
           className="absolute z-[70] text-center text-xl text-r-blue cursor-pointer"
@@ -215,7 +215,7 @@ export default function P1Scene({
           role="button"
           tabIndex={0}
         >
-          <Image src={p1Assets.optionB.url} alt={p1Assets.optionB.alt} width={p1Assets.optionB.width} height={p1Assets.optionB.height} style={{ width: 310, height: 36}} />
+          <Image priority src={p1Assets.optionB.url} alt={p1Assets.optionB.alt} width={p1Assets.optionB.width} height={p1Assets.optionB.height} style={{ width: 310, height: 36}} />
         </motion.div>
         {/* Background layer - static */}
         <Image
@@ -236,6 +236,7 @@ export default function P1Scene({
             width={liukanshanReadingAsset.width}
             height={liukanshanReadingAsset.height}
             className='object-contain pointer-events-none select-none'
+            priority
           />
         </div>
         {/* Top layer with wiper mask effect using new middle image + vertical line gradient */}
@@ -256,6 +257,7 @@ export default function P1Scene({
             width={topAsset.width}
             height={topAsset.height}
             className='w-full h-full pointer-events-none select-none'
+            priority
           />
         </div>
         

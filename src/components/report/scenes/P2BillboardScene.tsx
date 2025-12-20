@@ -184,6 +184,7 @@ export default function P2BillboardScene({
             }`}
           >
             <Image
+              priority
               src={blueBallAsset.url}
               alt='Blue Ball'
               width={blueBallAsset.width}
@@ -199,6 +200,7 @@ export default function P2BillboardScene({
             }`}
           >
             <Image
+              priority
               src={yellowBallAsset.url}
               alt='Yellow Ball'
               width={yellowBallAsset.width}
@@ -211,6 +213,7 @@ export default function P2BillboardScene({
         {/* === 刘看山 (使用 Tailwind 配置的 animate-jump-hit) === */}
         {liukanshanAsset && (
           <Image
+            priority
             src={liukanshanAsset.url}
             alt='Liukanshan'
             width={liukanshanAsset.width}

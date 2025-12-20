@@ -161,6 +161,7 @@ export default function P7Scene({ onNext, onPrevious, onNavigateToScene, sceneNa
         <div className='flex justify-between' style={{ margin: '20px 0' }}>
           <div>
             <Image
+              priority
               src={yellowBubbleAsset.url}
               alt={yellowBubbleAsset.alt}
               width={yellowBubbleAsset.width}
@@ -169,6 +170,7 @@ export default function P7Scene({ onNext, onPrevious, onNavigateToScene, sceneNa
               style={{ left: '38px' }}
             />
             <Image
+              priority
               src={redBubbleAsset.url}
               alt={redBubbleAsset.alt}
               width={redBubbleAsset.width}
@@ -178,6 +180,7 @@ export default function P7Scene({ onNext, onPrevious, onNavigateToScene, sceneNa
             />
           </div>
           <Image
+            priority
             src={p7GifAsset.url}
             alt={p7GifAsset.alt}
             width={p7GifAsset.width}

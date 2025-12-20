@@ -103,6 +103,7 @@ export default function P2Scene({
 
       <div className='z-0'>
         <Image
+          priority
           src={blueBallAsset.url}
           alt={blueBallAsset.alt}
           width={blueBallAsset.width}
@@ -111,6 +112,7 @@ export default function P2Scene({
           style={{ bottom: '212px', right: '74px' }}
         />
         <Image
+          priority
           src={liukanshanAsset.url}
           alt={liukanshanAsset.alt}
           width={liukanshanAsset.width}

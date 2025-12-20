@@ -200,7 +200,7 @@ export default function P9Scene({
           role='button'
           tabIndex={0}
         >
-          <Image src={p9Assets.optionA.url} alt={p9Assets.optionA.alt} width={p9Assets.optionA.width} height={p9Assets.optionA.height} style={{ width: 224, height: 36}} />
+          <Image priority src={p9Assets.optionA.url} alt={p9Assets.optionA.alt} width={p9Assets.optionA.width} height={p9Assets.optionA.height} style={{ width: 224, height: 36}} />
         </motion.div>
         <motion.div
           className='absolute z-[70] text-center text-xl text-r-blue cursor-pointer'
@@ -218,7 +218,7 @@ export default function P9Scene({
           role='button'
           tabIndex={0}
         >
-          <Image src={p9Assets.optionB.url} alt={p9Assets.optionB.alt} width={p9Assets.optionB.width} height={p9Assets.optionB.height} style={{ width: 224, height: 36}} />
+          <Image priority src={p9Assets.optionB.url} alt={p9Assets.optionB.alt} width={p9Assets.optionB.width} height={p9Assets.optionB.height} style={{ width: 224, height: 36}} />
         </motion.div>
 
         {/* Background layer - static */}
@@ -255,6 +255,7 @@ export default function P9Scene({
           }}
         >
           <Image
+            priority
             src={topAsset.url}
             alt={topAsset.alt}
             width={topAsset.width /2}

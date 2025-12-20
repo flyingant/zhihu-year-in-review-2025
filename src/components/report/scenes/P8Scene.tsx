@@ -125,6 +125,7 @@ export default function P8Scene({ onNext, onPrevious, onNavigateToScene, sceneNa
         {/* 奖杯和刘看山区域 */}
         <div style={{ position: 'relative', paddingTop: '50px' }}>
           <Image
+            priority
             src={sparkleAsset.url}
             alt={sparkleAsset.alt}
             width={sparkleAsset.width}
@@ -133,6 +134,7 @@ export default function P8Scene({ onNext, onPrevious, onNavigateToScene, sceneNa
             style={{ top: '10px', left: '90px' }}
           />
           <Image
+            priority
             src={p8GifAsset.url}
             alt={p8GifAsset.alt}
             width={p8GifAsset.width}

@@ -145,6 +145,7 @@ export default function P6Scene({ onNext, onPrevious, onNavigateToScene, sceneNa
         <div className='z-0 flex '>
           <div className='relative'>
             <Image
+              priority
               src={booksAsset.url}
               alt={booksAsset.alt}
               width={booksAsset.width}
@@ -154,6 +155,7 @@ export default function P6Scene({ onNext, onPrevious, onNavigateToScene, sceneNa
               style={{ left: '0px', marginTop: '96px' }}
             />
             <Image
+              priority
               src={p6GifAsset.url}
               alt={p6GifAsset.alt}
               width={p6GifAsset.width}

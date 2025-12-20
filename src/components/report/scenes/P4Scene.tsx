@@ -143,6 +143,7 @@ export default function P4Scene({
 
       <div className='z-0'>
         <Image
+          priority
           src={caidaiAsset.url}
           alt={caidaiAsset.alt}
           width={caidaiAsset.width}
@@ -151,6 +152,7 @@ export default function P4Scene({
           style={{ bottom: '202px', left: '0%' }}
         />
         <Image
+          priority
           src={liukanshanAsset.url}
           alt={liukanshanAsset.alt}
           width={liukanshanAsset.width}
@@ -159,6 +161,7 @@ export default function P4Scene({
           style={{ bottom: '48px', left: '-20px' }}
         />
         <Image
+          priority
           src={jiangtaiAsset.url}
           alt={jiangtaiAsset.alt}
           width={jiangtaiAsset.width}

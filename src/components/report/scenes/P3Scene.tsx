@@ -137,6 +137,7 @@ export default function P3Scene({
 
       <div className='z-0'>
         <Image
+          priority
           src={liukanshanAsset.url}
           alt={liukanshanAsset.alt}
           width={liukanshanAsset.width}
@@ -145,6 +146,7 @@ export default function P3Scene({
           style={{ bottom: '48px', left: '-20px' }}
         />
         <Image
+          priority
           src={jiangtaiAsset.url}
           alt={jiangtaiAsset.alt}
           width={jiangtaiAsset.width}

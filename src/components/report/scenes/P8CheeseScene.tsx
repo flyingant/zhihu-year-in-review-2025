@@ -104,6 +104,7 @@ export default function P8CheeseScene({ onNext, onPrevious, onNavigateToScene, s
           }}
         >
           <Image
+            priority
             src={p8GifAsset.url}
             alt={p8GifAsset.alt}
             width={p8GifAsset.width}

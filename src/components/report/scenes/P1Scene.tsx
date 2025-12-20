@@ -1,7 +1,7 @@
 "use client";
 
-import { useState } from "react";
-import { motion } from "framer-motion";
+import { useState, useEffect } from "react";
+import { motion, useMotionValue, useSpring } from "framer-motion";
 import Image from "next/image";
 import { useAssets } from '@/context/assets-context';
 import { useUserReportData } from '@/context/user-report-data-context';
@@ -19,10 +19,62 @@ interface PageProps {
 export default function P1Scene({ onNext, onPrevious, onNavigateToScene, sceneName }: PageProps) {
   const { assets } = useAssets();
   const { setUserChoice } = useUserReportData();
-  const [maskPosition, setMaskPosition] = useState(-75);
+  
+  // Use motion value with spring physics for smooth, physics-based animation
+  const maskPositionMotion = useMotionValue(-300);
+  const maskPositionSpring = useSpring(maskPositionMotion, {
+    stiffness: 50,
+    damping: 15,
+    mass: 1,
+  });
+  
+  const [maskPosition, setMaskPosition] = useState(-300);
+
+  // Sync motion value with state for maskPosition updates
+  useEffect(() => {
+    const unsubscribe = maskPositionSpring.on("change", (latest) => {
+      setMaskPosition(Math.round(latest));
+    });
+    return unsubscribe;
+  }, [maskPositionSpring]);
+
+  // Create smooth physics-based shake animation
+  useEffect(() => {
+    let isAnimating = true;
+    const startTime = Date.now();
+
+    const createSmoothShakeAnimation = () => {
+      const animate = () => {
+        if (!isAnimating) return;
+
+        const basePosition = -300;
+        const shakeAmount = 75; // Offset: how much to shake from base position
+        
+        // Use smooth sine wave oscillation for predictable, smooth motion
+        const elapsed = (Date.now() - startTime) / 1000; // Time in seconds
+        const frequency = 0.2; // Oscillation frequency (cycles per second) - lower = slower
+        const smoothOffset = Math.sin(elapsed * frequency * Math.PI * 2) * shakeAmount;
+        const targetPosition = basePosition + smoothOffset;
+        
+        // Update motion value smoothly
+        maskPositionMotion.set(targetPosition);
+        
+        requestAnimationFrame(animate);
+      };
+
+      animate();
+    };
+
+    createSmoothShakeAnimation();
+
+    return () => {
+      isAnimating = false;
+    };
+  }, [maskPositionMotion]);
 
   const handleRangeChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setMaskPosition(Number(e.target.value));
+    const newValue = Number(e.target.value);
+    maskPositionMotion.set(newValue);
   };
 
   const handleSelect = async (choice: "A" | "B") => {
@@ -58,8 +110,8 @@ export default function P1Scene({ onNext, onPrevious, onNavigateToScene, sceneNa
   const isMaskPastThreshold = maskPosition < -300;
   const isMaskAboveThreshold = maskPosition > -300;
   const floatPulse = isMaskPastThreshold
-    ? { scale: [1, 1.2, 1], opacity: 1 }
-    : { scale: 1, opacity: 0 };
+    ? { scale: [1, 1.2, 1] }
+    : { scale: 1 };
   const floatPulseTransition = isMaskPastThreshold
     ? {
         scale: {
@@ -68,20 +120,11 @@ export default function P1Scene({ onNext, onPrevious, onNavigateToScene, sceneNa
           duration: 1.2,
           ease: "easeInOut" as const,
         },
-        opacity: {
-          duration: 0.5,
-          ease: "easeInOut" as const,
-        },
       }
-    : {
-        opacity: {
-          duration: 0.5,
-          ease: "easeInOut" as const,
-        },
-      };
+    : {};
   const floatPulseB = isMaskAboveThreshold
-    ? { scale: [1, 1.06, 1], opacity: 1 }
-    : { scale: 1, opacity: 0 };
+    ? { scale: [1, 1.06, 1] }
+    : { scale: 1 };
   const floatPulseTransitionB = isMaskAboveThreshold
     ? {
         scale: {
@@ -90,17 +133,8 @@ export default function P1Scene({ onNext, onPrevious, onNavigateToScene, sceneNa
           duration: 1.2,
           ease: "easeInOut" as const,
         },
-        opacity: {
-          duration: 0.5,
-          ease: "easeInOut" as const,
-        },
       }
-    : {
-        opacity: {
-          duration: 0.5,
-          ease: "easeInOut" as const,
-        },
-      };
+    : {};
 
   
   return (

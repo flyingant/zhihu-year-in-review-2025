@@ -23,7 +23,7 @@ export default function ReportPage() {
       setupVConsole();
       const testImage = new Image();
       testImage.src =
-        "https://event-preview.zhihu.com/zhihu2025/report/test-image.jpg"
+        "https://static.zhihu.com/event/zhihu2025/assets/sidebar_liukanshan.png?v=v1.0.12.2200"
       testImage.crossOrigin = "anonymous";
       testImage.onload = () => {
         console.log("测试图片加载成功");

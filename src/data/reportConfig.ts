@@ -76,13 +76,13 @@ export const SCENES: Record<string, SceneConfig> = {
     id: "p2",
     component: P2Scene,
     next: "p2Billboard",
-    shouldSkip: (data) => !data?.publish_question_cnt,
+    // shouldSkip: (data) => !data?.publish_question_cnt,
   },
   p2Billboard: {
     id: "p2Billboard",
     component: P2BillboardScene,
     next: "p3",
-    shouldSkip: (data) => !data?.billboard_question_cnt,
+    // shouldSkip: (data) => !data?.billboard_question_cnt,
   },
   p3: {
     id: "p3",

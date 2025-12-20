@@ -14,7 +14,12 @@ interface PageProps {
   sceneName?: string;
 }
 
-export default function P4Scene({ onNext, onPrevious, onNavigateToScene, sceneName }: PageProps) {
+export default function P4Scene({
+  onNext,
+  onPrevious,
+  onNavigateToScene,
+  sceneName,
+}: PageProps) {
   const { reportData } = useUserReportData();
 
   const { assets } = useAssets();
@@ -52,7 +57,12 @@ export default function P4Scene({ onNext, onPrevious, onNavigateToScene, sceneNa
   );
 
   return (
-    <BaseScene onNext={onNext} onPrevious={onPrevious} onNavigateToScene={onNavigateToScene} sceneName={sceneName}>
+    <BaseScene
+      onNext={onNext}
+      onPrevious={onPrevious}
+      onNavigateToScene={onNavigateToScene}
+      sceneName={sceneName}
+    >
       <GlitchLayer>
         {/* 顺序从上到下 */}
         <Image
@@ -173,7 +183,7 @@ export default function P4Scene({ onNext, onPrevious, onNavigateToScene, sceneNa
           style={{ paddingTop: '5px', paddingBottom: '20px' }}
           hidden={thousandUpvoteAnswers === 0}
         >
-          这一年， 你还迎来了
+          这一年，你还迎来了
           <span
             className={`text-r-purple`}
             style={{

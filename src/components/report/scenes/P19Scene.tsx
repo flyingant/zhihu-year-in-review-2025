@@ -14,7 +14,12 @@ interface PageProps {
   sceneName?: string;
 }
 
-export default function P19Scene({ onNext, onPrevious, onNavigateToScene, sceneName }: PageProps) {
+export default function P19Scene({
+  onNext,
+  onPrevious,
+  onNavigateToScene,
+  sceneName,
+}: PageProps) {
   const { reportData } = useUserReportData();
 
   const { assets } = useAssets();
@@ -46,7 +51,12 @@ export default function P19Scene({ onNext, onPrevious, onNavigateToScene, sceneN
     reportData?.interaction_most_pin_interaction_cnt ?? null;
 
   return (
-    <BaseScene onNext={onNext} onPrevious={onPrevious} onNavigateToScene={onNavigateToScene} sceneName={sceneName}>
+    <BaseScene
+      onNext={onNext}
+      onPrevious={onPrevious}
+      onNavigateToScene={onNavigateToScene}
+      sceneName={sceneName}
+    >
       {/* background */}
       <GlitchLayer>
         <div className='z-0'>
@@ -239,35 +249,38 @@ export default function P19Scene({ onNext, onPrevious, onNavigateToScene, sceneN
             </div>
           </div>
         )}
-        {(!!interactiveMostClubCommentCount ||
-          !!interactiveMostClubUpvoteCount) && (
+        {
           <div className='absolute z-2' style={{ top: '540px', left: '17px' }}>
             <div>
-              在
-              <span
-                className='text-r-yellow'
-                style={{ padding: '0 4px', fontSize: 16 }}
-              >
-                {truncateText(
-                  String(
-                    interactiveMostClubName ?? 'interactive_most_club_name'
-                  )
-                )}
+              <div hidden={!interactiveMostClubName}>
+                在
+                <span
+                  className='text-r-yellow'
+                  style={{ padding: '0 4px', fontSize: 16 }}
+                >
+                  {truncateText(
+                    String(
+                      interactiveMostClubName ?? 'interactive_most_club_name'
+                    )
+                  )}
+                </span>
+                圈 <br />
+              </div>
+              <span hidden={!interactiveMostClubCommentCount}>
+                你留下了
+                <span
+                  className='text-r-green'
+                  style={{ padding: '0 4px', fontSize: 18 }}
+                >
+                  {String(
+                    interactiveMostClubCommentCount ??
+                      'interactive_most_club_comment_cnt'
+                  )}
+                </span>
+                条讨论 <br />
               </span>
-              圈 <br />
-              你留下了
-              <span
-                className='text-r-green'
-                style={{ padding: '0 4px', fontSize: 18 }}
-              >
-                {String(
-                  interactiveMostClubCommentCount ??
-                    'interactive_most_club_comment_cnt'
-                )}
-              </span>
-              条讨论 <br />
-              {!!interactiveMostClubUpvoteCount && (
-                <div>
+              {
+                <span hidden={!interactiveMostClubUpvoteCount}>
                   <span
                     className='text-r-pink pr-[4px]'
                     style={{ fontSize: 18 }}
@@ -277,13 +290,13 @@ export default function P19Scene({ onNext, onPrevious, onNavigateToScene, sceneN
                         'interactive_most_club_upvote_cnt'
                     )}
                   </span>
-                  个赞同
-                </div>
-              )}
+                  个赞同 <br />
+                </span>
+              }
               <span>真诚的人同路亦同心</span>
             </div>
           </div>
-        )}
+        }
       </div>
     </BaseScene>
   );

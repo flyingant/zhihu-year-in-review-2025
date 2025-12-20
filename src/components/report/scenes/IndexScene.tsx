@@ -37,7 +37,7 @@ const MirrorContent = ({
     style={{ fontSize: '14px' }}
   >
     <div style={{ fontSize: '22px', paddingBottom: '8px' }}>@{userName}</div>
-    <div style={{ fontSize: '22px', paddingBottom: '8px' }}>
+    <div style={{ fontSize: '22px', paddingBottom: '30px' }}>
       你说，时间是真实的吗？
     </div>
     <div>
@@ -300,7 +300,7 @@ export default function IndexScene({ onNext, sceneName }: IndexSceneProps) {
             right: '-20%',
             bottom: '25%',
           },
-          style: { transform: 'rotate(10deg) skewX(0deg) skewY(-20deg)' },
+          style: { transform: 'rotate(-2deg) skewX(-10deg) skewY(-10deg)' },
           zhiLinkPos: { bottom: '13%', left: '40px' },
         };
       case 'bottomLeft':

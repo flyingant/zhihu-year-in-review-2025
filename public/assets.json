@@ -2960,6 +2960,30 @@
         "width": 0,
         "height": 0,
         "alt": "Background Audio"
+      },
+      "hitCoin": {
+        "url": "/assets/2025_2_report_audio_hit_coin.mp3",
+        "width": 0,
+        "height": 0,
+        "alt": "Hit Coin Audio"
+      },
+      "flipBook": {
+        "url": "/assets/2025_2_report_audio_flip_book.mp3",
+        "width": 0,
+        "height": 0,
+        "alt": "Flip Book Audio"
+      },
+      "jumpUp": {
+        "url": "/assets/2025_2_report_audio_jump_up.mp3",
+        "width": 0,
+        "height": 0,
+        "alt": "Jump Up Audio"
+      },
+      "noise": {
+        "url": "/assets/2025_2_report_audio_noise.mp3",
+        "width": 0,
+        "height": 0,
+        "alt": "Noise Audio"
       }
     }
   }

@@ -1,5 +1,6 @@
 'use client';
 
+import { useRef, useState, useEffect } from 'react';
 import { useUserReportData } from '@/context/user-report-data-context';
 import BaseScene from './BaseScene';
 import GlitchLayer from '@/components/report/effects/GlitchLayer';
@@ -17,10 +18,41 @@ export default function P25Scene({ onNext, onPrevious, sceneName }: PageProps) {
   const { reportData } = useUserReportData();
   const { assets } = useAssets();
 
+  const audioRef = useRef<HTMLAudioElement>(null);
+  const [audioPlayed, setAudioPlayed] = useState(false);
+
+  // Try to play audio when component mounts
+  useEffect(() => {
+    const playAudio = async () => {
+      if (audioRef.current && !audioPlayed) {
+        try {
+          await audioRef.current.play();
+          setAudioPlayed(true);
+        } catch {
+          // Autoplay was prevented, will play on user interaction
+          console.log('Autoplay prevented, waiting for user interaction');
+        }
+      }
+    };
+
+    playAudio();
+  }, [audioPlayed]);
+
+  // Handle click to play audio if autoplay was blocked
+  const handleSceneClick = () => {
+    if (audioRef.current && !audioPlayed) {
+      audioRef.current.play().catch((error) => {
+        console.error('Error playing flipBook audio:', error);
+      });
+      setAudioPlayed(true);
+    }
+  };
+
   if (!assets) return null;
 
   const { liukanshan, top, left, middle, right, gif } = assets.report.p25;
   const { mix22_1, mix22_4, mix22_5 } = assets.report.bg;
+  const flipBookAudioUrl = assets.report.audio.flipBook?.url;
 
   // Map context data to component variables according to P25 spec (特殊-故事会员/读者)
   const paidContentCount = reportData?.paid_content_cnt ?? null;
@@ -38,6 +70,15 @@ export default function P25Scene({ onNext, onPrevious, sceneName }: PageProps) {
       onPrevious={onPrevious}
       sceneName={sceneName}
     >
+      {/* Hidden audio element for flipBook sound */}
+      {flipBookAudioUrl && <audio ref={audioRef} src={flipBookAudioUrl} />}
+
+      {/* Clickable overlay to trigger audio if autoplay is blocked */}
+      <div
+        onClick={handleSceneClick}
+        className='absolute inset-0 z-50'
+        style={{ pointerEvents: audioPlayed ? 'none' : 'auto' }}
+      />
       {/* pixel block */}
       <GlitchLayer>
         {/* 顺序从上到下 */}

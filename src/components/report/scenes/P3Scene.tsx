@@ -1,5 +1,6 @@
 'use client';
 
+import { useRef, useEffect } from 'react';
 import { useUserReportData } from '@/context/user-report-data-context';
 import { typographyClass } from '@/hooks/useSceneTheme';
 import BaseScene from './BaseScene';
@@ -24,6 +25,36 @@ export default function P3Scene({
 }: PageProps) {
   const { reportData } = useUserReportData();
   const { assets } = useAssets();
+
+  const audioRef = useRef<HTMLAudioElement>(null);
+
+  // Play audio twice during the jump-steps animation
+  useEffect(() => {
+    const playJumpSound = () => {
+      if (audioRef.current) {
+        audioRef.current.currentTime = 0; // Reset to start
+        audioRef.current.play().catch((error) => {
+          console.error('Error playing jumpUp audio:', error);
+        });
+      }
+    };
+
+    // First jump at 20% of 2s = 400ms
+    const firstJumpTimer = setTimeout(() => {
+      playJumpSound();
+    }, 400);
+
+    // Second jump at 70% of 2s = 1400ms
+    const secondJumpTimer = setTimeout(() => {
+      playJumpSound();
+    }, 1400);
+
+    return () => {
+      clearTimeout(firstJumpTimer);
+      clearTimeout(secondJumpTimer);
+    };
+  }, []);
+
   if (!assets) return null;
 
   const bgAsset = assets.report.bg;
@@ -35,6 +66,7 @@ export default function P3Scene({
 
   const liukanshanAsset = assets.report.p2.liukanshan;
   const jiangtaiAsset = assets.report.p3.jiangtai;
+  const jumpUpAudioUrl = assets.report.audio.jumpUp?.url;
 
   // Map context data to component variables according to P3 spec
   const answerCount = reportData?.publish_answer_cnt ?? 0;
@@ -58,6 +90,8 @@ export default function P3Scene({
       onNavigateToScene={onNavigateToScene}
       sceneName={sceneName}
     >
+      {/* Hidden audio element for jump sound */}
+      {jumpUpAudioUrl && <audio ref={audioRef} src={jumpUpAudioUrl} />}
       <GlitchLayer>
         {/* 顺序从上到下 */}
         <Image

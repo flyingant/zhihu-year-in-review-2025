@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import Image from 'next/image';
 import { useAssets } from '@/context/assets-context';
 import { useUserReportData } from '@/context/user-report-data-context';
@@ -15,11 +15,17 @@ interface PageProps {
   sceneName?: string;
 }
 
-export default function P2BillboardScene({ onNext, onPrevious, onNavigateToScene, sceneName }: PageProps) {
+export default function P2BillboardScene({
+  onNext,
+  onPrevious,
+  onNavigateToScene,
+  sceneName,
+}: PageProps) {
   const { assets } = useAssets();
   const { reportData } = useUserReportData();
 
   const [hasHit, setHasHit] = useState(false);
+  const audioRef = useRef<HTMLAudioElement>(null);
 
   useEffect(() => {
     // 400ms 对应 jump-hit 动画跳到最高点的时间 (0.8s 的一半)
@@ -29,6 +35,15 @@ export default function P2BillboardScene({ onNext, onPrevious, onNavigateToScene
 
     return () => clearTimeout(hitTimer);
   }, []);
+
+  // Play audio when hasHit becomes true
+  useEffect(() => {
+    if (hasHit && audioRef.current) {
+      audioRef.current.play().catch((error) => {
+        console.error('Error playing hit coin audio:', error);
+      });
+    }
+  }, [hasHit]);
 
   if (!assets) return null;
 
@@ -44,6 +59,8 @@ export default function P2BillboardScene({ onNext, onPrevious, onNavigateToScene
   const blueBallAsset = p2Assets.blueBall;
   const yellowBallAsset = p2Assets.yellowBall;
 
+  const hitCoinAudioUrl = assets.report.audio.hitCoin?.url;
+
   const billboardCount = reportData?.billboard_question_cnt ?? 0;
   const billboardQuestionDate =
     formatDate((reportData?.billboard_question_date ?? '') as string | null) ||
@@ -54,7 +71,14 @@ export default function P2BillboardScene({ onNext, onPrevious, onNavigateToScene
   );
 
   return (
-    <BaseScene onNext={onNext} onPrevious={onPrevious} onNavigateToScene={onNavigateToScene} sceneName={sceneName}>
+    <BaseScene
+      onNext={onNext}
+      onPrevious={onPrevious}
+      onNavigateToScene={onNavigateToScene}
+      sceneName={sceneName}
+    >
+      {/* Hidden audio element for hit coin sound */}
+      {hitCoinAudioUrl && <audio ref={audioRef} src={hitCoinAudioUrl} />}
       <GlitchLayer>
         {/* 标题右侧蓝色小块 */}
         {blue1Asset && (

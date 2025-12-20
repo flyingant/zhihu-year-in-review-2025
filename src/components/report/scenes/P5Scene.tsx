@@ -14,7 +14,12 @@ interface PageProps {
   sceneName?: string;
 }
 
-export default function P5Scene({ onNext, onPrevious, onNavigateToScene, sceneName }: PageProps) {
+export default function P5Scene({
+  onNext,
+  onPrevious,
+  onNavigateToScene,
+  sceneName,
+}: PageProps) {
   const { reportData } = useUserReportData();
 
   const { assets } = useAssets();
@@ -47,7 +52,12 @@ export default function P5Scene({ onNext, onPrevious, onNavigateToScene, sceneNa
   // const discussCount = reportData?.comment_discuss_cnt ?? null; // Not used in JSX, commented out
 
   return (
-    <BaseScene onNext={onNext} onPrevious={onPrevious} onNavigateToScene={onNavigateToScene} sceneName={sceneName}>
+    <BaseScene
+      onNext={onNext}
+      onPrevious={onPrevious}
+      onNavigateToScene={onNavigateToScene}
+      sceneName={sceneName}
+    >
       <GlitchLayer>
         {/* 顺序从上到下 */}
         <Image
@@ -172,7 +182,7 @@ export default function P5Scene({ onNext, onPrevious, onNavigateToScene, sceneNa
                   fontSize: '18px',
                 }}
               >
-                {truncateText(hotCommentContent)}
+                {hotCommentContent}
               </span>
             </div>
 
@@ -220,7 +230,7 @@ export default function P5Scene({ onNext, onPrevious, onNavigateToScene, sceneNa
                 fontSize: '18px',
               }}
             >
-              {truncateText(hotPinTitle)}
+              {hotPinTitle}
             </span>
             <div>
               获得了

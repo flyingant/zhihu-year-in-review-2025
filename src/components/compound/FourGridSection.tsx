@@ -236,7 +236,6 @@ const FourGridSection = () => {
     if (isZhihuApp()) {
       try {
         await downloadImageViaHybrid(downloadUrl);
-        showToast('图片保存成功', 'success');
       } catch (error) {
         console.error('Failed to save image via zhihuHybrid:', error);
         await downloadImageStandard(downloadUrl);

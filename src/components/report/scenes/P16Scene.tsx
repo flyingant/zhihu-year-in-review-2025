@@ -13,7 +13,12 @@ interface PageProps {
   sceneName?: string;
 }
 
-export default function P16Scene({ onNext, onPrevious, onNavigateToScene, sceneName }: PageProps) {
+export default function P16Scene({
+  onNext,
+  onPrevious,
+  onNavigateToScene,
+  sceneName,
+}: PageProps) {
   const { reportData } = useUserReportData();
   const { assets } = useAssets();
 
@@ -50,7 +55,12 @@ export default function P16Scene({ onNext, onPrevious, onNavigateToScene, sceneN
     reportData?.consume_interest_member_name_top3 ?? null;
 
   return (
-    <BaseScene onNext={onNext} onPrevious={onPrevious} onNavigateToScene={onNavigateToScene} sceneName={sceneName}>
+    <BaseScene
+      onNext={onNext}
+      onPrevious={onPrevious}
+      onNavigateToScene={onNavigateToScene}
+      sceneName={sceneName}
+    >
       {/* background */}
       <GlitchLayer>
         <div className='z-0'>
@@ -108,7 +118,6 @@ export default function P16Scene({ onNext, onPrevious, onNavigateToScene, sceneN
 
       {/* main image */}
       <div className='z-0'>
-
         <Image
           src={thumbUp.url}
           alt={thumbUp.alt}
@@ -207,7 +216,7 @@ export default function P16Scene({ onNext, onPrevious, onNavigateToScene, sceneN
             !interestMemberName1 && !interestMemberName2 && !interestMemberName3
           }
         >
-          <span>看看</span>
+          <span>看看你感兴趣领域的答主</span>
           <span
             className={`text-r-blue flex items-center ${
               interestMemberName1 ? '' : 'hidden'

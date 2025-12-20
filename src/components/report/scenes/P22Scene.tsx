@@ -179,17 +179,12 @@ export default function P22Scene({
 
           {/* Hot events */}
           <div style={{ marginTop: 16 }} hidden={!eventUpvoteCount}>
-            <p>
-              <span className='text-r-pink mr-[4px]'>{eventMonth}</span>
-              月里，你参与了
-              <span className='text-r-pink mx-[4px]'>{eventName}</span>
-              的讨论
-            </p>
-            <p>
-              收获
-              <span className='text-r-pink mx-[4px]'>{eventUpvoteCount}</span>
-              个赞同，和无数人共同记录那段集体记忆
-            </p>
+            <span className='text-r-pink mr-[4px]'>{eventMonth}</span>
+            月里，你参与了
+            <span className='text-r-pink mx-[4px]'>{eventName}</span>
+            的讨论，收获
+            <span className='text-r-pink mx-[4px]'>{eventUpvoteCount}</span>
+            个赞同，和无数人共同记录那段集体记忆
           </div>
         </div>
       </div>

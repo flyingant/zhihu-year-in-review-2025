@@ -213,7 +213,7 @@ export default function P21Scene({
         {/* Options */}
         <motion.div
           className="absolute z-[70] text-xl cursor-pointer"
-          style={{  width: '224px', top: "625px", left: "23px", pointerEvents: 'auto', left: 0,
+          style={{  width: '224px', top: "625px", pointerEvents: 'auto', left: 0,
             right: 0,
             margin: '0 auto',
           }}

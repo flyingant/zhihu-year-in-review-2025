@@ -494,7 +494,7 @@ const VoteTenQuestions = () => {
             onMouseDown={handleAuthOverlayClick}
             className="absolute inset-0 z-[70] cursor-pointer"
             style={{
-              backgroundColor: 'rgba(0,0,0,0.01)',
+              // backgroundColor: 'rgba(0,0,0,0.01)',
               pointerEvents: 'auto',
               minHeight: '100%'
             }}

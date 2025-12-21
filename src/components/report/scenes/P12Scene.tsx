@@ -165,9 +165,10 @@ export default function P12Scene({
         </div>
 
         {/* 3. 文字层 */}
+        <div style={{ paddingTop: '50px' }}></div>
         <div
           className='relative z-10 text-center text-sm font-medium leading-relaxed'
-          style={{ paddingTop: '50px' }}
+          hidden={!browseLastCategory}
         >
           <p className='flex items-center justify-center flex-wrap gap-1'>
             <span className='text-r-yellow' style={{ fontSize: '18px' }}>

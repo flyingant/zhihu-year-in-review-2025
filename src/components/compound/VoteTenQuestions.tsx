@@ -594,6 +594,7 @@ const VoteTenQuestions = () => {
             onClick={() => setIsModalOpen(false)}
           ></div>
           <div className="relative w-full animate-slide-up h-[80vh] flex flex-col z-10 overflow-hidden" >
+            <div className="absolute bg-white z-0 top-[10px] bottom-[0px] left-[0px] right-[0px]" />
             <div className="absolute top-0 left-0 w-full h-[1160px] z-0">
               <Image
                 src={panelBgAsset.url}
@@ -601,6 +602,7 @@ const VoteTenQuestions = () => {
                 width={panelBgAsset.width}
                 height={panelBgAsset.height}
                 className="object-fill"
+                priority
               />
             </div>
             <div className="relative z-10 flex flex-col h-full pt-[20px] px-[24px] pb-[32px]">

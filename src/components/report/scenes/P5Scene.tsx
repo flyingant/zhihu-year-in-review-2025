@@ -45,8 +45,8 @@ export default function P5Scene({
   );
   const hotCommentLikes = reportData?.hot_comment_uv ?? 0;
   const pinCount = reportData?.publish_pin_cnt ?? null;
-  const hotPinTitle = truncateText(reportData?.hot_pin_title ?? '', 28);
-  const hotPinLikes = reportData?.hot_pin_uv ?? 0; // Not used in JSX, commented out
+  const hotPinTitle = truncateText(reportData?.hot_pin_title ?? '', 12);
+  const hotPinLikes = reportData?.hot_pin_uv ?? 0;
   const emojiName = reportData?.emoji_name ?? '';
   const emojiCount = reportData?.emoji_cnt ?? null;
   // const emojiName = reportData?.emoji_name ?? null; // Not used in JSX, commented out
@@ -185,7 +185,7 @@ export default function P5Scene({
           <div
             style={{
               marginTop: '10px',
-              marginBottom: '40px',
+              marginBottom: '30px',
               lineHeight: '32px',
             }}
             hidden={!hotCommentContent || hotCommentLikes < 1}
@@ -211,7 +211,7 @@ export default function P5Scene({
                 style={{
                   paddingLeft: '6px',
                   paddingRight: '6px',
-                  fontSize: '24px',
+                  fontSize: '18px',
                 }}
               >
                 {hotCommentLikes}
@@ -222,7 +222,7 @@ export default function P5Scene({
         </div>
 
         {/* 想法统计 */}
-        <div style={{ marginBottom: '20px' }} hidden={!pinCount}>
+        <div hidden={!pinCount}>
           你发布了
           <span
             className={`text-r-pink`}

@@ -119,7 +119,7 @@ export default function P3Scene({
           width={mix4Asset.width}
           height={mix4Asset.height}
           className='object-contain absolute pointer-events-none select-none z-1'
-          style={{ top: '319px', left: '0px' }}
+          style={{ top: '420px', left: '0px' }}
         />
         <Image
           src={blue1Asset.url}

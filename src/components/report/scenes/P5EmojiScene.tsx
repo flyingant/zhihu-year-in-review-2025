@@ -141,7 +141,7 @@ export default function P5EmojiScene({
         style={{
           paddingLeft: '34px',
           paddingRight: '34px',
-          paddingTop: '120px',
+          paddingTop: '100px',
           fontSize: '16px',
         }}
       >

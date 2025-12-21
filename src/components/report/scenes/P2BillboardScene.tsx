@@ -144,7 +144,7 @@ export default function P2BillboardScene({
           style={{
             paddingLeft: '34px',
             paddingRight: '34px',
-            paddingTop: '120px',
+            paddingTop: '100px',
           }}
         >
           <div style={{ fontSize: '22px' }}>这一年，你依旧好奇</div>

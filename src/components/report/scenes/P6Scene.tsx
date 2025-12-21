@@ -96,7 +96,7 @@ export default function P6Scene({
         />
       </GlitchLayer>
 
-      <div style={{ paddingTop: '120px', fontSize: '16px' }}>
+      <div style={{ paddingTop: '100px', fontSize: '16px' }}>
         <div
           style={{
             fontSize: '22px',

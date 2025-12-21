@@ -169,7 +169,7 @@ export default function P10Scene({
 
       <div
         className={'text-center'}
-        style={{ paddingTop: '120px', paddingBottom: '24px', fontSize: '22px' }}
+        style={{ paddingTop: '100px', paddingBottom: '24px', fontSize: '22px' }}
       >
         <div>阅读，开启你与世界的沉浸对话</div>
         <div style={{ fontSize: '16px' }}>今年，你看过</div>

@@ -229,7 +229,7 @@ export default function P20Scene({
           width={main.width}
           height={main.height}
           className='object-contain absolute pointer-events-none select-none z-20'
-          style={{ top: '325px', left: '60px' }}
+          style={{ top: '305px', left: '60px', right: '0px' }}
         />
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img
@@ -237,8 +237,8 @@ export default function P20Scene({
           alt={gif.alt}
           width={gif.width / 4}
           height={gif.height / 4}
-          className='object-contain absolute pointer-events-none select-none z-1'
-          style={{ top: '228px', right: '165px' }}
+          className='object-contain absolute pointer-events-none select-none z-30'
+          style={{ top: '218px', right: '165px' }}
         />
       </div>
 
@@ -250,7 +250,7 @@ export default function P20Scene({
             className='absolute'
             style={{
               fontSize: '16px',
-              top: '150px',
+              top: '130px',
               left: '34px',
               right: '19px',
             }}
@@ -285,7 +285,7 @@ export default function P20Scene({
               }
               style={{
                 fontSize: 16,
-                top: '578px',
+                top: '558px',
                 left: '34px',
                 right: '34px',
               }}

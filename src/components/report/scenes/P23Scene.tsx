@@ -101,12 +101,15 @@ export default function P23Scene({
         />
       </div>
       {/* content */}
-      <div className='z-0 tracking-wide' style={{ fontSize: 14 }}>
+      <div
+        className='z-0 tracking-wide'
+        style={{ fontSize: 16, lineHeight: '32px' }}
+      >
         <div
-          className='leading-relaxed absolute'
-          style={{ fontSize: 22, top: '116px', left: '41px' }}
+          className='absolute leading-loose'
+          style={{ fontSize: 22, top: '100px', left: '41px' }}
         >
-          你的判断，
+          你的判断
           <br />
           构成了内容世界里的
           <br />
@@ -120,11 +123,19 @@ export default function P23Scene({
         >
           <div className='mb-[10px]'>
             2025 年，你在
-            <span className='text-r-purple' style={{ paddingLeft: '6px', paddingRight: '6px' }}>@答主评审团</span>
+            <span
+              className='text-r-purple'
+              style={{ paddingLeft: '6px', paddingRight: '6px' }}
+            >
+              @答主评审团
+            </span>
             的测评中
             <br />
             探寻了
-            <span className={`text-r-fern`} style={{ paddingLeft: '6px', paddingRight: '6px', fontSize: 24 }}>
+            <span
+              className={`text-r-fern`}
+              style={{ paddingLeft: '6px', paddingRight: '6px', fontSize: 24 }}
+            >
               {String(reviewAnswerCount ?? 'review_answer_cnt')}
             </span>
             次
@@ -137,7 +148,7 @@ export default function P23Scene({
               其中关于
               <span
                 className={`text-r-green`}
-                style={{ fontSize: 16 }}
+                style={{ fontSize: 16, paddingLeft: '6px' }}
               >
                 {String(
                   reviewAnswerProductName ?? 'review_answer_product_name'
@@ -145,7 +156,13 @@ export default function P23Scene({
               </span>
               <br />
               你用互动表达了对评测内容
-              <span className='text-r-pink' style={{ paddingLeft: '6px', paddingRight: '6px', fontSize: 16 }}>
+              <span
+                className='text-r-pink'
+                style={{
+                  paddingRight: '6px',
+                  fontSize: 16,
+                }}
+              >
                 「真」的认可
               </span>
             </div>

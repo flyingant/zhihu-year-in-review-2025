@@ -38,10 +38,7 @@ const ClubInterestItem = ({
   disabled?: boolean;
 }) => {
   return (
-    <span
-      className='flex items-center text-r-green'
-      style={{ fontSize: 18 }}
-    >
+    <span className='flex items-center text-r-green' style={{ fontSize: 18 }}>
       <div className='flex items-center' style={{ gap: '2px' }}>
         <Image
           src={avatar ?? ''}
@@ -55,7 +52,10 @@ const ClubInterestItem = ({
             borderRadius: '50%',
           }}
         />
-        <span className='text-r-yellow' style={{ paddingLeft: '6px', paddingRight: '6px', fontSize: 16 }}>
+        <span
+          className='text-r-yellow'
+          style={{ paddingLeft: '6px', paddingRight: '6px', fontSize: 16 }}
+        >
           {String(name ?? fallbackName)}
         </span>
       </div>
@@ -336,8 +336,8 @@ export default function P20Scene({
           alt={gif.alt}
           width={gif.width / 4}
           height={gif.height / 4}
-          className='object-contain absolute pointer-events-none select-none z-1'
-          style={{ top: '228px', right: '165px' }}
+          className='object-contain absolute pointer-events-none select-none z-30'
+          style={{ top: '227px', right: '165px' }}
         />
       </div>
 
@@ -350,16 +350,15 @@ export default function P20Scene({
               className='z-30 absolute'
               style={{
                 fontSize: '16px',
-                top: '145px',
+                top: '105px',
                 left: '34px',
                 right: '34px',
-                lineHeight: '24px',
+                lineHeight: '30px',
               }}
             >
               {activeClubs.map((clubName, index) => (
                 <span key={index} className='text-r-pink'>
-                  {`「${truncateText(String(clubName))}」`}
-                  {index < activeClubs.length - 1 ? '，' : ''}
+                  {`「${truncateText(String(clubName))}」`} <br />
                 </span>
               ))}
               <span>圈子是你今年最爱的精神据点</span>
@@ -372,7 +371,7 @@ export default function P20Scene({
               className='absolute z-30'
               style={{
                 fontSize: 16,
-                top: '583px',
+                top: '563px',
                 left: '34px',
                 right: '34px',
               }}

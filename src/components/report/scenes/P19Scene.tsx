@@ -253,8 +253,20 @@ export default function P19Scene({
         )}
         {
           <div className='absolute z-2' style={{ top: '540px', left: '17px' }}>
-            <div>
-              <div hidden={!interactiveMostClubName}>
+            <div
+              hidden={
+                !interactiveMostClubName ||
+                (!interactiveMostClubCommentCount &&
+                  !interactiveMostClubUpvoteCount)
+              }
+            >
+              <div
+                hidden={
+                  !interactiveMostClubName ||
+                  (!interactiveMostClubCommentCount &&
+                    !interactiveMostClubUpvoteCount)
+                }
+              >
                 在
                 <span
                   className='text-r-yellow'
@@ -269,7 +281,14 @@ export default function P19Scene({
                 圈 <br />
               </div>
               <span>
-                你留下了
+                <span
+                  hidden={
+                    !interactiveMostClubCommentCount &&
+                    !interactiveMostClubUpvoteCount
+                  }
+                >
+                  你留下了
+                </span>
                 <span hidden={!interactiveMostClubCommentCount}>
                   <span
                     className='text-r-green'
@@ -283,21 +302,24 @@ export default function P19Scene({
                   条讨论 <br />
                 </span>
               </span>
-              {
-                <span hidden={!interactiveMostClubUpvoteCount}>
-                  <span
-                    className='text-r-pink px-[4px]'
-                    style={{ fontSize: 18 }}
-                  >
-                    {String(
-                      interactiveMostClubUpvoteCount ??
-                        'interactive_most_club_upvote_cnt'
-                    )}
-                  </span>
-                  个赞同 <br />
+              <span hidden={!interactiveMostClubUpvoteCount}>
+                <span className='text-r-pink px-[4px]' style={{ fontSize: 18 }}>
+                  {String(
+                    interactiveMostClubUpvoteCount ??
+                      'interactive_most_club_upvote_cnt'
+                  )}
                 </span>
-              }
-              <span>真诚的人同路亦同心</span>
+                个赞同 <br />
+              </span>
+              <span
+                hidden={
+                  !interactiveMostClubCommentCount &&
+                  !interactiveMostClubUpvoteCount &&
+                  !interactiveMostClubName
+                }
+              >
+                真诚的人同路亦同心
+              </span>
             </div>
           </div>
         }

@@ -81,6 +81,7 @@ export default function P8Scene({
           paddingLeft: '34px',
           paddingRight: '34px',
           paddingTop: '120px',
+          lineHeight: '36px',
         }}
       >
         <div
@@ -89,7 +90,7 @@ export default function P8Scene({
           这一路，作品为你点亮星光
         </div>
 
-        <div hidden={!zhiTrendRankCount} style={{ paddingBottom: '18px' }}>
+        <div hidden={!zhiTrendRankCount}>
           你登上了
           <span
             className='text-r-pink'
@@ -119,11 +120,14 @@ export default function P8Scene({
           次
         </div>
 
-        <div style={{ lineHeight: '40px' }} hidden={!bestAnswerTopic.length}>
+        <div hidden={!bestAnswerTopic.length}>
           在
           {bestAnswerTopic.map((topic, index) => (
             <span key={index}>
-              <span className={`text-r-blue`} style={{ fontSize: '18px' }}>
+              <span
+                className={`text-r-blue`}
+                style={{ fontSize: '18px', padding: '0 6px' }}
+              >
                 {topic}
                 {index !== bestAnswerTopic.length - 1 && '，'}
               </span>
@@ -164,7 +168,7 @@ export default function P8Scene({
               display: 'flex',
             }}
           >
-            <div style={{ lineHeight: '26px', marginTop: '8px' }}>
+            <div style={{ marginTop: '8px' }}>
               <div>
                 你成为了
                 <span
@@ -176,7 +180,7 @@ export default function P8Scene({
               </div>
 
               <div hidden={!navigatorContentCount}>
-                用航海家赞同发现和助力了
+                用航海家赞同为
                 <span
                   className='text-r-green'
                   style={{
@@ -187,7 +191,7 @@ export default function P8Scene({
                 >
                   {navigatorContentCount}
                 </span>
-                篇好内容
+                篇好内容送出助力
                 <span
                   className='inline-block align-middle ml-1'
                   style={{ width: shipAsset.width, height: shipAsset.height }}

@@ -1,7 +1,6 @@
 'use client';
 
 import { useUserReportData } from '@/context/user-report-data-context';
-import { colorClass, typographyClass } from '@/hooks/useSceneTheme';
 import BaseScene from './BaseScene';
 import Image from 'next/image';
 import { useAssets } from '@/context/assets-context';
@@ -132,7 +131,7 @@ export default function P10Scene({
           width={mix7Asset.width}
           height={mix7Asset.height}
           className='object-contain absolute pointer-events-none select-none z-1'
-          style={{ top: '40px', right: '0px' }}
+          style={{ top: '70px', right: '0px' }}
         />
         <Image
           src={blue10Asset.url}
@@ -170,10 +169,10 @@ export default function P10Scene({
 
       <div
         className={'text-center'}
-        style={{ paddingTop: '80px', paddingBottom: '24px', fontSize: '22px' }}
+        style={{ paddingTop: '120px', paddingBottom: '24px', fontSize: '22px' }}
       >
         <div>阅读，开启你与世界的沉浸对话</div>
-        <div>今年，你看过</div>
+        <div style={{ fontSize: '16px' }}>今年，你看过</div>
       </div>
 
       <div className='tracking-widest'>

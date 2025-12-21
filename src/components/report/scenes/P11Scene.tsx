@@ -103,10 +103,10 @@ export default function P11Scene({
 
       <div
         className='text-center'
-        style={{ paddingTop: '120px', marginBottom: '40px', fontSize: '22px' }}
+        style={{ paddingTop: '90px', marginBottom: '40px', fontSize: '22px' }}
       >
         <div>兴趣，让你拥抱一方天地 </div>
-        <div>你浏览最多的领域是</div>
+        <div style={{ fontSize: '16px' }}>你浏览最多的领域是</div>
       </div>
 
       {/* 浏览最多的领域 */}

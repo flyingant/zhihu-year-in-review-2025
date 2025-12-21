@@ -280,7 +280,7 @@ export default function P29Scene({ onNext, sceneName }: PageProps) {
 
           await setShareInfoAction.dispatch({
             zhihuMessage: {
-              content: '知乎｜2025 个人年度报告 ',
+              content: '知乎｜2025 个人年度报告 ' + summaryPoster.poster_url,
               link: summaryPoster.poster_url,
             },
             wechatTimeline: {

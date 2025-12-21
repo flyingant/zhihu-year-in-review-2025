@@ -120,7 +120,7 @@ export default function P30Scene({ onNext, sceneName, onPrevious }: PageProps) {
 
         await setShareInfoAction.dispatch({
           zhihuMessage: {
-            content: '知乎｜2025，我真的 XX 了？',
+            content: '知乎｜2025，我真的 XX 了？' + redirectUrl,
             link: redirectUrl,
           },
           wechatTimeline: {

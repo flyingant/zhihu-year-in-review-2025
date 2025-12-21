@@ -29,7 +29,6 @@ export default function P12Scene({ onNext, onPrevious, onNavigateToScene, sceneN
   const p12GifAsset = assets.report.p12.gif;
   const sunAsset = assets.report.p12.sun;
   const moonAsset = assets.report.p12.moon;
-  const barAsset = assets.report.p12.bar;
 
   // Map context data to component variables according to P12 spec (消费-峰值数据)
   const hours = {
@@ -99,72 +98,82 @@ export default function P12Scene({ onNext, onPrevious, onNavigateToScene, sceneN
           今年，你在不同时段留下自己的阅读足迹
         </div>
       </div>
-      <div
-        className='relative z-10 flex justify-center'
-        style={{ marginBottom: '30px' }}
-      >
-        <Image
-          src={moonAsset.url}
-          alt='moon'
-          width={moonAsset.width}
-          height={moonAsset.height}
-          className='object-contain'
-        />
-      </div>
-      <div
-        className='relative w-full flex items-center justify-center'
-        style={{ height: '300px' }}
-      >
-        <TimeDonutChart data={hours} />
 
-        <div className='absolute inset-0 flex items-center justify-center pointer-events-none'>
-          <Image
-            src={p12GifAsset.url}
-            alt={p12GifAsset.alt}
-            width={liukanshanAsset.width}
-            height={liukanshanAsset.height}
-            className='object-contain'
-            style={{ marginBottom: '10px' }}
-            unoptimized
-          />
+      <div className="relative w-full flex flex-col items-center justify-center" style={{ marginTop: '80px' }}>
+        
+        {/* 1. 轨道层 */}
+        <div 
+          className="absolute top-1/2 left-1/2 pointer-events-none animate-orbit rounded-full"
+          style={{ zIndex: 0, width: '480px', height: '480px' }}
+        >
+          {/* 太阳 */}
+          <div className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2">
+             <div className="animate-counter-spin">
+                <Image
+                  src={sunAsset.url}
+                  alt='sun'
+                  width={sunAsset.width}
+                  height={sunAsset.height}
+                  className='object-contain'
+                />
+             </div>
+          </div>
+
+          {/* 月亮 */}
+          <div className="absolute bottom-0 left-1/2 -translate-x-1/2 translate-y-1/2">
+             <div className="animate-counter-spin">
+                <Image
+                  src={moonAsset.url}
+                  alt='moon'
+                  width={moonAsset.width}
+                  height={moonAsset.height}
+                  className='object-contain'
+                />
+             </div>
+          </div>
         </div>
-      </div>
 
-      <div
-        className='relative z-10 text-center text-sm font-medium leading-relaxed'
-        style={{ paddingTop: '60px' }}
-      >
-        <p className='flex items-center justify-center flex-wrap gap-1'>
-          <span className='text-r-yellow' style={{ fontSize: '18px' }}>
-            {month}
-          </span>
-          月
-          <span className='text-r-yellow' style={{ fontSize: '18px' }}>
-            {day}
-          </span>
-          日
-          <span className='text-r-yellow' style={{ fontSize: '18px' }}>
-            {browseLastTime}
-          </span>
-          <span>点，你仍在看</span>
-          <span className='text-r-fern' style={{ fontSize: '18px' }}>
-            {browseLastCategory}
-          </span>
-          <span>领域的内容</span>
-        </p>
-      </div>
+        {/* 2. 图表层 */}
+        <div className='relative w-full flex items-center justify-center' style={{ height: '300px', zIndex: 1 }}>
+          <TimeDonutChart data={hours} />
+          <div className='absolute inset-0 flex items-center justify-center pointer-events-none'>
+            <Image
+              src={p12GifAsset.url}
+              alt={p12GifAsset.alt}
+              width={liukanshanAsset.width}
+              height={liukanshanAsset.height}
+              className='object-contain'
+              style={{ marginBottom: '10px' }}
+              unoptimized
+            />
+          </div>
+        </div>
 
-      <div
-        className='relative z-10 flex justify-center'
-        style={{ marginTop: '16px' }}
-      >
-        <Image
-          src={sunAsset.url}
-          alt='sun'
-          width={sunAsset.width}
-          height={sunAsset.height}
-          className='object-contain'
-        />
+        {/* 3. 文字层 */}
+        <div
+          className='relative z-10 text-center text-sm font-medium leading-relaxed'
+          style={{ paddingTop: '50px' }}
+        >
+          <p className='flex items-center justify-center flex-wrap gap-1'>
+            <span className='text-r-yellow' style={{ fontSize: '18px' }}>
+              {month}
+            </span>
+            月
+            <span className='text-r-yellow' style={{ fontSize: '18px' }}>
+              {day}
+            </span>
+            日
+            <span className='text-r-yellow' style={{ fontSize: '18px' }}>
+              {browseLastTime}
+            </span>
+            <span>点，你仍在看</span>
+            <span className='text-r-fern' style={{ fontSize: '18px' }}>
+              {browseLastCategory}
+            </span>
+            <span>领域的内容</span>
+          </p>
+        </div>
+
       </div>
     </BaseScene>
   );

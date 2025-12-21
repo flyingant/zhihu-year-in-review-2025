@@ -134,6 +134,15 @@ module.exports = {
           '50%': { opacity: '1', transform: 'scale(1.2)' },
           '100%': { opacity: '0', transform: 'scale(1.5)' },
         },
+        'orbit-spin': {
+          '0%': { transform: 'translate(-50%, -50%) rotate(0deg)' },
+          '100%': { transform: 'translate(-50%, -50%) rotate(360deg)' },
+        },
+        // 反向自转：抵消轨道的旋转，保持图标直立
+        'counter-spin': {
+          '0%': { transform: 'rotate(0deg)' },
+          '100%': { transform: 'rotate(-360deg)' },
+        },
       },
       animation: {
         marquee: 'marquee linear infinite',
@@ -158,6 +167,8 @@ module.exports = {
         'flash-scale': 'flash-scale 0.6s ease-out forwards',
         'mirror-vanish': 'pop-in-out 1s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards',
         '3d-pop': 'pop-in-elastic 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards',
+        'orbit': 'orbit-spin 12s linear infinite',
+        'counter-spin': 'counter-spin 12s linear infinite',
       },
     },
   },

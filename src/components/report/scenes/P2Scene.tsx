@@ -140,8 +140,8 @@ export default function P2Scene({
           <span
             className='text-r-pink'
             style={{
-              paddingLeft: '4px',
-              paddingRight: '4px',
+              paddingLeft: '6px',
+              paddingRight: '6px',
               fontSize: '18px',
             }}
           >
@@ -153,7 +153,7 @@ export default function P2Scene({
         <div hidden={!answerCount}>
           <span
             className={`text-r-fern`}
-            style={{ paddingRight: '4px', fontSize: '18px' }}
+            style={{ paddingRight: '6px', fontSize: '18px' }}
           >
             {answerCount}
           </span>
@@ -170,8 +170,8 @@ export default function P2Scene({
             <span
               className={`text-r-blue font-bold`}
               style={{
-                paddingLeft: '4px',
-                paddingRight: '4px',
+                paddingLeft: '6px',
+                paddingRight: '6px',
                 fontSize: '18px',
               }}
             >
@@ -182,7 +182,7 @@ export default function P2Scene({
           <p className='flex items-center'>
             <span
               className={`text-r-green`}
-              style={{ paddingRight: '4px', fontSize: '18px' }}
+              style={{ paddingRight: '6px', fontSize: '18px' }}
             >
               {topDomain}
             </span>

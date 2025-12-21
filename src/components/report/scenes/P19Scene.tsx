@@ -199,11 +199,16 @@ export default function P19Scene({
             className='absolute'
             style={{ fontSize: '16px', top: '184px', left: '36px' }}
           >
-            <span className='pr-[2px]' style={{ fontSize: '18px' }}>
-              2025
-            </span>
+            <span style={{ paddingRight: '6px', fontSize: '18px' }}>2025</span>
             年，你加入了
-            <span className='text-r-pink px-[4px]' style={{ fontSize: '24px' }}>
+            <span
+              className='text-r-pink'
+              style={{
+                paddingLeft: '6px',
+                paddingRight: '6px',
+                fontSize: '24px',
+              }}
+            >
               {String(joinClubCount ?? 'join_club_cnt')}
             </span>
             个圈子 <br />
@@ -232,8 +237,8 @@ export default function P19Scene({
             <div className='mb-[10px]'>
               你在
               <span
-                className='text-r-purple px-[4px]'
-                style={{ fontSize: '16px' }}
+                className='text-r-purple'
+                style={{ fontSize: '16px', paddingRight: '6px' }}
               >
                 {truncateText(
                   String(consumeMostClubName ?? 'consume_most_club_name')
@@ -242,8 +247,12 @@ export default function P19Scene({
               <br />
               停留最久，驻足
               <span
-                className='text-r-blue px-[4px]'
-                style={{ fontSize: '18px' }}
+                className='text-r-blue'
+                style={{
+                  fontSize: '18px',
+                  paddingLeft: '6px',
+                  paddingRight: '6px',
+                }}
               >
                 {String(consumeMostClubPv ?? 'consume_most_club_pv')}
               </span>
@@ -270,7 +279,7 @@ export default function P19Scene({
                 在
                 <span
                   className='text-r-yellow'
-                  style={{ padding: '0 4px', fontSize: 16 }}
+                  style={{ padding: '0 6px', fontSize: 16 }}
                 >
                   {truncateText(
                     String(
@@ -292,7 +301,7 @@ export default function P19Scene({
                 <span hidden={!interactiveMostClubCommentCount}>
                   <span
                     className='text-r-green'
-                    style={{ padding: '0 4px', fontSize: 18 }}
+                    style={{ padding: '0 6px', fontSize: 18 }}
                   >
                     {String(
                       interactiveMostClubCommentCount ??
@@ -303,7 +312,14 @@ export default function P19Scene({
                 </span>
               </span>
               <span hidden={!interactiveMostClubUpvoteCount}>
-                <span className='text-r-pink px-[4px]' style={{ fontSize: 18 }}>
+                <span
+                  className='text-r-pink'
+                  style={{
+                    paddingLeft: '6px',
+                    paddingRight: '6px',
+                    fontSize: 18,
+                  }}
+                >
                   {String(
                     interactiveMostClubUpvoteCount ??
                       'interactive_most_club_upvote_cnt'

@@ -171,14 +171,14 @@ export default function P18Scene({ onNext, onPrevious, onNavigateToScene, sceneN
           hidden={!clubAdminTop1Name && !clubAdminTop2Name}
         >
           <div
-            className={`text-r-blue px-[4px]`}
+            className={`text-r-blue`}
             style={{ fontSize: 20 }}
             hidden={!clubAdminTop1Name}
           >
             {String(clubAdminTop1Name ?? 'club_admin_top1_name')}
           </div>
           <div
-            className={`text-r-blue px-[4px]`}
+            className={`text-r-blue`}
             style={{ fontSize: 20 }}
             hidden={!clubAdminTop2Name}
           >
@@ -189,7 +189,7 @@ export default function P18Scene({ onNext, onPrevious, onNavigateToScene, sceneN
 
         {!!clubAdminTop1MemberCount && (
           <div className={' absolute'} style={{ right: '14px', top: '290px' }}>
-            <span className={`text-r-green px-[2px]`} style={{ fontSize: 18 }}>
+            <span className={`text-r-green`} style={{ paddingLeft: '6px', paddingRight: '6px', fontSize: 18 }}>
               {String(clubAdminTop1MemberCount ?? 'clubAdminTop1MemberCount')}
             </span>
             <br />
@@ -202,7 +202,7 @@ export default function P18Scene({ onNext, onPrevious, onNavigateToScene, sceneN
             className={' absolute text-right'}
             style={{ left: '27px', top: '483px', width: '66px' }}
           >
-            <span className={`text-r-yellow px-[2px]`} style={{ fontSize: 18 }}>
+            <span className={`text-r-yellow`} style={{ paddingLeft: '6px', paddingRight: '6px', fontSize: 18 }}>
               {String(clubAdminTop1MemberCount ?? 'clubAdminTop1MemberCount')}
             </span>
             <br />
@@ -213,13 +213,13 @@ export default function P18Scene({ onNext, onPrevious, onNavigateToScene, sceneN
         {!!clubAdminPinCount && (
           <div className={'absolute'} style={{ left: '30px', top: '631px' }}>
             作为引路人，你在圈内发言
-            <span className={`text-r-pink px-[4px]`} style={{ fontSize: 24 }}>
+            <span className={`text-r-pink`} style={{ paddingLeft: '6px', paddingRight: '6px', fontSize: 24 }}>
               {String(clubAdminPinCount ?? 'club_admin_pin_cnt')}
             </span>
             次 <br />
             <span hidden={!clubAdminInteractionCount}>
               与
-              <span className={`text-r-fern px-[4px]`} style={{ fontSize: 18 }}>
+              <span className={`text-r-fern`} style={{ paddingLeft: '6px', paddingRight: '6px', fontSize: 18 }}>
                 {String(
                   clubAdminInteractionCount ?? 'club_admin_interaction_cnt'
                 )}

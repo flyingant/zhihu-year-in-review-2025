@@ -14,7 +14,12 @@ interface PageProps {
   sceneName?: string;
 }
 
-export default function P7Scene({ onNext, onPrevious, onNavigateToScene, sceneName }: PageProps) {
+export default function P7Scene({
+  onNext,
+  onPrevious,
+  onNavigateToScene,
+  sceneName,
+}: PageProps) {
   const { reportData } = useUserReportData();
   const { assets } = useAssets();
   if (!assets) return null;
@@ -38,7 +43,12 @@ export default function P7Scene({ onNext, onPrevious, onNavigateToScene, sceneNa
   const editorPickCount = reportData?.recommended_cnt ?? null;
 
   return (
-    <BaseScene onNext={onNext} onPrevious={onPrevious} onNavigateToScene={onNavigateToScene} sceneName={sceneName}>
+    <BaseScene
+      onNext={onNext}
+      onPrevious={onPrevious}
+      onNavigateToScene={onNavigateToScene}
+      sceneName={sceneName}
+    >
       <GlitchLayer>
         <Image
           src={blue1Asset.url}
@@ -96,7 +106,11 @@ export default function P7Scene({ onNext, onPrevious, onNavigateToScene, sceneNa
               width={blueBubbleAsset.width}
               height={blueBubbleAsset.height}
               className='object-contain pointer-events-none select-none z-1 opacity-0 origin-bottom-left animate-pop-dialog relative'
-              style={{ left: '-10px', paddingBottom: '10px', animationDelay: '1s' }}
+              style={{
+                left: '-10px',
+                paddingBottom: '10px',
+                animationDelay: '1s',
+              }}
             />
           </div>
 
@@ -107,8 +121,8 @@ export default function P7Scene({ onNext, onPrevious, onNavigateToScene, sceneNa
                 className='text-r-pink'
                 style={{
                   fontSize: '18px',
-                  paddingLeft: '4px',
-                  paddingRight: '4px',
+                  paddingLeft: '6px',
+                  paddingRight: '6px',
                 }}
               >
                 {readCount}
@@ -118,7 +132,7 @@ export default function P7Scene({ onNext, onPrevious, onNavigateToScene, sceneNa
             <div hidden={!upvoteCount}>
               <span
                 className='text-r-fern'
-                style={{ fontSize: '18px', paddingRight: '4px' }}
+                style={{ fontSize: '18px', paddingRight: '6px' }}
               >
                 {upvoteCount}
               </span>
@@ -127,7 +141,7 @@ export default function P7Scene({ onNext, onPrevious, onNavigateToScene, sceneNa
             <div hidden={!collectCount}>
               <span
                 className='text-r-blue'
-                style={{ fontSize: '18px', paddingRight: '4px' }}
+                style={{ fontSize: '18px', paddingRight: '6px' }}
               >
                 {collectCount}
               </span>
@@ -136,7 +150,7 @@ export default function P7Scene({ onNext, onPrevious, onNavigateToScene, sceneNa
             <div hidden={!commentCount}>
               <span
                 className='text-r-purple'
-                style={{ fontSize: '18px', paddingRight: '4px' }}
+                style={{ fontSize: '18px', paddingRight: '6px' }}
               >
                 {commentCount}
               </span>
@@ -145,7 +159,7 @@ export default function P7Scene({ onNext, onPrevious, onNavigateToScene, sceneNa
             <div hidden={!shareCount}>
               <span
                 className='text-r-yellow'
-                style={{ fontSize: '18px', paddingRight: '4px' }}
+                style={{ fontSize: '18px', paddingRight: '6px' }}
               >
                 {shareCount}
               </span>
@@ -202,8 +216,8 @@ export default function P7Scene({ onNext, onPrevious, onNavigateToScene, sceneNa
               className='text-r-blue'
               style={{
                 fontSize: '18px',
-                paddingLeft: '4px',
-                paddingRight: '4px',
+                paddingLeft: '6px',
+                paddingRight: '6px',
               }}
             >
               {roundTableCount}
@@ -216,8 +230,8 @@ export default function P7Scene({ onNext, onPrevious, onNavigateToScene, sceneNa
               className='text-r-yellow'
               style={{
                 fontSize: '18px',
-                paddingLeft: '4px',
-                paddingRight: '4px',
+                paddingLeft: '6px',
+                paddingRight: '6px',
               }}
             >
               {editorPickCount}

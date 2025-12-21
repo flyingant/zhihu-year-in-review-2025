@@ -42,14 +42,22 @@ const InteractionMemberItem = ({
           borderRadius: '50%',
         }}
       />
-      <span className='text-r-yellow px-[2px]' style={{ fontSize: 18 }}>
+      <span
+        className='text-r-yellow'
+        style={{ paddingLeft: '6px', paddingRight: '6px', fontSize: 18 }}
+      >
         @{String(name ?? fallbackName)}
       </span>
     </div>
   );
 };
 
-export default function P20Scene({ onNext, onPrevious, onNavigateToScene, sceneName }: PageProps) {
+export default function P20Scene({
+  onNext,
+  onPrevious,
+  onNavigateToScene,
+  sceneName,
+}: PageProps) {
   const { reportData } = useUserReportData();
   const { assets } = useAssets();
   const { showToast } = useToast();
@@ -137,7 +145,12 @@ export default function P20Scene({ onNext, onPrevious, onNavigateToScene, sceneN
   };
 
   return (
-    <BaseScene onNext={onNext} onPrevious={onPrevious} onNavigateToScene={onNavigateToScene} sceneName={sceneName}>
+    <BaseScene
+      onNext={onNext}
+      onPrevious={onPrevious}
+      onNavigateToScene={onNavigateToScene}
+      sceneName={sceneName}
+    >
       {/* background */}
       <GlitchLayer>
         <div className='z-0'>
@@ -246,8 +259,12 @@ export default function P20Scene({ onNext, onPrevious, onNavigateToScene, sceneN
               <div className='leading-[29px]' hidden={!clubFriendCount}>
                 你在圈子里「扩列」了
                 <span
-                  className='text-r-blue px-[4px]'
-                  style={{ fontSize: '18px' }}
+                  className='text-r-blue'
+                  style={{
+                    fontSize: '18px',
+                    paddingLeft: '6px',
+                    paddingRight: '6px',
+                  }}
                 >
                   {String(clubFriendCount ?? 'club_friend_cnt')}
                 </span>

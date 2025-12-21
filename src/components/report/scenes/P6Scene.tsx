@@ -16,7 +16,12 @@ interface PageProps {
   sceneName?: string;
 }
 
-export default function P6Scene({ onNext, onPrevious, onNavigateToScene, sceneName }: PageProps) {
+export default function P6Scene({
+  onNext,
+  onPrevious,
+  onNavigateToScene,
+  sceneName,
+}: PageProps) {
   const { reportData } = useUserReportData();
   const { assets } = useAssets();
   if (!assets) return null;
@@ -41,7 +46,12 @@ export default function P6Scene({ onNext, onPrevious, onNavigateToScene, sceneNa
   // Note: equivalentBook calculation is frontend logic based on totalWords
 
   return (
-    <BaseScene onNext={onNext} onPrevious={onPrevious} onNavigateToScene={onNavigateToScene} sceneName={sceneName}>
+    <BaseScene
+      onNext={onNext}
+      onPrevious={onPrevious}
+      onNavigateToScene={onNavigateToScene}
+      sceneName={sceneName}
+    >
       <GlitchLayer>
         {/* 顺序从上到下 */}
         <Image
@@ -111,8 +121,8 @@ export default function P6Scene({ onNext, onPrevious, onNavigateToScene, sceneNa
           <span
             className={`text-r-pink`}
             style={{
-              paddingLeft: '4px',
-              paddingRight: '4px',
+              paddingLeft: '6px',
+              paddingRight: '6px',
               fontSize: '18px',
             }}
           >
@@ -133,8 +143,8 @@ export default function P6Scene({ onNext, onPrevious, onNavigateToScene, sceneNa
           <span
             className={`text-r-fern`}
             style={{
-              paddingLeft: '4px',
-              paddingRight: '4px',
+              paddingLeft: '6px',
+              paddingRight: '6px',
               fontSize: '18px',
             }}
           >
@@ -173,8 +183,8 @@ export default function P6Scene({ onNext, onPrevious, onNavigateToScene, sceneNa
                 value={creationDays}
                 className={`text-r-blue`}
                 style={{
-                  paddingLeft: '4px',
-                  paddingRight: '4px',
+                  paddingLeft: '6px',
+                  paddingRight: '6px',
                   fontSize: '44px',
                 }}
               />
@@ -190,14 +200,14 @@ export default function P6Scene({ onNext, onPrevious, onNavigateToScene, sceneNa
             paddingBottom: '8px',
             paddingTop: '60px',
             paddingLeft: '34px',
-            paddingRight: '34px',
+            paddingRight: '20px',
           }}
         >
           <div hidden={!mostProductiveMonth || creationDays < 5}>
             <div style={{ marginBottom: '6px' }}>
               <span
                 className={`text-r-blue`}
-                style={{ paddingRight: '4px', fontSize: '18px' }}
+                style={{ paddingRight: '6px', fontSize: '18px' }}
               >
                 {mostProductiveMonth}
               </span>
@@ -219,7 +229,7 @@ export default function P6Scene({ onNext, onPrevious, onNavigateToScene, sceneNa
                 style={{
                   paddingRight: '5px',
                   fontSize: '18px',
-                  paddingLeft: '4px',
+                  paddingLeft: '6px',
                 }}
               >
                 {day}
@@ -228,8 +238,8 @@ export default function P6Scene({ onNext, onPrevious, onNavigateToScene, sceneNa
               <span
                 className={`text-r-fern`}
                 style={{
-                  paddingLeft: '4px',
-                  paddingRight: '4px',
+                  paddingLeft: '6px',
+                  paddingRight: '6px',
                   fontSize: '18px',
                 }}
               >

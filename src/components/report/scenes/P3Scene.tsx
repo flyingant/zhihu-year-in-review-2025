@@ -179,8 +179,8 @@ export default function P3Scene({
             hidden={!answerCount}
             className={`text-r-fern`}
             style={{
-              paddingLeft: '4px',
-              paddingRight: '4px',
+              paddingLeft: '6px',
+              paddingRight: '6px',
               fontSize: '18px',
             }}
           >
@@ -193,8 +193,8 @@ export default function P3Scene({
             hidden={!articleCount}
             className={`text-r-pink`}
             style={{
-              paddingLeft: '2px',
-              paddingRight: '2px',
+              paddingLeft: '6px',
+              paddingRight: '6px',
               fontSize: '18px',
             }}
           >
@@ -212,7 +212,7 @@ export default function P3Scene({
           <span
             hidden={!topDomain1}
             className={`text-r-blue`}
-            style={{ paddingRight: '4px', fontSize: '18px' }}
+            style={{ paddingRight: '6px', fontSize: '18px' }}
           >
             {topDomain1}
           </span>
@@ -221,8 +221,8 @@ export default function P3Scene({
             hidden={!topDomain2}
             className={`text-r-blue`}
             style={{
-              paddingLeft: '4px',
-              paddingRight: '4px',
+              paddingLeft: '6px',
+              paddingRight: '6px',
               fontSize: '18px',
             }}
           >
@@ -233,8 +233,8 @@ export default function P3Scene({
             hidden={!topDomain3}
             className={`text-r-blue`}
             style={{
-              paddingLeft: '4px',
-              paddingRight: '4px',
+              paddingLeft: '6px',
+              paddingRight: '6px',
               fontSize: '18px',
             }}
           >
@@ -251,7 +251,7 @@ export default function P3Scene({
           还记得吗？
           <span
             className={`text-r-green`}
-            style={{ paddingLeft: '4px', fontSize: '16px' }}
+            style={{ paddingLeft: '6px', fontSize: '16px' }}
           >
             &nbsp;
             <span style={{ fontSize: '18px' }}>{firstAnswerMonth}</span>月

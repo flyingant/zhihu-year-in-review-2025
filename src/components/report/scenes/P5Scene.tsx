@@ -173,8 +173,8 @@ export default function P5Scene({
           <span
             className={`text-r-pink`}
             style={{
-              paddingLeft: '4px',
-              paddingRight: '4px',
+              paddingLeft: '6px',
+              paddingRight: '6px',
               fontSize: '18px',
             }}
           >
@@ -195,8 +195,8 @@ export default function P5Scene({
               <span
                 className={`text-r-yellow`}
                 style={{
-                  paddingLeft: '2px',
-                  paddingRight: '2px',
+                  paddingLeft: '6px',
+                  paddingRight: '6px',
                   fontSize: '18px',
                 }}
               >
@@ -209,8 +209,8 @@ export default function P5Scene({
               <span
                 className={`text-r-purple`}
                 style={{
-                  paddingLeft: '4px',
-                  paddingRight: '4px',
+                  paddingLeft: '6px',
+                  paddingRight: '6px',
                   fontSize: '24px',
                 }}
               >
@@ -227,8 +227,8 @@ export default function P5Scene({
           <span
             className={`text-r-pink`}
             style={{
-              paddingLeft: '4px',
-              paddingRight: '4px',
+              paddingLeft: '6px',
+              paddingRight: '6px',
               fontSize: '18px',
             }}
           >
@@ -243,8 +243,8 @@ export default function P5Scene({
             <span
               className={`text-r-green`}
               style={{
-                paddingLeft: '2px',
-                paddingRight: '2px',
+                paddingLeft: '6px',
+                paddingRight: '6px',
                 fontSize: '18px',
               }}
             >
@@ -277,14 +277,14 @@ export default function P5Scene({
               alt=''
               width={50}
               height={50}
-              style={{ padding: '0 4px' }}
+              style={{ padding: '0 6px' }}
             />
             ，共出现了
             <span
               className={`text-r-yellow`}
               style={{
-                paddingLeft: '4px',
-                paddingRight: '4px',
+                paddingLeft: '6px',
+                paddingRight: '6px',
                 fontSize: '18px',
               }}
             >

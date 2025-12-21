@@ -188,8 +188,12 @@ export default function P26Scene({
               <div className='mb-[8px]'>
                 今年，你创作
                 <span
-                  className={`text-r-pink px-[4px]`}
-                  style={{ fontSize: 24 }}
+                  className={`text-r-pink`}
+                  style={{
+                    fontSize: 24,
+                    paddingLeft: '6px',
+                    paddingRight: '6px',
+                  }}
                 >
                   {String(writeStoryNumSum ?? 'write_story_num_sum')}
                 </span>
@@ -205,8 +209,12 @@ export default function P26Scene({
               <div>
                 有
                 <span
-                  className={`text-r-green px-[4px]`}
-                  style={{ fontSize: 24 }}
+                  className={`text-r-green`}
+                  style={{
+                    fontSize: 24,
+                    paddingLeft: '6px',
+                    paddingRight: '6px',
+                  }}
                 >
                   {String(totalUpvoteNum ?? 'total_upvote_num')}
                 </span>
@@ -214,10 +222,7 @@ export default function P26Scene({
               </div>
               <div>
                 其中，
-                <span
-                  className={`text-r-blue pr-[4px]`}
-                  style={{ fontSize: 17 }}
-                >
+                <span className={`text-r-blue`} style={{ fontSize: 17 }}>
                   《
                   {String(
                     writeStoryMostPopularName ?? 'write_story_most_popular_name'
@@ -235,7 +240,10 @@ export default function P26Scene({
               {!!shortStoryInfluenceList && (
                 <div>
                   你的作品
-                  <span className={`text-r-pink px-[2px]`}>
+                  <span
+                    className={`text-r-pink`}
+                    style={{ paddingLeft: '6px', paddingRight: '6px' }}
+                  >
                     《
                     {String(
                       shortStoryInfluenceList ?? 'short_story_influence_list'

@@ -56,6 +56,20 @@ export function UserDataProvider({ children }: { children: ReactNode }) {
     }
   }, []);
 
+  const fetchMomentLightList = useCallback(async () => {
+    try {
+      const momentLightListData = await getMomentLightList();
+      console.log('momentLightListData', momentLightListData);
+      setUserData((prev) => ({
+        ...(prev || {}),
+        momentLightList: momentLightListData.list,
+      }));
+    } catch (err: unknown) {
+      console.error("Error fetching moment light list:", err);
+      // Don't set error for moment light list as it's not critical
+    }
+  }, []);
+
   const fetchUserData = useCallback(async () => {
     if (!isAuthenticated) {
       return;
@@ -74,18 +88,6 @@ export function UserDataProvider({ children }: { children: ReactNode }) {
         ...prev,
         address: addressData,
       }));
-
-      // Fetch moment light list
-      try {
-        const momentLightListData = await getMomentLightList();
-        setUserData((prev) => ({
-          ...prev,
-          momentLightList: momentLightListData.list,
-        }));
-      } catch (err: unknown) {
-        console.error("Error fetching moment light list:", err);
-        // Don't set error for moment light list as it's not critical
-      }
     } catch (err: unknown) {
       console.error("Error fetching user data:", err);
       const errorMessage =
@@ -96,24 +98,27 @@ export function UserDataProvider({ children }: { children: ReactNode }) {
     }
   }, [isAuthenticated]);
 
-  // Fetch master config on mount (public data, doesn't require auth)
+  // Fetch master config and moment light list on mount (public data, doesn't require auth)
   useEffect(() => {
     fetchMasterConfig();
-  }, [fetchMasterConfig]);
+    fetchMomentLightList();
+  }, [fetchMasterConfig, fetchMomentLightList]);
 
   // Automatically fetch user data when authenticated
   useEffect(() => {
     if (isAuthenticated && !isAuthLoading) {
       fetchUserData();
+      // Refresh moment light list on login to get user-specific status if API returns different data when authenticated
+      fetchMomentLightList();
     } else if (!isAuthenticated) {
-      // Clear user-specific data when user logs out, but keep master config
+      // Clear user-specific data when user logs out, but keep master config and moment light list
       setUserData((prev) => ({
         masterConfig: prev?.masterConfig,
-        momentLightList: undefined,
+        momentLightList: prev?.momentLightList,
       }));
       setError(null);
     }
-  }, [isAuthenticated, isAuthLoading, fetchUserData]);
+  }, [isAuthenticated, isAuthLoading, fetchUserData, fetchMomentLightList]);
 
   const clearError = useCallback(() => {
     setError(null);
@@ -130,16 +135,12 @@ export function UserDataProvider({ children }: { children: ReactNode }) {
       await lightUpMoment(position);
       
       // Refresh the moment light list to get updated status
-      const momentLightListData = await getMomentLightList();
-      setUserData((prev) => ({
-        ...prev,
-        momentLightList: momentLightListData.list,
-      }));
+      await fetchMomentLightList();
     } catch (err: unknown) {
       console.error(`Error lighting up moment for position ${position}:`, err);
       // Don't throw error, just log it
     }
-  }, [isAuthenticated]);
+  }, [isAuthenticated, fetchMomentLightList]);
 
   return (
     <UserDataContext.Provider

@@ -6,6 +6,7 @@ import BaseScene from './BaseScene';
 import GlitchLayer from '@/components/report/effects/GlitchLayer';
 import { useAssets } from '@/context/assets-context';
 import Image from 'next/image';
+import { useMobile } from '@/hooks/useMobile';
 
 interface PageProps {
   onNext?: () => void;
@@ -22,6 +23,7 @@ export default function P26Scene({
 }: PageProps) {
   const { reportData } = useUserReportData();
   const { assets } = useAssets();
+  const isMobile = useMobile();
 
   // Map context data to component variables according to P26 spec (特殊-故事会员/作者)
   const writeStoryNumSum = reportData?.write_story_num_sum ?? null;
@@ -35,11 +37,14 @@ export default function P26Scene({
 
   const scrollContainerRef = useRef<HTMLDivElement>(null);
   const [showScrollHint, setShowScrollHint] = useState(false);
+  const [isScrollLocked, setIsScrollLocked] = useState(false);
 
   useEffect(() => {
     if (scrollContainerRef.current) {
       const { scrollHeight, clientHeight } = scrollContainerRef.current;
-      setShowScrollHint(scrollHeight > clientHeight);
+      const shouldScroll = scrollHeight > clientHeight;
+      setShowScrollHint(shouldScroll);
+      setIsScrollLocked(shouldScroll);
     }
   }, [shortStoryInfluenceList, awardedCopy]);
 
@@ -51,16 +56,26 @@ export default function P26Scene({
     let currentScrollTop = container.scrollTop;
 
     const timeoutId = setTimeout(() => {
-      const scroll = () => {
-        if (
-          container.scrollTop + container.clientHeight <
-          container.scrollHeight
-        ) {
-          currentScrollTop += 0.2;
-          container.scrollTop = currentScrollTop;
+      // 校准起始位置
+      currentScrollTop = container.scrollTop;
 
-          animationFrameId = requestAnimationFrame(scroll);
+      const scroll = () => {
+        const maxScroll = container.scrollHeight - container.clientHeight;
+
+        // 终止条件：逻辑位置到达 或 物理位置到达（容错 1px）
+        if (
+          currentScrollTop >= maxScroll ||
+          Math.ceil(container.scrollTop) >= maxScroll - 1
+        ) {
+          setIsScrollLocked(false);
+          return;
         }
+
+        currentScrollTop += 0.5;
+        if (currentScrollTop > maxScroll) currentScrollTop = maxScroll;
+
+        container.scrollTop = currentScrollTop;
+        animationFrameId = requestAnimationFrame(scroll);
       };
       animationFrameId = requestAnimationFrame(scroll);
     }, 1500);
@@ -163,7 +178,10 @@ export default function P26Scene({
         <p style={{ fontSize: 22 }}>情节之下，是心意织成的篇章</p>
         <div
           ref={scrollContainerRef}
-          style={{ maxHeight: '240px', overflowY: 'auto' }}
+          style={{
+            maxHeight: isMobile ? '230px' : '245px',
+            overflowY: isScrollLocked ? 'hidden' : 'auto',
+          }}
         >
           {!!writeStoryNumSum && (
             <div className='z-0'>

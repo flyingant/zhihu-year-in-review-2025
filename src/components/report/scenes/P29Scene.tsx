@@ -29,7 +29,7 @@ interface PageProps {
 export default function P29Scene({ onNext, sceneName }: PageProps) {
   const { summaryPoster } = useUserReportData();
   const { assets } = useAssets();
-  const [isSynced, setIsSynced] = useState(false);
+  const [isSynced, setIsSynced] = useState(true);
   const { trackEvent, trackPageShow } = useZA();
   const {
     downloadImage: downloadImageViaHybrid,

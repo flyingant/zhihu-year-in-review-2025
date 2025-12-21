@@ -317,10 +317,5 @@ export const SCENES: Record<string, SceneConfig> = {
   p30: {
     id: "30",
     component: P30Scene,
-    next: "ending",
-  },
-  ending: {
-    id: "ending",
-    component: EndingScene,
-  },
+  }
 };

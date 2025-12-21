@@ -41,6 +41,7 @@ export default function P2BillboardScene({
   // Play audio when hasHit becomes true, but only if background music is playing
   useEffect(() => {
     if (hasHit && audioRef.current && isBgMusicPlaying) {
+      audioRef.current.volume = 0.2;
       audioRef.current.play().catch((error) => {
         console.error('Error playing hit coin audio:', error);
       });

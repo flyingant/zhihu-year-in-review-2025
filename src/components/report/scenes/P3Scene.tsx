@@ -35,6 +35,7 @@ export default function P3Scene({
     const playJumpSound = () => {
       // Only play sound effect if background music is playing
       if (audioRef.current && isBgMusicPlaying) {
+        audioRef.current.volume = 0.2;
         audioRef.current.currentTime = 0; // Reset to start
         audioRef.current.play().catch((error) => {
           console.error('Error playing jumpUp audio:', error);

@@ -43,6 +43,7 @@ export default function P25Scene({ onNext, onPrevious, sceneName }: PageProps) {
   // Handle click to play audio if autoplay was blocked, but only if background music is playing
   const handleSceneClick = () => {
     if (audioRef.current && !audioPlayed && isBgMusicPlaying) {
+      audioRef.current.volume = 0.2;
       audioRef.current.play().catch((error) => {
         console.error('Error playing flipBook audio:', error);
       });

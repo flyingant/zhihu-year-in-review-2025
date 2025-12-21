@@ -96,7 +96,7 @@ export default function P7Scene({ onNext, onPrevious, onNavigateToScene, sceneNa
               width={blueBubbleAsset.width}
               height={blueBubbleAsset.height}
               className='object-contain pointer-events-none select-none z-1 opacity-0 origin-bottom-left animate-pop-dialog relative'
-              style={{ left: '-10px', paddingBottom: '10px' }}
+              style={{ left: '-10px', paddingBottom: '10px', animationDelay: '1s' }}
             />
           </div>
 
@@ -167,7 +167,7 @@ export default function P7Scene({ onNext, onPrevious, onNavigateToScene, sceneNa
               width={yellowBubbleAsset.width}
               height={yellowBubbleAsset.height}
               className='relative object-contain pointer-events-none select-none z-1 opacity-0 origin-bottom-left animate-pop-dialog'
-              style={{ left: '38px' }}
+              style={{ left: '38px', animationDelay: '1s' }}
             />
             <Image
               priority
@@ -176,7 +176,7 @@ export default function P7Scene({ onNext, onPrevious, onNavigateToScene, sceneNa
               width={redBubbleAsset.width}
               height={redBubbleAsset.height}
               className='relative object-contain pointer-events-none select-none z-1 opacity-0 origin-bottom-left animate-pop-dialog'
-              style={{ left: '-12px', bottom: '-20px' }}
+              style={{ left: '-12px', bottom: '-20px', animationDelay: '1s' }}
             />
           </div>
           <Image

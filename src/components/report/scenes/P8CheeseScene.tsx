@@ -5,6 +5,7 @@ import BaseScene from './BaseScene';
 import Image from 'next/image';
 import { useAssets } from '@/context/assets-context';
 import GlitchLayer from '@/components/report/effects/GlitchLayer';
+import PixelFireworks from '@/components/report/effects/PixelFireworks';
 
 interface PageProps {
   onNext?: () => void;
@@ -30,6 +31,11 @@ export default function P8CheeseScene({ onNext, onPrevious, onNavigateToScene, s
 
   return (
     <BaseScene onNext={onNext} onPrevious={onPrevious} onNavigateToScene={onNavigateToScene} sceneName={sceneName}>
+       <PixelFireworks 
+        delay={1000} 
+        minStartY={-100} 
+        maxStartY={400} 
+      />
       <GlitchLayer>
         <Image
           src={blue1Asset.url}

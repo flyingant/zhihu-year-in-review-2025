@@ -7,6 +7,7 @@ import Image from 'next/image';
 import { useAssets } from '@/context/assets-context';
 import GlitchLayer from '@/components/report/effects/GlitchLayer';
 import { truncateText } from '@/utils/common';
+import PixelFireworks from '@/components/report/effects/PixelFireworks';
 
 interface PageProps {
   onNext?: () => void;
@@ -97,6 +98,11 @@ export default function P4Scene({
     >
       {/* Hidden audio element for jump sound */}
       {jumpUpAudioUrl && <audio ref={audioRef} src={jumpUpAudioUrl} />}
+      <PixelFireworks 
+        delay={2000} 
+        minStartY={-100} 
+        maxStartY={400} 
+      />
       <GlitchLayer>
         {/* 顺序从上到下 */}
         <Image
@@ -142,15 +148,6 @@ export default function P4Scene({
       </GlitchLayer>
 
       <div className='z-0'>
-        <Image
-          priority
-          src={caidaiAsset.url}
-          alt={caidaiAsset.alt}
-          width={caidaiAsset.width}
-          height={caidaiAsset.height}
-          className='w-full object-contain absolute pointer-events-none select-none z-1'
-          style={{ bottom: '202px', left: '0%' }}
-        />
         <Image
           priority
           src={liukanshanAsset.url}

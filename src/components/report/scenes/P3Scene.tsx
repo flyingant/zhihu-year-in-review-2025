@@ -5,6 +5,7 @@ import { useUserReportData } from '@/context/user-report-data-context';
 import BaseScene from './BaseScene';
 import Image from 'next/image';
 import { useAssets } from '@/context/assets-context';
+import { useAudio } from '@/context/audio-context';
 import GlitchLayer from '@/components/report/effects/GlitchLayer';
 import { truncateText } from '@/utils/common';
 import { format } from 'date-fns';
@@ -24,13 +25,16 @@ export default function P3Scene({
 }: PageProps) {
   const { reportData } = useUserReportData();
   const { assets } = useAssets();
+  const { isPlaying: isBgMusicPlaying } = useAudio();
 
   const audioRef = useRef<HTMLAudioElement>(null);
 
   // Play audio twice during the jump-steps animation
+  // Only play if background music is playing
   useEffect(() => {
     const playJumpSound = () => {
-      if (audioRef.current) {
+      // Only play sound effect if background music is playing
+      if (audioRef.current && isBgMusicPlaying) {
         audioRef.current.currentTime = 0; // Reset to start
         audioRef.current.play().catch((error) => {
           console.error('Error playing jumpUp audio:', error);
@@ -52,7 +56,7 @@ export default function P3Scene({
       clearTimeout(firstJumpTimer);
       clearTimeout(secondJumpTimer);
     };
-  }, []);
+  }, [isBgMusicPlaying]);
 
   if (!assets) return null;
 

@@ -3,6 +3,7 @@
 import { useState, useEffect, useRef } from 'react';
 import Image from 'next/image';
 import { useAssets } from '@/context/assets-context';
+import { useAudio } from '@/context/audio-context';
 import { useUserReportData } from '@/context/user-report-data-context';
 import BaseScene from './BaseScene';
 import GlitchLayer from '@/components/report/effects/GlitchLayer';
@@ -23,6 +24,7 @@ export default function P2BillboardScene({
 }: PageProps) {
   const { assets } = useAssets();
   const { reportData } = useUserReportData();
+  const { isPlaying: isBgMusicPlaying } = useAudio();
 
   const [hasHit, setHasHit] = useState(false);
   const audioRef = useRef<HTMLAudioElement>(null);
@@ -36,14 +38,14 @@ export default function P2BillboardScene({
     return () => clearTimeout(hitTimer);
   }, []);
 
-  // Play audio when hasHit becomes true
+  // Play audio when hasHit becomes true, but only if background music is playing
   useEffect(() => {
-    if (hasHit && audioRef.current) {
+    if (hasHit && audioRef.current && isBgMusicPlaying) {
       audioRef.current.play().catch((error) => {
         console.error('Error playing hit coin audio:', error);
       });
     }
-  }, [hasHit]);
+  }, [hasHit, isBgMusicPlaying]);
 
   if (!assets) return null;
 

@@ -5,6 +5,7 @@ import { useUserReportData } from '@/context/user-report-data-context';
 import BaseScene from './BaseScene';
 import GlitchLayer from '@/components/report/effects/GlitchLayer';
 import { useAssets } from '@/context/assets-context';
+import { useAudio } from '@/context/audio-context';
 import Image from 'next/image';
 import { truncateText } from '@/utils/common';
 
@@ -17,14 +18,15 @@ interface PageProps {
 export default function P25Scene({ onNext, onPrevious, sceneName }: PageProps) {
   const { reportData } = useUserReportData();
   const { assets } = useAssets();
+  const { isPlaying: isBgMusicPlaying } = useAudio();
 
   const audioRef = useRef<HTMLAudioElement>(null);
   const [audioPlayed, setAudioPlayed] = useState(false);
 
-  // Try to play audio when component mounts
+  // Try to play audio when component mounts, but only if background music is playing
   useEffect(() => {
     const playAudio = async () => {
-      if (audioRef.current && !audioPlayed) {
+      if (audioRef.current && !audioPlayed && isBgMusicPlaying) {
         try {
           await audioRef.current.play();
           setAudioPlayed(true);
@@ -36,11 +38,11 @@ export default function P25Scene({ onNext, onPrevious, sceneName }: PageProps) {
     };
 
     playAudio();
-  }, [audioPlayed]);
+  }, [audioPlayed, isBgMusicPlaying]);
 
-  // Handle click to play audio if autoplay was blocked
+  // Handle click to play audio if autoplay was blocked, but only if background music is playing
   const handleSceneClick = () => {
-    if (audioRef.current && !audioPlayed) {
+    if (audioRef.current && !audioPlayed && isBgMusicPlaying) {
       audioRef.current.play().catch((error) => {
         console.error('Error playing flipBook audio:', error);
       });

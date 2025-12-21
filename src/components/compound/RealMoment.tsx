@@ -10,7 +10,7 @@ import { useInView } from 'react-intersection-observer';
 
 const ROWS_COUNT = 6;
 const ITEMS_PER_ROW = 17;
-const CHAR_SPACING_PERCENT = 0.3;
+const CHAR_SPACING_PERCENT = 0.32;
 // 自动动画速度 (每秒移动的百分比)
 const AUTO_ANIMATION_SPEED = 0.01; // 调整这个值来控制动画速度
 // 手势控制的速度倍数
@@ -19,10 +19,10 @@ const GESTURE_SPEED_MULTIPLIER = 2; // 手势时的速度倍数
 const VELOCITY_DECAY = 0.95;
 
 // 左右跨度（距离中心点的距离）
-const PATH_SPREAD_FROM_CENTER = 2300;
+const PATH_SPREAD_FROM_CENTER = 1900;
 // 垂直高度配置，网页坐标值是相反的，y越大，位置越靠下
-const PATH_BASE_Y = 1900; // 起点和终点的 Y 坐标 (下落的位置)
-const PATH_PEAK_Y = -1600;  // 中间顶点的 Y 坐标 (拱起的位置)
+const PATH_BASE_Y = 1700; // 起点和终点的 Y 坐标 (下落的位置)
+const PATH_PEAK_Y = -1400;  // 中间顶点的 Y 坐标 (拱起的位置)
 // 定义缓存对象的接口，避免在循环中读取 DOM
 interface CachedItem {
   el: HTMLSpanElement;
@@ -235,7 +235,7 @@ export default function CurveMarquee() {
         const finalDistance = wrapPercent(currentPercent);
         
         // 判断可见性范围 
-        const shouldBeVisible = finalDistance > 45 && finalDistance < 55;
+        const shouldBeVisible = finalDistance > 42 && finalDistance < 58;
 
         // 核心优化: 状态过滤
         // 如果它当前是隐藏的，且计算结果依然是隐藏的，直接跳过，不要碰 DOM

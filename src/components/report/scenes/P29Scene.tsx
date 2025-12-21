@@ -426,27 +426,31 @@ export default function P29Scene({ onNext, sceneName }: PageProps) {
           style={{ marginTop: '11px', marginBottom: '4px' }}
         >
           {/* Save button */}
-          <button
-            onClick={handleSave}
-            className='flex items-center justify-center gap-2 bg-white rounded-full shadow-lg text-center'
-            style={{ width: '160px', height: '34px' }}
-          >
-            <Image
-              src={iconSave.url}
-              alt={iconSave.alt}
-              width={iconSave.width}
-              height={iconSave.height}
-              className='object-contain  pointer-events-none select-none z-0'
-            />
-            <Image
-              src={ctaTextSave.url}
-              alt={ctaTextSave.alt}
-              width={ctaTextSave.width}
-              height={ctaTextSave.height}
-              className='object-contain  pointer-events-none select-none z-0'
-            />
-          </button>
-
+          {
+            isZhihuApp() || !isMobile ? (
+              <button
+                onClick={handleSave}
+                className='flex items-center justify-center gap-2 bg-white rounded-full shadow-lg text-center'
+                style={{ width: '160px', height: '34px' }}
+              >
+                <Image
+                  src={iconSave.url}
+                  alt={iconSave.alt}
+                  width={iconSave.width}
+                  height={iconSave.height}
+                  className='object-contain  pointer-events-none select-none z-0'
+                />
+                <Image
+                  src={ctaTextSave.url}
+                  alt={ctaTextSave.alt}
+                  width={ctaTextSave.width}
+                  height={ctaTextSave.height}
+                  className='object-contain  pointer-events-none select-none z-0'
+                />
+              </button>
+            ) : null
+          }
+  
           {/* Share button */}
           <button
             onClick={handleShare}

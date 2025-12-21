@@ -3,6 +3,7 @@
 import Image from 'next/image';
 import { useState } from 'react';
 import BaseScene from './BaseScene';
+import { useMobile } from '@/hooks/useMobile';
 import { useAssets } from '@/context/assets-context';
 import { setVoteOption } from '@/api/report';
 import { useToast } from '@/context/toast-context';
@@ -33,6 +34,7 @@ export default function P30Scene({ onNext, sceneName, onPrevious }: PageProps) {
   const { summaryPoster, reportData, setSummaryPoster } = useUserReportData();
   const { trackEvent } = useZA();
   const { isAvailable: isHybridAvailable } = useZhihuHybrid();
+    const isMobile = useMobile();
 
   const [shareOptionKeys, setShareOptionKeys] = useState<string[]>([]);
   const [isSynced, setIsSynced] = useState(false);
@@ -110,7 +112,7 @@ export default function P30Scene({ onNext, sceneName, onPrevious }: PageProps) {
 
     // Check if user is in zhihu app
     if (isZhihuApp() && isHybridAvailable && window.zhihuHybrid) {
-      const shareHeadImg = process.env.NEXT_PUBLIC_CDN_BASE_URL + 'assets/share-head-img.png'
+      const shareHeadImg = process.env.NEXT_PUBLIC_CDN_BASE_URL + 'assets/share-head-img-new.png'
       try {
         const setShareInfoAction = (window.zhihuHybrid as ZhihuHybridNewAPI)(
           "share/setShareInfo"
@@ -342,54 +344,58 @@ export default function P30Scene({ onNext, sceneName, onPrevious }: PageProps) {
         >
           分享给好友猜猜
         </button>
-        <label
-          className='flex items-center gap-2 cursor-pointer'
-          style={{
-            position: 'absolute',
-            bottom: 70,
-            left: '50%',
-            transform: 'translateX(-50%)',
-            width: 'max-content',
-          }}
-        >
-          <div className='relative'>
-            <input
-              type='checkbox'
-              checked={isSynced}
-              onChange={handleSyncToggle}
-              className='sr-only'
-            />
-            <div
-              className={`w-5 h-5 rounded border-2 flex items-center justify-center transition-all duration-200 ${
-                isSynced
-                  ? 'bg-[#00ADE9] border-[#00ADE9]'
-                  : 'bg-white/90 border-[#000]/30'
-              }`}
+        {
+          (isMobile || isZhihuApp()) && (
+            <label
+              className='flex items-center gap-2 cursor-pointer'
+              style={{
+                position: 'absolute',
+                bottom: 70,
+                left: '50%',
+                transform: 'translateX(-50%)',
+                width: 'max-content',
+              }}
             >
-              {isSynced && (
-                <svg
-                  width='12'
-                  height='12'
-                  viewBox='0 0 24 24'
-                  fill='none'
-                  xmlns='http://www.w3.org/2000/svg'
+              <div className='relative'>
+                <input
+                  type='checkbox'
+                  checked={isSynced}
+                  onChange={handleSyncToggle}
+                  className='sr-only'
+                />
+                <div
+                  className={`w-5 h-5 rounded border-2 flex items-center justify-center transition-all duration-200 ${
+                    isSynced
+                      ? 'bg-[#00ADE9] border-[#00ADE9]'
+                      : 'bg-white/90 border-[#000]/30'
+                  }`}
                 >
-                  <path
-                    d='M20 6L9 17L4 12'
-                    stroke='white'
-                    strokeWidth='2.5'
-                    strokeLinecap='round'
-                    strokeLinejoin='round'
-                  />
-                </svg>
-              )}
-            </div>
-          </div>
-          <span className='text-[12px] text-black font-normal'>
-            同步至想法，评论@好友赢周边
-          </span>
-        </label>
-
+                  {isSynced && (
+                    <svg
+                      width='12'
+                      height='12'
+                      viewBox='0 0 24 24'
+                      fill='none'
+                      xmlns='http://www.w3.org/2000/svg'
+                    >
+                      <path
+                        d='M20 6L9 17L4 12'
+                        stroke='white'
+                        strokeWidth='2.5'
+                        strokeLinecap='round'
+                        strokeLinejoin='round'
+                      />
+                    </svg>
+                  )}
+                </div>
+              </div>
+              <span className='text-[12px] text-black font-normal'>
+                同步至想法，评论@好友赢周边
+              </span>
+            </label>
+          )
+        }
+       
         <Image
           className='absolute'
           onClick={onPrevious}

@@ -138,6 +138,7 @@ export default function P14Scene({
       disableSwipe={true}
       onNavigateToScene={onNavigateToScene}
       sceneName={sceneName}
+      showBottomNextButton={false}
     >
       <div
         className='relative w-full h-full overflow-hidden'

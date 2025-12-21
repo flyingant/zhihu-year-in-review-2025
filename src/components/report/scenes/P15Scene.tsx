@@ -156,7 +156,7 @@ export default function P15Scene({
       {/* content */}
       <div
         className='z-0 tracking-wide'
-        style={{ fontSize: 14, paddingTop: '113px' }}
+        style={{ fontSize: 16, paddingTop: '100px' }}
       >
         <span
           className={'text-xl absolute leading-relaxed'}
@@ -166,7 +166,7 @@ export default function P15Scene({
         </span>
 
         {!!newFollowCount && (
-          <div className='absolute' style={{ left: '120px', top: '172px' }}>
+          <div className='absolute' style={{ left: '160px', top: '172px' }}>
             <span style={{ paddingRight: '6px' }}>2025</span>
             <span>年</span> <br />有
             <span
@@ -219,7 +219,7 @@ export default function P15Scene({
 
           {!!interactionMostMemberName && (
             <div>
-              和你互动最多的，是
+              和你互动最多的是
               <span
                 className={` text-r-pink`}
                 style={{
@@ -240,7 +240,7 @@ export default function P15Scene({
         {!!thanksInvitationMemberName && (
           <div
             className='absolute'
-            style={{ fontSize: 14, top: '566px', left: '114px', right: '20px' }}
+            style={{ top: '566px', left: '114px', right: '20px' }}
           >
             <div
               className='text-r-green wrap-break-word'
@@ -278,6 +278,7 @@ export default function P15Scene({
                   fontSize: 16,
                   paddingLeft: '6px',
                   paddingRight: '6px',
+                  lineHeight: '32px',
                 }}
               >
                 @
@@ -286,7 +287,7 @@ export default function P15Scene({
                 )}
               </span>
               的热情 <br />
-              写下今年的第一个「谢邀」
+              <span>写下今年的第一个「谢邀」</span>
             </div>
           </div>
         )}

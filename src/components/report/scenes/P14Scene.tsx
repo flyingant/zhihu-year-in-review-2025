@@ -197,7 +197,7 @@ export default function P14Scene({
           className='absolute z-[70] text-center text-xl text-r-yellow cursor-pointer'
           style={{
             width: '224px',
-            top: '260px',
+            top: '198px',
             left: 0,
             right: 0,
             margin: '0 auto',

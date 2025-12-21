@@ -131,7 +131,9 @@ export default function P13Scene({
               {' '}
               {day}
             </span>{' '}
-            日 ，你在知乎停留了最长的
+            日
+            <br />
+            <span>你在知乎停留了最长的</span>
             <span
               className='text-r-fern'
               style={{

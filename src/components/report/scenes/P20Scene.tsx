@@ -256,19 +256,21 @@ export default function P20Scene({
             }}
           >
             {
-              <div className='leading-[29px]' hidden={!clubFriendCount}>
-                你在圈子里「扩列」了
-                <span
-                  className='text-r-blue'
-                  style={{
-                    fontSize: '18px',
-                    paddingLeft: '6px',
-                    paddingRight: '6px',
-                  }}
-                >
-                  {String(clubFriendCount ?? 'club_friend_cnt')}
+              <div style={{ lineHeight: '29px' }}>
+                <span hidden={!clubFriendCount}>
+                  你在圈子里「扩列」了
+                  <span
+                    className='text-r-blue'
+                    style={{
+                      fontSize: '18px',
+                      paddingLeft: '6px',
+                      paddingRight: '6px',
+                    }}
+                  >
+                    {String(clubFriendCount ?? 'club_friend_cnt')}
+                  </span>
+                  位好友
                 </span>
-                位好友
                 <br />
                 希望新的一年，你能遇见更多同频的人
               </div>

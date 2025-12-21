@@ -265,7 +265,10 @@ export default function P11Scene({
           </div> */}
         </div>
 
-        <div
+        <motion.div
+          initial={{ y: 0, opacity: 0 }}
+          animate={{ y: 0, opacity: 1 }}
+          transition={{ duration: 0.3, delay: 1.0 }}
           className='absolute'
           style={{ top: '215px' }}
           hidden={categoryHours === 0}
@@ -289,7 +292,7 @@ export default function P11Scene({
               {categoryHours} 小时
             </span>
           </div>
-        </div>
+        </motion.div>
       </div>
 
       {shouldShowTable && (

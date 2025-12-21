@@ -15,7 +15,12 @@ interface PageProps {
   sceneName?: string;
 }
 
-export default function P12Scene({ onNext, onPrevious, onNavigateToScene, sceneName }: PageProps) {
+export default function P12Scene({
+  onNext,
+  onPrevious,
+  onNavigateToScene,
+  sceneName,
+}: PageProps) {
   const { reportData } = useUserReportData();
   const { assets } = useAssets();
   if (!assets) return null;
@@ -52,7 +57,12 @@ export default function P12Scene({ onNext, onPrevious, onNavigateToScene, sceneN
     null;
 
   return (
-    <BaseScene onNext={onNext} onPrevious={onPrevious} onNavigateToScene={onNavigateToScene} sceneName={sceneName}>
+    <BaseScene
+      onNext={onNext}
+      onPrevious={onPrevious}
+      onNavigateToScene={onNavigateToScene}
+      sceneName={sceneName}
+    >
       <GlitchLayer className='z-0'>
         {/* 顺序从上到下 */}
         <Image
@@ -84,7 +94,7 @@ export default function P12Scene({ onNext, onPrevious, onNavigateToScene, sceneN
       {/* 不同时段阅读足迹 */}
       <div
         style={{
-          paddingTop: '120px',
+          paddingTop: '100px',
           paddingBottom: '10px',
           paddingLeft: '34px',
           paddingRight: '34px',
@@ -99,42 +109,47 @@ export default function P12Scene({ onNext, onPrevious, onNavigateToScene, sceneN
         </div>
       </div>
 
-      <div className="relative w-full flex flex-col items-center justify-center" style={{ marginTop: '80px' }}>
-        
+      <div
+        className='relative w-full flex flex-col items-center justify-center'
+        style={{ marginTop: '80px' }}
+      >
         {/* 1. 轨道层 */}
-        <div 
-          className="absolute top-1/2 left-1/2 pointer-events-none animate-orbit rounded-full"
+        <div
+          className='absolute top-1/2 left-1/2 pointer-events-none animate-orbit rounded-full'
           style={{ zIndex: 0, width: '480px', height: '480px' }}
         >
           {/* 太阳 */}
-          <div className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2">
-             <div className="animate-counter-spin">
-                <Image
-                  src={sunAsset.url}
-                  alt='sun'
-                  width={sunAsset.width}
-                  height={sunAsset.height}
-                  className='object-contain'
-                />
-             </div>
+          <div className='absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2'>
+            <div className='animate-counter-spin'>
+              <Image
+                src={sunAsset.url}
+                alt='sun'
+                width={sunAsset.width}
+                height={sunAsset.height}
+                className='object-contain'
+              />
+            </div>
           </div>
 
           {/* 月亮 */}
-          <div className="absolute bottom-0 left-1/2 -translate-x-1/2 translate-y-1/2">
-             <div className="animate-counter-spin">
-                <Image
-                  src={moonAsset.url}
-                  alt='moon'
-                  width={moonAsset.width}
-                  height={moonAsset.height}
-                  className='object-contain'
-                />
-             </div>
+          <div className='absolute bottom-0 left-1/2 -translate-x-1/2 translate-y-1/2'>
+            <div className='animate-counter-spin'>
+              <Image
+                src={moonAsset.url}
+                alt='moon'
+                width={moonAsset.width}
+                height={moonAsset.height}
+                className='object-contain'
+              />
+            </div>
           </div>
         </div>
 
         {/* 2. 图表层 */}
-        <div className='relative w-full flex items-center justify-center' style={{ height: '300px', zIndex: 1 }}>
+        <div
+          className='relative w-full flex items-center justify-center'
+          style={{ height: '300px', zIndex: 1 }}
+        >
           <TimeDonutChart data={hours} />
           <div className='absolute inset-0 flex items-center justify-center pointer-events-none'>
             <Image
@@ -150,9 +165,10 @@ export default function P12Scene({ onNext, onPrevious, onNavigateToScene, sceneN
         </div>
 
         {/* 3. 文字层 */}
+        <div style={{ paddingTop: '50px' }}></div>
         <div
           className='relative z-10 text-center text-sm font-medium leading-relaxed'
-          style={{ paddingTop: '50px' }}
+          hidden={!browseLastCategory}
         >
           <p className='flex items-center justify-center flex-wrap gap-1'>
             <span className='text-r-yellow' style={{ fontSize: '18px' }}>
@@ -173,7 +189,6 @@ export default function P12Scene({ onNext, onPrevious, onNavigateToScene, sceneN
             <span>领域的内容</span>
           </p>
         </div>
-
       </div>
     </BaseScene>
   );

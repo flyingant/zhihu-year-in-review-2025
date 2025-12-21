@@ -208,8 +208,8 @@ export default function P24Scene({
         <div
           className='absolute z-0 w-full tracking-wide'
           style={{
-            fontSize: 14,
-            top: 125,
+            fontSize: 16,
+            top: 100,
             left: '50%',
             transform: 'translateX(-50%)',
           }}
@@ -217,7 +217,14 @@ export default function P24Scene({
           <div className='text-center'>
             <div className=''>
               你参与了
-              <span className='text-r-pink' style={{ paddingLeft: '6px', paddingRight: '6px', fontSize: 20 }}>
+              <span
+                className='text-r-pink'
+                style={{
+                  paddingLeft: '6px',
+                  paddingRight: '6px',
+                  fontSize: 24,
+                }}
+              >
                 {String(movieLikeCount ?? 'movie_like_cnt')}
               </span>
               次作品评价

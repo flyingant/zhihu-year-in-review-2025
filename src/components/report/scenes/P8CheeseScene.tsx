@@ -14,7 +14,12 @@ interface PageProps {
   sceneName?: string;
 }
 
-export default function P8CheeseScene({ onNext, onPrevious, onNavigateToScene, sceneName }: PageProps) {
+export default function P8CheeseScene({
+  onNext,
+  onPrevious,
+  onNavigateToScene,
+  sceneName,
+}: PageProps) {
   const { reportData } = useUserReportData();
   const { assets } = useAssets();
   if (!assets) return null;
@@ -30,12 +35,13 @@ export default function P8CheeseScene({ onNext, onPrevious, onNavigateToScene, s
   const courseCount = (reportData?.course_count || '无字段') as string;
 
   return (
-    <BaseScene onNext={onNext} onPrevious={onPrevious} onNavigateToScene={onNavigateToScene} sceneName={sceneName}>
-       <PixelFireworks 
-        delay={1000} 
-        minStartY={-100} 
-        maxStartY={400} 
-      />
+    <BaseScene
+      onNext={onNext}
+      onPrevious={onPrevious}
+      onNavigateToScene={onNavigateToScene}
+      sceneName={sceneName}
+    >
+      <PixelFireworks delay={1000} minStartY={-100} maxStartY={400} />
       <GlitchLayer>
         <Image
           src={blue1Asset.url}
@@ -92,7 +98,7 @@ export default function P8CheeseScene({ onNext, onPrevious, onNavigateToScene, s
                 </span>
               </div>
 
-              <div style={{ paddingBottom: '80px' }}>
+              <div style={{ paddingBottom: '80px', fontSize: '14px' }}>
                 从洞察到价值，每一份内容都站在了更高的舞台
               </div>
             </div>
@@ -142,7 +148,7 @@ export default function P8CheeseScene({ onNext, onPrevious, onNavigateToScene, s
                 className='text-r-green'
                 style={{ fontSize: '16px', padding: '0 6px' }}
               >
-                「{studentName}」
+                {studentName}
               </span>
               学员的身份，为成长写下注脚
             </div>

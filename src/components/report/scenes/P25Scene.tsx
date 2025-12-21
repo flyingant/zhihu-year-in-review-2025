@@ -43,6 +43,7 @@ export default function P25Scene({ onNext, onPrevious, sceneName }: PageProps) {
   // Handle click to play audio if autoplay was blocked, but only if background music is playing
   const handleSceneClick = () => {
     if (audioRef.current && !audioPlayed && isBgMusicPlaying) {
+      audioRef.current.volume = 0.2;
       audioRef.current.play().catch((error) => {
         console.error('Error playing flipBook audio:', error);
       });
@@ -191,7 +192,7 @@ export default function P25Scene({ onNext, onPrevious, sceneName }: PageProps) {
               <span
                 className={`text-r-purple`}
                 style={{
-                  fontSize: 24,
+                  fontSize: 16,
                   paddingLeft: '6px',
                   paddingRight: '6px',
                 }}
@@ -204,7 +205,7 @@ export default function P25Scene({ onNext, onPrevious, sceneName }: PageProps) {
         </div>
 
         {/* Top Books */}
-        <div className='z-0' style={{ fontSize: 14 }}>
+        <div className='z-0' style={{ fontSize: 16 }}>
           <div
             style={{
               position: 'absolute',

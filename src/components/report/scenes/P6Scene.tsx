@@ -96,7 +96,7 @@ export default function P6Scene({
         />
       </GlitchLayer>
 
-      <div style={{ paddingTop: '120px', fontSize: '16px' }}>
+      <div style={{ paddingTop: '100px', fontSize: '16px' }}>
         <div
           style={{
             fontSize: '22px',
@@ -111,8 +111,7 @@ export default function P6Scene({
         <div
           hidden={!totalWords}
           style={{
-            marginBottom: '10px',
-            lineHeight: '32px',
+            marginBottom: '8px',
             paddingLeft: '34px',
             paddingRight: '34px',
           }}
@@ -176,7 +175,7 @@ export default function P6Scene({
             />
           </div>
 
-          <div className='text-center' style={{ paddingTop: '20px' }}>
+          <div className='text-right' style={{ paddingTop: '20px' }}>
             <div>
               在
               <FlipCounter

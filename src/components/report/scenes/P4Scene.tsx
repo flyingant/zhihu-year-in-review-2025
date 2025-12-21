@@ -126,7 +126,7 @@ export default function P4Scene({
           width={mix4Asset.width}
           height={mix4Asset.height}
           className='object-contain absolute pointer-events-none select-none z-1'
-          style={{ top: '339px', left: '0px' }}
+          style={{ top: '389px', left: '0px' }}
         />
         <Image
           src={blue1Asset.url}
@@ -171,7 +171,7 @@ export default function P4Scene({
         style={{
           paddingLeft: '34px',
           paddingRight: '34px',
-          paddingTop: '120px',
+          paddingTop: '100px',
           fontSize: '16px',
         }}
       >

@@ -13,7 +13,12 @@ interface PageProps {
   sceneName?: string;
 }
 
-export default function P18Scene({ onNext, onPrevious, onNavigateToScene, sceneName }: PageProps) {
+export default function P18Scene({
+  onNext,
+  onPrevious,
+  onNavigateToScene,
+  sceneName,
+}: PageProps) {
   const { reportData } = useUserReportData();
 
   const { assets } = useAssets();
@@ -25,9 +30,7 @@ export default function P18Scene({ onNext, onPrevious, onNavigateToScene, sceneN
     assets.report.bg;
 
   // Map context data to component variables according to P18 spec (社交-圈子主理人)
-  const clubAdminTop1Name = reportData?.club_admin_top1_name ?? null;
-  const clubAdminTop1MemberCount =
-    reportData?.club_admin_top1_member_cnt ?? null;
+
   const clubAdminTop1ContentCount =
     reportData?.club_admin_top1_content_cnt ?? null;
   const clubAdminTop1PinCount = reportData?.club_admin_top1_pin_cnt ?? null;
@@ -42,11 +45,12 @@ export default function P18Scene({ onNext, onPrevious, onNavigateToScene, sceneN
   const clubAdminTop2InteractionCount =
     reportData?.club_admin_top2_interaction_cnt ?? null;
 
+  const clubAdminTop1Name = reportData?.club_admin_top1_name ?? null;
+  const clubAdminTop1MemberCount =
+    reportData?.club_admin_top1_member_cnt ?? null;
   const clubAdminPinCount = reportData?.club_admin_pin_cnt ?? null;
   const clubAdminInteractionCount =
     reportData?.club_admin_interaction_cnt ?? null;
-
-  console.log('clubAdminTop1Name', clubAdminTop1Name);
 
   return (
     <BaseScene
@@ -160,7 +164,7 @@ export default function P18Scene({ onNext, onPrevious, onNavigateToScene, sceneN
       <div className='z-0 tracking-wide' style={{ fontSize: 16 }}>
         <div
           className={'text-xl leading-relaxed absolute'}
-          style={{ left: '30px', top: '121px' }}
+          style={{ left: '30px', top: '100px' }}
         >
           感谢有你，圈子一直在发光
         </div>
@@ -189,7 +193,10 @@ export default function P18Scene({ onNext, onPrevious, onNavigateToScene, sceneN
 
         {!!clubAdminTop1MemberCount && (
           <div className={' absolute'} style={{ right: '14px', top: '290px' }}>
-            <span className={`text-r-green`} style={{ paddingLeft: '6px', paddingRight: '6px', fontSize: 18 }}>
+            <span
+              className={`text-r-green`}
+              style={{ paddingLeft: '6px', paddingRight: '6px', fontSize: 18 }}
+            >
               {String(clubAdminTop1MemberCount ?? 'clubAdminTop1MemberCount')}
             </span>
             <br />
@@ -202,7 +209,10 @@ export default function P18Scene({ onNext, onPrevious, onNavigateToScene, sceneN
             className={' absolute text-right'}
             style={{ left: '27px', top: '483px', width: '66px' }}
           >
-            <span className={`text-r-yellow`} style={{ paddingLeft: '6px', paddingRight: '6px', fontSize: 18 }}>
+            <span
+              className={`text-r-yellow`}
+              style={{ paddingLeft: '6px', paddingRight: '6px', fontSize: 18 }}
+            >
               {String(clubAdminTop1MemberCount ?? 'clubAdminTop1MemberCount')}
             </span>
             <br />
@@ -213,13 +223,23 @@ export default function P18Scene({ onNext, onPrevious, onNavigateToScene, sceneN
         {!!clubAdminPinCount && (
           <div className={'absolute'} style={{ left: '30px', top: '631px' }}>
             作为引路人，你在圈内发言
-            <span className={`text-r-pink`} style={{ paddingLeft: '6px', paddingRight: '6px', fontSize: 24 }}>
+            <span
+              className={`text-r-pink`}
+              style={{ paddingLeft: '6px', paddingRight: '6px', fontSize: 24 }}
+            >
               {String(clubAdminPinCount ?? 'club_admin_pin_cnt')}
             </span>
             次 <br />
             <span hidden={!clubAdminInteractionCount}>
               与
-              <span className={`text-r-fern`} style={{ paddingLeft: '6px', paddingRight: '6px', fontSize: 18 }}>
+              <span
+                className={`text-r-fern`}
+                style={{
+                  paddingLeft: '6px',
+                  paddingRight: '6px',
+                  fontSize: 18,
+                }}
+              >
                 {String(
                   clubAdminInteractionCount ?? 'club_admin_interaction_cnt'
                 )}

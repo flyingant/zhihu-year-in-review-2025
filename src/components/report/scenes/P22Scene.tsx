@@ -138,7 +138,7 @@ export default function P22Scene({
       <div className='z-0 relative tracking-wide' style={{ fontSize: 16 }}>
         <div
           className='absolute leading-loose'
-          style={{ fontSize: 22, top: '116px', left: '41px' }}
+          style={{ fontSize: 22, top: '100px', left: '41px' }}
         >
           当你面向时代求真
           <br />
@@ -147,18 +147,24 @@ export default function P22Scene({
         {/* Billboard browsing */}
         <div
           className='absolute'
-          style={{ top: '214px', left: '41px', right: '20px', fontSize: 16 }}
+          style={{ top: '194px', left: '41px', right: '20px', fontSize: 16 }}
         >
           <p hidden={!consumeBillboardDays || consumeBillboardDays < 5}>
             今年，你驻扎热榜
-            <span className={`text-r-fern`} style={{ paddingLeft: '6px', paddingRight: '6px', fontSize: 24 }}>
+            <span
+              className={`text-r-fern`}
+              style={{ paddingLeft: '6px', paddingRight: '6px', fontSize: 24 }}
+            >
               {String(consumeBillboardDays ?? 'consume_billboard_days')}
             </span>
             天
           </p>
           <p hidden={!consumeBillboardContentCount}>
             浏览了
-            <span className={`text-r-fern`} style={{ paddingLeft: '6px', paddingRight: '6px', fontSize: 24 }}>
+            <span
+              className={`text-r-fern`}
+              style={{ paddingLeft: '6px', paddingRight: '6px', fontSize: 24 }}
+            >
               {String(
                 consumeBillboardContentCount ?? 'consume_billboard_content_cnt'
               )}
@@ -167,23 +173,38 @@ export default function P22Scene({
           </p>
           {/* Upvoted content on billboard */}
           <p hidden={!upvoteZhihuBillboardContentCount}>
-            你的赞同, 助推
-            <span className={`text-r-fern`} style={{ paddingLeft: '6px', paddingRight: '6px', fontSize: 24 }}>
+            你的赞同助推
+            <span
+              className={`text-r-fern`}
+              style={{ paddingLeft: '6px', paddingRight: '6px', fontSize: 24 }}
+            >
               {String(
                 upvoteZhihuBillboardContentCount ??
                   'upvote_zhihu_billboard_content_cnt'
               )}
             </span>
-            篇内容登上了知乎热榜
+            篇内容登上了热榜
           </p>
 
           {/* Hot events */}
           <div style={{ marginTop: 16 }} hidden={!eventUpvoteCount}>
-            <span className='text-r-pink mr-[4px]'>{eventMonth}</span>
+            <span className='text-r-pink' style={{ paddingRight: '6px' }}>
+              {eventMonth}
+            </span>
             月里，你参与了
-            <span className='text-r-pink mx-[4px]'>{eventName}</span>
+            <span
+              className='text-r-pink'
+              style={{ paddingRight: '6px', paddingLeft: '6px' }}
+            >
+              {eventName}
+            </span>
             的讨论，收获
-            <span className='text-r-pink mx-[4px]'>{eventUpvoteCount}</span>
+            <span
+              className='text-r-pink'
+              style={{ paddingRight: '6px', paddingLeft: '6px' }}
+            >
+              {eventUpvoteCount}
+            </span>
             个赞同，和无数人共同记录那段集体记忆
           </div>
         </div>

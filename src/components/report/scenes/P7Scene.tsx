@@ -80,7 +80,7 @@ export default function P7Scene({
         style={{
           paddingLeft: '34px',
           paddingRight: '34px',
-          paddingTop: '120px',
+          paddingTop: '100px',
           fontSize: '16px',
         }}
       >
@@ -167,9 +167,7 @@ export default function P7Scene({
             </div>
           </div>
         </div>
-        <div style={{ paddingLeft: '40px' }}>
-          这些回声，将你的声音推向更远的地方
-        </div>
+        <div className='text-center'>这些回声，将你的声音推向更远的地方</div>
 
         {/* 刘看山图片 */}
         <div className='flex justify-between' style={{ margin: '20px 0' }}>

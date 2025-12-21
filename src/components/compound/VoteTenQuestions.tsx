@@ -606,7 +606,7 @@ const VoteTenQuestions = () => {
               />
             </div>
             <div className="relative z-10 flex flex-col h-full pt-[20px] px-[24px] pb-[32px]">
-              <div className="text-center text-base font-bold mb-4 relative pixel-font">
+              <div className="text-center text-base font-bold mb-4 relative text-black">
                 已选问题 {selectedQuestions.length} 个
                 <div
                   onClick={() => setIsModalOpen(false)}
@@ -622,7 +622,7 @@ const VoteTenQuestions = () => {
                 {selectedQuestions.map((q) => (
                   <div
                     key={q.id}
-                    className="flex items-center justify-between bg-white border-b-[1px] border-[#e8eaed] py-[14px]"
+                    className="flex items-center justify-between text-[#333] border-b-[1px] border-[#e8eaed] py-[14px]"
                   >
                     <div className="flex-1 text-[14px] line-clamp-2 mr-2 max-w-[220px]">
                       {q.title}

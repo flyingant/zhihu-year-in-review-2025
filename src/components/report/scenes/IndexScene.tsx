@@ -99,7 +99,7 @@ const MirrorContent = ({
       <span className='text-r-yellow' style={{ fontSize: '24px' }}>
         {registerDays}
       </span>{' '}
-      天真实的时间
+      天
     </div>
   </div>
 );
@@ -655,7 +655,7 @@ export default function IndexScene({ onNext, sceneName }: IndexSceneProps) {
                     ease: 'easeInOut',
                   }}
                 >
-                  查看自己的 ZhiLink
+                  查看我的 ZhiLink
                 </motion.span>
                 <span className='ml-2'>&lt;</span>
               </div>

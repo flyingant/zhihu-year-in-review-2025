@@ -3,12 +3,14 @@ import { getFollowStatus, followUser, unfollowUser } from "@/api/report";
 
 export function useFollow(memberToken?: string) {
   const [isFollowed, setIsFollowed] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     if (!memberToken) return;
 
     let mounted = true;
 
+    setIsLoading(true);
     const fetchStatus = async () => {
       try {
         const res = await getFollowStatus(memberToken);
@@ -17,6 +19,8 @@ export function useFollow(memberToken?: string) {
         }
       } catch (error) {
         console.error("Failed to fetch follow status:", error);
+      } finally {
+        setIsLoading(false);
       }
     };
 
@@ -43,5 +47,5 @@ export function useFollow(memberToken?: string) {
     }
   }, [memberToken, isFollowed]);
 
-  return { isFollowed, toggleFollow };
+  return { isFollowed, toggleFollow, isLoading};
 }

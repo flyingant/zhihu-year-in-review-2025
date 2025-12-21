@@ -434,13 +434,13 @@ const MiniComputerSection = () => {
           >
             <div className="flex flex-col items-start w-full pb-8">
               {inputValue ? (
-                <span className="text-gray-600 whitespace-pre-wrap break-all">
+                <span className="whitespace-pre-wrap break-all">
                   {inputValue}
                 </span>
               ) : (
                 <div className="flex items-center">
                   <div
-                    style={{ width: '2px', height: '16px', marginTop: '2px' }}
+                    style={{ width: '1px', height: '16px', marginTop: '2px' }}
                     className={`
                       ${!isFocused
                         ? 'bg-[#263133] animate-blink'
@@ -464,7 +464,7 @@ const MiniComputerSection = () => {
             onBlur={() => setIsFocused(false)}
             disabled={status !== 'idle'}
             maxLength={120}
-            className="pb-8 absolute inset-0 w-full h-full bg-transparent border-none outline-none resize-none text-transparent caret-gray-600 text-sm leading-relaxed z-10"
+            className="pb-8 absolute inset-0 w-full h-full bg-transparent border-none outline-none resize-none text-transparent caret-[#263133] text-sm leading-relaxed z-10"
           />
         </div>
         {/* enter遮罩层 */}

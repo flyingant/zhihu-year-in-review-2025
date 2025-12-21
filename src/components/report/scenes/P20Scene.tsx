@@ -229,7 +229,7 @@ export default function P20Scene({
           width={main.width}
           height={main.height}
           className='object-contain absolute pointer-events-none select-none z-20'
-          style={{ top: '325px', left: '60px' }}
+          style={{ top: '305px', left: '60px', right: '0px' }}
         />
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img
@@ -237,8 +237,8 @@ export default function P20Scene({
           alt={gif.alt}
           width={gif.width / 4}
           height={gif.height / 4}
-          className='object-contain absolute pointer-events-none select-none z-1'
-          style={{ top: '228px', right: '165px' }}
+          className='object-contain absolute pointer-events-none select-none z-30'
+          style={{ top: '218px', right: '165px' }}
         />
       </div>
 
@@ -250,25 +250,27 @@ export default function P20Scene({
             className='absolute'
             style={{
               fontSize: '16px',
-              top: '150px',
+              top: '130px',
               left: '34px',
               right: '19px',
             }}
           >
             {
-              <div className='leading-[29px]' hidden={!clubFriendCount}>
-                你在圈子里「扩列」了
-                <span
-                  className='text-r-blue'
-                  style={{
-                    fontSize: '18px',
-                    paddingLeft: '6px',
-                    paddingRight: '6px',
-                  }}
-                >
-                  {String(clubFriendCount ?? 'club_friend_cnt')}
+              <div style={{ lineHeight: '29px' }}>
+                <span hidden={!clubFriendCount}>
+                  你在圈子里「扩列」了
+                  <span
+                    className='text-r-blue'
+                    style={{
+                      fontSize: '18px',
+                      paddingLeft: '6px',
+                      paddingRight: '6px',
+                    }}
+                  >
+                    {String(clubFriendCount ?? 'club_friend_cnt')}
+                  </span>
+                  位好友
                 </span>
-                位好友
                 <br />
                 希望新的一年，你能遇见更多同频的人
               </div>
@@ -285,7 +287,7 @@ export default function P20Scene({
               }
               style={{
                 fontSize: 16,
-                top: '578px',
+                top: '558px',
                 left: '34px',
                 right: '34px',
               }}

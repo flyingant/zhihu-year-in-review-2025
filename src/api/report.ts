@@ -328,7 +328,7 @@ export interface FollowStatusResponse {
  */
 export const getFollowStatus = (memberToken: string) => {
   return request<FollowStatusResponse>({
-    url: "/campaigns/v2/2025/follow/status",
+    url: "/campaigns/v2/2025/follow/status/",
     method: "GET",
     params: {
       member_token: memberToken,

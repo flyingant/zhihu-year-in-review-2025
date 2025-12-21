@@ -68,7 +68,7 @@ export default function P30Scene({ onNext, sceneName, onPrevious }: PageProps) {
     trackEvent('', {
       moduleId: 'share_guess_button',
       type: 'Button',
-      text: '*',
+      text: '分享给好友猜猜',
       page: {
         page_id: '60864',
       },

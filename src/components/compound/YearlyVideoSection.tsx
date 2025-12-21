@@ -373,7 +373,7 @@ const YearlyVideoSection = () => {
               top: '26.5%',
               left: '8%',
               width: '84%',
-              height: '51%',
+              height: '50%',
             }}
           >
             {isLoading ? (
@@ -418,15 +418,14 @@ const YearlyVideoSection = () => {
               : 'translate-y-full'
               }`}
           >
-            <video
+            <Image
+              src={liukanshanWaving.url}
+              alt={liukanshanWaving.alt || "刘看山"}
+              width={liukanshanWaving.width}
+              height={liukanshanWaving.height}
               className="w-full h-auto object-contain"
-              autoPlay
-              loop
-              muted
-              playsInline
-            >
-              <source src={liukanshanWaving.url} type="video/mp4" />
-            </video>
+              unoptimized
+            />
           </div>
           <div
             className="absolute bottom-[7%] left-[13%] w-[65px] h-[50px] z-40"

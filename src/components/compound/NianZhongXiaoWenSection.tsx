@@ -207,7 +207,7 @@ const NianZhongXiaoWenSection = () => {
             top: '30%',
             left: '9%',
             width: '82%',
-            height: '60%',
+            height: '59%',
           }}
         >
           {isLoading ? (
@@ -219,7 +219,8 @@ const NianZhongXiaoWenSection = () => {
               <span>{error}</span>
             </div>
           ) : playerSources ? (
-            <div className="w-full h-full relative [&>div]:!w-full [&>div]:!h-full [&_video]:!w-full [&_video]:!h-full [&_video]:!object-cover [&_video]:opacity-100 [&_video[poster]]:!object-cover [&_img]:!object-cover [&_img]:!w-full [&_img]:!h-full">
+            <div className="w-full h-full relative [&>div]:!w-full [&>div]:!h-full [&_video]:!w-full  [&_[class*='coverTime']]:!hidden
+              [&_video]:!h-full [&_video]:!object-cover [&_video]:opacity-100 [&_video[poster]]:!object-cover [&_img]:!object-cover [&_img]:!w-full [&_img]:!h-full">
               {/* @ts-expect-error - Griffith Player type compatibility with React 19 */}
               <Player
                 sources={playerSources}

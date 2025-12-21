@@ -261,7 +261,7 @@ export default function P19Scene({
           </div>
         )}
         {
-          <div className='absolute z-2' style={{ top: '540px', left: '17px' }}>
+          <div className='absolute z-2' style={{ top: '560px', left: '17px' }}>
             <div
               hidden={
                 !interactiveMostClubName ||
@@ -327,16 +327,8 @@ export default function P19Scene({
                 </span>
                 个赞同 <br />
               </span>
-              <span
-                hidden={
-                  !interactiveMostClubCommentCount &&
-                  !interactiveMostClubUpvoteCount &&
-                  !interactiveMostClubName
-                }
-              >
-                真诚的人同路亦同心
-              </span>
             </div>
+            <span>真诚的人同路亦同心</span>
           </div>
         }
       </div>

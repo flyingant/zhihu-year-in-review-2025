@@ -41,6 +41,7 @@ export default function P2BillboardScene({
   // Play audio when hasHit becomes true, but only if background music is playing
   useEffect(() => {
     if (hasHit && audioRef.current && isBgMusicPlaying) {
+      audioRef.current.volume = 0.2;
       audioRef.current.play().catch((error) => {
         console.error('Error playing hit coin audio:', error);
       });
@@ -143,7 +144,7 @@ export default function P2BillboardScene({
           style={{
             paddingLeft: '34px',
             paddingRight: '34px',
-            paddingTop: '120px',
+            paddingTop: '100px',
           }}
         >
           <div style={{ fontSize: '22px' }}>这一年，你依旧好奇</div>

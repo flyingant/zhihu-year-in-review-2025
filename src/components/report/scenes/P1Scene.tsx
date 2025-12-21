@@ -189,7 +189,7 @@ export default function P1Scene({
       <div className='relative w-full h-full overflow-hidden'>
         <p
           className='absolute z-30 text-center text-xl w-full'
-          style={{ top: '73px', fontSize: 26, lineHeight: '40px' }}
+          style={{ top: '100px', fontSize: 26, lineHeight: '40px' }}
         >
           这一年，
           <br />

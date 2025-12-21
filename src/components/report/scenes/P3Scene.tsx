@@ -35,6 +35,7 @@ export default function P3Scene({
     const playJumpSound = () => {
       // Only play sound effect if background music is playing
       if (audioRef.current && isBgMusicPlaying) {
+        audioRef.current.volume = 0.2;
         audioRef.current.currentTime = 0; // Reset to start
         audioRef.current.play().catch((error) => {
           console.error('Error playing jumpUp audio:', error);
@@ -119,7 +120,7 @@ export default function P3Scene({
           width={mix4Asset.width}
           height={mix4Asset.height}
           className='object-contain absolute pointer-events-none select-none z-1'
-          style={{ top: '319px', left: '0px' }}
+          style={{ top: '420px', left: '0px' }}
         />
         <Image
           src={blue1Asset.url}
@@ -164,7 +165,7 @@ export default function P3Scene({
         style={{
           paddingLeft: '34px',
           paddingRight: '34px',
-          paddingTop: '120px',
+          paddingTop: '100px',
           fontSize: '16px',
         }}
       >

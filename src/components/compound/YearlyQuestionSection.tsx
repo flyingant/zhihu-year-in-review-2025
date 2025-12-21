@@ -106,15 +106,14 @@ const TenQuestionsSection = () => {
             className={`absolute top-[5.3%] right-[1%] w-[72px] z-0 transition-transform duration-700 ease-out ${showIcon ? 'translate-y-0 opacity-100' : 'translate-y-full opacity-0'
               }`}
           >
-            <video
+            <Image
+              src={liukanshanAsset.url}
+              alt={liukanshanAsset.alt || "刘看山"}
+              width={liukanshanAsset.width}
+              height={liukanshanAsset.height}
               className="w-full h-full object-contain"
-              autoPlay
-              loop
-              muted
-              playsInline
-            >
-              <source src={liukanshanAsset.url} type="video/mp4" />
-            </video>
+              unoptimized
+            />
           </div>
           {MASK_POSITIONS.map((pos, index) => (
             <div

@@ -100,15 +100,14 @@ const RealCanDoSection = () => {
             : 'translate-y-full'
             }`}
         >
-          <video
+          <Image
+            src={liukanshanLookup.url}
+            alt={liukanshanLookup.alt || "刘看山"}
+            width={liukanshanLookup.width}
+            height={liukanshanLookup.height}
             className="w-full h-auto object-contain"
-            autoPlay
-            loop
-            muted
-            playsInline
-          >
-            <source src={liukanshanLookup.url} type="video/mp4" />
-          </video>
+            unoptimized
+          />
         </div>
 
         <div className="absolute right-0 top-3 w-[100px] h-[80px] z-60">

@@ -137,17 +137,14 @@ const YearlyReportSection = () => {
             className={`absolute top-[62px] left-[3px] w-[72px] h-[72px] z-10 flex items-center justify-center transition-transform duration-500  ${showIcon ? 'opacity-100 translate-y-0' : 'translate-y-[150%]'
               }`}
           >
-            <video
+            <Image
+              src={liukanshanLookup.url}
+              alt={liukanshanLookup.alt || "刘看山"}
+              width={liukanshanLookup.width}
+              height={liukanshanLookup.height}
               className="w-full h-full object-contain rounded-lg"
-              loop
-              muted
-              autoPlay
-              playsInline
-              preload="auto"
-            >
-              <source src={liukanshanLookup.url} type="video/mp4" />
-              Your browser does not support the video tag.
-            </video>
+              unoptimized
+            />
           </div>
         </div>
         <div className="absolute bottom-[5.5%] right-[8%] z-50 w-[65px] h-[50px] overflow-hidden rounded-[2px]">

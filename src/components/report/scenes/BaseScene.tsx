@@ -5,7 +5,43 @@ import Image from 'next/image';
 import { useSceneThemeStyles } from '@/hooks/useSceneTheme';
 import { SCENES } from '@/data/reportConfig';
 import { useAssets } from '@/context/assets-context';
+import { useAudio } from '@/context/audio-context';
 import { motion } from 'framer-motion';
+
+/**
+ * Audio Player UI Component
+ * Renders the play/pause button using the global audio context
+ */
+function AudioPlayer() {
+  const { assets } = useAssets();
+  const { isPlaying, togglePlayPause } = useAudio();
+
+  const iconDisable = assets?.report.audio.iconDisable;
+  const iconPlaying = assets?.report.audio.iconPlaying;
+
+  if (!iconDisable || !iconPlaying) return null;
+
+  return (
+    <button
+      onClick={togglePlayPause}
+      className='absolute cursor-pointer'
+      style={{
+        top: '16px',
+        right: '16px',
+        zIndex: 9999,
+      }}
+      aria-label={isPlaying ? 'Pause audio' : 'Play audio'}
+    >
+      <Image
+        src={isPlaying ? iconPlaying.url : iconDisable.url}
+        alt={isPlaying ? iconPlaying.alt : iconDisable.alt}
+        width={iconDisable.width / 2}
+        height={iconDisable.height / 2}
+        className='object-contain'
+      />
+    </button>
+  );
+}
 
 interface BaseSceneProps {
   children: ReactNode;
@@ -274,6 +310,8 @@ export default function BaseScene({
           onNext={onNext}
           onNavigateToScene={onNavigateToScene}
         />
+        {/* Audio Player - placed inside scaled container */}
+        <AudioPlayer />
         <div className={`relative z-40 w-full h-full`}>
           {logoAsset ? (
             <div

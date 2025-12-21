@@ -1,36 +1,37 @@
-import type { Metadata, Viewport } from "next";
-import { AuthProvider } from "@/context/auth-context";
-import { UserDataProvider } from "@/context/user-data-context";
-import { ToastProvider } from "@/context/toast-context";
-import { AssetsProvider } from "@/context/assets-context";
-import { ErrorBoundary } from "@/components/layout/ErrorBoundary";
-import ErrorHandlingInit from "@/components/layout/ErrorHandlingInit";
-import ZhihuHybridScript from "@/components/layout/ZhihuHybridScript";
-import "./globals.css";
+import type { Metadata, Viewport } from 'next';
+import { AuthProvider } from '@/context/auth-context';
+import { UserDataProvider } from '@/context/user-data-context';
+import { ToastProvider } from '@/context/toast-context';
+import { AssetsProvider } from '@/context/assets-context';
+import { AudioProvider } from '@/context/audio-context';
+import { ErrorBoundary } from '@/components/layout/ErrorBoundary';
+import ErrorHandlingInit from '@/components/layout/ErrorHandlingInit';
+import ZhihuHybridScript from '@/components/layout/ZhihuHybridScript';
+import './globals.css';
 
 export const metadata: Metadata = {
-  title: "知乎 2025 年度盘点",
-  description: "2025，到底什么是真的？",
+  title: '知乎 2025 年度盘点',
+  description: '2025，到底什么是真的？',
   openGraph: {
-    title: "知乎 2025 年度盘点",
-    description: "2025，到底什么是真的？",
+    title: '知乎 2025 年度盘点',
+    description: '2025，到底什么是真的？',
     images: [
       {
-        url: "https://static.zhihu.com/event/zhihu2025/assets/share.png",
+        url: 'https://static.zhihu.com/event/zhihu2025/assets/share.png',
         width: 500,
         height: 500,
-        alt: "知乎 2025 年度盘点",
+        alt: '知乎 2025 年度盘点',
       },
     ],
   },
 };
 
 export const viewport: Viewport = {
-  width: "device-width",
+  width: 'device-width',
   initialScale: 1,
   maximumScale: 1,
   userScalable: false,
-  viewportFit: "cover", // Enable safe area insets for iOS
+  viewportFit: 'cover', // Enable safe area insets for iOS
 };
 
 export default function RootLayout({
@@ -39,16 +40,16 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
-      <body className="antialiased">
+    <html lang='en'>
+      <body className='antialiased'>
         <ErrorHandlingInit />
         <ErrorBoundary>
           <AuthProvider>
             <UserDataProvider>
               <AssetsProvider>
-                <ToastProvider>
-                  {children}
-                </ToastProvider>
+                <AudioProvider>
+                  <ToastProvider>{children}</ToastProvider>
+                </AudioProvider>
               </AssetsProvider>
             </UserDataProvider>
           </AuthProvider>

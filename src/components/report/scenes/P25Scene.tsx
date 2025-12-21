@@ -78,7 +78,7 @@ export default function P25Scene({ onNext, onPrevious, sceneName }: PageProps) {
       {/* Clickable overlay to trigger audio if autoplay is blocked */}
       <div
         onClick={handleSceneClick}
-        className='absolute inset-0 z-50'
+        className='absolute inset-0 z-1'
         style={{ pointerEvents: audioPlayed ? 'none' : 'auto' }}
       />
       {/* pixel block */}

@@ -77,7 +77,6 @@ export default function P14Scene({
     };
   }, [maskPositionMotion]);
 
-
   const handleSelect = async (choice: 'A' | 'B') => {
     // call API to record the choice
     try {
@@ -114,9 +113,9 @@ export default function P14Scene({
     ? {
         scale: {
           repeat: Infinity,
-          repeatType: "reverse" as const,
+          repeatType: 'reverse' as const,
           duration: 1.2,
-          ease: "easeInOut" as const,
+          ease: 'easeInOut' as const,
         },
       }
     : {};
@@ -127,15 +126,16 @@ export default function P14Scene({
     ? {
         scale: {
           repeat: Infinity,
-          repeatType: "reverse" as const,
+          repeatType: 'reverse' as const,
           duration: 1.2,
-          ease: "easeInOut" as const,
+          ease: 'easeInOut' as const,
         },
       }
     : {};
   return (
     <BaseScene
       onNext={onNext}
+      disableSwipe={true}
       onNavigateToScene={onNavigateToScene}
       sceneName={sceneName}
     >
@@ -187,7 +187,7 @@ export default function P14Scene({
         </GlitchLayer>
         <p
           className='absolute z-30 text-center text-xl w-full leading-relaxed'
-          style={{ top: '73px', fontSize: 26, lineHeight: '40px'}}
+          style={{ top: '73px', fontSize: 26, lineHeight: '40px' }}
         >
           当你赞同时
           <br />
@@ -209,7 +209,13 @@ export default function P14Scene({
           role='button'
           tabIndex={0}
         >
-          <Image src={p14Assets.optionA.url} alt={p14Assets.optionA.alt} width={p14Assets.optionA.width} height={p14Assets.optionA.height} style={{ width: 224, height: 36}} />
+          <Image
+            src={p14Assets.optionA.url}
+            alt={p14Assets.optionA.alt}
+            width={p14Assets.optionA.width}
+            height={p14Assets.optionA.height}
+            style={{ width: 224, height: 36 }}
+          />
         </motion.p>
         <motion.p
           className='absolute z-[70] text-center text-xl text-r-blue cursor-pointer'
@@ -227,7 +233,13 @@ export default function P14Scene({
           role='button'
           tabIndex={0}
         >
-          <Image src={p14Assets.optionB.url} alt={p14Assets.optionB.alt} width={p14Assets.optionB.width} height={p14Assets.optionB.height} style={{ width: 224, height: 36}} />
+          <Image
+            src={p14Assets.optionB.url}
+            alt={p14Assets.optionB.alt}
+            width={p14Assets.optionB.width}
+            height={p14Assets.optionB.height}
+            style={{ width: 224, height: 36 }}
+          />
         </motion.p>
 
         <Image

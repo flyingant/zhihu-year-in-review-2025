@@ -78,8 +78,8 @@ export default function P1Scene({
     };
   }, [maskPositionMotion]);
 
-  const handleSelect = async (choice: "A" | "B") => {
-    setUserChoice("p1", choice);
+  const handleSelect = async (choice: 'A' | 'B') => {
+    setUserChoice('p1', choice);
     // call API to record the choice
     try {
       await submitQuizAnswer({
@@ -116,9 +116,9 @@ export default function P1Scene({
     ? {
         scale: {
           repeat: Infinity,
-          repeatType: "reverse" as const,
+          repeatType: 'reverse' as const,
           duration: 1.2,
-          ease: "easeInOut" as const,
+          ease: 'easeInOut' as const,
         },
       }
     : {};
@@ -129,20 +129,20 @@ export default function P1Scene({
     ? {
         scale: {
           repeat: Infinity,
-          repeatType: "reverse" as const,
+          repeatType: 'reverse' as const,
           duration: 1.2,
-          ease: "easeInOut" as const,
+          ease: 'easeInOut' as const,
         },
       }
     : {};
 
-  
   return (
     <BaseScene
       onNext={onNext}
       onNavigateToScene={onNavigateToScene}
       sceneName={sceneName}
       showBottomNextButton={false}
+      disableSwipe={true}
     >
       <GlitchLayer className='z-[40]'>
         <Image
@@ -189,33 +189,63 @@ export default function P1Scene({
       <div className='relative w-full h-full overflow-hidden'>
         <p
           className='absolute z-30 text-center text-xl w-full'
-          style={{ top: '73px', fontSize: 26, lineHeight: '40px'  }}
+          style={{ top: '73px', fontSize: 26, lineHeight: '40px' }}
         >
           这一年，
           <br />
           是什么在驱动你的创作？
         </p>
-       <motion.div 
-          className="absolute z-[70] text-center text-xl text-r-yellow cursor-pointer" 
-          style={{ top: '229px', width: 310, height: 36, pointerEvents: 'auto', left: 0, right: 0, margin: '0 auto' }}
+        <motion.div
+          className='absolute z-[70] text-center text-xl text-r-yellow cursor-pointer'
+          style={{
+            top: '229px',
+            width: 310,
+            height: 36,
+            pointerEvents: 'auto',
+            left: 0,
+            right: 0,
+            margin: '0 auto',
+          }}
           animate={floatPulseB}
           transition={floatPulseTransition}
-          onClick={() => handleSelect("A")}
-          role="button"
+          onClick={() => handleSelect('A')}
+          role='button'
           tabIndex={0}
         >
-          <Image priority src={p1Assets.optionA.url} alt={p1Assets.optionA.alt} width={p1Assets.optionA.width} height={p1Assets.optionA.height} style={{ width: 310, height: 36}} />
+          <Image
+            priority
+            src={p1Assets.optionA.url}
+            alt={p1Assets.optionA.alt}
+            width={p1Assets.optionA.width}
+            height={p1Assets.optionA.height}
+            style={{ width: 310, height: 36 }}
+          />
         </motion.div>
-        <motion.div 
-          className="absolute z-[70] text-center text-xl text-r-blue cursor-pointer"
-          style={{ bottom: '89px', width: 310, height: 36, pointerEvents: 'auto', left: 0, right: 0, margin: '0 auto' }}
+        <motion.div
+          className='absolute z-[70] text-center text-xl text-r-blue cursor-pointer'
+          style={{
+            bottom: '89px',
+            width: 310,
+            height: 36,
+            pointerEvents: 'auto',
+            left: 0,
+            right: 0,
+            margin: '0 auto',
+          }}
           animate={floatPulse}
           transition={floatPulseTransitionB}
-          onClick={() => handleSelect("B")}
-          role="button"
+          onClick={() => handleSelect('B')}
+          role='button'
           tabIndex={0}
         >
-          <Image priority src={p1Assets.optionB.url} alt={p1Assets.optionB.alt} width={p1Assets.optionB.width} height={p1Assets.optionB.height} style={{ width: 310, height: 36}} />
+          <Image
+            priority
+            src={p1Assets.optionB.url}
+            alt={p1Assets.optionB.alt}
+            width={p1Assets.optionB.width}
+            height={p1Assets.optionB.height}
+            style={{ width: 310, height: 36 }}
+          />
         </motion.div>
         {/* Background layer - static */}
         <Image
@@ -260,7 +290,6 @@ export default function P1Scene({
             priority
           />
         </div>
-        
       </div>
     </BaseScene>
   );

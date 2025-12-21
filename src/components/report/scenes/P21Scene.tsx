@@ -29,12 +29,12 @@ export default function P21Scene({
     damping: 15,
     mass: 1,
   });
-  
+
   const [maskPosition, setMaskPosition] = useState(0);
 
   // Sync motion value with state for maskPosition updates
   useEffect(() => {
-    const unsubscribe = maskPositionSpring.on("change", (latest) => {
+    const unsubscribe = maskPositionSpring.on('change', (latest) => {
       setMaskPosition(Math.round(latest));
     });
     return unsubscribe;
@@ -51,16 +51,17 @@ export default function P21Scene({
 
         const basePosition = 0;
         const shakeAmount = 75; // Offset: how much to shake from base position
-        
+
         // Use smooth sine wave oscillation for predictable, smooth motion
         const elapsed = (Date.now() - startTime) / 1000; // Time in seconds
         const frequency = 0.2; // Oscillation frequency (cycles per second) - lower = slower
-        const smoothOffset = Math.sin(elapsed * frequency * Math.PI * 2) * shakeAmount;
+        const smoothOffset =
+          Math.sin(elapsed * frequency * Math.PI * 2) * shakeAmount;
         const targetPosition = basePosition + smoothOffset;
-        
+
         // Update motion value smoothly
         maskPositionMotion.set(targetPosition);
-        
+
         requestAnimationFrame(animate);
       };
 
@@ -107,9 +108,9 @@ export default function P21Scene({
     ? {
         scale: {
           repeat: Infinity,
-          repeatType: "reverse" as const,
+          repeatType: 'reverse' as const,
           duration: 1.2,
-          ease: "easeInOut" as const,
+          ease: 'easeInOut' as const,
         },
       }
     : {};
@@ -120,9 +121,9 @@ export default function P21Scene({
     ? {
         scale: {
           repeat: Infinity,
-          repeatType: "reverse" as const,
+          repeatType: 'reverse' as const,
           duration: 1.2,
-          ease: "easeInOut" as const,
+          ease: 'easeInOut' as const,
         },
       }
     : {};
@@ -130,6 +131,7 @@ export default function P21Scene({
   return (
     <BaseScene
       onNext={onNext}
+      disableSwipe={true}
       onNavigateToScene={onNavigateToScene}
       sceneName={sceneName}
     >
@@ -212,40 +214,64 @@ export default function P21Scene({
         </div>
         {/* Options */}
         <motion.div
-          className="absolute z-[70] text-xl cursor-pointer"
-          style={{  width: '224px', top: "625px", pointerEvents: 'auto', left: 0,
+          className='absolute z-[70] text-xl cursor-pointer'
+          style={{
+            width: '224px',
+            top: '625px',
+            pointerEvents: 'auto',
+            left: 0,
             right: 0,
             margin: '0 auto',
           }}
           animate={floatPulse}
           transition={floatPulseTransition}
-          onClick={() => handleSelect("A")}
-          role="button"
+          onClick={() => handleSelect('A')}
+          role='button'
           tabIndex={0}
         >
-          <Image src={p21Assets.optionA.url} alt={p21Assets.optionA.alt} width={p21Assets.optionA.width} height={p21Assets.optionA.height} style={{ width: 224, height: 36}} />
-
+          <Image
+            src={p21Assets.optionA.url}
+            alt={p21Assets.optionA.alt}
+            width={p21Assets.optionA.width}
+            height={p21Assets.optionA.height}
+            style={{ width: 224, height: 36 }}
+          />
         </motion.div>
         <motion.div
-          className="absolute z-[70] text-xl cursor-pointer"
-          style={{  width: '224px', top: "286px", pointerEvents: 'auto',
+          className='absolute z-[70] text-xl cursor-pointer'
+          style={{
+            width: '224px',
+            top: '286px',
+            pointerEvents: 'auto',
             left: 0,
             right: 0,
             margin: '0 auto',
-           }}
+          }}
           animate={floatPulseB}
           transition={floatPulseTransitionB}
-          onClick={() => handleSelect("B")}
-          role="button"
+          onClick={() => handleSelect('B')}
+          role='button'
           tabIndex={0}
         >
-         <Image src={p21Assets.optionB.url} alt={p21Assets.optionB.alt} width={p21Assets.optionB.width} height={p21Assets.optionB.height} style={{ width: 224, height: 36}} />
+          <Image
+            src={p21Assets.optionB.url}
+            alt={p21Assets.optionB.alt}
+            width={p21Assets.optionB.width}
+            height={p21Assets.optionB.height}
+            style={{ width: 224, height: 36 }}
+          />
         </motion.div>
         {/* content **/}
         <div className='z-0'>
           <div
             className={`absolute z-20 text-center leading-relaxed`}
-            style={{ fontSize: 26, lineHeight: '40px', top: "73px", left: "70px", right: "70px" }}
+            style={{
+              fontSize: 26,
+              lineHeight: '40px',
+              top: '73px',
+              left: '70px',
+              right: '70px',
+            }}
           >
             这一年，
             <br />

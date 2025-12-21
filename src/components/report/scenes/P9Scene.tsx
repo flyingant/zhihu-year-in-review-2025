@@ -38,7 +38,6 @@ export default function P9Scene({
     onNext?.();
   };
 
-
   // Use motion value with spring physics for smooth, physics-based animation
   const maskPositionMotion = useMotionValue(-300);
   const maskPositionSpring = useSpring(maskPositionMotion, {
@@ -47,11 +46,10 @@ export default function P9Scene({
     mass: 1,
   });
   const [maskPosition, setMaskPosition] = useState(-300);
-  
 
   // Sync motion value with state for maskPosition updates
   useEffect(() => {
-    const unsubscribe = maskPositionSpring.on("change", (latest) => {
+    const unsubscribe = maskPositionSpring.on('change', (latest) => {
       setMaskPosition(Math.round(latest));
     });
     return unsubscribe;
@@ -68,16 +66,17 @@ export default function P9Scene({
 
         const basePosition = -300;
         const shakeAmount = 75; // Offset: how much to shake from base position
-        
+
         // Use smooth sine wave oscillation for predictable, smooth motion
         const elapsed = (Date.now() - startTime) / 1000; // Time in seconds
         const frequency = 0.2; // Oscillation frequency (cycles per second) - lower = slower
-        const smoothOffset = Math.sin(elapsed * frequency * Math.PI * 2) * shakeAmount;
+        const smoothOffset =
+          Math.sin(elapsed * frequency * Math.PI * 2) * shakeAmount;
         const targetPosition = basePosition + smoothOffset;
-        
+
         // Update motion value smoothly
         maskPositionMotion.set(targetPosition);
-        
+
         requestAnimationFrame(animate);
       };
 
@@ -104,16 +103,16 @@ export default function P9Scene({
 
   const isMaskPastThreshold = maskPosition < -300;
   const isMaskAboveThreshold = maskPosition > -300;
- const floatPulse = isMaskPastThreshold
+  const floatPulse = isMaskPastThreshold
     ? { scale: [1, 1.06, 1] }
     : { scale: 1 };
   const floatPulseTransition = isMaskPastThreshold
     ? {
         scale: {
           repeat: Infinity,
-          repeatType: "reverse" as const,
+          repeatType: 'reverse' as const,
           duration: 1.2,
-          ease: "easeInOut" as const,
+          ease: 'easeInOut' as const,
         },
       }
     : {};
@@ -124,16 +123,17 @@ export default function P9Scene({
     ? {
         scale: {
           repeat: Infinity,
-          repeatType: "reverse" as const,
+          repeatType: 'reverse' as const,
           duration: 1.2,
-          ease: "easeInOut" as const,
+          ease: 'easeInOut' as const,
         },
       }
     : {};
-  
+
   return (
     <BaseScene
       onNext={onNext}
+      disableSwipe={true}
       onNavigateToScene={onNavigateToScene}
       sceneName={sceneName}
     >
@@ -200,7 +200,14 @@ export default function P9Scene({
           role='button'
           tabIndex={0}
         >
-          <Image priority src={p9Assets.optionA.url} alt={p9Assets.optionA.alt} width={p9Assets.optionA.width} height={p9Assets.optionA.height} style={{ width: 224, height: 36}} />
+          <Image
+            priority
+            src={p9Assets.optionA.url}
+            alt={p9Assets.optionA.alt}
+            width={p9Assets.optionA.width}
+            height={p9Assets.optionA.height}
+            style={{ width: 224, height: 36 }}
+          />
         </motion.div>
         <motion.div
           className='absolute z-[70] text-center text-xl text-r-blue cursor-pointer'
@@ -218,7 +225,14 @@ export default function P9Scene({
           role='button'
           tabIndex={0}
         >
-          <Image priority src={p9Assets.optionB.url} alt={p9Assets.optionB.alt} width={p9Assets.optionB.width} height={p9Assets.optionB.height} style={{ width: 224, height: 36}} />
+          <Image
+            priority
+            src={p9Assets.optionB.url}
+            alt={p9Assets.optionB.alt}
+            width={p9Assets.optionB.width}
+            height={p9Assets.optionB.height}
+            style={{ width: 224, height: 36 }}
+          />
         </motion.div>
 
         {/* Background layer - static */}
@@ -258,7 +272,7 @@ export default function P9Scene({
             priority
             src={topAsset.url}
             alt={topAsset.alt}
-            width={topAsset.width /2}
+            width={topAsset.width / 2}
             height={topAsset.height}
             className='w-full h-full pointer-events-none select-none'
           />

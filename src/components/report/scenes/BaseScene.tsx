@@ -18,6 +18,7 @@ interface BaseSceneProps {
   sceneName?: string;
   defaultLogo?: boolean;
   showBottomNextButton?: boolean;
+  disableSwipe?: boolean;
 }
 
 /**
@@ -147,6 +148,7 @@ export default function BaseScene({
   sceneName,
   defaultLogo = true,
   showBottomNextButton = true,
+  disableSwipe = false,
 }: BaseSceneProps) {
   const { assets } = useAssets();
   const styles = useSceneThemeStyles();
@@ -207,7 +209,7 @@ export default function BaseScene({
     const initHammer = async () => {
       try {
         const Hammer = (await import('hammerjs')).default;
-        
+
         if (!isMounted || !containerRef.current) return;
 
         // Create Hammer instance
@@ -219,7 +221,7 @@ export default function BaseScene({
 
         // Handle swipe up (next)
         hammer.on('swipeup', () => {
-          if (onNext) {
+          if (!disableSwipe && onNext) {
             console.log('Swipe up detected - going to next scene');
             onNext();
           }
@@ -227,7 +229,7 @@ export default function BaseScene({
 
         // Handle swipe down (previous)
         hammer.on('swipedown', () => {
-          if (onPrevious) {
+          if (!disableSwipe && onPrevious) {
             console.log('Swipe down detected - going to previous scene');
             onPrevious();
           }
@@ -247,7 +249,7 @@ export default function BaseScene({
         hammerRef.current = null;
       }
     };
-  }, [onNext, onPrevious]);
+  }, [onNext, onPrevious, disableSwipe]);
 
   return (
     <div
@@ -314,9 +316,15 @@ export default function BaseScene({
                 ease: 'easeInOut',
               }}
             >
-              {arrowDownAsset && 
-                <Image src={arrowDownAsset.url} alt={arrowDownAsset.alt} width={arrowDownAsset.width} height={arrowDownAsset.height} style={{ width: 20, height: 11 }} />
-              }
+              {arrowDownAsset && (
+                <Image
+                  src={arrowDownAsset.url}
+                  alt={arrowDownAsset.alt}
+                  width={arrowDownAsset.width}
+                  height={arrowDownAsset.height}
+                  style={{ width: 20, height: 11 }}
+                />
+              )}
             </motion.button>
           )}
         </div>

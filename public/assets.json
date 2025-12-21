@@ -1857,6 +1857,36 @@
         "width": 22,
         "height": 22,
         "alt": "yellow"
+      },
+      "fileFold": {
+        "url": "/assets/2025_2_report_p11_file_fold.png",
+        "width": 80,
+        "height": 79,
+        "alt": "fileFold"
+      },
+      "fileOpen": {
+        "url": "/assets/2025_2_report_p11_file_open.png",
+        "width": 101,
+        "height": 58,
+        "alt": "fileOpen"
+      },
+      "fileOpenBack": {
+        "url": "/assets/2025_2_report_p11_file_open_back.png",
+        "width": 80,
+        "height": 79,
+        "alt": "fileOpenBack"
+      },
+      "fileOpenFront": {
+        "url": "/assets/2025_2_report_p11_file_open_front.png",
+        "width": 101,
+        "height": 58,
+        "alt": "fileOpenFront"
+      },
+      "fileLiukanshan": {
+        "url": "/assets/2025_2_report_p11_file_liukanshan.png",
+        "width": 53,
+        "height": 49,
+        "alt": "fileLiukanshan"
       }
     },
     "p12": {

@@ -338,6 +338,11 @@ export interface AssetsData {
       green: AssetMetadata;
       yellow: AssetMetadata;
       crown: AssetMetadata;
+      fileFold: AssetMetadata;
+      fileOpen: AssetMetadata;
+      fileOpenBack: AssetMetadata;
+      fileOpenFront: AssetMetadata;
+      fileLiukanshan: AssetMetadata;
     };
     p12: {
       liukanshan: AssetMetadata;

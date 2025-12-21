@@ -5,6 +5,7 @@ import BaseScene from './BaseScene';
 import Image from 'next/image';
 import { useAssets } from '@/context/assets-context';
 import GlitchLayer from '@/components/report/effects/GlitchLayer';
+import { motion } from 'framer-motion';
 
 interface PageProps {
   onNext?: () => void;
@@ -13,7 +14,12 @@ interface PageProps {
   sceneName?: string;
 }
 
-export default function P11Scene({ onNext, onPrevious, onNavigateToScene, sceneName }: PageProps) {
+export default function P11Scene({
+  onNext,
+  onPrevious,
+  onNavigateToScene,
+  sceneName,
+}: PageProps) {
   const { reportData } = useUserReportData();
   const { assets } = useAssets();
   if (!assets) return null;
@@ -28,6 +34,8 @@ export default function P11Scene({ onNext, onPrevious, onNavigateToScene, sceneN
   const greenAsset = assets.report.p11.green;
   const yellowAsset = assets.report.p11.yellow;
   const crownAsset = assets.report.p11.crown;
+  const { fileFold, fileOpenBack, fileOpenFront, fileLiukanshan } =
+    assets.report.p11;
 
   // Map context data to component variables according to P11 spec (消费-内容亮点)
   const topCategory1 = (reportData?.browse_most_category_top1 as string) ?? '';
@@ -51,7 +59,12 @@ export default function P11Scene({ onNext, onPrevious, onNavigateToScene, sceneN
     String(topCategory3),
   ];
   return (
-    <BaseScene onNext={onNext} onPrevious={onPrevious} onNavigateToScene={onNavigateToScene} sceneName={sceneName}>
+    <BaseScene
+      onNext={onNext}
+      onPrevious={onPrevious}
+      onNavigateToScene={onNavigateToScene}
+      sceneName={sceneName}
+    >
       <GlitchLayer>
         {/* 顺序从上到下 */}
         <Image
@@ -151,8 +164,91 @@ export default function P11Scene({ onNext, onPrevious, onNavigateToScene, sceneN
           </div>
 
           <div
-            className='absolute'
             style={{
+              position: 'absolute',
+              top: '44%',
+              left: '52%',
+              transform: 'translate(-50%, -50%)',
+              zIndex: 10,
+              width: '101px',
+              height: '79px',
+            }}
+          >
+            {/* 第一阶段: fileFold 出现然后消失 */}
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: [0, 1, 1, 1] }}
+              transition={{
+                duration: 1.2,
+                times: [0, 0.2, 0.6, 1],
+              }}
+              style={{ position: 'absolute', top: 0, left: 0, zIndex: 1 }}
+            >
+              <Image
+                src={fileFold.url}
+                alt={fileFold.alt}
+                width={fileFold.width}
+                height={fileFold.height}
+                className='object-contain'
+              />
+            </motion.div>
+
+            {/* 第二阶段: fileOpenBack (背景层) */}
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ duration: 0.3, delay: 1.0 }}
+              style={{ position: 'absolute', top: 0, left: 0, zIndex: 2 }}
+            >
+              <Image
+                src={fileOpenBack.url}
+                alt={fileOpenBack.alt}
+                width={fileOpenBack.width}
+                height={fileOpenBack.height}
+                className='object-contain'
+              />
+            </motion.div>
+
+            {/* 第三阶段: fileLiukanshan 从下往上滑出 (中间层) */}
+            <motion.div
+              initial={{ y: 60, opacity: 0 }}
+              animate={{ y: 0, opacity: 1 }}
+              transition={{
+                duration: 0.6,
+                delay: 1.3,
+                ease: 'easeOut',
+              }}
+              style={{ position: 'absolute', top: -28, left: 24, zIndex: 3 }}
+            >
+              <Image
+                src={fileLiukanshan.url}
+                alt={fileLiukanshan.alt}
+                width={fileLiukanshan.width}
+                height={fileLiukanshan.height}
+                className='object-contain'
+              />
+            </motion.div>
+
+            {/* 第二阶段: fileOpenFront (前景层) */}
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ duration: 0.3, delay: 1.0 }}
+              style={{ position: 'absolute', top: 21, left: 0, zIndex: 4 }}
+            >
+              <Image
+                src={fileOpenFront.url}
+                alt={fileOpenFront.alt}
+                width={fileOpenFront.width}
+                height={fileOpenFront.height}
+                className='object-contain'
+              />
+            </motion.div>
+          </div>
+          {/* 
+          <div
+            style={{
+              position: 'absolute',
               top: '41%',
               left: '50%',
               transform: 'translate(-50%, -50%)',
@@ -166,7 +262,7 @@ export default function P11Scene({ onNext, onPrevious, onNavigateToScene, sceneN
               height={liukanshanAsset.height}
               className='object-contain'
             />
-          </div>
+          </div> */}
         </div>
 
         <div

@@ -102,13 +102,6 @@ export default function P28Scene({ onNext, sceneName }: PageProps) {
     }
   };
 
-  const handleShare = () => {};
-
-  const handleSyncToggle = () => {
-    setIsSynced(!isSynced);
-    // TODO: Implement sync functionality
-  };
-
   return (
     <BaseScene
       onNext={onNext}
@@ -245,6 +238,9 @@ export default function P28Scene({ onNext, sceneName }: PageProps) {
         <div
           className='flex relative justify-end'
           style={{ gap: 22, right: 20, top: 177 }}
+          onClick={() => {
+            setSelectedFlag(null);
+          }}
         >
           <div></div>
           <div className='text-white'>

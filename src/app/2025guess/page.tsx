@@ -103,6 +103,7 @@ function GuessPageScene() {
             key:
               summaryFlags.find((flag) => flag.fullText === option.option_name)
                 ?.key || "empty",
+            optionKeyword: extractOptionKeyword(option.option_name || ''),
           })),
         }),
         isVoted,
@@ -111,6 +112,8 @@ function GuessPageScene() {
       setVoteInfo(voteInfoWithTransformed);
     });
   };
+
+  if (!voteInfo) return null
 
   return (
     <BaseScene showBottomNextButton={false}>
@@ -228,9 +231,10 @@ function GuessPageScene() {
                     alt={bannerAsset?.alt || ''}
                     width={344}
                     height={90}
+                    draggable={false}
                     style={{
-                      width: 344,
-                      height: 90,
+                      width: '344px',
+                      height: '90px',
                     }}
                   />
                 );
@@ -249,6 +253,7 @@ function GuessPageScene() {
                   width={96}
                   height={19}
                   className="absolute"
+                  draggable={false}
                   style={{
                     left: 70,
                     bottom: -1,
@@ -266,6 +271,7 @@ function GuessPageScene() {
                     width={96}
                     height={19}
                     className="absolute"
+                    draggable={false}
                     style={{
                       right: 70,
                       bottom: option.is_correct ? -1 : -7,

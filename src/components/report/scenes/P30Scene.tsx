@@ -55,8 +55,12 @@ export default function P30Scene({ onNext, sceneName, onPrevious }: PageProps) {
     if (shareOptionKeys.includes(key)) {
       setShareOptionKeys(shareOptionKeys.filter((k) => k !== key));
     } else {
-      const newKyes = [...shareOptionKeys, key];
-      setShareOptionKeys(newKyes.slice(-3));
+      if (shareOptionKeys.length >= 3) {
+        showToast('已超出三个选择上限');
+        return;
+      } else {
+        setShareOptionKeys([...shareOptionKeys, key]);
+      }
     }
   };
 
@@ -112,7 +116,7 @@ export default function P30Scene({ onNext, sceneName, onPrevious }: PageProps) {
 
     // Check if user is in zhihu app
     if (isZhihuApp() && isHybridAvailable && window.zhihuHybrid) {
-      const shareHeadImg = process.env.NEXT_PUBLIC_CDN_BASE_URL + 'assets/share-head-img-new.png'
+      const shareHeadImg = process.env.NEXT_PUBLIC_CDN_BASE_URL + 'assets/share-head-img-1221.png'
       try {
         const setShareInfoAction = (window.zhihuHybrid as ZhihuHybridNewAPI)(
           "share/setShareInfo"
@@ -146,10 +150,10 @@ export default function P30Scene({ onNext, sceneName, onPrevious }: PageProps) {
             content: '别笑，我猜你也猜不到哪个是真的我 >>',
             imageURL: shareHeadImg,
           },
-          PosterShare: {
-            imageURL:redirectUrl,
-            pinContent: '知乎｜2025，我真的 XX 了？',
-          },
+          // PosterShare: {
+          //   imageURL:redirectUrl,
+          //   pinContent: '知乎｜2025，我真的 XX 了？',
+          // },
           copyLink: {
             content: redirectUrl,
           },

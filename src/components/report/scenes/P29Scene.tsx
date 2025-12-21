@@ -273,7 +273,7 @@ export default function P29Scene({ onNext, sceneName }: PageProps) {
         try {
           const shareHeadImg =
             process.env.NEXT_PUBLIC_CDN_BASE_URL +
-            'assets/share-head-img-new.png';
+            'assets/share-head-img-1221.png';
           const setShareInfoAction = (window.zhihuHybrid as ZhihuHybridNewAPI)(
             'share/setShareInfo'
           );
@@ -306,10 +306,10 @@ export default function P29Scene({ onNext, sceneName }: PageProps) {
               content: '回顾这一年，我真的____？点击加载真实 >>',
               imageURL: shareHeadImg,
             },
-            PosterShare: {
-              imageURL: summaryPoster.poster_url,
-              pinContent: JSON.stringify(`<p>知乎｜2025 个人年度报告</p>`),
-            },
+            // PosterShare: {
+            //   imageURL: summaryPoster.poster_url,
+            //   pinContent: JSON.stringify(`<p>知乎｜2025 个人年度报告</p>`),
+            // },
           });
 
           const showActionSheetAction = (

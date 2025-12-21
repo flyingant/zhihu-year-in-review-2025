@@ -163,14 +163,14 @@ export default function P5EmojiScene({
               alt=''
               width={50}
               height={50}
-              style={{ padding: '0 4px' }}
+              style={{ padding: '0 6px' }}
             />
             ，共出现了
             <span
               className={`text-r-yellow`}
               style={{
-                paddingLeft: '4px',
-                paddingRight: '4px',
+                paddingLeft: '6px',
+                paddingRight: '6px',
                 fontSize: '18px',
               }}
             >
@@ -189,8 +189,8 @@ export default function P5EmojiScene({
           <span
             className={`text-r-pink`}
             style={{
-              paddingLeft: '4px',
-              paddingRight: '4px',
+              paddingLeft: '6px',
+              paddingRight: '6px',
               fontSize: '18px',
             }}
           >

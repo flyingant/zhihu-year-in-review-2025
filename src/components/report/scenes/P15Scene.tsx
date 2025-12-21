@@ -15,7 +15,12 @@ interface PageProps {
   sceneName?: string;
 }
 
-export default function P15Scene({ onNext, onPrevious, onNavigateToScene, sceneName }: PageProps) {
+export default function P15Scene({
+  onNext,
+  onPrevious,
+  onNavigateToScene,
+  sceneName,
+}: PageProps) {
   const { reportData } = useUserReportData();
   const { assets } = useAssets();
 
@@ -52,7 +57,12 @@ export default function P15Scene({ onNext, onPrevious, onNavigateToScene, sceneN
     reportData?.thanks_invitation_member_name ?? null;
 
   return (
-    <BaseScene onNext={onNext} onPrevious={onPrevious} onNavigateToScene={onNavigateToScene} sceneName={sceneName}>
+    <BaseScene
+      onNext={onNext}
+      onPrevious={onPrevious}
+      onNavigateToScene={onNavigateToScene}
+      sceneName={sceneName}
+    >
       {/* background */}
       <GlitchLayer>
         <div className='z-0'>
@@ -124,7 +134,7 @@ export default function P15Scene({ onNext, onPrevious, onNavigateToScene, sceneN
           width={gif1.width}
           height={gif1.height}
           className='object-contain absolute pointer-events-none select-none z-0 w-full'
-          style={{ top: '155px', left: '0', right: '0', width: gif1.width, }}
+          style={{ top: '155px', left: '0', right: '0', width: gif1.width }}
         />
         <Image
           src={gif2.url}
@@ -132,7 +142,7 @@ export default function P15Scene({ onNext, onPrevious, onNavigateToScene, sceneN
           width={gif2.width}
           height={gif2.height}
           className='object-contain absolute pointer-events-none select-none z-0 w-full'
-          style={{ left: '-5px', top: '479px', width: gif2.width, }}
+          style={{ left: '-5px', top: '479px', width: gif2.width }}
         />
         <Image
           src={gif3.url}
@@ -140,7 +150,7 @@ export default function P15Scene({ onNext, onPrevious, onNavigateToScene, sceneN
           width={gif3.width}
           height={gif3.height}
           className='object-contain absolute pointer-events-none select-none z-0 w-full'
-          style={{ top: '285px', right: '0', width: gif3.width, }}
+          style={{ top: '285px', right: '0', width: gif3.width }}
         />
       </div>
       {/* content */}
@@ -157,9 +167,12 @@ export default function P15Scene({ onNext, onPrevious, onNavigateToScene, sceneN
 
         {!!newFollowCount && (
           <div className='absolute' style={{ left: '120px', top: '172px' }}>
-            <span className='pr-[4px]'>2025</span>
+            <span style={{ paddingRight: '6px' }}>2025</span>
             <span>年</span> <br />有
-            <span className={`px-[4px] text-r-fern`} style={{ fontSize: 23 }}>
+            <span
+              className='text-r-fern'
+              style={{ fontSize: 23, paddingLeft: '6px', paddingRight: '6px' }}
+            >
               {String(newFollowCount ?? 'new_follow_cnt')}
             </span>
             位知友关注你
@@ -175,7 +188,7 @@ export default function P15Scene({ onNext, onPrevious, onNavigateToScene, sceneN
               <div className=''>
                 最懂你的是
                 <span
-                  className={`px-[4px] text-r-yellow`}
+                  className={`text-r-yellow`}
                   style={{
                     fontSize: 16,
                     paddingLeft: '6px',
@@ -188,7 +201,7 @@ export default function P15Scene({ onNext, onPrevious, onNavigateToScene, sceneN
               <div hidden={!mostUpvoteMemberUpvote}>
                 TA用
                 <span
-                  className={`px-[4px] text-r-green`}
+                  className={` text-r-green`}
                   style={{
                     fontSize: 18,
                     paddingLeft: '6px',
@@ -207,7 +220,14 @@ export default function P15Scene({ onNext, onPrevious, onNavigateToScene, sceneN
           {!!interactionMostMemberName && (
             <div>
               和你互动最多的，是
-              <span className={`px-[4px] text-r-pink`} style={{ fontSize: 16 }}>
+              <span
+                className={` text-r-pink`}
+                style={{
+                  fontSize: 16,
+                  paddingLeft: '6px',
+                  paddingRight: '6px',
+                }}
+              >
                 @
                 {String(
                   interactionMostMemberName ?? 'interaction_most_member_name'
@@ -234,7 +254,7 @@ export default function P15Scene({ onNext, onPrevious, onNavigateToScene, sceneN
                 {String(thanksInvitationDay ?? 'thanksInvitationDay')}
               </span>
               日<span className='text-black mx-1'>你在</span>
-              {/* <span className={`px-[2px] text-r-blue`} style={{ fontSize: 16 }}>
+              {/* <span className={` text-r-blue`} style={{ fontSize: 16 }}>
                 @
                 {String(
                   thanksInvitationMemberName ?? 'thanks_invitation_member_name'
@@ -253,7 +273,7 @@ export default function P15Scene({ onNext, onPrevious, onNavigateToScene, sceneN
             <div>
               回应了
               <span
-                className={`px-[4px] text-r-purple`}
+                className={` text-r-purple`}
                 style={{
                   fontSize: 16,
                   paddingLeft: '6px',

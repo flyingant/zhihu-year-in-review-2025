@@ -13,7 +13,12 @@ interface PageProps {
   sceneName?: string;
 }
 
-export default function P23Scene({ onNext, onPrevious, onNavigateToScene, sceneName }: PageProps) {
+export default function P23Scene({
+  onNext,
+  onPrevious,
+  onNavigateToScene,
+  sceneName,
+}: PageProps) {
   const { reportData } = useUserReportData();
   const { assets } = useAssets();
 
@@ -33,7 +38,12 @@ export default function P23Scene({ onNext, onPrevious, onNavigateToScene, sceneN
   // }
 
   return (
-    <BaseScene onNext={onNext} onPrevious={onPrevious} onNavigateToScene={onNavigateToScene} sceneName={sceneName}>
+    <BaseScene
+      onNext={onNext}
+      onPrevious={onPrevious}
+      onNavigateToScene={onNavigateToScene}
+      sceneName={sceneName}
+    >
       {/* pixel block */}
       <GlitchLayer>
         {/* 顺序从上到下 */}
@@ -110,11 +120,11 @@ export default function P23Scene({ onNext, onPrevious, onNavigateToScene, sceneN
         >
           <div className='mb-[10px]'>
             2025 年，你在
-            <span className='text-r-purple px-[4px]'>@答主评审团</span>
+            <span className='text-r-purple' style={{ paddingLeft: '6px', paddingRight: '6px' }}>@答主评审团</span>
             的测评中
             <br />
             探寻了
-            <span className={`text-r-fern px-[4px]`} style={{ fontSize: 24 }}>
+            <span className={`text-r-fern`} style={{ paddingLeft: '6px', paddingRight: '6px', fontSize: 24 }}>
               {String(reviewAnswerCount ?? 'review_answer_cnt')}
             </span>
             次
@@ -126,7 +136,7 @@ export default function P23Scene({ onNext, onPrevious, onNavigateToScene, sceneN
             <div className='mb-[10px]'>
               其中关于
               <span
-                className={`text-r-green px-[4px]`}
+                className={`text-r-green`}
                 style={{ fontSize: 16 }}
               >
                 {String(
@@ -135,7 +145,7 @@ export default function P23Scene({ onNext, onPrevious, onNavigateToScene, sceneN
               </span>
               <br />
               你用互动表达了对评测内容
-              <span className='text-r-pink px-[4px]' style={{ fontSize: 16 }}>
+              <span className='text-r-pink' style={{ paddingLeft: '6px', paddingRight: '6px', fontSize: 16 }}>
                 「真」的认可
               </span>
             </div>

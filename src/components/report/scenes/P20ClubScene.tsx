@@ -39,7 +39,7 @@ const ClubInterestItem = ({
 }) => {
   return (
     <span
-      className='flex items-center text-r-green px-[2px]'
+      className='flex items-center text-r-green'
       style={{ fontSize: 18 }}
     >
       <div className='flex items-center' style={{ gap: '2px' }}>
@@ -55,7 +55,7 @@ const ClubInterestItem = ({
             borderRadius: '50%',
           }}
         />
-        <span className='text-r-yellow px-[2px]' style={{ fontSize: 16 }}>
+        <span className='text-r-yellow' style={{ paddingLeft: '6px', paddingRight: '6px', fontSize: 16 }}>
           {String(name ?? fallbackName)}
         </span>
       </div>

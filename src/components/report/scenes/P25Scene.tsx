@@ -177,13 +177,24 @@ export default function P25Scene({ onNext, onPrevious, sceneName }: PageProps) {
               2025年，作为尊贵的盐选会员，
               <br />
               你解锁了
-              <span className={`text-r-pink px-[4px]`} style={{ fontSize: 24 }}>
+              <span
+                className={`text-r-pink`}
+                style={{
+                  paddingLeft: '6px',
+                  paddingRight: '6px',
+                  fontSize: 24,
+                }}
+              >
                 {String(paidContentCount ?? 'paid_content_cnt')}
               </span>
               篇盐言故事，共
               <span
-                className={`text-r-purple px-[4px]`}
-                style={{ fontSize: 24 }}
+                className={`text-r-purple`}
+                style={{
+                  fontSize: 24,
+                  paddingLeft: '6px',
+                  paddingRight: '6px',
+                }}
               >
                 {String(totalWordCount ?? 'total_word_cnt')}
               </span>
@@ -210,7 +221,10 @@ export default function P25Scene({ onNext, onPrevious, sceneName }: PageProps) {
               className='absolute'
               style={{ fontSize: 17, top: '353px', left: '146px' }}
             >
-              <span className={`text-r-green px-[2px]`}>
+              <span
+                className={`text-r-green`}
+                style={{ paddingLeft: '6px', paddingRight: '6px' }}
+              >
                 「{truncateText(String(labelName1 ?? 'label_name_top1'), 5)} 」
               </span>
             </div>
@@ -220,7 +234,10 @@ export default function P25Scene({ onNext, onPrevious, sceneName }: PageProps) {
               className='absolute'
               style={{ fontSize: 17, top: '395px', left: '45px' }}
             >
-              <span className={`text-r-blue px-[2px]`}>
+              <span
+                className={`text-r-blue`}
+                style={{ paddingLeft: '6px', paddingRight: '6px' }}
+              >
                 「{truncateText(String(labelName2 ?? 'label_name_top2'), 5)} 」
               </span>
             </div>
@@ -230,7 +247,10 @@ export default function P25Scene({ onNext, onPrevious, sceneName }: PageProps) {
               className='absolute'
               style={{ fontSize: 17, top: '395px', left: '247px' }}
             >
-              <span className={`text-r-green px-[2px]`}>
+              <span
+                className={`text-r-green`}
+                style={{ paddingLeft: '6px', paddingRight: '6px' }}
+              >
                 「{truncateText(String(labelName3 ?? 'label_name_top3'), 5)} 」
               </span>
             </div>
@@ -249,14 +269,21 @@ export default function P25Scene({ onNext, onPrevious, sceneName }: PageProps) {
           {!!mostFavoriteAuthorName && (
             <div className='mb-[10px]'>
               你阅读最多的作者是
-              <span className='text-r-fern px-[2px]'>
+              <span
+                className='text-r-fern'
+                style={{ paddingLeft: '6px', paddingRight: '6px' }}
+              >
                 @{String(mostFavoriteAuthorName ?? 'most_favorite_author_name')}
               </span>
               <br />
               TA的
               <span
-                className='text-r-yellow px-[4px]'
-                style={{ fontSize: '18px' }}
+                className='text-r-yellow'
+                style={{
+                  fontSize: '18px',
+                  paddingLeft: '6px',
+                  paddingRight: '6px',
+                }}
               >
                 {String(mostFavoriteAuthorNum ?? 'most_favorite_author_num')}
               </span>

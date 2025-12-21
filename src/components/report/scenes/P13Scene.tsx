@@ -14,7 +14,12 @@ interface PageProps {
   sceneName?: string;
 }
 
-export default function P13Scene({ onNext, onPrevious, onNavigateToScene, sceneName }: PageProps) {
+export default function P13Scene({
+  onNext,
+  onPrevious,
+  onNavigateToScene,
+  sceneName,
+}: PageProps) {
   const { reportData } = useUserReportData();
   const { assets } = useAssets();
   if (!assets) return null;
@@ -40,7 +45,12 @@ export default function P13Scene({ onNext, onPrevious, onNavigateToScene, sceneN
     (reportData?.consume_most_answer_pv_cnt as number | undefined) ?? 0;
 
   return (
-    <BaseScene onNext={onNext} onPrevious={onPrevious} onNavigateToScene={onNavigateToScene} sceneName={sceneName}>
+    <BaseScene
+      onNext={onNext}
+      onPrevious={onPrevious}
+      onNavigateToScene={onNavigateToScene}
+      sceneName={sceneName}
+    >
       <GlitchLayer className='z-0'>
         {/* 顺序从上到下 */}
         <Image
@@ -117,10 +127,7 @@ export default function P13Scene({ onNext, onPrevious, onNavigateToScene, sceneN
               {month}
             </span>{' '}
             月
-            <span
-              className='text-r-yellow'
-              style={{ fontSize: '18px', paddingLeft: '2px' }}
-            >
+            <span className='text-r-yellow' style={{ fontSize: '18px' }}>
               {' '}
               {day}
             </span>{' '}
@@ -128,8 +135,8 @@ export default function P13Scene({ onNext, onPrevious, onNavigateToScene, sceneN
             <span
               className='text-r-fern'
               style={{
-                paddingLeft: '4px',
-                paddingRight: '4px',
+                paddingLeft: '6px',
+                paddingRight: '6px',
                 fontSize: '18px',
               }}
             >
@@ -172,8 +179,8 @@ export default function P13Scene({ onNext, onPrevious, onNavigateToScene, sceneN
               <span
                 className='text-r-pink'
                 style={{
-                  paddingLeft: '4px',
-                  paddingRight: '4px',
+                  paddingLeft: '6px',
+                  paddingRight: '6px',
                   fontSize: '18px',
                 }}
               >

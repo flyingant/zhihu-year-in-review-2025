@@ -340,8 +340,8 @@ export default function P10Scene({
             value={Number(wordCount)}
             className={`text-r-purple`}
             style={{
-              paddingLeft: '4px',
-              paddingRight: '4px',
+              paddingLeft: '6px',
+              paddingRight: '6px',
               fontSize: '44px',
             }}
           />
@@ -366,8 +366,6 @@ export default function P10Scene({
                 <span
                   className='text-r-yellow'
                   style={{
-                    paddingLeft: '2px',
-                    paddingRight: '2px',
                     fontSize: '18px',
                   }}
                 >
@@ -378,8 +376,8 @@ export default function P10Scene({
               <span
                 className='text-r-yellow'
                 style={{
-                  paddingLeft: '2px',
-                  paddingRight: '2px',
+                  paddingLeft: '6px',
+                  paddingRight: '6px',
                   fontSize: '18px',
                 }}
               >

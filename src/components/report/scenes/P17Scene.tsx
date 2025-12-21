@@ -14,7 +14,12 @@ interface PageProps {
   sceneName?: string;
 }
 
-export default function P17Scene({ onNext, onPrevious, onNavigateToScene, sceneName }: PageProps) {
+export default function P17Scene({
+  onNext,
+  onPrevious,
+  onNavigateToScene,
+  sceneName,
+}: PageProps) {
   const { reportData } = useUserReportData();
   const { assets } = useAssets();
 
@@ -38,7 +43,12 @@ export default function P17Scene({ onNext, onPrevious, onNavigateToScene, sceneN
     reportData?.upvote_hot_answer_user_cnt ?? null;
 
   return (
-    <BaseScene onNext={onNext} onPrevious={onPrevious} onNavigateToScene={onNavigateToScene} sceneName={sceneName}>
+    <BaseScene
+      onNext={onNext}
+      onPrevious={onPrevious}
+      onNavigateToScene={onNavigateToScene}
+      sceneName={sceneName}
+    >
       {/* background */}
       <div className='z-0'>
         <Image
@@ -198,10 +208,17 @@ export default function P17Scene({ onNext, onPrevious, onNavigateToScene, sceneN
         style={{ fontSize: 16, top: '223px', left: '35px', right: '37px' }}
       >
         {!!followQuestionFriend && followQuestionFriend >= 2 && (
-          <div className=''>
+          <div>
             <div style={{ marginBottom: '6px' }}>
               你和
-              <span className={`text-r-pink px-[4px]`} style={{ fontSize: 24 }}>
+              <span
+                className={`text-r-pink`}
+                style={{
+                  paddingLeft: '6px',
+                  paddingRight: '6px',
+                  fontSize: 24,
+                }}
+              >
                 {String(followQuestionFriend ?? 'follow_question_friend')}
               </span>
               位好友共同关注着一个问题
@@ -225,10 +242,7 @@ export default function P17Scene({ onNext, onPrevious, onNavigateToScene, sceneN
           <div className='z-0'>
             <div style={{ fontSize: 16, marginBottom: '2px' }}>
               你赞同了
-              <span
-                className={`text-r-yellow px-[4px]`}
-                style={{ fontSize: 17 }}
-              >
+              <span className={`text-r-yellow`} style={{ fontSize: 17 }}>
                 @
                 {String(
                   upvoteHotAnswerMemberName ?? 'upvote_hot_answer_member_name'
@@ -246,7 +260,7 @@ export default function P17Scene({ onNext, onPrevious, onNavigateToScene, sceneN
                   )}
                 </span>
                 <span
-                  className={`px-[2px]`}
+                  className={``}
                   style={{ fontSize: 14, lineHeight: '34px' }}
                 >
                   问题下的回答
@@ -255,8 +269,8 @@ export default function P17Scene({ onNext, onPrevious, onNavigateToScene, sceneN
             </div>
             <div style={{ fontSize: 14 }} hidden={!upvoteHotAnswerUserCount}>
               <span
-                className={`text-r-purple pr-[4px]`}
-                style={{ fontSize: 24 }}
+                className={`text-r-purple`}
+                style={{ fontSize: 24, paddingRight: '6px' }}
               >
                 {String(
                   upvoteHotAnswerUserCount ?? 'upvote_hot_answer_user_cnt'

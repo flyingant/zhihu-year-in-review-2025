@@ -154,8 +154,8 @@ export default function P16Scene({
                 className={`text-r-pink`}
                 style={{
                   fontSize: 18,
-                  paddingLeft: '4px',
-                  paddingRight: '4px',
+                  paddingLeft: '6px',
+                  paddingRight: '6px',
                 }}
               >
                 {String(sendUpvoteCount ?? 'send_upvote_cnt')}
@@ -171,7 +171,7 @@ export default function P16Scene({
             你最常停在
             <span
               className={`text-r-yellow`}
-              style={{ fontSize: 16, paddingLeft: '4px', paddingRight: '4px' }}
+              style={{ fontSize: 16, paddingLeft: '6px', paddingRight: '6px' }}
             >
               @{String(consumeMemberName ?? 'consume_member_name')}
             </span>
@@ -188,8 +188,8 @@ export default function P16Scene({
                   className={`text-r-fern`}
                   style={{
                     fontSize: 24,
-                    paddingLeft: '4px',
-                    paddingRight: '4px',
+                    paddingLeft: '6px',
+                    paddingRight: '6px',
                   }}
                 >
                   {String(sendMostUpvoteCount ?? 'send_most_upvote_cnt')}
@@ -199,8 +199,8 @@ export default function P16Scene({
                   className={`text-r-yellow`}
                   style={{
                     fontSize: 16,
-                    paddingLeft: '4px',
-                    paddingRight: '4px',
+                    paddingLeft: '6px',
+                    paddingRight: '6px',
                   }}
                 >
                   @{String(sendMostUpvoteMemberName ?? 'sote_member_name')}
@@ -223,8 +223,8 @@ export default function P16Scene({
             }`}
             hidden={!interestMemberName1}
             style={{
-              paddingLeft: '2px',
-              paddingRight: '2px',
+              paddingLeft: '6px',
+              paddingRight: '6px',
               marginBottom: '8px',
               marginTop: '10px',
             }}
@@ -243,8 +243,8 @@ export default function P16Scene({
             }`}
             hidden={!interestMemberName2}
             style={{
-              paddingLeft: '2px',
-              paddingRight: '2px',
+              paddingLeft: '6px',
+              paddingRight: '6px',
               marginBottom: '8px',
             }}
           >
@@ -262,8 +262,8 @@ export default function P16Scene({
             }`}
             hidden={!interestMemberName3}
             style={{
-              paddingLeft: '2px',
-              paddingRight: '2px',
+              paddingLeft: '6px',
+              paddingRight: '6px',
               marginBottom: '8px',
             }}
           >

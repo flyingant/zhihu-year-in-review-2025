@@ -14,7 +14,12 @@ interface PageProps {
   sceneName?: string;
 }
 
-export default function P8Scene({ onNext, onPrevious, onNavigateToScene, sceneName }: PageProps) {
+export default function P8Scene({
+  onNext,
+  onPrevious,
+  onNavigateToScene,
+  sceneName,
+}: PageProps) {
   const { reportData } = useUserReportData();
 
   const { assets } = useAssets();
@@ -37,7 +42,12 @@ export default function P8Scene({ onNext, onPrevious, onNavigateToScene, sceneNa
     reportData?.navigator_upvote_content_cnt ?? null;
 
   return (
-    <BaseScene onNext={onNext} onPrevious={onPrevious} onNavigateToScene={onNavigateToScene} sceneName={sceneName}>
+    <BaseScene
+      onNext={onNext}
+      onPrevious={onPrevious}
+      onNavigateToScene={onNavigateToScene}
+      sceneName={sceneName}
+    >
       <GlitchLayer>
         {/* 顺序从上到下 */}
         <Image
@@ -85,8 +95,8 @@ export default function P8Scene({ onNext, onPrevious, onNavigateToScene, sceneNa
             className='text-r-pink'
             style={{
               fontSize: '18px',
-              paddingRight: '4px',
-              paddingLeft: '4px',
+              paddingRight: '6px',
+              paddingLeft: '6px',
             }}
           >
             {zhiTrendRankCount}
@@ -100,8 +110,8 @@ export default function P8Scene({ onNext, onPrevious, onNavigateToScene, sceneNa
             className='text-r-purple'
             style={{
               fontSize: '18px',
-              paddingRight: '4px',
-              paddingLeft: '4px',
+              paddingRight: '6px',
+              paddingLeft: '6px',
             }}
           >
             {influenceRankCount}
@@ -159,7 +169,7 @@ export default function P8Scene({ onNext, onPrevious, onNavigateToScene, sceneNa
                 你成为了
                 <span
                   className='text-r-blue'
-                  style={{ paddingLeft: '4px', paddingRight: '4px' }}
+                  style={{ paddingLeft: '6px', paddingRight: '6px' }}
                 >
                   航海家
                 </span>
@@ -171,8 +181,8 @@ export default function P8Scene({ onNext, onPrevious, onNavigateToScene, sceneNa
                   className='text-r-green'
                   style={{
                     fontSize: '18px',
-                    paddingLeft: '4px',
-                    paddingRight: '4px',
+                    paddingLeft: '6px',
+                    paddingRight: '6px',
                   }}
                 >
                   {navigatorContentCount}

@@ -151,14 +151,14 @@ export default function P22Scene({
         >
           <p hidden={!consumeBillboardDays || consumeBillboardDays < 5}>
             今年，你驻扎热榜
-            <span className={`text-r-fern px-[4px]`} style={{ fontSize: 24 }}>
+            <span className={`text-r-fern`} style={{ paddingLeft: '6px', paddingRight: '6px', fontSize: 24 }}>
               {String(consumeBillboardDays ?? 'consume_billboard_days')}
             </span>
             天
           </p>
           <p hidden={!consumeBillboardContentCount}>
             浏览了
-            <span className={`text-r-fern px-[4px]`} style={{ fontSize: 24 }}>
+            <span className={`text-r-fern`} style={{ paddingLeft: '6px', paddingRight: '6px', fontSize: 24 }}>
               {String(
                 consumeBillboardContentCount ?? 'consume_billboard_content_cnt'
               )}
@@ -168,7 +168,7 @@ export default function P22Scene({
           {/* Upvoted content on billboard */}
           <p hidden={!upvoteZhihuBillboardContentCount}>
             你的赞同, 助推
-            <span className={`text-r-fern px-[4px]`} style={{ fontSize: 24 }}>
+            <span className={`text-r-fern`} style={{ paddingLeft: '6px', paddingRight: '6px', fontSize: 24 }}>
               {String(
                 upvoteZhihuBillboardContentCount ??
                   'upvote_zhihu_billboard_content_cnt'

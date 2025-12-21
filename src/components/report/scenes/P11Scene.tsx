@@ -281,8 +281,8 @@ export default function P11Scene({
             <span
               className='text-r-fern'
               style={{
-                paddingLeft: '4px',
-                paddingRight: '4px',
+                paddingLeft: '6px',
+                paddingRight: '6px',
                 fontSize: '16px',
               }}
             >

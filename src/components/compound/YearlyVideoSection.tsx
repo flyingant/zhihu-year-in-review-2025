@@ -373,7 +373,7 @@ const YearlyVideoSection = () => {
               top: '26.5%',
               left: '8%',
               width: '84%',
-              height: '51%',
+              height: '50%',
             }}
           >
             {isLoading ? (

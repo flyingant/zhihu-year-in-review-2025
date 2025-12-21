@@ -217,7 +217,7 @@ export default function P21Scene({
           className='absolute z-[70] text-xl cursor-pointer'
           style={{
             width: '224px',
-            top: '625px',
+            top: '286px',
             pointerEvents: 'auto',
             left: 0,
             right: 0,
@@ -241,7 +241,8 @@ export default function P21Scene({
           className='absolute z-[70] text-xl cursor-pointer'
           style={{
             width: '224px',
-            top: '286px',
+            top: '625px',
+
             pointerEvents: 'auto',
             left: 0,
             right: 0,

@@ -170,7 +170,7 @@ export default function P10Scene({
 
       <div
         className={'text-center'}
-        style={{ paddingTop: '100px', paddingBottom: '24px', fontSize: '22px' }}
+        style={{ paddingTop: '80px', paddingBottom: '24px', fontSize: '22px' }}
       >
         <div>阅读，开启你与世界的沉浸对话</div>
         <div>今年，你看过</div>
@@ -355,8 +355,8 @@ export default function P10Scene({
                 <span
                   className='text-r-yellow'
                   style={{
-                    paddingLeft: '2px',
-                    paddingRight: '2px',
+                    paddingLeft: '6px',
+                    paddingRight: '6px',
                     fontSize: '18px',
                   }}
                 >

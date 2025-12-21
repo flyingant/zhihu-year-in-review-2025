@@ -203,7 +203,7 @@ export default function P25Scene({ onNext, onPrevious, sceneName }: PageProps) {
             }}
             hidden={!labelName1 || !labelName2 || !labelName3}
           >
-            是最打动你的故事元素是
+            最打动你的故事元素是
           </div>
           {!!labelName1 && (
             <div
@@ -243,7 +243,7 @@ export default function P25Scene({ onNext, onPrevious, sceneName }: PageProps) {
             fontSize: '16px',
             top: '657px',
             left: '40px',
-            right: '77px',
+            right: '40px',
           }}
         >
           {!!mostFavoriteAuthorName && (

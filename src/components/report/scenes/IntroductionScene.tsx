@@ -211,6 +211,7 @@ export default function IntroductionScene({
   return (
     <BaseScene
       onNext={onNext}
+      disableSwipe={true}
       sceneName={sceneName}
       className='pt-0'
       containerClassName='w-full max-w-none'

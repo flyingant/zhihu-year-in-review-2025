@@ -60,6 +60,7 @@ export default function LoadingScene({ onNext, sceneName }: LoadingSceneProps) {
   return (
     <BaseScene
       onNext={onNext}
+      disableSwipe={true}
       sceneName={sceneName}
       showBottomNextButton={false}
     >

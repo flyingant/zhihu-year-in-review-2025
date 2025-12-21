@@ -62,7 +62,12 @@ const MovieLikeItem = ({
   );
 };
 
-export default function P24Scene({ onNext, onPrevious, onNavigateToScene, sceneName }: PageProps) {
+export default function P24Scene({
+  onNext,
+  onPrevious,
+  onNavigateToScene,
+  sceneName,
+}: PageProps) {
   const { reportData } = useUserReportData();
   const { assets } = useAssets();
 
@@ -103,40 +108,45 @@ export default function P24Scene({ onNext, onPrevious, onNavigateToScene, sceneN
       fallbackRate: 'movie_like_rate_top3',
       style: {},
     },
-  ].filter(item => item.name);
-  
+  ].filter((item) => item.name);
+
   const allPos = [
     { top: '280px', left: '6px', width: '137px' },
     { top: '332px', left: '123px', width: '137px' },
-    { top: '280px', left: '240px', width: '137px' }
-  ]
+    { top: '280px', left: '240px', width: '137px' },
+  ];
 
   const twoPos = [
     { top: '300px', left: '56px', width: '137px' },
     { top: '300px', left: '196px', width: '137px' },
-  ]
+  ];
 
-  const onePos = [{ top: '300px', left: '120px', width: '137px' },]
+  const onePos = [{ top: '300px', left: '120px', width: '137px' }];
 
   if (movieLikeList.length === 3) {
     movieLikeList = movieLikeList.map((item, index) => ({
       ...item,
-      style: allPos[index]
+      style: allPos[index],
     }));
   } else if (movieLikeList.length === 2) {
     movieLikeList = movieLikeList.map((item, index) => ({
       ...item,
-      style: twoPos[index]
+      style: twoPos[index],
     }));
   } else if (movieLikeList.length === 1) {
     movieLikeList = movieLikeList.map((item, index) => ({
       ...item,
-      style: onePos[index]
+      style: onePos[index],
     }));
   }
 
   return (
-    <BaseScene onNext={onNext} onPrevious={onPrevious} onNavigateToScene={onNavigateToScene} sceneName={sceneName}>
+    <BaseScene
+      onNext={onNext}
+      onPrevious={onPrevious}
+      onNavigateToScene={onNavigateToScene}
+      sceneName={sceneName}
+    >
       {/* pixel block */}
       <GlitchLayer>
         {/* 顺序从上到下 */}
@@ -216,37 +226,32 @@ export default function P24Scene({ onNext, onPrevious, onNavigateToScene, sceneN
               哪部作品是反射你内心的那面镜子？
               <br />
             </div>
-            <div
-              className='text-center'
-              hidden={
-                movieLikeList.length === 0
-              }
-            >
-              你的<span className='text-r-fern'>年度影视作品</span>是
+            <div className='text-center' hidden={movieLikeList.length === 0}>
+              你曾<span className='text-r-green'>在这里</span>留下足迹
             </div>
           </div>
         </div>
       )}
       {/* top films */}
-      {(
-          <div className='z-0 w-full tracking-wide' style={{ fontSize: 14 }}>
-            {movieLikeList.map(
-              (item, index) =>
-                item.name && (
-                  <MovieLikeItem
-                    key={index}
-                    name={item.name}
-                    url={item.url}
-                    rate={item.rate}
-                    fallbackName={item.fallbackName}
-                    fallbackUrl={item.fallbackUrl}
-                    fallbackRate={item.fallbackRate}
-                    style={item.style}
-                  />
-                )
-            )}
-          </div>
-        )}
+      {
+        <div className='z-0 w-full tracking-wide' style={{ fontSize: 14 }}>
+          {movieLikeList.map(
+            (item, index) =>
+              item.name && (
+                <MovieLikeItem
+                  key={index}
+                  name={item.name}
+                  url={item.url}
+                  rate={item.rate}
+                  fallbackName={item.fallbackName}
+                  fallbackUrl={item.fallbackUrl}
+                  fallbackRate={item.fallbackRate}
+                  style={item.style}
+                />
+              )
+          )}
+        </div>
+      }
     </BaseScene>
   );
 }

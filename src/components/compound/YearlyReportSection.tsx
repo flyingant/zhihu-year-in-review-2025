@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect } from 'react';
+import React, { useEffect, useRef } from 'react';
 import Image from 'next/image';
 import { useAssets } from '@/context/assets-context';
 import { useElementCenter } from '@/hooks/useElementCenter';
@@ -16,21 +16,23 @@ const YearlyReportSection = () => {
   const { trackShow, trackEvent } = useZA();
   const { isAvailable: isHybridAvailable, openURL } = useZhihuHybrid();
   const isZhihuApp = useZhihuApp();
+  const hasTrackedRef = useRef(false);
 
   const { ref: setRefs, isCenter: showIcon, inView } = useElementCenter({
     triggerOnce: true,
-    threshold: 0.5
+    threshold: 0.8
   });
   // Removed local showClearImage usage now that images rely solely on API data
 
   useEffect(() => {
-    if (inView) {
+    if (inView && !hasTrackedRef.current) {
       // phase2埋点4
       trackShow({
         moduleId: 'annual_report_2025',
         type: 'Block',
         page: { page_id: '60850' }
       });
+      hasTrackedRef.current = true;
     }
   }, [inView, trackShow]);
 

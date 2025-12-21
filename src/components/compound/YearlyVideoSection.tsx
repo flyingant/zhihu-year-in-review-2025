@@ -25,12 +25,13 @@ const YearlyVideoSection = () => {
   const playerContainerRef = useRef<HTMLDivElement>(null);
   const { trackShow, trackEvent } = useZA();
   const playIdentifierRef = useRef<string>("");
+  const hasTrackedRef = useRef(false);
   const { isAvailable: isHybridAvailable, openURL } = useZhihuHybrid();
   const isZhihuApp = useZhihuApp();
 
   const { ref: setRefs, isCenter: showIcon, inView } = useElementCenter({
     triggerOnce: true,
-    threshold: 0.5,
+    threshold: 0.8,
   });
 
   // Removed local showClearImage usage now that images rely solely on API data
@@ -69,8 +70,8 @@ const YearlyVideoSection = () => {
   }, [videoDetails, videoUrl, coverImage]);
 
   useEffect(() => {
-    if (inView && videoDetails && videoId) {
-      const durationMs = (videoDetails.video?.duration || 0) * 1000;
+    if (inView && videoId && !hasTrackedRef.current) {
+      const durationMs = (videoDetails?.video?.duration || 0) * 1000;
 
       trackShow({
         moduleId: 'annual_video_2025',
@@ -90,6 +91,7 @@ const YearlyVideoSection = () => {
           duration: durationMs
         }
       });
+      hasTrackedRef.current = true;
     }
 
   }, [inView, videoDetails, trackShow, videoId]);
@@ -162,7 +164,6 @@ const YearlyVideoSection = () => {
     }
 
     const currentTimeMs = Math.floor(videoEl.currentTime * 1000);
-    console.dir(videoEl, 8771122)
     if (!playIdentifierRef.current) {
       playIdentifierRef.current = generateRandomId();
     }
@@ -250,6 +251,7 @@ const YearlyVideoSection = () => {
         videoElement.addEventListener('pause', handlePause);
         return () => {
           videoElement?.removeEventListener('play', handlePlay);
+          videoElement?.removeEventListener('pause', handlePause);
         };
       } else if (attempts < 20) {
         attempts++;

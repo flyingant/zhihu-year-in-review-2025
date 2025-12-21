@@ -271,8 +271,9 @@ const YearlyVideoSection = () => {
       const videoElement = playerContainerRef.current?.querySelector('video') as HTMLVideoElement | null;
       if (videoElement && coverImage) {
         videoElement.poster = coverImage;
+        // Ensure video element uses object-cover for the poster
+        videoElement.style.objectFit = 'cover';
       }
-
       // Find and hide Griffith Player's play button
       const playButtons = playerContainerRef.current?.querySelectorAll(
         '[class*="play-button"], [class*="PlayButton"], [class*="playButton"], button[class*="play"], [aria-label*="play" i], [aria-label*="Play" i]'
@@ -382,7 +383,7 @@ const YearlyVideoSection = () => {
                 <span>{error}</span>
               </div>
             ) : playerSources ? (
-              <div className="w-full h-full relative [&>div]:!w-full [&>div]:!h-full [&_video]:!w-full [&_video]:!h-full [&_video]:!object-cover">
+              <div className="w-full h-full relative [&>div]:!w-full [&>div]:!h-full [&_video]:!w-full [&_video]:!h-full [&_video]:!object-cover [&_video[poster]]:!object-cover [&_img]:!object-cover [&_img]:!w-full [&_img]:!h-full">
                 {/* @ts-expect-error - Griffith Player type compatibility with React 19 */}
                 <Player
                   sources={playerSources}

@@ -261,7 +261,7 @@ export default function P19Scene({
           </div>
         )}
         {
-          <div className='absolute z-2' style={{ top: '540px', left: '17px' }}>
+          <div className='absolute z-2' style={{ top: '560px', left: '17px' }}>
             <div
               hidden={
                 !interactiveMostClubName ||

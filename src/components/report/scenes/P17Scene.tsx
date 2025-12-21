@@ -205,7 +205,14 @@ export default function P17Scene({
       {/* content */}
       <div
         className='absolute z-0 tracking-wide'
-        style={{ fontSize: 16, top: '223px', left: '35px', right: '37px' }}
+        style={{
+          fontSize: 16,
+          width: '300px',
+          top: '50%',
+          left: '50%',
+          right: '50%',
+          transform: 'translate(-50%, -63%);',
+        }}
       >
         {!!followQuestionFriend && followQuestionFriend >= 2 && (
           <div>

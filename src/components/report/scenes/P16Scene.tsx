@@ -124,7 +124,7 @@ export default function P16Scene({
           width={thumbUp.width}
           height={thumbUp.height}
           className='w-full absolute pointer-events-none select-none z-0'
-          style={{ top: '127px', left: '0' }}
+          style={{ top: '100px', left: '0' }}
         />
         <Image
           src={gif.url}
@@ -142,7 +142,7 @@ export default function P16Scene({
           position: 'absolute',
           zIndex: 0,
           fontSize: 16,
-          top: '371px',
+          top: '351px',
           left: '35px',
         }}
       >

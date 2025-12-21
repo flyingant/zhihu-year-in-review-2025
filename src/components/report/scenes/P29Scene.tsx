@@ -182,7 +182,7 @@ export default function P29Scene({ onNext, sceneName }: PageProps) {
     trackEvent('', {
       moduleId: 'annual_individual_report_result_save_picture_button',
       type: 'Button',
-      text: '*',
+      text: '保存[源文件]',
       page: {
         page_id: '60864',
       },
@@ -215,7 +215,7 @@ export default function P29Scene({ onNext, sceneName }: PageProps) {
     trackEvent('', {
       moduleId: 'annual_report_share_image_button',
       type: 'Button',
-      text: '*',
+      text: '分享[源文件]',
       page: {
         page_id: '60864',
       },

@@ -555,7 +555,7 @@ const RewardSection = ({ onShowAddressForm }: RewardSectionProps = {}) => {
               </button>
               <button
                 onClick={confirmRedeem}
-                className="flex-1 h-[40px] rounded-full bg-blue text-white text-[15px] font-medium active:scale-95 transition-transform shadow-md"
+                className="flex-1 h-[40px] rounded-full bg-blue-500 text-white text-[15px] font-medium active:scale-95 transition-transform shadow-md"
               >
                 确定
               </button>

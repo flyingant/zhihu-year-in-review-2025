@@ -125,11 +125,25 @@ export const useZA = () => {
     console.log(`ZA: Event(${action} ${eventType})`, payload);
   };
 
+  // 视频有专属的
+  const trackPlayer = (action: string, location: ZAElementLocation, extra?: Record<string, any>) => {
+    if (!clientRef.current) return;
+    const payload = { ...location, type: location.type || 'Button' };
+
+    clientRef.current.trackPlayer({
+      action: !action ? null : action,
+      elementLocation: payload,
+      event_type: 'Click'
+    }, extra);
+    console.log(`ZA: Player(${action})`, payload);
+  };
+
   return {
     isReady,
     trackPageShow,
     trackPageDisappear,
     trackShow,
+    trackPlayer,
     trackEvent,
   };
 };

@@ -179,14 +179,14 @@ export default function P18Scene({
             style={{ fontSize: 20 }}
             hidden={!clubAdminTop1Name}
           >
-            {String(clubAdminTop1Name ?? 'club_admin_top1_name')}
+            「{String(clubAdminTop1Name ?? 'club_admin_top1_name')}」
           </div>
           <div
             className={`text-r-blue`}
             style={{ fontSize: 20 }}
             hidden={!clubAdminTop2Name}
           >
-            {String(clubAdminTop2Name ?? 'club_admin_top2_name')}
+            「{String(clubAdminTop2Name ?? 'club_admin_top2_name')}」
           </div>
           <div>圈子主理人，你好！2025，你的圈子聚集</div>
         </div>
@@ -220,14 +220,14 @@ export default function P18Scene({
           </div>
         )}
 
-        {!!clubAdminPinCount && (
+        {!!clubAdminTop1ContentCount && (
           <div className={'absolute'} style={{ left: '30px', top: '631px' }}>
             作为引路人，你在圈内发言
             <span
               className={`text-r-pink`}
               style={{ paddingLeft: '6px', paddingRight: '6px', fontSize: 24 }}
             >
-              {String(clubAdminPinCount ?? 'club_admin_pin_cnt')}
+              {String(clubAdminTop1ContentCount ?? 'club_admin_pin_cnt')}
             </span>
             次 <br />
             <span hidden={!clubAdminInteractionCount}>
@@ -237,7 +237,7 @@ export default function P18Scene({
                 style={{
                   paddingLeft: '6px',
                   paddingRight: '6px',
-                  fontSize: 18,
+                  fontSize: 24,
                 }}
               >
                 {String(

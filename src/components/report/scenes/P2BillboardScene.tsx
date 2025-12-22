@@ -147,7 +147,7 @@ export default function P2BillboardScene({
             paddingTop: '100px',
           }}
         >
-          <div style={{ fontSize: '22px' }}>这一年，你依旧好奇</div>
+          <div style={{ fontSize: '22px' }}>你的好奇，擦亮了世界的雾面</div>
           <div
             style={{ paddingTop: '60px', paddingBottom: '2px' }}
             hidden={!billboardCount}

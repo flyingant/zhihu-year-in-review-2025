@@ -29,6 +29,7 @@ export default function P8CheeseScene({
   const mix5Asset = bgAsset.mix5;
   const mix2Asset = bgAsset.mix2;
   const p8GifAsset = assets.report.p8.gif;
+  const sparkleAsset = assets.report.p8.sparkle; 
 
   const cheeseAwards = (reportData?.cheese_award_list || '') as string;
   const studentName = (reportData?.cheese_student_name || '') as string;
@@ -110,28 +111,47 @@ export default function P8CheeseScene({
             ===========================================
         */}
         <div
+          className='absolute pointer-events-none select-none z-10'
           style={{
-            position: 'relative',
-            paddingTop: '20px',
+            bottom: '138px',
+            left: '0', 
+            right: '66px',
+            display: 'flex',
+            justifyContent: 'center'
           }}
         >
-          <Image
-            priority
-            src={p8GifAsset.url}
-            alt={p8GifAsset.alt}
-            width={p8GifAsset.width}
-            height={p8GifAsset.height}
-            className='object-contain relative pointer-events-none select-none z-10'
-            unoptimized
-            style={{ top: '0px', left: '60px' }}
-          />
+          <div className='relative'>
+            <Image
+              priority
+              src={sparkleAsset.url}
+              alt={sparkleAsset.alt}
+              width={sparkleAsset.width}
+              height={sparkleAsset.height}
+              className='opacity-0 animate-pop-sparkle object-contain absolute pointer-events-none select-none z-20'
+              style={{ top: '-50px', right: '-20px' }}
+            />
+             <Image
+              priority
+              src={p8GifAsset.url}
+              alt={p8GifAsset.alt}
+              width={p8GifAsset.width}
+              height={p8GifAsset.height}
+              className='object-contain relative pointer-events-none select-none z-10'
+              unoptimized
+              style={{ top: '0px', left: '60px' }}
+            />
+          </div>
+         
         </div>
         {!!studentName && (
           <div
-            className='opacity-0 animate-slide-in-right'
+            className='opacity-0 animate-slide-in-right absolute'
             style={{
               animationDelay: '0.5s',
-              marginTop: '-20px',
+              bottom: '85px',
+              left: '34px',
+              right: '34px',
+              zIndex: 0
             }}
           >
             <div style={{ marginBottom: '8px' }} hidden={!courseCount}>

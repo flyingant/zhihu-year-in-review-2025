@@ -74,17 +74,28 @@ export default function P28Scene({ onNext, sceneName }: PageProps) {
           : '#B6DFFE',
       });
 
-      showToast('海报生成成功！', 'success');
+      const poster = new globalThis.Image()
+      poster.src = response.poster_url;
+      poster.onload = () => {
+        showToast('海报生成成功！', 'success');
+        // Call onNext after successful generation
+        if (onNext) {
+          onNext();
+        }
+      }
 
-      // Call onNext after successful generation
-      if (onNext) {
-        onNext();
+      // onerror 只是当前页面加载失败，也让进下一步
+      poster.onerror = () => {
+        showToast('海报生成成功！', 'success');
+        // Call onNext after successful generation
+        if (onNext) {
+          onNext();
+        }
       }
     } catch (error) {
       console.error('Failed to generate poster:', error);
       showToast('生成失败，请重试', 'error');
-    } finally {
-      setIsLoading(false);
+      setIsLoading(false)
     }
   };
 

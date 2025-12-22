@@ -8,6 +8,15 @@ import {
   useUserReportData,
   UserReportData,
 } from '@/context/user-report-data-context';
+import { useZhihuHybrid } from '@/hooks/useZhihuHybrid';
+
+// Type for Zhihu Hybrid SDK
+interface ZhihuHybridAction {
+  dispatch(params: Record<string, unknown>): Promise<unknown>;
+}
+interface ZhihuHybridNewAPI {
+  (action: string): ZhihuHybridAction;
+}
 
 // Determine the next valid scene ID recursively, checking for skip conditions
 const getNextValidSceneId = (
@@ -76,6 +85,9 @@ const getPreviousValidSceneId = (
 export default function SceneManager() {
   const searchParams = useSearchParams();
   const { reportData, isLoadingReport } = useUserReportData();
+  const {
+    isAvailable: isHybridAvailable,
+  } = useZhihuHybrid();
 
   // 从 URL 参数获取场景 ID（仅用于初始页面）
   const getInitialSceneId = () => {
@@ -108,7 +120,6 @@ export default function SceneManager() {
   // Check if current scene should be skipped when data is loaded
   useEffect(() => {
     if (isLoadingReport || !reportData) return;
-
     const sceneConfig = SCENES[currentSceneId];
     if (sceneConfig?.shouldSkip?.(reportData)) {
       console.warn(
@@ -124,6 +135,56 @@ export default function SceneManager() {
         console.log(`Redirecting from ${currentSceneId} to ${nextValidId}`);
         // eslint-disable-next-line
         setInternalSceneId(nextValidId);
+      }
+    }
+
+    if (isHybridAvailable && window.zhihuHybrid) {
+      try {
+        const link =  process.env.NEXT_PUBLIC_BASE_SHARE_URL +  '/2025/'
+        const shareHeadImg =
+          process.env.NEXT_PUBLIC_CDN_BASE_URL +
+          'assets/share-head-img-1221.png';
+        const setShareInfoAction = (window.zhihuHybrid as ZhihuHybridNewAPI)(
+          'share/setShareInfo'
+        );
+
+        setShareInfoAction.dispatch({
+          zhihuMessage: {
+            content: '知乎｜2025 个人年度报告 \n这一年，我真的____？\n2025 我的「真实源文件」加载中 >> 快来查看吧 \n' + link,
+            link,
+          },
+          wechatTimeline: {
+            title: '知乎｜2025 个人年度报告',
+            link: link,
+            imgUrl: shareHeadImg,
+          },
+          wechatMessage: {
+            title: '知乎｜2025 个人年度报告',
+            desc: '回顾这一年，我真的____？点击加载真实 >>',
+            link: link,
+            imgUrl: shareHeadImg,
+          },
+          QQ: {
+            url: link,
+            title: '知乎｜2025 个人年度报告',
+            content: '回顾这一年，我真的____？点击加载真实 >>',
+            imageURL: shareHeadImg,
+          },
+          weibo: {
+            url: link,
+            title: '知乎｜2025 个人年度报告',
+            content: '回顾这一年，我真的____？点击加载真实 >>',
+            imageURL: shareHeadImg,
+          },
+          Qzone: {
+            url: link,
+            title: '知乎｜2025 个人年度报告',
+            content: '回顾这一年，我真的____？点击加载真实 >>',
+            imageURL: shareHeadImg,
+          }
+        });
+      } catch (error) {
+        console.error('Report Page Failed to share via zhihuHybrid:', error);
       }
     }
   }, [currentSceneId, reportData, isLoadingReport]);

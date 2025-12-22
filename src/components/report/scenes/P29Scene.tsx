@@ -312,7 +312,11 @@ export default function P29Scene({ onNext, sceneName }: PageProps) {
               title: '知乎｜2025 个人年度报告',
               content: '回顾这一年，我真的____？点击加载真实 >>',
               imageURL: shareHeadImg,
-            }
+            },
+            PosterShare: {
+              imageURL: summaryPoster.poster_url,
+              pinContent: JSON.stringify(`<p>知乎｜2025 个人年度报告</p>`),
+            },
           });
 
           const showActionSheetAction = (

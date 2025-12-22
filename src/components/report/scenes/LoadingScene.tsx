@@ -1,7 +1,7 @@
 // components/report/scenes/LoadingScene.tsx
 import { motion } from 'framer-motion';
 import Image from 'next/image';
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import BaseScene from './BaseScene';
 import { useAssets } from '@/context/assets-context';
 import GlitchLayer from '@/components/report/effects/GlitchLayer';
@@ -16,15 +16,46 @@ interface LoadingSceneProps {
 export default function LoadingScene({ onNext, sceneName }: LoadingSceneProps) {
   const { assets } = useAssets();
   const [progress, setProgress] = useState(0);
+  const gif1LoadedRef = useRef(false);
+  const gif2LoadedRef = useRef(false);
+  const gif3LoadedRef = useRef(false);
+
+  useEffect(() => {
+    if (!assets) return
+    if (!gif1LoadedRef.current) {
+      const img1 = new globalThis.Image();
+      img1.src = assets.report.intro.step1.url || ''
+      img1.onload = () => {
+        gif1LoadedRef.current = true;
+      }
+    }
+    if (!gif2LoadedRef.current) {
+      const img2 = new globalThis.Image();
+      img2.src = assets.report.intro.step2.url || ''
+      img2.onload = () => {
+        gif2LoadedRef.current = true;
+      }
+    }
+    if (!gif3LoadedRef.current) {
+      const img3 = new globalThis.Image();
+      img3.src = assets.report.intro.step3.url || ''
+      img3.onload = () => {
+        gif3LoadedRef.current = true;
+      }
+    }
+  }, [assets])
 
   // 模拟加载进度
   useEffect(() => {
     const timer = setInterval(() => {
       setProgress((prev) => {
-        if (prev >= 100) {
-          clearInterval(timer);
-          // setTimeout(onNext, 500); // 加载完延迟 0.5s 跳转
-          return 100;
+        if (prev >= 99) {
+          if (gif1LoadedRef.current && gif2LoadedRef.current && gif3LoadedRef.current) {
+            clearInterval(timer);
+            return 100
+          } else {
+            return 99;
+          }
         }
         return prev + 1;
       });

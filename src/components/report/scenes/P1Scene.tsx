@@ -78,6 +78,13 @@ export default function P1Scene({
     };
   }, [maskPositionMotion]);
 
+  useEffect(() => {
+    if (!assets) return
+    // 提前 preload p27 的陀螺，首页本身有 3 个 gif，放首页不合适
+    new globalThis.Image().src = assets?.report?.topSpiningInfinit.url || '';
+    new globalThis.Image().src = assets?.report?.topSpiningStop.url || '';
+  }, [assets])
+
   const handleSelect = async (choice: 'A' | 'B') => {
     setUserChoice('p1', choice);
     // call API to record the choice
@@ -106,9 +113,8 @@ export default function P1Scene({
   const topAsset = p1Assets.top;
   const middleAsset = p1Assets.middle;
   const liukanshanReadingAsset = p1Assets.liukanshanReading;
-
-  const isMaskPastThreshold = maskPosition < -300;
-  const isMaskAboveThreshold = maskPosition > -300;
+  const isMaskPastThreshold = maskPosition < -200;
+  const isMaskAboveThreshold = maskPosition > -200;
   const floatPulse = isMaskPastThreshold
     ? { scale: [1, 1.06, 1] }
     : { scale: 1 };
@@ -207,7 +213,7 @@ export default function P1Scene({
             margin: '0 auto',
           }}
           animate={floatPulseB}
-          transition={floatPulseTransition}
+          transition={floatPulseTransitionB}
           onClick={() => handleSelect('A')}
           role='button'
           tabIndex={0}
@@ -233,7 +239,7 @@ export default function P1Scene({
             margin: '0 auto',
           }}
           animate={floatPulse}
-          transition={floatPulseTransitionB}
+          transition={floatPulseTransition}
           onClick={() => handleSelect('B')}
           role='button'
           tabIndex={0}

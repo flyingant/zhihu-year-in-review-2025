@@ -1259,19 +1259,19 @@
   "report": {
     "intro": {
       "step1": {
-        "url": "/assets/2025_2_report_intro_step1.mp4",
+        "url": "/assets/2025_2_report_intro_step1.gif",
         "width": 375,
         "height": 812,
         "alt": "Introduction Step 1 Video"
       },
       "step2": {
-        "url": "/assets/2025_2_report_intro_step2.mp4",
+        "url": "/assets/2025_2_report_intro_step2.gif",
         "width": 375,
         "height": 812,
         "alt": "Introduction Step 2 Video"
       },
       "step3": {
-        "url": "/assets/2025_2_report_intro_step3_1217.mp4",
+        "url": "/assets/2025_2_report_intro_step3.gif",
         "width": 375,
         "height": 812,
         "alt": "Introduction Step 3 Video"
@@ -3039,16 +3039,22 @@
       "alt": "2026 Report Top"
     },
     "topSpiningInfinit": {
-      "url": "/assets/2025_2_report_top_spining_infinit.mp4",
+      "url": "/assets/2025_2_report_top_spining_infinit.gif",
       "width": 375,
       "height": 812,
       "alt": "Top Spinning Infinite Animation"
     },
     "topSpiningStop": {
-      "url": "/assets/2025_2_report_top_spining_stop.mp4",
+      "url": "/assets/2025_2_report_top_spining_stop.gif",
       "width": 375,
       "height": 812,
       "alt": "Top Spinning Stop Animation"
+    },
+    "topSpiningStopEnd": {
+      "url": "/assets/2025_2_report_top_spining_stop_end.png",
+      "width": 375,
+      "height": 812,
+      "alt": "Top Spinning Stop Animation End Frame"
     },
     "audio": {
       "iconDisable": {

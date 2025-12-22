@@ -199,8 +199,11 @@ export default function P21Scene({
             maskImage: `url("${middleAsset.url}")`,
             WebkitMaskImage: `url("${middleAsset.url}")`,
             maskSize: 'auto 100%',
+            WebkitMaskSize: 'auto 100%',
             maskRepeat: 'no-repeat',
+            WebkitMaskRepeat: 'no-repeat',
             maskPosition: `${maskPosition}px center`,
+            WebkitMaskPosition: `${maskPosition}px center`,
             maskMode: 'alpha',
           }}
         >

@@ -461,6 +461,7 @@ export interface AssetsData {
     top2026: AssetMetadata;
     topSpiningInfinit: AssetMetadata;
     topSpiningStop: AssetMetadata;
+    topSpiningStopEnd: AssetMetadata;
     audio: {
       iconDisable: AssetMetadata;
       iconPlaying: AssetMetadata;

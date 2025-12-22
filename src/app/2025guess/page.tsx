@@ -19,30 +19,21 @@ import {
 } from "@/api/report";
 import { useSearchParams } from "next/navigation";
 import GlitchLayer from "@/components/report/effects/GlitchLayer";
+import { useZhihuHybrid } from "@/hooks/useZhihuHybrid";
+import { isZhihuApp } from "@/lib/zhihu-detection";
 
 const tianwangFont = localFont({
   src: "../../../public/fonts/tianwangxingxiangsu.ttf",
   variable: "--font-tianwang",
   display: "swap",
 });
+interface ZhihuHybridAction {
+  dispatch(params: Record<string, unknown>): Promise<unknown>;
+}
 
-// export const metadata: Metadata = {
-//   title: '知乎｜2025，我真的 XX 了？',
-//   description: '别笑，我猜你也猜不到哪个是真的我 >>',
-//   openGraph: {
-//     title: '知乎｜2025，我真的 XX 了？',
-//     description: '别笑，我猜你也猜不到哪个是真的我 >>',
-//     images: [
-//       {
-//         url:   process.env.NEXT_PUBLIC_CDN_BASE_URL +
-//             'assets/share-head-img-1221.png',
-//         width: 500,
-//         height: 500,
-//         alt: '别笑，我猜你也猜不到哪个是真的我 >>',
-//       },
-//     ],
-//   },
-// };
+interface ZhihuHybridNewAPI {
+  (action: string): ZhihuHybridAction;
+}
 
 function GuessPageScene() {
   const { assets } = useAssets();
@@ -50,6 +41,7 @@ function GuessPageScene() {
   const searchParams = useSearchParams();
   const pollId = searchParams.get("pollId");
   const { trackPageShow } = useZA();
+    const { isAvailable: isHybridAvailable } = useZhihuHybrid();
 
   const [voteInfo, setVoteInfo] = useState<
     | (VoteInfoResponse & {
@@ -60,6 +52,60 @@ function GuessPageScene() {
     | undefined
   >();
   
+  useEffect(() => {
+    if (!isHybridAvailable) return
+    if (isZhihuApp() && isHybridAvailable && window.zhihuHybrid) {
+      const redirectUrl = `${process.env.NEXT_PUBLIC_BASE_SHARE_URL}/2025guess/?pollId=${pollId}`;
+      const shareHeadImg = process.env.NEXT_PUBLIC_CDN_BASE_URL + 'assets/share-head-img-1221.png'
+      try {
+        const setShareInfoAction = (window.zhihuHybrid as ZhihuHybridNewAPI)(
+          "share/setShareInfo"
+        );
+
+        setShareInfoAction.dispatch({
+          zhihuMessage: {
+            content: '知乎｜2025，我真的 XX 了？' + redirectUrl,
+            link: redirectUrl,
+          },
+          wechatTimeline: {
+            title: '知乎｜2025，我真的 XX 了？',
+            link: redirectUrl,
+            imgUrl: shareHeadImg,
+          },
+          wechatMessage: {
+            title: '知乎｜2025，我真的 XX 了？',
+            desc: '别笑，我猜你也猜不到哪个是真的我 >>',
+            link: redirectUrl,
+            imgUrl: shareHeadImg,
+          },
+          QQ: {
+            url: redirectUrl,
+            title: '知乎｜2025，我真的 XX 了？',
+            content: '别笑，我猜你也猜不到哪个是真的我 >>',
+            imageURL: shareHeadImg,
+          },
+          weibo: {
+            url: redirectUrl,
+            title: '知乎｜2025，我真的 XX 了？',
+            content: '别笑，我猜你也猜不到哪个是真的我 >>',
+            imageURL: shareHeadImg,
+          },
+          copyLink: {
+            content: redirectUrl,
+          },
+          Qzone: {
+            url: redirectUrl,
+            title: '知乎｜2025，我真的 XX 了？',
+            content: '别笑，我猜你也猜不到哪个是真的我 >>',
+            imageURL: shareHeadImg,
+          }
+        }); 
+      } catch (error) {
+        console.error('Failed to share via zhihuHybrid:', error);
+      }
+    }
+  }, [isHybridAvailable])
+
   useEffect(() => {
     trackPageShow({ page: { page_id: '60865' } });
   }, []);
@@ -328,48 +374,56 @@ function GuessPageScene() {
           ))}
         </div>
         {!voteInfo?.isVoted && voteInfo?.is_owner !== 1 && (
-          <button
-            className="absolute left-1/2 -translate-x-1/2  z-60  rounded-full text-white text-lg"
-            style={{
-              width: 164,
-              bottom: 82,
-              height: 32,
-              background: selectedOptionId ? "#5cc0f9" : "#adadad",
-              border: "1px solid #000",
-            }}
-            disabled={!selectedOptionId}
-            onClick={onSubmit}
-          >
-            确认选择
-          </button>
+          <div className="absolute flex justify-center z-60" style={{ bottom: 82, left: 0, right: 0 }}>
+             <button
+              className="rounded-full text-white text-lg"
+              style={{
+                width: 164,
+                height: 32,
+                background: selectedOptionId ? "#5cc0f9" : "#adadad",
+                border: "1px solid #000",
+              }}
+              disabled={!selectedOptionId}
+              onClick={onSubmit}
+            >
+              确认选择
+            </button>
+          </div>
         )}
         {voteInfo?.isVoted && voteInfo?.is_owner !== 1 && (() => {
           const chooseAsset = voteInfo?.isVoteCorrect 
             ? guessAssets.chooseSame 
             : guessAssets.chooseDifferent;
           return chooseAsset ? (
-            <Image
-              className="absolute left-1/2 -translate-x-1/2  z-60"
-              width={296}
-              height={21}
-              style={{ bottom: 90 }}
-              src={chooseAsset.url}
-              alt={chooseAsset.alt}
-            />
+            <div
+              className="absolute flex justify-center z-60"
+              style={{ bottom: 90, left: 0, right: 0 }}
+            >
+              <Image
+                width={296}
+                height={21}
+                src={chooseAsset.url}
+                alt={chooseAsset.alt}
+              />
+            </div>
           ) : null;
         })()}
 
-        <div>
+        <div
+          className="absolute flex justify-center"
+          style={{
+            bottom: 60,
+            left: 0,
+            right: 0,
+          }}
+        >
           {(() => {
             const goAsset = voteInfo?.is_owner === 1 ? guessAssets.goAgain : guessAssets.go;
             return goAsset ? (
               <Image
                 src={goAsset.url}
                 alt={goAsset.alt}
-                className="absolute left-1/2 -translate-x-1/2 "
-                style={{
-                  bottom: 60,
-                }}
+               
                 width={200}
                 height={15}
                 onClick={() => {

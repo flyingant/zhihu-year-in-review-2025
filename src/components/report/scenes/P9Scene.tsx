@@ -263,8 +263,11 @@ export default function P9Scene({
             maskImage: `url("${middleAsset.url}")`,
             WebkitMaskImage: `url("${middleAsset.url}")`,
             maskSize: 'auto 100%',
+            WebkitMaskSize: 'auto 100%',
             maskRepeat: 'no-repeat',
+            WebkitMaskRepeat: 'no-repeat',
             maskPosition: `${maskPosition + 110}px center`,
+            WebkitMaskPosition: `${maskPosition + 110}px center`,
             maskMode: 'alpha',
           }}
         >

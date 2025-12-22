@@ -26,6 +26,7 @@ export default function IntroductionScene({
   const [isAgreed, setIsAgreed] = useState(false);
   const [isAgreementDialogOpen, setIsAgreementDialogOpen] = useState(false);
   const videoRef = useRef<HTMLVideoElement>(null);
+  const [gifSrc, setGifSrc] = useState('');
 
   const { trackPageShowWithUrl } = useZA();
 
@@ -33,95 +34,24 @@ export default function IntroductionScene({
     trackPageShowWithUrl({ page: { page_id: '60864' } }, 'https://event.zhihu.com/2025/index/');
   }, []);
 
-  // Compute video source based on current step
-  const videoSrc = assets?.report?.intro
-    ? currentStep === 'step1'
-      ? assets.report.intro.step1.url
-      : currentStep === 'step2'
-      ? assets.report.intro.step2.url
-      : assets.report.intro.step3.url
-    : '';
-
-  // Preload step2 and step3 videos
   useEffect(() => {
     if (!assets?.report?.intro) return;
-
-    // Preload step2 video
-    const step2Video = document.createElement('video');
-    step2Video.src = assets.report.intro.step2.url;
-    step2Video.preload = 'auto';
-    step2Video.load();
-
-    // Preload step3 video
-    const step3Video = document.createElement('video');
-    step3Video.src = assets.report.intro.step3.url;
-    step3Video.preload = 'auto';
-    step3Video.load();
-
-    return () => {
-      step2Video.src = '';
-      step3Video.src = '';
-    };
-  }, [assets?.report?.intro]);
-
-  useEffect(() => {
-    if (window.WeixinJSBridge) {
-      window.WeixinJSBridge.invoke('getNetworkType', {}, function () {
-        videoRef.current?.play();
-      });
-    }
-  }, [currentStep]);
-
-  // Handle video end event
-  const handleVideoEnd = () => {
+    console.log('currentStep: ', currentStep)
     if (currentStep === 'step1') {
-      // Video 1 ended, automatically start step2 and loop it
-      if (!assets?.report?.intro || !videoRef.current) return;
-
-      const video = videoRef.current;
-
-      // Wait for video to be ready before switching to avoid blink
-      const handleCanPlayThrough = () => {
-        video.removeEventListener('canplaythrough', handleCanPlayThrough);
-        setCurrentStep('step2');
-        video.loop = true; // Enable looping for step2
-        video.muted = false; // Enable sound for step2
-        video.play().catch((error) => {
-          console.error('Error playing video 2:', error);
-        });
-      };
-
-      video.pause();
-      video.currentTime = 0;
-
-      const source = video.querySelector('source');
-      if (source) {
-        source.src = assets.report.intro.step2.url;
-      }
-
-      video.load();
-
-      // Wait for video to be ready before switching
-      if (video.readyState >= 3) {
-        // Video is already ready (canplaythrough)
-        handleCanPlayThrough();
-      } else {
-        video.addEventListener('canplaythrough', handleCanPlayThrough, {
-          once: true,
-        });
-      }
-    } else if (currentStep === 'step2') {
-      // step2 is looping, so this shouldn't normally fire, but if it does, just replay
-      // The loop attribute should handle this automatically
+      // eslint-disable-next-line react-hooks/set-state-in-effect
+      setGifSrc(assets.report.intro.step1.url)
+      setTimeout(() => {
+        setGifSrc(assets.report.intro.step2.url) 
+        setCurrentStep('step2')
+      }, 1270)
     } else if (currentStep === 'step3') {
-      // After step3, go to next page
-      onNext();
+       setGifSrc(assets.report.intro.step3.url)
     }
-  };
+  }, [currentStep, assets])
 
   // Play step3 video when button is clicked (stops step2 loop)
   const handleButtonClick = () => {
-    if (!assets?.report?.intro || !videoRef.current || currentStep !== 'step2')
+    if (!assets?.report?.intro || currentStep !== 'step2')
       return;
 
     // If not agreed, open the dialog instead
@@ -129,65 +59,11 @@ export default function IntroductionScene({
       setIsAgreementDialogOpen(true);
       return;
     }
-
-    const video = videoRef.current;
-
-    // Wait for video to be ready before switching to avoid blink
-    const handleCanPlayThrough = () => {
-      video.removeEventListener('canplaythrough', handleCanPlayThrough);
-      setCurrentStep('step3');
-      video.loop = false; // Disable looping for step3
-      video.muted = false; // Keep sound enabled for step3
-      video.play().catch((error) => {
-        console.error('Error playing video 3:', error);
-      });
-    };
-
-    video.pause();
-    video.currentTime = 0;
-
-    // Update source
-    const source = video.querySelector('source');
-    if (source) {
-      source.src = assets.report.intro.step3.url;
-    }
-
-    // Load and wait for video to be ready
-    video.load();
-
-    // Wait for video to be ready before switching
-    if (video.readyState >= 3) {
-      // Video is already ready (canplaythrough)
-      handleCanPlayThrough();
-    } else {
-      video.addEventListener('canplaythrough', handleCanPlayThrough, {
-        once: true,
-      });
-    }
+    setCurrentStep('step3');
+    setTimeout(() => {
+      onNext()
+    }, 1270)
   };
-
-  // Auto-play step1 video when component mounts
-  useEffect(() => {
-    const video = videoRef.current;
-    if (!video || !assets?.report?.intro) return;
-
-    const handleLoadedData = () => {
-      video.play().catch((error) => {
-        console.error('Error playing video 1:', error);
-      });
-    };
-
-    // If video is already loaded, play immediately
-    if (video.readyState >= 2) {
-      handleLoadedData();
-    } else {
-      video.addEventListener('loadeddata', handleLoadedData);
-    }
-
-    return () => {
-      video.removeEventListener('loadeddata', handleLoadedData);
-    };
-  }, [assets?.report?.intro]);
 
   if (!assets) return null;
 
@@ -305,29 +181,8 @@ export default function IntroductionScene({
       </div>
       <div className='relative w-full h-full overflow-hidden bg-transparent'>
         {/* Single video element that plays all videos step by step */}
-        {assets?.report?.intro && (
-          <video
-            ref={videoRef}
-            className='absolute inset-0 w-full h-full object-cover z-10'
-            playsInline
-            autoPlay
-            muted={currentStep === 'step1'}
-            loop={currentStep === 'step2'}
-            preload='auto'
-            onLoadedData={() => {
-              // Ensure video plays when loaded
-              if (videoRef.current && currentStep === 'step1') {
-                videoRef.current.play().catch((error) => {
-                  console.error('Error playing video on load:', error);
-                });
-              }
-            }}
-            onEnded={handleVideoEnd}
-            style={{ background: 'transparent' }}
-          >
-            <source src={videoSrc} type='video/mp4' />
-            Your browser does not support the video tag.
-          </video>
+        {gifSrc && (
+          <img src={gifSrc} alt="" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
         )}
 
         {/* Button to proceed to step3 (only show during step2 loop) */}

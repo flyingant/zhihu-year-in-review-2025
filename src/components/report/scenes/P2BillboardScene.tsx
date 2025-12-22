@@ -152,7 +152,7 @@ export default function P2BillboardScene({
             style={{ paddingTop: '60px', paddingBottom: '2px' }}
             hidden={!billboardCount}
           >
-            <span className='text-r-pink' style={{ fontSize: '18px' }}>
+            <span className='text-r-pink' style={{ fontSize: '24px' }}>
               {billboardCount}
             </span>{' '}
             个提问登上了热榜
@@ -168,7 +168,7 @@ export default function P2BillboardScene({
             <span className='text-r-fern' style={{ fontSize: '20px' }}>
               {billboardQuestionTitle}
             </span>{' '}
-            在热榜被更多人看见
+            <span style={{ fontSize: '16px' }}>在热榜被更多人看见</span>
           </div>
         </div>
         <div

@@ -120,7 +120,7 @@ export default function P3Scene({
           width={mix4Asset.width}
           height={mix4Asset.height}
           className='object-contain absolute pointer-events-none select-none z-1'
-          style={{ top: '420px', left: '0px' }}
+          style={{ top: '480px', left: '0px' }}
         />
         <Image
           src={blue1Asset.url}
@@ -201,7 +201,7 @@ export default function P3Scene({
           >
             {articleCount}
           </span>
-          <span hidden={!articleCount}> 篇文章。</span>
+          <span hidden={!articleCount}> 篇文章</span>
           <div hidden={!answerCount}>给这个世界一些答案</div>
         </div>
 
@@ -217,7 +217,9 @@ export default function P3Scene({
           >
             {topDomain1}
           </span>
-          <span hidden={!topDomain1 || !topDomain2}>、</span>
+          <span className={`text-r-blue`} hidden={!topDomain1 || !topDomain2}>
+            、
+          </span>
           <span
             hidden={!topDomain2}
             className={`text-r-blue`}
@@ -241,7 +243,7 @@ export default function P3Scene({
           >
             {topDomain3}
           </span>
-          是你耕耘最深的方向。
+          是你耕耘最深的方向
         </div>
 
         {/* 第一条回答 */}

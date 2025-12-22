@@ -115,12 +115,12 @@ export default function P7Scene({
           </div>
 
           <div className='text-center'>
-            <div className='text-center'>你的内容收获了</div>
+            <div className='text-center'>这一年，你的内容收获了</div>
             <div hidden={!readCount}>
               <span
                 className='text-r-pink'
                 style={{
-                  fontSize: '18px',
+                  fontSize: '24px',
                   paddingLeft: '6px',
                   paddingRight: '6px',
                 }}
@@ -132,7 +132,7 @@ export default function P7Scene({
             <div hidden={!upvoteCount}>
               <span
                 className='text-r-fern'
-                style={{ fontSize: '18px', paddingRight: '6px' }}
+                style={{ fontSize: '24px', paddingRight: '6px' }}
               >
                 {upvoteCount}
               </span>
@@ -141,7 +141,7 @@ export default function P7Scene({
             <div hidden={!collectCount}>
               <span
                 className='text-r-blue'
-                style={{ fontSize: '18px', paddingRight: '6px' }}
+                style={{ fontSize: '24px', paddingRight: '6px' }}
               >
                 {collectCount}
               </span>
@@ -150,7 +150,7 @@ export default function P7Scene({
             <div hidden={!commentCount}>
               <span
                 className='text-r-purple'
-                style={{ fontSize: '18px', paddingRight: '6px' }}
+                style={{ fontSize: '24px', paddingRight: '6px' }}
               >
                 {commentCount}
               </span>
@@ -159,7 +159,7 @@ export default function P7Scene({
             <div hidden={!shareCount}>
               <span
                 className='text-r-yellow'
-                style={{ fontSize: '18px', paddingRight: '6px' }}
+                style={{ fontSize: '24px', paddingRight: '6px' }}
               >
                 {shareCount}
               </span>

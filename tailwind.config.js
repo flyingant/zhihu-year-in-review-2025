@@ -140,6 +140,10 @@ module.exports = {
           '0%': { transform: 'rotate(0deg)' },
           '100%': { transform: 'rotate(-360deg)' },
         },
+        'run-across': {
+          '0%': { transform: 'translateX(-100%)' },
+          '100%': { transform: 'translateX(100vw)' },
+        },
       },
       animation: {
         marquee: 'marquee linear infinite',
@@ -166,6 +170,7 @@ module.exports = {
         '3d-pop': 'pop-in-elastic 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards',
         'orbit': 'orbit-spin 20s linear infinite',
         'counter-spin': 'counter-spin 20s linear infinite',
+        'run-across': 'run-across 3s linear infinite',
       },
     },
   },

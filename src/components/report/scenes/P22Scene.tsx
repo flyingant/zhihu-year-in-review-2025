@@ -1,5 +1,6 @@
 'use client';
 
+import { useRef, useState } from 'react';
 import { useUserReportData } from '@/context/user-report-data-context';
 import BaseScene from './BaseScene';
 import GlitchLayer from '@/components/report/effects/GlitchLayer';
@@ -21,6 +22,24 @@ export default function P22Scene({
 }: PageProps) {
   const { reportData } = useUserReportData();
   const { assets } = useAssets();
+  const gifRef = useRef<HTMLImageElement>(null);
+  const [gifKey, setGifKey] = useState(0);
+  const [isPaused, setIsPaused] = useState(false);
+
+  // Handle animation iteration to reset GIF after a 3s pause
+  const handleAnimationIteration = () => {
+    console.log(
+      'Animation iteration detected, pausing for 3s. Current key:',
+      gifKey
+    );
+    setIsPaused(true);
+
+    setTimeout(() => {
+      console.log('Resuming animation, resetting GIF');
+      setIsPaused(false);
+      setGifKey((prev) => prev + 1);
+    }, 3000);
+  };
 
   if (!assets) return null;
 
@@ -126,12 +145,19 @@ export default function P22Scene({
         />
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img
-          src={gif.url}
+          ref={gifRef}
+          key={gifKey}
+          src={`${gif.url}?t=${gifKey}`}
           alt={gif.alt}
           width={gif.width / 2}
           height={gif.height / 2}
-          className='object-contain absolute pointer-events-none select-none z-1'
-          style={{ top: '603px', left: '135px' }}
+          className='object-contain absolute pointer-events-none select-none z-1 animate-run-across'
+          style={{
+            top: '603px',
+            left: '135px',
+            animationPlayState: isPaused ? 'paused' : 'running',
+          }}
+          onAnimationIteration={handleAnimationIteration}
         />
       </div>
       {/* content */}

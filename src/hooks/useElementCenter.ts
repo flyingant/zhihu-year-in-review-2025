@@ -5,7 +5,10 @@ export const useElementCenter = (options: IntersectionOptions = { threshold: 0.5
   const [isCenter, setIsCenter] = useState(false);
 
   const manualRef = useRef<HTMLDivElement | null>(null);
-  const { ref: inViewRef, inView } = useInView(options);
+  const { ref: inViewRef, inView } =  useInView({ 
+    ...options,
+    delay: 500
+  });
 
   const setRefs = useCallback(
     (node: HTMLDivElement | null) => {

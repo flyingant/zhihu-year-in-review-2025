@@ -100,20 +100,24 @@ export default function P27Scene({ onNext, onPrevious, sceneName }: PageProps) {
         </div>
 
         <img src={gifSrc} alt='spining' style={{ width: '100%', height: '100%', objectFit: 'cover', visibility: showEndFrame ? 'hidden' : 'visible', zIndex: showEndFrame ? -99 : 1 }} />
-        <Image
-          src={topSpiningStopEndAsset.url}
-          alt={topSpiningStopEndAsset.alt}
-          width={topSpiningStopEndAsset.width}
-          height={topSpiningStopEndAsset.height}
-          style={{
-            width: '100%',
-            height: '100%',
-            visibility: showEndFrame ? 'visible' : 'hidden',
-            zIndex: showEndFrame ? 1 : -99,
-            objectFit: 'cover',
-            transform: 'translateY(-100%)'
-          }}
-        />
+        {
+          topSpiningStopEndAsset && (
+            <Image
+              src={topSpiningStopEndAsset.url}
+              alt={topSpiningStopEndAsset.alt}
+              width={topSpiningStopEndAsset.width}
+              height={topSpiningStopEndAsset.height}
+              style={{
+                width: '100%',
+                height: '100%',
+                visibility: showEndFrame ? 'visible' : 'hidden',
+                zIndex: showEndFrame ? 1 : -99,
+                objectFit: 'cover',
+                transform: 'translateY(-100%)'
+              }}
+            />
+          )
+        }
         
         {/* Fixed position buttons at the bottom - always on top of video */}
         <div className='absolute bottom-0 left-0 right-0 z-[200] flex items-center justify-center px-4 pb-4'>

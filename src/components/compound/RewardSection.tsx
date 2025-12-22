@@ -549,7 +549,7 @@ const RewardSection = ({ onShowAddressForm }: RewardSectionProps = {}) => {
             <div className="flex justify-between w-full gap-4">
               <button
                 onClick={handleCancelRedeem}
-                className="flex-1 h-[40px] rounded-full bg-[#F2F2F2] text-gray text-[15px] font-medium active:scale-95 transition-transform"
+                className="flex-1 h-[40px] rounded-full bg-[#F2F2F2] text-gray-400 text-[15px] font-medium active:scale-95 transition-transform"
               >
                 取消
               </button>

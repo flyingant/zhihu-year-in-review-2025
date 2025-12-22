@@ -14,7 +14,7 @@ export const metadata: Metadata = {
   description: '回顾这一年，我真的____？点击加载真实 >>',
   openGraph: {
     title: '知乎｜2025 个人年度报告',
-    description: '2025，到底什么是真的？',
+    description: '回顾这一年，我真的____？点击加载真实 >>',
     images: [
       {
         url:   process.env.NEXT_PUBLIC_CDN_BASE_URL +

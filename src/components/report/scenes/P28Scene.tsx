@@ -245,7 +245,7 @@ export default function P28Scene({ onNext, sceneName }: PageProps) {
           <div></div>
           <div className='text-white'>
             <div className='text-right'>没有你想要的答案？</div>
-            <div className='text-right'>自定义（1~2 字）：</div>
+            <div className='text-right'>自定义（1~2个文字）：</div>
           </div>
           {flagEmptyAsset && (
             <Image
@@ -272,7 +272,7 @@ export default function P28Scene({ onNext, sceneName }: PageProps) {
               setInputValue(e.target.value);
             }}
             onBlur={(e) => {
-              setInputValue(e.target.value.trim().slice(0, 2));
+              setInputValue(e.target.value.trim());
               setSelectedFlag(null);
             }}
           />

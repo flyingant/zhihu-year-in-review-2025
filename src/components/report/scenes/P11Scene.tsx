@@ -123,6 +123,7 @@ export default function P11Scene({
             height={folderAsset.height}
             className='object-contain'
             style={{ marginBottom: '10px' }}
+            priority
           />
           <div
             hidden={topCategories[0] === ''}
@@ -190,6 +191,7 @@ export default function P11Scene({
                 width={fileFold.width}
                 height={fileFold.height}
                 className='object-contain'
+                priority
               />
             </motion.div>
 
@@ -206,6 +208,7 @@ export default function P11Scene({
                 width={fileOpenBack.width}
                 height={fileOpenBack.height}
                 className='object-contain'
+                priority
               />
             </motion.div>
 
@@ -226,6 +229,7 @@ export default function P11Scene({
                 width={fileLiukanshan.width}
                 height={fileLiukanshan.height}
                 className='object-contain'
+                priority
               />
             </motion.div>
 
@@ -242,6 +246,7 @@ export default function P11Scene({
                 width={fileOpenFront.width}
                 height={fileOpenFront.height}
                 className='object-contain'
+                priority
               />
             </motion.div>
           </div>
@@ -280,6 +285,7 @@ export default function P11Scene({
               width={crownAsset.width}
               height={crownAsset.height}
               className='object-contain'
+              priority
             />
             <span
               className='text-r-fern'
@@ -306,6 +312,7 @@ export default function P11Scene({
             width={tableAsset.width}
             height={tableAsset.height}
             className='object-contain z-10'
+            priority
           />
           <div
             className='absolute bg-white'
@@ -392,6 +399,7 @@ export default function P11Scene({
             height={greenAsset.height}
             className='object-contain absolute z-10'
             style={{ left: '50px', bottom: '53px' }}
+            priority
           />
           <Image
             src={yellowAsset.url}
@@ -400,6 +408,7 @@ export default function P11Scene({
             height={yellowAsset.height}
             className='object-contain absolute z-10'
             style={{ top: '33px', right: '50px' }}
+            priority
           />
         </div>
       )}

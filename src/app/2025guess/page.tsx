@@ -26,6 +26,24 @@ const tianwangFont = localFont({
   display: "swap",
 });
 
+// export const metadata: Metadata = {
+//   title: '知乎｜2025，我真的 XX 了？',
+//   description: '别笑，我猜你也猜不到哪个是真的我 >>',
+//   openGraph: {
+//     title: '知乎｜2025，我真的 XX 了？',
+//     description: '别笑，我猜你也猜不到哪个是真的我 >>',
+//     images: [
+//       {
+//         url:   process.env.NEXT_PUBLIC_CDN_BASE_URL +
+//             'assets/share-head-img-1221.png',
+//         width: 500,
+//         height: 500,
+//         alt: '别笑，我猜你也猜不到哪个是真的我 >>',
+//       },
+//     ],
+//   },
+// };
+
 function GuessPageScene() {
   const { assets } = useAssets();
   const [selectedOptionId, setSelectedOptionId] = useState<string | null>(null);

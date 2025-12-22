@@ -21,13 +21,6 @@ export default function ReportPage() {
     };
     if (window.location.href.includes("debugger")) {
       setupVConsole();
-      const testImage = new Image();
-      testImage.src =
-        "https://static.zhihu.com/event/zhihu2025/assets/sidebar_liukanshan.png?v=v1.0.12.2200"
-      testImage.crossOrigin = "anonymous";
-      testImage.onload = () => {
-        console.log("测试图片加载成功");
-      };
     }
   }, []);
   return (

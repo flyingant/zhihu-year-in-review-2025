@@ -422,7 +422,7 @@ const RewardSection = ({ onShowAddressForm }: RewardSectionProps = {}) => {
               </div>
 
               <div
-                className="text-xs text-gray cursor-pointer hover:opacity-80 active:opacity-60 transition-opacity"
+                className="text-xs text-gray-400 cursor-pointer hover:opacity-80 active:opacity-60 transition-opacity"
                 onClick={handleGoToPointDetails}
               >
                 积分明细
@@ -432,8 +432,8 @@ const RewardSection = ({ onShowAddressForm }: RewardSectionProps = {}) => {
             <div className="bg-white rounded-[8px] flex flex-col items-center justify-center min-h-[45px]">
               {currentPoint !== undefined ? (
                 <>
-                  <div className="text-xl font-black">{currentPoint}</div>
-                  <div className="text-xs">将于 {formatEndTime} 过期</div>
+                  <div className="text-xl text-blue-500">{currentPoint}</div>
+                  <div className="text-xs text-gray-400">将于 {formatEndTime} 过期</div>
                 </>
               ) : (
                 <span className="text-gray-400 text-sm">活动未开始</span>
@@ -540,10 +540,10 @@ const RewardSection = ({ onShowAddressForm }: RewardSectionProps = {}) => {
               <span className="font-black mx-1">{selectedReward.right_point}</span>
               {selectedReward.right_point_name}
               <br />
-              兑换 「 <span className="text-blue">{selectedReward.right_name}</span> 」
+              兑换 「 <span className="text-blue-500">{selectedReward.right_name}</span> 」
             </div>
             <div
-              className="text-[13px] text-gray w-full leading-relaxed mb-6 max-h-[200px] overflow-y-auto"
+              className="text-[13px] text-gray-400 w-full leading-relaxed mb-6 max-h-[200px] overflow-y-auto"
               dangerouslySetInnerHTML={{ __html: selectedReward.right_desc || '' }}
             />
             <div className="flex justify-between w-full gap-4">

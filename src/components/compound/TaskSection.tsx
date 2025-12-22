@@ -316,7 +316,7 @@ const TaskSection = () => {
                 <div className="mb-3 flex items-start justify-between gap-2">
                   <div className="flex-1">
                     <div className="text-base font-bold text-black">{group.title}</div>
-                    <div className="text-xs text-gray">{group.desc}</div>
+                    <div className="text-xs text-gray-400">{group.desc}</div>
                   </div>
                   <button
                     onClick={handleRefresh}
@@ -364,7 +364,7 @@ const TaskSection = () => {
                             </span>
                           </span>
                         </div>
-                        <div className="text-xs text-gray">{task.desc}</div>
+                        <div className="text-xs text-gray-400">{task.desc}</div>
                       </div>
                       <div className="flex flex-col items-center gap-1 min-w-[70px]">
                         <span className="text-xs font-bold text-blue">+{task.finish_point} 积分</span>

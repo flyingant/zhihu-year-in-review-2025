@@ -271,6 +271,7 @@ export default function P29Scene({ onNext, sceneName }: PageProps) {
       // 在知乎 App 内，使用 zhihuHybrid SDK 分享
       if (isHybridAvailable && window.zhihuHybrid) {
         try {
+          const link =  process.env.NEXT_PUBLIC_BASE_SHARE_URL +  '/2025/'
           const shareHeadImg =
             process.env.NEXT_PUBLIC_CDN_BASE_URL +
             'assets/share-head-img-1221.png';
@@ -280,36 +281,38 @@ export default function P29Scene({ onNext, sceneName }: PageProps) {
 
           await setShareInfoAction.dispatch({
             zhihuMessage: {
-              content: '知乎｜2025 个人年度报告 ' + summaryPoster.poster_url,
-              link: summaryPoster.poster_url,
+              content: '知乎｜2025 个人年度报告 \n 这一年，我真的____？\n 2025 我的「真实源文件」加载中 >> 快来查看吧 \n' + link,
+              link,
             },
             wechatTimeline: {
               title: '知乎｜2025 个人年度报告',
-              link: summaryPoster.poster_url,
+              link: link,
               imgUrl: shareHeadImg,
             },
             wechatMessage: {
               title: '知乎｜2025 个人年度报告',
               desc: '回顾这一年，我真的____？点击加载真实 >>',
-              link: summaryPoster.poster_url,
+              link: link,
               imgUrl: shareHeadImg,
             },
             QQ: {
-              url: summaryPoster.poster_url,
+              url: link,
               title: '知乎｜2025 个人年度报告',
               content: '回顾这一年，我真的____？点击加载真实 >>',
               imageURL: shareHeadImg,
             },
             weibo: {
-              url: summaryPoster.poster_url,
+              url: link,
               title: '知乎｜2025 个人年度报告',
               content: '回顾这一年，我真的____？点击加载真实 >>',
               imageURL: shareHeadImg,
             },
-            // PosterShare: {
-            //   imageURL: summaryPoster.poster_url,
-            //   pinContent: JSON.stringify(`<p>知乎｜2025 个人年度报告</p>`),
-            // },
+            Qzone: {
+              url: link,
+              title: '知乎｜2025 个人年度报告',
+              content: '回顾这一年，我真的____？点击加载真实 >>',
+              imageURL: shareHeadImg,
+            }
           });
 
           const showActionSheetAction = (

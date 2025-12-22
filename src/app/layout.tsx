@@ -10,8 +10,11 @@ import ZhihuHybridScript from '@/components/layout/ZhihuHybridScript';
 import './globals.css';
           
 export const metadata: Metadata = {
-  title: '知乎｜2025 个人年度报告',
+  title: '知乎 2025 个人年度报告',
   description: '回顾这一年，我真的____？点击加载真实 >>',
+  icons: {
+    icon: process.env.NEXT_PUBLIC_CDN_BASE_URL + 'assets/share-head-img-1221.png'
+  },
   openGraph: {
     title: '知乎｜2025 个人年度报告',
     description: '回顾这一年，我真的____？点击加载真实 >>',

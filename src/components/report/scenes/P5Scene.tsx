@@ -45,7 +45,7 @@ export default function P5Scene({
   );
   const hotCommentLikes = reportData?.hot_comment_uv ?? 0;
   const pinCount = reportData?.publish_pin_cnt ?? null;
-  const hotPinTitle = truncateText(reportData?.hot_pin_title ?? '', 12);
+  const hotPinTitle = truncateText(reportData?.hot_pin_title ?? '');
   const hotPinLikes = reportData?.hot_pin_uv ?? 0;
   const emojiName = reportData?.emoji_name ?? '';
   const emojiCount = reportData?.emoji_cnt ?? null;
@@ -161,6 +161,7 @@ export default function P5Scene({
           paddingRight: '34px',
           paddingTop: '100px',
           fontSize: '16px',
+          lineHeight: '32px',
         }}
       >
         <div style={{ fontSize: '22px', marginBottom: '46px' }}>
@@ -184,8 +185,6 @@ export default function P5Scene({
           {/* 最热评论 */}
           <div
             style={{
-              marginTop: '10px',
-              marginBottom: '30px',
               lineHeight: '32px',
             }}
             hidden={!hotCommentContent || hotCommentLikes < 1}
@@ -236,7 +235,7 @@ export default function P5Scene({
           </span>
           条想法
           <div
-            style={{ marginTop: '10px', lineHeight: '32px' }}
+            style={{ lineHeight: '32px' }}
             hidden={!hotPinTitle || hotPinLikes < 1}
           >
             其中
@@ -285,7 +284,7 @@ export default function P5Scene({
               style={{
                 paddingLeft: '6px',
                 paddingRight: '6px',
-                fontSize: '18px',
+                fontSize: '24px',
               }}
             >
               {emojiCount}

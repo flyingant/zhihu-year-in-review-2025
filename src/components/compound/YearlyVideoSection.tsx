@@ -23,7 +23,7 @@ const YearlyVideoSection = () => {
   const videoId = assets?.urls?.yearlyVideoID || '';
   const { userData, lightUpMomentAndRefresh } = useUserData();
   const playerContainerRef = useRef<HTMLDivElement>(null);
-  const { trackShow, trackEvent } = useZA();
+  const { trackShow, trackEvent, trackPlayer } = useZA();
   const playIdentifierRef = useRef<string>("");
   const hasTrackedRef = useRef(false);
   const { isAvailable: isHybridAvailable, openURL } = useZhihuHybrid();
@@ -70,7 +70,7 @@ const YearlyVideoSection = () => {
   }, [videoDetails, videoUrl, coverImage]);
 
   useEffect(() => {
-    if (inView && videoId && !hasTrackedRef.current) {
+    if (inView && videoDetails && videoId && !hasTrackedRef.current) {
       const durationMs = (videoDetails?.video?.duration || 0) * 1000;
 
       trackShow({
@@ -210,7 +210,7 @@ const YearlyVideoSection = () => {
       if (videoElement) {
         const handlePlay = () => {
           lightUpMomentAndRefresh('annual_video');
-          trackEvent('Play', {
+          trackPlayer('Play', {
             moduleId: 'annual_video_2025',
             type: 'Button',
             content: {
@@ -235,7 +235,7 @@ const YearlyVideoSection = () => {
           }
         };
         const handlePause = () => {
-          trackEvent('Pause', {
+          trackPlayer('Pause', {
             moduleId: 'annual_video_2025',
             type: 'Button',
             content: {

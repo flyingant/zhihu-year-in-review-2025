@@ -91,6 +91,16 @@ export const useZA = () => {
     }
   };
 
+  const trackPageShowWithUrl = (location?: ZAElementLocation, url?: string) => {
+    if (clientRef.current) {
+      clientRef.current.trackPageShow({
+        url,
+        elementLocation: location
+      });
+    }
+  };
+
+
   // --- 2. 页面消失 ---
   const trackPageDisappear = (location?: ZAElementLocation) => {
     if (clientRef.current) {
@@ -125,11 +135,26 @@ export const useZA = () => {
     console.log(`ZA: Event(${action} ${eventType})`, payload);
   };
 
+  // 视频有专属的
+  const trackPlayer = (action: string, location: ZAElementLocation, extra?: Record<string, any>) => {
+    if (!clientRef.current) return;
+    const payload = { ...location, type: location.type || 'Button' };
+
+    clientRef.current.trackPlayer({
+      action: !action ? null : action,
+      elementLocation: payload,
+      event_type: 'Click'
+    }, extra);
+    console.log(`ZA: Player(${action})`, payload);
+  };
+
   return {
     isReady,
     trackPageShow,
+    trackPageShowWithUrl,
     trackPageDisappear,
     trackShow,
+    trackPlayer,
     trackEvent,
   };
 };

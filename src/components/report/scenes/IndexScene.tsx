@@ -232,7 +232,7 @@ export default function IndexScene({ onNext, sceneName }: IndexSceneProps) {
       setShowAnimatedGif(false);
       setShowGif(false);
       onNext?.();
-    }, 3000);
+    }, 0);
   };
 
   // Handle ZhiLink URL opening - use hybrid if in app, otherwise open in new tab
@@ -574,7 +574,7 @@ export default function IndexScene({ onNext, sceneName }: IndexSceneProps) {
                   priority
                 />
               )}
-              {(() => {
+              {/* {(() => {
                 const gifAsset = getGifAsset();
                 const firstFrame = getGifFirstFrame();
                 if (!gifAsset || !showGif) return null;
@@ -617,7 +617,7 @@ export default function IndexScene({ onNext, sceneName }: IndexSceneProps) {
                     )}
                   </motion.div>
                 );
-              })()}
+              })()} */}
 
               <div
                 className='absolute flex items-center justify-center'

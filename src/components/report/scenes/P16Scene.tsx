@@ -29,12 +29,21 @@ export default function P16Scene({
   const consumeInterestMemberTokenTop3 =
     reportData?.consume_interest_member_token_top3 as string | undefined;
 
-  const { isFollowed: isTop1Followed, toggleFollow: toggleFollowTop1,  isLoading: isTop1Loading,} =
-    useFollow(consumeInterestMemberTokenTop1);
-  const { isFollowed: isTop2Followed, toggleFollow: toggleFollowTop2, isLoading: isTop2Loading } =
-    useFollow(consumeInterestMemberTokenTop2);
-  const { isFollowed: isTop3Followed, toggleFollow: toggleFollowTop3, isLoading: isTop3Loading,} =
-    useFollow(consumeInterestMemberTokenTop3);
+  const {
+    isFollowed: isTop1Followed,
+    toggleFollow: toggleFollowTop1,
+    isLoading: isTop1Loading,
+  } = useFollow(consumeInterestMemberTokenTop1);
+  const {
+    isFollowed: isTop2Followed,
+    toggleFollow: toggleFollowTop2,
+    isLoading: isTop2Loading,
+  } = useFollow(consumeInterestMemberTokenTop2);
+  const {
+    isFollowed: isTop3Followed,
+    toggleFollow: toggleFollowTop3,
+    isLoading: isTop3Loading,
+  } = useFollow(consumeInterestMemberTokenTop3);
 
   if (!assets) return null;
 
@@ -153,7 +162,7 @@ export default function P16Scene({
               <span
                 className={`text-r-pink`}
                 style={{
-                  fontSize: 18,
+                  fontSize: 24,
                   paddingLeft: '6px',
                   paddingRight: '6px',
                 }}
@@ -231,11 +240,13 @@ export default function P16Scene({
           >
             @
             {String(interestMemberName1 ?? 'consume_interest_member_name_top1')}
-            {!isTop1Loading && consumeInterestMemberTokenTop1 && <ActionsButton
-              style={{ marginLeft: '7px' }}
-              type={isTop1Followed ? 'subscribed' : 'subscribe'}
-              onClick={toggleFollowTop1}
-            />}
+            {!isTop1Loading && consumeInterestMemberTokenTop1 && (
+              <ActionsButton
+                style={{ marginLeft: '7px' }}
+                type={isTop1Followed ? 'subscribed' : 'subscribe'}
+                onClick={toggleFollowTop1}
+              />
+            )}
           </span>
           <span
             className={`text-r-blue flex items-center ${
@@ -250,11 +261,13 @@ export default function P16Scene({
           >
             @
             {String(interestMemberName2 ?? 'consume_interest_member_name_top2')}
-            {!isTop2Loading && consumeInterestMemberTokenTop2 && <ActionsButton
-              style={{ marginLeft: '7px' }}
-              type={isTop2Followed ? 'subscribed' : 'subscribe'}
-              onClick={toggleFollowTop2}
-            />}
+            {!isTop2Loading && consumeInterestMemberTokenTop2 && (
+              <ActionsButton
+                style={{ marginLeft: '7px' }}
+                type={isTop2Followed ? 'subscribed' : 'subscribe'}
+                onClick={toggleFollowTop2}
+              />
+            )}
           </span>
           <span
             className={`text-r-blue flex items-center ${
@@ -269,11 +282,13 @@ export default function P16Scene({
           >
             @
             {String(interestMemberName3 ?? 'consume_interest_member_name_top3')}
-            {!isTop3Loading && consumeInterestMemberTokenTop3 && <ActionsButton
-              style={{ marginLeft: '7px' }}
-              type={isTop3Followed ? 'subscribed' : 'subscribe'}
-              onClick={toggleFollowTop3}
-            />}
+            {!isTop3Loading && consumeInterestMemberTokenTop3 && (
+              <ActionsButton
+                style={{ marginLeft: '7px' }}
+                type={isTop3Followed ? 'subscribed' : 'subscribe'}
+                onClick={toggleFollowTop3}
+              />
+            )}
           </span>
           <div>或许也能给你一丝启发</div>
         </div>

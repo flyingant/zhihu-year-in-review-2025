@@ -122,7 +122,7 @@ export default function P6Scene({
             style={{
               paddingLeft: '6px',
               paddingRight: '6px',
-              fontSize: '18px',
+              fontSize: '24px',
             }}
           >
             {totalWords}
@@ -233,7 +233,7 @@ export default function P6Scene({
               >
                 {day}
               </span>
-              日，你写下了今年最多的
+              日你写下了今年最多的
               <span
                 className={`text-r-fern`}
                 style={{

@@ -578,7 +578,7 @@ export default function AddressForm({ redeemParams, onClose }: AddressFormProps 
         <button
           onClick={handleSubmit}
           disabled={isSubmitting || isSubmittedSuccessfully || !isFormFilled || hasExistingAddress || (!fromRedeem && taskStatus !== null && taskStatus !== 2)}
-          className="w-full bg-blue text-white py-3 rounded-[30px] font-medium disabled:opacity-50 disabled:cursor-not-allowed"
+          className="w-full bg-blue-500 text-white py-3 rounded-[30px] font-medium disabled:opacity-50 disabled:cursor-not-allowed"
         >
           {isSubmitting ? "提交中..." : isSubmittedSuccessfully ? "已提交" : "确认地址"}
         </button>

@@ -139,7 +139,7 @@ export default function P13Scene({
               style={{
                 paddingLeft: '6px',
                 paddingRight: '6px',
-                fontSize: '18px',
+                fontSize: '24px',
               }}
             >
               {zhihuBrowseMostDateDuration}
@@ -183,7 +183,7 @@ export default function P13Scene({
                 style={{
                   paddingLeft: '6px',
                   paddingRight: '6px',
-                  fontSize: '18px',
+                  fontSize: '24px',
                 }}
               >
                 {consumeMostAnswerPvCnt}

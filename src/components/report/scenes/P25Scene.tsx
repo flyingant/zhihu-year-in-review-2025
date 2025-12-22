@@ -281,7 +281,7 @@ export default function P25Scene({ onNext, onPrevious, sceneName }: PageProps) {
               <span
                 className='text-r-yellow'
                 style={{
-                  fontSize: '18px',
+                  fontSize: '24px',
                   paddingLeft: '6px',
                   paddingRight: '6px',
                 }}

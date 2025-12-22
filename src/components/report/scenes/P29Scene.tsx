@@ -30,7 +30,7 @@ export default function P29Scene({ onNext, sceneName }: PageProps) {
   const { summaryPoster } = useUserReportData();
   const { assets } = useAssets();
   const [isSynced, setIsSynced] = useState(true);
-  const { trackEvent, trackPageShow } = useZA();
+  const { trackEvent, trackPageShowWithUrl } = useZA();
   const {
     downloadImage: downloadImageViaHybrid,
     isAvailable: isHybridAvailable,
@@ -39,7 +39,7 @@ export default function P29Scene({ onNext, sceneName }: PageProps) {
   const isMobile = useMobile();
 
   useEffect(() => {
-    trackPageShow({ page: { page_id: '60864' } });
+    trackPageShowWithUrl({ page: { page_id: '60864' } }, 'https://event.zhihu.com/2025/end/');
   }, []);
 
   if (!assets) return null;

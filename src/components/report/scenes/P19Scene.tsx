@@ -193,7 +193,10 @@ export default function P19Scene({
       </div>
 
       {/* content */}
-      <div className='z-0 tracking-wide' style={{ fontSize: '16px' }}>
+      <div
+        className='z-0 tracking-wide'
+        style={{ fontSize: '16px', lineHeight: '32px' }}
+      >
         {!!joinClubCount && (
           <div
             className='absolute'
@@ -216,7 +219,8 @@ export default function P19Scene({
               <div
                 hidden={!joinClubPercentage || Number(joinClubPercentage) <= 0}
               >
-                <span className='mt-5'>对同好社交的热情超过了</span>
+                明年，有更多的兴趣、智识在等着你探索
+                {/* <span className='mt-5'>对同好社交的热情超过了</span>
                 <span
                   className='text-r-green'
                   style={{
@@ -227,7 +231,7 @@ export default function P19Scene({
                 >
                   {String(joinClubPercentage ?? 'join_club_percentage')}%
                 </span>
-                的知友
+                的知友 */}
               </div>
             }
           </div>
@@ -238,12 +242,17 @@ export default function P19Scene({
               你在
               <span
                 className='text-r-purple'
-                style={{ fontSize: '16px', paddingRight: '6px' }}
+                style={{
+                  fontSize: '16px',
+                  paddingLeft: '6px',
+                  paddingRight: '6px',
+                }}
               >
                 {truncateText(
                   String(consumeMostClubName ?? 'consume_most_club_name')
                 )}
               </span>
+              圈
               <br />
               停留最久，驻足
               <span

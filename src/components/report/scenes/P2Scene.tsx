@@ -128,6 +128,7 @@ export default function P2Scene({
           paddingRight: '34px',
           paddingTop: '100px',
           fontSize: '16px',
+          lineHeight: '32px',
         }}
       >
         <div style={{ fontSize: '22px' }}>你的好奇，擦亮了世界的雾面</div>
@@ -153,7 +154,7 @@ export default function P2Scene({
         <div hidden={!answerCount}>
           <span
             className={`text-r-fern`}
-            style={{ paddingRight: '6px', fontSize: '18px' }}
+            style={{ paddingRight: '6px', fontSize: '24px' }}
           >
             {answerCount}
           </span>
@@ -165,7 +166,7 @@ export default function P2Scene({
           style={{ paddingTop: '30px' }}
           hidden={!domainCount}
         >
-          <p style={{ paddingBottom: '12px' }}>
+          <p>
             你的好奇伸向
             <span
               className={`text-r-blue font-bold`}

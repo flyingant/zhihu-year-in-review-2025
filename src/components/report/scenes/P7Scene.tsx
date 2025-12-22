@@ -115,12 +115,12 @@ export default function P7Scene({
           </div>
 
           <div className='text-center'>
-            <div className='text-center'>你的内容收获了</div>
+            <div className='text-center'>这一年，你的内容收获了</div>
             <div hidden={!readCount}>
               <span
                 className='text-r-pink'
                 style={{
-                  fontSize: '18px',
+                  fontSize: '24px',
                   paddingLeft: '6px',
                   paddingRight: '6px',
                 }}
@@ -132,7 +132,7 @@ export default function P7Scene({
             <div hidden={!upvoteCount}>
               <span
                 className='text-r-fern'
-                style={{ fontSize: '18px', paddingRight: '6px' }}
+                style={{ fontSize: '24px', paddingRight: '6px' }}
               >
                 {upvoteCount}
               </span>
@@ -141,7 +141,7 @@ export default function P7Scene({
             <div hidden={!collectCount}>
               <span
                 className='text-r-blue'
-                style={{ fontSize: '18px', paddingRight: '6px' }}
+                style={{ fontSize: '24px', paddingRight: '6px' }}
               >
                 {collectCount}
               </span>
@@ -150,7 +150,7 @@ export default function P7Scene({
             <div hidden={!commentCount}>
               <span
                 className='text-r-purple'
-                style={{ fontSize: '18px', paddingRight: '6px' }}
+                style={{ fontSize: '24px', paddingRight: '6px' }}
               >
                 {commentCount}
               </span>
@@ -159,7 +159,7 @@ export default function P7Scene({
             <div hidden={!shareCount}>
               <span
                 className='text-r-yellow'
-                style={{ fontSize: '18px', paddingRight: '6px' }}
+                style={{ fontSize: '24px', paddingRight: '6px' }}
               >
                 {shareCount}
               </span>
@@ -170,41 +170,55 @@ export default function P7Scene({
         <div className='text-center'>这些回声，将你的声音推向更远的地方</div>
 
         {/* 刘看山图片 */}
-        <div className='flex justify-between' style={{ margin: '20px 0' }}>
-          <div>
-            <Image
-              priority
-              src={yellowBubbleAsset.url}
-              alt={yellowBubbleAsset.alt}
-              width={yellowBubbleAsset.width}
-              height={yellowBubbleAsset.height}
-              className='relative object-contain pointer-events-none select-none z-1 opacity-0 origin-bottom-left animate-pop-dialog'
-              style={{ left: '38px', animationDelay: '1s' }}
-            />
-            <Image
-              priority
-              src={redBubbleAsset.url}
-              alt={redBubbleAsset.alt}
-              width={redBubbleAsset.width}
-              height={redBubbleAsset.height}
-              className='relative object-contain pointer-events-none select-none z-1 opacity-0 origin-bottom-left animate-pop-dialog'
-              style={{ left: '-12px', bottom: '-20px', animationDelay: '1s' }}
-            />
+        <div 
+          className='absolute left-0 right-0 pointer-events-none select-none z-0'
+          style={{ bottom: '134px' }}
+        >
+          <div className='relative w-full h-full flex justify-between' style={{ padding: '0 34px' }}>
+            <div className='relative' style={{ marginTop: '20px' }}>
+              <Image
+                priority
+                src={yellowBubbleAsset.url}
+                alt={yellowBubbleAsset.alt}
+                width={yellowBubbleAsset.width}
+                height={yellowBubbleAsset.height}
+                className='relative object-contain pointer-events-none select-none z-1 opacity-0 origin-bottom-left animate-pop-dialog'
+                style={{ left: '38px', animationDelay: '1s' }}
+              />
+              <Image
+                priority
+                src={redBubbleAsset.url}
+                alt={redBubbleAsset.alt}
+                width={redBubbleAsset.width}
+                height={redBubbleAsset.height}
+                className='relative object-contain pointer-events-none select-none z-1 opacity-0 origin-bottom-left animate-pop-dialog'
+                style={{ left: '-12px', bottom: '-20px', animationDelay: '1s' }}
+              />
+            </div>
+            <div className='relative'>
+              <Image
+                priority
+                src={p7GifAsset.url}
+                alt={p7GifAsset.alt}
+                width={p7GifAsset.width}
+                height={p7GifAsset.height}
+                className='relative object-contain pointer-events-none select-none z-1'
+                style={{ right: '-20px' }}
+                unoptimized
+              />
+            </div>
           </div>
-          <Image
-            priority
-            src={p7GifAsset.url}
-            alt={p7GifAsset.alt}
-            width={p7GifAsset.width}
-            height={p7GifAsset.height}
-            className='relative object-contain pointer-events-none select-none z-1'
-            style={{ right: '-20px' }}
-            unoptimized
-          />
         </div>
 
         <div
-          style={{ fontSize: '16px', lineHeight: '28px', top: '-40px' }}
+          style={{ 
+            fontSize: '16px', 
+            lineHeight: '28px', 
+            position: 'absolute',
+            bottom: '136px',
+            left: '34px',
+            right: '34px'
+          }}
           className='relative'
           hidden={!roundTableCount && !editorPickCount}
         >

@@ -264,7 +264,7 @@ const TaskSection = () => {
     }
 
     // 按钮样式：统一使用蓝色，无论是否有URL都可点击
-    const buttonClass = `${btnText ? 'bg-blue' : 'bg-[#bcd7ff]'} text-white shadow-md active:scale-95 transition-transform cursor-pointer`;
+    const buttonClass = `${btnText ? 'bg-blue-500' : 'bg-[#bcd7ff]'} text-white shadow-md active:scale-95 transition-transform cursor-pointer`;
 
     return (
       <div
@@ -316,7 +316,7 @@ const TaskSection = () => {
                 <div className="mb-3 flex items-start justify-between gap-2">
                   <div className="flex-1">
                     <div className="text-base font-bold text-black">{group.title}</div>
-                    <div className="text-xs text-gray">{group.desc}</div>
+                    <div className="text-xs text-gray-400">{group.desc}</div>
                   </div>
                   <button
                     onClick={handleRefresh}
@@ -364,10 +364,10 @@ const TaskSection = () => {
                             </span>
                           </span>
                         </div>
-                        <div className="text-xs text-gray">{task.desc}</div>
+                        <div className="text-xs text-gray-400">{task.desc}</div>
                       </div>
                       <div className="flex flex-col items-center gap-1 min-w-[70px]">
-                        <span className="text-xs font-bold text-blue">+{task.finish_point} 积分</span>
+                        <span className="text-xs font-bold text-blue-500">+{task.finish_point} 积分</span>
                         {renderTaskButton(task)}
                       </div>
                     </div>

@@ -27,10 +27,10 @@ export default function IntroductionScene({
   const [isAgreementDialogOpen, setIsAgreementDialogOpen] = useState(false);
   const videoRef = useRef<HTMLVideoElement>(null);
 
-  const { trackPageShow } = useZA();
+  const { trackPageShowWithUrl } = useZA();
 
   useEffect(() => {
-    trackPageShow({ page: { page_id: '60864' } });
+    trackPageShowWithUrl({ page: { page_id: '60864' } }, 'https://event.zhihu.com/2025/index/');
   }, []);
 
   // Compute video source based on current step

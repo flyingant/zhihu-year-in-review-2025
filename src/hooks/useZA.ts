@@ -91,6 +91,16 @@ export const useZA = () => {
     }
   };
 
+  const trackPageShowWithUrl = (location?: ZAElementLocation, url?: string) => {
+    if (clientRef.current) {
+      clientRef.current.trackPageShow({
+        url,
+        elementLocation: location
+      });
+    }
+  };
+
+
   // --- 2. 页面消失 ---
   const trackPageDisappear = (location?: ZAElementLocation) => {
     if (clientRef.current) {
@@ -141,6 +151,7 @@ export const useZA = () => {
   return {
     isReady,
     trackPageShow,
+    trackPageShowWithUrl,
     trackPageDisappear,
     trackShow,
     trackPlayer,

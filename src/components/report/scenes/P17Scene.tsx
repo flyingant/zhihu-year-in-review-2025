@@ -210,8 +210,7 @@ export default function P17Scene({
           width: '300px',
           top: '50%',
           left: '50%',
-          right: '50%',
-          transform: 'translate(-50%, -63%);',
+          transform: 'translate(-50%, -63%)',
         }}
       >
         {!!followQuestionFriend && followQuestionFriend >= 2 && (
@@ -238,7 +237,8 @@ export default function P17Scene({
                 {truncateText(
                   String(
                     followQuestionFriendQuestionTitle ??
-                      'follow_question_friend_question_title'
+
+                    'follow_question_friend_question_title'
                   )
                 )}
               </span>

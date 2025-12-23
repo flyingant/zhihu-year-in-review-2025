@@ -37,5 +37,11 @@ export const GriffithSpeedStyle = () => (
       white-space: nowrap;
       
     }
+    div[class*="coverTime"], 
+    span[class*="coverTime"] {
+      display: none !important;
+      opacity: 0 !important;
+      visibility: hidden !important;
+    }
   `}</style>
 );

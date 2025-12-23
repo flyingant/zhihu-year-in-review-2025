@@ -133,6 +133,7 @@ export default function P25Scene({ onNext, onPrevious, sceneName }: PageProps) {
           height={liukanshan.height}
           className='object-contain absolute pointer-events-none select-none -z-10'
           style={{ top: '295px', left: '0', right: '0' }}
+          priority
         />
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img

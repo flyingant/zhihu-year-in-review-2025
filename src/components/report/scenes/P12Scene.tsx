@@ -160,6 +160,7 @@ export default function P12Scene({
               className='object-contain'
               style={{ marginBottom: '10px' }}
               unoptimized
+              priority
             />
           </div>
         </div>

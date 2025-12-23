@@ -155,6 +155,7 @@ export default function P13Scene({
             width={liukanshanAsset.width}
             height={liukanshanAsset.height}
             unoptimized
+            priority
           />
         </div>
 

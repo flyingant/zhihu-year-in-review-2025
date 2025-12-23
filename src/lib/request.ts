@@ -38,8 +38,8 @@ export async function appRequest<T = any>(
   requestConfig.baseURL = process.env.NEXT_PUBLIC_BASE_APP_API_URL;
   requestConfig.withCredentials = true;
   const response = await axiosInstance(requestConfig);
-  if (response.data.success) {
-    return response.data.data;
+  if (response.data) {
+    return response.data;
   } else {
     return Promise.reject(response.data);
   }

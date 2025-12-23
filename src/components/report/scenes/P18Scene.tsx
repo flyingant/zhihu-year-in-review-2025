@@ -158,6 +158,7 @@ export default function P18Scene({
           height={main.height}
           className='object-contain absolute pointer-events-none select-none z-1'
           style={{ top: '290px', left: '0' }}
+          priority
         />
       </div>
       {/* content */}

@@ -230,6 +230,7 @@ export default function P20Scene({
           height={main.height}
           className='object-contain absolute pointer-events-none select-none z-20'
           style={{ top: '305px', left: '60px', right: '0px' }}
+          priority
         />
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img

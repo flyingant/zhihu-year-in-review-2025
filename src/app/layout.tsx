@@ -13,6 +13,9 @@ const metadataMap: Record<string, Metadata> = {
   '/zhihu2025': {
     title: '知乎 2025 年度盘点',
     description: '2025，到底什么是真的？',
+    icons: {
+      icon: 'https://static.zhihu.com/event/zhihu2025/assets/share.png',
+    },
     openGraph: {
       title: '知乎 2025 年度盘点',
       description: '2025，到底什么是真的？',

@@ -15,14 +15,15 @@ export default function P27Scene({ onNext, onPrevious, sceneName }: PageProps) {
   const { assets } = useAssets();
   const [isSceneFading, setIsSceneFading] = useState(false);
   const [isButtonClicked, setIsButtonClicked] = useState(false);
-  const [gifSrc, setGifSrc] = useState<string>(assets?.report.topSpiningInfinit?.url || '');
+  const [gifSrc, setGifSrc] = useState<string>(
+    assets?.report.topSpiningInfinit?.url || ''
+  );
   const [showEndFrame, setShowEndFrame] = useState(false);
 
   const top2025Asset = assets?.report.top2025;
   const top2026Asset = assets?.report.top2026;
   const topSpiningStopEndAsset = assets?.report.topSpiningStopEnd;
   const topSpiningStopAsset = assets?.report.topSpiningStop;
-
 
   const handleTop2025Click = () => {
     if (isButtonClicked) return; // Prevent multiple clicks
@@ -46,15 +47,14 @@ export default function P27Scene({ onNext, onPrevious, sceneName }: PageProps) {
     setGifSrc(topSpiningStopAsset?.url || '');
     setTimeout(() => {
       setIsSceneFading(true);
-      setShowEndFrame(true)
+      setShowEndFrame(true);
       setTimeout(() => {
         if (onNext) {
           onNext();
         }
       }, 1000); // Wait for fade animation
-    }, 4900)
+    }, 4900);
   };
-
 
   if (!assets) return null;
 
@@ -99,28 +99,36 @@ export default function P27Scene({ onNext, onPrevious, sceneName }: PageProps) {
           </p>
         </div>
 
-        <img src={gifSrc} alt='spining' style={{ width: '100%', height: '100%', objectFit: 'cover', visibility: showEndFrame ? 'hidden' : 'visible', zIndex: showEndFrame ? -99 : 1 }} />
-        {
-          topSpiningStopEndAsset && (
-            <Image
-              src={topSpiningStopEndAsset.url}
-              alt={topSpiningStopEndAsset.alt}
-              width={topSpiningStopEndAsset.width}
-              height={topSpiningStopEndAsset.height}
-              style={{
-                width: '100%',
-                height: '100%',
-                visibility: showEndFrame ? 'visible' : 'hidden',
-                zIndex: showEndFrame ? 1 : -99,
-                objectFit: 'cover',
-                transform: 'translateY(-100%)'
-              }}
-            />
-          )
-        }
-        
+        <img
+          src={gifSrc}
+          alt='spining'
+          style={{
+            width: '100%',
+            height: '100%',
+            objectFit: 'cover',
+            visibility: showEndFrame ? 'hidden' : 'visible',
+            zIndex: showEndFrame ? -99 : 1,
+          }}
+        />
+        {topSpiningStopEndAsset && (
+          <Image
+            src={topSpiningStopEndAsset.url}
+            alt={topSpiningStopEndAsset.alt}
+            width={topSpiningStopEndAsset.width}
+            height={topSpiningStopEndAsset.height}
+            style={{
+              width: '100%',
+              height: '100%',
+              visibility: showEndFrame ? 'visible' : 'hidden',
+              zIndex: showEndFrame ? 1 : -99,
+              objectFit: 'cover',
+              transform: 'translateY(-100%)',
+            }}
+          />
+        )}
+
         {/* Fixed position buttons at the bottom - always on top of video */}
-        <div className='absolute bottom-0 left-0 right-0 z-[200] flex items-center justify-center px-4 pb-4'>
+        <div className='absolute bottom-0 left-0 right-0 z-[200] flex items-center justify-center px-4 pb-10'>
           {/* Left button - top2025 */}
           {top2025Asset && (
             <button

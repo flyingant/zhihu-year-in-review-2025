@@ -52,7 +52,7 @@ export default function CurveMarquee() {
   const { assets } = useAssets();
   const containerRef = useRef<HTMLDivElement>(null);
   const [pathString, setPathString] = useState(() => generateCurvedPath(430));
-  const isMobile = useMobile();
+  const isMobile = useMobile(640);
 
   const progressRef = useRef(0);
   const itemsCacheRef = useRef<CachedItem[]>([]);

@@ -176,14 +176,14 @@ export default function P18Scene({
         >
           <div
             className={`text-r-blue`}
-            style={{ fontSize: 20 }}
+            style={{ fontSize: 18 }}
             hidden={!clubAdminTop1Name}
           >
             「{String(clubAdminTop1Name ?? 'club_admin_top1_name')}」
           </div>
           <div
             className={`text-r-blue`}
-            style={{ fontSize: 20 }}
+            style={{ fontSize: 18 }}
             hidden={!clubAdminTop2Name}
           >
             「{String(clubAdminTop2Name ?? 'club_admin_top2_name')}」
@@ -204,7 +204,7 @@ export default function P18Scene({
           </div>
         )}
 
-        {!!clubAdminTop1MemberCount && (
+        {!!clubAdminTop1ContentCount && (
           <div
             className={' absolute text-right'}
             style={{ left: '27px', top: '483px', width: '66px' }}
@@ -213,21 +213,21 @@ export default function P18Scene({
               className={`text-r-yellow`}
               style={{ paddingLeft: '6px', paddingRight: '6px', fontSize: 18 }}
             >
-              {String(clubAdminTop1MemberCount ?? 'clubAdminTop1MemberCount')}
+              {String(clubAdminTop1ContentCount ?? 'clubAdminTop1ContentCount')}
             </span>
             <br />
             条讨论
           </div>
         )}
 
-        {!!clubAdminTop1ContentCount && (
+        {!!clubAdminPinCount && (
           <div className={'absolute'} style={{ left: '30px', top: '631px' }}>
             作为引路人，你在圈内发言
             <span
               className={`text-r-pink`}
               style={{ paddingLeft: '6px', paddingRight: '6px', fontSize: 24 }}
             >
-              {String(clubAdminTop1ContentCount ?? 'club_admin_pin_cnt')}
+              {String(clubAdminPinCount ?? 'club_admin_pin_cnt')}
             </span>
             次 <br />
             <span hidden={!clubAdminInteractionCount}>

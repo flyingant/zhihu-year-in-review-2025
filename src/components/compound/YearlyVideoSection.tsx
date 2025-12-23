@@ -215,6 +215,7 @@ const YearlyVideoSection = () => {
             type: 'Button',
             content: {
               type: 'Zvideo',
+              token: videoId,
             },
             page: {
               page_id: '60850',
@@ -240,6 +241,7 @@ const YearlyVideoSection = () => {
             type: 'Button',
             content: {
               type: 'Zvideo',
+              token: videoId,
             },
             page: {
               page_id: '60850',
@@ -370,10 +372,10 @@ const YearlyVideoSection = () => {
             ref={playerContainerRef}
             className="absolute z-20 overflow-hidden bg-black rounded-[20px]"
             style={{
-              top: '26.5%',
+              top: '29.5%',
               left: '8%',
               width: '84%',
-              height: '50%',
+              height: '44%',
             }}
           >
             {isLoading ? (

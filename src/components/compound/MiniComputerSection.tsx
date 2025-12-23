@@ -434,7 +434,7 @@ const MiniComputerSection = () => {
           >
             <div className="flex flex-col items-start w-full pb-8">
               {inputValue ? (
-                <span className="whitespace-pre-wrap break-all">
+                <span className="whitespace-pre-wrap break-all text-sm text-[#444]">
                   {inputValue}
                 </span>
               ) : (

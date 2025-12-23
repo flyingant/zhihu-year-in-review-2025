@@ -237,8 +237,7 @@ export default function P17Scene({
                 {truncateText(
                   String(
                     followQuestionFriendQuestionTitle ??
-
-                    'follow_question_friend_question_title'
+                      'follow_question_friend_question_title'
                   )
                 )}
               </span>
@@ -268,13 +267,13 @@ export default function P17Scene({
                 </span>
                 <span
                   className={``}
-                  style={{ fontSize: 14, lineHeight: '34px' }}
+                  style={{ fontSize: 16, lineHeight: '34px' }}
                 >
                   问题下的回答
                 </span>
               </p>
             </div>
-            <div style={{ fontSize: 14 }} hidden={!upvoteHotAnswerUserCount}>
+            <div style={{ fontSize: 16 }} hidden={!upvoteHotAnswerUserCount}>
               <span
                 className={`text-r-purple`}
                 style={{ fontSize: 24, paddingRight: '6px' }}

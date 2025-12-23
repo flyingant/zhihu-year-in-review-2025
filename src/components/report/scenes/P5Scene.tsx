@@ -263,7 +263,7 @@ export default function P5Scene({
         </div>
 
         <div
-          style={{ marginBottom: '10px' }}
+          style={{ marginTop: '10px' }}
           hidden={!emojiName || !emojiCount || emojiCount < 2}
         >
           <div

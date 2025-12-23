@@ -192,7 +192,7 @@ export default function P25Scene({ onNext, onPrevious, sceneName }: PageProps) {
               <span
                 className={`text-r-purple`}
                 style={{
-                  fontSize: 16,
+                  fontSize: 24,
                   paddingLeft: '6px',
                   paddingRight: '6px',
                 }}

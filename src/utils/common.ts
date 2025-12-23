@@ -278,6 +278,12 @@ export const summaryFlags = [
     bg: "#FFE48D",
     fullText: "我真的很棒",
   },
+  // {
+  //   key: "good",
+  //   text: "很棒",
+  //   bg: "#FFE48D",
+  //   fullText: "我真的很棒了",//暂时兼容后端
+  // },
   {
     key: "ai",
     text: "AI",
@@ -310,7 +316,83 @@ export const summaryFlags = [
   },
 ];
 
+export const optionBottomPosMap = {
+  good: {
+    grey: -2,
+    active: -2,
+    selfActive: 0,
+  },
+  change: {
+    grey: -2,
+    active: -2,
+    selfActive: 0,
+  },
+  ai: {
+    grey: -7,
+    active: -7,
+    selfActive: -4,
+  },
+  live: {
+    grey: 0,
+    active: 0,
+    selfActive: 0,
+  },
+  get: {
+    grey: -9,
+    active: -9,
+    selfActive: -4,
+  },
+  cure: {
+    grey: -2,
+    active: -2,
+    selfActive: -5,  
+  },
+  release: {
+    grey: -9,
+    active: -9,
+    selfActive: -6,    
+  },
+  action: {
+    grey: -2,
+    active: -2,
+    selfActive: 0,    
+  },
+  zhileng: {
+    grey: -9,
+    active: -9,
+    selfActive: -6,
+  },
+  clam: {
+    grey: -2,
+    active: -2,
+    selfActive: 0,
+  },
+  love: {
+    grey: 2,
+    active: 2,
+    selfActive: 4,
+  },
+  growth: {
+    grey: -2,
+    active: -2,
+    selfActive:0,
+  },
+  empty: {
+    grey: -9,
+    active: -9,
+    selfActive: -6, 
+  }
+}
+
 export const extractOptionKeyword = (text: string) => {
+  // 我真的很棒 只有这个没有 了
+  if (!text.includes('了')) {
+    const pattern = /我真的(\S{2})(?:了|$)/; // 匹配两个非空白字符
+    const match = text.match(pattern);
+    return match ? match[1] : '';
+  }
+
+
   // 匹配 "我真的" 开头，"了" 结尾，中间是任意非"了"字符
   const pattern = /我真的\s*([^了]+)\s*了/;
   const match = text.match(pattern);

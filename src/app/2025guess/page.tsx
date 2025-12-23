@@ -7,7 +7,7 @@ import AuthWrapper from "@/components/layout/AuthWrapper";
 import { useAssets } from "@/context/assets-context";
 import Image from "next/image";
 import { useState } from "react";
-import { extractOptionKeyword, summaryFlags } from "@/utils/common";
+import { extractOptionKeyword, optionBottomPosMap, summaryFlags } from "@/utils/common";
 import BaseScene from "@/components/report/scenes/BaseScene";
 import { useEffect } from "react";
 import { useZA } from "@/hooks/useZA"; 
@@ -254,124 +254,133 @@ function GuessPageScene() {
           <div>「真实关键词」是</div>
         </div>
         <div className="relative" style={{ top: 115, left: 20, right: 20 }}>
-          {voteInfo?.transformedOptions?.map((option) => (
-            <div
-              className="relative"
-              key={`option-${option.key}`}
-              style={{ marginTop: 20, height: 90, width: 344 }}
-              onClick={() => {
-                if (voteInfo?.is_vote_correct !== 2) return;
-                if (voteInfo?.is_owner) return;
-                setSelectedOptionId(String(option.option_id));
-              }}
-            >
-              {(() => {
-                const bannerKey = option.key as keyof typeof p28Assets.banners;
-                const banner = p28Assets.banners?.[bannerKey];
-                if (!banner) return null;
-                
-                let bannerAsset;
-                if (voteInfo?.isVoted && option.is_correct) {
-                  // Show self-active variant if available, otherwise fallback to active
-                  bannerAsset = (banner as { selfActive?: typeof banner.active }).selfActive || banner.active;
-                } else if (voteInfo?.isVoted) {
-                  // Show active or grey based on correctness
-                  bannerAsset = option.is_correct ? banner.active : banner.grey;
-                } else {
-                  // Show active or grey based on selection
-                  bannerAsset = selectedOptionId === String(option.option_id) ? banner.active : banner.grey;
-                }
+          {voteInfo?.transformedOptions?.map((option) =>  {
+            const bannerKey = option.key as keyof typeof p28Assets.banners;
+            const banner = p28Assets.banners?.[bannerKey];
+            if (!banner) return null;
+            
 
-                if (voteInfo?.is_owner) {
-                  bannerAsset =  banner.active
-                  if (option.is_correct) {
-                    bannerAsset =  (banner as { selfActive?: typeof banner.active }).selfActive
-                  }
-                }
-                
-                return (
+            let bannerAsset;
+            let bottom = 0
+            if (voteInfo?.isVoted && option.is_correct) {
+              // Show self-active variant if available, otherwise fallback to active
+              bannerAsset = (banner as { selfActive?: typeof banner.active }).selfActive || banner.active;
+              bottom = optionBottomPosMap[option.key as keyof typeof optionBottomPosMap]?.selfActive || 0
+            } else if (voteInfo?.isVoted) {
+              // Show active or grey based on correctness
+              bannerAsset = option.is_correct ? banner.active : banner.grey;
+              bottom = optionBottomPosMap[option.key as keyof typeof optionBottomPosMap]?.active || 0
+            } else {
+              // Show active or grey based on selection
+              bannerAsset = selectedOptionId === String(option.option_id) ? banner.active : banner.grey;
+              bottom = optionBottomPosMap[option.key as keyof typeof optionBottomPosMap]?.active || 0
+            }
+
+            if (voteInfo?.is_owner) {
+              bannerAsset =  banner.active
+              if (option.is_correct) {
+                bannerAsset =  (banner as { selfActive?: typeof banner.active }).selfActive
+                bottom = optionBottomPosMap[option.key as keyof typeof optionBottomPosMap]?.selfActive || 0
+              }
+            }
+            return (
+              <div
+                className="relative"
+                key={`option-${option.key}`}
+                style={{ marginTop: 20, height: 90, width: 344 }}
+                onClick={() => {
+                  if (voteInfo?.is_vote_correct !== 2) return;
+                  if (voteInfo?.is_owner) return;
+                  setSelectedOptionId(String(option.option_id));
+                }}
+              >
+                {(() => {    
+                  return (
+                    <Image
+                      src={bannerAsset?.url || ''}
+                      alt={bannerAsset?.alt || ''}
+                      width={344}
+                      height={90}
+                      draggable={false}
+                      style={{
+                        width: '344px',
+                        height: '90px',
+                      }}
+                    />
+                  );
+                })()}
+                {option.key === 'empty' && option.optionKeyword && <div className="absolute" style={{
+                  left: 95,
+                  bottom: 4,
+                }}>
+                <span style={{ fontSize: 44 }}>{option.optionKeyword}</span>
+                <span style={{ fontSize: 22, marginLeft: 2 }}>了</span>
+                </div>}
+                {((voteInfo?.isVoted || voteInfo.is_owner === 1) && option.is_correct === 1 && guessAssets.taOption) && (
                   <Image
-                    src={bannerAsset?.url || ''}
-                    alt={bannerAsset?.alt || ''}
-                    width={344}
-                    height={90}
-                    draggable={false}
-                    style={{
-                      width: '344px',
-                      height: '90px',
-                    }}
-                  />
-                );
-              })()}
-              {option.key === 'empty' && option.optionKeyword && <div className="absolute" style={{
-                left: 95,
-                bottom: 4,
-              }}>
-              <span style={{ fontSize: 44 }}>{option.optionKeyword}</span>
-              <span style={{ fontSize: 22, marginLeft: 2 }}>了</span>
-              </div>}
-              {(voteInfo?.isVoted || voteInfo.is_owner === 1) && option.is_correct === 1 && guessAssets.taOption && (
-                <Image
-                  src={guessAssets.taOption.url}
-                  alt={guessAssets.taOption.alt}
-                  width={96}
-                  height={19}
-                  className="absolute"
-                  draggable={false}
-                  style={{
-                    left: 70,
-                    bottom: -1,
-                  }}
-                />
-              )}
-              {voteInfo?.isVoted && voteInfo?.is_owner !==1 && option.is_voted === 1 && (() => {
-                const yourOptionAsset = voteInfo?.isVoteCorrect 
-                  ? guessAssets.yourOptionCorrect 
-                  : guessAssets.yourOption;
-                return yourOptionAsset ? (
-                  <Image
-                    src={yourOptionAsset.url}
-                    alt={yourOptionAsset.alt}
+                    src={guessAssets.taOption.url}
+                    alt={guessAssets.taOption.alt}
                     width={96}
                     height={19}
                     className="absolute"
                     draggable={false}
                     style={{
-                      right: 70,
-                      bottom: option.is_correct ? -1 : -7,
+                      left: 70,
+                      bottom,
                     }}
                   />
-                ) : null;
-              })()}
-              {(voteInfo?.isVoted || voteInfo?.is_owner === 1) && (
-                <div
-                  className="absolute right-0"
-                  style={{
-                    background: option.is_correct ? '#5cc0f9' : '#adadad',
-                    padding: "6px 9px",
-                    top: -10,
-                    fontSize: 12,
-                    lineHeight: "11px",
-                    border: "1px solid #000",
-                  }}
-                >
-                  {option?.vote_num}人选择
-                </div>
-              )}
-              {(voteInfo?.isVoted || voteInfo?.is_owner === 1) && (
-                <div
-                  className="absolute left-0 "
-                  style={{
-                    top: 20,
-                    left: 34,
-                    fontSize: 14,
-                  }}
-                >
-                  {option.vote_percent}
-                </div>
-              )}
-            </div>
-          ))}
+                )}
+                {(voteInfo?.isVoted && voteInfo?.is_owner !==1 && option.is_voted === 1) && (() => {
+                  const yourOptionAsset = voteInfo?.isVoteCorrect 
+                    ? guessAssets.yourOptionCorrect 
+                    : guessAssets.yourOption;
+                  return yourOptionAsset ? (
+                    <Image
+                      src={yourOptionAsset.url}
+                      alt={yourOptionAsset.alt}
+                      width={96}
+                      height={19}
+                      className="absolute"
+                      draggable={false}
+                      style={{
+                        right: 70,
+                        bottom,
+                      }}
+                    />
+                  ) : null;
+                })()}
+                {(voteInfo?.isVoted || voteInfo?.is_owner === 1) && (
+                  <div
+                    className="absolute right-0"
+                    style={{
+                      background: option.is_correct ? '#5cc0f9' : '#adadad',
+                      padding: "6px 9px",
+                      top: -10,
+                      fontSize: 12,
+                      lineHeight: "11px",
+                      border: "1px solid #000",
+                    }}
+                  >
+                    {option?.vote_num}人选择
+                  </div>
+                )}
+                {(voteInfo?.isVoted || voteInfo?.is_owner === 1) && (
+                  <div
+                    className="absolute left-0 "
+                    style={{
+                      top: 20,
+                      left: 34,
+                      fontSize: 14,
+                    }}
+                  >
+                    {option.vote_percent}
+                  </div>
+                )}
+              </div>
+            )
+          }
+          
+          )}
         </div>
         {!voteInfo?.isVoted && voteInfo?.is_owner !== 1 && (
           <div className="absolute flex justify-center z-60" style={{ bottom: 82, left: 0, right: 0 }}>

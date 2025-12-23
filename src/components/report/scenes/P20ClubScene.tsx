@@ -88,9 +88,9 @@ export default function P20Scene({
   }>({});
 
   // Club IDs - extract before early return
-  const clubInterestListId1 = reportData?.club_interest_list_id_top1 ?? null;
-  const clubInterestListId2 = reportData?.club_interest_list_id_top2 ?? null;
-  const clubInterestListId3 = reportData?.club_interest_list_id_top3 ?? null;
+  const clubInterestListId1 = String(reportData?.club_interest_list_id_top1 ?? '');
+  const clubInterestListId2 = String(reportData?.club_interest_list_id_top2 ?? '');
+  const clubInterestListId3 = String(reportData?.club_interest_list_id_top3 ?? '');
 
   // Check membership status on mount
   useEffect(() => {
@@ -99,7 +99,7 @@ export default function P20Scene({
         { id: clubInterestListId1, key: 'club1' },
         { id: clubInterestListId2, key: 'club2' },
         { id: clubInterestListId3, key: 'club3' },
-      ].filter((item) => item.id !== null);
+      ].filter((item) => item.id !== '');
 
       for (const { id, key } of ids) {
         try {
@@ -242,7 +242,7 @@ export default function P20Scene({
 
   const { main, gif } = assets.report.p20;
   const { blue15, blue16, mix15_1, mix16_1, mix20 } = assets.report.bg;
-
+  console.log('interestClubs:', interestClubs)
   return (
     <BaseScene
       onNext={onNext}

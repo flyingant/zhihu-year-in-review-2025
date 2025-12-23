@@ -456,6 +456,8 @@ export interface AssetsData {
       bgBottomRight: AssetMetadata;
       gif: AssetMetadata;
       gifReverse: AssetMetadata;
+      liukanshanMirror: AssetMetadata;
+      liukanshanMirrorReverse: AssetMetadata;
     };
     top2025: AssetMetadata;
     top2026: AssetMetadata;

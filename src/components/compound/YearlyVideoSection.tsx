@@ -215,6 +215,7 @@ const YearlyVideoSection = () => {
             type: 'Button',
             content: {
               type: 'Zvideo',
+              token: videoId,
             },
             page: {
               page_id: '60850',
@@ -240,6 +241,7 @@ const YearlyVideoSection = () => {
             type: 'Button',
             content: {
               type: 'Zvideo',
+              token: videoId,
             },
             page: {
               page_id: '60850',

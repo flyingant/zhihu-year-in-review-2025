@@ -47,13 +47,37 @@ export const formatDateWithoutText = (
 };
 
 // truncate text to maxLength, add ellipsis if text is longer than maxLength
+// Note: maxLength counts non-space characters only
 export const truncateText = (
   text: string | null | undefined,
   maxLength: number = 28
 ) => {
   if (!text) return "";
   const str = String(text);
-  return str.length > maxLength ? str.slice(0, maxLength) + "..." : str;
+  
+  // Count non-space characters
+  const nonSpaceLength = str.replace(/\s/g, '').length;
+  
+  if (nonSpaceLength <= maxLength) {
+    return str;
+  }
+  
+  // Truncate while preserving spaces
+  let count = 0;
+  let result = '';
+  
+  for (let i = 0; i < str.length; i++) {
+    if (str[i] !== ' ') {
+      count++;
+    }
+    result += str[i];
+    
+    if (count >= maxLength) {
+      return result + '...';
+    }
+  }
+  
+  return str;
 };
 
 interface PromiseObservable<T> extends Promise<T> {

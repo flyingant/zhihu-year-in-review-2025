@@ -126,7 +126,7 @@ export default function P4Scene({
           width={mix4Asset.width}
           height={mix4Asset.height}
           className='object-contain absolute pointer-events-none select-none z-1'
-          style={{ top: '389px', left: '0px' }}
+          style={{ top: '480px', left: '0px' }}
         />
         <Image
           src={blue1Asset.url}
@@ -203,12 +203,14 @@ export default function P4Scene({
               style={{
                 paddingLeft: '6px',
                 paddingRight: '6px',
-                fontSize: '18px',
+                fontSize: '24px',
               }}
             >
               {upvoteCount}
             </span>
-            次赞同点亮，那是一次真实地被看见
+            次赞同点亮
+            <br />
+            <span>那是一次真实地被看见</span>
           </div>
         </div>
 

@@ -182,7 +182,7 @@ export default function P3Scene({
             style={{
               paddingLeft: '6px',
               paddingRight: '6px',
-              fontSize: '18px',
+              fontSize: '24px',
             }}
           >
             {answerCount}
@@ -196,7 +196,7 @@ export default function P3Scene({
             style={{
               paddingLeft: '6px',
               paddingRight: '6px',
-              fontSize: '18px',
+              fontSize: '24px',
             }}
           >
             {articleCount}

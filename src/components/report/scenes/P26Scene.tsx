@@ -173,9 +173,17 @@ export default function P26Scene({
       {/* content */}
       <div
         className='absolute z-0 leading-relaxed'
-        style={{ fontSize: 16, top: '114px', left: '40px', right: '40px' }}
+        style={{
+          fontSize: 16,
+          top: '114px',
+          left: '40px',
+          right: '40px',
+          lineHeight: '28px',
+        }}
       >
-        <p style={{ fontSize: 22 }}>情节之下，是心意织成的篇章</p>
+        <div style={{ fontSize: 22, marginBottom: '10px' }}>
+          情节之下，是心意织成的篇章
+        </div>
         <div
           ref={scrollContainerRef}
           style={{
@@ -185,7 +193,7 @@ export default function P26Scene({
         >
           {!!writeStoryNumSum && (
             <div className='z-0'>
-              <div className='mb-[8px]'>
+              <div style={{ marginBottom: '8px' }}>
                 今年，你创作
                 <span
                   className={`text-r-pink`}
@@ -205,7 +213,10 @@ export default function P26Scene({
           )}
 
           {!!totalUpvoteNum && (
-            <div className='z-0 my-[20px]'>
+            <div
+              className='z-0'
+              style={{ marginTop: '20px', marginBottom: '10px' }}
+            >
               <div>
                 有
                 <span

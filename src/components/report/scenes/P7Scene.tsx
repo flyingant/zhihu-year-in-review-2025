@@ -114,14 +114,13 @@ export default function P7Scene({
             />
           </div>
 
-          <div className='text-center'>
+          <div className='text-left'>
             <div className='text-center'>这一年，你的内容收获了</div>
             <div hidden={!readCount}>
               <span
                 className='text-r-pink'
                 style={{
                   fontSize: '24px',
-                  paddingLeft: '6px',
                   paddingRight: '6px',
                 }}
               >
@@ -170,11 +169,14 @@ export default function P7Scene({
         <div className='text-center'>这些回声，将你的声音推向更远的地方</div>
 
         {/* 刘看山图片 */}
-        <div 
+        <div
           className='absolute left-0 right-0 pointer-events-none select-none z-0'
           style={{ bottom: '134px' }}
         >
-          <div className='relative w-full h-full flex justify-between' style={{ padding: '0 34px' }}>
+          <div
+            className='relative w-full h-full flex justify-between'
+            style={{ padding: '0 34px' }}
+          >
             <div className='relative' style={{ marginTop: '20px' }}>
               <Image
                 priority
@@ -211,13 +213,13 @@ export default function P7Scene({
         </div>
 
         <div
-          style={{ 
-            fontSize: '16px', 
-            lineHeight: '28px', 
+          style={{
+            fontSize: '16px',
+            lineHeight: '28px',
             position: 'absolute',
             bottom: '136px',
             left: '34px',
-            right: '34px'
+            right: '34px',
           }}
           className='relative'
           hidden={!roundTableCount && !editorPickCount}

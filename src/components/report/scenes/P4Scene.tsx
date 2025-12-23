@@ -101,7 +101,6 @@ export default function P4Scene({
     >
       {/* Hidden audio element for jump sound */}
       {jumpUpAudioUrl && <audio ref={audioRef} src={jumpUpAudioUrl} />}
-      <PixelFireworks delay={2000} minStartY={-100} maxStartY={400} />
       <GlitchLayer>
         {/* 顺序从上到下 */}
         <Image
@@ -232,6 +231,9 @@ export default function P4Scene({
           条千赞时刻
         </div>
       </div>
+
+      {/* Fireworks effect - placed last to ensure it's on top */}
+      <PixelFireworks delay={2000} particleCount={140} />
     </BaseScene>
   );
 }

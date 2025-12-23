@@ -41,7 +41,7 @@ export default function P30Scene({ onNext, sceneName, onPrevious }: PageProps) {
 
   if (!assets) return null;
   const p28Assets = assets.report.p28 || {};
-  const bgAsset = p28Assets.bg;
+  const bgAsset = p28Assets.bgLight;
   const titleTransparent = p28Assets.titleTransparent;
   const flagsAssets = p28Assets.flags || {};
   const bannersAssets = p28Assets.banners || {};

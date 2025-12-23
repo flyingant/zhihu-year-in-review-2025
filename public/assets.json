@@ -2329,6 +2329,12 @@
     },
     "p28": {
       "bg": {
+        "url": "/assets/2025-28-background.png",
+        "width": 375,
+        "height": 812,
+        "alt": "bg"
+      },
+      "bgLight": {
         "url": "/assets/2025-28-background-1223.png",
         "width": 375,
         "height": 812,

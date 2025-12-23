@@ -474,6 +474,7 @@ export interface AssetsData {
 
     p28: {
       bg: AssetMetadata;
+      bgLight: AssetMetadata;
       bg1: AssetMetadata;
       bg2: AssetMetadata;
       bg3: AssetMetadata;

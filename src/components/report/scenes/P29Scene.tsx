@@ -484,7 +484,7 @@ export default function P29Scene({ onNext, sceneName }: PageProps) {
         <label
           className='flex left-[200px] gap-2 cursor-pointer'
           style={{
-            marginLeft: '160px',
+            marginLeft: isZhihuApp() || !isMobile ? '160px' : 0,
           }}
         >
           <div className='relative'>

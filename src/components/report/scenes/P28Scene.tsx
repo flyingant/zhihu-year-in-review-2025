@@ -24,8 +24,6 @@ export default function P28Scene({ onNext, sceneName }: PageProps) {
   const [inputValue, setInputValue] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const [selectedFlag, setSelectedFlag] = useState<string | null>(null);
-  const isFriendView = searchParams.get('friendView');
-  const isShareView = searchParams.get('shareView');
   const [shareOptionKeys, setShareOptionKeys] = useState<string[]>([]);
   const [isSynced, setIsSynced] = useState(false);
 
@@ -47,7 +45,7 @@ export default function P28Scene({ onNext, sceneName }: PageProps) {
       return;
     }
 
-    if (inputValue.trim().length > 2) {
+    if (!selectedFlag && inputValue.trim().length > 2) {
       showToast('最多只能输入2个字符', 'error');
       return;
     }
@@ -100,17 +98,8 @@ export default function P28Scene({ onNext, sceneName }: PageProps) {
   };
 
   const handleSelect = (key: string) => {
-    if (isShareView) {
-      if (shareOptionKeys.includes(key)) {
-        setShareOptionKeys(shareOptionKeys.filter((k) => k !== key));
-      } else {
-        const newKyes = [...shareOptionKeys, key];
-        setShareOptionKeys(newKyes.slice(-3));
-      }
-    } else {
-      // Toggle selection: if same flag is clicked, deselect it
-      setSelectedFlag(selectedFlag === key ? null : key);
-    }
+    // Toggle selection: if same flag is clicked, deselect it
+    setSelectedFlag(selectedFlag === key ? null : key);
   };
 
   return (
@@ -198,28 +187,6 @@ export default function P28Scene({ onNext, sceneName }: PageProps) {
           className='relative mx-auto left-0 right-0 pointer-events-none select-none'
           style={{ top: 114 }}
         />
-        {isShareView &&
-          summaryPoster?.key &&
-          (() => {
-            const banner =
-              bannersAssets[summaryPoster.key as keyof typeof bannersAssets];
-            if (!banner) return null;
-            // Use active variant for share view
-            const bannerAsset = banner.active;
-            return (
-              <div
-                className='relative'
-                style={{ top: 131, gap: 22, left: 20, right: 20 }}
-              >
-                <Image
-                  src={bannerAsset.url}
-                  width={bannerAsset.width}
-                  height={bannerAsset.height}
-                  alt={bannerAsset.alt}
-                />
-              </div>
-            );
-          })()}
         <div
           className='relative flex flex-wrap'
           style={{ top: 151, gap: 22, left: 20, right: 20 }}
@@ -228,9 +195,7 @@ export default function P28Scene({ onNext, sceneName }: PageProps) {
             const flagAsset = flagsAssets[item.key as keyof typeof flagsAssets];
             if (!flagAsset) return null;
 
-            const isActive = !isShareView
-              ? selectedFlag === item.key
-              : shareOptionKeys.includes(item.key);
+            const isActive = selectedFlag === item.key
             const stateAsset = isActive ? flagAsset.active : flagAsset.grey;
 
             return (

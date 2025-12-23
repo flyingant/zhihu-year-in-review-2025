@@ -8,27 +8,69 @@ import { ErrorBoundary } from '@/components/layout/ErrorBoundary';
 import ErrorHandlingInit from '@/components/layout/ErrorHandlingInit';
 import ZhihuHybridScript from '@/components/layout/ZhihuHybridScript';
 import './globals.css';
-          
-export const metadata: Metadata = {
-  title: '知乎 2025 个人年度报告',
-  description: '回顾这一年，我真的____？点击加载真实 >>',
-  icons: {
-    icon: process.env.NEXT_PUBLIC_CDN_BASE_URL + 'assets/share-head-img-1221.png'
+
+const metadataMap: Record<string, Metadata> = {
+  '/zhihu2025': {
+    title: '知乎 2025 年度盘点',
+    description: '2025，到底什么是真的？',
+    openGraph: {
+      title: '知乎 2025 年度盘点',
+      description: '2025，到底什么是真的？',
+      images: [
+        {
+          url: 'https://static.zhihu.com/event/zhihu2025/assets/share.png',
+          width: 500,
+          height: 500,
+          alt: '知乎 2025 年度盘点',
+        },
+      ],
+    },
   },
-  openGraph: {
-    title: '知乎｜2025 个人年度报告',
+
+  '/2025': {
+    title: '知乎 2025 个人年度报告',
     description: '回顾这一年，我真的____？点击加载真实 >>',
-    images: [
-      {
-        url:   process.env.NEXT_PUBLIC_CDN_BASE_URL +
-            'assets/share-head-img-1221.png',
-        width: 500,
-        height: 500,
-        alt: '知乎｜2025 个人年度报告',
-      },
-    ],
+    icons: {
+      icon: process.env.NEXT_PUBLIC_CDN_BASE_URL + 'assets/share-head-img-1221.png'
+    },
+    openGraph: {
+      title: '知乎｜2025 个人年度报告',
+      description: '回顾这一年，我真的____？点击加载真实 >>',
+      images: [
+        {
+          url:   process.env.NEXT_PUBLIC_CDN_BASE_URL +
+              'assets/share-head-img-1221.png',
+          width: 500,
+          height: 500,
+          alt: '知乎｜2025 个人年度报告',
+        },
+      ],
+    },
   },
-};
+
+  '/2025guess': {
+    title: '知乎 2025 个人年度报告',
+    description: '别笑，我猜你也猜不到哪个是真的我 >>',
+    icons: {
+      icon: process.env.NEXT_PUBLIC_CDN_BASE_URL + 'assets/share-head-img-1221.png'
+    },
+    openGraph: {
+      title: '知乎 2025 个人年度报告',
+      description: '别笑，我猜你也猜不到哪个是真的我 >>',
+      images: [
+        {
+          url:   process.env.NEXT_PUBLIC_CDN_BASE_URL +
+              'assets/share-head-img-1221.png',
+          width: 500,
+          height: 500,
+          alt: '知乎｜2025，我真的 XX 了？',
+        },
+      ],
+    },
+  },
+}
+
+export const metadata: Metadata = metadataMap[process.env.NEXT_PUBLIC_BASE_URL || '/zhihu2025']
 
 export const viewport: Viewport = {
   width: 'device-width',

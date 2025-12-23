@@ -252,7 +252,7 @@ export const summaryFlags = [
     key: "good",
     text: "很棒",
     bg: "#FFE48D",
-    fullText: "我真的很棒了",
+    fullText: "我真的很棒",
   },
   {
     key: "ai",

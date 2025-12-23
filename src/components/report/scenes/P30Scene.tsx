@@ -188,10 +188,6 @@ export default function P30Scene({ onNext, sceneName, onPrevious }: PageProps) {
         console.error('Failed to copy to clipboard:', clipboardError);
         showToast('复制链接失败，请稍后重试', 'error');
       }
-      // Redirect after 3 seconds
-      setTimeout(() => {
-        window.location.href = redirectUrl;
-      }, 3000);
     }
   }
 

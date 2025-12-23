@@ -17,3 +17,7 @@ export function isZhihuApp(): boolean {
   return userAgent.includes('osee2unifiedRelease') || userAgent.includes('Futureve') || userAgent.includes('ZhihuHmos');
 }
 
+export function isHarmonyOS(): boolean {
+  const ua = navigator.userAgent;
+  return ua.includes('HarmonyOS') || ua.includes('OpenHarmony') || ua.includes('ArkWeb');
+}

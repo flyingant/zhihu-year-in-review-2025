@@ -151,7 +151,7 @@ export default function P22Scene({
           alt={gif.alt}
           width={gif.width / 2}
           height={gif.height / 2}
-          className='object-contain absolute pointer-events-none select-none z-1 animate-run-across'
+          className='object-contain absolute pointer-events-none select-none z-1'
           style={{
             top: '603px',
             left: '135px',

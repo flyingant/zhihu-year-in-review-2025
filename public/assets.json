@@ -3030,6 +3030,18 @@
         "width": 223,
         "height": 200,
         "alt": "Index Reverse GIF Animation"
+      },
+      "liukanshanMirror": {
+        "url": "/assets/2025_2_report_index_liukanshan_mirror.png",
+        "width": 223,
+        "height": 200,
+        "alt": "Index Liukanshan Mirror"
+      },
+      "liukanshanMirrorReverse": {
+        "url": "/assets/2025_2_report_index_liukanshan_mirror_reverse.png",
+        "width": 223,
+        "height": 200,
+        "alt": "Index Liukanshan Mirror Reverse"
       }
     },
     "top2025": {

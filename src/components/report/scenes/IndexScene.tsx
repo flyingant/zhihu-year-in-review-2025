@@ -194,6 +194,8 @@ export default function IndexScene({ onNext, sceneName }: IndexSceneProps) {
   );
   const registerDays = reportData?.register_days as number | undefined;
 
+  const { liukanshanMirror, liukanshanMirrorReverse } = assets.report.index;
+
   const handleCornerClick = (view: ActiveView) => {
     // Start expansion animation
     setExpandingView(view);
@@ -404,6 +406,15 @@ export default function IndexScene({ onNext, sceneName }: IndexSceneProps) {
     return gifFirstFrame;
   };
 
+  const getFloatingLiukanshan = () => {
+    if (!activeView) return null;
+    if (activeView === 'topRight' || activeView === 'bottomRight') {
+      return liukanshanMirror;
+    }
+    // Use regular GIF first frame for topLeft and bottomLeft
+    return liukanshanMirrorReverse;
+  };
+
   const expandingAsset = getCornerAsset(expandingView);
 
   return (
@@ -574,9 +585,10 @@ export default function IndexScene({ onNext, sceneName }: IndexSceneProps) {
                   priority
                 />
               )}
-              {/* {(() => {
+              {(() => {
                 const gifAsset = getGifAsset();
                 const firstFrame = getGifFirstFrame();
+                const floatingLiukanshan = getFloatingLiukanshan();
                 if (!gifAsset || !showGif) return null;
 
                 return (
@@ -593,7 +605,17 @@ export default function IndexScene({ onNext, sceneName }: IndexSceneProps) {
                       ease: 'easeInOut',
                     }}
                   >
-                    {showAnimatedGif ? (
+                    {floatingLiukanshan && (
+                      <Image
+                        src={floatingLiukanshan.url}
+                        alt={floatingLiukanshan.alt}
+                        width={floatingLiukanshan.width * 1.2}
+                        height={floatingLiukanshan.height * 1.2}
+                        className='object-cover'
+                        priority
+                      />
+                    )}
+                    {/* {showAnimatedGif ? (
                       // eslint-disable-next-line @next/next/no-img-element
                       <img
                         src={gifAsset.url}
@@ -614,10 +636,10 @@ export default function IndexScene({ onNext, sceneName }: IndexSceneProps) {
                           priority
                         />
                       )
-                    )}
+                    )} */}
                   </motion.div>
                 );
-              })()} */}
+              })()}
 
               <div
                 className='absolute flex items-center justify-center'

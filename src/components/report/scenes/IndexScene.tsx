@@ -8,6 +8,7 @@ import { useAssets } from '@/context/assets-context';
 import { formatDateWithoutText } from '@/utils/common';
 import { useZhihuHybrid } from '@/hooks/useZhihuHybrid';
 import { useZhihuApp } from '@/hooks/useZhihuApp';
+import { isHarmonyOS } from '@/lib/zhihu-detection';
 
 interface IndexSceneProps {
   onNext?: (choice?: string) => void;
@@ -416,7 +417,7 @@ export default function IndexScene({ onNext, sceneName }: IndexSceneProps) {
   };
 
   const expandingAsset = getCornerAsset(expandingView);
-
+  const isHarmony = isHarmonyOS() 
   return (
     <BaseScene
       onNext={handleNextClick}
@@ -659,28 +660,32 @@ export default function IndexScene({ onNext, sceneName }: IndexSceneProps) {
                   />
                 </div>
               </div>
-              <div
-                className='absolute mt-8 flex items-center text-sm font-bold text-[#121212] cursor-pointer w-fit'
-                style={{
-                  ...getMirrorStyle(activeView).style,
-                  ...getMirrorStyle(activeView).zhiLinkPos,
-                }}
-                onClick={handleZhiLinkClick}
-              >
-                <span className='mr-2'>&gt;</span>
-                <motion.span
-                  className='underline underline-offset-4 inline-block'
-                  animate={{ scale: [1, 1.09, 1] }}
-                  transition={{
-                    repeat: Infinity,
-                    duration: 1.5,
-                    ease: 'easeInOut',
-                  }}
-                >
-                  查看我的 ZhiLink
-                </motion.span>
-                <span className='ml-2'>&lt;</span>
-              </div>
+              {
+                !isHarmony &&  (
+                   <div
+                      className='absolute mt-8 flex items-center text-sm font-bold text-[#121212] cursor-pointer w-fit'
+                      style={{
+                        ...getMirrorStyle(activeView).style,
+                        ...getMirrorStyle(activeView).zhiLinkPos,
+                      }}
+                      onClick={handleZhiLinkClick}
+                    >
+                      <span className='mr-2'>&gt;</span>
+                      <motion.span
+                        className='underline underline-offset-4 inline-block'
+                        animate={{ scale: [1, 1.09, 1] }}
+                        transition={{
+                          repeat: Infinity,
+                          duration: 1.5,
+                          ease: 'easeInOut',
+                        }}
+                      >
+                        查看我的 ZhiLink
+                      </motion.span>
+                      <span className='ml-2'>&lt;</span>
+                    </div>
+                )
+              }
             </motion.div>
           )}
         </AnimatePresence>

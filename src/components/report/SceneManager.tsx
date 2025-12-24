@@ -173,7 +173,7 @@ export default function SceneManager() {
           weibo: {
             url: link,
             title: '知乎｜2025 个人年度报告',
-            content: '回顾这一年，我真的____？点击加载真实 >>',
+            content: '「知乎｜2025 个人年度报告」回顾这一年，我真的____？点击加载真实 >>',
             imageURL: shareHeadImg,
           },
           Qzone: {

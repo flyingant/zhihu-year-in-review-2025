@@ -69,7 +69,7 @@ export default function P10Scene({
     } else if (w >= 10000 && w < 20000) {
       return { number: '1', unit: '本', work: '散文集《野草》' };
     } else if (w >= 20000 && w < 50000) {
-      return { number: '1', unit: '本', work: '《人类群星闪耀时》' };
+      return { number: '1', unit: '本', work: '《悉达多》' };
     } else if (w >= 50000 && w < 100000) {
       return { number: '半', unit: '部', work: '《人间词话》' };
     } else if (w >= 100000 && w < 150000) {
@@ -105,9 +105,9 @@ export default function P10Scene({
     } else if (w >= 20000000 && w < 30000000) {
       return { number: '100', unit: '遍', work: '《百年孤独》' };
     } else if (w >= 30000000 && w < 50000000) {
-      return { number: '15', unit: '遍', work: '《战争与和平》' };
+      return { number: '30', unit: '遍', work: '《战争与和平》' };
     } else if (w >= 50000000 && w < 100000000) {
-      return { number: '100', unit: '遍', work: '马尔克斯的《活着为了讲述》' };
+      return { number: '200', unit: '遍', work: '马尔克斯的《活着为了讲述》' };
     } else {
       // 100000000+
       return { number: '', unit: '', work: '在脑海中建成一座「真实图书馆」' };

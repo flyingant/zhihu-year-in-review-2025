@@ -53,13 +53,13 @@ const metadataMap: Record<string, Metadata> = {
 
   '/2025guess': {
     title: '知乎 2025 个人年度报告',
-    description: '别笑，我猜你也猜不到哪个是真的我 >>',
+    description: '猜猜哪个是「真的」我 >>',
     icons: {
       icon: process.env.NEXT_PUBLIC_CDN_BASE_URL + 'assets/share-head-img-1221.png'
     },
     openGraph: {
       title: '知乎 2025 个人年度报告',
-      description: '别笑，我猜你也猜不到哪个是真的我 >>',
+      description: '猜猜哪个是「真的」我 >>',
       images: [
         {
           url:   process.env.NEXT_PUBLIC_CDN_BASE_URL +

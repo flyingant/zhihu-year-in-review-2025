@@ -74,20 +74,20 @@ function GuessPageScene() {
           },
           wechatMessage: {
             title: '知乎｜2025，我真的 XX 了？',
-            desc: '别笑，我猜你也猜不到哪个是真的我 >>',
+            desc: '猜猜哪个是「真的」我 >>',
             link: redirectUrl,
             imgUrl: shareHeadImg,
           },
           QQ: {
             url: redirectUrl,
             title: '知乎｜2025，我真的 XX 了？',
-            content: '别笑，我猜你也猜不到哪个是真的我 >>',
+            content: '猜猜哪个是「真的」我 >>',
             imageURL: shareHeadImg,
           },
           weibo: {
             url: redirectUrl,
             title: '知乎｜2025，我真的 XX 了？',
-            content: '别笑，我猜你也猜不到哪个是真的我 >>',
+            content: '猜猜哪个是「真的」我 >>',
             imageURL: shareHeadImg,
           },
           copyLink: {
@@ -96,7 +96,7 @@ function GuessPageScene() {
           Qzone: {
             url: redirectUrl,
             title: '知乎｜2025，我真的 XX 了？',
-            content: '别笑，我猜你也猜不到哪个是真的我 >>',
+            content: '猜猜哪个是「真的」我 >>',
             imageURL: shareHeadImg,
           }
         }); 

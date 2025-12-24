@@ -400,7 +400,7 @@ export default function P29Scene({ onNext, sceneName }: PageProps) {
         className='absolute bottom-0 left-0 right-0 z-20 flex flex-col items-center pb-6 px-6'
         style={{
           background: summaryPoster?.bg,
-          padding: '0px 20px 60px',
+          padding: '0px 20px 45px',
           paddingTop: 0,
         }}
       >

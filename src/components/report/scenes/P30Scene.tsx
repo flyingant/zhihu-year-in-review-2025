@@ -124,7 +124,7 @@ export default function P30Scene({ onNext, sceneName, onPrevious }: PageProps) {
 
         await setShareInfoAction.dispatch({
           zhihuMessage: {
-            content: '知乎｜2025，我真的 XX 了？' + redirectUrl,
+            content: '知乎｜2025 个人年度报告\n2025，我真的____\n请回答：哪一句，更像你认识的「真的」我？\n' + redirectUrl,
             link: redirectUrl,
           },
           wechatTimeline: {
@@ -134,20 +134,20 @@ export default function P30Scene({ onNext, sceneName, onPrevious }: PageProps) {
           },
           wechatMessage: {
             title: '知乎｜2025，我真的 XX 了？',
-            desc: '别笑，我猜你也猜不到哪个是真的我 >>',
+            desc: '猜猜哪个是「真的」我 >>',
             link: redirectUrl,
             imgUrl: shareHeadImg,
           },
           QQ: {
             url: redirectUrl,
             title: '知乎｜2025，我真的 XX 了？',
-            content: '别笑，我猜你也猜不到哪个是真的我 >>',
+            content: '猜猜哪个是「真的」我 >>',
             imageURL: shareHeadImg,
           },
           weibo: {
             url: redirectUrl,
             title: '知乎｜2025，我真的 XX 了？',
-            content: '别笑，我猜你也猜不到哪个是真的我 >>',
+            content: '猜猜哪个是「真的」我 >>',
             imageURL: shareHeadImg,
           },
           // PosterShare: {
@@ -160,7 +160,7 @@ export default function P30Scene({ onNext, sceneName, onPrevious }: PageProps) {
           Qzone: {
             url: redirectUrl,
             title: '知乎｜2025，我真的 XX 了？',
-            content: '别笑，我猜你也猜不到哪个是真的我 >>',
+            content: '猜猜哪个是「真的」我 >>',
             imageURL: shareHeadImg,
           }
         }); 

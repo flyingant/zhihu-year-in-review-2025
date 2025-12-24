@@ -56,7 +56,9 @@ const MovieLikeItem = ({
       >
         <span>《{String(name ?? fallbackName)}》</span>
         <br />
-        <span>{String(rate ?? fallbackRate)}% 知友推荐</span>
+        <span className='text-r-blue' hidden={!rate}>
+          {String(rate ?? fallbackRate)}% 知友推荐
+        </span>
       </div>
     </div>
   );

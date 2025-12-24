@@ -253,18 +253,19 @@ export default function P28Scene({ onNext, sceneName }: PageProps) {
             }}
           />
         </div>
-        <button
-          className='absolute left-1/2 -translate-x-1/2 z-60 rounded-full bg-[#000] text-white text-lg'
-          style={{
-            minWidth: '280px',
-            bottom: 100,
-            height: 43,
-          }}
-          onClick={handleGeneratePoster}
-          disabled={isLoading}
-        >
-          {isLoading ? '生成中...' : '点击生成结果'}
-        </button>
+        <div className='absolute flex items-center justify-center text-center z-60' style={{ bottom: 100, left: 0, right: 0 }}>
+          <button
+            className='rounded-full bg-[#000] text-white text-lg'
+            style={{
+              minWidth: '280px',
+              height: 43,
+            }}
+            onClick={handleGeneratePoster}
+            disabled={isLoading}
+          >
+            {isLoading ? '生成中...' : '点击生成结果'}
+          </button>
+        </div>
       </div>
     </BaseScene>
   );

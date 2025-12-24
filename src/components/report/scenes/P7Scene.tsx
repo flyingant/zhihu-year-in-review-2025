@@ -114,7 +114,7 @@ export default function P7Scene({
             />
           </div>
 
-          <div className='text-left'>
+          <div className='text-center'>
             <div className='text-center'>这一年，你的内容收获了</div>
             <div hidden={!readCount}>
               <span

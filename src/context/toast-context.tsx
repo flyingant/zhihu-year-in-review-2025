@@ -68,13 +68,14 @@ export function ToastProvider({ children }: { children: ReactNode }) {
     <ToastContext.Provider value={{ showToast }}>
       {children}
       {/* Toast Container */}
-      <div className="fixed bottom-[50%] translate-y-1/2 left-1/2 -translate-x-1/2 z-[10001] pointer-events-none">
+      <div className="fixed bottom-[50%] translate-y-1/2 z-[10001] pointer-events-none" style={{ left: 0, right: 0 }}>
         <div className="flex flex-col gap-2">
           {toasts.map((toast) => (
             <div
               key={toast.id}
               className="bg-black text-white px-6 py-3 rounded-full shadow-lg pointer-events-auto animate-slideUp min-w-[200px] max-w-[90vw] text-center"
               onClick={() => removeToast(toast.id)}
+              style={{ margin: '0 auto' }}
             >
               <p className="text-sm text-white">{toast.message}</p>
             </div>

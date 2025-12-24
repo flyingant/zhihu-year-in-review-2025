@@ -207,7 +207,7 @@ const NianZhongXiaoWenSection = () => {
             top: '30%',
             left: '9%',
             width: '82%',
-            height: '59%',
+            height: '56%',
           }}
         >
           {isLoading ? (

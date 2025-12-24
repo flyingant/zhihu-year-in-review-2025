@@ -221,7 +221,7 @@ export default function P5Scene({
         </div>
 
         {/* 想法统计 */}
-        <div hidden={!pinCount}>
+        <div hidden={!pinCount} style={{ marginTop: '10px' }}>
           你发布了
           <span
             className={`text-r-pink`}

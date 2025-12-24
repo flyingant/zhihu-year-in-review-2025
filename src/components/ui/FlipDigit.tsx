@@ -72,13 +72,20 @@ function SingleFlip({
         initial={isDiff ? { rotateX: 0 } : false}
         animate={isDiff ? { rotateX: -180 } : false}
         transition={{ duration: 1.6, ease: 'easeInOut' }}
-        style={{ transformOrigin: 'bottom', transformStyle: 'preserve-3d' }}
+        style={{
+          transformOrigin: 'bottom',
+          transformStyle: 'preserve-3d',
+          WebkitTransformStyle: 'preserve-3d', // iOS 14 compatibility
+        }}
         className='absolute top-0 left-0 w-full h-[50%] z-10 pointer-events-none'
       >
         {/* FLAP FRONT: Prev Top */}
         <div
           className='absolute top-0 left-0 w-full h-full overflow-hidden bg-white border-[2px] border-black border-b-0 flex justify-center items-end box-border '
-          style={{ backfaceVisibility: 'hidden' }}
+          style={{
+            backfaceVisibility: 'hidden',
+            WebkitBackfaceVisibility: 'hidden', // iOS 14 compatibility
+          }}
         >
           <span className='translate-y-[50%]'>{prev}</span>
         </div>
@@ -88,6 +95,7 @@ function SingleFlip({
           className='absolute top-0 left-0 w-full h-full overflow-hidden bg-white border-[2px] border-black border-t-0 flex justify-center items-start box-border '
           style={{
             backfaceVisibility: 'hidden',
+            WebkitBackfaceVisibility: 'hidden', // iOS 14 compatibility
             transform: 'rotateX(180deg)',
           }}
         >

@@ -75,9 +75,12 @@ export default function P3Scene({
   // Map context data to component variables according to P3 spec
   const answerCount = reportData?.publish_answer_cnt ?? 0;
   const articleCount = reportData?.publish_article_cnt ?? 0;
-  const topDomain1 = reportData?.publish_max_domin_top1 ?? null;
-  const topDomain2 = reportData?.publish_max_domin_top2 ?? null;
-  const topDomain3 = reportData?.publish_max_domin_top3 ?? null;
+  const topDomain1 = '心理学';
+  const topDomain2 = '心理学';
+  const topDomain3 = '心理学';
+  // const topDomain1 = reportData?.publish_max_domin_top1 ?? null;
+  // const topDomain2 = reportData?.publish_max_domin_top2 ?? null;
+  // const topDomain3 = reportData?.publish_max_domin_top3 ?? null;
   const firstAnswerDate = reportData?.first_answer_date ?? null;
   const firstAnswerTitle = reportData?.first_answer_question_title ?? null;
   const firstAnswerMonth = firstAnswerDate
@@ -207,7 +210,7 @@ export default function P3Scene({
 
         {/* 深耕领域 */}
         <div
-          style={{ paddingBottom: '46px' }}
+          style={{ paddingBottom: '0px', lineHeight: '32px' }}
           hidden={!topDomain1 && !topDomain2 && !topDomain3}
         >
           <span

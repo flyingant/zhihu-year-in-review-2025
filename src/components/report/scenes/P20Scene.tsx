@@ -40,6 +40,7 @@ const InteractionMemberItem = ({
           width: '32px',
           height: '32px',
           borderRadius: '50%',
+          border: '0.5px solid #000',
         }}
       />
       <span
@@ -322,16 +323,20 @@ export default function P20Scene({
                 className='flex items-center gap-1'
                 style={{ marginTop: '8px' }}
               >
+                同频的你们，让旅途不再孤独
+              </div>
+              {/* <div
+                className='flex items-center gap-1'
+                style={{ marginTop: '8px' }}
+              >
                 要不要
                 <ActionsButton
                   type='message'
                   onClick={handleSendMessage}
                   disabled={isSending}
                 />
-                {/* <ActionsButton type="join" onClick={() => {}} /> */}
-                {/* <ActionsButton type="joined" onClick={() => {}} /> */}
                 送他们一个感谢？
-              </div>
+              </div> */}
             </div>
           }
         </div>

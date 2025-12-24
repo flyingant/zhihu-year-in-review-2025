@@ -216,9 +216,7 @@ export default function P19Scene({
             </span>
             个圈子 <br />
             {
-              <div
-                hidden={!joinClubPercentage || Number(joinClubPercentage) <= 0}
-              >
+              <div hidden={!joinClubCount}>
                 明年，有更多的兴趣、智识在等着你探索
                 {/* <span className='mt-5'>对同好社交的热情超过了</span>
                 <span

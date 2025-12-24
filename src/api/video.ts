@@ -102,7 +102,7 @@ export function extractVideoQualityUrls(details: VideoDetailResponse): {
   }
   
   if (details.video?.playlist?.sd?.play_url) {
-    result.sd = details.video.playlist.sd.play_url;
+    result.sd = details.video.playlist?.hd?.play_url || details.video.playlist.sd.play_url;
   } else if (details.video?.playlist?.ld?.play_url) {
     result.sd = details.video.playlist.ld.play_url;
   }

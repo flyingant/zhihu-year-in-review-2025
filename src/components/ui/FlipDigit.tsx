@@ -58,12 +58,26 @@ function SingleFlip({
 
       {/* UPPER UNDER: Current (Target) Top */}
       <div className='absolute top-0 left-0 w-full h-[50%] overflow-hidden bg-white border-[2px] border-black border-b-0 flex justify-center items-end box-border '>
-        <span className='translate-y-[50%]'>{current}</span>
+        <span
+          style={{
+            transform: 'translateY(50%)',
+            WebkitTransform: 'translateY(50%)',
+          }}
+        >
+          {current}
+        </span>
       </div>
 
       {/* LOWER UNDER: Prev Bottom */}
       <div className='absolute bottom-0 left-0 w-full h-[50%] overflow-hidden bg-white border-[2px] border-black border-t-0 flex justify-center items-start box-border '>
-        <span className='-translate-y-[50%]'>{prev}</span>
+        <span
+          style={{
+            transform: 'translateY(-50%)',
+            WebkitTransform: 'translateY(-50%)',
+          }}
+        >
+          {prev}
+        </span>
       </div>
 
       {/* The Flap (Top Half -> Rotates to Bottom Half) */}
@@ -74,8 +88,9 @@ function SingleFlip({
         transition={{ duration: 1.6, ease: 'easeInOut' }}
         style={{
           transformOrigin: 'bottom',
+          WebkitTransformOrigin: 'bottom',
           transformStyle: 'preserve-3d',
-          WebkitTransformStyle: 'preserve-3d', // iOS 14 compatibility
+          WebkitTransformStyle: 'preserve-3d',
         }}
         className='absolute top-0 left-0 w-full h-[50%] z-10 pointer-events-none'
       >
@@ -84,10 +99,17 @@ function SingleFlip({
           className='absolute top-0 left-0 w-full h-full overflow-hidden bg-white border-[2px] border-black border-b-0 flex justify-center items-end box-border '
           style={{
             backfaceVisibility: 'hidden',
-            WebkitBackfaceVisibility: 'hidden', // iOS 14 compatibility
+            WebkitBackfaceVisibility: 'hidden',
           }}
         >
-          <span className='translate-y-[50%]'>{prev}</span>
+          <span
+            style={{
+              transform: 'translateY(50%)',
+              WebkitTransform: 'translateY(50%)',
+            }}
+          >
+            {prev}
+          </span>
         </div>
 
         {/* FLAP BACK: Current (Target) Bottom */}
@@ -95,11 +117,19 @@ function SingleFlip({
           className='absolute top-0 left-0 w-full h-full overflow-hidden bg-white border-[2px] border-black border-t-0 flex justify-center items-start box-border '
           style={{
             backfaceVisibility: 'hidden',
-            WebkitBackfaceVisibility: 'hidden', // iOS 14 compatibility
+            WebkitBackfaceVisibility: 'hidden',
             transform: 'rotateX(180deg)',
+            WebkitTransform: 'rotateX(180deg)',
           }}
         >
-          <span className='-translate-y-[50%]'>{current}</span>
+          <span
+            style={{
+              transform: 'translateY(-50%)',
+              WebkitTransform: 'translateY(-50%)',
+            }}
+          >
+            {current}
+          </span>
         </div>
       </motion.div>
     </div>

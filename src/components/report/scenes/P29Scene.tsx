@@ -400,25 +400,16 @@ export default function P29Scene({ onNext, sceneName }: PageProps) {
         className='absolute bottom-0 left-0 right-0 z-20 flex flex-col items-center pb-6 px-6'
         style={{
           background: summaryPoster?.bg,
-          padding: '20px',
+          padding: '0px 20px 60px',
           paddingTop: 0,
         }}
       >
         {/* Friend Interaction button */}
         <button
           onClick={handleFriendInteraction}
-          className='flex items-center justify-center gap-2 bg-[#000] rounded-full text-center'
-          style={{ width: '330px', height: '43px' }}
+          className='flex items-center justify-center bg-[#000] rounded-full text-center'
+          style={{ width: '330px', height: '43px', gap: 2 }}
         >
-          {assets.report.p29?.iconFriend && (
-            <Image
-              src={assets.report.p29.iconFriend.url}
-              alt={assets.report.p29.iconFriend.alt}
-              width={assets.report.p29.iconFriend.width / 2}
-              height={assets.report.p29.iconFriend.height / 2}
-              className='object-contain'
-            />
-          )}
           <Image
             src={ctaTextGuess.url}
             alt={ctaTextGuess.alt}
@@ -426,6 +417,19 @@ export default function P29Scene({ onNext, sceneName }: PageProps) {
             height={ctaTextGuess.height}
             className='object-contain  pointer-events-none select-none z-0'
           />
+          {assets.report.p29?.iconFriend && (
+            <Image
+              src={assets.report.p29.iconFriend.url}
+              alt={assets.report.p29.iconFriend.alt}
+              width={assets.report.p29.iconFriend.width / 2}
+              height={assets.report.p29.iconFriend.height / 2}
+              className='object-contain'
+              style={{
+                width: 24,
+                height: 24,
+              }}
+            />
+          )}
         </button>
         {/* Save and Share buttons */}
         <div

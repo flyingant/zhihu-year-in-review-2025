@@ -61,15 +61,17 @@ export default function P28Scene({ onNext, sceneName }: PageProps) {
         ...(testMemberId && { test_member_id: testMemberId }),
       });
 
+      const existedFlag = summaryFlags.find((flag) => flag.text === text);
+
       // Save poster data to context
       setSummaryPoster({
         poster_id: response.poster_id,
         poster_url: response.poster_url,
         text: text,
-        key: selectedFlag || 'empty',
+        key: selectedFlag ? selectedFlag : (existedFlag?.key || 'empty'),
         bg: selectedFlag
           ? summaryFlags.find((flag) => flag.key === selectedFlag)?.bg || ''
-          : '#B6DFFE',
+          : existedFlag ? existedFlag.bg : '#B6DFFE',
       });
 
       const poster = new globalThis.Image()

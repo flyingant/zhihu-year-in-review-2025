@@ -214,7 +214,10 @@ export default function P1Scene({
           }}
           animate={floatPulseB}
           transition={floatPulseTransitionB}
-          onClick={() => handleSelect('A')}
+          onClick={() => {
+            // 前端本身传的没问题，特意改成 B
+            handleSelect('B')
+          }}
           role='button'
           tabIndex={0}
         >
@@ -240,7 +243,10 @@ export default function P1Scene({
           }}
           animate={floatPulse}
           transition={floatPulseTransition}
-          onClick={() => handleSelect('B')}
+          onClick={() => {
+            // 前端本身传的没问题，特意改成 A
+            handleSelect('A')
+          }}
           role='button'
           tabIndex={0}
         >

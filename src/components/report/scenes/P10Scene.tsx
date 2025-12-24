@@ -69,7 +69,7 @@ export default function P10Scene({
     } else if (w >= 10000 && w < 20000) {
       return { number: '1', unit: '本', work: '散文集《野草》' };
     } else if (w >= 20000 && w < 50000) {
-      return { number: '1', unit: '本', work: '《悉达多》' };
+      return { number: '1', unit: '章', work: '《人类群星闪耀时》' };
     } else if (w >= 50000 && w < 100000) {
       return { number: '半', unit: '部', work: '《人间词话》' };
     } else if (w >= 100000 && w < 150000) {

@@ -80,6 +80,33 @@ export const truncateText = (
   return str;
 };
 
+/**
+ * Highlight text within 《》 brackets with a specified CSS class
+ * @param text - The text to process
+ * @param highlightClass - CSS class to apply to highlighted text (default: 'text-r-pink')
+ * @returns Array of React elements with highlighted portions
+ * 
+ * @example
+ * highlightBookTitles('你获得了《最佳回答》称号')
+ * // Returns: ['你获得了', <span className="text-r-pink">《最佳回答》</span>, '称号']
+ */
+export const highlightBookTitles = (
+  text: string | null | undefined,
+  highlightClass: string = 'text-r-pink'
+): Array<{ text: string; isHighlighted: boolean }> => {
+  if (!text) return [];
+  
+  const str = String(text);
+  const parts = str.split(/(《[^》]*》)/g);
+  
+  return parts
+    .filter(part => part.length > 0) // Remove empty strings
+    .map(part => ({
+      text: part,
+      isHighlighted: part.startsWith('《') && part.endsWith('》'),
+    }));
+};
+
 interface PromiseObservable<T> extends Promise<T> {
   subscribe?: (callback: (result: T) => void) => void;
 }

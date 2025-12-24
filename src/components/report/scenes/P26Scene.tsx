@@ -7,6 +7,7 @@ import GlitchLayer from '@/components/report/effects/GlitchLayer';
 import { useAssets } from '@/context/assets-context';
 import Image from 'next/image';
 import { useMobile } from '@/hooks/useMobile';
+import { highlightBookTitles } from '@/utils/common';
 
 interface PageProps {
   onNext?: () => void;
@@ -269,7 +270,16 @@ export default function P26Scene({
               <div className=''>
                 {!!awardedCopy && (
                   <div>
-                    <span>{String(awardedCopy ?? 'awarded_copy')}</span>
+                    <span>
+                      {highlightBookTitles(awardedCopy).map((part, index) => (
+                        <span
+                          key={index}
+                          className={part.isHighlighted ? 'text-r-pink' : ''}
+                        >
+                          {part.text}
+                        </span>
+                      ))}
+                    </span>
                   </div>
                 )}
               </div>

@@ -47,6 +47,9 @@ export default function P30Scene({ onNext, sceneName, onPrevious }: PageProps) {
   const bannersAssets = p28Assets.banners || {};
 
   const handleSelect = (key: string) => {
+    if (summaryPoster?.pollId) {
+      return
+    }
     if (summaryPoster?.key === key) {
       showToast('请选择与正确答案不同的选项来迷惑');
       return;
@@ -332,7 +335,6 @@ export default function P30Scene({ onNext, sceneName, onPrevious }: PageProps) {
             );
           })}
         </div>
-
         <button
           className='absolute left-1/2 -translate-x-1/2 z-60 rounded-full bg-[#000] text-white text-lg'
           style={{
@@ -344,6 +346,20 @@ export default function P30Scene({ onNext, sceneName, onPrevious }: PageProps) {
         >
           分享给好友猜猜
         </button>
+
+        <div className='z-60 relative flex items-center justify-center' style={{ left: 0, right: 0, top:160 }}>
+          <button
+            className='rounded-full bg-[#000] text-white text-lg'
+            style={{
+              minWidth: '264px',
+              bottom: 100,
+              height: 43,
+            }}
+            onClick={handleShare}
+          >
+            分享给好友猜猜
+          </button>
+        </div>
         {
           (isMobile || isZhihuApp()) && (
             <label

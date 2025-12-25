@@ -44,17 +44,12 @@ export default function P10Scene({
     typeof value === 'number' ? value : null;
 
   // Map context data to component variables according to P10 spec
-  const questionCount = formatNumber(
-    toNumberOrNull(reportData?.consume_question_cnt)
-  );
-  const answerCount = formatNumber(
-    toNumberOrNull(reportData?.consume_answer_cnt)
-  );
-  const articleCount = formatNumber(
-    toNumberOrNull(reportData?.consume_article_cnt)
-  );
-  const pinCount = formatNumber(toNumberOrNull(reportData?.consume_pin_cnt));
-  const wordCount = toNumberOrNull(reportData?.consume_word_cnt);
+  const questionCount = toNumberOrNull(reportData?.consume_question_cnt) ?? 0;
+  const answerCount = toNumberOrNull(reportData?.consume_answer_cnt) ?? 0;
+  const articleCount = toNumberOrNull(reportData?.consume_article_cnt) ?? 0;
+  const pinCount = toNumberOrNull(reportData?.consume_pin_cnt) ?? 0;
+  const wordCount = toNumberOrNull(reportData?.consume_word_cnt) ?? 0;
+
 
   // Map word count to equivalent reading achievement
   const getEquivalentReading = (
@@ -202,7 +197,7 @@ export default function P10Scene({
             style: { marginLeft: 'auto', marginRight: 'auto' },
           },
         ]
-          .filter((card) => !!Number(card.count))
+          .filter((card) => !!card.count)
           .map((card, index) => (
             <div
               key={card.asset.url}
@@ -233,7 +228,7 @@ export default function P10Scene({
                   className={`${card.color} font-bold pixel-font`}
                   style={{ fontSize: '34px', textShadow: '3px 3px 0px #000000' }}
                 >
-                  {card.count}
+                  {formatNumber(card.count)}
                 </span>
               </div>
             </div>
@@ -241,7 +236,7 @@ export default function P10Scene({
       </div>
 
       {/* 总计阅读字数 / 等效书本 */}
-      <div
+      {!!wordCount && <div
         className='absolute flex flex-col items-center justify-center'
         style={{
           top: '620px',
@@ -253,7 +248,6 @@ export default function P10Scene({
         <div
           className='flex items-center justify-center'
           style={{ marginBottom: '20px' }}
-          hidden={!Number(wordCount)}
         >
           <div>阅读&nbsp;</div>
           <FlipCounter
@@ -306,7 +300,7 @@ export default function P10Scene({
             )}
           </div>
         )}
-      </div>
+      </div>}
     </BaseScene>
   );
 }

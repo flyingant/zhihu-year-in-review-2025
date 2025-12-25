@@ -14,6 +14,7 @@ import {
 } from '@/api/campaign';
 import { isZhihuApp } from '@/lib/zhihu-detection';
 import { useZhihuHybrid } from '@/hooks/useZhihuHybrid';
+import { useZhihuApp } from '@/hooks/useZhihuApp';
 import { useMobile } from '@/hooks/useMobile';
 import { useAuth } from '@/context/auth-context';
 
@@ -68,10 +69,11 @@ type Question = {
 const VoteTenQuestions = () => {
   const { assets } = useAssets();
   const { showToast } = useToast();
-  const { downloadImage: downloadImageViaHybrid } = useZhihuHybrid();
+  const { downloadImage: downloadImageViaHybrid, isAvailable: isHybridAvailable, openURL } = useZhihuHybrid();
   const { trackEvent } = useZA();
   const isMobile = useMobile();
   const { isAuthenticated, login } = useAuth();
+  const isZhihuAppValue = useZhihuApp();
 
   const [activeTopicId, setActiveTopicId] = useState<string>(TOPICS[0].id);
   const [selectedQuestions, setSelectedQuestions] = useState<Question[]>([]);
@@ -308,8 +310,18 @@ const VoteTenQuestions = () => {
     setSelectedQuestions(prev => prev.filter(q => q.id !== id));
   };
 
-  const handleQuestionClick = (url: string) => {
-    window.open(url, '_blank');
+  const handleQuestionClick = async (url: string) => {
+    // Use zhihuHybrid if in zhihu app, otherwise use window.location.href
+    if (isZhihuAppValue && isHybridAvailable) {
+      try {
+        await openURL(url);
+      } catch (error) {
+        console.error('Failed to open URL via zhihuHybrid, falling back to window.location.href:', error);
+        window.location.href = url;
+      }
+    } else {
+      window.location.href = url;
+    }
   };
 
   // 处理未认证用户点击输入区域 - 跳转到登录页

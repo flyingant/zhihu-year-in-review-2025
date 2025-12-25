@@ -315,7 +315,7 @@ export interface AssetsData {
 
 // Component expiration dates (in milliseconds since epoch)
 export const componentExpiration = {
-  sidebarLiuKanshan: new Date('2025-12-25T00:00:00').getTime(), // 2025.12.25 00:00
+  sidebarLiuKanshan: new Date('2025-12-26T00:00:00').getTime(), // 2025.12.26 00:00
 };
 
 interface AssetsContextType {

@@ -111,26 +111,26 @@ export default function P14Scene({
     : { scale: 1 };
   const floatPulseTransition = isMaskPastThreshold
     ? {
-        scale: {
-          repeat: Infinity,
-          repeatType: 'reverse' as const,
-          duration: 1.2,
-          ease: 'easeInOut' as const,
-        },
-      }
+      scale: {
+        repeat: Infinity,
+        repeatType: 'reverse' as const,
+        duration: 1.2,
+        ease: 'easeInOut' as const,
+      },
+    }
     : {};
   const floatPulseB = isMaskAboveThreshold
     ? { scale: [1, 1.06, 1] }
     : { scale: 1 };
   const floatPulseTransitionB = isMaskAboveThreshold
     ? {
-        scale: {
-          repeat: Infinity,
-          repeatType: 'reverse' as const,
-          duration: 1.2,
-          ease: 'easeInOut' as const,
-        },
-      }
+      scale: {
+        repeat: Infinity,
+        repeatType: 'reverse' as const,
+        duration: 1.2,
+        ease: 'easeInOut' as const,
+      },
+    }
     : {};
   return (
     <BaseScene
@@ -190,7 +190,7 @@ export default function P14Scene({
           className='absolute z-30 text-center text-xl w-full leading-relaxed'
           style={{ top: '73px', fontSize: 26, lineHeight: '40px' }}
         >
-          当你赞同时
+          当你赞同时，
           <br />
           你在回应什么？
         </p>

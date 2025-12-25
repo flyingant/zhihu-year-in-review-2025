@@ -45,6 +45,12 @@ export default function P28Scene({ onNext, sceneName }: PageProps) {
       return;
     }
 
+    const emojiRegex =  /[\u{1F300}-\u{1F6FF}\u{1F900}-\u{1F9FF}]/gu;
+    if (!selectedFlag && inputValue.match(emojiRegex)) {
+      showToast('请输入 1-2 个文字', 'error');
+      return;
+    }
+
     if (!selectedFlag && inputValue.trim().length > 2) {
       showToast('最多只能输入2个字符', 'error');
       return;

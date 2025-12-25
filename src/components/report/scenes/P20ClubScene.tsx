@@ -63,7 +63,7 @@ const ClubInterestItem = ({
       <ActionsButton
         className='ml-[7px]'
         type={type}
-        onClick={onClick || (() => {})}
+        onClick={onClick || (() => { })}
         disabled={disabled}
       />
     </span>
@@ -397,7 +397,7 @@ export default function P20Scene({
               </div>
               <div className='flex flex-col gap-2' style={{ marginTop: '8px' }}>
                 <span>或许会是你的下一站</span>
-                <span>点击加入一起开启新年新旅程吧</span>
+                <span>点击加入，一起开启新年新旅程吧</span>
               </div>
             </div>
           )}

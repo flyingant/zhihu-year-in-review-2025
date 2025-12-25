@@ -206,7 +206,7 @@ export default function P26Scene({
                 >
                   {String(writeStoryNumSum ?? 'write_story_num_sum')}
                 </span>
-                篇故事，
+                篇故事
                 <br />
                 把想象的灵光化成了文字与篇章
               </div>

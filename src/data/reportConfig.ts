@@ -167,9 +167,7 @@ export const SCENES: Record<string, SceneConfig> = {
     component: P13Scene,
     next: "p14",
     shouldSkip: (data) =>
-      !data?.zhihu_browse_most_date &&
       (data?.zhihu_browse_most_date_duration ?? 0) < 5 &&
-      !data?.consume_most_answer_title &&
       (data?.consume_most_answer_pv_cnt ?? 0) < 5,
   },
   p14: {
@@ -271,9 +269,9 @@ export const SCENES: Record<string, SceneConfig> = {
     next: "p25",
     shouldSkip: (data) =>
       !data?.movie_like_cnt && !(data?.movie_like_name_top1 ||
-      data?.movie_like_name_top2 ||
-      data?.movie_like_name_top3
-    )
+        data?.movie_like_name_top2 ||
+        data?.movie_like_name_top3
+      )
   },
   p25: {
     id: "p25",

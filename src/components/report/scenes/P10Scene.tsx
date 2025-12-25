@@ -176,163 +176,84 @@ export default function P10Scene({
       </div>
 
       <div className='tracking-widest'>
-        {/* Group 1: 问题 */}
-        <div
-          hidden={!questionCount}
-          className='relative'
-          style={{
-            width: '223px',
-            height: '127px',
-            marginLeft: 'auto',
-            marginRight: '24px',
-          }}
-        >
-          <Image
-            src={group2Asset.url}
-            alt={group2Asset.alt}
-            width={group2Asset.width}
-            height={group2Asset.height}
-            className='object-contain absolute pointer-events-none select-none z-1'
-          />
-          <div
-            className='absolute flex items-center justify-center'
-            style={{
-              top: '50%',
-              left: '45%',
-              transform: 'translate(-50%, -50%)',
-            }}
-          >
-            <span
-              className='text-r-pink font-bold pixel-font'
-              style={{ fontSize: '34px', textShadow: '3px 3px 0px #000000' }}
+        {[
+          {
+            count: questionCount,
+            asset: group2Asset,
+            color: 'text-r-pink',
+            style: { marginLeft: 'auto', marginRight: '24px' },
+          },
+          {
+            count: answerCount,
+            asset: group1Asset,
+            color: 'text-r-fern',
+            style: { marginRight: 'auto', marginLeft: '24px' },
+          },
+          {
+            count: articleCount,
+            asset: group3Asset,
+            color: 'text-r-green',
+            style: { marginLeft: 'auto', marginRight: '40px' },
+          },
+          {
+            count: pinCount,
+            asset: group4Asset,
+            color: 'text-r-yellow',
+            style: { marginLeft: 'auto', marginRight: 'auto' },
+          },
+        ]
+          .filter((card) => !!Number(card.count))
+          .map((card, index) => (
+            <div
+              key={card.asset.url}
+              className='relative'
+              style={{
+                width: '223px',
+                height: '127px',
+                marginTop: index === 0 ? '0px' : '-40px',
+                ...card.style,
+              }}
             >
-              {questionCount}
-            </span>
-          </div>
-        </div>
-
-        {/* Group 2: 回答 */}
-        <div
-          hidden={!answerCount}
-          className='relative'
-          style={{
-            width: '223px',
-            height: '127px',
-            marginRight: 'auto',
-            marginLeft: '24px',
-            marginTop: '-40px',
-          }}
-        >
-          <Image
-            src={group1Asset.url}
-            alt={group1Asset.alt}
-            width={group1Asset.width}
-            height={group1Asset.height}
-            className='object-contain absolute pointer-events-none select-none z-1'
-          />
-          <div
-            className='absolute flex items-center justify-center'
-            style={{
-              top: '50%',
-              left: '45%',
-              transform: 'translate(-50%, -50%)',
-            }}
-          >
-            <span
-              className='text-r-fern font-bold pixel-font'
-              style={{ fontSize: '34px', textShadow: '3px 3px 0px #000000' }}
-            >
-              {answerCount}
-            </span>
-          </div>
-        </div>
-
-        {/* Group 3: 文章数 */}
-        <div
-          hidden={!articleCount}
-          className='relative'
-          style={{
-            width: '223px',
-            height: '127px',
-            marginLeft: 'auto',
-            marginRight: '40px',
-            marginTop: '-40px',
-          }}
-        >
-          <Image
-            src={group3Asset.url}
-            alt={group3Asset.alt}
-            width={group3Asset.width}
-            height={group3Asset.height}
-            className='object-contain absolute pointer-events-none select-none z-1'
-          />
-          <div
-            className='absolute flex items-center justify-center'
-            style={{
-              top: '50%',
-              left: '45%',
-              transform: 'translate(-50%, -50%)',
-            }}
-          >
-            <span
-              className='text-r-green font-bold pixel-font'
-              style={{ fontSize: '34px', textShadow: '3px 3px 0px #000000' }}
-            >
-              {articleCount}
-            </span>
-          </div>
-        </div>
-
-        {/* Group 4: 想法 */}
-        <div
-          hidden={!pinCount}
-          className='relative'
-          style={{
-            width: '223px',
-            height: '127px',
-            marginLeft: 'auto',
-            marginRight: 'auto',
-            marginTop: '-40px',
-          }}
-        >
-          <Image
-            src={group4Asset.url}
-            alt={group4Asset.alt}
-            width={group4Asset.width}
-            height={group4Asset.height}
-            className='object-contain absolute pointer-events-none select-none z-1'
-          />
-          <div
-            className='absolute flex items-center justify-center'
-            style={{
-              top: '50%',
-              left: '45%',
-              transform: 'translate(-50%, -50%)',
-            }}
-          >
-            <span
-              className='text-r-yellow font-bold pixel-font'
-              style={{ fontSize: '34px', textShadow: '3px 3px 0px #000000' }}
-            >
-              {pinCount}
-            </span>
-          </div>
-        </div>
+              <Image
+                src={card.asset.url}
+                alt={card.asset.alt}
+                width={card.asset.width}
+                height={card.asset.height}
+                className='object-contain absolute pointer-events-none select-none z-1'
+              />
+              <div
+                className='absolute flex items-center justify-center'
+                style={{
+                  top: '50%',
+                  left: '45%',
+                  transform: 'translate(-50%, -50%)',
+                }}
+              >
+                <span
+                  className={`${card.color} font-bold pixel-font`}
+                  style={{ fontSize: '34px', textShadow: '3px 3px 0px #000000' }}
+                >
+                  {card.count}
+                </span>
+              </div>
+            </div>
+          ))}
       </div>
 
       {/* 总计阅读字数 / 等效书本 */}
       <div
-        className='flex flex-col items-center justify-center'
+        className='absolute flex flex-col items-center justify-center'
         style={{
-          paddingTop: '190px',
-          paddingBottom: '20px',
-          marginTop: '-150px',
+          top: '620px',
+          left: 0,
+          right: 0,
+          margin: 'auto',
         }}
       >
         <div
           className='flex items-center justify-center'
           style={{ marginBottom: '20px' }}
-          hidden={!wordCount}
+          hidden={!Number(wordCount)}
         >
           <div>阅读&nbsp;</div>
           <FlipCounter

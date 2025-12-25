@@ -29,7 +29,7 @@ export default function P8CheeseScene({
   const mix5Asset = bgAsset.mix5;
   const mix2Asset = bgAsset.mix2;
   const p8GifAsset = assets.report.p8.gif;
-  const sparkleAsset = assets.report.p8.sparkle; 
+  const sparkleAsset = assets.report.p8.sparkle;
 
   const cheeseAwards = (reportData?.cheese_award_list || '') as string;
   const studentName = (reportData?.cheese_student_name || '') as string;
@@ -78,33 +78,31 @@ export default function P8CheeseScene({
           fontSize: '16px',
         }}
       >
-        {!!cheeseAwards && (
-          <div>
-            <div
-              style={{
-                lineHeight: '1.4',
-                marginBottom: '60px',
-                fontSize: '22px',
-              }}
-            >
-              这一路，作品为你点亮星光
+        <div>
+          <div
+            style={{
+              lineHeight: '1.4',
+              marginBottom: '60px',
+              fontSize: '22px',
+            }}
+          >
+            这一路，作品为你点亮星光
+          </div>
+          <div hidden={!cheeseAwards}>
+            <div style={{ paddingBottom: '8px' }}>
+              <span
+                className='text-r-yellow font-bold'
+                style={{ fontSize: '18px' }}
+              >
+                {cheeseAwards}
+              </span>
             </div>
-            <div hidden={!cheeseAwards}>
-              <div style={{ paddingBottom: '8px' }}>
-                <span
-                  className='text-r-yellow font-bold'
-                  style={{ fontSize: '18px' }}
-                >
-                  {cheeseAwards}
-                </span>
-              </div>
 
-              <div style={{ paddingBottom: '80px', fontSize: '14px' }}>
-                从洞察到价值，每一份内容都站在了更高的舞台
-              </div>
+            <div style={{ paddingBottom: '80px', fontSize: '14px' }}>
+              从洞察到价值，每一份内容都站在了更高的舞台
             </div>
           </div>
-        )}
+        </div>
         {/* 
             ===========================================
             奖杯区域 + 撒花特效 
@@ -114,7 +112,7 @@ export default function P8CheeseScene({
           className='absolute pointer-events-none select-none z-10'
           style={{
             bottom: '138px',
-            left: '0', 
+            left: '0',
             right: '66px',
             display: 'flex',
             justifyContent: 'center'
@@ -130,7 +128,7 @@ export default function P8CheeseScene({
               className='opacity-0 animate-pop-sparkle object-contain absolute pointer-events-none select-none z-20'
               style={{ top: '-50px', right: '-20px' }}
             />
-             <Image
+            <Image
               priority
               src={p8GifAsset.url}
               alt={p8GifAsset.alt}
@@ -141,7 +139,7 @@ export default function P8CheeseScene({
               style={{ top: '0px', left: '60px' }}
             />
           </div>
-         
+
         </div>
         {!!studentName && (
           <div

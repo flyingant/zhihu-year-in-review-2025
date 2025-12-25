@@ -175,7 +175,7 @@ export default function P6Scene({
             />
           </div>
 
-          <div className='text-right' style={{ paddingTop: '20px' }}>
+          <div hidden={!creationDays} className='text-right' style={{ paddingTop: '20px' }}>
             <div>
               在
               <FlipCounter
@@ -189,7 +189,7 @@ export default function P6Scene({
               />
               天里
             </div>
-            <div style={{ paddingTop: '8px' }}>你都勇敢表达、留下印记</div>
+            <div style={{ paddingTop: '8px' }}>你都投身创作、留下印记</div>
           </div>
         </div>
 

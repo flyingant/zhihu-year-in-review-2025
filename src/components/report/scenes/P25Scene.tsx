@@ -225,7 +225,6 @@ export default function P25Scene({ onNext, onPrevious, sceneName }: PageProps) {
             >
               <span
                 className={`text-r-green`}
-                style={{ paddingLeft: '6px', paddingRight: '6px' }}
               >
                 「{truncateText(String(labelName1 ?? 'label_name_top1'), 5)} 」
               </span>
@@ -234,11 +233,10 @@ export default function P25Scene({ onNext, onPrevious, sceneName }: PageProps) {
           {!!labelName2 && (
             <div
               className='absolute'
-              style={{ fontSize: 17, top: '395px', left: '45px' }}
+              style={{ fontSize: 17, top: '385px', left: '45px' }}
             >
               <span
                 className={`text-r-blue`}
-                style={{ paddingLeft: '6px', paddingRight: '6px' }}
               >
                 「{truncateText(String(labelName2 ?? 'label_name_top2'), 5)} 」
               </span>
@@ -247,11 +245,10 @@ export default function P25Scene({ onNext, onPrevious, sceneName }: PageProps) {
           {!!labelName3 && (
             <div
               className='absolute'
-              style={{ fontSize: 17, top: '395px', left: '247px' }}
+              style={{ fontSize: 17, top: '395px', left: '230px' }}
             >
               <span
                 className={`text-r-green`}
-                style={{ paddingLeft: '6px', paddingRight: '6px' }}
               >
                 「{truncateText(String(labelName3 ?? 'label_name_top3'), 5)} 」
               </span>

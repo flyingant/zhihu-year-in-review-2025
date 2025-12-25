@@ -10,7 +10,7 @@ import { useInView } from 'react-intersection-observer';
 
 const ROWS_COUNT = 6;
 const ITEMS_PER_ROW = 17;
-const CHAR_SPACING_PERCENT = 0.3;
+const CHAR_SPACING_PERCENT = 0.32;
 // 自动动画速度 (每秒移动的百分比)
 const AUTO_ANIMATION_SPEED = 0.01; // 调整这个值来控制动画速度
 // 手势控制的速度倍数

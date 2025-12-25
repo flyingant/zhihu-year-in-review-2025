@@ -192,7 +192,7 @@ export default function P12Scene({
         </div>
 
       </div>
-      <div className='absolute text-r-green' style={{ fontSize: '14px', top: "726px", left: "16px" }}>「我的摸鱼图鉴」查看更多</div>
+      <div className='absolute text-r-green' style={{ fontSize: '14px', top: "726px", left: "16px" }}>搜索「我的摸鱼图鉴」查看更多</div>
 
     </BaseScene>
   );

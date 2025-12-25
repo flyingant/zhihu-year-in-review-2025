@@ -37,7 +37,7 @@ export default function P30Scene({ onNext, sceneName, onPrevious }: PageProps) {
     const isMobile = useMobile();
 
   const [shareOptionKeys, setShareOptionKeys] = useState<string[]>([]);
-  const [isSynced, setIsSynced] = useState(false);
+  const [isSynced, setIsSynced] = useState(true);
 
   if (!assets) return null;
   const p28Assets = assets.report.p28 || {};
@@ -335,18 +335,6 @@ export default function P30Scene({ onNext, sceneName, onPrevious }: PageProps) {
             );
           })}
         </div>
-        <button
-          className='absolute left-1/2 -translate-x-1/2 z-60 rounded-full bg-[#000] text-white text-lg'
-          style={{
-            minWidth: '264px',
-            bottom: 100,
-            height: 43,
-          }}
-          onClick={handleShare}
-        >
-          分享给好友猜猜
-        </button>
-
         <div className='z-60 relative flex items-center justify-center' style={{ left: 0, right: 0, top:160 }}>
           <button
             className='rounded-full bg-[#000] text-white text-lg'
@@ -405,7 +393,7 @@ export default function P30Scene({ onNext, sceneName, onPrevious }: PageProps) {
                   )}
                 </div>
               </div>
-              <span className='text-[12px] text-black font-normal'>
+              <span className='text-[14px] text-black font-normal'>
                 同步至想法，评论@好友赢周边
               </span>
             </label>

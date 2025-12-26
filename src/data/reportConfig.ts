@@ -200,7 +200,7 @@ export const SCENES: Record<string, SceneConfig> = {
     component: P17Scene,
     next: "p18",
     shouldSkip: (data) =>
-      !data?.follow_question_friend && !data?.upvote_hot_answer_member_name,
+      !data?.follow_question_friend && (data?.upvote_hot_answer_user_cnt ?? 0) < 10,
   },
   p18: {
     id: "p18",

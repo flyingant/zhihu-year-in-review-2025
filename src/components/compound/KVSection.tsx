@@ -116,7 +116,7 @@ const KVSection = ({ variant = 'phase1' }: KVSectionProps) => {
       </div>
 
       {/* Sidebar Campaign Rules */}
-      {variant === 'phase1' && <SidebarCampaignRules />}
+      <SidebarCampaignRules />
     </div >
   );
 };

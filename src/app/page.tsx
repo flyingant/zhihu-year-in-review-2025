@@ -327,12 +327,11 @@ function HomeContent() {
           </SectionLayout>
 
           {/* 年中小问模块暂时隐藏，预计 12.30号 露出 */}
-          {/* 
+          
           <SectionLayout topOffset={0} id="nian-zhong-xiao-wen-section">
             <NianZhongXiaoWenSection />
           </SectionLayout> 
-          */}
-
+         
           <SectionLayout topOffset={0} id="game-section">
             <MiniComputerSection />
           </SectionLayout>
